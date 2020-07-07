@@ -1,0 +1,88 @@
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Admin Lte
+@import "~admin-lte/dist/css/adminlte.min.css";
+
+// Fontawesome
+@import "~@fortawesome/fontawesome-free/css/all";
+@import "~@fortawesome/fontawesome-free/css/brands";
+@import "~@fortawesome/fontawesome-free/css/fontawesome";
+@import "~@fortawesome/fontawesome-free/css/regular";
+@import "~@fortawesome/fontawesome-free/css/solid";
+@import "~@fortawesome/fontawesome-free/css/svg-with-js";
+@import "~@fortawesome/fontawesome-free/css/v4-shims";
+.login_logo{
+	display:flex;
+	justify-content:center;
+}
+.nav.nav-pills.nav-sidebar.flex-column{
+	font-size:18px;
+}
+.isRequired{
+	border:1px solid red;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+.nav-pills .nav-link:not(.active):hover,.nav-pills .nav-link:not(.active):hover .peIcon {
+    color: wheat;
+}
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+.slide-enter-active {
+   -moz-transition-duration: 0.3s;
+   -webkit-transition-duration: 0.3s;
+   -o-transition-duration: 0.3s;
+   transition-duration: 0.3s;
+   -moz-transition-timing-function: ease-in;
+   -webkit-transition-timing-function: ease-in;
+   -o-transition-timing-function: ease-in;
+   transition-timing-function: ease-in;
+}
+
+.slide-leave-active {
+   -moz-transition-duration: 0.3s;
+   -webkit-transition-duration: 0.3s;
+   -o-transition-duration: 0.3s;
+   transition-duration: 0.3s;
+   -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+   -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+   -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.slide-enter-to, .slide-leave {
+   max-height: 100px;
+   overflow: hidden;
+}
+
+.slide-enter, .slide-leave-to {
+   overflow: hidden;
+   max-height: 0;
+}
+.header_title{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.header_filter{
+  display: flex;
+  flex-direction:column;
+}
+.filters{
+  width: 100%;
+}
+.btn_search{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 30px;
+}
