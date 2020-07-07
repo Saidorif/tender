@@ -63,6 +63,14 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/crm/region">
+              <i class="peIcon pe-7s-building"></i>
+              <p>
+                Regions
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/crm/position">
               <i class="peIcon pe-7s-graph1"></i>
               <p>
