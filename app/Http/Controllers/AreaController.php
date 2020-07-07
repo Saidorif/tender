@@ -10,7 +10,7 @@ class AreaController extends Controller
 {
     public function index(Request $request)
     {
-        $result = Area::paginate(12);
+        $result = Area::with('region')->orderByDesc('id')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 

@@ -2,11 +2,15 @@ import {RegionService} from "../services/region.service";
 
 const state = {
 	regions: {},
+	regionlist: [],
 	message: [],
 	region: [],
 };
 
 const getters = {
+	getRegionList(state){
+		return state.regionlist
+	},
 	getRegions(state){
 		return state.regions
 	},
@@ -20,6 +24,15 @@ const getters = {
 
 
 const actions = {
+	async actionRegionList({commit},page){
+		try {
+			const regions =  await RegionService.regionList(page);
+			await commit('setRegionList',regions.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionRegions({commit},page){
 		try {
 			const regions =  await RegionService.regions(page);
@@ -68,6 +81,9 @@ const actions = {
 };
 
 const mutations = {
+	setRegionList(state, regionlist){
+		state.regionlist = regionlist
+	},
 	setRegions(state, regions){
 		state.regions = regions
 	},

@@ -18,6 +18,7 @@ import {action} from "./action.module"
 import {permission} from "./permission.module"
 import {dashboard} from "./dashboard.module"
 import {region} from "./region.module"
+import {area} from "./area.module"
 
 import { TokenService } from './../services/storage.service'
 
@@ -43,6 +44,7 @@ const store = new Vuex.Store(
 			permission,
 			dashboard,
 			region,
+			area,
 		},
 		state:{
 			rules:[],

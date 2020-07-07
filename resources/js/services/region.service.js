@@ -1,6 +1,9 @@
 import ApiService from './api.service'
 
 const RegionService = {
+	regionList(){
+		return ApiService.get(`/api/region/list`)
+	},
 	regions(){
 		return ApiService.post(`/api/region`)
 	},
