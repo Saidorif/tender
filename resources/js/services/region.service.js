@@ -2,7 +2,7 @@ import ApiService from './api.service'
 
 const RegionService = {
 	regions(){
-		return ApiService.get(`/api/region`)
+		return ApiService.post(`/api/region`)
 	},
 	addregion(data){
 		return ApiService.post(`/api/region/store`,data)
