@@ -37,6 +37,16 @@ import Action from './components/admin/action/Action'
 import AddAction from './components/admin/action/AddAction'
 import EditAction from './components/admin/action/EditAction'
 
+// Region
+import Region from './components/admin/region/Region'
+import AddRegion from './components/admin/region/AddRegion'
+import EditRegion from './components/admin/region/EditRegion'
+
+// Area
+import Area from './components/admin/area/Area'
+import AddArea from './components/admin/area/AddArea'
+import EditArea from './components/admin/area/EditArea'
+
 
 // NotFound
 import NotFound from './components/NotFound/NotFound'
@@ -130,6 +140,30 @@ const router = new Router({
 				{
 					path:'action/edit/:actionId',
 					component:EditAction,
+				},
+				{
+					path:'region',
+					component:Region,
+				},
+				{
+					path:'region/add',
+					component:AddRegion,
+				},
+				{
+					path:'region/edit/:regionId',
+					component:EditRegion,
+				},
+				{
+					path:'area',
+					component:Area,
+				},
+				{
+					path:'area/add',
+					component:AddArea,
+				},
+				{
+					path:'area/edit/:areaId',
+					component:EditArea,
 				},
 			]
 		},
