@@ -7,8 +7,8 @@ const RegionService = {
 	addregion(data){
 		return ApiService.post(`/api/region/store`,data)
 	},
-	editregion(data){
-		return ApiService.get(`/api/region/edit/${data.id}`)
+	editregion(id){
+		return ApiService.get(`/api/region/edit/${id}`)
 	},
 	updateregion(data){
 		return ApiService.post(`/api/region/update/${data.id}`,data)

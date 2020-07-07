@@ -50,6 +50,7 @@
 		},
 		async mounted(){
 			await this.actionEditRegion(this.$route.params.regionId)
+			this.form = this.getRegion
 		},
 		methods:{
 			...mapActions('region',['actionUpdateRegion','actionEditRegion']),

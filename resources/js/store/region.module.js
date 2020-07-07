@@ -38,9 +38,9 @@ const actions = {
 			return false
 		}
 	},
-	async actionEditRegion({commit},payload){
+	async actionEditRegion({commit},id){
 		try {
-			const regions =  await RegionService.editregion(payload);
+			const regions =  await RegionService.editregion(id);
 			await commit('setEditRegion',regions.data.result)
 			return true
 		} catch (error) {

@@ -67,7 +67,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Рол удалено!',
+						title: 'Region удалено!',
 				    })
 				}
 			}
