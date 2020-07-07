@@ -63,7 +63,7 @@
 		},
 		async mounted(){
 			await this.actionRegionList()
-			await this.actionRegionList(this.$route.params.areaId)
+			await this.actionEditArea(this.$route.params.areaId)
 			this.form = this.getArea
 		},
 		methods:{
