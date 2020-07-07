@@ -2,44 +2,51 @@
 	<div class="card lognCard">
 	    <div class="card-body login-card-body">
 			<div class="login_alert" v-if="errorMsg"><i class="fas fa-exclamation-circle mr-2"></i> Неверный логин  или пароль </div>
-			<div class="form_content">
-				<div class="login_logo">
-					<img src="/img/train.png">
+			<div class="col-md-6 auth_tab_block">
+				<nav>
+					<div class="nav nav-tabs" id="nav-tab" role="tablist">
+						<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Логин</a>
+						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Зарегистрироваться</a>
+					</div>
+				</nav>
+				<div class="tab-content" id="nav-tabContent">
+					<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+						<div class="form_content">
+							<p class="login_title"> Вход в персональный кабинет</p>
+							<form @submit.enter.prevent="onSubmit">
+								<div class="input-group">
+									<input type="email" class="form-control" placeholder="Email" v-model="form.email">
+									<div class="input-group-append">
+										<div class="input-group-text">
+											<img src="/img/user.png" alt="">
+										</div>
+									</div>
+								</div>
+								<div class="input-group">
+									<input type="password" class="form-control" placeholder="Пароль" v-model="form.password">
+									<div class="input-group-append">
+										<div class="input-group-text">
+											<img src="/img/key.png" alt="">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<!-- /.col -->
+									<div class="col-12">
+										<button type="submit" class="btn btn-primary btn-block">Войти</button>
+									</div>
+									<!-- /.col -->
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
 				</div>
-				<p class="login_title"> Вход в персональный кабинет</p>
-				<form @submit.enter.prevent="onSubmit">
-					<div class="input-group">
-						<input type="email" class="form-control" placeholder="Email" v-model="form.email">
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<img src="/img/user.png" alt="">
-							</div>
-						</div>
-					</div>
-					<div class="input-group">
-						<input type="password" class="form-control" placeholder="Пароль" v-model="form.password">
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<img src="/img/key.png" alt="">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<!-- <div class="col-8">
-							<div class="icheck-primary">
-								<input type="checkbox" id="remember">
-								<label for="remember">
-									Remember Me
-								</label>
-							</div>
-						</div> -->
-						<!-- /.col -->
-						<div class="col-12">
-							<button type="submit" class="btn btn-primary btn-block">Войти</button>
-						</div>
-						<!-- /.col -->
-					</div>
-				</form>
+			</div>
+			<div class="col-md-6" style="position:unset;">
+				<div class="circle_bg"></div>
+				<div class="circle_bg_scaled"></div>
+				<div class="circle_bg_scaled_2"></div>
 			</div>
 	    </div>
   	</div>
