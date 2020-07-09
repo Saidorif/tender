@@ -40,7 +40,80 @@
 							</form>
 						</div>
 					</div>
-					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+						<div class="form_content auth_request">
+							<form @submit.enter.prevent="onSubmit">
+								<div class="col-md-6">
+									<div class="input-group">
+										<input type="email" class="form-control" placeholder="Email" v-model="form.email">
+										<div class="input-group-append">
+											<div class="input-group-text">
+												<img src="/img/user.png" alt="">
+											</div>
+										</div>
+									</div>
+									<div class="input-group">
+										<input type="password" class="form-control" placeholder="inn" v-model="form.inn">
+										<div class="input-group-append">
+											<div class="input-group-text">
+												<img src="/img/key.png" alt="">
+											</div>
+										</div>
+									</div>
+									<div class="input-group">
+										<input type="password" class="form-control" placeholder="fio" v-model="form.fio">
+										<div class="input-group-append">
+											<div class="input-group-text">
+												<img src="/img/key.png" alt="">
+											</div>
+										</div>
+									</div>
+									<div class="input-group">
+										<input type="password" class="form-control" placeholder="company_name" v-model="form.company_name">
+										<div class="input-group-append">
+											<div class="input-group-text">
+												<img src="/img/key.png" alt="">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group">
+										<input type="password" class="form-control" placeholder="letncesNumber" v-model="form.letncesNumber">
+										<div class="input-group-append">
+											<div class="input-group-text">
+												<img src="/img/key.png" alt="">
+											</div>
+										</div>
+									</div>
+									<div class="input-group">
+										<input type="password" class="form-control" placeholder="bank_number" v-model="form.bank_number">
+										<div class="input-group-append">
+											<div class="input-group-text">
+												<img src="/img/key.png" alt="">
+											</div>
+										</div>
+									</div>
+									<div class="input-group">
+										<input type="password" class="form-control" placeholder="mfo" v-model="form.mfo">
+										<div class="input-group-append">
+											<div class="input-group-text">
+												<img src="/img/key.png" alt="">
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<!-- /.col -->
+									<div class="col-12">
+										<button type="submit" class="btn btn-primary btn-block">Войти</button>
+									</div>
+									<!-- /.col -->
+								</div>
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-6" style="position:unset;">
