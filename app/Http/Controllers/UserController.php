@@ -8,6 +8,7 @@ use Hash;
 use Image;
 use App\Permission;
 use App\User;
+use JWTAuth;
 
 class UserController extends Controller
 {
@@ -105,5 +106,41 @@ class UserController extends Controller
         unset($inputs['password']);
         $user->update($inputs);
         return response()->json(['success' => true, 'result' => $user]);
+    }
+
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name'      => 'required',
+            'city'          => 'required|min:5',
+            'bank_number'   => 'required|min:20',
+            'oked'          => 'required|min:5',
+            'mfo'           => 'required|min:5',
+            'inn'           => 'required|min:9',
+            'phone'         => 'required|min:12',
+            'address'       => 'required|min:5',
+            'company_name'  => 'required',
+            'license_number'  => 'required',
+            'password'      => 'required|min:6',
+            'confirm_password' => 'required|min:6',
+            'email'      => 'required|unique:users,email|email',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inputs = $request->all();
+        if($inputs['password'] !== $inputs['confirm_password']){
+            return response()->json(['error' => true, 'message' => ['password' =>'Password is invalid']]);
+        }
+        $inputs['role_id'] = 2;
+        $inputs['password'] = Hash::make($request->input('password'));
+
+        $user = User::create($inputs);
+        $payloads = ['role' => $user->role_id];
+        $credentials = $request->only('email', 'password');
+        $token = JWTAuth::attempt($credentials, $payloads);
+        return response()->json(['succcess' => true, 'message' => 'Registeration success', 'token' => $token]);
+        
     }
 }
