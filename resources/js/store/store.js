@@ -67,8 +67,8 @@ const store = new Vuex.Store(
 			authenticationError(state){
 				return state.authenticationError
 			},
-			registerError(state){
-				return state.registerErrorCode
+			getRegisterError(state){
+				return state.registerError
 			},
 			authenticating(state){
 				return state.authenticating
@@ -95,6 +95,9 @@ const store = new Vuex.Store(
 				state.authenticating = false
 				state.authenticationErrorCode = user.data.error
 				state.authenticationError = user.data.message
+			},
+			setRegisterError(state,user){
+				state.registerError = user.data
 			}
 		},
 		actions:{
@@ -121,10 +124,10 @@ const store = new Vuex.Store(
 			},
 			// register
 			async register({ commit,dispatch }, payload){
-				const newUser = await UserService.register(payload);
-				if(newUser.data.error === true){
-					await commit('registerError', newUser);
-				}
+				try{
+					const newUser = await UserService.register(payload);
+					await commit('setRegisterError', newUser);
+				}catch(e){}
 			}, 
 			logout({ commit }){
 				UserService.logout();

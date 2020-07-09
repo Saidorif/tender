@@ -51,12 +51,16 @@ const UserService = {
 
 		try {
 			const response = await ApiService.customRequest(requestData);
-			TokenService.saveToken(response.data.token);
-			ApiService.setHeader();
-			ApiService.mount401Interceptor();
-			return response;
+			if(response.data.success){
+				TokenService.saveToken(response.data.token);
+				ApiService.setHeader();
+				ApiService.mount401Interceptor();
+				return response;
+			}else{
+				return response;
+			}
 		} catch (error) {
-			throw new AuthenticationError(error.data.status, error.data.message);
+			// throw new AuthenticationError(error.data.status, error.data.message);
 		}
 	},
 	/**
@@ -73,6 +77,9 @@ const UserService = {
 		ApiService.removeHeader();
 		// // NOTE: Again, we'll cover the 401 Interceptor a bit later.
 		ApiService.unmount401Interceptor();
+	},
+	registerUser(data){
+		return ApiService.post(`/api/register`, data);
 	},
 	profileUser(){
 		return ApiService.get(`/api/profile`);

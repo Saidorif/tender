@@ -344,7 +344,6 @@ export default {
   async mounted() {
     await this.ActionProfile();
     this.form = this.getProfile;
-    console.log(this.form)
   },
   methods: {
     ...mapActions("user", [

@@ -140,7 +140,7 @@ class UserController extends Controller
         $payloads = ['role' => $user->role_id];
         $credentials = $request->only('email', 'password');
         $token = JWTAuth::attempt($credentials, $payloads);
-        return response()->json(['succcess' => true, 'message' => 'Registeration success', 'token' => $token]);
+        return response()->json(['success' => true, 'message' => 'Registeration success', 'token' => $token]);
         
     }
 }
