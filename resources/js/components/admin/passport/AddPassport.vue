@@ -73,16 +73,22 @@
 					  		<div class="col-md-6" v-for="(item, index) in form.files">
 					  			<div class="form-group">
 					  				<div class="form-group">
-					  					<input type="text" name="title" class="form-control" v-model="item.title" />
+					  					<input 
+					  						type="text" 
+					  						:class="isRequired(item.title) ? 'isRequired' : ''"  
+					  						class="form-control" 
+									    	placeholder="Название файла" 
+					  						v-model="item.title" />
 					  				</div>
-								    <label for="file">File {{index + 1}}</label>
+								    <label for="file">Файл {{index + 1}}</label>
 								    <input 
 								    	type="file" 
 								    	id="file" 
 								    	class="form-control" 
 								    	@input.prevent="changeFile($event,item, index)"
+								    	:class="isRequired(item.file) ? 'isRequired' : ''" 
 							    	>
-								    <span>
+								    <span v-if="form.files.length > 1">
 								    	<i class="fas fa-times" @click="removeFile(index)"></i>
 								    </span>
 					  			</div>
@@ -112,9 +118,10 @@
 					area_from_id:'',
 					area_to_id:'',
 					name:'',
-					files:[{title:null,file:null}]
+					files:[{title:'',file:''}]
 				},
-				requiredInput:false
+				requiredInput:false,
+				requiredFileInput:false,
 			}
 		},
 		computed:{
@@ -133,17 +140,27 @@
 	    		return this.requiredInput && input === '';
 		    },
 			async savePassport(){
-		    	if (this.form.region_from_id != '' && this.form.region_to_id != '' && this.form.name != ''){
+				let status = false 
+				this.form.files.forEach((item)=>{
+		    		if(item.file !== '' && item.title !== ''){
+		    			status = true
+		    		}else{
+		    			status = false
+		    		}
+		    	})
+		    	if (this.form.region_from_id != '' && this.form.region_to_id != '' && this.form.name != '' && status){
 					await this.actionAddPassport(this.form)
-					this.$router.push("/crm/passport");
-					this.requiredInput = false
+					if (this.getMassage.success) {
+						this.$router.push("/crm/passport");
+						this.requiredInput = false
+					}
 				}else{
 					this.requiredInput = true
 				}
 		    },
 		    changeFile(event, item,index) {
 	      		let file = event.target.files[0];
-		        if (file.size > 1048576) {
+		        if (file.size > 1048576){
 		          swal.fire({
 		            type: "error",
 		            icon: "error",
@@ -163,7 +180,7 @@
   			    this.form.files.splice(index, 1)
     		},
     		AddFile() {
-		      this.form.files.push({title:null,file:null});
+		      this.form.files.push({title:'',file:''});
 		    },
 		}
 	}
