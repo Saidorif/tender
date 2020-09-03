@@ -112,7 +112,7 @@
 					area_from_id:'',
 					area_to_id:'',
 					name:'',
-					files:[{title:null,file:null}]
+					files:[]
 				},
 				requiredInput:false
 			}
