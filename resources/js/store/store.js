@@ -19,6 +19,7 @@ import {permission} from "./permission.module"
 import {dashboard} from "./dashboard.module"
 import {region} from "./region.module"
 import {area} from "./area.module"
+import {passport} from "./passport.module"
 
 import { TokenService } from './../services/storage.service'
 
@@ -44,6 +45,7 @@ const store = new Vuex.Store(
 			permission,
 			dashboard,
 			region,
+			passport,
 			area,
 		},
 		state:{
