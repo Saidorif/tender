@@ -31,7 +31,8 @@ const actions = {
 	},
 	async actionAddPassport({commit},payload){
 		try {
-			const passports =  await PassportService.addpassport(payload);
+			// const passports =  await PassportService.addpassport(payload);
+			const passports =  await PassportService.fileSend(payload);
 			await commit('setMessage',passports.data)
 			return true
 		} catch (error) {
