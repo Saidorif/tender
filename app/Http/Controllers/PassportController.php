@@ -48,13 +48,14 @@ class PassportController extends Controller
         }
         $inputs = $request->all();
         $passport = Passport::create($inputs);
+        return response()->json(['error' => true, 'message' => $inputs['files']]);
 
         //Upload files
         if(array_key_exists('files',$inputs)){
             foreach ($inputs['files'] as $k => $file) {
                 $input = [];
-                $strposfile = strpos($file['file']['file'],';');
-                $subfile1 = substr($file['file']['file'], 0,$strposfile);
+                $strposfile = strpos($file['file'],';');
+                $subfile1 = substr($file['file'], 0,$strposfile);
                 $exfile = explode('/',$subfile1)[1];
                 $file_name = time()."file.".$exfile;
 
