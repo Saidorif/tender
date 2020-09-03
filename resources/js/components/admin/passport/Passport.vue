@@ -14,8 +14,11 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
-							<th scope="col">Регион</th>
+							<th scope="col">Название Пасспорта</th>
+							<th scope="col">Регион (From)</th>
+							<th scope="col">Area (From)</th>
+							<th scope="col">Регион (To)</th>
+							<th scope="col">Area (To)</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
@@ -23,7 +26,10 @@
 						<tr v-for="(passport,index) in getPassports.data">
 							<td scope="row">{{index+1}}</td>
 							<td>{{passport.name}}</td>
-							<td>{{passport.region.name}}</td>
+							<td>{{passport.region_from.name}}</td>
+							<td>{{passport.area_from ? passport.area.name : ''}}</td>
+							<td>{{passport.region_to.name}}</td>
+							<td>{{passport.area_to ? passport.area.name : ''}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/passport/edit/${passport.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
