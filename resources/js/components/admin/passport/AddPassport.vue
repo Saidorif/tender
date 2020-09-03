@@ -112,7 +112,7 @@
 					area_from_id:'',
 					area_to_id:'',
 					name:'',
-					files:[]
+					files:[{title:null,file:null}]
 				},
 				requiredInput:false
 			}
@@ -153,10 +153,9 @@
 		        } else {
 		          let reader = new FileReader();
 		          reader.onload = event => {
-		            item = event.target.result;
+		            this.form.files[index].file = event.target.result;
 		          };
 		          reader.readAsDataURL(file);
-		          this.form.files[index].file = file.name
 		          this.form.files[index].title = item.title
 		        }
 		    },
