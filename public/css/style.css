@@ -270,6 +270,10 @@
 
 .form_content.auth_request {
   width: 700px;
+}
+
+.form_content.auth_request form {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -1212,5 +1216,9 @@ hr {
 
 .backBtn span {
   margin-right: 5px;
+}
+
+.input-group-text img {
+  height: 20px;
 }
 

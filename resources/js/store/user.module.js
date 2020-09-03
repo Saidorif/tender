@@ -1,7 +1,7 @@
 import {UserService} from "../services/user.service";
 
 const state = {
-	message: null,
+	message: {},
 	profile:[]
 };
 
@@ -19,6 +19,15 @@ const actions = {
 	async ActionUpdatePassword({commit}, data){
 		try {
 			let sendData = await UserService.updatePassword(data);
+			await commit('setMessage',sendData.data)
+			return true
+		}catch(e){
+			return false
+		}
+	},	
+	async ActionRegisterUser({commit}, data){
+		try {
+			let sendData = await UserService.registerUser(data);
 			await commit('setMessage',sendData.data)
 			return true
 		}catch(e){

@@ -33,6 +33,9 @@ window.Fire = new Vue();
 // Router
 import router from './routes'
 
+// Vue InpuMask
+const VueInputMask = require('vue-inputmask').default
+Vue.use(VueInputMask)
 
 //Vuex
 import store from "./store/store"
