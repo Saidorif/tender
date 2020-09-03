@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Passport;
 use App\PassportFile;
+use Image;
+use Storage;
 
 class PassportController extends Controller
 {
@@ -48,7 +50,7 @@ class PassportController extends Controller
         }
         $inputs = $request->all();
         $passport = Passport::create($inputs);
-        return response()->json(['error' => true, 'message' => $inputs['files']]);
+        // return response()->json(['error' => true, 'message' => $request->file]);
 
         //Upload files
         if(array_key_exists('files',$inputs)){
@@ -59,9 +61,11 @@ class PassportController extends Controller
                 $exfile = explode('/',$subfile1)[1];
                 $file_name = time()."file.".$exfile;
 
-                $document = Image::make($file['file']['file']);
+                $document = Image::make($file['file']);
                 $file_path1 = public_path()."/passport/";
                 $document->save($file_path1.$file_name);
+                // Storage::disk('public')->put('passport/'.$passport->id, $file['file']);
+                $request->files->move(public_path('passport'), $fileName);
                 $files[] = $file_name;
                 $input['passport_id'] = $passport->id;
                 $input['file'] = $file_name;
