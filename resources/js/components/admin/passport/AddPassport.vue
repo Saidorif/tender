@@ -16,6 +16,7 @@
 					    <input 
 					    	class="form-control input_style" 
 					    	v-model="form.name" 
+					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
 					    	placeholder="Название пасспорта..." 
 				    	/>
 					  </div>
@@ -119,6 +120,7 @@
 		computed:{
 			...mapGetters('region',['getMassage','getRegionList']),
 			...mapGetters('area',['getMassage']),
+			...mapGetters('passport',['getMassage']),
 		},
 		async mounted(){
 			await this.actionRegionList()
@@ -126,12 +128,13 @@
 		methods:{
 			...mapActions('region',['actionRegionList']),
 			...mapActions('area',['actionAddArea']),
+			...mapActions('passport',['actionAddPassport']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
 			async savePassport(){
 		    	if (this.form.region_from_id != '' && this.form.region_to_id != '' && this.form.name != ''){
-					await this.actionAddArea(this.form)
+					await this.actionAddPassport(this.form)
 					this.$router.push("/crm/passport");
 					this.requiredInput = false
 				}else{
