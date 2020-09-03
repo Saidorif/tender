@@ -16,8 +16,8 @@ const PassportService = {
 	deletepassport(id){
 		return ApiService.delete(`/api/passport/destroy/${id}`)
 	},
-	fileSend(resource, data){
-		return axios.post(resource, data,{headers: {'Content-Type': 'multipart/form-data'}});
+	fileSend(data){
+		return axios.post(`/api/passport/store`, data,{headers: {'Content-Type': 'multipart/form-data'}});
 	},
 };
 

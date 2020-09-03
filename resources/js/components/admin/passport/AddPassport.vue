@@ -118,7 +118,7 @@
 					area_from_id:'',
 					area_to_id:'',
 					name:'',
-					files:[{title:'',file:''}]
+					files:[{title:'', file:''}]
 				},
 				requiredInput:false,
 				requiredFileInput:false,
@@ -149,7 +149,18 @@
 		    		}
 		    	})
 		    	if (this.form.region_from_id != '' && this.form.region_to_id != '' && this.form.name != '' && status){
-					await this.actionAddPassport(this.form)
+					let formData = new FormData();
+					console.log(this.form.files)
+					this.form.files.forEach((item, index) => {
+						formData.append('files['+index+'][file]', item.file);
+						formData.append('files['+index+'][title]', item.title);
+					})
+					formData.append('region_from_id', this.form.region_from_id);
+					formData.append('region_to_id', this.form.region_to_id);
+					formData.append('area_from_id', this.form.area_from_id);
+					formData.append('area_to_id', this.form.area_to_id);
+					formData.append('name', this.form.name);
+					await this.actionAddPassport(formData)
 					if (this.getMassage.success) {
 						this.$router.push("/crm/passport");
 						this.requiredInput = false
@@ -159,22 +170,22 @@
 				}
 		    },
 		    changeFile(event, item,index) {
-	      		let file = event.target.files[0];
-		        if (file.size > 1048576){
-		          swal.fire({
-		            type: "error",
-		            icon: "error",
-		            title: "Ошибка",
-		            text: "Размер файл не должно быть больше 1мб"
-		          });
-		        } else {
-		          let reader = new FileReader();
-		          reader.onload = event => {
-		            this.form.files[index].file = event.target.result;
-		          };
-		          reader.readAsDataURL(file);
-		          this.form.files[index].title = item.title
-		        }
+				item.file = event.target.files[0]
+		        // if (file.size > 1048576){
+		        //   swal.fire({
+		        //     type: "error",
+		        //     icon: "error",
+		        //     title: "Ошибка",
+		        //     text: "Размер файл не должно быть больше 1мб"
+		        //   });
+		        // } else {
+		        //   let reader = new FileReader();
+		        //   reader.onload = event => {
+		        //     this.form.files[index].file = event.target.result;
+		        //   };
+		        //   reader.readAsDataURL(file);
+		        //   this.form.files[index].title = item.title
+		        // }
 		    },
 		    removeFile(index){
   			    this.form.files.splice(index, 1)
