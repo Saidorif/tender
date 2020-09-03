@@ -8,6 +8,7 @@ use App\Passport;
 use App\PassportFile;
 use Image;
 use Storage;
+use Str;
 
 class PassportController extends Controller
 {
@@ -55,22 +56,28 @@ class PassportController extends Controller
         //Upload files
         if(array_key_exists('files',$inputs)){
             foreach ($inputs['files'] as $k => $file) {
+                // return response()->json(['error' => true, 'message' => $file['title']]);
+                // var_dump($file);
                 $input = [];
-                $strposfile = strpos($file['file'],';');
-                $subfile1 = substr($file['file'], 0,$strposfile);
-                $exfile = explode('/',$subfile1)[1];
-                $file_name = time()."file.".$exfile;
+                // $strposfile = strpos($file['file'],';');
+                // $subfile1 = substr($file['file'], 0,$strposfile);
+                // $exfile = explode('/',$subfile1)[1];
+                // $file_name = time()."file.".$exfile;
 
-                $document = Image::make($file['file']);
-                $file_path1 = public_path()."/passport/";
-                $document->save($file_path1.$file_name);
-                // Storage::disk('public')->put('passport/'.$passport->id, $file['file']);
-                $request->files->move(public_path('passport'), $fileName);
-                $files[] = $file_name;
+                // $document = Image::make($file['file']);
+                // $file_path1 = public_path()."/passport/";
+                // $document->save($file_path1.$file_name);
+                // // Storage::disk('public')->put('passport/'.$passport->id, $file['file']);
+                // $request->files->move(public_path('passport'), $fileName);
+                $path = public_path('passport');
+                $the_file = $request->file('files')[$k]['file'];
+                $fileName = Str::random(20).'.'.$the_file->getClientOriginalExtension();
+                $the_file->move($path, $fileName);
+                $files[] = $fileName;
+                $input['file'] = '/passport/'.$fileName;
                 $input['passport_id'] = $passport->id;
-                $input['file'] = $file_name;
                 $input['title'] = $file['title'];
-                $reply = PassportFile::create($input);
+                $passportFile = PassportFile::create($input);
             }
         }
 
