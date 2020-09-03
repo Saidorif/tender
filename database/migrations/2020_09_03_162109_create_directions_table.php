@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePassportsTable extends Migration
+class CreateDirectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,15 @@ class CreatePassportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('passports', function (Blueprint $table) {
+        Schema::create('directions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
-            $table->bigInteger('direction_id');
+            $table->string('number');
+            $table->string('seria');
+            $table->bigInteger('region_from_id');
+            $table->bigInteger('region_to_id');
+            $table->bigInteger('area_from_id')->nullable();
+            $table->bigInteger('area_to_id')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +33,6 @@ class CreatePassportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('passports');
+        Schema::dropIfExists('directions');
     }
 }

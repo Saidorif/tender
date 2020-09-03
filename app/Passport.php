@@ -6,25 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Passport extends Model
 {
-    protected $fillable = ['region_from_id','region_to_id','area_from_id','area_to_id','name'];
+    protected $fillable = ['direction_id','name'];
 
-    public function regionFrom()
+    public function files()
     {
-        return $this->belongsTo(\App\Region::class,'region_from_id');
+        return $this->hasMany(\App\PassportFile::class,'passport_id');
     }
 
-    public function regionTo()
+    public function direction()
     {
-        return $this->belongsTo(\App\Region::class,'region_to_id');
-    }
-
-    public function areaFrom()
-    {
-        return $this->belongsTo(\App\Area::class,'area_from_id');
-    }
-
-    public function areaTo()
-    {
-        return $this->belongsTo(\App\Area::class,'area_to_id');
+        return $this->belongsTo(\App\Direction::class,'direction_id');
     }
 }
