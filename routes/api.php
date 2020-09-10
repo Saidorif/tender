@@ -47,6 +47,14 @@ Route::group([
             Route::post('passport/update/{id}', 'PassportController@update');
             Route::delete('passport/destroy/{id}', 'PassportController@destroy');
 
+            //Direction CRUD
+            Route::post('direction', 'DirectionController@index');
+            Route::post('direction/store', 'DirectionController@store');
+            Route::get('direction/list', 'DirectionController@list');
+            Route::get('direction/edit/{id}', 'DirectionController@edit');
+            Route::post('direction/update/{id}', 'DirectionController@update');
+            Route::delete('direction/destroy/{id}', 'DirectionController@destroy');
+
             //Region CRUD
             Route::post('region', 'RegionController@index');
             Route::post('region/store', 'RegionController@store');
