@@ -90,7 +90,7 @@
             <router-link class="nav-link" to="/crm/passport">
               <i class="peIcon fas fa-file-alt"></i>
               <p>
-                Passport
+                Пасспорт маршрута
               </p>
             </router-link>
           </li>
