@@ -27,9 +27,9 @@
 							<td scope="row">{{index+1}}</td>
 							<td>{{passport.name}}</td>
 							<td>{{passport.region_from.name}}</td>
-							<td>{{passport.area_from ? passport.area.name : ''}}</td>
+							<td>{{passport.area_from ? passport.area_from.name : ''}}</td>
 							<td>{{passport.region_to.name}}</td>
-							<td>{{passport.area_to ? passport.area.name : ''}}</td>
+							<td>{{passport.area_to ? passport.area_to.name : ''}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/passport/edit/${passport.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>

@@ -4,7 +4,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon pe-7s-id"></i>
-				    Добавить Area
+				    Добавить пасспорт
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/passport"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
@@ -150,7 +150,6 @@
 		    	})
 		    	if (this.form.region_from_id != '' && this.form.region_to_id != '' && this.form.name != '' && status){
 					let formData = new FormData();
-					console.log(this.form.files)
 					this.form.files.forEach((item, index) => {
 						formData.append('files['+index+'][file]', item.file);
 						formData.append('files['+index+'][title]', item.title);
@@ -162,6 +161,11 @@
 					formData.append('name', this.form.name);
 					await this.actionAddPassport(formData)
 					if (this.getMassage.success) {
+						toast.fire({
+					    	type: 'success',
+					    	icon: 'success',
+							title: 'Пасспорт добавлен!',
+					    })
 						this.$router.push("/crm/passport");
 						this.requiredInput = false
 					}
@@ -171,21 +175,6 @@
 		    },
 		    changeFile(event, item,index) {
 				item.file = event.target.files[0]
-		        // if (file.size > 1048576){
-		        //   swal.fire({
-		        //     type: "error",
-		        //     icon: "error",
-		        //     title: "Ошибка",
-		        //     text: "Размер файл не должно быть больше 1мб"
-		        //   });
-		        // } else {
-		        //   let reader = new FileReader();
-		        //   reader.onload = event => {
-		        //     this.form.files[index].file = event.target.result;
-		        //   };
-		        //   reader.readAsDataURL(file);
-		        //   this.form.files[index].title = item.title
-		        // }
 		    },
 		    removeFile(index){
   			    this.form.files.splice(index, 1)

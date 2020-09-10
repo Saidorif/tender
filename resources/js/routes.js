@@ -47,6 +47,11 @@ import Region from './components/admin/region/Region'
 import AddRegion from './components/admin/region/AddRegion'
 import EditRegion from './components/admin/region/EditRegion'
 
+// Direction
+import Direction from './components/admin/direction/Direction'
+import AddDirection from './components/admin/direction/AddDirection'
+import EditDirection from './components/admin/direction/EditDirection'
+
 // Area
 import Area from './components/admin/area/Area'
 import AddArea from './components/admin/area/AddArea'
@@ -181,6 +186,18 @@ const router = new Router({
 				{
 					path:'passport/edit/:passportId',
 					component:EditPassport,
+				},
+				{
+					path:'direction',
+					component:Direction,
+				},
+				{
+					path:'direction/add',
+					component:AddDirection,
+				},
+				{
+					path:'direction/edit/:directionId',
+					component:EditDirection,
 				},
 			]
 		},

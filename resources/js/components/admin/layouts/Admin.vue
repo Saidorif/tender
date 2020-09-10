@@ -24,7 +24,7 @@
     <!-- Brand Logo -->
     <router-link class="brand-link" to="/crm">
       <span class="brand-text font-weight-light">
-        <img src="/img/train.png">
+        e-TENDER
       </span>
     </router-link>
 
@@ -64,23 +64,31 @@
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/crm/region">
-              <i class="peIcon pe-7s-building"></i>
+              <i class="peIcon fas fa-globe"></i>
               <p>
-                Regions
+                Области
               </p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/crm/area">
-              <i class="peIcon pe-7s-building"></i>
+              <i class="peIcon fas fa-globe-europe"></i>
               <p>
-                Areas
+                Регион / Город
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/crm/direction">
+              <i class="peIcon fas fa-route"></i>
+              <p>
+                Направления
               </p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/crm/passport">
-              <i class="peIcon pe-7s-passport"></i>
+              <i class="peIcon fas fa-file-alt"></i>
               <p>
                 Passport
               </p>

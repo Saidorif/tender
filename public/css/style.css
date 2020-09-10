@@ -1,15 +1,15 @@
 .content-wrapper {
-  background: #f1f4f6;
+  background: #ecf9ee;
   padding-top: 30px;
 }
 
 .main-sidebar {
-  background: #1282e4;
+  background: #131513;
 }
 
 .main-header {
   box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
-  background: #1282e4;
+  background: #131513;
   color: #fff;
 }
 
@@ -43,7 +43,7 @@
   line-height: 33px;
   font-size: 22px;
   transition: color 300ms;
-  color: white;
+  color: #52dcbc;
 }
 
 .nav-sidebar .nav-item > .nav-link {
@@ -53,14 +53,14 @@
 }
 
 .nav-pills .nav-link {
-  color: white;
+  color: #52dcbc;
   font-weight: bold;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: white;
-  background: #57beff;
+  color: #52dcbc;
+  background: #376786;
   font-weight: bold;
   font-weight: bold;
 }
@@ -119,7 +119,7 @@
 }
 
 .title_user {
-  color: #1282e4;
+  color: #131513;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -127,6 +127,7 @@
 
 .card-header {
   display: flex;
+  background-color: rgba(63, 156, 5, 0.16);
   justify-content: space-between;
   align-items: center;
 }
