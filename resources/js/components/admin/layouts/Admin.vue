@@ -87,6 +87,14 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/crm/typeofdirection">
+              <i class="peIcon fas fa-border-style"></i>
+              <p>
+                Тип направления
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/crm/passport">
               <i class="peIcon fas fa-file-alt"></i>
               <p>
