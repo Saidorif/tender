@@ -47,6 +47,22 @@ Route::group([
             Route::post('directiontype/update/{id}', 'DirectionTypeController@update');
             Route::delete('directiontype/destroy/{id}', 'DirectionTypeController@destroy');
 
+            //Bus Type CRUD
+            Route::post('bustype', 'BusTypeController@index');
+            Route::post('bustype/store', 'BusTypeController@store');
+            Route::get('bustype/list', 'BusTypeController@list');
+            Route::get('bustype/edit/{id}', 'BusTypeController@edit');
+            Route::post('bustype/update/{id}', 'BusTypeController@update');
+            Route::delete('bustype/destroy/{id}', 'BusTypeController@destroy');
+
+            //Station CRUD
+            Route::post('station', 'StationController@index');
+            Route::post('station/store', 'StationController@store');
+            Route::get('station/list', 'StationController@list');
+            Route::get('station/edit/{id}', 'StationController@edit');
+            Route::post('station/update/{id}', 'StationController@update');
+            Route::delete('station/destroy/{id}', 'StationController@destroy');
+
             //Passport CRUD
             Route::post('passport', 'PassportController@index');
             Route::post('passport/store', 'PassportController@store');
