@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Direction extends Model
 {
-    protected $fillable = ['region_from_id','region_to_id','area_from_id','area_to_id','name','number','seria'];
+    protected $fillable = ['region_from_id','region_to_id','area_from_id','area_to_id','year','distance','type_id','pass_number','station_from_id','station_to_id','name'];
 
     public function regionFrom()
     {

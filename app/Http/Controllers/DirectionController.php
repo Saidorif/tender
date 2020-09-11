@@ -64,10 +64,10 @@ class DirectionController extends Controller
             'region_from_id' => $inputs['region_from']['region_id'],
             'area_from_id' => $inputs['region_from']['area_id'],
             'station_to_id' => $inputs['region_to']['station_id'],
-            'region_to_id' => $inputs['station_to']['region_id'],
-            'area_to_id' => $inputs['station_to']['area_id'],
+            'region_to_id' => $inputs['region_to']['region_id'],
+            'area_to_id' => $inputs['region_to']['area_id'],
         ]);
-        $direction->name = $direction->seria .'-'. $direction->number .'-'. $direction->regionFrom->name.'-***-'.$direction->regionTo->name;
+        // $direction->name = $direction->pass_number .'-'. $direction->regionFrom->name.'-***-'.$direction->regionTo->name;
         $direction->save();
 
         return response()->json(['success' => true, 'message' => 'Направление успешно создан']);
@@ -109,8 +109,8 @@ class DirectionController extends Controller
             'region_from_id' => $inputs['region_from']['region_id'],
             'area_from_id' => $inputs['region_from']['area_id'],
             'station_to_id' => $inputs['region_to']['station_id'],
-            'region_to_id' => $inputs['station_to']['region_id'],
-            'area_to_id' => $inputs['station_to']['area_id'],
+            'region_to_id' => $inputs['region_to']['region_id'],
+            'area_to_id' => $inputs['region_to']['area_id'],
         ]);
         $direction->name = $direction->seria .'-'. $direction->number .'-'. $direction->regionFrom->name.'-***-'.$direction->regionTo->name;
         $direction->save();

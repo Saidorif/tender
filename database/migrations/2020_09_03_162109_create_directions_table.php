@@ -16,7 +16,7 @@ class CreateDirectionsTable extends Migration
         Schema::create('directions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('pass_number');
-            $table->string('year');
+            $table->year('year');
             $table->string('distance');
             $table->bigInteger('type_id');
             $table->bigInteger('region_from_id');
