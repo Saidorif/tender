@@ -67,6 +67,7 @@ Route::group([
             Route::post('station', 'StationController@index');
             Route::post('station/store', 'StationController@store');
             Route::get('station/list', 'StationController@list');
+            Route::post('station/regionby', 'StationController@regionby');
             Route::get('station/edit/{id}', 'StationController@edit');
             Route::post('station/update/{id}', 'StationController@update');
             Route::delete('station/destroy/{id}', 'StationController@destroy');
