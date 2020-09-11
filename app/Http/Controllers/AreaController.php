@@ -20,6 +20,19 @@ class AreaController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function regionby(Request $request)
+    {
+        $validator = Validator::make($request->all(), [            
+            'region_id'  => 'required|integer'
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $result = Area::where(['region_id' => $request->input('region_id')]);
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function edit($id)
     {
         $result = Area::find($id);

@@ -39,6 +39,14 @@ Route::group([
             Route::post('employee/update/{id}', 'EmployeeController@update');
             Route::delete('employee/destroy/{id}', 'EmployeeController@destroy');
 
+            //Direction Type CRUD
+            Route::post('directiontype', 'DirectionTypeController@index');
+            Route::post('directiontype/store', 'DirectionTypeController@store');
+            Route::get('directiontype/list', 'DirectionTypeController@list');
+            Route::get('directiontype/edit/{id}', 'DirectionTypeController@edit');
+            Route::post('directiontype/update/{id}', 'DirectionTypeController@update');
+            Route::delete('directiontype/destroy/{id}', 'DirectionTypeController@destroy');
+
             //Passport CRUD
             Route::post('passport', 'PassportController@index');
             Route::post('passport/store', 'PassportController@store');
@@ -67,6 +75,7 @@ Route::group([
             Route::post('area', 'AreaController@index');
             Route::post('area/store', 'AreaController@store');
             Route::get('area/list', 'AreaController@list');
+            Route::post('area/regionby', 'AreaController@regionby');
             Route::get('area/edit/{id}', 'AreaController@edit');
             Route::post('area/update/{id}', 'AreaController@update');
             Route::delete('area/destroy/{id}', 'AreaController@destroy');
