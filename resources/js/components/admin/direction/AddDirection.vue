@@ -21,7 +21,10 @@
                 :class="isRequired(form.type) ? 'isRequired' : ''"
               >
                 <option value selected disabled>choose option</option>
-                <option :value="item.id" v-for="(item,index) in getTypeofdirectionList">{{item.name }} {{item.type}}</option>
+                <option
+                  :value="item.id"
+                  v-for="(item,index) in getTypeofdirectionList"
+                >{{item.name }} {{item.type}}</option>
               </select>
             </div>
             <div class="form-group col-md-3">
@@ -34,41 +37,78 @@
               />
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Regions</label>
+              <label for="region_id">Region from</label>
               <select
                 class="form-control input_style"
-                v-model="form.region_id"
-                :class="isRequired(form.region_id) ? 'isRequired' : ''"
-                @change="selectRegion()"
+                v-model="form.region_from.region_id"
+                :class="isRequired(form.region_from.region_id) ? 'isRequired' : ''"
+                @change="selectRegion('region_from')"
               >
                 <option value selected disabled>choose option</option>
                 <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Area</label>
+              <label for="region_id">Area from</label>
               <select
                 class="form-control input_style"
-                v-model="form.area_id"
-                :class="isRequired(form.area_id) ? 'isRequired' : ''"
+                v-model="form.region_from.area_id"
+                :class="isRequired(form.region_from.area_id) ? 'isRequired' : ''"
                 placeholder="Area"
-                @change="selectArea()"
+                @change="selectArea('region_from')"
               >
                 <option value selected disabled>choose option</option>
                 <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Station</label>
-              <!-- <select 
-					    	class="form-control input_style" 
-					    	v-model="form.station_id" 
-					    	:class="isRequired(form.station_id) ? 'isRequired' : ''"  
-							placeholder="Area"
-				    	>
-					    	<option value="" selected disabled>choose option</option>
-					    	<option :value="item.id" v-for="(item,index) in getStationList">{{item.name}}</option>
-              </select>-->
+              <label for="region_id">Station from</label>
+              <select
+                class="form-control input_style"
+                v-model="form.region_from.station_id"
+                :class="isRequired(form.region_from.station_id) ? 'isRequired' : ''"
+                placeholder="Area"
+              >
+                <option value selected disabled>choose option</option>
+                <option :value="item.id" v-for="(item,index) in getStationsList">{{item.name}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="region_id">Region to</label>
+              <select
+                class="form-control input_style"
+                v-model="form.region_to.region_id"
+                :class="isRequired(form.region_to.region_id) ? 'isRequired' : ''"
+                @change="selectRegion('region_to')"
+              >
+                <option value selected disabled>choose option</option>
+                <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="region_id">Area to</label>
+              <select
+                class="form-control input_style"
+                v-model="form.region_to.area_id"
+                :class="isRequired(form.region_to.area_id) ? 'isRequired' : ''"
+                placeholder="Area"
+                @change="selectArea('region_to')"
+              >
+                <option value selected disabled>choose option</option>
+                <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="region_id">Station to</label>
+              <select
+                class="form-control input_style"
+                v-model="form.region_to.station_id"
+                :class="isRequired(form.region_to.station_id) ? 'isRequired' : ''"
+                placeholder="Area"
+              >
+                <option value selected disabled>choose option</option>
+                <option :value="item.id" v-for="(item,index) in getStationsList">{{item.name}}</option>
+              </select>
             </div>
             <div class="form-group col-md-3">
               <label for="seria">direction Year</label>
@@ -107,9 +147,16 @@ export default {
     return {
       form: {
         pass_number: "",
-        region_id: "",
-        area_id: "",
-        station_id: "",
+        region_from: {
+          region_id: "",
+          area_id: "",
+          station_id: "",
+        },
+        region_to: {
+          region_id: "",
+          area_id: "",
+          station_id: "",
+        },
         year: "",
         distance: "",
         type: "",
@@ -120,40 +167,64 @@ export default {
   },
   computed: {
     ...mapGetters("region", ["getRegionList"]),
-	...mapGetters("area", ["getAreaList"]),
-	...mapGetters('typeofdirection',['getTypeofdirectionList'])
+    ...mapGetters("area", ["getAreaList"]),
+    ...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
+    ...mapGetters("station", ["getStationsList"]),
+    ...mapGetters("direction", ["getMassage"]),
   },
   async mounted() {
     await this.actionRegionList();
-	await this.actionTypeofdirectionList();
-	console.log(this.getTypeofdirectionList)
+    await this.actionTypeofdirectionList();
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
-	...mapActions("area", ["actionAreaByRegion"]),
-	...mapActions('typeofdirection',['actionTypeofdirectionList']),
+    ...mapActions("station", ["actionStationByRegion"]),
+    ...mapActions("area", ["actionAreaByRegion"]),
+    ...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
+    ...mapActions("direction", ["actionAddDirection"]),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
-    saveDirection() {
+    async saveDirection() {
       if (
-        this.form.region_from_id != "" &&
-        this.form.region_to_id != "" &&
-        this.form.seria != "" &&
-        this.form.number != ""
+        this.form.pass_number != "" &&
+        this.form.year != "" &&
+        this.form.distance != "" &&
+        this.form.type != ""  &&
+        this.form.region_from.region_id != ""  &&
+        this.form.region_from.area_id != ""  &&
+        this.form.region_from.station_id != ""  &&
+        this.form.region_to.region_id != ""  &&
+        this.form.region_to.area_id != ""  &&
+        this.form.region_to.station_id != "" 
       ) {
+		await this.actionAddDirection(this.form)
+		if(this.getMassage.success){
+			toast.fire({
+				type: "success",
+				icon: "success",
+				title: this.getMassage.message
+			 });
+			this.$router.push("/crm/direction");
+		}else{
+			toast.fire({
+				type: "error",
+				icon: "error",
+				title: 'error whoops'
+			 });
+		}
         this.requiredInput = false;
       } else {
         this.requiredInput = true;
       }
     },
-    async selectRegion() {
-      await this.actionAreaByRegion({ region_id: this.form.region_id });
+    async selectRegion(input) {
+      await this.actionAreaByRegion({ region_id: this.form[input].region_id });
     },
-    async selectArea() {
-      await this.actionAreaByRegion({
-        region_id: this.form.region_id,
-        area_id: this.form.area_id,
+    async selectArea(input) {
+      await this.actionStationByRegion({
+        region_id: this.form[input].region_id,
+        area_id: this.form[input].area_id,
       });
     },
   },

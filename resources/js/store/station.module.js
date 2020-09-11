@@ -4,11 +4,15 @@ const state = {
 	stations: {},
 	message: [],
 	station: [],
+	stationList: [],
 };
 
 const getters = {
 	getStations(state){
 		return state.stations
+	},
+	getStationsList(state){
+		return state.stationList
 	},
 	getMassage(state){
 		return state.message
@@ -24,6 +28,15 @@ const actions = {
 		try {
 			const stations =  await StationService.stations(page);
 			await commit('setStations',stations.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionStationByRegion({commit},page){
+		try {
+			const stations =  await StationService.stationByRegion(page);
+			await commit('setStationsList',stations.data.result)
 			return true
 		} catch (error) {
 			return false
@@ -70,6 +83,9 @@ const actions = {
 const mutations = {
 	setStations(state, stations){
 		state.stations = stations
+	},
+	setStationsList(state, stationList){
+		state.stationList = stationList
 	},
 	setMessage(state, message){
 		state.message = message
