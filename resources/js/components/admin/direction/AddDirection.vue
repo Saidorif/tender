@@ -17,8 +17,8 @@
               <label for="region_id">Type direction</label>
               <select
                 class="form-control input_style"
-                v-model="form.type"
-                :class="isRequired(form.type) ? 'isRequired' : ''"
+                v-model="form.type_id"
+                :class="isRequired(form.type_id) ? 'isRequired' : ''"
               >
                 <option value selected disabled>choose option</option>
                 <option
@@ -159,7 +159,7 @@ export default {
         },
         year: "",
         distance: "",
-        type: "",
+        type_id: "",
       },
 
       requiredInput: false,
@@ -190,7 +190,7 @@ export default {
         this.form.pass_number != "" &&
         this.form.year != "" &&
         this.form.distance != "" &&
-        this.form.type != ""  &&
+        this.form.type_id != ""  &&
         this.form.region_from.region_id != ""  &&
         this.form.region_from.area_id != ""  &&
         this.form.region_from.station_id != ""  &&
