@@ -18,7 +18,7 @@ class CreateDirectionsTable extends Migration
             $table->string('pass_number');
             $table->string('year');
             $table->string('distance');
-            $table->string('type');
+            $table->bigInteger('type_id');
             $table->bigInteger('region_from_id');
             $table->bigInteger('region_to_id');
             $table->bigInteger('area_from_id')->nullable();
