@@ -63,7 +63,7 @@ const actions = {
 	async actionUpdateTypeofdirection({commit},payload){
 		try {
 			const types =  await TypeofdirectionService.updatetypeofdirection(payload);
-			await commit('setEditTypeofdirection',types.data.result)
+			await commit('setMessage',types.data)
 			return true
 		} catch (error) {
 			return false
