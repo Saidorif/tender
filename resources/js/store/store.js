@@ -19,6 +19,7 @@ import {permission} from "./permission.module"
 import {dashboard} from "./dashboard.module"
 import {region} from "./region.module"
 import {area} from "./area.module"
+import {station} from "./station.module"
 import {passport} from "./passport.module"
 import {direction} from "./direction.module"
 
@@ -49,6 +50,7 @@ const store = new Vuex.Store(
 			passport,
 			area,
 			direction,
+			station,
 		},
 		state:{
 			rules:[],

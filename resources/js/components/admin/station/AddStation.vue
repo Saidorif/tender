@@ -23,7 +23,18 @@
 					    </select>
 					  </div>
 					  <div class="form-group col-md-9">
-					    <label for="name">Area</label>
+					    <label for="region_id">Area</label>
+					    <select 
+					    	class="form-control input_style" 
+					    	v-model="form.region_id" 
+					    	:class="isRequired(form.region_id) ? 'isRequired' : ''"  
+				    	>
+					    	<option value="" selected disabled>choose option</option>
+					    	<option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+					    </select>
+					  </div>
+					  <div class="form-group col-md-9">
+					    <label for="name">Station name</label>
 					    <input 
 					    	type="text" 
 					    	class="form-control input_style" 
