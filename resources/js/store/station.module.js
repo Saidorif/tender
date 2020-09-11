@@ -32,7 +32,7 @@ const actions = {
 	async actionAddStation({commit},payload){
 		try {
 			const stations =  await StationService.addstation(payload);
-			await commit('setMessage',areas.data)
+			await commit('setMessage',stations.data)
 			return true
 		} catch (error) {
 			return false

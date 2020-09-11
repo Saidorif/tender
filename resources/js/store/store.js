@@ -53,11 +53,8 @@ const store = new Vuex.Store(
 			area,
 			direction,
 			station,
-<<<<<<< HEAD
-=======
 			typeofdirection,
 			typeofbus,
->>>>>>> 6a1dc7b62ca3e99983b9e75ea5f313b801808fda
 		},
 		state:{
 			rules:[],
