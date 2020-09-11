@@ -4,7 +4,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon pe-7s-id"></i>
-				    Добавить Area
+				    Добавить Автостанция
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/area"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
@@ -29,6 +29,7 @@
 					    	class="form-control input_style" 
 					    	v-model="form.area_id" 
 					    	:class="isRequired(form.area_id) ? 'isRequired' : ''"  
+							placeholder="Area"
 				    	>
 					    	<option value="" selected disabled>choose option</option>
 					    	<option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
@@ -40,7 +41,7 @@
 					    	type="text" 
 					    	class="form-control input_style" 
 					    	id="name" 
-					    	placeholder="Area"
+					    	placeholder="Station name"
 					    	v-model="form.name"
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
 				    	>
@@ -94,7 +95,7 @@
 			},
 			async selectRegion(){
 				await this.actionAreaByRegion({region_id: this.form.region_id})
-				console.log(this.getAreaList)
+				console.log(this.form.region_id)
 			}
 		}
 	}
