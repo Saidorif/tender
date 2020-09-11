@@ -17,6 +17,7 @@
 					    	class="form-control input_style" 
 					    	v-model="form.region_id" 
 					    	:class="isRequired(form.region_id) ? 'isRequired' : ''"  
+							@change="selectRegion()"
 				    	>
 					    	<option value="" selected disabled>choose option</option>
 					    	<option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
@@ -26,11 +27,11 @@
 					    <label for="region_id">Area</label>
 					    <select 
 					    	class="form-control input_style" 
-					    	v-model="form.region_id" 
-					    	:class="isRequired(form.region_id) ? 'isRequired' : ''"  
+					    	v-model="form.area_id" 
+					    	:class="isRequired(form.area_id) ? 'isRequired' : ''"  
 				    	>
 					    	<option value="" selected disabled>choose option</option>
-					    	<option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+					    	<option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
 					    </select>
 					  </div>
 					  <div class="form-group col-md-9">
@@ -63,6 +64,7 @@
 			return{
 				form:{
 					region_id:'',
+					area_id:'',
 					name:'',
 				},
 				requiredInput:false
@@ -70,14 +72,14 @@
 		},
 		computed:{
 			...mapGetters('region',['getMassage','getRegionList']),
-			...mapGetters('area',['getMassage']),
+			...mapGetters('area',['getAreaList']),
 		},
 		async mounted(){
 			await this.actionRegionList()
 		},
 		methods:{
 			...mapActions('region',['actionRegionList']),
-			...mapActions('area',['actionAddArea']),
+			...mapActions('area',['actionAreaByRegion']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
@@ -89,7 +91,11 @@
 				}else{
 					this.requiredInput = true
 				}
-		    }
+			},
+			async selectRegion(){
+				await this.actionAreaByRegion({region_id: this.form.region_id})
+				console.log(this.getAreaList)
+			}
 		}
 	}
 </script>

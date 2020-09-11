@@ -4,6 +4,7 @@ const state = {
 	areas: {},
 	message: [],
 	area: [],
+	areaList: [],
 };
 
 const getters = {
@@ -16,6 +17,9 @@ const getters = {
 	getArea(state){
 		return state.area
 	},
+	getAreaList(state){
+		return state.areaList
+	}
 };
 
 
@@ -24,6 +28,15 @@ const actions = {
 		try {
 			const areas =  await AreaService.areas(page);
 			await commit('setAreas',areas.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionAreaByRegion({commit},id){
+		try {
+			const areas =  await AreaService.getAreaByRegion(id);
+			await commit('setAreaList',areas.data.result)
 			return true
 		} catch (error) {
 			return false
@@ -70,6 +83,9 @@ const actions = {
 const mutations = {
 	setAreas(state, areas){
 		state.areas = areas
+	},
+	setAreaList(state, areaList){
+		state.areaList = areaList
 	},
 	setMessage(state, message){
 		state.message = message

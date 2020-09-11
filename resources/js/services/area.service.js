@@ -4,6 +4,9 @@ const AreaService = {
 	areas(){
 		return ApiService.post(`/api/area`)
 	},
+	getAreaByRegion(id){
+		return ApiService.post(`/api/area/regionby`, id)
+	},
 	addarea(data){
 		return ApiService.post(`/api/area/store`,data)
 	},
