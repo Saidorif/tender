@@ -11,8 +11,8 @@ const getters = {
 	getBusclassList(state){
 		return state.busclasslist
 	},
-	getBusclass(state){
-		return state.busclass
+	getBusclasses(state){
+		return state.busclasses
 	},
 	getMassage(state){
 		return state.message
@@ -33,7 +33,7 @@ const actions = {
 			return false
 		}
 	},
-	async actionBusclasss({commit},page){
+	async actionBusclasses({commit},page){
 		try {
 			const types =  await BusclassService.busclasses(page);
 			await commit('setBusclasses',types.data.result)

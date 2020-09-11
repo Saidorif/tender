@@ -14,18 +14,73 @@
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveType" >
 					<div class="row">
-					  <div class="form-group col-md-9">
-					    <label for="name">Название</label>
+					  <div class="form-group col-md-4">
+					    <label for="busttype_id">Тип автобуса</label>
+					    <select 
+					    	class="form-control input_style" 
+					    	v-model="form.busttype_id" 
+					    	:class="isRequired(form.busttype_id) ? 'isRequired' : ''"  
+				    	>
+					    	<option value="" selected disabled>Выберите тип автобус!</option>
+					    	<option :value="item.id" v-for="(item,index) in getTypeofbusList">{{item.name}}</option>
+					    </select>
+					  </div>
+					  <div class="form-group col-md-4">
+					    <label for="name">Название класса</label>
 					    <input 
 					    	type="text" 
 					    	class="form-control input_style" 
 					    	id="name" 
-					    	placeholder="Название"
+					    	placeholder="Название класса"
 					    	v-model="form.name"
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
 				    	>
 					  </div>
-					  <div class="form-group col-lg-3 d-flex justify-content-end saveBtn">
+					  <div class="form-group col-md-4">
+					    <label for="seat_from">Количество сидящих (с)</label>
+					    <input 
+					    	type="number" 
+					    	class="form-control input_style" 
+					    	id="seat_from" 
+					    	placeholder="Количество сидящих (с)"
+					    	v-model="form.seat_from"
+					    	:class="isRequired(form.seat_from) ? 'isRequired' : ''"  
+				    	>
+					  </div>
+					  <div class="form-group col-md-4">
+					    <label for="seat_to">Количество сидящих (по)</label>
+					    <input 
+					    	type="number" 
+					    	class="form-control input_style" 
+					    	id="seat_to" 
+					    	placeholder="Количество сидящих (по)"
+					    	v-model="form.seat_to"
+					    	:class="isRequired(form.seat_to) ? 'isRequired' : ''"  
+				    	>
+					  </div>
+					  <div class="form-group col-md-4">
+					    <label for="stay_from">Пассажировместимость (с)</label>
+					    <input 
+					    	type="number" 
+					    	class="form-control input_style" 
+					    	id="stay_from" 
+					    	placeholder="Пассажировместимость (с)"
+					    	v-model="form.stay_from"
+					    	:class="isRequired(form.stay_from) ? 'isRequired' : ''"  
+				    	>
+					  </div>
+					  <div class="form-group col-md-4">
+					    <label for="stay_to">Пассажировместимость (по)</label>
+					    <input 
+					    	type="number" 
+					    	class="form-control input_style" 
+					    	id="stay_to" 
+					    	placeholder="Пассажировместимость (по)"
+					    	v-model="form.stay_to"
+					    	:class="isRequired(form.stay_to) ? 'isRequired' : ''"  
+				    	>
+					  </div>
+					  <div class="form-group col-lg-12 d-flex justify-content-end">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
@@ -48,31 +103,34 @@
 					seat_to:'',
 					stay_from:'',
 					stay_to:'',
+					busttype_id:'',
 				},
 				requiredInput:false
 			}
 		},
 		computed:{
-			...mapGetters('typeofbus',['getMassage'])
+			...mapGetters('typeofbus',['getMassage','getTypeofbusList']),
+			...mapGetters('busclass',['getMassage']),
 		},
-		mounted(){
-
+		async mounted(){
+			await this.actionTypeofbusList()
 		},
 		methods:{
-			...mapActions('typeofbus',['actionAddTypeofbus']),
+			...mapActions('typeofbus',['actionTypeofbusList','actionDeleteTypeofbus']),
+			...mapActions('busclass',['actionAddBusclass']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
 			async saveType(){
-		    	if (this.form.name != ''){
-					await this.actionAddTypeofbus(this.form)
+		    	if (this.form.name != '' && this.form.seat_from != '' && this.form.seat_to != '' && this.form.stay_from != '' && this.form.stay_to != '' && this.form.busttype_id != ''){
+					await this.actionAddBusclass(this.form)
 					if (this.getMassage.success) {
 						toast.fire({
 				            type: "success",
 				            icon: "success",
 				            title: this.getMassage.message
 				          });
-						this.$router.push("/crm/typeofbus");
+						this.$router.push("/crm/busclass");
 						this.requiredInput = false
 					}
 				}else{
