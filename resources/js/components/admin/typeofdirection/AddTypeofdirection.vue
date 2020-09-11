@@ -59,21 +59,28 @@
 			}
 		},
 		computed:{
-			...mapGetters('region',['getMassage'])
+			...mapGetters('typeofdirection',['getMassage'])
 		},
 		mounted(){
 
 		},
 		methods:{
-			...mapActions('region',['actionAddRegion']),
+			...mapActions('typeofdirection',['actionAddTypeofdirection']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
 			async saveType(){
-		    	if (this.form.name != ''){
-					await this.actionAddRegion(this.form)
-					this.$router.push("/crm/region");
-					this.requiredInput = false
+		    	if (this.form.name != '' && this.form.type != ''){
+					await this.actionAddTypeofdirection(this.form)
+					if (this.getMassage.success) {
+						toast.fire({
+				            type: "success",
+				            icon: "success",
+				            title: this.getMassage.message
+				          });
+						this.$router.push("/crm/typeofdirection");
+						this.requiredInput = false
+					}
 				}else{
 					this.requiredInput = true
 				}

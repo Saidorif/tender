@@ -1,78 +1,78 @@
-import {TypeofdirectionService} from "../services/region.service";
+import {TypeofdirectionService} from "../services/typeofdirection.service";
 
 const state = {
-	regions: {},
-	regionlist: [],
+	typeofdirections: {},
+	typeofdirectionlist: [],
 	message: [],
-	region: [],
+	typeofdirection: [],
 };
 
 const getters = {
-	getRegionList(state){
-		return state.regionlist
+	getTypeofdirectionList(state){
+		return state.typeofdirectionlist
 	},
-	getRegions(state){
-		return state.regions
+	getTypeofdirections(state){
+		return state.typeofdirections
 	},
 	getMassage(state){
 		return state.message
 	},
-	getRegion(state){
-		return state.region
+	getTypeofdirection(state){
+		return state.typeofdirection
 	},
 };
 
 
 const actions = {
-	async actionRegionList({commit},page){
+	async actionTypeofdirectionList({commit},page){
 		try {
-			const regions =  await TypeofdirectionService.regionList(page);
-			await commit('setRegionList',regions.data.result)
+			const types =  await TypeofdirectionService.typeofdirectionList(page);
+			await commit('setTypeofdirectionList',types.data.result)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionRegions({commit},page){
+	async actionTypeofdirections({commit},page){
 		try {
-			const regions =  await TypeofdirectionService.regions(page);
-			await commit('setRegions',regions.data.result)
+			const types =  await TypeofdirectionService.typeofdirections(page);
+			await commit('setTypeofdirections',types.data.result)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionAddRegion({commit},payload){
+	async actionAddTypeofdirection({commit},payload){
 		try {
-			const regions =  await TypeofdirectionService.addregion(payload);
-			await commit('setMessage',regions.data)
+			const types =  await TypeofdirectionService.addtypeofdirection(payload);
+			await commit('setMessage',types.data)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionEditRegion({commit},id){
+	async actionEditTypeofdirection({commit},id){
 		try {
-			const regions =  await TypeofdirectionService.editregion(id);
-			await commit('setEditRegion',regions.data.result)
+			const types =  await TypeofdirectionService.edittypeofdirection(id);
+			await commit('setEditTypeofdirection',types.data.result)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionUpdateRegion({commit},payload){
+	async actionUpdateTypeofdirection({commit},payload){
 		try {
-			const region =  await TypeofdirectionService.updateregion(payload);
-			await commit('setEditRegion',region.data.result)
+			const types =  await TypeofdirectionService.updatetypeofdirection(payload);
+			await commit('setMessage',types.data)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionDeleteRegion({commit},id){
+	async actionDeleteTypeofdirection({commit},id){
 		try {
-			const region =  await TypeofdirectionService.deleteregion(id);
-			await commit('setMessage',region.data)
+			const types =  await TypeofdirectionService.deletetypeofdirection(id);
+			await commit('setMessage',types.data)
 			return true
 		} catch (error) {
 			return false
@@ -81,21 +81,21 @@ const actions = {
 };
 
 const mutations = {
-	setRegionList(state, regionlist){
-		state.regionlist = regionlist
+	setTypeofdirectionList(state, typeofdirectionlist){
+		state.typeofdirectionlist = typeofdirectionlist
 	},
-	setRegions(state, regions){
-		state.regions = regions
+	setTypeofdirections(state, typeofdirections){
+		state.typeofdirections = typeofdirections
 	},
 	setMessage(state, message){
 		state.message = message
 	},
-	setEditRegion(state, region){
-		state.region = region
+	setEditTypeofdirection(state, typeofdirection){
+		state.typeofdirection = typeofdirection
 	},
 };
 
-export const region = {
+export const typeofdirection = {
 	namespaced: true,
 	state,
 	getters,
