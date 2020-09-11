@@ -55,6 +55,14 @@ Route::group([
             Route::post('bustype/update/{id}', 'BusTypeController@update');
             Route::delete('bustype/destroy/{id}', 'BusTypeController@destroy');
 
+            //Bus Class CRUD
+            Route::post('tclass', 'TClassController@index');
+            Route::post('tclass/store', 'TClassController@store');
+            Route::get('tclass/list', 'TClassController@list');
+            Route::get('tclass/edit/{id}', 'TClassController@edit');
+            Route::post('tclass/update/{id}', 'TClassController@update');
+            Route::delete('tclass/destroy/{id}', 'TClassController@destroy');
+
             //Station CRUD
             Route::post('station', 'StationController@index');
             Route::post('station/store', 'StationController@store');
