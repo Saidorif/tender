@@ -24,7 +24,7 @@ class DirectionTypeController extends Controller
     {
         $result = DirectionType::find($id);
         if(!$result){
-            return response()->json(['error' => true, 'message' => 'Должность не найдено']);
+            return response()->json(['error' => true, 'message' => 'Тип направления не найдено']);
         }
         return response()->json(['success' => true, 'result' => $result]);
     }
@@ -42,7 +42,7 @@ class DirectionTypeController extends Controller
         }
         $inputs = $request->all();
         $result = DirectionType::create($inputs);
-        return response()->json(['success' => true, 'message' => 'Должность успешно создана']);
+        return response()->json(['success' => true, 'message' => 'Тип направления успешно создана']);
     }
 
     public function update(Request $request, $id)
@@ -50,7 +50,7 @@ class DirectionTypeController extends Controller
         $user = $request->user();
         $result = DirectionType::find($id);
         if(!$result){
-            return response()->json(['error' => true, 'message' => 'Должность не найдено']);
+            return response()->json(['error' => true, 'message' => 'Тип направления не найдено']);
         }
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -62,7 +62,7 @@ class DirectionTypeController extends Controller
         }
         $inputs = $request->all();
         $result->update($inputs);
-        return response()->json(['success' => true, 'message' => 'Должность успешно обновлено']);
+        return response()->json(['success' => true, 'message' => 'Тип направления успешно обновлено']);
     }
 
     public function destroy(Request $request, $id)
@@ -70,9 +70,9 @@ class DirectionTypeController extends Controller
         $user = $request->user();
         $result = DirectionType::find($id);
         if(!$result){
-            return response()->json(['error' => true, 'message' => 'Должность не найдено']);
+            return response()->json(['error' => true, 'message' => 'Тип направления не найдено']);
         }
         $result->delete();
-        return response()->json(['error' => true, 'message' => 'Должность удален']);
+        return response()->json(['error' => true, 'message' => 'Тип направления удален']);
     }
 }
