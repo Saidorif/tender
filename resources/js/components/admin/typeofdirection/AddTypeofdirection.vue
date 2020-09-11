@@ -6,7 +6,7 @@
 			    	<i class="peIcon fas fa-border-style"></i>
 				    Добавить тип направления
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/region"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/typeofdirection"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveType" >

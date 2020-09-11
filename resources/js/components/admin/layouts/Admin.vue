@@ -103,6 +103,14 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/crm/typeofbus">
+              <i class="peIcon fas fa-bus"></i>
+              <p>
+                Тип автобуса
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/crm/passport">
               <i class="peIcon fas fa-file-alt"></i>
               <p>
