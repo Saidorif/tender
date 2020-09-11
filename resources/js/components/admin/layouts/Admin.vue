@@ -111,6 +111,14 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/crm/busclass">
+              <i class="peIcon fas fa-bus-alt"></i>
+              <p>
+                Класс автобуса
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/crm/passport">
               <i class="peIcon fas fa-file-alt"></i>
               <p>
