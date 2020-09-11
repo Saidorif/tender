@@ -37,11 +37,6 @@ import Action from './components/admin/action/Action'
 import AddAction from './components/admin/action/AddAction'
 import EditAction from './components/admin/action/EditAction'
 
-// controller
-import Passport from './components/admin/passport/Passport'
-import AddPassport from './components/admin/passport/AddPassport'
-import EditPassport from './components/admin/passport/EditPassport'
-
 // Region
 import Region from './components/admin/region/Region'
 import AddRegion from './components/admin/region/AddRegion'
@@ -66,6 +61,11 @@ import EditTypeofbus from './components/admin/typeofbus/EditTypeofbus'
 import Area from './components/admin/area/Area'
 import AddArea from './components/admin/area/AddArea'
 import EditArea from './components/admin/area/EditArea'
+
+// Busclass
+import Busclass from './components/admin/busclass/Busclass'
+import AddBusclass from './components/admin/busclass/AddBusclass'
+import EditBusclass from './components/admin/busclass/EditBusclass'
 
 // Station
 import Station from './components/admin/station/Station'
@@ -203,18 +203,6 @@ const router = new Router({
 					component:EditStation,
 				},
 				{
-					path:'passport',
-					component:Passport,
-				},
-				{
-					path:'passport/add',
-					component:AddPassport,
-				},
-				{
-					path:'passport/edit/:passportId',
-					component:EditPassport,
-				},
-				{
 					path:'direction',
 					component:Direction,
 				},
@@ -249,6 +237,18 @@ const router = new Router({
 				{
 					path:'typeofbus/edit/:typeofbusId',
 					component:EditTypeofbus,
+				},
+				{
+					path:'busclass',
+					component:Busclass,
+				},
+				{
+					path:'busclass/add',
+					component:AddBusclass,
+				},
+				{
+					path:'busclass/edit/:busclassId',
+					component:EditBusclass,
 				},
 			]
 		},
