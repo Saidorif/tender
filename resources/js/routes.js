@@ -62,6 +62,11 @@ import Area from './components/admin/area/Area'
 import AddArea from './components/admin/area/AddArea'
 import EditArea from './components/admin/area/EditArea'
 
+// Station
+import Station from './components/admin/station/Station'
+import AddStation from './components/admin/station/AddStation'
+import EditStation from './components/admin/station/EditStation'
+
 
 // NotFound
 import NotFound from './components/NotFound/NotFound'
@@ -179,6 +184,18 @@ const router = new Router({
 				{
 					path:'area/edit/:areaId',
 					component:EditArea,
+				},
+				{
+					path:'station',
+					component:Station,
+				},
+				{
+					path:'station/add',
+					component:AddStation,
+				},
+				{
+					path:'station/edit/:stationId',
+					component:EditStation,
 				},
 				{
 					path:'passport',

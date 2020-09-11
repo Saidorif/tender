@@ -4,7 +4,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon pe-7s-box1"></i>
-				    Station 
+				    Автостанция 
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/station/add"><i class="fas fa-plus"></i> Add</router-link>
 		  	</div>
