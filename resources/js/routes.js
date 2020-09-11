@@ -52,6 +52,11 @@ import Direction from './components/admin/direction/Direction'
 import AddDirection from './components/admin/direction/AddDirection'
 import EditDirection from './components/admin/direction/EditDirection'
 
+// Type of Direction
+import Typeofdirection from './components/admin/typeofdirection/Typeofdirection'
+import AddTypeofdirection from './components/admin/typeofdirection/AddTypeofdirection'
+import EditTypeofdirection from './components/admin/typeofdirection/EditTypeofdirection'
+
 // Area
 import Area from './components/admin/area/Area'
 import AddArea from './components/admin/area/AddArea'
@@ -198,6 +203,18 @@ const router = new Router({
 				{
 					path:'direction/edit/:directionId',
 					component:EditDirection,
+				},
+				{
+					path:'typeofdirection',
+					component:Typeofdirection,
+				},
+				{
+					path:'typeofdirection/add',
+					component:AddTypeofdirection,
+				},
+				{
+					path:'typeofdirection/edit/:typeofdirectionId',
+					component:EditTypeofdirection,
 				},
 			]
 		},
