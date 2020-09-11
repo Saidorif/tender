@@ -10,7 +10,7 @@ class TClassController extends Controller
 {
     public function index(Request $request)
     {
-        $result = TClass::paginate(12);
+        $result = TClass::with(['bustype'])->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -22,7 +22,7 @@ class TClassController extends Controller
 
     public function edit($id)
     {
-        $result = TClass::find($id);
+        $result = TClass::with(['bustype'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Класс транспорта не найдено']);
         }
@@ -34,6 +34,7 @@ class TClassController extends Controller
         $user = $request->user();
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
+            'busttype_id' => 'required|integer',
             'seat_from' => 'required|integer',
             'seat_to' => 'required|integer',
             'stay_from' => 'required|integer',
@@ -57,6 +58,7 @@ class TClassController extends Controller
         }
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
+            'busttype_id' => 'required|integer',
             'seat_from' => 'required|integer',
             'seat_to' => 'required|integer',
             'stay_from' => 'required|integer',
