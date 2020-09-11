@@ -29,7 +29,7 @@ class AreaController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
-        $result = Area::where(['region_id' => $request->input('region_id')]);
+        $result = Area::where(['region_id' => $request->input('region_id')])->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
 

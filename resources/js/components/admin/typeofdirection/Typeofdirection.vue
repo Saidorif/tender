@@ -15,24 +15,26 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Название</th>
+							<th scope="col">Тип</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
 					<tbody>
-						<!-- <tr v-for="(reg,index) in getRegions.data">
+						<tr v-for="(type,index) in getTypeofdirections.data">
 							<td scope="row">{{index+1}}</td>
-							<td>{{reg.name}}</td>
+							<td>{{type.name}}</td>
+							<td>{{type.type}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/region/edit/${reg.id}`'>
+								<router-link tag="button" class="btn_transparent" :to='`/crm/typeofdirection/edit/${type.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteRegion(reg.id)">
+								<button class="btn_transparent" @click="deleteType(type.id)">
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>
-						</tr> -->
+						</tr>
 					</tbody>
-					<!-- <pagination :limit="4" :data="getRegions" @pagination-change-page="getResults"></pagination> -->
+					<pagination :limit="4" :data="getTypeofdirections" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
 		  </div>
@@ -49,29 +51,31 @@
 		},
 		async mounted(){
 			let page = 1;
-			// await this.actionRegions()
+			await this.actionTypeofdirections()
 		},
 		computed:{
-			...mapGetters('region',['getRegions','getMassage']),
-			...mapGetters('typeofdirection',['getRegions','getMassage'])
+			...mapGetters('typeofdirection',['getTypeofdirections','getMassage'])
 		},
 		methods:{
-			...mapActions('region',['actionRegions','actionDeleteRegion']),
-			...mapActions('typeofdirection',['actionRegions','actionDeleteRegion']),
+			...mapActions('typeofdirection',['actionTypeofdirections','actionDeleteTypeofdirection']),
 			async getResults(page = 1){ 
-				// await this.actionRegions(page)
+				await this.actionTypeofdirections(page)
 			},
-			async deleteRegion(id){
-				// if(confirm("Вы действительно хотите удалить?")){
-				// 	let page = 1
-				// 	await this.actionDeleteRegion(id)
-				// 	await this.actionRegions(page)
-				// 	toast.fire({
-				//     	type: 'success',
-				//     	icon: 'success',
-				// 		title: 'Region удалено!',
-				//     })
-				// }
+			async deleteType(id){
+				if(confirm("Вы действительно хотите удалить?")){
+					let page = 1
+					await this.actionDeleteTypeofdirection(id)
+					if (this.getMassage.error) {
+						await this.actionTypeofdirections(page)
+						toast.fire({
+				            type: "success",
+				            icon: "success",
+				            title: this.getMassage.message
+				          });
+						this.$router.push("/crm/typeofdirection");
+						this.requiredInput = false
+					}
+				}
 			}
 		}
 	}
