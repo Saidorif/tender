@@ -3,7 +3,7 @@
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
-			    	<i class="peIcon fas fa-bus"></i>
+			    	<i class="peIcon fas fa-bus-alt"></i>
 				    Класс автобуса
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/busclass/add">

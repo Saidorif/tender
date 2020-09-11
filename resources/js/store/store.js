@@ -24,6 +24,7 @@ import {passport} from "./passport.module"
 import {direction} from "./direction.module"
 import {typeofdirection} from "./typeofdirection.module"
 import {typeofbus} from "./typeofbus.module"
+import {busclass} from "./busclass.module"
 
 import { TokenService } from './../services/storage.service'
 
@@ -53,11 +54,9 @@ const store = new Vuex.Store(
 			area,
 			direction,
 			station,
-<<<<<<< HEAD
-=======
 			typeofdirection,
 			typeofbus,
->>>>>>> 6a1dc7b62ca3e99983b9e75ea5f313b801808fda
+			busclass,
 		},
 		state:{
 			rules:[],

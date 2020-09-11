@@ -3,11 +3,12 @@
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
-			    	<i class="peIcon fas fa-bus"></i>
+			    	<i class="peIcon fas fa-bus-alt"></i>
 				    Добавить тип автобуса
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/busclass">
-					<span class="peIcon pe-7s-back"></span> Назад
+					<span class="peIcon pe-7s-back"></span> 
+					Назад
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -43,6 +44,10 @@
 			return{
 				form:{
 					name:'',
+					seat_from:'',
+					seat_to:'',
+					stay_from:'',
+					stay_to:'',
 				},
 				requiredInput:false
 			}
