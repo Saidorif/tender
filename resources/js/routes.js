@@ -52,10 +52,20 @@ import Direction from './components/admin/direction/Direction'
 import AddDirection from './components/admin/direction/AddDirection'
 import EditDirection from './components/admin/direction/EditDirection'
 
+// Type of Direction
+import Typeofdirection from './components/admin/typeofdirection/Typeofdirection'
+import AddTypeofdirection from './components/admin/typeofdirection/AddTypeofdirection'
+import EditTypeofdirection from './components/admin/typeofdirection/EditTypeofdirection'
+
 // Area
 import Area from './components/admin/area/Area'
 import AddArea from './components/admin/area/AddArea'
 import EditArea from './components/admin/area/EditArea'
+
+// Station
+import Station from './components/admin/station/Station'
+import AddStation from './components/admin/station/AddStation'
+import EditStation from './components/admin/station/EditStation'
 
 
 // NotFound
@@ -176,6 +186,18 @@ const router = new Router({
 					component:EditArea,
 				},
 				{
+					path:'station',
+					component:Station,
+				},
+				{
+					path:'station/add',
+					component:AddStation,
+				},
+				{
+					path:'station/edit/:stationId',
+					component:EditStation,
+				},
+				{
 					path:'passport',
 					component:Passport,
 				},
@@ -198,6 +220,18 @@ const router = new Router({
 				{
 					path:'direction/edit/:directionId',
 					component:EditDirection,
+				},
+				{
+					path:'typeofdirection',
+					component:Typeofdirection,
+				},
+				{
+					path:'typeofdirection/add',
+					component:AddTypeofdirection,
+				},
+				{
+					path:'typeofdirection/edit/:typeofdirectionId',
+					component:EditTypeofdirection,
 				},
 			]
 		},

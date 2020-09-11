@@ -79,10 +79,26 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/crm/station">
+              <i class="peIcon fas fa-bus"></i>
+              <p>
+                Автостанция
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/crm/direction">
               <i class="peIcon fas fa-route"></i>
               <p>
                 Направления
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/crm/typeofdirection">
+              <i class="peIcon fas fa-border-style"></i>
+              <p>
+                Тип направления
               </p>
             </router-link>
           </li>
