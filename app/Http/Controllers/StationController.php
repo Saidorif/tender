@@ -20,6 +20,24 @@ class StationController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function regionby(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'region_id' => 'required|integer',
+            'area_id' => 'nullable|integer',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $builder = Station::query()->where(['region_id' => $request->input('region_id')]);
+        if($request->has('area_id') && gettype((int)$request->has('area_id') == 'integer')){
+            $builder->where(['area_id' => $request->input('area_id')]);
+        }
+        $result = $builder->get();
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function edit($id)
     {
         $result = Station::with(['region','area'])->find($id);

@@ -37,11 +37,6 @@ import Action from './components/admin/action/Action'
 import AddAction from './components/admin/action/AddAction'
 import EditAction from './components/admin/action/EditAction'
 
-// controller
-import Passport from './components/admin/passport/Passport'
-import AddPassport from './components/admin/passport/AddPassport'
-import EditPassport from './components/admin/passport/EditPassport'
-
 // Region
 import Region from './components/admin/region/Region'
 import AddRegion from './components/admin/region/AddRegion'
@@ -206,18 +201,6 @@ const router = new Router({
 				{
 					path:'station/edit/:stationId',
 					component:EditStation,
-				},
-				{
-					path:'passport',
-					component:Passport,
-				},
-				{
-					path:'passport/add',
-					component:AddPassport,
-				},
-				{
-					path:'passport/edit/:passportId',
-					component:EditPassport,
 				},
 				{
 					path:'direction',
