@@ -72,8 +72,9 @@
 			}
 		},
 		computed:{
-			...mapGetters('region',['getMassage','getRegionList']),
+			...mapGetters('region',['getRegionList']),
 			...mapGetters('area',['getAreaList']),
+			...mapGetters('station',['getMassage']),
 		},
 		async mounted(){
 			await this.actionRegionList()
@@ -81,13 +82,17 @@
 		methods:{
 			...mapActions('region',['actionRegionList']),
 			...mapActions('area',['actionAreaByRegion']),
+			...mapActions('station',['actionAddStation']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
 			async saveArea(){
 		    	if (this.form.name != '' && this.form.region_id != ''){
-					await this.actionAddArea(this.form)
-					this.$router.push("/crm/area");
+					await this.actionAddStation(this.form)
+					
+					if(this.getMassage.success){
+						this.$router.push("/crm/station");
+					}
 					this.requiredInput = false
 				}else{
 					this.requiredInput = true
@@ -95,7 +100,6 @@
 			},
 			async selectRegion(){
 				await this.actionAreaByRegion({region_id: this.form.region_id})
-				console.log(this.form.region_id)
 			}
 		}
 	}
