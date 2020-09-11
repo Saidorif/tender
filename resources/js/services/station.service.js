@@ -4,6 +4,9 @@ const StationService = {
 	stations(){
 		return ApiService.post(`/api/station`)
 	},
+	stationByRegion(data){
+		return ApiService.post(`/api/station/regionby`, data)
+	},
 	addstation(data){
 		return ApiService.post(`/api/station/store`,data)
 	},

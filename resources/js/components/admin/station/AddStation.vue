@@ -6,7 +6,7 @@
 			    	<i class="peIcon pe-7s-id"></i>
 				    Добавить Автостанция
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/area"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/station"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveArea" >
