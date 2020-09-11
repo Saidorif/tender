@@ -67,6 +67,11 @@ import Area from './components/admin/area/Area'
 import AddArea from './components/admin/area/AddArea'
 import EditArea from './components/admin/area/EditArea'
 
+// Busclass
+import Busclass from './components/admin/busclass/Busclass'
+import AddBusclass from './components/admin/busclass/AddBusclass'
+import EditBusclass from './components/admin/busclass/EditBusclass'
+
 // Station
 import Station from './components/admin/station/Station'
 import AddStation from './components/admin/station/AddStation'
@@ -249,6 +254,18 @@ const router = new Router({
 				{
 					path:'typeofbus/edit/:typeofbusId',
 					component:EditTypeofbus,
+				},
+				{
+					path:'busclass',
+					component:Busclass,
+				},
+				{
+					path:'busclass/add',
+					component:AddBusclass,
+				},
+				{
+					path:'busclass/edit/:busclassId',
+					component:EditBusclass,
 				},
 			]
 		},
