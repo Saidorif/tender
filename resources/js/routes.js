@@ -57,6 +57,11 @@ import Typeofdirection from './components/admin/typeofdirection/Typeofdirection'
 import AddTypeofdirection from './components/admin/typeofdirection/AddTypeofdirection'
 import EditTypeofdirection from './components/admin/typeofdirection/EditTypeofdirection'
 
+// Type of Direction
+import Typeofbus from './components/admin/typeofbus/Typeofbus'
+import AddTypeofbus from './components/admin/typeofbus/AddTypeofbus'
+import EditTypeofbus from './components/admin/typeofbus/EditTypeofbus'
+
 // Area
 import Area from './components/admin/area/Area'
 import AddArea from './components/admin/area/AddArea'
@@ -232,6 +237,18 @@ const router = new Router({
 				{
 					path:'typeofdirection/edit/:typeofdirectionId',
 					component:EditTypeofdirection,
+				},
+				{
+					path:'typeofbus',
+					component:Typeofbus,
+				},
+				{
+					path:'typeofbus/add',
+					component:AddTypeofbus,
+				},
+				{
+					path:'typeofbus/edit/:typeofbusId',
+					component:EditTypeofbus,
 				},
 			]
 		},

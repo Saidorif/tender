@@ -6,7 +6,7 @@
 			    	<i class="peIcon fas fa-border-style"></i>
 				    Редактировать тип направления
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/region"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/typeofdirection"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveType" >
@@ -71,7 +71,7 @@
 	    		return this.requiredInput && input === '';
 		    },
 			async saveType(){
-		    	if (this.form.name != ''){
+		    	if (this.form.name != '' && this.form.type != ''){
 					await this.actionUpdateTypeofdirection(this.form)
 		    		if (this.getMassage.success) {
 						toast.fire({
