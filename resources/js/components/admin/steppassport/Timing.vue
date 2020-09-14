@@ -1,22 +1,19 @@
 <template>
     <div class="row tabRow">
-        <div class="form-group col-md-6 double_input">
-            <label for="station_name">Oraliq toxtash bekatlari nomlari</label>
-            <input
-                type="text"
+        <template v-for="(item, index) in form">
+            <div class="form-group col-md-3">
+              <label for="region_id">Region from</label>
+              <select
                 class="form-control input_style"
-                id="station_name"
-                placeholder="Bekatdan"
-                v-model="form.station.from"
-            />
-            <input
-                type="text"
-                class="form-control input_style"
-                id="station_name"
-                placeholder="Bekatga"
-                v-model="form.station.from"
-            />
-        </div>
+                v-model="item.regtion_from_id"
+                :class="isRequired(item.region_id) ? 'isRequired' : ''"
+                @change="selectRegion('region_from')"
+              >
+                <option value selected disabled>choose option</option>
+                <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+              </select>
+            </div>
+        </template>
     </div>
 </template>
 <script>
@@ -24,22 +21,48 @@
 	export default{
 		data(){
 			return{
-                form: {
-                    station: {
-                        from: '',
-                        to: ''
+                form: [
+                    {
+                        direction_id: '',
+                        regtion_from_id: '',
+                        region_to_id: '',
+                        area_from_id: '',
+                        area_to_id: '',
+                        station_from_id: '',
+                        station_to_id: '',
+                        start_time: '',
+                        end_time: '',
+                        start_speedometer: '',
+                        end_speedometer: '',
+                        distance_from_start_station: '',
+                        distance_between_station: '',
+                        distance_in_limited_speed: '',
+                        spendtime_between_station: '',
+                        spendtime_between_limited_space: '',
+                        spendtime_to_stay_station: '',
+                        speed_between_station: '',
+                        speed_between_limited_space: '',
+                        details: '',
                     }
-                }
+                ]
             }
 		},
 		async mounted(){
+            await this.actionRegionList();
 
 		},
 		computed:{
-
+            ...mapGetters("region", ["getRegionList"]),
+            ...mapGetters("area", ["getAreaList"]),
+            ...mapGetters("station", ["getStationsList"]),
 		},
 		methods:{
-
+            ...mapActions("region", ["actionRegionList"]),
+            ...mapActions("station", ["actionStationByRegion"]),
+            ...mapActions("area", ["actionAreaByRegion"]),
+            async selectRegion(input) {
+                // await this.actionAreaByRegion({ region_id: this.form[input].region_id });
+            },
 		}
 	}
 </script>
