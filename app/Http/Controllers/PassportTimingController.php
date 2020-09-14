@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\PassportTiming;
 use Str;
+use Carbon\Carbon;
 
 class PassportTimingController extends Controller
 {
@@ -41,8 +42,8 @@ class PassportTimingController extends Controller
             'timing.*.area_to_id' => 'nullable|integer',
             'timing.*.station_from_id' => 'nullable|integer',
             'timing.*.station_to_id' => 'nullable|integer',
-            'timing.*.start_time' => 'required|date_format:Y-m-d H:i:s',
-            'timing.*.end_time' => 'required|date_format:Y-m-d H:i:s',
+            'timing.*.start_time' => 'required|string',
+            'timing.*.end_time' => 'required|string',
             'timing.*.start_speedometer' => 'required|integer',
             'timing.*.end_speedometer' => 'required|integer',
             'timing.*.distance_from_start_station' => 'required|integer',
@@ -61,6 +62,8 @@ class PassportTimingController extends Controller
         }
         $inputs = $request->input('timing');
         foreach ($inputs as $key => $value) {
+            $value['start_time'] = Carbon::createFromFormat('Y-m-d H:i:s', $value['start_time'])->format('Y-m-d H:i:s');
+            $value['end_time'] = Carbon::createFromFormat('Y-m-d H:i:s', $value['end_time'])->format('Y-m-d H:i:s');
             $passportTiming = PassportTiming::create($value);
         }
 
