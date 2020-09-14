@@ -62,8 +62,8 @@ class PassportTimingController extends Controller
         }
         $inputs = $request->input('timing');
         foreach ($inputs as $key => $value) {
-            $value['start_time'] = Carbon::createFromFormat('Y-m-d H:i:s', $value['start_time'])->format('Y-m-d H:i:s');
-            $value['end_time'] = Carbon::createFromFormat('Y-m-d H:i:s', $value['end_time'])->format('Y-m-d H:i:s');
+            $value['start_time'] = Carbon::parse($value['start_time'])->format('Y-m-d H:i:s');
+            $value['end_time'] = Carbon::parse($value['end_time'])->format('Y-m-d H:i:s');
             $passportTiming = PassportTiming::create($value);
         }
 
