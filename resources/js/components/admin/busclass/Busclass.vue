@@ -7,7 +7,7 @@
 				    Класс автобуса
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/busclass/add">
-					<i class="fas fa-plus"></i> Add
+					<i class="fas fa-plus"></i> Добавить
 				</router-link>
 		  	</div>
 		  	<div class="card-body">

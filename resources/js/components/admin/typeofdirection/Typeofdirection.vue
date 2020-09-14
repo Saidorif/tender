@@ -6,7 +6,7 @@
 			    	<i class="peIcon fas fa-border-style"></i>
 				    Тип направления
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/typeofdirection/add"><i class="fas fa-plus"></i> Add</router-link>
+				<router-link class="btn btn-primary" to="/crm/typeofdirection/add"><i class="fas fa-plus"></i> Добавить</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
