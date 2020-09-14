@@ -130,18 +130,21 @@
                 v-model="form.from_where"
                 name="from_where"
                 :id="'from_where'+index"
-                :value="item.name"
+                :value="item.id"
                 class="form-control input_style"
               />
             </div>
             <div class="form-group col-md-3">
               <label for="seria">direction Year</label>
-              <input
-                type="number"
-                v-model="form.year"
-                class="form-control input_style"
+              <date-picker 
+                lang="ru" 
+                type="year"
+                v-model="form.year" 
+                valueType="format" 
+                class="input_style"
                 :class="isRequired(form.year) ? 'isRequired' : ''"
-              />
+                format="YYYY"
+              ></date-picker>
             </div>
             <div class="form-group col-md-3">
               <label for="seria">direction distance</label>
@@ -165,8 +168,13 @@
   </div>
 </template>
 <script>
+import DatePicker from "vue2-datepicker";
 import { mapGetters, mapActions } from "vuex";
+import 'vue2-datepicker/index.css';
 export default {
+  components: {
+    DatePicker,
+  },
   data() {
     return {
       form: {
