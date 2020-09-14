@@ -35,7 +35,7 @@ class PassportTimingController extends Controller
         $validator = Validator::make($request->all(), [            
             'timing' => 'required|array',
             'timing.*.direction_id' => 'required|integer',
-            'timing.*.regtion_from_id' => 'required|integer',
+            'timing.*.region_from_id' => 'required|integer',
             'timing.*.region_to_id' => 'required|integer',
             'timing.*.area_from_id' => 'nullable|integer',
             'timing.*.area_to_id' => 'nullable|integer',
@@ -76,7 +76,7 @@ class PassportTimingController extends Controller
         $validator = Validator::make($request->all(), [            
             'timing' => 'required|array',
             'timing.*.direction_id' => 'required|integer',
-            'timing.*.regtion_from_id' => 'required|integer',
+            'timing.*.region_from_id' => 'required|integer',
             'timing.*.region_to_id' => 'required|integer',
             'timing.*.area_from_id' => 'nullable|integer',
             'timing.*.area_to_id' => 'nullable|integer',

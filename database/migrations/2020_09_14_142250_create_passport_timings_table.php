@@ -16,7 +16,7 @@ class CreatePassportTimingsTable extends Migration
         Schema::create('passport_timings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('direction_id');
-            $table->bigInteger('regtion_from_id');
+            $table->bigInteger('region_from_id');
             $table->bigInteger('region_to_id');
             $table->bigInteger('area_from_id')->nullable();
             $table->bigInteger('area_to_id')->nullable();

@@ -8,7 +8,7 @@ class PassportTiming extends Model
 {
     protected $fillable = [
         'direction_id',
-        'regtion_from_id',
+        'region_from_id',
         'region_to_id',
         'area_from_id',
         'area_to_id',
