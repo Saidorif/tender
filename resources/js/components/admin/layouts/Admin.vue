@@ -63,58 +63,10 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/crm/region">
-              <i class="peIcon fas fa-globe"></i>
-              <p>
-                Области
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/area">
-              <i class="peIcon fas fa-globe-europe"></i>
-              <p>
-                Регион / Город
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/station">
-              <i class="peIcon fas fa-bus"></i>
-              <p>
-                Автостанция
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link" to="/crm/direction">
               <i class="peIcon fas fa-route"></i>
               <p>
                 Направления
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/typeofdirection">
-              <i class="peIcon fas fa-border-style"></i>
-              <p>
-                Тип направления
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/typeofbus">
-              <i class="peIcon fas fa-bus"></i>
-              <p>
-                Тип автобуса
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/busclass">
-              <i class="peIcon fas fa-bus-alt"></i>
-              <p>
-                Класс автобуса
               </p>
             </router-link>
           </li>
@@ -126,6 +78,65 @@
               </p>
             </router-link>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="peIcon fas fa-cogs" style="font-size: 20px;"></i>
+              <p>
+                Основные настройки
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/region">
+                  <i class="peIcon fas fa-globe"></i>
+                  <p>
+                    Области
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/area">
+                  <i class="peIcon fas fa-globe-europe"></i>
+                  <p>
+                    Регион / Город
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/station">
+                  <i class="peIcon fas fa-bus"></i>
+                  <p>
+                    Автостанция
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/typeofdirection">
+                  <i class="peIcon fas fa-border-style"></i>
+                  <p>
+                    Тип направления
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/typeofbus">
+                  <i class="peIcon fas fa-bus"></i>
+                  <p>
+                    Тип автобуса
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/busclass">
+                  <i class="peIcon fas fa-bus-alt"></i>
+                  <p>
+                    Класс автобуса
+                  </p>
+                </router-link>
+              </li>
+            </ul>
+          </li>  
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <span class="peIcon pe-7s-settings" style="font-size: 20px;"></span>
