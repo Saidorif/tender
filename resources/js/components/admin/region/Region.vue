@@ -6,7 +6,7 @@
 			    	<i  class="peIcon pe-7s-box1"></i>
 				    Region 
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/region/add"><i class="fas fa-plus"></i> Add</router-link>
+				<router-link class="btn btn-primary" to="/crm/region/add"><i class="fas fa-plus"></i> Добавить</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">

@@ -36,6 +36,10 @@
   box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
 }
 
+.peIcon.pe-7s-back {
+  color: black;
+}
+
 .peIcon {
   text-align: center;
   width: 34px;
@@ -137,6 +141,11 @@
   margin-right: 10px;
 }
 
+.btn-danger,
+.btn-info {
+  height: 35px;
+}
+
 .logout_btn {
   color: #fff;
   background: transparent;
@@ -155,13 +164,24 @@
   text-decoration: none;
 }
 
+.btn:hover {
+  color: #75d0c0 !important;
+  background: black !important;
+  border: 1px solid black !important;
+}
+
+.btn:hover .peIcon.pe-7s-back {
+  color: #75d0c0;
+}
+
 .btn.btn-primary.back_btn.active,
 .btn.btn-primary {
-  color: #75d0c0;
-  background: transparent;
+  color: black;
+  background: #75d0c0;
   border: 1px solid #75d0c0;
   font-size: 16px;
   line-height: 20px;
+  font-weight: bold;
   height: 35px;
 }
 
