@@ -15,7 +15,13 @@ class CreatePassportTimingsTable extends Migration
     {
         Schema::create('passport_timings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('passport_id');
+            $table->bigInteger('direction_id');
+            $table->bigInteger('regtion_from_id');
+            $table->bigInteger('region_to_id');
+            $table->bigInteger('area_from_id')->nullable();
+            $table->bigInteger('area_to_id')->nullable();
+            $table->bigInteger('station_from_id')->nullable();
+            $table->bigInteger('station_to_id')->nullable();
             $table->dateTime('start_time');//Jonash vaqti
             $table->dateTime('end_time');//Kelgan vaqti
             $table->bigInteger('start_speedometer');//Jonash vaqtida
@@ -29,7 +35,6 @@ class CreatePassportTimingsTable extends Migration
             $table->bigInteger('speed_between_station');//Bekatlar oraligidagi xarakat
             $table->bigInteger('speed_between_limited_space');//Shundan xarakat tezligi chegaralangan oraliqda
             $table->string('details');//Qatnov yoli xaqidagi malumotlar
-            $table->string('file')->nullable();//File
             $table->timestamps();
         });
     }

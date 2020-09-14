@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class PassportTiming extends Model
 {
     protected $fillable = [
-        'passport_id',
+        'direction_id',
+        'regtion_from_id',
+        'region_to_id',
+        'area_from_id',
+        'area_to_id',
+        'station_from_id',
+        'station_to_id',
         'start_time',
         'end_time',
         'start_speedometer',
@@ -21,6 +27,5 @@ class PassportTiming extends Model
         'speed_between_station',
         'speed_between_limited_space',
         'details',
-        'file',
     ];
 }
