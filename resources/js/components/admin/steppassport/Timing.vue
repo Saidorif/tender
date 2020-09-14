@@ -77,8 +77,6 @@
                 class="input_style" 
                 v-model="p_item.start_time"  
                 type="datetime" 
-                format="Y-m-d H:m:s"
-                valueType="format"
                 placeholder="Select datetime"></date-picker>
             </div>
             <div class="form-group col-md-3">
@@ -88,7 +86,6 @@
                 class="input_style" 
                 v-model="p_item.end_time"  
                 type="datetime" 
-                format="Y-m-d H:i:s"
                 placeholder="Select end_time"></date-picker>
             </div>
             <div class="form-group col-md-3">
@@ -220,7 +217,7 @@
 			return{
                 form: [
                     {
-                        direction_id: '',
+                        direction_id: 1,
                         region_from_id: '',
                         region_to_id: '',
                         area_from_id: '',
@@ -312,8 +309,7 @@
                 this.form.push(thisData)
             },
             async saveData(){
-                console.log(this.form[0].start_time)
-                // await this.actionAddTiming({timing: this.form});
+                await this.actionAddTiming({timing: this.form});
             }
 		}
 	}
