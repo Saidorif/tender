@@ -72,6 +72,9 @@ import Station from './components/admin/station/Station'
 import AddStation from './components/admin/station/AddStation'
 import EditStation from './components/admin/station/EditStation'
 
+// PassportTab
+import PassportTab from './components/admin/steppassport/PassportTab'
+
 
 // NotFound
 import NotFound from './components/NotFound/NotFound'
@@ -249,6 +252,10 @@ const router = new Router({
 				{
 					path:'busclass/edit/:busclassId',
 					component:EditBusclass,
+				},
+				{
+					path:'passport',
+					component:PassportTab,
 				},
 			]
 		},
