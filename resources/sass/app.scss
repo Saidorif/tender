@@ -58,7 +58,9 @@ input[type=number] {
    -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
-
+.main-sidebar, .main-sidebar::before{
+  width: 280px;
+}
 .slide-enter-to, .slide-leave {
    max-height: 100px;
    overflow: hidden;

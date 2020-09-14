@@ -36,6 +36,7 @@ class DirectionController extends Controller
     {
         $region_ids = Region::pluck('id');
         $area_ids = Area::pluck('id');
+        $all_reg_ids = array_merge($region_ids,$area_ids);
         $validator = Validator::make($request->all(), [            
             'pass_number'  => 'required|string',
             'year'  => 'required|string',
@@ -43,6 +44,8 @@ class DirectionController extends Controller
             'type_id'  => 'required|integer',
             'region_from' => 'required|array',
             'region_to' => 'required|array',
+            'from_where'=> ['required',Rule::in($all_reg_ids),],
+            'seasonal'=> ['required',Rule::in(['seasonal','always']),],
             'region_from.region_id'=> ['required',Rule::in($region_ids),],
             'region_from.area_id'  => ['nullable',Rule::in($area_ids),],
             'region_from.station_id'  => ['required',Rule::in($area_ids),],
@@ -60,6 +63,8 @@ class DirectionController extends Controller
             'year' => $inputs['year'],
             'distance' => $inputs['distance'],
             'type_id' => $inputs['type_id'],
+            'from_where' => $inputs['from_where'],
+            'seasonal' => $inputs['seasonal'],
             'station_from_id' => $inputs['region_from']['station_id'],
             'region_from_id' => $inputs['region_from']['region_id'],
             'area_from_id' => $inputs['region_from']['area_id'],
@@ -81,6 +86,7 @@ class DirectionController extends Controller
         }
         $region_ids = Region::pluck('id');
         $area_ids = Area::pluck('id');
+        $all_reg_ids = array_merge($region_ids,$area_ids);
         $validator = Validator::make($request->all(), [            
             'pass_number'  => 'required|string',
             'year'  => 'required|string',
@@ -88,6 +94,8 @@ class DirectionController extends Controller
             'type_id'  => 'required|integer',
             'region_from' => 'required|array',
             'region_to' => 'required|array',
+            'from_where'=> ['required',Rule::in($all_reg_ids),],
+            'seasonal'=> ['required',Rule::in(['seasonal','always']),],
             'region_from.*.region_id'=> ['required',Rule::in($region_ids),],
             'region_from.*.area_id'  => ['nullable',Rule::in($area_ids),],
             'region_from.*.station_id'  => ['required',Rule::in($area_ids),],
@@ -105,6 +113,8 @@ class DirectionController extends Controller
             'year' => $inputs['year'],
             'distance' => $inputs['distance'],
             'type_id' => $inputs['type_id'],
+            'from_where' => $inputs['from_where'],
+            'seasonal' => $inputs['seasonal'],
             'station_from_id' => $inputs['region_from']['station_id'],
             'region_from_id' => $inputs['region_from']['region_id'],
             'area_from_id' => $inputs['region_from']['area_id'],

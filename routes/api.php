@@ -80,6 +80,14 @@ Route::group([
             Route::post('passport/update/{id}', 'PassportController@update');
             Route::delete('passport/destroy/{id}', 'PassportController@destroy');
 
+            //PassportTiming CRUD
+            Route::post('timing', 'PassportTimingController@index');
+            Route::post('timing/store', 'PassportTimingController@store');
+            Route::get('timing/list', 'PassportTimingController@list');
+            Route::get('timing/edit/{id}', 'PassportTimingController@edit');
+            Route::post('timing/update/{id}', 'PassportTimingController@update');
+            Route::delete('timing/destroy/{id}', 'PassportTimingController@destroy');
+
             //Direction CRUD
             Route::post('direction', 'DirectionController@index');
             Route::post('direction/store', 'DirectionController@store');
