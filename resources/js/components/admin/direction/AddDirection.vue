@@ -66,7 +66,6 @@
               <select
                 class="form-control input_style"
                 v-model="form.region_from.station_id"
-                :class="isRequired(form.region_from.station_id) ? 'isRequired' : ''"
                 placeholder="Area"
               >
                 <option value selected disabled>choose option</option>
@@ -103,7 +102,6 @@
               <select
                 class="form-control input_style"
                 v-model="form.region_to.station_id"
-                :class="isRequired(form.region_to.station_id) ? 'isRequired' : ''"
                 placeholder="Area"
               >
                 <option value selected disabled>choose option</option>
@@ -223,10 +221,8 @@ export default {
         this.form.type_id != ""  &&
         this.form.region_from.region_id != ""  &&
         this.form.region_from.area_id != ""  &&
-        this.form.region_from.station_id != ""  &&
         this.form.region_to.region_id != ""  &&
         this.form.region_to.area_id != ""  &&
-        this.form.region_to.station_id != "" &&
         this.form.from_where != "" &&
         this.form.seasonal != "" 
       ) {
@@ -242,7 +238,7 @@ export default {
 			toast.fire({
 				type: "error",
 				icon: "error",
-				title: 'error whoops'
+				title: 'Whoops..Something went wrong!'
 			 });
 		}
       this.requiredInput = false;
