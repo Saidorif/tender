@@ -231,13 +231,14 @@ export default {
         this.form.seasonal != "" 
       ) {
 		await this.actionAddDirection(this.form)
+    console.log(this.getMassage)
 		if(this.getMassage.success){
 			toast.fire({
 				type: "success",
 				icon: "success",
 				title: this.getMassage.message
 			 });
-			this.$router.push("/crm/direction");
+			this.$router.push(`/crm/direction/edit/${this.getMassage.result.id}`);
 		}else{
 			toast.fire({
 				type: "error",
