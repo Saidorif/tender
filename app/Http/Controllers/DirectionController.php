@@ -74,7 +74,7 @@ class DirectionController extends Controller
         // $direction->name = $direction->pass_number .'-'. $direction->regionFrom->name.'-***-'.$direction->regionTo->name;
         $direction->save();
 
-        return response()->json(['success' => true, 'message' => 'Направление успешно создан']);
+        return response()->json(['success' => true, 'message' => 'Направление успешно создан','result' => $direction]);
     }
 
     public function update(Request $request, $id)
