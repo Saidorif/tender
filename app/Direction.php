@@ -13,9 +13,19 @@ class Direction extends Model
         return $this->belongsTo(\App\Region::class,'region_from_id');
     }
 
+    public function regionFromWith()
+    {
+        return $this->regionFrom()->with(['area']);
+    }
+
     public function regionTo()
     {
         return $this->belongsTo(\App\Region::class,'region_to_id');
+    }
+
+    public function regionToWith()
+    {
+        return $this->regionTo()->with(['area']);
     }
 
     public function areaFrom()
@@ -23,8 +33,18 @@ class Direction extends Model
         return $this->belongsTo(\App\Area::class,'area_from_id');
     }
 
+    public function areaFromWith()
+    {
+        return $this->areaFrom()->with(['station']);
+    }
+
     public function areaTo()
     {
         return $this->belongsTo(\App\Area::class,'area_to_id');
+    }
+
+    public function areaToWith()
+    {
+        return $this->areaTo()->with(['station']);
     }
 }

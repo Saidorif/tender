@@ -25,7 +25,7 @@ class DirectionController extends Controller
 
     public function edit($id)
     {
-        $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo'])->find($id);
+        $result = Direction::with(['regionToWith','regionFromWith','areaFromWith','areaToWith'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
@@ -74,7 +74,7 @@ class DirectionController extends Controller
         // $direction->name = $direction->pass_number .'-'. $direction->regionFrom->name.'-***-'.$direction->regionTo->name;
         $direction->save();
 
-        return response()->json(['success' => true, 'message' => 'Направление успешно создан']);
+        return response()->json(['success' => true, 'message' => 'Направление успешно создан','result' => $direction]);
     }
 
     public function update(Request $request, $id)

@@ -21,6 +21,7 @@ import {region} from "./region.module"
 import {area} from "./area.module"
 import {station} from "./station.module"
 import {passport} from "./passport.module"
+import {passportTab} from "./passportTab.module"
 import {direction} from "./direction.module"
 import {typeofdirection} from "./typeofdirection.module"
 import {typeofbus} from "./typeofbus.module"
@@ -51,6 +52,7 @@ const store = new Vuex.Store(
 			dashboard,
 			region,
 			passport,
+			passportTab,
 			area,
 			direction,
 			station,
