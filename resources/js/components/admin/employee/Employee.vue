@@ -4,7 +4,7 @@
 		  	<div class="card-header header_filter">
 		  		<div class="header_title">
 				    <h4 class="title_user">
-				    	<i  class="peIcon pe-7s-users"></i>
+				    	<i  class="peIcon fas fa-users"></i>
 					     Пользователи 
 					</h4>
 					<div class="add_user_btn">
