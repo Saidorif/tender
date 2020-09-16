@@ -72,11 +72,14 @@ class EmployeeController extends Controller
         $role_ids = Role::where('name','!=','admin')->pluck('id');
         $validator = Validator::make($request->all(), [
             'name'         => 'required|string',
+            'middlename'         => 'required|string',
+            'surname'         => 'required|string',
             'region_id'    => 'required|integer',
+            'position_date'    => 'required|date',
             'area_id'      => 'required|integer',
             'role_id'      => ['required',Rule::in($role_ids),],
             'position_id'  => 'required|integer',
-            'phone'        => 'required|min:12',
+            'phone'        => 'nullable|min:12',
             'password'     => 'required|min:6',
             'confirm_password' => 'required|min:6',
             'email'      => 'required|unique:users,email|email',
@@ -112,23 +115,25 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $user = $request->user();
-        // $employee = User::where('role_id', '!=', 1)->where(['id' => $id])->first();
-        $employee = User::where(['id' => $id])->first();
-        $employee = User::findOrFail($id);
+        $role_ids = Role::where('name','!=','admin')->pluck('id');
+        $employee = User::where('role_id', '!=', 1)->find($id);
         if(!$employee){
             return response()->json(['error' => true, 'message' => 'Пользователь не найден']);
         }
         $validator = Validator::make($request->all(), [            
-            'status'                    => ['required',Rule::in(['active', 'inactive']),],
-            'gender'                    => ['required',Rule::in(['male', 'female']),],
-            'name'                      => 'required|string',
-            'email'                     => 'required|email|unique:users,email,'.$employee->id,
-            'password'                  => 'required|string|min:6',
-            'confirm_password'          => 'required|string|min:6',
-            'role_id'                   => 'required|integer',
-            'position_id'               => 'required|integer',
-            'role_id'                   => 'required|integer',
-            'image'                     => 'string|nullable',
+            'status'           => ['required',Rule::in(['active', 'inactive']),],
+            'name'             => 'required|string',
+            'middlename'       => 'required|string',
+            'surname'          => 'required|string',
+            'region_id'        => 'required|integer',
+            'position_date'    => 'required|date',
+            'area_id'          => 'required|integer',
+            'role_id'          => ['required',Rule::in($role_ids),],
+            'position_id'      => 'required|integer',
+            'phone'            => 'nullable|min:12',
+            'password'         => 'required|min:6',
+            'confirm_password' => 'required|min:6',
+            'email'            => 'required|email|unique:users,email,'.$employee->id,
         ]);
 
         if($validator->fails()){
@@ -165,37 +170,24 @@ class EmployeeController extends Controller
             $name = $employee->image;
         }
 
-        if ($request->file != $employee->file) {
-            $strposFile = strpos($request->file,';');
-            $subFile = substr($request->file, 0,$strposFile);
-            $exFile = explode('/',$subFile)[1];
-            $nameFile = time()."file.".$exFile;
-            $imgFile = Image::make($request->file);
-            $file_path = public_path()."/users/";
-            $imgFile->save($file_path.$nameFile);
-            $imageFile = $file_path.$employee->file;
-            if (file_exists($imageFile)) {
-                @unlink($imageFile);
-            }
-        }
-        else{
-            $nameFile = $employee->file;
-        }
+        // if ($request->file != $employee->file) {
+        //     $strposFile = strpos($request->file,';');
+        //     $subFile = substr($request->file, 0,$strposFile);
+        //     $exFile = explode('/',$subFile)[1];
+        //     $nameFile = time()."file.".$exFile;
+        //     $imgFile = Image::make($request->file);
+        //     $file_path = public_path()."/users/";
+        //     $imgFile->save($file_path.$nameFile);
+        //     $imageFile = $file_path.$employee->file;
+        //     if (file_exists($imageFile)) {
+        //         @unlink($imageFile);
+        //     }
+        // }
+        // else{
+        //     $nameFile = $employee->file;
+        // }
         $inputs['image'] = $name;
-        $inputs['file'] = $nameFile;
         $employee->update($inputs);
-
-        //Update user experience
-        if(!empty($inputs['experience'])){
-            $exps = $employee->experience;
-            foreach ($exps as $key => $value) {
-                $value->delete();
-            }
-            foreach ($inputs['experience'] as $key => $item) {
-                $item['user_id'] = $employee->id;
-                $experience = UserExperience::create($item);
-            }
-        }
 
         return response()->json(['success' => true, 'message' => 'Пользователь успешно обновлен']);
     }
@@ -203,18 +195,12 @@ class EmployeeController extends Controller
     public function destroy(Request $request, $id)
     {
         $user = $request->user();
-        $employee = User::where('role_id', '!=', 1)->where(['id' => $id])->first();
+        $employee = User::where('role_id', '!=', 1)->find($id);
         if(!$employee){
             return response()->json(['error' => true, 'message' => 'Пользователь не найден']);
         }
-
-        $exps = $employee->experience;
         //Delete User
         $employee->delete();
-        //Delete user experience
-        foreach ($exps as $key => $value) {
-            $value->delete();
-        }
         return response()->json(['error' => true, 'message' => 'Пользователь удален']);
     }
 }

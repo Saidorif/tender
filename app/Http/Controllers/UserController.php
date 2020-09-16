@@ -9,6 +9,7 @@ use Image;
 use App\Permission;
 use App\User;
 use JWTAuth;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -84,25 +85,7 @@ class UserController extends Controller
         else{
             $name = $user->image;
         }
-
-        if ($request->file != $user->file) {
-            $strposFile = strpos($request->file,';');
-            $subFile = substr($request->file, 0,$strposFile);
-            $exFile = explode('/',$subFile)[1];
-            $nameFile = time()."file.".$exFile;
-            $imgFile = Image::make($request->file);
-            $file_path = public_path()."/users/";
-            $imgFile->save($file_path.$nameFile);
-            $imageFile = $file_path.$user->file;
-            if (file_exists($imageFile)) {
-                @unlink($imageFile);
-            }
-        }
-        else{
-            $nameFile = $user->file;
-        }
         $inputs['image'] = $name;
-        $inputs['file'] = $nameFile;
         unset($inputs['password']);
         $user->update($inputs);
         return response()->json(['success' => true, 'result' => $user]);
@@ -111,9 +94,11 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'      => 'required',
-            'region_id'      => 'required|integer',
-            'area_id'      => 'required|integer',
+            'name'          => 'required',
+            'middlename'    => 'required|string',
+            'surname'       => 'required|string',
+            'region_id'     => 'required|integer',
+            'area_id'       => 'required|integer',
             'city'          => 'required|min:5',
             'bank_number'   => 'required|min:20',
             'oked'          => 'required|min:5',
@@ -189,5 +174,24 @@ class UserController extends Controller
         $inputs['password'] = Hash::make($inputs['password']);
         $user = \App\User::create($inputs);
         return response()->json(['success' => true, 'result' => $user]);
+    }
+
+    public function carrierUpdate(Request $request,$id)
+    {
+        $carrier = User::where(['role_id' => 9])->find($id);
+        if(!$carrier){
+            return response()->json(['error' => true, 'message' => 'Пользователь не найден']);
+        }
+        $validator = Validator::make($request->all(), [
+            'status'  => ['required',Rule::in(['active', 'inactive']),],
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inputs = $request->only('status');
+        $carrier->status = $inputs['status'];
+        $carrier->save();
+
+        return response()->json(['success' => true, 'message' => 'Статус успешно изменен']);
     }
 }
