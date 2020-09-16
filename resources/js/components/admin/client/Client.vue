@@ -5,7 +5,7 @@
 		  		<div class="header_title">
 				    <h4 class="title_user">
 				    	<i  class="peIcon pe-7s-users"></i>
-					     Пользователи 
+					     Перевозчики 
 					</h4>
 					<div class="add_user_btn">
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
