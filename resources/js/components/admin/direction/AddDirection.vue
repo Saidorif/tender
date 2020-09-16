@@ -20,7 +20,7 @@
                 v-model="form.type_id"
                 :class="isRequired(form.type_id) ? 'isRequired' : ''"
               >
-                <option value selected disabled>choose option</option>
+                <option value selected disabled>Variantni tanlang</option>
                 <option
                   :value="item.id"
                   v-for="(item,index) in getTypeofdirectionList"
@@ -44,7 +44,7 @@
                 :class="isRequired(form.region_from.region_id) ? 'isRequired' : ''"
                 @change="selectRegion('region_from')"
               >
-                <option value selected disabled>choose option</option>
+                <option value selected disabled>Variantni tanlang</option>
                 <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
               </select>
             </div>
@@ -56,7 +56,7 @@
                 placeholder="Area"
                 @change="selectArea('region_from')"
               >
-                <option value selected disabled>choose option</option>
+                <option value selected disabled>Variantni tanlang</option>
                 <option :value="item.id" v-for="(item,index) in areaFrom">{{item.name}}</option>
               </select>
             </div>
@@ -67,7 +67,7 @@
                 v-model="form.region_from.station_id"
                 placeholder="Area"
               >
-                <option value selected disabled>choose option</option>
+                <option value selected disabled>Variantni tanlang</option>
                 <option :value="item.id" v-for="(item,index) in stationFrom">{{item.name}}</option>
               </select>
             </div>
@@ -79,7 +79,7 @@
                 :class="isRequired(form.region_to.region_id) ? 'isRequired' : ''"
                 @change="selectRegion('region_to')"
               >
-                <option value selected disabled>choose option</option>
+                <option value selected disabled>Variantni tanlang</option>
                 <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
               </select>
             </div>
@@ -88,11 +88,10 @@
               <select
                 class="form-control input_style"
                 v-model="form.region_to.area_id"
-                :class="isRequired(form.region_to.area_id) ? 'isRequired' : ''"
                 placeholder="Area"
                 @change="selectArea('region_to')"
               >
-                <option value selected disabled>choose option</option>
+                <option value selected disabled>Variantni tanlang</option>
                 <option :value="item.id" v-for="(item,index) in areaTo">{{item.name}}</option>
               </select>
             </div>
@@ -103,7 +102,7 @@
                 v-model="form.region_to.station_id"
                 placeholder="Area"
               >
-                <option value selected disabled>choose option</option>
+                <option value selected disabled>Variantni tanlang</option>
                 <option :value="item.id" v-for="(item,index) in stationTo">{{item.name}}</option>
               </select>
             </div>
@@ -115,7 +114,7 @@
                 :class="isRequired(form.seasonal) ? 'isRequired' : ''"
                 placeholder="Area"
               >
-                <option value selected disabled>choose option</option>
+                <option value selected disabled>Variantni tanlang</option>
                 <option value="always">Doimiy</option>
                 <option value="seasonal">Mavsumiy</option>
               </select>
