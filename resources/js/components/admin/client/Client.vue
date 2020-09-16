@@ -70,6 +70,8 @@
 							<th scope="col">Ф.И.О</th>
 							<th scope="col">Название компании</th>
 							<th scope="col">ИНН</th>
+							<th scope="col">Область</th>
+							<th scope="col">Регион/Город</th>
 							<th scope="col">E-mail</th>
 							<th scope="col">Телефон</th>
 							<th scope="col">Действия</th>
@@ -81,6 +83,8 @@
 							<td>{{item.name}}</td>
 							<td>{{item.company_name}}</td>
 							<td>{{item.inn}}</td>
+							<td>{{item.region ? item.region.name : ''}}</td>
+							<td>{{item.area ? item.area.name : ''}}</td>
 							<td>{{item.email}}</td>
 							<td>{{item.phone}}</td>
 							<td>

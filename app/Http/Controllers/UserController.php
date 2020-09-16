@@ -163,7 +163,7 @@ class UserController extends Controller
                 $builder->where(['inn' => $params['inn']]);
             }
         }
-        $result = $builder->orderBy('id','DESC')->paginate(12);
+        $result = $builder->with(['region','area'])->orderBy('id','DESC')->paginate(12);
 
         return response()->json(['success' => true, 'result' => $result]);
     }

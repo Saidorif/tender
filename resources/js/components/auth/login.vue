@@ -122,7 +122,7 @@
                       type="text"
                       class="form-control"
                       v-model="signUp.name"
-				              placeholder="Уполномоченное лицо"
+				              placeholder="ФИО"
                       :class="isRequired(signUp.name) ? 'isRequired' : ''"
                     />
                     <div class="input-group-append">
@@ -130,7 +130,7 @@
                         class="input-group-text"
                         :class="isRequired(signUp.name) ? 'isRequired' : ''"
                       >
-                        <img src="/img/user.png" alt />
+                        <img src="/img/user.png" alt=""/>
                       </div>
                     </div>
                   </div>
@@ -139,7 +139,7 @@
                       type="text"
                       class="form-control"
                       v-model="signUp.trusted_person"
-                      placeholder="ФИО"
+                      placeholder="Уполномоченное лицо"
                       :class="isRequired(signUp.trusted_person) ? 'isRequired' : ''"
                     />
                     <div class="input-group-append">
