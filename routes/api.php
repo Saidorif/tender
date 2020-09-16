@@ -32,6 +32,7 @@ Route::group([
             Route::get('profile', 'UserController@profile');
             Route::post('change-password', 'UserController@changePasword');
             Route::post('carrier', 'UserController@carrier');
+            Route::get('carrier/edit/{id}', 'UserController@carrierEdit');
 
             //Employee CRUD
             Route::post('employee', 'EmployeeController@index');

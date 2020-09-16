@@ -167,4 +167,13 @@ class UserController extends Controller
 
         return response()->json(['success' => true, 'result' => $result]);
     }
+
+    public function carrierEdit(Request $request,$id)
+    {
+        $result = User::where(['role_id' => 9])->with(['region','area'])->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Перевозчик не найден']);
+        }
+        return response()->json(['success' => true, 'result' => $result]);;
+    }
 }
