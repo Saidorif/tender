@@ -112,15 +112,20 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'      => 'required',
+            'region_id'      => 'required|integer',
+            'area_id'      => 'required|integer',
             'city'          => 'required|min:5',
             'bank_number'   => 'required|min:20',
             'oked'          => 'required|min:5',
             'mfo'           => 'required|min:5',
             'inn'           => 'required|min:9',
             'phone'         => 'required|min:12',
-            'address'       => 'required|min:5',
+            'address'       => 'required|string',
+            'trusted_person'=> 'required|string',
             'company_name'  => 'required',
             'license_number'  => 'required',
+            'license_date'  => 'required',
+            'license_type'  => 'required',
             'password'      => 'required|min:6',
             'confirm_password' => 'required|min:6',
             'email'      => 'required|unique:users,email|email',
@@ -133,14 +138,13 @@ class UserController extends Controller
         if($inputs['password'] !== $inputs['confirm_password']){
             return response()->json(['error' => true, 'message' => ['password' =>'Password is invalid']]);
         }
-        $inputs['role_id'] = 2;
+        $inputs['role_id'] = 9;
         $inputs['password'] = Hash::make($request->input('password'));
 
         $user = User::create($inputs);
         $payloads = ['role' => $user->role_id];
         $credentials = $request->only('email', 'password');
         $token = JWTAuth::attempt($credentials, $payloads);
-        return response()->json(['success' => true, 'message' => 'Registeration success', 'token' => $token]);
-        
+        return response()->json(['success' => true, 'message' => 'Registeration success', 'token' => $token]);        
     }
 }

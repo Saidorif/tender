@@ -16,7 +16,8 @@ class JavaSeeder extends Seeder
             'email' => 'java@mail.ru',
             'password' => Hash::make('java328'),
             'role_id' => 1,
-            'gender' => 'male',
+            'region_id' => 1,
+            'area_id' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
