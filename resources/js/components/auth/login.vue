@@ -526,8 +526,26 @@ export default {
   				toast.fire({
   					type: "success",
   					icon: "success",
-  					title: "Ваш пароль отправлен на ваш e-mail. проверьте пожалуйста свою  e-mail"
+  					title: "Ваш пароль отправлен на ваш e-mail. проверьте пожалуйста свою электронную почту!"
   				});
+          this.signUp.region_id = ''
+          this.signUp.area_id = ''
+          this.signUp.name = ''
+          this.signUp.city = ''
+          this.signUp.bank_number = ''
+          this.signUp.oked = ''
+          this.signUp.mfo = ''
+          this.signUp.inn = ''
+          this.signUp.phone = ''
+          this.signUp.address = ''
+          this.signUp.company_name = ''
+          this.signUp.license_number = ''
+          this.signUp.password = ''
+          this.signUp.confirm_password = ''
+          this.signUp.email = ''
+          this.signUp.license_type = ''
+          this.signUp.license_date = ''
+          this.signUp.trusted_person = ''
   			}else{
   				this.errorMsgSign = this.getRegisterError.message;
   			}
