@@ -161,6 +161,7 @@
 			},
 			async selectRegion(){
 		      await this.actionAreaByRegion({ region_id: this.filter.region_id });
+		      this.filter.area_id = ''
 		    },
 			toggleFilter(){
 				this.filterShow = !this.filterShow
