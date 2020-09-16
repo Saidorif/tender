@@ -19,7 +19,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','createUser']]);
+        $this->middleware('auth:api', ['except' => ['login']]);
     }
 
     /**
@@ -112,13 +112,5 @@ class AuthController extends Controller
     public function guard()
     {
         return Auth::guard();
-    }
-
-    public function createUser(Request $request)
-    {
-        $inputs = $request->all();
-        $inputs['password'] = Hash::make($inputs['password']);
-        $user = \App\User::create($inputs);
-        return response()->json(['success' => true, 'result' => $user]);
     }
 }

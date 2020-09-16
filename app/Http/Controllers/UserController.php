@@ -123,7 +123,7 @@ class UserController extends Controller
             'address'       => 'required|string',
             'trusted_person'=> 'required|string',
             'company_name'  => 'required',
-        'license_number'  => 'required',
+            'license_number'  => 'required',
             'license_date'  => 'required',
             'license_type'  => 'required',
             'password'      => 'required|min:6',
@@ -162,6 +162,12 @@ class UserController extends Controller
             if(!empty($params['inn'])){
                 $builder->where(['inn' => $params['inn']]);
             }
+            if(!empty($params['region_id'])){
+                $builder->where(['region_id' => $params['region_id']]);
+            }
+            if(!empty($params['area_id'])){
+                $builder->where(['area_id' => $params['area_id']]);
+            }
         }
         $result = $builder->with(['region','area'])->orderBy('id','DESC')->paginate(12);
 
@@ -175,5 +181,13 @@ class UserController extends Controller
             return response()->json(['error' => true, 'message' => 'Перевозчик не найден']);
         }
         return response()->json(['success' => true, 'result' => $result]);;
+    }
+
+    public function createUser(Request $request)
+    {
+        $inputs = $request->all();
+        $inputs['password'] = Hash::make($inputs['password']);
+        $user = \App\User::create($inputs);
+        return response()->json(['success' => true, 'result' => $user]);
     }
 }

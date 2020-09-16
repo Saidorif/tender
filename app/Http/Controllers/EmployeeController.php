@@ -7,6 +7,7 @@ use Validator;
 use Hash;
 use Image;
 use App\User;
+use App\Role;
 use App\UserExperience;
 use Illuminate\Validation\Rule;
 
@@ -15,10 +16,14 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $builder = [];
-        if (auth()->user()->role_id == 1) {
-            $builder = User::query()->with(['role','position']);
+        $user = $request->user();
+        if ($user->role_id == 1) {
+            $builder = User::query()->with(['role','position'])->where('role_id','!=',9);
         }else{
-            $builder = User::query()->where('role_id', '!=', 1)->with(['role','position']);
+            $builder = User::query()
+                ->where('role_id', '!=', 1)
+                ->where('role_id','!=',9)
+                ->with(['role','position']);
         }
         $params = $request->all();
         if(count($params) > 0){
@@ -28,12 +33,10 @@ class EmployeeController extends Controller
             if(!empty($params['position_id'])){
                 $builder->where(['position_id' => $params['position_id']]);
             }
-            $users = $builder->orderBy('id','DESC')->paginate(12);
-        }else{
-            $users = User::with(['role','position'])->orderBy('id','DESC')->paginate(12);
         }
-        // $users = User::with(['role','position'])->paginate(12);
-        return response()->json(['success' => true, 'result' => $users]);
+        $result = $builder->orderBy('id','DESC')->paginate(12);
+        // $result = User::with(['role','position'])->orderBy('id','DESC')->paginate(12);
+        return response()->json(['success' => true, 'result' => $result]);
     }
 
     public function list()
@@ -66,17 +69,17 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
+        $role_ids = Role::where('name','!=','admin')->pluck('id');
         $validator = Validator::make($request->all(), [
-            'status'                    => ['required',Rule::in(['active', 'inactive']),],
-            'gender'                    => ['required',Rule::in(['male', 'female']),],
-            'name'                      => 'required|string',
-            'email'                     => 'required|email|unique:users,email',
-            'password'                  => 'required|string|min:6',
-            'confirm_password'          => 'required|string|min:6',
-            'role_id'                   => 'required|integer',
-            'position_id'               => 'required|integer',
-            'role_id'                   => 'required|integer',
-            'image'                     => 'string|nullable',
+            'name'         => 'required|string',
+            'region_id'    => 'required|integer',
+            'area_id'      => 'required|integer',
+            'role_id'      => ['required',Rule::in($role_ids),],
+            'position_id'  => 'required|integer',
+            'phone'        => 'required|min:12',
+            'password'     => 'required|min:6',
+            'confirm_password' => 'required|min:6',
+            'email'      => 'required|unique:users,email|email',
         ]);
 
         if($validator->fails()){
@@ -87,6 +90,7 @@ class EmployeeController extends Controller
             return response()->json(['error' => true,'message' => 'Пароли не совпадают']);
         }
         $inputs['password'] = Hash::make($inputs['password']);
+        $inputs['status'] = 'active';
         //Upload file and image
         if($request->image){
             $strpos = strpos($request->image,';');
@@ -99,27 +103,8 @@ class EmployeeController extends Controller
             $img->save($img_path.$img_name);
             $inputs['image'] = $img_name;
         }
-        if($request->file){
-            $strposfile = strpos($request->file,';');
-            $subfile = substr($request->file, 0,$strposfile);
-            $exfile = explode('/',$subfile)[1];
-            $file_name = time()."file.".$exfile;
-
-            $file = Image::make($request->file);
-            $file_path = public_path()."/users/";
-            $file->save($file_path.$file_name);
-            $inputs['file'] = $file_name;
-        }
 
         $employee = User::create($inputs);
-
-        //Save user experience
-        if(!empty($inputs['experience'])){
-            foreach ($inputs['experience'] as $key => $item) {
-                $item['user_id'] = $employee->id;
-                $experience = UserExperience::create($item);
-            }
-        }
 
         return response()->json(['success' => true, 'message' => 'Пользователь создан успешно']);
     }

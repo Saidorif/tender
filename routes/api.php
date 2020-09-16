@@ -20,7 +20,7 @@ Route::group([
     Route::post('register', 'UserController@register');
     Route::get('region/list', 'RegionController@list');
     Route::post('area/regionby', 'AreaController@regionby');
-    // Route::post('create-user', 'AuthController@createUser');
+    // Route::post('create-user', 'UserController@createUser');
     
     Route::group(['middleware' => 'jwt.auth'], function(){
         // Route::group(['middleware' => 'permit'], function(){
