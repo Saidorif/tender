@@ -118,7 +118,7 @@ class UserController extends Controller
             'bank_number'   => 'required|min:20',
             'oked'          => 'required|min:5',
             'mfo'           => 'required|min:5',
-            'inn'           => 'required|min:9',
+            'inn'           => 'required|min:9|unique:users,inn',
             'phone'         => 'required|min:12',
             'address'       => 'required|string',
             'trusted_person'=> 'required|string',

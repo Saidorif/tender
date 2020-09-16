@@ -44,14 +44,14 @@ class DirectionController extends Controller
             'type_id'  => 'required|integer',
             'region_from' => 'required|array',
             'region_to' => 'required|array',
-            'from_where'=> 'required|string',
+            'from_where'=> 'required',
             'seasonal'=> ['required',Rule::in(['seasonal','always']),],
             'region_from.region_id'=> ['required',Rule::in($region_ids),],
             'region_from.area_id'  => ['nullable',Rule::in($area_ids),],
-            'region_from.station_id'  => ['required',Rule::in($area_ids),],
+            'region_from.station_id'  => ['nullable',Rule::in($area_ids),],
             'region_to.region_id'  => ['required',Rule::in($region_ids),],
             'region_to.area_id'    => ['nullable',Rule::in($area_ids),],
-            'region_to.station_id'    => ['required',Rule::in($area_ids),],
+            'region_to.station_id'    => ['nullable',Rule::in($area_ids),],
         ]);
 
         if($validator->fails()){
@@ -94,14 +94,14 @@ class DirectionController extends Controller
             'type_id'  => 'required|integer',
             'region_from' => 'required|array',
             'region_to' => 'required|array',
-            'from_where'=> 'required|string',
+            'from_where'=> 'required',
             'seasonal'=> ['required',Rule::in(['seasonal','always']),],
             'region_from.*.region_id'=> ['required',Rule::in($region_ids),],
             'region_from.*.area_id'  => ['nullable',Rule::in($area_ids),],
-            'region_from.*.station_id'  => ['required',Rule::in($area_ids),],
+            'region_from.*.station_id'  => ['nullable',Rule::in($area_ids),],
             'region_to.*.region_id'  => ['required',Rule::in($region_ids),],
             'region_to.*.area_id'    => ['nullable',Rule::in($area_ids),],
-            'region_to.*.station_id'    => ['required',Rule::in($area_ids),],
+            'region_to.*.station_id'    => ['nullable',Rule::in($area_ids),],
         ]);
 
         if($validator->fails()){
