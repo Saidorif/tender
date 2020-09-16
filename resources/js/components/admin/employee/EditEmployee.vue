@@ -1,42 +1,101 @@
 <template>
-  <div class="edit_employee">
+  <div class="add_employee">
     <div class="card">
       <div class="card-header">
         <h3 class="card-title title_user mb-0">
-          <i class="peIcon pe-7s-user"></i>Редактировать пользователя
+          <i  class="peIcon fas fa-users"></i></i>Редактировать cотрудник
         </h3>
-        <router-link class="btn btn-primary back_btn" to="/crm/employee"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+        <router-link class="btn btn-primary back_btn" to="/crm/employee">
+          <span class="peIcon pe-7s-back"></span> Назад
+        </router-link>
       </div>
       <form role="form" @submit.prevent.enter="sendEmployee" enctype="multipart/form-data">
         <div class="card-body d-flex flex-wrap">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="name">Ф.И.О</label>
-              <input
-                type="text"
-                class="form-control input_style"
-                id="name"
-                :class="isRequired(form.name) ? 'isRequired' : ''"
-                placeholder="Ф.И.О"
-                v-model="form.name"
-              />
-            </div>
-            <div class="form-group" v-if="form.role_id != 3">
-              <label for="position">Должность</label>
-              <select
-                class="form-control"
-                :class="isRequired(form.position_id) ? 'isRequired' : '' "
-                id="position"
-                v-model="form.position_id"
-              >
-                <option value selected disabled>Выберите должность</option>
-                <option
-                  :value="position.id"
-                  v-for="(position,index) in getPositionList"
-                >{{position.name}}</option>
-              </select>
-            </div>
-            <div class="input_block_d_flex">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="form-group col-lg-6">
+                <label for="region_id">Область</label>
+                <select
+                  id="region_id"
+                  class="form-control input_style"
+                  :class="isRequired(form.region_id) ? 'isRequired' : ''"
+                  v-model="form.region_id"
+                  @change="selectRegion()"
+                >
+                  <option value="" selected disabled>Выберите область!</option>
+                  <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="area_id">Регион/Город!</label>
+                <select
+                  id="area_id"  
+                  class="form-control input_style"
+                  :class="isRequired(form.area_id) ? 'isRequired' : ''"
+                  v-model="form.area_id"
+                >
+                  <option value="" selected disabled>Выберите регин или город!</option>
+                  <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="surname">Фамилия</label>
+                <input
+                  type="text"
+                  class="form-control input_style"
+                  id="surname"
+                  :class="isRequired(form.surname) ? 'isRequired' : ''"
+                  placeholder="Фамилия"
+                  v-model="form.surname"
+                />
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="name">Имя</label>
+                <input
+                  type="text"
+                  class="form-control input_style"
+                  id="name"
+                  :class="isRequired(form.name) ? 'isRequired' : ''"
+                  placeholder="Имя"
+                  v-model="form.name"
+                />
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="middlename">Отчество</label>
+                <input
+                  type="text"
+                  class="form-control input_style"
+                  id="middlename"
+                  :class="isRequired(form.middlename) ? 'isRequired' : ''"
+                  placeholder="Отчество"
+                  v-model="form.middlename"
+                />
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="positon">Должность</label>
+                <select
+                  class="form-control"
+                  :class="isRequired(form.position_id) ? 'isRequired' : '' "
+                  id="positon"
+                  v-model="form.position_id"
+                >
+                  <option value selected disabled>Выберите Должность</option>
+                  <option
+                    :value="position.id"
+                    v-for="(position,index) in getPositionList"
+                  >{{position.name}}</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="phone">Телефон</label>
+                <input
+                  type="text"
+                  class="form-control input_style"
+                  id="Телефон"
+                  placeholder="Телефон.."
+                  v-model="form.phone"
+                />
+              </div>
               <div class="form-group col-md-6">
                 <label for="role">Рол</label>
                 <select
@@ -50,20 +109,31 @@
                 </select>
               </div>
               <div class="form-group col-md-6">
-                <label for="exampleInputEmail1">Email</label>
+                <label for="exampleInputEmail1">E-mail</label>
                 <input
                   type="email"
                   class="form-control input_style"
                   :class="isRequired(form.email) ? 'isRequired' : ''"
                   id="exampleInputEmail1"
-                  placeholder="Enter email"
+                  placeholder="E-mail"
                   v-model="form.email"
                   @blur="checkEmailInput"
                 />
                 <small class="redText" v-if="emailError">Email почта занят!</small>
               </div>
-            </div>
-            <div class="input_block_d_flex">
+              <div class="form-group col-md-6">
+                <label for="position_date">Дата приказа</label>
+                <date-picker 
+                  id="position_date"
+                  lang="ru" 
+                  type="date"
+                  placeholder="Дата приказа"
+                  v-model="form.position_date" 
+                  valueType="format" 
+                  class="input_style"
+                  :class="isRequired(form.position_date) ? 'isRequired' : ''"
+                ></date-picker>
+              </div>
               <div class="form-group col-md-6">
                 <label for="exampleInputPassword1">Пароль</label>
                 <input
@@ -82,99 +152,30 @@
                   class="form-control input_style"
                   id="ConfirmPassword1"
                   placeholder="Подтвердите пароль.."
-                  v-model="form.passwordConfirm"
-                  :class="isRequired(form.passwordConfirm) ? 'isRequired' : ''"
+                  v-model="form.confirm_password"
+                  :class="isRequired(form.confirm_password) ? 'isRequired' : ''"
                   @input="confirmPassword()"
                 />
                 <small class="redText" v-if="checkPassword">
                   <b>Пароль не совпадает</b>
                 </small>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="address">Адрес</label>
-              <input
-                type="text"
-                class="form-control input_style"
-                id="address"
-                placeholder="Адрес.."
-                v-model="form.address"
-              />
-            </div>
-                        <div class="input_block_d_flex">
-              <div class="form-group col-md-6">
-                <label for="nation">Нация</label>
-                <input
-                  type="text"
-                  class="form-control input_style"
-                  id="nation"
-                  placeholder="Нация.."
-                  :class="isRequired(form.nation) ? 'isRequired' : ''"
-                  v-model="form.nation"
-                />
+              <div class="form-group col-lg-6">
+                <label for="status">Статус</label>
+                <select
+                  class="form-control"
+                  :class="isRequired(form.status) ? 'isRequired' : '' "
+                  id="status"
+                  v-model="form.status"
+                >
+                  <option value="active">Активный</option>
+                  <option value="inactive">Неактивный</option>
+                </select>
               </div>
-              <div class="form-group col-md-6">
-                <label for="education">Образование</label>
-                <input
-                  type="text"
-                  class="form-control input_style"
-                  id="education"
-                  placeholder="Образование"
-                  v-model="form.education"
-                  :class="isRequired(form.education) ? 'isRequired' : ''"
-                />
-              </div>
-            </div>
-            <div class="input_block_d_flex">
-              <div class="form-group col-md-6">
-                <label for="languages">Қайси чет тилларинибилади</label>
-                <input
-                  type="text"
-                  class="form-control input_style"
-                  id="languages"
-                  placeholder="Қайси чет тилларинибилади.."
-                  :class="isRequired(form.languages) ? 'isRequired' : ''"
-                  v-model="form.languages"
-                />
-              </div>
-              <div class="form-group col-md-6">
-                <label for="state_award">Давлат мукофотлари б-н тақдирланганми (қанақа):</label>
-                <input
-                  type="text"
-                  class="form-control input_style"
-                  id="state_awards"
-                  placeholder="Давлат мукофотлари б-н тақдирланганми (қанақа):"
-                  v-model="form.state_award"
-                  :class="isRequired(form.state_award) ? 'isRequired' : ''"
-                />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="fortext">Образование (название,профессия,адрес)</label>
-              <textarea
-                class="form-control input_style"
-                v-model="form.text"
-                placeholder="Текст.."
-                style="height: 114px; resize: none;"
-              ></textarea>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-group photoFileUploader">
-              <div class="avatar-upload">
-                <div class="avatar-edit">
-                  <input type="file" id="file" @change="changeFile($event)" />
-                  <label for="file">
-                    <i class="pe-7s-pen"></i>
-                  </label>
-                </div>
-                <div class="avatar-preview">
-                  <div id="fileimagePreview">
-                    <span>{{fileFormat}}</span>
-                  </div>
-                </div>
-              </div>
-              <!-- userImg -->
               <div class="avatar-upload">
                 <div class="avatar-edit">
                   <input
@@ -195,224 +196,8 @@
                 </div>
               </div>
             </div>
-            <div class="input_block_d_flex" >
-              <div class="form-group col-md-6">
-                <label for="birthday">Дата рождения</label>
-                <date-picker
-                    lang="ru"
-                    v-model="form.birthday"
-                    valueType="format"
-                    format="YYYY-MM-DD"
-                    placeholder="YYYY-MM-DD"
-                  ></date-picker>
-              </div>
-              <div class="form-group col-md-6">
-                <label for="birthday">Статус</label>
-                <select v-model="form.status"  class="form-control" >
-                  <option value="active" selected>Активный</option>
-                  <option value="inactive">Неактивный</option>
-                </select>
-              </div>
-           </div>
-            <div class="input_block_d_flex" v-if="form.role_id != 3">
-              <div class="form-group col-md-6">
-                <label for="date_from">Дата с</label>
-                <date-picker
-                  lang="ru"
-                  v-model="form.order_date"
-                  valueType="format"
-                  format="YYYY-MM-DD"
-                  placeholder="YYYY-MM-DD"
-                ></date-picker>
-              </div>
-              <div class="form-group col-md-6">
-                <label for="date_to">Дата по</label>
-                <date-picker
-                  lang="ru"
-                  v-model="form.leave_date"
-                  valueType="format"
-                  format="YYYY-MM-DD"
-                  placeholder="YYYY-MM-DD"
-                  :disabled="form.working"
-                ></date-picker>
-                <div class="input_radio">
-                  <label for="working">до настоящего времени</label>
-                  <input
-                    type="checkbox"
-                    class="input_switch"
-                    name="working"
-                    v-model="form.working"
-                    id="working"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="input_block_d_flex">
-              <div class="form-group col-md-6">
-                <label for="phone">Телефон</label>
-                <input
-                  type="text"
-                  class="form-control input_style"
-                  id="phone"
-                  placeholder="Phone.."
-                  v-model="form.phone"
-                />
-              </div>
-              <div class="form-group col-md-6" v-if="form.role_id != 3">
-                <label for="gender">Пол</label>
-                <select 
-                  class="form-control" 
-                  id="gender" 
-                  v-model="form.gender"
-                  :class="isRequired(form.gender) ? 'isRequired' : ''"
-                >
-                  <option value selected disabled>Выберите пол</option>
-                  <option value="male">Мужчина</option>
-                  <option value="female">Женщина</option>
-                </select>
-              </div>
-            </div>
-            <div class="input_block_d_flex">
-              <div class="form-group col-md-6">
-                <label for="partisanship">Партиявийлиги:</label>
-                <input
-                  type="text"
-                  class="form-control input_style"
-                  id="partisanship"
-                  placeholder="Партиявийлиги:"
-                  v-model="form.partisanship"
-                  :class="isRequired(form.partisanship) ? 'isRequired' : ''"
-                />
-              </div>
-              <div class="form-group col-md-6" v-if="form.role_id != 3">
-                <label for="education_spec">Маълумоти бўйича мутахассислиги:</label>
-                <input
-                  type="text"
-                  class="form-control input_style"
-                  id="education_spec"
-                  placeholder="Маълумоти бўйича мутахассислиги:"
-                  v-model="form.education_spec"
-                  :class="isRequired(form.education_spec) ? 'isRequired' : ''"
-                />
-              </div>
-            </div>
-            <div class="input_block_d_flex">
-              <div class="form-group col-md-6">
-                <label for="partiya">Илмий даражаси:</label>
-                <input
-                  type="text"
-                  class="form-control input_style"
-                  id="partiya"
-                  placeholder="Илмий даражаси:"
-                  v-model="form.academic_degree"
-                  :class="isRequired(form.academic_degree) ? 'isRequired' : ''"
-                />
-              </div>
-              <div class="form-group col-md-6" v-if="form.role_id != 3">
-                <label for="academic_sertificate">Илмий унвони:</label>
-                <input
-                  type="text"
-                  class="form-control input_style"
-                  id="academic_sertificate"
-                  placeholder="Илмий унвони:"
-                  v-model="form.academic_sertificate"
-                  :class="isRequired(form.academic_sertificate) ? 'isRequired' : ''"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <label for="deputat">Халқ депутатлари, республика, вилоят, шаҳар ва туман Кенгаши депутатими ёки бошқа сайланадиган органларнинг аъзосими (тўлиқ кўрсатилиши лозим)</label>
-            <input
-              type="text"
-              class="form-control input_style"
-              id="deputat"
-              placeholder="Халқ депутатлари, республика, вилоят, шаҳар ва туман Кенгаши депутатими ёки бошқа сайланадиган органларнинг аъзосими (тўлиқ кўрсатилиши лозим)"
-              v-model="form.deputat"
-              :class="isRequired(form.deputat) ? 'isRequired' : ''"
-            />
-          </div>
-          <h5 class="sub_title">Трудовая деятельность</h5>
-          <div class="row col-md-12" v-for="(ex, index) in form.experience">
-            <div class="col-12 d-flex justify-content-end">
-              <button
-                type="button"
-                class="btn btn-primary mr-3"
-                @click="removeExperience(ex, index)"
-              >
-                <i class="fas fa-plus"></i> удалить опыт
-              </button>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="company">Название учреждения</label>
-              <input
-                type="text"
-                class="form-control input_style"
-                id="company"
-                :class="isRequired(ex.company) ? 'isRequired' : ''"
-                placeholder="Название учреждения"
-                v-model="ex.company"
-              />
-            </div>
-            <div class="form-group col-md-3">
-              <label for="position">Должность</label>
-              <input
-                type="text"
-                class="form-control input_style"
-                id="position"
-                :class="isRequired(ex.position) ? 'isRequired' : ''"
-                placeholder="Должность"
-                v-model="ex.position"
-              />
-            </div>
-            <div class="form-group col-md-3">
-              <label for="date_from">Дата с</label>
-              <input
-                type="date"
-                class="form-control input_style"
-                id="date_from"
-                :class="isRequired(ex.date_from) ? 'isRequired' : ''"
-                placeholder="date_from"
-                v-model="ex.date_from"
-              />
-            </div>
-            <div class="form-group col-md-3">
-              <label for="date_to">Дата по</label>
-              <input
-                type="date"
-                class="form-control input_style"
-                id="date_to"
-                :class="isRequired(ex.date_to) ? 'isRequired' : ''"
-                placeholder="date_to"
-                v-model="ex.date_to"
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="address">Адрес учреждения</label>
-              <input
-                type="text"
-                class="form-control input_style"
-                id="address"
-                placeholder="Адрес учреждения"
-                v-model="ex.address"
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="description">Описание</label>
-              <input
-                type="text"
-                class="form-control input_style"
-                id="description"
-                placeholder="Описание"
-                v-model="ex.description"
-              />
-            </div>
-            <hr />
           </div>
           <div class="col-12 d-flex justify-content-end">
-            <button type="button" class="btn btn-primary mr-3" @click="addExperience()">
-              <i class="fas fa-plus"></i> Добавить опыт
-            </button>
             <button type="submit" class="btn btn-primary">
               <i class="fas fa-save"></i> Сохранить
             </button>
@@ -432,45 +217,43 @@ export default {
   data() {
     return {
       form: {
-        id: "",
+        surname: "",
+        middlename: "",
         name: "",
         email: "",
         password: "",
-        passwordConfirm: "",
-        category_id: "",
-        address: "",
+        confirm_password: "",
         role_id: "",
+        region_id: "",
+        area_id: "",
         position_id: "",
         phone: "",
         image: "",
-        file: "",
-        text: "",
-        order_date: "",
-        birthday: "",
-        leave_date: "",
-        gender: "",
-        status: 'active',
-        working: false,
-        experience: []
+        status: "",
       },
+      fileFormat: "нет-файла",
       requiredInput: false,
       checkPassword: false,
-      emailError: false,
-      fileFormat: "нет-файла"
+      emailError: false
     };
   },
   async mounted() {
     await this.actionRoleList();
     await this.actionPositionList();
+    await this.actionRegionList();
     await this.actionEditEmployee({ id: this.$route.params.employeeId });
     this.form = this.getEmployee;
   },
   computed: {
     ...mapGetters("employee", ["getMassage", "getEmployee"]),
     ...mapGetters("role", ["getRoleList"]),
-    ...mapGetters("position", ["getPositionList"])
+    ...mapGetters("position", ["getPositionList"]),
+    ...mapGetters("region", ["getRegionList"]),
+    ...mapGetters("area", ["getAreaList"]),
   },
   methods: {
+    ...mapActions("region", ["actionRegionList"]),
+    ...mapActions("area", ["actionAreaByRegion"]),
     ...mapActions("role", ["actionRoleList"]),
     ...mapActions("employee", [
       "actionUpdateEmployee",
@@ -478,6 +261,10 @@ export default {
       "actionEditEmployee"
     ]),
     ...mapActions("position", ["actionPositionList"]),
+    async selectRegion(){
+      await this.actionAreaByRegion({ region_id: this.form.region_id });
+      this.form.area_id = ''
+    },
     confirmPassword() {
       if (this.form.password && this.form.passwordConfirm) {
         if (this.form.password != this.form.passwordConfirm) {
@@ -498,24 +285,6 @@ export default {
         return "/img/user.jpg";
       }
 
-    },
-    changeFile(event) {
-      let file = event.target.files[0];
-      if (file.size > 1048576) {
-        swal.fire({
-          type: "error",
-          icon: "error",
-          title: "Ошибка",
-          text: "Размер файл не должно быть больше 1мб"
-        });
-      } else {
-        let reader = new FileReader();
-        reader.onload = e => {
-          this.form.file = e.target.result;
-          this.fileFormat = event.target.files[0].name.substr(event.target.files[0].name.lastIndexOf("\\") + 1).split(".")[1];
-        };
-        reader.readAsDataURL(file);
-      }
     },
     changePhoto(event) {
       let file = event.target.files[0];
@@ -549,13 +318,21 @@ export default {
       return this.requiredInput && input === "";
     },
     async sendEmployee(){
-      if (this.form.name && this.form.email && this.form.role_id && this.form.gender) {
-        if (this.form.experience.length){
-          await this.actionUpdateEmployee(this.form);
-        } else {
-          delete this.form.experience;
-          await this.actionUpdateEmployee(this.form);
-        }
+      if (
+        this.form.middlename &&
+        this.form.surname &&
+        this.form.name &&
+        this.form.email &&
+        this.form.password &&
+        this.form.confirm_password &&
+        this.form.phone &&
+        this.form.region_id &&
+        this.form.area_id &&
+        this.form.position_id &&
+        this.form.role_id &&
+        this.checkPassword == false
+      ) {
+        await this.actionUpdateEmployee(this.form);
         if (this.getMassage.success) {
           this.$router.push("/crm/employee");
           this.requiredInput = false;
@@ -580,20 +357,6 @@ export default {
         this.emailError = false;
       }
     },
-    addExperience() {
-      let item = {
-        company: "",
-        date_from: "",
-        date_to: "",
-        address: "",
-        position: "",
-        description: ""
-      };
-      this.form.experience.push(item);
-    },
-    removeExperience(ex, index) {
-      this.form.experience.splice(index, 1);
-    }
   }
 };
 </script>

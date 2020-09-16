@@ -4,8 +4,8 @@
 		  	<div class="card-header header_filter">
 		  		<div class="header_title">
 				    <h4 class="title_user">
-				    	<i  class="peIcon pe-7s-users"></i>
-					     Пользователи 
+				    	<i  class="peIcon fas fa-users"></i>
+					     Сотрудники 
 					</h4>
 					<div class="add_user_btn">
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
@@ -18,30 +18,75 @@
 		    	<transition name="slide">
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
-  					  		<div class="form-group col-lg-3">
-	  							<label for="name">Ф.И.О</label>
-	  							<input 
-	  								type="text" 
-	  								class="form-control" 
-	  								id="name" 
-	  								placeholder="Ф.И.О..."
-	  								v-model="filter.name"
-  								>
-				  			</div>
-  					  		<div class="form-group col-lg-3">
-	  							<label for="category_id">Должность</label>
+				  			<div class="form-group col-lg-3">
+				                <label for="surname">Фамилия</label>
+				                <input
+				                  type="text"
+				                  class="form-control input_style"
+				                  id="surname"
+				                  placeholder="Фамилия"
+				                  v-model="filter.surname"
+				                />
+			              	</div>
+			              	<div class="form-group col-lg-3">
+				                <label for="name">Имя</label>
+				                <input
+				                  type="text"
+				                  class="form-control input_style"
+				                  id="name"
+				                  placeholder="Имя"
+				                  v-model="filter.name"
+				                />
+			              	</div>
+			              	<div class="form-group col-lg-3">
+				                <label for="middlename">Отчество</label>
+				                <input
+				                  type="text"
+				                  class="form-control input_style"
+				                  id="middlename"
+				                  placeholder="Отчество"
+				                  v-model="filter.middlename"
+				                />
+			              	</div>
+			              	<div class="form-group col-lg-3">
+	  							<label for="position_id">Должность</label>
   								<select name="" v-model="filter.position_id" class="form-control" >
   									<option value="">Выберите должность!</option>
   									<option :value="position.id" v-for="(position,index) in getPositionList" :key="position.id">	
   										{{position.name}}
   									</option>
   								</select>
-				  			</div>	
+				  			</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="region_id">Область</label>
+			                    <select
+			                      id="region_id"
+			                      class="form-control input_style"
+			                      v-model="filter.region_id"
+			                      @change="selectRegion()"
+			                    >
+			                      <option value="" selected disabled>Выберите область!</option>
+			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="area_id">Регион/Город!</label>
+			                    <select
+			                      id="area_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.area_id"
+			                    >
+			                      <option value="" selected disabled>Выберите регин или город!</option>
+			                      <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
+			                    </select>
+              				</div>
   					  		<div class="form-group col-lg-3">
-	  							<label for="category_id">Направления</label>
-  								<select name="" v-model="filter.category_id" class="form-control" >
-  									<option value="">Выберите направления!</option>
-  									<option :value="cat.id" v-for="(cat,index) in getCategories" :key="cat.id">{{cat.name}}</option>
+	  							<label for="role_id">Рол</label>
+  								<select name="" v-model="filter.role_id" class="form-control" >
+  									<option value="">Выберите рол!</option>
+  									<option :value="role.id" v-for="(role,index) in getRoleList" :key="role.id">	
+  										{{role.name}}
+  									</option>
   								</select>
 				  			</div>	
 						  	<div class="col-lg-3 form-group btn_search">
@@ -69,17 +114,23 @@
 							<th scope="col">Рол</th>
 							<th scope="col">E-mail</th>
 							<th scope="col">Телефон</th>
+							<th scope="col">Статус</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="(item,index) in getEmployees.data">
 							<td scope="row">{{index+1}}</td>
-							<td>{{item.name}}</td>
+							<td>{{item.surname}} {{item.name}} {{item.middlename}}</td>
 							<td>{{item.position ? item.position.name : ''}}</td>
 							<td>{{item.role ? item.role.name : ''}}</td>
 							<td>{{item.email}}</td>
 							<td>{{item.phone}}</td>
+							<td>
+								<div class="badge" :class="item.status == 'active' ? ' badge-success' : ' badge-warning'">
+									{{item.status}}
+								</div>
+							</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/employee/edit/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -103,9 +154,13 @@
 		data(){
 			return{
 				filter:{
+					region_id:'',
+					area_id:'',
+					middlename:'',
+					surname:'',
 					name:'',
-					category_id:'',
 					position_id:'',
+					role_id:'',
 				},
 				filterShow:false,
 			}
@@ -113,15 +168,26 @@
 		async mounted(){
 			let page = 1;
 			await this.actionEmployees({page:page,items:this.filter})
+			await this.actionRoleList();
 			await this.actionPositionList()
+			await this.actionRegionList();
 		},
 		computed:{
 			...mapGetters('employee',['getEmployees']),
-			...mapGetters('position',['getPositionList'])
+			...mapGetters('position',['getPositionList']),
+			...mapGetters("region", ["getRegionList"]),
+			...mapGetters("area", ["getAreaList"]),
+			...mapGetters('role',['getRoleList','getMassage'])
 		},
 		methods:{
 			...mapActions('employee',['actionEmployees','actionDeleteEmployee']),
 			...mapActions('position',['actionPositionList']),
+			...mapActions("region", ["actionRegionList"]),
+    		...mapActions("area", ["actionAreaByRegion"]),
+    		...mapActions('role',['actionRoleList','actionDeleteRole']),
+			async selectRegion(){
+		      await this.actionAreaByRegion({ region_id: this.filter.region_id });
+		    },
 			async getResults(page = 1){ 
 				await this.actionEmployees({page:page,items:this.filter})
 			},
@@ -130,15 +196,17 @@
 			},
 			async search(){
 				let page = 1
-				if(this.filter.name || this.filter.category_id || this.filter.position_id){
+				if(this.filter.name || this.filter.region_id || this.filter.area_id || this.filter.position_id || this.filter.role_id){
 					await this.actionEmployees({page: page,items:this.filter})
 				}
 			},
 			async clear(){
-				if(this.filter.name || this.filter.category_id || this.filter.position_id){
+				if(this.filter.name || this.filter.region_id || this.filter.area_id || this.filter.position_id || this.filter.role_id){
 					this.filter.name = ''
-					this.filter.category_id = ''
+					this.filter.region_id = ''
+					this.filter.area_id = ''
 					this.filter.position_id = ''
+					this.filter.role_id = ''
 					let page  = 1
 					await this.actionEmployees({page: page,items:this.filter})
 				}

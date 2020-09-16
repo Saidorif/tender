@@ -72,6 +72,11 @@ import Station from './components/admin/station/Station'
 import AddStation from './components/admin/station/AddStation'
 import EditStation from './components/admin/station/EditStation'
 
+// Station
+import Client from './components/admin/client/Client'
+import AddClient from './components/admin/client/AddClient'
+import EditClient from './components/admin/client/EditClient'
+
 // PassportTab
 import PassportTab from './components/admin/steppassport/PassportTab'
 
@@ -116,6 +121,18 @@ const router = new Router({
 				{
 					path:'employee/edit/:employeeId',
 					component:EditEmployee,
+				},
+				{
+					path:'client',
+					component:Client,
+				},
+				{
+					path:'client/add',
+					component:AddClient,
+				},
+				{
+					path:'client/edit/:clientId',
+					component:EditClient,
 				},
 				{
 					path:'role',
