@@ -29,6 +29,7 @@ class DirectionController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
+        $result->from_where = json_decode( $result->from_where, true );
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -43,7 +44,7 @@ class DirectionController extends Controller
             'type_id'  => 'required|integer',
             'region_from' => 'required|array',
             'region_to' => 'required|array',
-            'from_where'=> 'required|integer',
+            'from_where'=> 'required|string',
             'seasonal'=> ['required',Rule::in(['seasonal','always']),],
             'region_from.region_id'=> ['required',Rule::in($region_ids),],
             'region_from.area_id'  => ['nullable',Rule::in($area_ids),],
@@ -62,7 +63,7 @@ class DirectionController extends Controller
             'year' => $inputs['year'],
             'distance' => $inputs['distance'],
             'type_id' => $inputs['type_id'],
-            'from_where' => $inputs['from_where'],
+            'from_where' => json_encode($inputs['from_where']),
             'seasonal' => $inputs['seasonal'],
             'station_from_id' => $inputs['region_from']['station_id'],
             'region_from_id' => $inputs['region_from']['region_id'],
@@ -93,7 +94,7 @@ class DirectionController extends Controller
             'type_id'  => 'required|integer',
             'region_from' => 'required|array',
             'region_to' => 'required|array',
-            'from_where'=> 'required|integer',
+            'from_where'=> 'required|string',
             'seasonal'=> ['required',Rule::in(['seasonal','always']),],
             'region_from.*.region_id'=> ['required',Rule::in($region_ids),],
             'region_from.*.area_id'  => ['nullable',Rule::in($area_ids),],
@@ -112,7 +113,7 @@ class DirectionController extends Controller
             'year' => $inputs['year'],
             'distance' => $inputs['distance'],
             'type_id' => $inputs['type_id'],
-            'from_where' => $inputs['from_where'],
+            'from_where' => json_encode($inputs['from_where']),
             'seasonal' => $inputs['seasonal'],
             'station_from_id' => $inputs['region_from']['station_id'],
             'region_from_id' => $inputs['region_from']['region_id'],

@@ -19,7 +19,7 @@ class CreateDirectionsTable extends Migration
             $table->year('year');
             $table->string('distance');
             $table->bigInteger('type_id');
-            $table->bigInteger('from_where');
+            $table->text('from_where');
             $table->string('seasonal');
             $table->bigInteger('region_from_id');
             $table->bigInteger('region_to_id');

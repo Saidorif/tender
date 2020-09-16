@@ -16,7 +16,8 @@ class AdminUserSeeder extends Seeder
             'email' => 'sayyid2112@gmail.com',
             'password' => Hash::make('123456'),
             'role_id' => 1,
-            'gender' => 'male',
+            'region_id' => 1,
+            'area_id' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
