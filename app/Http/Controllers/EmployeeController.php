@@ -30,8 +30,23 @@ class EmployeeController extends Controller
             if(!empty($params['name'])){
                 $builder->where('name','LIKE','%'.$params['name'].'%');
             }
+            if(!empty($params['surname'])){
+                $builder->where('surname','LIKE','%'.$params['surname'].'%');
+            }
+            if(!empty($params['middlename'])){
+                $builder->where('middlename','LIKE','%'.$params['middlename'].'%');
+            }
             if(!empty($params['position_id'])){
                 $builder->where(['position_id' => $params['position_id']]);
+            }
+            if(!empty($params['region_id'])){
+                $builder->where(['region_id' => $params['region_id']]);
+            }
+            if(!empty($params['area_id'])){
+                $builder->where(['area_id' => $params['area_id']]);
+            }
+            if(!empty($params['role_id'])){
+                $builder->where(['role_id' => $params['role_id']]);
             }
         }
         $result = $builder->orderBy('id','DESC')->paginate(12);

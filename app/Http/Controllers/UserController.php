@@ -153,6 +153,12 @@ class UserController extends Controller
             if(!empty($params['area_id'])){
                 $builder->where(['area_id' => $params['area_id']]);
             }
+            if(!empty($params['surname'])){
+                $builder->where('surname','LIKE','%'.$params['surname'].'%');
+            }
+            if(!empty($params['middlename'])){
+                $builder->where('middlename','LIKE','%'.$params['middlename'].'%');
+            }
         }
         $result = $builder->with(['region','area'])->orderBy('id','DESC')->paginate(12);
 
