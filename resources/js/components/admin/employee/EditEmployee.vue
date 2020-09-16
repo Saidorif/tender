@@ -18,6 +18,7 @@
                 <select
                   id="region_id"
                   class="form-control input_style"
+                  :class="isRequired(form.region_id) ? 'isRequired' : ''"
                   v-model="form.region_id"
                   @change="selectRegion()"
                 >
@@ -30,6 +31,7 @@
                 <select
                   id="area_id"  
                   class="form-control input_style"
+                  :class="isRequired(form.area_id) ? 'isRequired' : ''"
                   v-model="form.area_id"
                 >
                   <option value="" selected disabled>Выберите регин или город!</option>
@@ -37,14 +39,36 @@
                 </select>
               </div>
               <div class="form-group col-lg-6">
-                <label for="name">Ф.И.О</label>
+                <label for="surname">Фамилия</label>
+                <input
+                  type="text"
+                  class="form-control input_style"
+                  id="surname"
+                  :class="isRequired(form.surname) ? 'isRequired' : ''"
+                  placeholder="Фамилия"
+                  v-model="form.surname"
+                />
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="name">Имя</label>
                 <input
                   type="text"
                   class="form-control input_style"
                   id="name"
                   :class="isRequired(form.name) ? 'isRequired' : ''"
-                  placeholder="Ф.И.О"
+                  placeholder="Имя"
                   v-model="form.name"
+                />
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="middlename">Отчество</label>
+                <input
+                  type="text"
+                  class="form-control input_style"
+                  id="middlename"
+                  :class="isRequired(form.middlename) ? 'isRequired' : ''"
+                  placeholder="Отчество"
+                  v-model="form.middlename"
                 />
               </div>
               <div class="form-group col-lg-6">
@@ -62,6 +86,28 @@
                   >{{position.name}}</option>
                 </select>
               </div>
+              <div class="form-group col-lg-6">
+                <label for="phone">Телефон</label>
+                <input
+                  type="text"
+                  class="form-control input_style"
+                  id="Телефон"
+                  placeholder="Телефон.."
+                  v-model="form.phone"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="role">Рол</label>
+                <select
+                  class="form-control"
+                  :class="isRequired(form.role_id) ? 'isRequired' : '' "
+                  id="countryName"
+                  v-model="form.role_id"
+                >
+                  <option value selected disabled>Выберите рол</option>
+                  <option :value="role.id" v-for="(role,index) in getRoleList">{{role.name}}</option>
+                </select>
+              </div>
               <div class="form-group col-md-6">
                 <label for="exampleInputEmail1">E-mail</label>
                 <input
@@ -76,16 +122,17 @@
                 <small class="redText" v-if="emailError">Email почта занят!</small>
               </div>
               <div class="form-group col-md-6">
-                <label for="role">Рол</label>
-                <select
-                  class="form-control"
-                  :class="isRequired(form.role_id) ? 'isRequired' : '' "
-                  id="countryName"
-                  v-model="form.role_id"
-                >
-                  <option value selected disabled>Выберите рол</option>
-                  <option :value="role.id" v-for="(role,index) in getRoleList">{{role.name}}</option>
-                </select>
+                <label for="position_date">Дата приказа</label>
+                <date-picker 
+                  id="position_date"
+                  lang="ru" 
+                  type="date"
+                  placeholder="Дата приказа"
+                  v-model="form.position_date" 
+                  valueType="format" 
+                  class="input_style"
+                  :class="isRequired(form.position_date) ? 'isRequired' : ''"
+                ></date-picker>
               </div>
               <div class="form-group col-md-6">
                 <label for="exampleInputPassword1">Пароль</label>
@@ -112,17 +159,6 @@
                 <small class="redText" v-if="checkPassword">
                   <b>Пароль не совпадает</b>
                 </small>
-              </div>
-              <div class="form-group col-lg-6">
-                <label for="phone">Телефон</label>
-                <input
-                  type="text"
-                  class="form-control input_style"
-                  id="Телефон"
-                  placeholder="Phone.."
-                  v-model="form.phone"
-                  :class="isRequired(form.phone) ? 'isRequired' : ''"
-                />
               </div>
               <div class="form-group col-lg-6">
                 <label for="status">Статус</label>
@@ -181,6 +217,8 @@ export default {
   data() {
     return {
       form: {
+        surname: "",
+        middlename: "",
         name: "",
         email: "",
         password: "",
@@ -281,6 +319,8 @@ export default {
     },
     async sendEmployee(){
       if (
+        this.form.middlename &&
+        this.form.surname &&
         this.form.name &&
         this.form.email &&
         this.form.password &&

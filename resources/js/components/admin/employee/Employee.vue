@@ -18,17 +18,46 @@
 		    	<transition name="slide">
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
-  					  		<div class="form-group col-lg-4">
-	  							<label for="name">Ф.И.О</label>
-	  							<input 
-	  								type="text" 
-	  								class="form-control" 
-	  								id="name" 
-	  								placeholder="Ф.И.О..."
-	  								v-model="filter.name"
-  								>
+				  			<div class="form-group col-lg-3">
+				                <label for="surname">Фамилия</label>
+				                <input
+				                  type="text"
+				                  class="form-control input_style"
+				                  id="surname"
+				                  placeholder="Фамилия"
+				                  v-model="filter.surname"
+				                />
+			              	</div>
+			              	<div class="form-group col-lg-3">
+				                <label for="name">Имя</label>
+				                <input
+				                  type="text"
+				                  class="form-control input_style"
+				                  id="name"
+				                  placeholder="Имя"
+				                  v-model="filter.name"
+				                />
+			              	</div>
+			              	<div class="form-group col-lg-3">
+				                <label for="middlename">Отчество</label>
+				                <input
+				                  type="text"
+				                  class="form-control input_style"
+				                  id="middlename"
+				                  placeholder="Отчество"
+				                  v-model="filter.middlename"
+				                />
+			              	</div>
+			              	<div class="form-group col-lg-3">
+	  							<label for="position_id">Должность</label>
+  								<select name="" v-model="filter.position_id" class="form-control" >
+  									<option value="">Выберите должность!</option>
+  									<option :value="position.id" v-for="(position,index) in getPositionList" :key="position.id">	
+  										{{position.name}}
+  									</option>
+  								</select>
 				  			</div>
-				  			<div class="form-group col-lg-4">
+				  			<div class="form-group col-lg-3">
 				  				<label for="region_id">Область</label>
 			                    <select
 			                      id="region_id"
@@ -40,7 +69,7 @@
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
-				  			<div class="form-group col-lg-4">
+				  			<div class="form-group col-lg-3">
 				  				<label for="area_id">Регион/Город!</label>
 			                    <select
 			                      id="area_id"	
@@ -51,16 +80,7 @@
 			                      <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
 			                    </select>
               				</div>
-  					  		<div class="form-group col-lg-4">
-	  							<label for="position_id">Должность</label>
-  								<select name="" v-model="filter.position_id" class="form-control" >
-  									<option value="">Выберите должность!</option>
-  									<option :value="position.id" v-for="(position,index) in getPositionList" :key="position.id">	
-  										{{position.name}}
-  									</option>
-  								</select>
-				  			</div>	
-  					  		<div class="form-group col-lg-4">
+  					  		<div class="form-group col-lg-3">
 	  							<label for="role_id">Рол</label>
   								<select name="" v-model="filter.role_id" class="form-control" >
   									<option value="">Выберите рол!</option>
@@ -69,7 +89,7 @@
   									</option>
   								</select>
 				  			</div>	
-						  	<div class="col-lg-4 form-group btn_search">
+						  	<div class="col-lg-3 form-group btn_search">
 							  	<button type="button" class="btn btn-primary mr-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
 								  	найти
@@ -94,6 +114,7 @@
 							<th scope="col">Рол</th>
 							<th scope="col">E-mail</th>
 							<th scope="col">Телефон</th>
+							<th scope="col">Статус</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
@@ -105,6 +126,11 @@
 							<td>{{item.role ? item.role.name : ''}}</td>
 							<td>{{item.email}}</td>
 							<td>{{item.phone}}</td>
+							<td>
+								<div class="badge" :class="item.status == 'active' ? ' badge-success' : ' badge-warning'">
+									{{item.status}}
+								</div>
+							</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/employee/edit/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -130,6 +156,8 @@
 				filter:{
 					region_id:'',
 					area_id:'',
+					middlename:'',
+					surname:'',
 					name:'',
 					position_id:'',
 					role_id:'',
