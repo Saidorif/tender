@@ -147,4 +147,24 @@ class UserController extends Controller
         $token = JWTAuth::attempt($credentials, $payloads);
         return response()->json(['success' => true, 'message' => 'Registeration success', 'token' => $token]);
     }
+
+    public function carrier(Request $request)
+    {
+        $params = $request->all();
+        $builder = User::query()->where(['role_id' => 9]);
+        if(count($params) > 0){
+            if(!empty($params['company_name'])){
+                $builder->where('company_name','LIKE','%'.$params['company_name'].'%');
+            }
+            if(!empty($params['name'])){
+                $builder->where('name','LIKE','%'.$params['name'].'%');
+            }
+            if(!empty($params['inn'])){
+                $builder->where(['inn' => $params['inn']]);
+            }
+        }
+        $result = $builder->orderBy('id','DESC')->paginate(12);
+
+        return response()->json(['success' => true, 'result' => $result]);
+    }
 }
