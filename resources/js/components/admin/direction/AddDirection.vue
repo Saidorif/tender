@@ -14,7 +14,7 @@
         <form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
           <div class="row">
             <div class="form-group col-md-3">
-              <label for="type_id">Type direction</label>
+              <label for="type_id">Yo'nalish klasifikatsiyasi</label>
               <select
                 class="form-control input_style"
                 v-model="form.type_id"
@@ -28,7 +28,7 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="seria">Passport number</label>
+              <label for="seria">Passport raqami</label>
               <input
                 type="number"
                 v-model="form.pass_number"
@@ -37,7 +37,7 @@
               />
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Region from</label>
+              <label for="region_id">Shaxardan, viloyatdan</label>
               <select
                 class="form-control input_style"
                 v-model="form.region_from.region_id"
@@ -49,11 +49,10 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Area from</label>
+              <label for="region_id">Tumandan, qishloqdan, shaxridan</label>
               <select
                 class="form-control input_style"
                 v-model="form.region_from.area_id"
-                :class="isRequired(form.region_from.area_id) ? 'isRequired' : ''"
                 placeholder="Area"
                 @change="selectArea('region_from')"
               >
@@ -62,7 +61,7 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Station from</label>
+              <label for="region_id">Bekatdan</label>
               <select
                 class="form-control input_style"
                 v-model="form.region_from.station_id"
@@ -73,7 +72,7 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Region to</label>
+              <label for="region_id">Shaxarga, viloyatga</label>
               <select
                 class="form-control input_style"
                 v-model="form.region_to.region_id"
@@ -85,7 +84,7 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Area to</label>
+              <label for="region_id">Tumanga, qishloqga, shaxriga,</label>
               <select
                 class="form-control input_style"
                 v-model="form.region_to.area_id"
@@ -98,7 +97,7 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Station to</label>
+              <label for="region_id">Bakatga</label>
               <select
                 class="form-control input_style"
                 v-model="form.region_to.station_id"
@@ -109,7 +108,7 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="seasonal">Seasonal</label>
+              <label for="seasonal">Ishlash mavsumi</label>
               <select
                 class="form-control input_style"
                 v-model="form.seasonal"
@@ -117,8 +116,8 @@
                 placeholder="Area"
               >
                 <option value selected disabled>choose option</option>
-                <option value="always">Always</option>
-                <option value="seasonal">Seasonal</option>
+                <option value="always">Doimiy</option>
+                <option value="seasonal">Mavsumiy</option>
               </select>
             </div>
             <div class="form-group col-md-3" v-for="(item,index) in destinations">
@@ -128,12 +127,12 @@
                 v-model="form.from_where"
                 name="from_where"
                 :id="'from_where'+index"
-                :value="item.id"
+                :value="item"
                 class="form-control input_style"
               />
             </div>
             <div class="form-group col-md-3">
-              <label for="seria">direction Year</label>
+              <label for="seria">Yo'nalish ochilish sanasi</label>
               <date-picker 
                 lang="ru" 
                 type="year"
@@ -145,7 +144,7 @@
               ></date-picker>
             </div>
             <div class="form-group col-md-3">
-              <label for="seria">direction distance</label>
+              <label for="seria">Yonalish masofasi</label>
               <input
                 type="number"
                 v-model="form.distance"
@@ -220,9 +219,7 @@ export default {
         this.form.distance != "" &&
         this.form.type_id != ""  &&
         this.form.region_from.region_id != ""  &&
-        this.form.region_from.area_id != ""  &&
         this.form.region_to.region_id != ""  &&
-        this.form.region_to.area_id != ""  &&
         this.form.from_where != "" &&
         this.form.seasonal != "" 
       ) {

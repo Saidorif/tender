@@ -56,9 +56,17 @@
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/crm/employee">
-              <i class="peIcon pe-7s-users"></i>
+              <i class="peIcon fas fa-users"></i>
               <p>
                 Пользователи
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/crm/client">
+              <i class="peIcon pe-7s-users"></i>
+              <p>
+                Перевозчики
               </p>
             </router-link>
           </li>

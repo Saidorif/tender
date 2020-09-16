@@ -26,6 +26,7 @@ import {direction} from "./direction.module"
 import {typeofdirection} from "./typeofdirection.module"
 import {typeofbus} from "./typeofbus.module"
 import {busclass} from "./busclass.module"
+import {client} from "./client.module"
 
 import { TokenService } from './../services/storage.service'
 
@@ -59,6 +60,7 @@ const store = new Vuex.Store(
 			typeofdirection,
 			typeofbus,
 			busclass,
+			client,
 		},
 		state:{
 			rules:[],
