@@ -118,12 +118,12 @@ class UserController extends Controller
             'bank_number'   => 'required|min:20',
             'oked'          => 'required|min:5',
             'mfo'           => 'required|min:5',
-            'inn'           => 'required|min:9',
+            'inn'           => 'required|min:9|unique:users,inn',
             'phone'         => 'required|min:12',
             'address'       => 'required|string',
             'trusted_person'=> 'required|string',
             'company_name'  => 'required',
-            'license_number'  => 'required',
+        'license_number'  => 'required',
             'license_date'  => 'required',
             'license_type'  => 'required',
             'password'      => 'required|min:6',
@@ -145,6 +145,6 @@ class UserController extends Controller
         $payloads = ['role' => $user->role_id];
         $credentials = $request->only('email', 'password');
         $token = JWTAuth::attempt($credentials, $payloads);
-        return response()->json(['success' => true, 'message' => 'Registeration success', 'token' => $token]);        
+        return response()->json(['success' => true, 'message' => 'Registeration success', 'token' => $token]);
     }
 }

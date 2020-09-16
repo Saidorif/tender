@@ -43,10 +43,10 @@
                     class="form-control"
                     placeholder="Email"
                     v-model="form.email"
-				            :class="isRequired(form.email) ? 'isRequired' : ''"
+				            :class="isLoginRequired(form.email) ? 'isRequired' : ''"
                   />
                   <div class="input-group-append">
-                    <div class="input-group-text" :class="isRequired(form.email) ? 'isRequired' : ''">
+                    <div class="input-group-text" :class="isLoginRequired(form.email) ? 'isRequired' : ''">
                       <img src="/img/user.png" alt />
                     </div>
                   </div>
@@ -57,10 +57,10 @@
                     class="form-control"
                     placeholder="Пароль"
                     v-model="form.password"
-				            :class="isRequired(form.password) ? 'isRequired' : ''"
+				            :class="isLoginRequired(form.password) ? 'isRequired' : ''"
                   />
                   <div class="input-group-append">
-                    <div class="input-group-text" :class="isRequired(form.email) ? 'isRequired' : ''">
+                    <div class="input-group-text" :class="isLoginRequired(form.email) ? 'isRequired' : ''">
                       <img src="/img/key.png" alt />
                     </div>
                   </div>
@@ -443,6 +443,7 @@ export default {
       },
       errorMsg: null,
       errorMsgSign: null,
+      requiredLoginInput: false,
       requiredInput: false,
       checkPassword: false,
     };
@@ -463,6 +464,9 @@ export default {
   	...mapActions('user',['ActionRegisterUser']),
     isRequired(input) {
       return this.requiredInput && input === "";
+    },
+    isLoginRequired(input) {
+      return this.requiredLoginInput && input === "";
     },
     async selectRegion() {
       await this.actionAreaByRegion({ region_id: this.signUp.region_id });
@@ -492,14 +496,14 @@ export default {
           // 	window.location = '/crm/dashboard';
           // },100)
           //   this.$router.push("/crm/dashboard");
-          this.requiredInput = false
+          this.requiredLoginInput = false
           window.location.href = "/crm/dashboard";
         } else {
           this.errorMsg = this.authenticationError;
           this.$Progress.fail();
         }
       }else{
-        this.requiredInput = true
+        this.requiredLoginInput = true
       }
     },
     async onSignUp() {
@@ -526,8 +530,26 @@ export default {
   				toast.fire({
   					type: "success",
   					icon: "success",
-  					title: "Ваш пароль отправлен на ваш e-mail. проверьте пожалуйста свою  e-mail"
+  					title: "Ваш пароль отправлен на ваш e-mail. проверьте пожалуйста свою электронную почту!"
   				});
+          this.signUp.region_id = ''
+          this.signUp.area_id = ''
+          this.signUp.name = ''
+          this.signUp.city = ''
+          this.signUp.bank_number = ''
+          this.signUp.oked = ''
+          this.signUp.mfo = ''
+          this.signUp.inn = ''
+          this.signUp.phone = ''
+          this.signUp.address = ''
+          this.signUp.company_name = ''
+          this.signUp.license_number = ''
+          this.signUp.password = ''
+          this.signUp.confirm_password = ''
+          this.signUp.email = ''
+          this.signUp.license_type = ''
+          this.signUp.license_date = ''
+          this.signUp.trusted_person = ''
   			}else{
   				this.errorMsgSign = this.getRegisterError.message;
   			}
