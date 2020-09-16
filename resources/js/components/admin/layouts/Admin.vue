@@ -55,14 +55,6 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/crm/employee">
-              <i class="peIcon fas fa-users"></i>
-              <p>
-                Пользователи
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link" to="/crm/client">
               <i class="peIcon pe-7s-users"></i>
               <p>
@@ -83,6 +75,14 @@
               <i class="peIcon pe-7s-graph1"></i>
               <p>
                 Должность
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/crm/employee">
+              <i class="peIcon fas fa-users"></i>
+              <p>
+                Сотрудники
               </p>
             </router-link>
           </li>
