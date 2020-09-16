@@ -206,6 +206,7 @@ export default {
     ...mapActions("position", ["actionPositionList"]),
     async selectRegion(){
       await this.actionAreaByRegion({ region_id: this.form.region_id });
+      this.form.area_id = ''
     },
     confirmPassword() {
       if (this.form.password && this.form.confirm_password) {
