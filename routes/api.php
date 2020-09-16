@@ -18,6 +18,8 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('register', 'UserController@register');
+    Route::get('region/list', 'RegionController@list');
+    Route::post('area/regionby', 'AreaController@regionby');
     // Route::post('create-user', 'AuthController@createUser');
     
     Route::group(['middleware' => 'jwt.auth'], function(){
@@ -99,7 +101,7 @@ Route::group([
             //Region CRUD
             Route::post('region', 'RegionController@index');
             Route::post('region/store', 'RegionController@store');
-            Route::get('region/list', 'RegionController@list');
+            
             Route::get('region/edit/{id}', 'RegionController@edit');
             Route::post('region/update/{id}', 'RegionController@update');
             Route::delete('region/destroy/{id}', 'RegionController@destroy');
@@ -108,7 +110,7 @@ Route::group([
             Route::post('area', 'AreaController@index');
             Route::post('area/store', 'AreaController@store');
             Route::get('area/list', 'AreaController@list');
-            Route::post('area/regionby', 'AreaController@regionby');
+            
             Route::get('area/edit/{id}', 'AreaController@edit');
             Route::post('area/update/{id}', 'AreaController@update');
             Route::delete('area/destroy/{id}', 'AreaController@destroy');
