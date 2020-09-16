@@ -121,14 +121,48 @@
                     <input
                       type="text"
                       class="form-control"
+                      v-model="signUp.surname"
+				              placeholder="Фамилия"
+                      :class="isRequired(signUp.surname) ? 'isRequired' : ''"
+                    />
+                    <div class="input-group-append">
+                      <div
+                        class="input-group-text"
+                        :class="isRequired(signUp.surname) ? 'isRequired' : ''"
+                      >
+                        <img src="/img/user.png" alt=""/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
                       v-model="signUp.name"
-				              placeholder="ФИО"
+                      placeholder="Имя"
                       :class="isRequired(signUp.name) ? 'isRequired' : ''"
                     />
                     <div class="input-group-append">
                       <div
                         class="input-group-text"
                         :class="isRequired(signUp.name) ? 'isRequired' : ''"
+                      >
+                        <img src="/img/user.png" alt=""/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-group"> 
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="signUp.middlename"
+                      placeholder="Отчество"
+                      :class="isRequired(signUp.middlename) ? 'isRequired' : ''"
+                    />
+                    <div class="input-group-append">
+                      <div
+                        class="input-group-text"
+                        :class="isRequired(signUp.middlename) ? 'isRequired' : ''"
                       >
                         <img src="/img/user.png" alt=""/>
                       </div>
@@ -165,23 +199,6 @@
                         :class="isRequired(signUp.email) ? 'isRequired' : ''"
                       >
                         <img src="/img/email.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.company_name"
-                      :class="isRequired(signUp.company_name) ? 'isRequired' : ''"
-				              placeholder="Название компании"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="isRequired(signUp.company_name) ? 'isRequired' : ''"
-                      >
-                        <img src="/img/company.png" alt />
                       </div>
                     </div>
                   </div>
@@ -245,6 +262,23 @@
                       <option value selected disabled>Выберите регин или город!</option>
                       <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
                     </select>
+                  </div>
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="signUp.company_name"
+                      :class="isRequired(signUp.company_name) ? 'isRequired' : ''"
+                      placeholder="Название компании"
+                    />
+                    <div class="input-group-append">
+                      <div
+                        class="input-group-text"
+                        :class="isRequired(signUp.company_name) ? 'isRequired' : ''"
+                      >
+                        <img src="/img/company.png" alt />
+                      </div>
+                    </div>
                   </div>
                   <div class="input-group">
                     <input
@@ -425,6 +459,8 @@ export default {
     		region_id: "",
         area_id: "",
         name: "",
+        surname: "",
+        middlename: "",
     		city: "",
     		bank_number: '',
     		oked: '',
@@ -523,6 +559,9 @@ export default {
         this.signUp.region_id != "" && 
         this.signUp.area_id != "" && 
   			this.signUp.email != "" &&
+        this.signUp.surname != "" && 
+        this.signUp.middlename != "" && 
+        this.signUp.email != "" &&
         this.checkPassword == false
   		) {
   			await this.register(this.signUp);
@@ -550,6 +589,8 @@ export default {
           this.signUp.license_type = ''
           this.signUp.license_date = ''
           this.signUp.trusted_person = ''
+          this.signUp.surname = "" 
+          this.signUp.middlename = "" 
   			}else{
   				this.errorMsgSign = this.getRegisterError.message;
   			}
