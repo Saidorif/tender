@@ -5,6 +5,15 @@
         <h3 class="card-title title_user mb-0">
           <i  class="peIcon pe-7s-users"></i></i>Добавить перевозчик
         </h3>
+        <button 
+          type="button" 
+          @click="changeStatus()" 
+          class="btn"
+          :class="statusClass"
+        >
+          <i :class="statusFont" class="fas"></i> 
+          {{statusText}}
+        </button>
         <router-link class="btn btn-primary back_btn" to="/crm/client">
           <span class="peIcon pe-7s-back"></span> Назад
         </router-link>
@@ -203,7 +212,10 @@ export default {
       form: {},
       requiredInput: false,
       checkPassword: false,
-      emailError: false
+      emailError: false,
+      statusText:'Активировать',
+      statusClass:' btn-success',
+      statusFont:' fa-check',
     };
   },
   async mounted() {
@@ -215,6 +227,17 @@ export default {
   },
   methods: {
     ...mapActions("client", ["actionClientEdit"]),
+    changeStatus(){
+      if (this.statusText == 'Активировать') {
+        this.statusText = 'Заблокировать'
+        this.statusClass = ' btn-danger'
+        this.statusFont = ' fa-lock'
+      }else{
+        this.statusText = 'Активировать'
+        this.statusClass = ' btn-success'
+        this.statusFont = ' fa-check'
+      }
+    }
     // confirmPassword() {
     //   if (this.form.password && this.form.confirm_password) {
     //     if (this.form.password != this.form.confirm_password) {
