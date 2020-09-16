@@ -123,7 +123,7 @@ class UserController extends Controller
             'address'       => 'required|string',
             'trusted_person'=> 'required|string',
             'company_name'  => 'required',
-            'license_number'  => 'required',
+        'license_number'  => 'required',
             'license_date'  => 'required',
             'license_type'  => 'required',
             'password'      => 'required|min:6',
