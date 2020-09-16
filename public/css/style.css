@@ -1213,6 +1213,11 @@ hr {
   border: 1px solid #D4E2F5 !important;
 }
 
+.input-group.register_date .mx-datepicker .mx-input-wrapper .mx-icon-calendar,
+.mx-icon-clear {
+  color: #acf1c1 !important;
+}
+
 .mx-icon-calendar,
 .mx-icon-clear {
   color: #D4E2F5 !important;
