@@ -18,6 +18,7 @@
                 <select
                   id="region_id"
                   class="form-control input_style"
+                  :class="isRequired(form.region_id) ? 'isRequired' : ''"
                   v-model="form.region_id"
                   @change="selectRegion()"
                 >
@@ -30,6 +31,7 @@
                 <select
                   id="area_id"  
                   class="form-control input_style"
+                  :class="isRequired(form.area_id) ? 'isRequired' : ''"
                   v-model="form.area_id"
                 >
                   <option value="" selected disabled>Выберите регин или город!</option>
@@ -37,14 +39,36 @@
                 </select>
               </div>
               <div class="form-group col-lg-6">
-                <label for="name">Ф.И.О</label>
+                <label for="surname">Фамилия</label>
+                <input
+                  type="text"
+                  class="form-control input_style"
+                  id="surname"
+                  :class="isRequired(form.surname) ? 'isRequired' : ''"
+                  placeholder="Фамилия"
+                  v-model="form.surname"
+                />
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="name">Имя</label>
                 <input
                   type="text"
                   class="form-control input_style"
                   id="name"
                   :class="isRequired(form.name) ? 'isRequired' : ''"
-                  placeholder="Ф.И.О"
+                  placeholder="Имя"
                   v-model="form.name"
+                />
+              </div>
+              <div class="form-group col-lg-6">
+                <label for="middlename">Отчество</label>
+                <input
+                  type="text"
+                  class="form-control input_style"
+                  id="middlename"
+                  :class="isRequired(form.middlename) ? 'isRequired' : ''"
+                  placeholder="Отчество"
+                  v-model="form.middlename"
                 />
               </div>
               <div class="form-group col-lg-6">
@@ -68,9 +92,8 @@
                   type="text"
                   class="form-control input_style"
                   id="Телефон"
-                  placeholder="Phone.."
+                  placeholder="Телефон.."
                   v-model="form.phone"
-                  :class="isRequired(form.phone) ? 'isRequired' : ''"
                 />
               </div>
               <div class="form-group col-md-6">
@@ -97,6 +120,19 @@
                   @blur="checkEmailInput"
                 />
                 <small class="redText" v-if="emailError">Email почта занят!</small>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="position_date">Дата приказа</label>
+                <date-picker 
+                  id="position_date"
+                  lang="ru" 
+                  type="date"
+                  placeholder="Дата приказа"
+                  v-model="form.position_date" 
+                  valueType="format" 
+                  class="input_style"
+                  :class="isRequired(form.position_date) ? 'isRequired' : ''"
+                ></date-picker>
               </div>
               <div class="form-group col-md-6">
                 <label for="exampleInputPassword1">Пароль</label>
@@ -169,6 +205,8 @@ export default {
   data() {
     return {
       form: {
+        surname: "",
+        middlename: "",
         name: "",
         email: "",
         password: "",
@@ -176,6 +214,7 @@ export default {
         role_id: "",
         region_id: "",
         area_id: "",
+        position_date: "",
         position_id: "",
         phone: "",
         image: "",
@@ -259,14 +298,16 @@ export default {
     },
     async sendEmployee() {
       if (
+        this.form.middlename &&
+        this.form.surname &&
         this.form.name &&
         this.form.email &&
         this.form.password &&
         this.form.confirm_password &&
-        this.form.phone &&
         this.form.region_id &&
         this.form.area_id &&
         this.form.position_id &&
+        this.form.position_date &&
         this.form.role_id &&
         this.checkPassword == false
       ) {
