@@ -59,7 +59,7 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         // $user = User::where('role_id', '!=', 1)->where(['id' => $id])->first();
-        $user = User::with(['role','position','experience'])->find($id);
+        $user = User::with(['role','position','region','area'])->find($id);
         if(!$user){
             return response()->json(['error' => true, 'message' => 'Пользователь не найден']);
         }
