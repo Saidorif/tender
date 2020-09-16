@@ -227,7 +227,6 @@ export default {
         this.form.seasonal != "" 
       ) {
 		await this.actionAddDirection(this.form)
-    console.log(this.getMassage)
 		if(this.getMassage.success){
 			toast.fire({
 				type: "success",

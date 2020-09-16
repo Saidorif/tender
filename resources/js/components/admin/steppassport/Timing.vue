@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
     <div class="col-md-12 tabs_block">
-      <div class="form-group col-md-2" v-if="tableData.length == 0">
+      <!-- <div class="form-group col-md-2" v-if="tableData.length == 0">
         <label for="region_from_id">Region from</label>
         <input v-model="form.whereForm"  type="radio" name="where_from"  value="region_from_id">
         <select
@@ -44,7 +44,7 @@
             v-for="(s_item,s_index) in form.stationFrom"
             :key="s_index">{{s_item.name}}</option>
         </select>
-      </div>
+      </div> -->
       <div class="form-group col-md-2">
         <label for="region_to_id">Region to</label>
         <input v-model="form.whereTo"  type="radio" name="where_to"  value="region_to_id">
@@ -163,19 +163,24 @@
           class="form-control input_style"
         />
       </div>
-      <div class="form-group col-md-4 double_input">
-        <label for="details">Qatnov yoli xaqidagi malumotlar</label>
-        <select class="form-control input_style">
+      <div class="form-group col-md-4 triple_input" v-for="(detail,p_index) in form.details">
+        <label>Qatnov yoli xaqidagi malumotlar</label>
+        <select class="form-control input_style" v-model="detail.name">
           <option
             v-for="(s_item,s_index) in form.detailsOptions"
-            :value="s_item" :key="s_index">{{s_item.name}}</option>
+            :value="s_item.title" :key="s_index">{{s_item.title}}</option>
         </select>
         <input
           type="text"
-          v-model="form.details"
-          id="details"
+          v-model="detail.count"
           class="form-control input_style"
         />
+        <button @click="addDetail()" class="btn btn-info mr-2"  v-if="form.details.length  == p_index + 1">
+          <i class="fas fa-plus"></i>
+        </button>
+        <button @click="removeDetail(p_index)" class="btn btn-danger mr-2"  v-if="form.details.length  > p_index + 1">
+          <i class="fas fa-trash"></i>
+        </button>
       </div>
     </div>
     <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
@@ -227,7 +232,7 @@
 							<td>{{ table.spendtime_to_stay_station }}</td>
 							<td>{{ table.speed_between_station }}</td>
 							<td>{{ table.speed_between_limited_space }}</td>
-							<td>{{ table.details }}</td>
+							<td class="detail_td"> <span v-for="(detail) in table.details">{{detail.name }} {{ detail.count}}<b>, </b></span></td>
           </tr>
         </tbody>
       </table>
@@ -238,6 +243,7 @@
 import DatePicker from "vue2-datepicker";
 import { mapGetters, mapActions } from "vuex";
 export default {
+	props: ['titulData'],
   components: {
     DatePicker,
   },
@@ -260,10 +266,10 @@ export default {
         distance_in_limited_speed: "",//Shundan xarakat tezligi chegaralangan oraliqda
         spendtime_between_station: "",//Bekatlar oraligidagi xarakat
         spendtime_between_limited_space: "",//Shundan xarakat tezligi chegaralangan oraliqda
-        spendtime_to_stay_station: "",//Oraliq bekatdan toxtash uchun
+        spendtime_to_stay_station: 0,//Oraliq bekatdan toxtash uchun
         speed_between_station: "",//Bekatlar oraligidagi xarakat
         speed_between_limited_space: "",//Shundan xarakat tezligi chegaralangan oraliqda
-        details: "",//Qatnov yoli xaqidagi malumotlar
+        details: [{name: '', count: ''}],//Qatnov yoli xaqidagi malumotlar
         areaFrom: [],
         stationFrom: [],
         stationTo: [],
@@ -271,10 +277,10 @@ export default {
         whereForm: '',
         whereTo: '',
         detailsOptions: [
-          {name: "ASF"},
-          {name: "Koprik"},
-          {name: "Koprik yol"},
-          {name: "Temir yol"}
+          {title: "ASF"},
+          {title: "Koprik"},
+          {title: "Koprik yol"},
+          {title: "Temir yol"}
         ]
       },
       tableData: [],
@@ -283,12 +289,14 @@ export default {
   },
   async mounted() {
     await this.actionRegionList();
+    console.log(this.titulData)
   },
   computed: {
     ...mapGetters("region", ["getRegionList"]),
     ...mapGetters("area", ["getAreaList"]),
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("passportTab", ["getTimingMassage"]),
+    ...mapGetters("direction", ["getDirection"]),
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
@@ -318,7 +326,7 @@ export default {
       }
     },
     addItem() {
-
+      console.log(this.form)
       if(
         this.form.region_from_id != "" &&
         this.form.region_to_id != "" &&
@@ -362,13 +370,19 @@ export default {
                 spendtime_to_stay_station: 0,
                 speed_between_station: "",
                 speed_between_limited_space: "",
-                details: "",
+                details: [{name: '', count: ''}],
                 areaFrom: [],
                 stationFrom: [],
                 stationTo: [],
                 areaTo: [],
                 whereForm:  this.form.whereTo.replace('to', 'from'),
                 whereTo: "",
+                detailsOptions: [
+                  {title: "ASF"},
+                  {title: "Koprik"},
+                  {title: "Koprik yol"},
+                  {title: "Temir yol"}
+                ]
           };
           this.form.distance_from_start_station = parseFloat(this.form.end_speedometer - this.form.start_speedometer).toFixed(1)
         }else{
@@ -392,13 +406,19 @@ export default {
             spendtime_to_stay_station: 0,
             speed_between_station: "",
             speed_between_limited_space: "",
-            details: "",
+            details: [{name: '', count: ''}],
             areaFrom: [],
             stationFrom: [],
             stationTo: [],
             areaTo: [],
             whereForm:  this.form.whereTo.replace('to', 'from'),
             whereTo: "",
+            detailsOptions: [
+              {title: "ASF"},
+              {title: "Koprik"},
+              {title: "Koprik yol"},
+              {title: "Temir yol"}
+            ]
           };
           this.form.distance_from_start_station = parseFloat(this.form.end_speedometer - this.tableData[0].start_speedometer).toFixed(1)
           let result_spendtime_to_stay_station = (this.toTimestamp(this.form.start_time) - this.toTimestamp(this.tableData[this.tableData.length - 1].end_time)) / 60
@@ -408,13 +428,18 @@ export default {
         this.form.distance_between_station = parseFloat(this.form.end_speedometer - this.form.start_speedometer).toFixed(1)
         let result_spendtime_between_station = (this.toTimestamp(this.form.end_time) - this.toTimestamp(this.form.start_time)) / 60
         this.form.spendtime_between_station = parseFloat(result_spendtime_between_station).toFixed(0)
-
         this.tableData.push(this.form)
         this.form = thisData;
         this.requiredInput = false;
       } else {
         this.requiredInput = true;
       }
+    },
+    addDetail(){
+      this.form.details.push({name: '', count: ''})
+    },
+    removeDetail(index){
+      this.form.details.splice(index, 1)
     },
     toTimestamp(strDate){
         var datum = Date.parse(strDate);
@@ -437,6 +462,7 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
 }
+.triple_input label,
 .double_input label {
   width: 100%;
 }
@@ -444,11 +470,26 @@ export default {
 .double_input input {
   width: 49%;
 }
+.triple_input{
+  display: flex;
+  flex-wrap: wrap;
+}
+.triple_input select{
+  width: 49%;
+  margin-right: 15px;
+}
+.triple_input input{
+  width: 20%;
+  margin-right: 15px;
+} 
 .tabs_block {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   border-bottom: 1px solid #000;
   margin-bottom: 30px;
+}
+.detail_td span:last-child b{
+  display: none;
 }
 </style>

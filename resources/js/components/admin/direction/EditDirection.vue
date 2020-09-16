@@ -1,182 +1,204 @@
 <template>
   <div class="add_area">
     <div class="card">
-      <div class="card-header">
-        <h4 class="title_user">
+      <div class="card-header tabCard">
+        <!-- <h4 class="title_user">
           <i class="peIcon fas fa-route"></i>
           Добавить направление
-        </h4>
+        </h4> -->
+        <ul class="nav nav-tabs " id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="titul-tab" data-toggle="tab" href="#titul" role="tab" aria-controls="titul" aria-selected="false">Titul</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="timing-tab" data-toggle="tab" href="#timing" role="tab" aria-controls="timing" aria-selected="true">Xronametraj</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+            </li>
+        </ul>
         <router-link class="btn btn-primary back_btn" to="/crm/direction">
           <span class="peIcon pe-7s-back"></span> Назад
         </router-link>
       </div>
       <div class="card-body">
-        <form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
-          <div class="row">
-            <div class="form-group col-md-3">
-              <label for="type_id">Type direction</label>
-              <select
-                class="form-control input_style"
-                v-model="form.type_id"
-                :class="isRequired(form.type_id) ? 'isRequired' : ''"
-              >
-                <option value selected disabled>choose option</option>
-                <option
-                  :value="item.id"
-                  v-for="(item,index) in getTypeofdirectionList"
-                >{{item.name }} {{item.type}}</option>
-              </select>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade" id="titul" role="tabpanel" aria-labelledby="titul-tab">
+              <form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
+                <div class="row">
+                  <div class="form-group col-md-3">
+                    <label for="type_id">Type direction</label>
+                    <select
+                      class="form-control input_style"
+                      v-model="form.type_id"
+                      :class="isRequired(form.type_id) ? 'isRequired' : ''"
+                    >
+                      <option value selected disabled>choose option</option>
+                      <option
+                        :value="item.id"
+                        v-for="(item,index) in getTypeofdirectionList"
+                      >{{item.name }} {{item.type}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="seria">Passport number</label>
+                    <input
+                      type="number"
+                      v-model="form.pass_number"
+                      class="form-control input_style"
+                      :class="isRequired(form.pass_number) ? 'isRequired' : ''"
+                    />
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="region_id">Region from</label>
+                    <select
+                      class="form-control input_style"
+                      v-model="form.region_from.region_id"
+                      :class="isRequired(form.region_from.region_id) ? 'isRequired' : ''"
+                      @change="selectRegion('region_from')"
+                    >
+                      <option value selected disabled>choose option</option>
+                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="region_id">Area from</label>
+                    <select
+                      class="form-control input_style"
+                      v-model="form.region_from.area_id"
+                      :class="isRequired(form.region_from.area_id) ? 'isRequired' : ''"
+                      placeholder="Area"
+                      @change="selectArea('region_from')"
+                    >
+                      <option value selected disabled>choose option</option>
+                      <option :value="item.id" v-for="(item,index) in areaFrom">{{item.name}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="region_id">Station from</label>
+                    <select
+                      class="form-control input_style"
+                      v-model="form.region_from.station_id"
+                      :class="isRequired(form.region_from.station_id) ? 'isRequired' : ''"
+                      placeholder="Area"
+                    >
+                      <option value selected disabled>choose option</option>
+                      <option :value="item.id" v-for="(item,index) in stationFrom">{{item.name}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="region_id">Region to</label>
+                    <select
+                      class="form-control input_style"
+                      v-model="form.region_to.region_id"
+                      :class="isRequired(form.region_to.region_id) ? 'isRequired' : ''"
+                      @change="selectRegion('region_to')"
+                    >
+                      <option value selected disabled>choose option</option>
+                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="region_id">Area to</label>
+                    <select
+                      class="form-control input_style"
+                      v-model="form.region_to.area_id"
+                      :class="isRequired(form.region_to.area_id) ? 'isRequired' : ''"
+                      placeholder="Area"
+                      @change="selectArea('region_to')"
+                    >
+                      <option value selected disabled>choose option</option>
+                      <option :value="item.id" v-for="(item,index) in areaTo">{{item.name}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="region_id">Station to</label>
+                    <select
+                      class="form-control input_style"
+                      v-model="form.region_to.station_id"
+                      :class="isRequired(form.region_to.station_id) ? 'isRequired' : ''"
+                      placeholder="Area"
+                    >
+                      <option value selected disabled>choose option</option>
+                      <option :value="item.id" v-for="(item,index) in stationTo">{{item.name}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="seasonal">Seasonal</label>
+                    <select
+                      class="form-control input_style"
+                      v-model="form.seasonal"
+                      :class="isRequired(form.seasonal) ? 'isRequired' : ''"
+                      placeholder="Area"
+                    >
+                      <option value selected disabled>choose option</option>
+                      <option value="always">Always</option>
+                      <option value="seasonal">Seasonal</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3" v-for="(item,index) in destinations">
+                    <label :for="'from_where'+index">{{item.name}}</label>
+                    <input
+                      type="radio"
+                      v-model="form.from_where"
+                      name="from_where"
+                      :id="'from_where'+index"
+                      :value="item.id"
+                      class="form-control input_style"
+                    />
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="seria">direction Year</label>
+                    <date-picker
+                      lang="ru" 
+                      type="year"
+                      v-model="form.year" 
+                      valueType="format" 
+                      class="input_style"
+                      :class="isRequired(form.year) ? 'isRequired' : ''"
+                      format="YYYY"
+                    ></date-picker>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="seria">direction distance</label>
+                    <input
+                      type="number"
+                      v-model="form.distance"
+                      class="form-control input_style"
+                      :class="isRequired(form.distance) ? 'isRequired' : ''"
+                    />
+                  </div>
+                  <div class="form-group col-lg-3 form_btn d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary btn_save_category">
+                      <i class="fas fa-save"></i>
+                      Сохранить
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
-            <div class="form-group col-md-3">
-              <label for="seria">Passport number</label>
-              <input
-                type="number"
-                v-model="form.pass_number"
-                class="form-control input_style"
-                :class="isRequired(form.pass_number) ? 'isRequired' : ''"
-              />
+            <div class="tab-pane fade show active" id="timing" role="tabpanel" aria-labelledby="home-tab">
+                <Timing v-if="loaded" :titulData="this.getDirection" />
             </div>
-            <div class="form-group col-md-3">
-              <label for="region_id">Region from</label>
-              <select
-                class="form-control input_style"
-                v-model="form.region_from.region_id"
-                :class="isRequired(form.region_from.region_id) ? 'isRequired' : ''"
-                @change="selectRegion('region_from')"
-              >
-                <option value selected disabled>choose option</option>
-                <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
-              </select>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="region_id">Area from</label>
-              <select
-                class="form-control input_style"
-                v-model="form.region_from.area_id"
-                :class="isRequired(form.region_from.area_id) ? 'isRequired' : ''"
-                placeholder="Area"
-                @change="selectArea('region_from')"
-              >
-                <option value selected disabled>choose option</option>
-                <option :value="item.id" v-for="(item,index) in areaFrom">{{item.name}}</option>
-              </select>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="region_id">Station from</label>
-              <select
-                class="form-control input_style"
-                v-model="form.region_from.station_id"
-                :class="isRequired(form.region_from.station_id) ? 'isRequired' : ''"
-                placeholder="Area"
-              >
-                <option value selected disabled>choose option</option>
-                <option :value="item.id" v-for="(item,index) in stationFrom">{{item.name}}</option>
-              </select>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="region_id">Region to</label>
-              <select
-                class="form-control input_style"
-                v-model="form.region_to.region_id"
-                :class="isRequired(form.region_to.region_id) ? 'isRequired' : ''"
-                @change="selectRegion('region_to')"
-              >
-                <option value selected disabled>choose option</option>
-                <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
-              </select>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="region_id">Area to</label>
-              <select
-                class="form-control input_style"
-                v-model="form.region_to.area_id"
-                :class="isRequired(form.region_to.area_id) ? 'isRequired' : ''"
-                placeholder="Area"
-                @change="selectArea('region_to')"
-              >
-                <option value selected disabled>choose option</option>
-                <option :value="item.id" v-for="(item,index) in areaTo">{{item.name}}</option>
-              </select>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="region_id">Station to</label>
-              <select
-                class="form-control input_style"
-                v-model="form.region_to.station_id"
-                :class="isRequired(form.region_to.station_id) ? 'isRequired' : ''"
-                placeholder="Area"
-              >
-                <option value selected disabled>choose option</option>
-                <option :value="item.id" v-for="(item,index) in stationTo">{{item.name}}</option>
-              </select>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="seasonal">Seasonal</label>
-              <select
-                class="form-control input_style"
-                v-model="form.seasonal"
-                :class="isRequired(form.seasonal) ? 'isRequired' : ''"
-                placeholder="Area"
-              >
-                <option value selected disabled>choose option</option>
-                <option value="always">Always</option>
-                <option value="seasonal">Seasonal</option>
-              </select>
-            </div>
-            <div class="form-group col-md-3" v-for="(item,index) in destinations">
-              <label :for="'from_where'+index">{{item.name}}</label>
-              <input
-                type="radio"
-                v-model="form.from_where"
-                name="from_where"
-                :id="'from_where'+index"
-                :value="item.id"
-                class="form-control input_style"
-              />
-            </div>
-            <div class="form-group col-md-3">
-              <label for="seria">direction Year</label>
-              <date-picker
-                lang="ru" 
-                type="year"
-                v-model="form.year" 
-                valueType="format" 
-                class="input_style"
-                :class="isRequired(form.year) ? 'isRequired' : ''"
-                format="YYYY"
-              ></date-picker>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="seria">direction distance</label>
-              <input
-                type="number"
-                v-model="form.distance"
-                class="form-control input_style"
-                :class="isRequired(form.distance) ? 'isRequired' : ''"
-              />
-            </div>
-            <div class="form-group col-lg-3 form_btn d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary btn_save_category">
-                <i class="fas fa-save"></i>
-                Сохранить
-              </button>
-            </div>
-          </div>
-        </form>
-        <PassportTab />
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import DatePicker from "vue2-datepicker";
-import PassportTab from "../steppassport/PassportTab";
+import Timing from "../steppassport/Timing";
 import { mapGetters, mapActions } from "vuex";
 import "vue2-datepicker/index.css";
 export default {
   components: {
     DatePicker,
-    PassportTab
+    Timing
   },
   data() {
     return {
@@ -203,6 +225,7 @@ export default {
       stationFrom: [],
       stationTo: [],
       requiredInput: false,
+      loaded: false,
     };
   },
   async mounted() {
@@ -225,6 +248,7 @@ export default {
     this.areaTo = this.getDirection.region_to_with.area;
     this.stationFrom = this.getDirection.area_from_with.station;
     this.stationTo = this.getDirection.area_to_with.station;
+    this.loaded = true
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
@@ -393,4 +417,17 @@ export default {
 };
 </script>
 <style scoped>
+.tabCard{
+  padding: 0 15px;
+}
+.tabCard .nav.nav-tabs{
+  border: none;
+}
+.tabCard .back_btn{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.tabCard .nav-link {
+  padding: .9rem 1rem;
+}
 </style>
