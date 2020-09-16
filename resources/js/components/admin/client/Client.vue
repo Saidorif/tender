@@ -17,17 +17,47 @@
 		    	<transition name="slide">
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
-  					  		<div class="form-group col-lg-4">
-	  							<label for="name">Ф.И.О</label>
+				  			<div class="form-group col-lg-3">
+				                <label for="surname">Фамилия</label>
+				                <input
+				                  type="text"
+				                  class="form-control input_style"
+				                  id="surname"
+				                  placeholder="Фамилия"
+				                  v-model="filter.surname"
+				                />
+			              	</div>
+			              	<div class="form-group col-lg-3">
+				                <label for="name">Имя</label>
+				                <input
+				                  type="text"
+				                  class="form-control input_style"
+				                  id="name"
+				                  placeholder="Имя"
+				                  v-model="filter.name"
+				                />
+			              	</div>
+			              	<div class="form-group col-lg-3">
+				                <label for="middlename">Отчество</label>
+				                <input
+				                  type="text"
+				                  class="form-control input_style"
+				                  id="middlename"
+				                  placeholder="Отчество"
+				                  v-model="filter.middlename"
+				                />
+			              	</div>
+			              	<div class="form-group col-lg-3">
+	  							<label for="inn">ИНН</label>
 	  							<input 
 	  								type="text" 
 	  								class="form-control" 
-	  								id="name" 
-	  								placeholder="Ф.И.О..."
-	  								v-model="filter.name"
+	  								id="inn" 
+	  								placeholder="ИНН..."
+	  								v-model="filter.inn"
   								>
 				  			</div>
-				  			<div class="form-group col-lg-4">
+				  			<div class="form-group col-lg-3">
 				  				<label for="region_id">Область</label>
 			                    <select
 			                      id="region_id"
@@ -39,7 +69,7 @@
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
-				  			<div class="form-group col-lg-4">
+				  			<div class="form-group col-lg-3">
 				  				<label for="area_id">Регион/Город!</label>
 			                    <select
 			                      id="area_id"	
@@ -50,7 +80,7 @@
 			                      <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
 			                    </select>
               				</div>
-  					  		<div class="form-group col-lg-4">
+  					  		<div class="form-group col-lg-3">
 	  							<label for="company_name">Название компании</label>
 	  							<input 
 	  								type="text" 
@@ -60,17 +90,7 @@
 	  								v-model="filter.company_name"
   								>
 				  			</div>
-  					  		<div class="form-group col-lg-4">
-	  							<label for="inn">ИНН</label>
-	  							<input 
-	  								type="text" 
-	  								class="form-control" 
-	  								id="inn" 
-	  								placeholder="ИНН..."
-	  								v-model="filter.inn"
-  								>
-				  			</div>
-						  	<div class="col-lg-4 form-group btn_search">
+						  	<div class="col-lg-3 form-group btn_search">
 							  	<button type="button" class="btn btn-primary mr-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
 								  	найти
@@ -103,7 +123,7 @@
 					<tbody>
 						<tr v-for="(item,index) in getClients.data">
 							<td scope="row">{{index+1}}</td>
-							<td>{{item.name}}</td>
+							<td>{{item.surname}} {{item.name}} {{item.middlename}}</td>
 							<td>{{item.company_name}}</td>
 							<td>{{item.inn}}</td>
 							<td>{{item.region ? item.region.name : ''}}</td>
@@ -136,6 +156,8 @@
 					region_id:'',
 					area_id:'',
 					name:'',
+					middlename:'',
+					surname:'',
 					inn:'',
 					company_name:'',
 				},

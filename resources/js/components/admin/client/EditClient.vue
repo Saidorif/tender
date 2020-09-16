@@ -20,14 +20,36 @@
       </div>
       <form role="form" @submit.prevent.enter="sendEmployee" enctype="multipart/form-data">
         <div class="card-body d-flex flex-wrap">
-            <div class="form-group col-md-6">
-              <label for="name">Ф.И.О</label>
+            <div class="form-group col-lg-6">
+              <label for="surname">Фамилия</label>
+              <input
+                type="text"
+                class="form-control input_style"
+                id="surname"
+                placeholder="Фамилия"
+                v-model="form.surname"
+                disabled
+              />
+            </div>
+            <div class="form-group col-lg-6">
+              <label for="name">Имя</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="name"
-                placeholder="Ф.И.О"
+                placeholder="Имя"
                 v-model="form.name"
+                disabled
+              />
+            </div>
+            <div class="form-group col-lg-6">
+              <label for="middlename">Отчество</label>
+              <input
+                type="text"
+                class="form-control input_style"
+                id="middlename"
+                placeholder="Отчество"
+                v-model="form.middlename"
                 disabled
               />
             </div>
