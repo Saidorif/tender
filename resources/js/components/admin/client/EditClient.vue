@@ -209,7 +209,6 @@ export default {
   async mounted() {
     await this.actionClientEdit(this.$route.params.clientId);
     this.form = this.getClient
-    console.log(this.form)
   },
   computed: {
     ...mapGetters("client", ["getMassage","getClient"]),

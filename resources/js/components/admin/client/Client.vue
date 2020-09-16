@@ -17,7 +17,7 @@
 		    	<transition name="slide">
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
-  					  		<div class="form-group col-lg-3">
+  					  		<div class="form-group col-lg-4">
 	  							<label for="name">Ф.И.О</label>
 	  							<input 
 	  								type="text" 
@@ -27,7 +27,30 @@
 	  								v-model="filter.name"
   								>
 				  			</div>
-  					  		<div class="form-group col-lg-3">
+				  			<div class="form-group col-lg-4">
+				  				<label for="region_id">Область</label>
+			                    <select
+			                      id="region_id"
+			                      class="form-control input_style"
+			                      v-model="filter.region_id"
+			                      @change="selectRegion()"
+			                    >
+			                      <option value="" selected disabled>Выберите область!</option>
+			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-4">
+				  				<label for="area_id">Регион/Город!</label>
+			                    <select
+			                      id="area_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.area_id"
+			                    >
+			                      <option value="" selected disabled>Выберите регин или город!</option>
+			                      <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
+			                    </select>
+              				</div>
+  					  		<div class="form-group col-lg-4">
 	  							<label for="company_name">Название компании</label>
 	  							<input 
 	  								type="text" 
@@ -37,7 +60,7 @@
 	  								v-model="filter.company_name"
   								>
 				  			</div>
-  					  		<div class="form-group col-lg-3">
+  					  		<div class="form-group col-lg-4">
 	  							<label for="inn">ИНН</label>
 	  							<input 
 	  								type="text" 
@@ -47,7 +70,7 @@
 	  								v-model="filter.inn"
   								>
 				  			</div>
-						  	<div class="col-lg-3 form-group btn_search">
+						  	<div class="col-lg-4 form-group btn_search">
 							  	<button type="button" class="btn btn-primary mr-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
 								  	найти
@@ -110,6 +133,8 @@
 		data(){
 			return{
 				filter:{
+					region_id:'',
+					area_id:'',
 					name:'',
 					inn:'',
 					company_name:'',
@@ -120,28 +145,38 @@
 		async mounted(){
 			let page = 1;
 			await this.actionClients({page:page,items:this.filter})
+			await this.actionRegionList();
 		},
 		computed:{
 			...mapGetters('client',['getClients']),
+			...mapGetters("region", ["getRegionList"]),
+			...mapGetters("area", ["getAreaList"]),
 		},
 		methods:{
+			...mapActions("region", ["actionRegionList"]),
+    		...mapActions("area", ["actionAreaByRegion"]),
 			...mapActions('client',['actionClients']),
 			async getResults(page = 1){ 
 				await this.actionClients({page:page,items:this.filter})
 			},
+			async selectRegion(){
+		      await this.actionAreaByRegion({ region_id: this.filter.region_id });
+		    },
 			toggleFilter(){
 				this.filterShow = !this.filterShow
 			},
 			async search(){
 				let page = 1
-				if(this.filter.name || this.filter.inn || this.filter.company_name){
+				if(this.filter.name || this.filter.inn || this.filter.company_name || this.filter.region_id || this.filter.area_id){
 					await this.actionClients({page: page,items:this.filter})
 				}
 			},
 			async clear(){
-				if(this.filter.name || this.filter.inn || this.filter.company_name){
+				if(this.filter.name || this.filter.inn || this.filter.company_name || this.filter.region_id || this.filter.area_id){
 					this.filter.name = ''
 					this.filter.inn = ''
+					this.filter.region_id = ''
+					this.filter.area_id = ''
 					this.filter.company_name = ''
 					let page  = 1
 					await this.actionClients({page: page,items:this.filter})
