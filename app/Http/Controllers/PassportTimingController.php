@@ -34,7 +34,6 @@ class PassportTimingController extends Controller
 
     public function store(Request $request)
     {
-        // return response()->json(['result' => $request->all()]);
         $validator = Validator::make($request->all(), [            
             'timing' => 'required|array',
             'timing.*.direction_id' => 'required|integer',
