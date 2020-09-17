@@ -42,7 +42,7 @@ class PassportTimingController extends Controller
             'timing.*.region_to_id' => 'required|array',
             'timing.*.region_to_id.id' => 'required|integer',
             'timing.*.area_from_id' => 'nullable|array',
-            'timing.*.area_from_id.id' => 'required',
+            'timing.*.area_from_id.id' => 'nullable',
             'timing.*.area_to_id' => 'nullable|array',
             'timing.*.area_to_id.id' => 'nullable|integer',
             'timing.*.station_from_id' => 'nullable',

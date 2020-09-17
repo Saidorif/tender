@@ -407,7 +407,6 @@ export default {
       this.technicSpeed = calcRes /  this.tableData.length
     },
     addItem() {
-    console.log(this.titulData)
       if (
         this.form.region_to_id != "" &&
         this.form.start_time != "" &&
