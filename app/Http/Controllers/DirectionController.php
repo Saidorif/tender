@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Direction;
+use App\TimingDetails;
 use App\Region;
 use App\Area;
 use Validator;
@@ -23,9 +24,15 @@ class DirectionController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function timingdetails(Request $request)
+    {
+        $result = TimingDetails::all();
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function edit($id)
     {
-        $result = Direction::with(['regionToWith','regionFromWith','areaFromWith','areaToWith'])->find($id);
+        $result = Direction::with(['regionToWith','regionFromWith','areaFromWith','areaToWith','timingWith','timingDetails'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }

@@ -17,6 +17,7 @@
 							<th scope="col">Название</th>
 							<th scope="col">Области</th>
 							<th scope="col">Регион</th>
+							<th scope="col">Тип станции</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
@@ -26,6 +27,7 @@
 							<td>{{station.name}}</td>
 							<td>{{station.region ? station.region.name : ''}}</td>
 							<td>{{station.area ? station.area.name : ''}}</td>
+							<td>{{station.station_type}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/station/edit/${station.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>

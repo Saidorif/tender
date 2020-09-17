@@ -31,4 +31,40 @@ class PassportTiming extends Model
         'whereTo',
         // 'timingDetails',
     ];
+
+    protected $casts = [
+        'whereForm' => 'array',
+        'whereTo' => 'array',
+        'details' => 'array',
+    ];
+
+    public function regionFrom()
+    {
+        return $this->belongsTo(\App\Region::class,'region_from_id');
+    }
+
+    public function regionTo()
+    {
+        return $this->belongsTo(\App\Region::class,'region_to_id');
+    }
+
+    public function areaFrom()
+    {
+        return $this->belongsTo(\App\Area::class,'area_from_id');
+    }
+
+    public function areaTo()
+    {
+        return $this->belongsTo(\App\Area::class,'area_to_id');
+    }
+
+    public function stationFrom()
+    {
+        return $this->belongsTo(\App\Station::class,'station_from_id');
+    }
+
+    public function stationTo()
+    {
+        return $this->belongsTo(\App\Station::class,'station_to_id');
+    }
 }
