@@ -47,4 +47,21 @@ class Direction extends Model
     {
         return $this->areaTo()->with(['station']);
     }
+
+    public function timing()
+    {
+        return $this->hasMany(\App\PassportTiming::class,'direction_id');
+    }
+
+    public function timingDetails()
+    {
+        return $this->hasMany(\App\TimingDetails::class,'direction_id');
+    }
+
+    public function timingWith()
+    {
+        return $this->timing()->with(['regionFrom','regionTo','areaFrom','areaTo','stationFrom','stationTo']);
+    }
+
+
 }

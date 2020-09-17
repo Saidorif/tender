@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\PassportTiming;
+use App\TimingDetails;
 use Str;
 use Carbon\Carbon;
 
@@ -33,7 +34,6 @@ class PassportTimingController extends Controller
 
     public function store(Request $request)
     {
-        // return response()->json(['result' => $request->all()]);
         $validator = Validator::make($request->all(), [            
             'timing' => 'required|array',
             'timing.*.direction_id' => 'required|integer',
@@ -63,7 +63,17 @@ class PassportTimingController extends Controller
             'timing.*.details' => 'required',
             'timing.*.whereForm' => 'required',
             'timing.*.whereTo' => 'required',
-            // 'timing.*.timingDetails' => 'required',
+            'timingDetails' => 'required|array',
+            'timingDetails.date' => 'required|string',
+            'timingDetails.avto_number' => 'required|string',
+            'timingDetails.avto_model' => 'required|string',
+            'timingDetails.conclusion' => 'required|string',
+            'timingDetails.persons' => 'required|array',
+            'timingDetails.persons.*.name' => 'required|string',
+            'timingDetails.persons.*.surname' => 'required|string',
+            'timingDetails.persons.*.middlename' => 'required|string',
+            'timingDetails.persons.*.job' => 'required|string',
+            'timingDetails.persons.*.position' => 'required|string',
         ]);
 
         if($validator->fails()){
@@ -71,12 +81,6 @@ class PassportTimingController extends Controller
         }
         $inputs = $request->input('timing');
         foreach ($inputs as $key => $value) {
-            // unset($value['areaTo']);
-            // unset($value['stationTo']);
-            // unset($value['areaFrom']);
-            // unset($value['stationFrom']);
-            // return response()->json(['result' => $value]);
-            // var_dump($value);die;
             $passportTiming = PassportTiming::create([
                 'direction_id' => $value['direction_id'],
                 'start_time' => Carbon::parse($value['start_time'])->format('Y-m-d H:i:s'),
@@ -84,13 +88,13 @@ class PassportTimingController extends Controller
                 'end_time' => Carbon::parse($value['end_time'])->format('Y-m-d H:i:s'),
                 'region_from_id' => $value['region_from_id']['id'],
                 'region_to_id' => $value['region_to_id']['id'],
-                'detailsOptions' => json_encode($value['detailsOptions']),
+                'detailsOptions' => $value['detailsOptions'],
                 'area_from_id' => $value['area_from_id']['id'],
                 'area_to_id' => $value['area_to_id']['id'],
                 'station_to_id' => $value['station_to_id']['id'],
-                'details' => json_encode($value['details']),
-                'whereForm' => json_encode($value['whereForm']),
-                'whereTo' => json_encode($value['whereTo']),
+                'details' => $value['details'],
+                'whereForm' => $value['whereForm'],
+                'whereTo' => $value['whereTo'],
                 'distance_from_start_station' => (int) $value['distance_from_start_station'],
                 'distance_between_station' => (int) $value['distance_between_station'],
                 'distance_in_limited_speed' => (int) $value['distance_in_limited_speed'],
@@ -103,6 +107,17 @@ class PassportTimingController extends Controller
                 'start_speedometer' => (int) $value['start_speedometer'],
             ]);
         }
+
+        $timing = $request->input('timingDetails');
+
+        $timingDetails = TimingDetails::create([
+            'direction_id' => $inputs[0]['direction_id'],
+            'date' => Carbon::parse($timing['date'])->format('Y-m-d'),
+            'avto_number' => $timing['avto_number'],
+            'avto_model' => $timing['avto_model'],
+            'conclusion' => $timing['conclusion'],
+            'persons' => $timing['persons'],
+        ]);
 
         return response()->json(['success' => true, 'message' => 'Хронометраж успешно создан']);
     }

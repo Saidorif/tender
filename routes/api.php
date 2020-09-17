@@ -35,6 +35,13 @@ Route::group([
             Route::get('carrier/edit/{id}', 'UserController@carrierEdit');
             Route::get('carrier/update', 'UserController@carrierUpdate');
 
+            // ComplaintCategory
+            Route::get('complaintcategory', 'ComplaintCategoryController@index');
+            Route::post('complaintcategory/store', 'ComplaintCategoryController@store');
+            Route::post('complaintcategory/update/{id}', 'ComplaintCategoryController@update')->where('id', '[0-9]+');
+            Route::get('complaintcategory/edit/{id}', 'ComplaintCategoryController@edit')->where('id', '[0-9]+');
+            Route::delete('complaintcategory/destroy/{id}', 'ComplaintCategoryController@destroy')->where('id', '[0-9]+');
+
             //Employee CRUD
             Route::post('employee', 'EmployeeController@index');
             Route::post('checkemail', 'EmployeeController@checkemail');
@@ -97,6 +104,7 @@ Route::group([
             Route::post('direction', 'DirectionController@index');
             Route::post('direction/store', 'DirectionController@store');
             Route::get('direction/list', 'DirectionController@list');
+            Route::get('direction/timingdetails', 'DirectionController@timingdetails');
             Route::get('direction/edit/{id}', 'DirectionController@edit');
             Route::post('direction/update/{id}', 'DirectionController@update');
             Route::delete('direction/destroy/{id}', 'DirectionController@destroy');
