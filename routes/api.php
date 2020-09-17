@@ -20,7 +20,7 @@ Route::group([
     Route::post('register', 'UserController@register');
     Route::get('region/list', 'RegionController@list');
     Route::post('area/regionby', 'AreaController@regionby');
-    // Route::post('create-user', 'AuthController@createUser');
+    // Route::post('create-user', 'UserController@createUser');
     
     Route::group(['middleware' => 'jwt.auth'], function(){
         // Route::group(['middleware' => 'permit'], function(){
@@ -33,6 +33,7 @@ Route::group([
             Route::post('change-password', 'UserController@changePasword');
             Route::post('carrier', 'UserController@carrier');
             Route::get('carrier/edit/{id}', 'UserController@carrierEdit');
+            Route::get('carrier/update', 'UserController@carrierUpdate');
 
             //Employee CRUD
             Route::post('employee', 'EmployeeController@index');

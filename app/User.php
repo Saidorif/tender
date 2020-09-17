@@ -19,9 +19,12 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'name',
+        'middlename',
+        'surname',
         'email',
         'password',
         'role_id',
+        'position_id',
         'region_id',
         'area_id',
         'image',
@@ -97,6 +100,6 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function position(){
-        return $this->belongsTo(Position::class);
+        return $this->belongsTo(\App\Position::class,'position_id');
     }
 }

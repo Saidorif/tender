@@ -34,7 +34,10 @@ class CreatePassportTimingsTable extends Migration
             $table->bigInteger('spendtime_to_stay_station');//Oraliq bekatdan toxtash uchun
             $table->bigInteger('speed_between_station');//Bekatlar oraligidagi xarakat
             $table->bigInteger('speed_between_limited_space');//Shundan xarakat tezligi chegaralangan oraliqda
-            $table->string('details');//Qatnov yoli xaqidagi malumotlar
+            $table->text('details');//Qatnov yoli xaqidagi malumotlar
+            $table->text('whereForm')->nullable();
+            $table->text('whereTo')->nullable();
+            // $table->text('timingDetails')->nullable();
             $table->timestamps();
         });
     }
