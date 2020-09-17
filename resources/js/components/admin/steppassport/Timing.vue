@@ -364,6 +364,8 @@ export default {
   },
   async mounted() {
     await this.actionRegionList();
+    this.timingDetails = this.titulData.timing_details ? this.titulData.timing_details[0] : this.timingDetails
+    this.tableData = this.titulData.timing_with ? this.titulData.timing_with : this.tableData
   },
   computed: {
     ...mapGetters("region", ["getRegionList"]),
