@@ -38,6 +38,7 @@ Route::group([
             // ComplaintCategory
             Route::get('complaintcategory', 'ComplaintCategoryController@index');
             Route::post('complaintcategory/store', 'ComplaintCategoryController@store');
+            Route::get('complaintcategory/list', 'ComplaintCategoryController@list');
             Route::post('complaintcategory/update/{id}', 'ComplaintCategoryController@update')->where('id', '[0-9]+');
             Route::get('complaintcategory/edit/{id}', 'ComplaintCategoryController@edit')->where('id', '[0-9]+');
             Route::delete('complaintcategory/destroy/{id}', 'ComplaintCategoryController@destroy')->where('id', '[0-9]+');

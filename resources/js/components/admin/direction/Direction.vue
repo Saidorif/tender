@@ -25,7 +25,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<!-- <tr v-for="(direct,index) in getDirections.data">
+						<tr v-for="(direct,index) in getDirections.data">
 							<td scope="row">{{index+1}}</td>
 							<td>{{direct.name}}</td>
 							<td>{{direct.region_from.name}}</td>
@@ -40,7 +40,7 @@
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>
-						</tr> -->
+						</tr>
 					</tbody>
 					<!-- <pagination :limit="4" :data="getDirections" @pagination-change-page="getResults"></pagination> -->
 				</table>

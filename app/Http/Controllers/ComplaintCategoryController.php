@@ -15,6 +15,12 @@ class ComplaintCategoryController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function list()
+    {
+        $result = ComplaintCategory::all();
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
