@@ -27,5 +27,8 @@ class PassportTiming extends Model
         'speed_between_station',
         'speed_between_limited_space',
         'details',
+        'whereForm',
+        'whereTo',
+        // 'timingDetails',
     ];
 }
