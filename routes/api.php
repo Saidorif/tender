@@ -97,6 +97,7 @@ Route::group([
             Route::post('direction', 'DirectionController@index');
             Route::post('direction/store', 'DirectionController@store');
             Route::get('direction/list', 'DirectionController@list');
+            Route::get('direction/timingdetails', 'DirectionController@timingdetails');
             Route::get('direction/edit/{id}', 'DirectionController@edit');
             Route::post('direction/update/{id}', 'DirectionController@update');
             Route::delete('direction/destroy/{id}', 'DirectionController@destroy');
