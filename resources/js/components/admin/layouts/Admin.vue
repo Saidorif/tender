@@ -88,6 +88,31 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
+              <span class="peIcon fas fa-comment" style="font-size: 20px;"></span>
+              <p>
+                Жалобы
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/complaint-list">
+                  <p>
+                    Список жалобы
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/complaint">
+                  <p>
+                    Вариант жалобы
+                  </p>
+                </router-link>
+              </li>
+            </ul>
+          </li>  
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
               <i class="peIcon fas fa-cogs" style="font-size: 20px;"></i>
               <p>
                 Основные настройки

@@ -46,6 +46,19 @@
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
 				    	>
 					  </div>
+					  <div class="form-group col-md-9">
+					    <label for="station_type">Station Type</label>
+					    <select 
+					    	class="form-control input_style" 
+					    	v-model="form.station_type" 
+					    	:class="isRequired(form.station_type) ? 'isRequired' : ''"  
+				    	>
+					    	<option value="" selected disabled>choose option</option>
+					    	<option value="1">Avtovokzal</option>
+					    	<option value="2">Avto bekat</option>
+					    	<option value="3">Type 3</option>
+					    </select>
+					  </div>
 					  <div class="form-group col-lg-3 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
@@ -66,6 +79,7 @@
 				form:{
 					region_id:'',
 					area_id:'',
+					station_type:'',
 					name:'',
 				},
 				requiredInput:false
@@ -87,7 +101,7 @@
 	    		return this.requiredInput && input === '';
 		    },
 			async saveArea(){
-		    	if (this.form.name != '' && this.form.region_id != ''){
+		    	if (this.form.name != '' && this.form.region_id != '' && this.form.area_id != '' && this.form.station_type != ''){
 					await this.actionAddStation(this.form)
 					
 					if(this.getMassage.success){
