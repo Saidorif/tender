@@ -19,7 +19,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<!-- <tr v-for="(compl,index) in getComplaint.data">
+						<tr v-for="(compl,index) in getComplaints.data">
 							<td scope="row">{{index+1}}</td>
 							<td>{{compl.name}}</td>
 							<td>
@@ -30,9 +30,9 @@
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>
-						</tr> -->
+						</tr>
 					</tbody>
-					<!-- <pagination :limit="4" :data="getComplaint" @pagination-change-page="getResults"></pagination> -->
+					<pagination :limit="4" :data="getComplaints" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
 		  </div>
@@ -54,12 +54,21 @@
 			...mapGetters('complaint',['getComplaints','getMassage'])
 		},
 		methods:{
-			...mapActions('complaint',['actionComplaints']),
+			...mapActions('complaint',['actionComplaints','actionDeleteComplaint']),
 			async getResults(page = 1){ 
 				await this.actionComplaints(page)
 			},
-			deleteComplaint(id){
-				console.log(id)
+			async deleteComplaint(id){
+				if(confirm("Вы действительно хотите удалить?")){
+					let page = 1
+					await this.actionDeleteComplaint(id)
+					await this.actionComplaints(page)
+					toast.fire({
+				    	type: 'success',
+				    	icon: 'success',
+						title: 'Вариант жалобы удалено!',
+				    })
+				}
 			}
 		}
 	}
