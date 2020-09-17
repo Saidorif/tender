@@ -222,7 +222,7 @@
       </div>
     </div>
     <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
-      <button @click="addItem()" class="btn btn-info mr-2">
+      <button type="button" @click="addItem()" class="btn btn-info mr-2">
         <i class="fas fa-plus"></i>
         Добавить
       </button>
@@ -314,11 +314,11 @@ export default {
     return {
       form: {
         direction_id: this.$route.params.directionId,
-        region_from_id: "",
+        region_from_id: this.titulData.region_from_with,
         region_to_id: "",
-        area_from_id: "",
+        area_from_id:  this.titulData.area_from_with,
         area_to_id: "",
-        station_from_id: "",
+        station_from_id: this.titulData.station_from_id,
         station_to_id: "",
         start_time: "",
         end_time: "",
@@ -407,6 +407,7 @@ export default {
       this.technicSpeed = calcRes /  this.tableData.length
     },
     addItem() {
+    console.log(this.titulData)
       if (
         this.form.region_to_id != "" &&
         this.form.start_time != "" &&
