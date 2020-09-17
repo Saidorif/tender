@@ -8,6 +8,7 @@ import store from "./store/store";
 // Dashboard component
 import Dashboard from './components/admin/Dashboard'
 import Admin from './components/admin/layouts/Admin'
+import Master from './components/layouts/Master'
 import Login from './components/auth/Login'
 import Profile from './components/admin/user/Profile'
 
@@ -84,6 +85,9 @@ import EditComplaint from './components/admin/complaint/EditComplaint'
 
 // PassportTab
 import PassportTab from './components/admin/steppassport/PassportTab'
+
+// Home
+import Contact from './components/home/Contact'
 
 
 // NotFound
@@ -295,10 +299,26 @@ const router = new Router({
 		},
 		{
 			path:'/',
-			name:'login',
+			name:'master',
 			components:{
-				default:Login,
+				default:Master,
 			},
+			children:[
+				{
+					path:'/',
+					name:'login',
+					components:{
+						default:Login,
+					},
+				},
+				{
+					path:'/contact',
+					name:'contact',
+					components:{
+						default:Contact,
+					},
+				},
+			]
 		},
 		{
 			path:'*',

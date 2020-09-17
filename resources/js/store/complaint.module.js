@@ -4,6 +4,7 @@ const state = {
 	complaints: {},
 	message: [],
 	complaint: [],
+	complaintList: [],
 };
 
 const getters = {
@@ -16,13 +17,25 @@ const getters = {
 	getComplaint(state){
 		return state.complaint
 	},
+	getComplaintList(state){
+		return state.complaintList
+	},
 };
 
 
 const actions = {
+	async actionComplaintList({commit},page){
+		try {
+			const complaint =  await ComplaintService.complaintLists(page);
+			await commit('setComplaintList',complaint.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionComplaints({commit},page){
 		try {
-			const complaint =  await ComplaintService.complaints(page);
+			const complaint =  await ComplaintService.complaintss(page);
 			await commit('setComplaints',complaint.data.result)
 			return true
 		} catch (error) {
@@ -76,6 +89,9 @@ const mutations = {
 	},
 	setEditComplaint(state, complaint){
 		state.complaint = complaint
+	},
+	setComplaintList(state, complaintList){
+		state.complaintList = complaintList
 	},
 };
 

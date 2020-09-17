@@ -57,7 +57,7 @@
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
-		    async saveCont(){
+		    async saveComplt(){
 		    	if (this.form.name != ''){
 					await this.actionUpdateComplaint(this.form)
 					this.$router.push("/crm/complaint");
