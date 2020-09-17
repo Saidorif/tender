@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\PassportTiming;
 use App\TimingDetails;
+use App\Direction;
 use Str;
 use Carbon\Carbon;
 
@@ -32,9 +33,14 @@ class PassportTimingController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
-        $validator = Validator::make($request->all(), [            
+        $direction = Direction::find($id);
+        if(!$direction){
+            return response()->json(['error' => true, 'message' => 'Направление не найден']);
+        }
+
+        $validator = Validator::make($request->all(), [
             'timing' => 'required|array',
             'timing.*.direction_id' => 'required|integer',
             'timing.*.region_from_id' => 'required|array',
@@ -79,10 +85,20 @@ class PassportTimingController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
+        //Get old timings and delete
+        $dTiming = $direction->timing;
+        foreach ($dTiming as $key => $item) {
+            $item->delete();
+        }
+        //Get timing details and delete
+        $dTimingDetails = $direction->timingDetails;
+        foreach ($dTimingDetails as $key => $details) {
+            $details->delete();
+        }
         $inputs = $request->input('timing');
         foreach ($inputs as $key => $value) {
             $passportTiming = PassportTiming::create([
-                'direction_id' => $value['direction_id'],
+                'direction_id' => $direction->id,
                 'start_time' => Carbon::parse($value['start_time'])->format('Y-m-d H:i:s'),
                 'start_time' => Carbon::parse($value['start_time'])->format('Y-m-d H:i:s'),
                 'end_time' => Carbon::parse($value['end_time'])->format('Y-m-d H:i:s'),
@@ -111,7 +127,7 @@ class PassportTimingController extends Controller
         $timing = $request->input('timingDetails');
 
         $timingDetails = TimingDetails::create([
-            'direction_id' => $inputs[0]['direction_id'],
+            'direction_id' => $direction->id,
             'date' => Carbon::parse($timing['date'])->format('Y-m-d'),
             'avto_number' => $timing['avto_number'],
             'avto_model' => $timing['avto_model'],
