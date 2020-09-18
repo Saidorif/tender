@@ -139,7 +139,7 @@
 	    		return this.requiredInput && input === '';
 		    },
 		    async filterVariantList(value){
-		      if(value != '' && value.length > 3){
+		      if(value != ''){
 		        this.isLoading = true
 		        setTimeout(()=>{
 		          this.actionDirectionFind({name: value})
@@ -170,11 +170,10 @@
 		    async saveComplt(){
 		    	if (this.form.direction_id != '' && this.form.comment != ''){
 		    		let formData = new FormData();
-			        formData.append('id', this.$route.params.complaintListAllId);
 			        formData.append('direction_id', this.form.direction_id);
 			        formData.append('comment', this.form.comment);
 			        formData.append('comment_file', this.form.comment_file);
-					await this.actionComplaintUpdateListAll(formData)
+					await this.actionComplaintUpdateListAll(formData,this.$route.params.complaintListAllId)
 					this.$router.push("/crm/complaint-list");
 					this.requiredInput =false
 					toast.fire({

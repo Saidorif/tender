@@ -27,7 +27,11 @@
 							<td>{{compl.surname}}{{compl.name}}{{compl.middlename}}</td>
 							<td>{{compl.direction_id}}</td>
 							<td>{{compl.phone}}</td>
-							<td>{{compl.status}}</td>
+							<td>
+								<div class="badge" :class="getStatusClass(compl.status)">
+									{{getStatusText(compl.status)}}
+								</div>
+							</td>
 							<td>
 								<img :src="compl.file" alt="" v-if="compl.file" width="40">
 							</td>
@@ -68,6 +72,20 @@
 			...mapActions('complaint',['actionComplaintListAll']),
 			async getResults(page = 1){ 
 				await this.actionComplaintListAll(page)
+			},
+			getStatusText(text){
+				if (text == 'pending') {
+					return 'Новая жалоба'
+				}else{
+					return 'Рассмотрено'
+				}
+			},
+			getStatusClass(text){
+				if (text == 'pending') {
+					return 'badge-warning'
+				}else{
+					return 'badge-seccuss'
+				}
 			},
 			// async deleteComplaint(id){
 			// 	if(confirm("Вы действительно хотите удалить?")){
