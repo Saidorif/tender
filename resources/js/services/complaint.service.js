@@ -1,6 +1,15 @@
 import ApiService from './api.service'
 
 const ComplaintService = {
+	contact(data){
+		// return ApiService.post(`/api/contact`,data)
+	},
+	complaintListsAll(data){
+		return ApiService.post(`/api/complaint?page=${data.page}`,data.items)
+	},
+	complaintListsEditAll(id){
+		// return ApiService.get(`/api/complaintcategory`)
+	},
 	complaintss(){
 		return ApiService.get(`/api/complaintcategory`)
 	},

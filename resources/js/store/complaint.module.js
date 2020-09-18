@@ -1,10 +1,13 @@
 import {ComplaintService} from "../services/complaint.service";
 
 const state = {
+	complaintListAll: {},
 	complaints: {},
 	message: [],
 	complaint: [],
+	complaintEditListAll: [],
 	complaintList: [],
+	contacts:[]
 };
 
 const getters = {
@@ -17,13 +20,49 @@ const getters = {
 	getComplaint(state){
 		return state.complaint
 	},
+	getComplaintEditListAll(state){
+		return state.complaintEditListAll
+	},
+	getComplaintListAll(state){
+		return state.complaintListAll
+	},
 	getComplaintList(state){
+		return state.complaintList
+	},
+	getContacts(state){
 		return state.complaintList
 	},
 };
 
 
 const actions = {
+	async actionSendContact({commit},payload){
+		try {
+			const contacts =  await ComplaintService.contact(payload);
+			await commit('setMessage',contacts.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionComplaintEditListAll({commit},id){
+		try {
+			const complaint =  await ComplaintService.complaintListsEditAll(id);
+			await commit('setComplaintEditListAll',complaint.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionComplaintListAll({commit},payload){
+		try {
+			const complaint =  await ComplaintService.complaintListsAll(payload);
+			await commit('setComplaintListAll',complaint.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionComplaintList({commit},page){
 		try {
 			const complaint =  await ComplaintService.complaintLists(page);
@@ -87,11 +126,17 @@ const mutations = {
 	setMessage(state, message){
 		state.message = message
 	},
+	setComplaintEditListAll(state, complaintEditListAll){
+		state.complaintEditListAll = complaintEditListAll
+	},
 	setEditComplaint(state, complaint){
 		state.complaint = complaint
 	},
 	setComplaintList(state, complaintList){
 		state.complaintList = complaintList
+	},
+	setComplaintListAll(state, complaintListAll){
+		state.complaintListAll = complaintListAll
 	},
 };
 
