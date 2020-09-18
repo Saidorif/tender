@@ -13,9 +13,9 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
+							<th scope="col">Статус</th>
 							<th scope="col">ФИО (отправителя)</th>
 							<th scope="col">Телефон (отправителя)</th>
-							<th scope="col">Статус</th>
 							<th scope="col">Направление</th>
 							<th scope="col">Номер направления</th>
 							<th scope="col">Действия</th>
@@ -24,13 +24,13 @@
 					<tbody>
 						<tr v-for="(compl,index) in getComplaintListAll.data">
 							<td scope="row">{{index+1}}</td>
-							<td>{{compl.surname}} {{compl.name}} {{compl.middlename}}</td>
-							<td>{{compl.phone}}</td>
 							<td>
 								<div class="badge " :class="getStatusClass(compl.status)">
 									{{getStatusText(compl.status)}}
 								</div>
 							</td>
+							<td>{{compl.surname}} {{compl.name}} {{compl.middlename}}</td>
+							<td>{{compl.phone}}</td>
 							<td>{{compl.direction ? compl.direction.name : ''}}</td>
 							<td>{{compl.direction ? compl.direction.pass_number : ''}}</td>
 							<td>
