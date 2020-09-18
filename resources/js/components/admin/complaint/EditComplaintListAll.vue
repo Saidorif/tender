@@ -10,7 +10,7 @@
 		  	</div>
 		  	<div class="card-body">
 	  			<div class="row">
-			  		<div class="form-group col-md-6">
+			  		<div class="form-group col-md-4">
 					    <label for="name">Направление</label>
 					    <multiselect 
 			                :value="filter.name"
@@ -33,7 +33,19 @@
 		                <span slot="noOptions">Cписок пустой</span>
 		                </multiselect>
 				  	</div>
-			  		<div class="form-group col-md-6 download_file">
+				  	<div class="form-group col-md-4">
+					    <label for="status">Резултат</label>
+					    <select 
+					    	class="form-control input_style" 
+					    	v-model="form.status" 
+					    	:class="isRequired(form.status) ? 'isRequired' : ''"  
+				    	>
+					    	<option value="" selected disabled>Выберите резултат!</option>
+					    	<option value="active">Не подтвержден</option>
+					    	<option value="completed">Подтвержден</option>
+					    </select>
+				  	</div>
+			  		<div class="form-group col-md-4 download_file">
 			  			<label for="file">Файл</label>
 					    <div class="input-group">
 			                <input
@@ -124,6 +136,7 @@
 			return{
 				form:{
 					direction_id:'',
+					status:'',
 					comment:'',
 					comment_file:'',
 				},
@@ -182,9 +195,10 @@
 		      }
 		    },
 		    async saveComplt(){
-		    	if (this.form.direction_id != '' && this.form.comment != ''){
+		    	if (this.form.direction_id != '' && this.form.comment != '' && this.form.status != ''){
 		    		let formData = new FormData();
 			        formData.append('direction_id', this.form.direction_id);
+			        formData.append('status', this.form.status);
 			        formData.append('comment', this.form.comment);
 			        formData.append('comment_file', this.form.comment_file);
 			        let data = {

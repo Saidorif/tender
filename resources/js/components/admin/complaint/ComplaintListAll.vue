@@ -14,9 +14,10 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Статус</th>
-							<th scope="col">ФИО (отправителя)</th>
+							<th scope="col">Резултат</th>
+							<th scope="col">Ф.И.О (отправителя)</th>
 							<th scope="col">Телефон (отправителя)</th>
-							<th scope="col">Направление</th>
+							<th scope="col">Название направления</th>
 							<th scope="col">Номер направления</th>
 							<th scope="col">Действия</th>
 						</tr>
@@ -27,6 +28,11 @@
 							<td>
 								<div class="badge " :class="getStatusClass(compl.status)">
 									{{getStatusText(compl.status)}}
+								</div>
+							</td>
+							<td>
+								<div class="badge " :class="getResultClass(compl.status)">
+									{{getResultText(compl.status)}}
 								</div>
 							</td>
 							<td>{{compl.surname}} {{compl.name}} {{compl.middlename}}</td>
@@ -77,6 +83,22 @@
 				}else{
 					return 'Рассмотрено'
 				} 
+			},
+			getResultText(text){
+				if (text == 'active') {
+					return 'Не подтвержден'
+				}else if(text == 'completed'){
+					return 'Подтвержден'
+				} 
+			},
+			getResultClass(text){
+				if (text == 'active') {
+					return 'badge-danger'
+				}else if(text == 'completed'){
+					return 'badge-secondary'
+				}else{
+					return 'badge-info'
+				}
 			},
 			getStatusClass(text){
 				if (text == 'pending') {
