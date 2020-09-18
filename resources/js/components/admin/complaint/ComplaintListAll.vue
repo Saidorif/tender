@@ -28,7 +28,7 @@
 							<td>{{compl.direction_id}}</td>
 							<td>{{compl.phone}}</td>
 							<td>
-								<div class="badge" :class="getStatusClass(compl.status)">
+								<div class="badge " :class="getStatusClass(compl.status)">
 									{{getStatusText(compl.status)}}
 								</div>
 							</td>
@@ -78,13 +78,13 @@
 					return 'Новая жалоба'
 				}else{
 					return 'Рассмотрено'
-				}
+				} 
 			},
 			getStatusClass(text){
 				if (text == 'pending') {
 					return 'badge-warning'
 				}else{
-					return 'badge-seccuss'
+					return 'badge-primary'
 				}
 			},
 			// async deleteComplaint(id){

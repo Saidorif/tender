@@ -131,6 +131,7 @@
 		},
 		async mounted(){
 			await this.actionComplaintEditListAll(this.$route.params.complaintListAllId)
+			this.form = this.getComplaintEditListAll
 		},
 		methods:{
 			...mapActions("direction", ["actionDirectionFind"]),
@@ -143,7 +144,6 @@
 		        this.isLoading = true
 		        setTimeout(()=>{
 		          this.actionDirectionFind({name: value})
-		          console.log(this.getDirectionFindList)
 		        this.isLoading = false
 		        },1000)
 		      }
@@ -173,7 +173,11 @@
 			        formData.append('direction_id', this.form.direction_id);
 			        formData.append('comment', this.form.comment);
 			        formData.append('comment_file', this.form.comment_file);
-					await this.actionComplaintUpdateListAll(formData,this.$route.params.complaintListAllId)
+			        let data = {
+			        	items:formData,
+			        	id:this.$route.params.complaintListAllId
+			        }
+					await this.actionComplaintUpdateListAll(data)
 					this.$router.push("/crm/complaint-list");
 					this.requiredInput =false
 					toast.fire({
