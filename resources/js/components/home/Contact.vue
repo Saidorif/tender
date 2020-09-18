@@ -210,12 +210,17 @@ export default {
     dispatchAction(data){
       // this.form.direction_id =  data.id;
     },
-    async send() {
+    async send(){
       if (this.form.name && this.form.surname &&  this.form.phone &&  this.form.text) {
         let formData = new FormData();
-        formData.append('items', this.form);
+        formData.append('name', this.form.name);
+        formData.append('surname', this.form.surname);
+        formData.append('middlename', this.form.middlename);
+        formData.append('phone', this.form.phone);
+        formData.append('text', this.form.text);
+        formData.append('file', this.form.file);
         await this.actionSendContact(formData)
-        if (this.getMassage.success) {
+        if (this.getMassage.success){
           swal.fire({
             type: "success",
             icon: "success",
