@@ -134,7 +134,7 @@
 		},
 		methods:{
 			...mapActions("direction", ["actionDirectionFind"]),
-			...mapActions('complaint',['actionUpdateComplaint','actionComplaintEditListAll']),
+			...mapActions('complaint',['actionComplaintUpdateListAll','actionComplaintEditListAll']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
@@ -169,17 +169,19 @@
 		    async saveComplt(){
 		    	if (this.form.direction_id != '' && this.form.comment != ''){
 		    		let formData = new FormData();
+			        formData.append('id', this.$route.params.complaintListAllId);
 			        formData.append('direction_id', this.form.direction_id);
 			        formData.append('comment', this.form.comment);
 			        formData.append('comment_file', this.form.comment_file);
-					await this.actionUpdateComplaint(this.form)
-					this.$router.push("/crm/complaint-list");
-					this.requiredInput =false
-					toast.fire({
-				    	type: 'success',
-				    	icon: 'success',
-						title: 'Данный сохранен!',
-				    })
+			        console.log(formData)
+					// await this.actionComplaintUpdateListAll(formData)
+					// this.$router.push("/crm/complaint-list");
+					// this.requiredInput =false
+					// toast.fire({
+				 //    	type: 'success',
+				 //    	icon: 'success',
+					// 	title: 'Данный сохранен!',
+				 //    })
 				}else{
 					this.requiredInput =true
 				}
