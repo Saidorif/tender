@@ -79,6 +79,8 @@ import AddClient from './components/admin/client/AddClient'
 import EditClient from './components/admin/client/EditClient'
 
 // Complaint
+import EditComplaintListAll from './components/admin/complaint/EditComplaintListAll'
+import ComplaintListAll from './components/admin/complaint/ComplaintListAll'
 import Complaint from './components/admin/complaint/Complaint'
 import AddComplaint from './components/admin/complaint/AddComplaint'
 import EditComplaint from './components/admin/complaint/EditComplaint'
@@ -230,6 +232,14 @@ const router = new Router({
 				{
 					path:'station/edit/:stationId',
 					component:EditStation,
+				},
+				{
+					path:'complaint-list',
+					component:ComplaintListAll,
+				},
+				{
+					path:'complaint-list/edit/complaintListAllId',
+					component:EditComplaintListAll,
 				},
 				{
 					path:'complaint',

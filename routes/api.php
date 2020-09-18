@@ -42,6 +42,13 @@ Route::group([
             Route::get('complaintcategory/edit/{id}', 'ComplaintCategoryController@edit')->where('id', '[0-9]+');
             Route::delete('complaintcategory/destroy/{id}', 'ComplaintCategoryController@destroy')->where('id', '[0-9]+');
 
+            // Complaint
+            Route::post('complaint', 'ComplaintController@index');
+            Route::post('complaint/store', 'ComplaintController@store');
+            Route::post('complaint/update/{id}', 'ComplaintController@update')->where('id', '[0-9]+');
+            Route::get('complaint/edit/{id}', 'ComplaintController@edit')->where('id', '[0-9]+');
+            Route::delete('complaint/destroy/{id}', 'ComplaintController@destroy')->where('id', '[0-9]+');
+
             //Employee CRUD
             Route::post('employee', 'EmployeeController@index');
             Route::post('checkemail', 'EmployeeController@checkemail');

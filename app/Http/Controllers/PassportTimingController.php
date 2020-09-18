@@ -154,7 +154,7 @@ class PassportTimingController extends Controller
         // foreach ($dTimingDetails as $key => $details) {
         //     $details->delete();
         // }
-        $result->delete();
+        // $result->delete();
 
         return response()->json(['success' => true, 'message' => 'Хронометраж удален']);
     }

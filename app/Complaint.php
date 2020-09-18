@@ -18,5 +18,6 @@ class Complaint extends Model
         'region_id',
         'area_id',
         'user_id',
+        'category_id',
     ];
 }
