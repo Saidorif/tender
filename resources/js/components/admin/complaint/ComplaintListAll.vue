@@ -24,8 +24,8 @@
 					<tbody>
 						<tr v-for="(compl,index) in getComplaintListAll.data">
 							<td scope="row">{{index+1}}</td>
-							<td>{{compl.surname}}{{compl.name}}{{compl.middlename}}</td>
-							<td>{{compl.direction_id}}</td>
+							<td>{{compl.surname}} {{compl.name}} {{compl.middlename}}</td>
+							<td>{{compl.direction ? compl.direction_id : ''}}</td>
 							<td>{{compl.phone}}</td>
 							<td>
 								<div class="badge " :class="getStatusClass(compl.status)">
