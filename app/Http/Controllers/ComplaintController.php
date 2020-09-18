@@ -48,7 +48,7 @@ class ComplaintController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $result = Complaint::find($id);
+        $result = Complaint::with(['direction'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Жалоба не найдено']);
         }
