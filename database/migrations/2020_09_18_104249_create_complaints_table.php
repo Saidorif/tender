@@ -17,9 +17,11 @@ class CreateComplaintsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('surname');
-            $table->string('middlename')->nullable();;
+            $table->string('middlename')->nullable();
             $table->string('phone');
             $table->text('text');
+            $table->text('comment')->nullable();
+            $table->text('comment_file')->nullable();
             $table->string('file')->nullable();
             $table->string('status')->default('pending');
             $table->bigInteger('direction_id')->nullable();

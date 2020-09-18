@@ -4,6 +4,7 @@ const state = {
 	directions: {},
 	message: [],
 	direction: [],
+	directionFindList: [],
 };
 
 const getters = {
@@ -16,10 +17,22 @@ const getters = {
 	getDirection(state){
 		return state.direction
 	},
+	getDirectionFindList(state){
+		return state.directionFindList
+	},
 };
 
 
 const actions = {
+	async actionDirectionFind({commit},payload){
+		try {
+			const directions =  await DirectService.directFind(payload);
+			await commit('setDirectionFind',directions.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionDirections({commit},page){
 		try {
 			const directions =  await DirectService.directs(page);
@@ -76,6 +89,9 @@ const mutations = {
 	},
 	setEditDirection(state, direction){
 		state.direction = direction
+	},
+	setDirectionFind(state, directionFindList){
+		state.directionFindList = directionFindList
 	},
 };
 

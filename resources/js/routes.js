@@ -238,7 +238,7 @@ const router = new Router({
 					component:ComplaintListAll,
 				},
 				{
-					path:'complaint-list/edit/complaintListAllId',
+					path:'complaint-list/edit/:complaintListAllId',
 					component:EditComplaintListAll,
 				},
 				{
