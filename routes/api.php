@@ -94,10 +94,9 @@ Route::group([
 
             //PassportTiming CRUD
             Route::post('timing', 'PassportTimingController@index');
-            Route::post('timing/store', 'PassportTimingController@store');
+            Route::post('timing/store/{id}', 'PassportTimingController@store');
             Route::get('timing/list', 'PassportTimingController@list');
             Route::get('timing/edit/{id}', 'PassportTimingController@edit');
-            Route::post('timing/update/{id}', 'PassportTimingController@update');
             Route::delete('timing/destroy/{id}', 'PassportTimingController@destroy');
 
             //Direction CRUD

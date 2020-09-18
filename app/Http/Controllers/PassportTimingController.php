@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\PassportTiming;
 use App\TimingDetails;
+use App\Direction;
 use Str;
 use Carbon\Carbon;
 
@@ -32,9 +33,14 @@ class PassportTimingController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
-        $validator = Validator::make($request->all(), [            
+        $direction = Direction::find($id);
+        if(!$direction){
+            return response()->json(['error' => true, 'message' => 'Направление не найден']);
+        }
+
+        $validator = Validator::make($request->all(), [
             'timing' => 'required|array',
             'timing.*.direction_id' => 'required|integer',
             'timing.*.region_from_id' => 'required|array',
@@ -79,16 +85,26 @@ class PassportTimingController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
+        //Get old timings and delete
+        $dTiming = $direction->timing;
+        foreach ($dTiming as $key => $item) {
+            $item->delete();
+        }
+        //Get timing details and delete
+        $dTimingDetails = $direction->timingDetails;
+        foreach ($dTimingDetails as $key => $details) {
+            $details->delete();
+        }
         $inputs = $request->input('timing');
         foreach ($inputs as $key => $value) {
             $passportTiming = PassportTiming::create([
-                'direction_id' => $value['direction_id'],
+                'direction_id' => $direction->id,
                 'start_time' => Carbon::parse($value['start_time'])->format('Y-m-d H:i:s'),
                 'start_time' => Carbon::parse($value['start_time'])->format('Y-m-d H:i:s'),
                 'end_time' => Carbon::parse($value['end_time'])->format('Y-m-d H:i:s'),
                 'region_from_id' => $value['region_from_id']['id'],
                 'region_to_id' => $value['region_to_id']['id'],
-                'detailsOptions' => $value['detailsOptions'],
+                // 'detailsOptions' => $value['detailsOptions'],
                 'area_from_id' => $value['area_from_id']['id'],
                 'area_to_id' => $value['area_to_id']['id'],
                 'station_to_id' => $value['station_to_id']['id'],
@@ -111,7 +127,7 @@ class PassportTimingController extends Controller
         $timing = $request->input('timingDetails');
 
         $timingDetails = TimingDetails::create([
-            'direction_id' => $inputs[0]['direction_id'],
+            'direction_id' => $direction->id,
             'date' => Carbon::parse($timing['date'])->format('Y-m-d'),
             'avto_number' => $timing['avto_number'],
             'avto_model' => $timing['avto_model'],
@@ -122,65 +138,22 @@ class PassportTimingController extends Controller
         return response()->json(['success' => true, 'message' => 'Хронометраж успешно создан']);
     }
 
-    public function update(Request $request, $id)
-    {
-        $passportTiming = PassportTiming::find($id);
-        if(!$passportTiming){
-            return response()->json(['error' => true, 'message' => 'Хронометраж не найден']);
-        }
-        $validator = Validator::make($request->all(), [            
-            'timing' => 'required|array',
-            'timing.*.direction_id' => 'required|integer',
-            'timing.*.region_from_id' => 'required|integer',
-            'timing.*.region_to_id' => 'required|integer',
-            'timing.*.area_from_id' => 'nullable|integer',
-            'timing.*.area_to_id' => 'nullable|integer',
-            'timing.*.station_from_id' => 'nullable|integer',
-            'timing.*.station_to_id' => 'nullable|integer',
-            'timing.*.start_time' => 'required|date_format:Y-m-d H:i:s',
-            'timing.*.end_time' => 'required|date_format:Y-m-d H:i:s',
-            'timing.*.start_speedometer' => 'required|integer',
-            'timing.*.end_speedometer' => 'required|integer',
-            'timing.*.distance_from_start_station' => 'required',
-            'timing.*.distance_between_station' => 'required',
-            'timing.*.distance_in_limited_speed' => 'required|integer',
-            'timing.*.spendtime_between_station' => 'required|integer',
-            'timing.*.spendtime_between_limited_space' => 'required|integer',
-            'timing.*.spendtime_to_stay_station' => 'required|integer',
-            'timing.*.speed_between_station' => 'required|integer',
-            'timing.*.speed_between_limited_space' => 'required|integer',
-            'timing.*.details' => 'required|string',
-        ]);
-
-        if($validator->fails()){
-            return response()->json(['error' => true, 'message' => $validator->messages()]);
-        }
-        $inputs = $request->input('timing');
-        $passportTiming->update($inputs);
-
-        //Upload files
-        //Upload files
-        if($request->hasFile('file')){
-            $input = [];
-            $path = public_path('passport');
-            $the_file = $request->file('file');
-            $fileName = Str::random(20).'.'.$the_file->getClientOriginalExtension();
-            $the_file->move($path, $fileName);
-            $files[] = $fileName;
-            $input['file'] = '/passport/'.$fileName;
-            $passportTiming->file = $input['file'];
-            $passportTiming->save();
-        }
-
-        return response()->json(['success' => true, 'message' => 'Хронометраж успешно обновлен']);
-    }
-
     public function destroy(Request $request, $id)
     {
-        $result = PassportTiming::find($id);
+        $result = Direction::find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Хронометраж не найден']);
         }
+        //Get old timings and delete
+        $dTiming = $result->timing;
+        foreach ($dTiming as $key => $item) {
+            $item->delete();
+        }
+        //Get timing details and delete
+        // $dTimingDetails = $result->timingDetails;
+        // foreach ($dTimingDetails as $key => $details) {
+        //     $details->delete();
+        // }
         $result->delete();
 
         return response()->json(['success' => true, 'message' => 'Хронометраж удален']);

@@ -366,6 +366,17 @@ export default {
     await this.actionRegionList();
     this.timingDetails = this.titulData.timing_details ? this.titulData.timing_details[0] : this.timingDetails
     this.tableData = this.titulData.timing_with ? this.titulData.timing_with : this.tableData
+    if(this.tableData.length){
+      this.tableData.forEach(item => {
+        item.region_to_id = item.region_to
+        item.region_from_id = item.region_from
+        item.area_from_id = item.area_from
+        item.area_to_id = item.area_to
+        item.station_from_id = item.station_from
+        item.station_to_id = item.station_to
+      })
+      this.form.start_speedometer = this.tableData[this.tableData.length - 1].end_speedometer
+    }
   },
   computed: {
     ...mapGetters("region", ["getRegionList"]),
@@ -469,8 +480,7 @@ export default {
             start_speedometer: this.form.end_speedometer,
             end_speedometer: "",
             distance_from_start_station: "",
-            distance_between_station:
-              this.form.end_speedometer - this.form.start_speedometer,
+            distance_between_station: this.form.end_speedometer - this.form.start_speedometer,
             distance_in_limited_speed: "",
             spendtime_between_station: "",
             spendtime_between_limited_space: "",

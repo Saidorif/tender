@@ -52,6 +52,7 @@ class StationController extends Controller
         $user = $request->user();
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
+            'station_type' => 'required|string',
             'region_id' => 'required|integer',
             'area_id' => 'required|integer',
         ]);
@@ -73,6 +74,7 @@ class StationController extends Controller
         }
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
+            'station_type' => 'required|string',
             'region_id' => 'required|integer',
             'area_id' => 'required|integer',
         ]);

@@ -18,6 +18,7 @@ class CreateStationsTable extends Migration
             $table->bigInteger('region_id');
             $table->bigInteger('area_id');
             $table->string('name');
+            $table->string('station_type');
             $table->timestamps();
         });
     }
