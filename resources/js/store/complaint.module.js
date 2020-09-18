@@ -45,9 +45,9 @@ const actions = {
 			return false
 		}
 	},
-	async actionComplaintUpdateListAll({commit},{data,id}){
+	async actionComplaintUpdateListAll({commit},payload){
 		try {
-			const complaint =  await ComplaintService.complaintListsUpdateAll(data,id);
+			const complaint =  await ComplaintService.complaintListsUpdateAll(payload);
 			await commit('setMessage',complaint.data)
 			return true
 		} catch (error) {

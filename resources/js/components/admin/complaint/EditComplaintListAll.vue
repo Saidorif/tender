@@ -33,7 +33,7 @@
 		                <span slot="noOptions">Cписок пустой</span>
 		                </multiselect>
 				  	</div>
-			  		<div class="form-group col-md-6">
+			  		<div class="form-group col-md-6 download_file">
 			  			<label for="file">Файл</label>
 					    <div class="input-group">
 			                <input
@@ -43,6 +43,17 @@
 			                  @change="changeFile($event)"
 			                  :disabled="btnShow"
 			                />
+		              	</div>
+		              	<div class="d-flex justify-content-end">
+					     	<a 
+					     		:href="getComplaintEditListAll.comment_file" 
+					     		title="Скачать" 
+					     		class="donwload_text" 
+					     		download
+					     		v-if="getComplaintEditListAll.comment_file"
+				     		>
+						     	<b>Посмотреть <i class="fas fa-eye"></i></b>
+					     	</a>
 		              	</div>
 				  	</div>
 			  		<div class="form-group col-md-12">
@@ -131,6 +142,10 @@
 		},
 		async mounted(){
 			await this.actionComplaintEditListAll(this.$route.params.complaintListAllId)
+			if(this.getComplaintEditListAll.status == 'active'){
+				this.form = this.getComplaintEditListAll
+				this.filter.name = this.getComplaintEditListAll.direction
+			}
 		},
 		methods:{
 			...mapActions("direction", ["actionDirectionFind"]),
@@ -143,7 +158,6 @@
 		        this.isLoading = true
 		        setTimeout(()=>{
 		          this.actionDirectionFind({name: value})
-		          console.log(this.getDirectionFindList)
 		        this.isLoading = false
 		        },1000)
 		      }
@@ -173,7 +187,11 @@
 			        formData.append('direction_id', this.form.direction_id);
 			        formData.append('comment', this.form.comment);
 			        formData.append('comment_file', this.form.comment_file);
-					await this.actionComplaintUpdateListAll(formData,this.$route.params.complaintListAllId)
+			        let data = {
+			        	items:formData,
+			        	id:this.$route.params.complaintListAllId
+			        }
+					await this.actionComplaintUpdateListAll(data)
 					this.$router.push("/crm/complaint-list");
 					this.requiredInput =false
 					toast.fire({
@@ -197,6 +215,9 @@
 	}
 	.donwload_text .input_style.input_text.form-control:hover{
 		background-color:#bae8e0 !important;
+	}
+	.download_file .input-group{
+		margin-bottom: 0px;
 	}
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
