@@ -140,7 +140,7 @@ class PassportTimingController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $result = PassportTiming::find($id);
+        $result = Direction::find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Хронометраж не найден']);
         }
