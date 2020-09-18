@@ -23,6 +23,15 @@ const actions = {
 			return false
 		}
 	},
+	async clearTimingTable({commit},payload){
+		try {
+			const timingData =  await PassportTabService.clearTimingTable(payload);
+			await commit('setTimingMessage',timingData.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 };
 
 const mutations = {

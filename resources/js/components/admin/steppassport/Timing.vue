@@ -222,6 +222,10 @@
       </div>
     </div>
     <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
+      <button type="button" @click="clearTable()" class="btn btn-danger mr-2">
+        <i class="fas fa-trash"></i>
+        Очистить таблисту
+      </button>
       <button type="button" @click="addItem()" class="btn btn-info mr-2">
         <i class="fas fa-plus"></i>
         Добавить
@@ -277,7 +281,7 @@
               </span>
             </td>
           </tr>
-          <tr >
+          <tr>
             <td colspan="8" scope="row">Ortacha tezlik = {{technicSpeed}} km/soat</td>
             <td colspan="8" scope="row">Qatnov tezlik = {{technicSpeed}} km/soat</td>
           </tr>
@@ -299,7 +303,6 @@
         </div>
       </div>
     </div>
-
   </form>
 </template>
 <script>
@@ -389,7 +392,7 @@ export default {
     ...mapActions("region", ["actionRegionList"]),
     ...mapActions("station", ["actionStationByRegion"]),
     ...mapActions("area", ["actionAreaByRegion"]),
-    ...mapActions("passportTab", ["actionAddTiming"]),
+    ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
@@ -554,6 +557,11 @@ export default {
     removePerson(index) {
       this.timingDetails.persons.splice(index, 1);
     },
+    async clearTable(){
+      await this.clearTimingTable(this.$route.params.directionId)
+      this.tableData = []
+      console.log(this.getTimingMassage)
+    }
   },
 };
 </script>
@@ -615,5 +623,11 @@ export default {
 .table_footer p{
   font-weight: bold;
   font-size: 16px;
+}
+.table_btn{
+  width: 30px;
+  height: 30px;
+  font-size: 10px;
+  padding: 1px;
 }
 </style>
