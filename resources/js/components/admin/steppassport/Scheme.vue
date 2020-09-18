@@ -9,10 +9,19 @@
             <div class="sm_cicle_item stationItem" v-if="p_index > 0" :key="p_index"><h6>{{p_item.whereForm ? p_item.whereForm.name : ""}}</h6></div>
 
             <template v-for="(ch_item, ch_index) in p_item.details">
-                <img v-if="ch_item.name == 'Koprik'" v-for="(imgItem) in parseFloat(ch_item.count)" src="/img/tr_tracks.png"  :key="'icon'+p_index+ch_index+imgItem" width="20">
+                <template>
+                <div v-if="ch_item.name == 'railway'" class="icon_item">>
+                    <img  src="/img/tr_tracks.png"  :key="'icon'+p_index+ch_index+imgItem" width="30">
+                    <sup>{{ch_item.count}}</sup>
+                </div>
+                <div v-if="ch_item.name == 'bridge'" class="icon_item">
+                    <img  src="/img/bridge.png"  :key="'icon'+p_index+ch_index+imgItem" width="30">
+                    <sup>{{ch_item.count}}</sup>
+                </div>
+                </template>
             </template>
 
-            <div class="end_point cicle_item stationItem"  v-if="schemeData.length  == p_index + 1" :key="'last'+p_index"><h6>{{p_item.whereForm ? p_item.whereForm.name : ""}}</h6></div>
+            <div class="end_point cicle_item stationItem "  v-if="schemeData.length  == p_index + 1" :key="'last'+p_index"><h6>{{p_item.whereTo ? p_item.whereTo.name : ""}}</h6></div>
         </template>
     </div>
   </form>
@@ -110,5 +119,12 @@ export default {
 .start_point.stationItem h6{
     font-weight: bold;
     top: -30px;
+}
+.icon_item{
+    position: relative;
+}
+.icon_item sup{
+    font-size: 14px;
+    font-weight: bold;
 }
 </style>

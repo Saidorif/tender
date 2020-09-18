@@ -345,9 +345,11 @@ export default {
         whereForm: this.titulData.from_where,
         whereTo: "",
         detailsOptions: [
-          { title: "ASF", code: 'road'},
-          { title: "Koprik", code: 'bridge'},
+          { title: "Xafli yo'l uchastkalari", code: 'danger'},
           { title: "Temir yol", code: 'railway' },
+          { title: "kesishgan yol ustidan otkazilgan kondalang yollar", code: 'bridge'},
+          { title: "dam olish joylari", code: 'rest'},
+          { title: "ovqatlanish joylari", code: 'food'},
         ],
       },
       timingDetails: {
