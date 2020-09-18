@@ -8,6 +8,8 @@ class Direction extends Model
 {
     protected $fillable = ['region_from_id','region_to_id','area_from_id','area_to_id','year','distance','type_id','pass_number','station_from_id','station_to_id','name','seasonal','from_where'];
 
+    protected $casts = ['from_where' => 'array'];
+
     public function regionFrom()
     {
         return $this->belongsTo(\App\Region::class,'region_from_id');

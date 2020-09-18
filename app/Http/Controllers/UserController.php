@@ -16,7 +16,7 @@ class UserController extends Controller
     public function profile(Request $request)
     {
         $user = $request->user();
-        $employee = User::with(['role','position'])->find($user->id);
+        $employee = User::with(['role'])->find($user->id);
         $pers = [];
         $permissions = Permission::where(['role_id' => $user->role->id])->with(['controller', 'action'])->get();
         foreach($permissions as $k => $permission){
