@@ -11,10 +11,10 @@
                 <a class="nav-link" id="titul-tab" data-toggle="tab" href="#titul" role="tab" aria-controls="titul" aria-selected="false">Titul</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="timing-tab" data-toggle="tab" href="#timing" role="tab" aria-controls="timing" aria-selected="true">Xronametraj</a>
+                <a class="nav-link " id="timing-tab" data-toggle="tab" href="#timing" role="tab" aria-controls="timing" aria-selected="true">Xronametraj</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sxema</a>
+                <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sxema</a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
@@ -180,10 +180,12 @@
                 </div>
               </form>
             </div>
-            <div class="tab-pane fade show active" id="timing" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade " id="timing" role="tabpanel" aria-labelledby="home-tab">
                 <Timing v-if="loaded" :titulData="this.getDirection" />
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <Scheme v-if="loaded" :titulData="this.getDirection" />
+            </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
         </div>
       </div>
@@ -193,12 +195,14 @@
 <script>
 import DatePicker from "vue2-datepicker";
 import Timing from "../steppassport/Timing";
+import Scheme from "../steppassport/Scheme";
 import { mapGetters, mapActions } from "vuex";
 import "vue2-datepicker/index.css";
 export default {
   components: {
     DatePicker,
-    Timing
+    Timing,
+    Scheme
   },
   data() {
     return {
