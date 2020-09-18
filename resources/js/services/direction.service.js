@@ -1,6 +1,9 @@
 import ApiService from './api.service'
 
 const DirectService = {
+	directFind(data){
+		return ApiService.post(`/api/direction/find`,data)
+	},
 	directs(){
 		return ApiService.post(`/api/direction`)
 	},
