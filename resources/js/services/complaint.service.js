@@ -2,7 +2,7 @@ import ApiService from './api.service'
 
 const ComplaintService = {
 	contact(data){
-		// return ApiService.post(`/api/contact`,data)
+		return ApiService.post(`/api/complaint/store`,data)
 	},
 	complaintListsAll(data){
 		return ApiService.post(`/api/complaint?page=${data.page}`,data.items)
