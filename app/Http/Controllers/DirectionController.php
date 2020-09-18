@@ -20,7 +20,28 @@ class DirectionController extends Controller
 
     public function list(Request $request)
     {
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Направление не найден']);
+        }
+
         $result = Direction::all();
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
+    public function find(Request $request)
+    {
+        $validator = Validator::make($request->all(), [            
+            'name'  => 'required|string',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $builder = Direction::query();
+        $builder->where('name','LIKE', '%'.$request->input('name').'%');
+        $builder->orWhere('pass_number','LIKE', '%'.$request->input('name').'%');
+        $result = $builder->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -36,7 +57,7 @@ class DirectionController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
-        $result->from_where = json_decode( $result->from_where, true );
+        // $result->from_where = json_decode( $result->from_where, true );
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -70,7 +91,7 @@ class DirectionController extends Controller
             'year' => $inputs['year'],
             'distance' => $inputs['distance'],
             'type_id' => $inputs['type_id'],
-            'from_where' => json_encode($inputs['from_where']),
+            'from_where' => $inputs['from_where'],
             'seasonal' => $inputs['seasonal'],
             'station_from_id' => $inputs['region_from']['station_id'],
             'region_from_id' => $inputs['region_from']['region_id'],
@@ -79,7 +100,7 @@ class DirectionController extends Controller
             'region_to_id' => $inputs['region_to']['region_id'],
             'area_to_id' => $inputs['region_to']['area_id'],
         ]);
-        // $direction->name = $direction->pass_number .'-'. $direction->regionFrom->name.'-***-'.$direction->regionTo->name;
+        $direction->name = $direction->regionFrom->name.'-'.$direction->regionTo->name;
         $direction->save();
 
         return response()->json(['success' => true, 'message' => 'Направление успешно создан','result' => $direction]);
@@ -120,7 +141,7 @@ class DirectionController extends Controller
             'year' => $inputs['year'],
             'distance' => $inputs['distance'],
             'type_id' => $inputs['type_id'],
-            'from_where' => json_encode($inputs['from_where']),
+            'from_where' => $inputs['from_where'],
             'seasonal' => $inputs['seasonal'],
             'station_from_id' => $inputs['region_from']['station_id'],
             'region_from_id' => $inputs['region_from']['region_id'],
@@ -129,7 +150,7 @@ class DirectionController extends Controller
             'region_to_id' => $inputs['region_to']['region_id'],
             'area_to_id' => $inputs['region_to']['area_id'],
         ]);
-        $direction->name = $direction->seria .'-'. $direction->number .'-'. $direction->regionFrom->name.'-***-'.$direction->regionTo->name;
+        $direction->name = $direction->regionFrom->name.'-'.$direction->regionTo->name;
         $direction->save();
 
         return response()->json(['success' => true, 'message' => 'Направление успешно обновлен']);

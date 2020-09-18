@@ -18,6 +18,7 @@ class ComplaintController extends Controller
 
     public function store(Request $request)
     {
+        // return response()->json(['error' => true, 'message' => $request->all()]);
         $validator = Validator::make($request->all(),[
             'name' => 'required|string',
             'surname' => 'required|string',
@@ -62,32 +63,24 @@ class ComplaintController extends Controller
             return response()->json(['error' => true, 'message' => 'Жалоба не найдено']);
         }
         $validator = Validator::make($request->all(),[
-            'name' => 'required|string',
-            'surname' => 'required|string',
-            'middlename' => 'nullable|string',
-            'phone' => 'required|string',
-            'text' => 'required|string',
-            'status' => 'nullable|string',
-            'direction_id' => 'nullable|string',
-            'region_id' => 'nullable|string',
-            'area_id' => 'nullable|string',
-            'user_id' => 'nullable|string',
+            'direction_id' => 'required|string',
+            'comment' => 'required|string',
             'category_id' => 'nullable|string',
-            'file' => 'nullable|file|mimes:jpg,jpeg,png,bmp|max:4096',
+            'comment_file' => 'nullable|file|mimes:jpg,jpeg,png,bmp|max:4096',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
-        $inputs = $request->all();
-        $inputs['status'] = 'pending';
+        $inputs = $request->only('direction_id','comment','category_id');
+        $inputs['status'] = 'active';
         //Upload file and image
-        if($request->hasFile('file')){
+        if($request->hasFile('comment_file')){
             $input = [];
             $path = public_path('passport');
-            $the_file = $request->file('file');
+            $the_file = $request->file('comment_file');
             $fileName = Str::random(20).'.'.$the_file->getClientOriginalExtension();
             $the_file->move($path, $fileName);
-            $inputs['file'] = '/passport/'.$fileName;
+            $inputs['comment_file'] = '/passport/'.$fileName;
         }
         $result->update($inputs);
         return response()->json(['success' => true, 'message' => 'Жалоба обновлено']);
