@@ -14,10 +14,10 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">ФИО (отправителя)</th>
+							<th scope="col">Телефон (отправителя)</th>
 							<th scope="col">Статус</th>
 							<th scope="col">Направление</th>
 							<th scope="col">Номер направления</th>
-							<th scope="col">Телефон (отправителя)</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
@@ -25,6 +25,7 @@
 						<tr v-for="(compl,index) in getComplaintListAll.data">
 							<td scope="row">{{index+1}}</td>
 							<td>{{compl.surname}} {{compl.name}} {{compl.middlename}}</td>
+							<td>{{compl.phone}}</td>
 							<td>
 								<div class="badge " :class="getStatusClass(compl.status)">
 									{{getStatusText(compl.status)}}
@@ -32,7 +33,6 @@
 							</td>
 							<td>{{compl.direction ? compl.direction.name : ''}}</td>
 							<td>{{compl.direction ? compl.direction.pass_number : ''}}</td>
-							<td>{{compl.phone}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/complaint-list/edit/${compl.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
