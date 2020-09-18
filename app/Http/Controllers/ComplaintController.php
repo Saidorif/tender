@@ -12,7 +12,7 @@ class ComplaintController extends Controller
 
     public function index()
     {
-        $result = Complaint::orderBy('id', 'DESC')->paginate(12);
+        $result = Complaint::with(['direction'])->orderBy('id', 'DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -48,7 +48,7 @@ class ComplaintController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $result = Complaint::find($id);
+        $result = Complaint::with(['direction'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Жалоба не найдено']);
         }

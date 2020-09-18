@@ -12,6 +12,8 @@ class Complaint extends Model
         'middlename',
         'phone',
         'text',
+        'comment',
+        'comment_file',
         'file',
         'status',
         'direction_id',
@@ -20,4 +22,9 @@ class Complaint extends Model
         'user_id',
         'category_id',
     ];
+
+    public function direction()
+    {
+        return $this->belongsTo(\App\Direction::class,'direction_id');
+    }
 }

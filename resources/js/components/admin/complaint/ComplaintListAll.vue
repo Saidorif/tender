@@ -13,28 +13,32 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">ФИО</th>
-							<th scope="col">Направление</th>
-							<th scope="col">Телефон</th>
 							<th scope="col">Статус</th>
-							<th scope="col">Файл</th>
+							<th scope="col">Резултат</th>
+							<th scope="col">Ф.И.О (отправителя)</th>
+							<th scope="col">Телефон (отправителя)</th>
+							<th scope="col">Название направления</th>
+							<th scope="col">Номер направления</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="(compl,index) in getComplaintListAll.data">
 							<td scope="row">{{index+1}}</td>
-							<td>{{compl.surname}}{{compl.name}}{{compl.middlename}}</td>
-							<td>{{compl.direction_id}}</td>
-							<td>{{compl.phone}}</td>
 							<td>
-								<div class="badge" :class="getStatusClass(compl.status)">
+								<div class="badge " :class="getStatusClass(compl.status)">
 									{{getStatusText(compl.status)}}
 								</div>
 							</td>
 							<td>
-								<img :src="compl.file" alt="" v-if="compl.file" width="40">
+								<div class="badge " :class="getResultClass(compl.status)">
+									{{getResultText(compl.status)}}
+								</div>
 							</td>
+							<td>{{compl.surname}} {{compl.name}} {{compl.middlename}}</td>
+							<td>{{compl.phone}}</td>
+							<td>{{compl.direction ? compl.direction.name : ''}}</td>
+							<td>{{compl.direction ? compl.direction.pass_number : ''}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/complaint-list/edit/${compl.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -78,13 +82,29 @@
 					return 'Новая жалоба'
 				}else{
 					return 'Рассмотрено'
+				} 
+			},
+			getResultText(text){
+				if (text == 'active') {
+					return 'Не подтвержден'
+				}else if(text == 'completed'){
+					return 'Подтвержден'
+				} 
+			},
+			getResultClass(text){
+				if (text == 'active') {
+					return 'badge-danger'
+				}else if(text == 'completed'){
+					return 'badge-secondary'
+				}else{
+					return 'badge-info'
 				}
 			},
 			getStatusClass(text){
 				if (text == 'pending') {
 					return 'badge-warning'
 				}else{
-					return 'badge-seccuss'
+					return 'badge-primary'
 				}
 			},
 			// async deleteComplaint(id){
