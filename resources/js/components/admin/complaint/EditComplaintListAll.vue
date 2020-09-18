@@ -27,7 +27,6 @@
 			                deselectLabel="Нажмите Enter, чтобы удалить"
 			                :option="[{name: '', id: 1}]"
 			                @select="dispatchAction"
-			                :class="isRequired(form.direction_id) ? 'isRequired' : ''"
 			                :disabled="btnShow"
 		                >
 		                <span slot="noResult">По вашему запросу ничего не найдено</span>
@@ -118,6 +117,7 @@
 					comment_file:'',
 				},
 				filter:{
+					id:'',
 					name:'',
 				},
 				requiredInput:false,
@@ -139,10 +139,11 @@
 	    		return this.requiredInput && input === '';
 		    },
 		    async filterVariantList(value){
-		      if(value != ''){
+		      if(value != '' && value.length > 3){
 		        this.isLoading = true
 		        setTimeout(()=>{
 		          this.actionDirectionFind({name: value})
+		          console.log(this.getDirectionFindList)
 		        this.isLoading = false
 		        },1000)
 		      }
@@ -173,15 +174,14 @@
 			        formData.append('direction_id', this.form.direction_id);
 			        formData.append('comment', this.form.comment);
 			        formData.append('comment_file', this.form.comment_file);
-			        console.log(formData)
-					// await this.actionComplaintUpdateListAll(formData)
-					// this.$router.push("/crm/complaint-list");
-					// this.requiredInput =false
-					// toast.fire({
-				 //    	type: 'success',
-				 //    	icon: 'success',
-					// 	title: 'Данный сохранен!',
-				 //    })
+					await this.actionComplaintUpdateListAll(formData)
+					this.$router.push("/crm/complaint-list");
+					this.requiredInput =false
+					toast.fire({
+				    	type: 'success',
+				    	icon: 'success',
+						title: 'Данный сохранен!',
+				    })
 				}else{
 					this.requiredInput =true
 				}

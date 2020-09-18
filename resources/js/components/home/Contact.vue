@@ -221,6 +221,12 @@ export default {
         formData.append('file', this.form.file);
         await this.actionSendContact(formData)
         if (this.getMassage.success){
+          this.form.name = ''
+          this.form.surname = ''
+          this.form.middlename = ''
+          this.form.phone = ''
+          this.form.text = ''
+          this.form.file = ''
           swal.fire({
             type: "success",
             icon: "success",
