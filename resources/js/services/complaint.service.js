@@ -8,7 +8,7 @@ const ComplaintService = {
 		return ApiService.post(`/api/complaint?page=${data.page}`,data.items)
 	},
 	complaintListsEditAll(id){
-		// return ApiService.get(`/api/complaintcategory`)
+		return ApiService.get(`/api/complaint/edit/${id}`)
 	},
 	complaintss(){
 		return ApiService.get(`/api/complaintcategory`)

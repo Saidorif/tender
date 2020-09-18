@@ -13,29 +13,32 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
+							<th scope="col">ФИО</th>
 							<th scope="col">Направление</th>
-							<th scope="col">Область</th>
-							<th scope="col">Компания</th>
+							<th scope="col">Телефон</th>
 							<th scope="col">Статус</th>
+							<th scope="col">Файл</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="(compl,index) in getComplaintListAll.data">
 							<td scope="row">{{index+1}}</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<!-- <td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/complaint/edit/${compl.id}`'>
+							<td>{{compl.surname}}{{compl.name}}{{compl.middlename}}</td>
+							<td>{{compl.direction_id}}</td>
+							<td>{{compl.phone}}</td>
+							<td>{{compl.status}}</td>
+							<td>
+								<img :src="compl.file" alt="" v-if="compl.file" width="40">
+							</td>
+							<td>
+								<router-link tag="button" class="btn_transparent" :to='`/crm/complaint-list/edit/${compl.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteComplaint(compl.id)">
+							<!-- 	<button class="btn_transparent" @click="deleteComplaint(compl.id)">
 									<i class="pe_icon pe-7s-trash trashColor"></i>
-								</button>
-							</td> -->
+								</button> -->
+							</td>
 						</tr>
 					</tbody>
 					<pagination :limit="4" :data="getComplaintListAll" @pagination-change-page="getResults"></pagination>
@@ -54,7 +57,9 @@
 			}
 		},
 		async mounted(){
-			await this.getComplaintListAll()
+			let page = 1
+			await this.actionComplaintListAll({page:page})
+			console.log(this.getComplaintListAll)
 		},
 		computed:{
 			...mapGetters('complaint',['getComplaintListAll','getMassage'])

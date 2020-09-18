@@ -211,7 +211,7 @@ export default {
       // this.form.direction_id =  data.id;
     },
     async send(){
-      if (this.form.name && this.form.surname &&  this.form.phone &&  this.form.text) {
+      if (this.form.name && this.form.surname &&  this.form.phone &&  this.form.text){
         let formData = new FormData();
         formData.append('name', this.form.name);
         formData.append('surname', this.form.surname);
@@ -225,7 +225,7 @@ export default {
             type: "success",
             icon: "success",
             title: "Сообщение",
-            text: "Вам на почту отправлен доступ!"
+            text: this.getMassage.message
           }); 
         }else{
           swal.fire({
