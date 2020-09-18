@@ -20,6 +20,7 @@ Route::group([
     Route::post('register', 'UserController@register');
     Route::get('region/list', 'RegionController@list');
     Route::post('area/regionby', 'AreaController@regionby');
+    Route::post('complaint/store', 'ComplaintController@store');
     // Route::post('create-user', 'UserController@createUser');
     Route::get('complaintcategory/list', 'ComplaintCategoryController@list');
     Route::group(['middleware' => 'jwt.auth'], function(){
@@ -44,10 +45,10 @@ Route::group([
 
             // Complaint
             Route::post('complaint', 'ComplaintController@index');
-            Route::post('complaint/store', 'ComplaintController@store');
+            
             Route::post('complaint/update/{id}', 'ComplaintController@update')->where('id', '[0-9]+');
             Route::get('complaint/edit/{id}', 'ComplaintController@edit')->where('id', '[0-9]+');
-            Route::delete('complaint/destroy/{id}', 'ComplaintController@destroy')->where('id', '[0-9]+');
+            // Route::delete('complaint/destroy/{id}', 'ComplaintController@destroy')->where('id', '[0-9]+');
 
             //Employee CRUD
             Route::post('employee', 'EmployeeController@index');

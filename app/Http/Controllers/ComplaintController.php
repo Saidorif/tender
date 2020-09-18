@@ -35,7 +35,7 @@ class ComplaintController extends Controller
         if($request->hasFile('file')){
             $input = [];
             $path = public_path('passport');
-            $the_file = $request->file('files');
+            $the_file = $request->file('file');
             $fileName = Str::random(20).'.'.$the_file->getClientOriginalExtension();
             $the_file->move($path, $fileName);
             $inputs['file'] = '/passport/'.$fileName;
@@ -47,7 +47,7 @@ class ComplaintController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $result = Complaint::where(['id' => $id])->first();
+        $result = Complaint::find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Жалоба не найдено']);
         }
@@ -67,6 +67,12 @@ class ComplaintController extends Controller
             'middlename' => 'nullable|string',
             'phone' => 'required|string',
             'text' => 'required|string',
+            'status' => 'nullable|string',
+            'direction_id' => 'nullable|string',
+            'region_id' => 'nullable|string',
+            'area_id' => 'nullable|string',
+            'user_id' => 'nullable|string',
+            'category_id' => 'nullable|string',
             'file' => 'nullable|file|mimes:jpg,jpeg,png,bmp|max:4096',
         ]);
         if($validator->fails()){
@@ -74,6 +80,15 @@ class ComplaintController extends Controller
         }
         $inputs = $request->all();
         $inputs['status'] = 'pending';
+        //Upload file and image
+        if($request->hasFile('file')){
+            $input = [];
+            $path = public_path('passport');
+            $the_file = $request->file('file');
+            $fileName = Str::random(20).'.'.$the_file->getClientOriginalExtension();
+            $the_file->move($path, $fileName);
+            $inputs['file'] = '/passport/'.$fileName;
+        }
         $result->update($inputs);
         return response()->json(['success' => true, 'message' => 'Жалоба обновлено']);
     }
