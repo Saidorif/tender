@@ -59,10 +59,10 @@
           />
         </div>
         <div class="form-group col-md-1">
-          <button @click="addPerson()" class="btn btn-info mr-2"  v-if="timingDetails.persons.length == p_index  +1 ">
+          <button @click="addPerson()"           type="button" class="btn btn-info mr-2"  v-if="timingDetails.persons.length == p_index  +1 ">
             <i class="fas fa-plus"></i>
           </button>
-          <button @click="removePerson(p_index)" class="btn btn-danger" v-if="p_index > 2">
+          <button @click="removePerson(p_index)" type="button" class="btn btn-danger" v-if="p_index > 2">
             <i class="fas fa-trash"></i>
           </button>
         </div>
@@ -112,7 +112,7 @@
         <select class="form-control input_style" v-model="detail.name">
           <option
             v-for="(s_item,s_index) in form.detailsOptions"
-            :value="s_item.title"
+            :value="s_item.code"
             :key="s_index"
           >{{s_item.title}}</option>
         </select>
@@ -121,6 +121,7 @@
           @click="addDetail()"
           class="btn btn-info"
           v-if="form.details.length  == p_index + 1"
+          type="button"
         >
           <i class="fas fa-plus"></i>
         </button>
@@ -128,6 +129,7 @@
           @click="removeDetail(p_index)"
           class="btn btn-danger"
           v-if="form.details.length  > p_index + 1"
+          type="button"
         >
           <i class="fas fa-trash"></i>
         </button>
@@ -222,7 +224,7 @@
       </div>
     </div>
     <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
-      <button type="button" @click="clearTable()" class="btn btn-danger mr-2">
+      <button type="button" @click="clearTable()" class="btn btn-danger mr-2" v-if="tableData.length">
         <i class="fas fa-trash"></i>
         Очистить таблисту
       </button>
@@ -343,10 +345,9 @@ export default {
         whereForm: this.titulData.from_where,
         whereTo: "",
         detailsOptions: [
-          { title: "ASF" },
-          { title: "Koprik" },
-          { title: "Koprik yol" },
-          { title: "Temir yol" },
+          { title: "ASF", code: 'road'},
+          { title: "Koprik", code: 'bridge'},
+          { title: "Temir yol", code: 'railway' },
         ],
       },
       timingDetails: {
@@ -367,8 +368,8 @@ export default {
   },
   async mounted() {
     await this.actionRegionList();
-    this.timingDetails = this.titulData.timing_details ? this.titulData.timing_details[0] : this.timingDetails
-    this.tableData = this.titulData.timing_with ? this.titulData.timing_with : this.tableData
+    this.timingDetails = this.titulData.timing_details.length ? this.titulData.timing_details[0] : this.timingDetails
+    this.tableData = this.titulData.timing_with.length ? this.titulData.timing_with : this.tableData
     if(this.tableData.length){
       this.tableData.forEach(item => {
         item.region_to_id = item.region_to
@@ -460,10 +461,9 @@ export default {
             whereForm: this.form.whereTo,
             whereTo: "",
             detailsOptions: [
-              { title: "ASF" },
-              { title: "Koprik" },
-              { title: "Koprik yol" },
-              { title: "Temir yol" },
+              { title: "ASF", code: 'road'},
+              { title: "Koprik", code: 'bridge'},
+              { title: "Temir yol", code: 'railway' },
             ],
           };
           this.form.distance_from_start_station = parseFloat(
@@ -498,10 +498,9 @@ export default {
             whereForm: this.form.whereTo,
             whereTo: "",
             detailsOptions: [
-              { title: "ASF" },
-              { title: "Koprik" },
-              { title: "Koprik yol" },
-              { title: "Temir yol" },
+              { title: "ASF", code: 'road'},
+              { title: "Koprik", code: 'bridge'},
+              { title: "Temir yol", code: 'railway' },
             ],
           };
           this.form.distance_from_start_station = parseFloat(
@@ -549,6 +548,13 @@ export default {
     },
     async saveData() {
       await this.actionAddTiming({ timing: this.tableData, timingDetails: this.timingDetails });
+      if(this.getTimingMassage.success){
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getTimingMassage.message
+          });
+      }
     },
     addPerson(){
       let thisDate = { name: "", surname: '', middlename: '', job: "", position: "" }
@@ -558,9 +564,28 @@ export default {
       this.timingDetails.persons.splice(index, 1);
     },
     async clearTable(){
-      await this.clearTimingTable(this.$route.params.directionId)
-      this.tableData = []
-      console.log(this.getTimingMassage)
+      window.swal.fire({
+        title: 'Ishonchingiz komilmi?',
+        text: "Siz buni qaytarib ololmaysiz!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: "Ha, uni o'chirib tashlang!",
+        cancelButtonText: "Bekor qilish",
+      }).then( async (result) => {
+        if (result.value) {
+          await this.clearTimingTable(this.$route.params.directionId);
+          if(this.getTimingMassage.success){
+            this.tableData = []
+            window.swal.fire(
+              "O'chirildi!",
+              "Ma'lumotlaringiz o'chirildi."
+            )
+          }
+        }
+      })
+
     }
   },
 };
