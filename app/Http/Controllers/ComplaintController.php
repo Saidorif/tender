@@ -12,7 +12,7 @@ class ComplaintController extends Controller
 
     public function index()
     {
-        $result = Complaint::orderBy('id', 'DESC')->paginate(12);
+        $result = Complaint::with(['direction'])->orderBy('id', 'DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
