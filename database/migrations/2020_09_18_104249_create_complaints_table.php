@@ -15,14 +15,15 @@ class CreateComplaintsTable extends Migration
     {
         Schema::create('complaints', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigIncrements('name');
-            $table->bigIncrements('surname');
-            $table->bigIncrements('middlename')->nullable();;
-            $table->bigIncrements('phone');
-            $table->bigIncrements('text');
-            $table->bigIncrements('file')->nullable();
+            $table->string('name');
+            $table->string('surname');
+            $table->string('middlename')->nullable();;
+            $table->string('phone');
+            $table->text('text');
+            $table->string('file')->nullable();
             $table->string('status')->default('pending');
             $table->bigInteger('direction_id')->nullable();
+            $table->bigInteger('category_id')->nullable();
             $table->integer('region_id')->nullable();
             $table->integer('area_id')->nullable();
             $table->bigInteger('user_id')->nullable();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Complaint;
+use Str;
 
 class ComplaintController extends Controller
 {
@@ -40,7 +41,7 @@ class ComplaintController extends Controller
             $inputs['file'] = '/passport/'.$fileName;
         }
         $result = Complaint::create($inputs);
-        return response()->json(['success' => true, 'message' => 'Жалоба создано']);
+        return response()->json(['success' => true, 'message' => 'Ваша жалоба принята. Спасибо']);
     }
 
 
