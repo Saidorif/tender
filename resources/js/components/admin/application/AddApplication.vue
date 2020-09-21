@@ -191,9 +191,9 @@
 		    	this.form.cars.splice(index, 1);
 		    },
 			async saveApplication(){
-		    	if (this.form.seat != '' && this.form.tarif != ''){
+		    	if (this.form.seat != '' && this.form.tarif != '' && this.requiredInput){
 					await this.actionAddApplication(this.form)
-					// this.$router.push("/crm/application");
+					this.$router.push("/crm/application");
 					this.requiredInput = false
 				}else{
 					this.requiredInput = true
