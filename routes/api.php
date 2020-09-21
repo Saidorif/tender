@@ -45,7 +45,7 @@ Route::group([
 
             // Complaint
             Route::post('complaint', 'ComplaintController@index');
-            
+            Route::get('complaint/count', 'ComplaintController@count');            
             Route::post('complaint/update/{id}', 'ComplaintController@update')->where('id', '[0-9]+');
             Route::get('complaint/edit/{id}', 'ComplaintController@edit')->where('id', '[0-9]+');
             // Route::delete('complaint/destroy/{id}', 'ComplaintController@destroy')->where('id', '[0-9]+');

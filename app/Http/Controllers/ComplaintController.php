@@ -17,11 +17,17 @@ class ComplaintController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function count()
+    {
+        $result = Complaint::where(['status' => 'pending'])->count();
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function store(Request $request)
     {
-        // return response()->json(['error' => true, 'message' => $request->all()]);
         $validator = Validator::make($request->all(),[
             'name' => 'required|string',
+            'category_id' => 'required|integer',
             'surname' => 'required|string',
             'middlename' => 'nullable|string',
             'phone' => 'required|string',
@@ -66,7 +72,7 @@ class ComplaintController extends Controller
         $validator = Validator::make($request->all(),[
             'direction_id' => 'required|string',
             'comment' => 'required|string',
-            'category_id' => 'nullable|string',
+            'category_id' => 'nullable|integer',
             'status' => ['nullable',Rule::in(['active','completed']),],
             'comment_file' => 'nullable|file|mimes:jpg,jpeg,png,bmp|max:4096',
         ]);
