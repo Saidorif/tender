@@ -79,10 +79,10 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/crm/employee">
-              <i class="peIcon fas fa-users"></i>
+            <router-link class="nav-link" to="/crm/application">
+              <i class="peIcon fas fa-file"></i>
               <p>
-                Ариза
+                Заявки
               </p>
             </router-link>
           </li>

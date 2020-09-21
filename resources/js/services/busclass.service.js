@@ -4,6 +4,9 @@ const BusclassService = {
 	busclassList(){
 		return ApiService.get(`/api/tclass/list`)
 	},
+	busclasseFind(data){
+		return ApiService.post(`/api/tclass/find`,data)
+	},
 	busclasses(){
 		return ApiService.post(`/api/tclass`)
 	},
