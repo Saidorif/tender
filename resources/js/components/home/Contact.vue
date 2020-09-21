@@ -40,6 +40,24 @@
                 </select>
               </div> -->
               <div class="input-group">
+                <select 
+                  class="form-control input_style" 
+                  v-model="form.complaint_category_id" 
+                  :class="isRequired(form.complaint_category_id) ? 'isRequired' : ''"  
+                >
+                  <option value="" selected disabled>Выберите</option>
+                  <option :value="item.id" v-for="(item,index) in getComplaintList">{{item.name}}</option>
+                </select>
+                <div class="input-group-append">
+                  <div
+                    class="input-group-text"
+                    :class="isRequired(form.complaint_category_id) ? 'isRequired' : ''"
+                  >
+                    <img src="/img/mail.png" alt=""/>
+                  </div>
+                </div>
+              </div>
+              <div class="input-group">
                 <input
                   type="text"
                   class="form-control"
@@ -168,7 +186,7 @@ export default {
         text: '',
         file: '',
         // direction_id: '',
-        // complaint_category_id: '',
+        complaint_category_id: '',
       },
       requiredInput: false,
       isLoading:false,
@@ -177,8 +195,8 @@ export default {
   computed: {
     ...mapGetters('complaint',['getComplaintList','getMassage'])
   },
-  mounted() {
-    // await this.actionComplaintList();
+  async mounted() {
+    await this.actionComplaintList();
   },
   methods: {
     ...mapActions('complaint',['actionComplaintList','actionSendContact']),
@@ -219,6 +237,7 @@ export default {
         formData.append('phone', this.form.phone);
         formData.append('text', this.form.text);
         formData.append('file', this.form.file);
+        formData.append('complaint_category_id', this.form.complaint_category_id);
         await this.actionSendContact(formData)
         if (this.getMassage.success){
           this.form.name = ''
@@ -227,6 +246,7 @@ export default {
           this.form.phone = ''
           this.form.text = ''
           this.form.file = ''
+          this.form.complaint_category_id = ''
           swal.fire({
             type: "success",
             icon: "success",
