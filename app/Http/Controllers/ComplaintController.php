@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Complaint;
 use Str;
+use Illuminate\Validation\Rule;
 
 class ComplaintController extends Controller
 {
@@ -66,13 +67,24 @@ class ComplaintController extends Controller
             'direction_id' => 'required|string',
             'comment' => 'required|string',
             'category_id' => 'nullable|string',
+            'status' => ['nullable',Rule::in(['active','completed']),],
             'comment_file' => 'nullable|file|mimes:jpg,jpeg,png,bmp|max:4096',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->only('direction_id','comment','category_id');
-        $inputs['status'] = 'active';
+        // $status = 'active';
+        // if(array_key_exists('status', $inputs)){
+        //     if($inputs['status'] == 'completed'){
+        //         $status = 'completed';
+        //     }
+        // }
+        // $inputs['status'] = $status;
+        // dd($inputs);
+        if(empty($inputs['status'])){
+            $inputs['status'] = 'active';
+        }
         //Upload file and image
         if($request->hasFile('comment_file')){
             $input = [];
