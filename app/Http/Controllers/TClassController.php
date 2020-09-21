@@ -20,6 +20,30 @@ class TClassController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function find(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'busmodel_id' => 'required|integer',
+            'bustype_id' => 'required|integer',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $params = $request->all();
+        $builder = TClass::query();
+        if(count($params)){
+            if(!empty($params['busmodel_id'])){
+                $builder->where(['busmodel_id' => $params['busmodel_id']]);
+            }
+            if(!empty($params['bustype_id'])){
+                $builder->where(['bustype_id' => $params['bustype_id']]);
+            }
+        }
+        $result = $builder->get();
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function edit($id)
     {
         $result = TClass::with(['bustype','model'])->find($id);

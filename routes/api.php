@@ -88,6 +88,7 @@ Route::group([
             Route::post('tclass', 'TClassController@index');
             Route::post('tclass/store', 'TClassController@store');
             Route::get('tclass/list', 'TClassController@list');
+            Route::post('tclass/find', 'TClassController@find');
             Route::get('tclass/edit/{id}', 'TClassController@edit');
             Route::post('tclass/update/{id}', 'TClassController@update');
             Route::delete('tclass/destroy/{id}', 'TClassController@destroy');
