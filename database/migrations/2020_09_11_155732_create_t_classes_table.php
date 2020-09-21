@@ -16,7 +16,7 @@ class CreateTClassesTable extends Migration
         Schema::create('t_classes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->bigInteger('busttype_id');
+            $table->bigInteger('bustype_id');
             $table->bigInteger('busmodel_id');
             $table->integer('seat_from');
             $table->integer('seat_to')->nullable();
