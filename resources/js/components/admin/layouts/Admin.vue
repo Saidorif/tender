@@ -91,6 +91,7 @@
               <span class="peIcon fas fa-comment" style="font-size: 20px;"></span>
               <p>
                 Жалобы
+                <span class="badge badge-primary">21</span>
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
