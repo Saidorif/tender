@@ -34,11 +34,12 @@ class TClassController extends Controller
         $user = $request->user();
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
+            'busmodel_id' => 'required|integer',
             'busttype_id' => 'required|integer',
             'seat_from' => 'required|integer',
-            'seat_to' => 'required|integer',
+            // 'seat_to' => 'required|integer',
             'stay_from' => 'required|integer',
-            'stay_to' => 'required|integer',
+            // 'stay_to' => 'required|integer',
         ]);
 
         if($validator->fails()){
@@ -58,11 +59,12 @@ class TClassController extends Controller
         }
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
+            'busmodel_id' => 'required|integer',
             'busttype_id' => 'required|integer',
             'seat_from' => 'required|integer',
-            'seat_to' => 'required|integer',
+            // 'seat_to' => 'required|integer',
             'stay_from' => 'required|integer',
-            'stay_to' => 'required|integer',
+            // 'stay_to' => 'required|integer',
         ]);
 
         if($validator->fails()){
