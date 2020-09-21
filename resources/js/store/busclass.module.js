@@ -5,6 +5,7 @@ const state = {
 	busclasslist: [],
 	message: [],
 	busclass: [],
+	busclassFindList: [],
 };
 
 const getters = {
@@ -20,10 +21,22 @@ const getters = {
 	getBusclass(state){
 		return state.busclass
 	},
+	getBusclassFindList(state){
+		return state.busclassFindList
+	},
 };
 
 
 const actions = {
+	async actionBusclassFind({commit},payload){
+		try {
+			const types =  await BusclassService.busclasseFind(payload);
+			await commit('setBusclassFind',types.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionBusclassList({commit},page){
 		try {
 			const types =  await BusclassService.busclassList(page);
@@ -89,6 +102,9 @@ const mutations = {
 	},
 	setMessage(state, message){
 		state.message = message
+	},
+	setBusclassFind(state, busclassFindList){
+		state.busclassFindList = busclassFindList
 	},
 	setEditBusclass(state, busclass){
 		state.busclass = busclass
