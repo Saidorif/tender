@@ -8,7 +8,7 @@ const state = {
 	complaintEditListAll: [],
 	complaintList: [],
 	contacts:[],
-	length:0,
+	length:null,
 };
 
 const getters = {

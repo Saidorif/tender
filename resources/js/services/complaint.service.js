@@ -5,7 +5,7 @@ const ComplaintService = {
 		return ApiService.post(`/api/complaint/store`,data)
 	},
 	complaintLength(){
-		return ApiService.get(`/api/complaint/length`)
+		return ApiService.get(`/api/complaint/count`)
 	},
 	complaintListsAll(data){
 		return ApiService.post(`/api/complaint?page=${data.page}`,data.items)
