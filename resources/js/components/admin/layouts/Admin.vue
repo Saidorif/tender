@@ -162,6 +162,14 @@
                 </router-link>
               </li>
               <li class="nav-item">
+                <router-link class="nav-link" to="/crm/busmodel">
+                  <i class="peIcon fas fa-bus"></i>
+                  <p>
+                    Модель автобуса
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
                 <router-link class="nav-link" to="/crm/busclass">
                   <i class="peIcon fas fa-bus-alt"></i>
                   <p>

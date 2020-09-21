@@ -78,6 +78,11 @@ import Client from './components/admin/client/Client'
 import AddClient from './components/admin/client/AddClient'
 import EditClient from './components/admin/client/EditClient'
 
+// BusModel
+import BusModel from './components/admin/busmodel/BusModel'
+import AddBusModel from './components/admin/busmodel/AddBusModel'
+import EditBusModel from './components/admin/busmodel/EditBusModel'
+
 // Complaint
 import EditComplaintListAll from './components/admin/complaint/EditComplaintListAll'
 import ComplaintListAll from './components/admin/complaint/ComplaintListAll'
@@ -300,6 +305,18 @@ const router = new Router({
 				{
 					path:'busclass/edit/:busclassId',
 					component:EditBusclass,
+				},
+				{
+					path:'busmodel',
+					component:BusModel,
+				},
+				{
+					path:'busmodel/add',
+					component:AddBusModel,
+				},
+				{
+					path:'busmodel/edit/:busmodelId',
+					component:EditBusModel,
 				},
 				{
 					path:'passport',
