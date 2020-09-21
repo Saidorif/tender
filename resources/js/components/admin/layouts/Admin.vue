@@ -82,6 +82,14 @@
             <router-link class="nav-link" to="/crm/employee">
               <i class="peIcon fas fa-users"></i>
               <p>
+                Ариза
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/crm/employee">
+              <i class="peIcon fas fa-users"></i>
+              <p>
                 Сотрудники
               </p>
             </router-link>
@@ -261,7 +269,6 @@ export default {
   async mounted(){
     await this.profileUser()
     await this.actionComplaintLength()
-    console.log(this.getComplaintLength)
   },
   methods: {
     ...mapActions(['logout','profileUser']),

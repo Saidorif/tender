@@ -26,9 +26,9 @@
 								<router-link tag="button" class="btn_transparent" :to='`/crm/complaint/edit/${compl.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteComplaint(compl.id)">
+								<!-- <button class="btn_transparent" @click="deleteComplaint(compl.id)">
 									<i class="pe_icon pe-7s-trash trashColor"></i>
-								</button>
+								</button> -->
 							</td>
 						</tr>
 					</tbody>

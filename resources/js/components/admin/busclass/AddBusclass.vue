@@ -15,14 +15,25 @@
 		  		<form @submit.prevent.enter="saveType" >
 					<div class="row">
 					  <div class="form-group col-md-4">
-					    <label for="busttype_id">Тип автобуса</label>
+					    <label for="bustype_id">Тип автобуса</label>
 					    <select 
 					    	class="form-control input_style" 
-					    	v-model="form.busttype_id" 
-					    	:class="isRequired(form.busttype_id) ? 'isRequired' : ''"  
+					    	v-model="form.bustype_id" 
+					    	:class="isRequired(form.bustype_id) ? 'isRequired' : ''"  
 				    	>
 					    	<option value="" selected disabled>Выберите тип автобус!</option>
 					    	<option :value="item.id" v-for="(item,index) in getTypeofbusList">{{item.name}}</option>
+					    </select>
+					  </div>
+					  <div class="form-group col-md-4">
+					    <label for="busmodel_id">Модель автобуса</label>
+					    <select 
+					    	class="form-control input_style" 
+					    	v-model="form.busmodel_id" 
+					    	:class="isRequired(form.busmodel_id) ? 'isRequired' : ''"  
+				    	>
+					    	<option value="" selected disabled>Выберите тип автобус!</option>
+					    	<option :value="item.id" v-for="(item,index) in getBusmodelList">{{item.name}}</option>
 					    </select>
 					  </div>
 					  <div class="form-group col-md-4">
@@ -37,7 +48,7 @@
 				    	>
 					  </div>
 					  <div class="form-group col-md-4">
-					    <label for="seat_from">Количество сидящих (с)</label>
+					    <label for="seat_from">Количество сидящих</label>
 					    <input 
 					    	type="number" 
 					    	class="form-control input_style" 
@@ -47,7 +58,7 @@
 					    	:class="isRequired(form.seat_from) ? 'isRequired' : ''"  
 				    	>
 					  </div>
-					  <div class="form-group col-md-4">
+		<!-- 			  <div class="form-group col-md-4">
 					    <label for="seat_to">Количество сидящих (по)</label>
 					    <input 
 					    	type="number" 
@@ -57,9 +68,9 @@
 					    	v-model="form.seat_to"
 					    	:class="isRequired(form.seat_to) ? 'isRequired' : ''"  
 				    	>
-					  </div>
+					  </div> -->
 					  <div class="form-group col-md-4">
-					    <label for="stay_from">Пассажировместимость (с)</label>
+					    <label for="stay_from">Пассажировместимость </label>
 					    <input 
 					    	type="number" 
 					    	class="form-control input_style" 
@@ -69,7 +80,7 @@
 					    	:class="isRequired(form.stay_from) ? 'isRequired' : ''"  
 				    	>
 					  </div>
-					  <div class="form-group col-md-4">
+			<!-- 		  <div class="form-group col-md-4">
 					    <label for="stay_to">Пассажировместимость (по)</label>
 					    <input 
 					    	type="number" 
@@ -79,8 +90,8 @@
 					    	v-model="form.stay_to"
 					    	:class="isRequired(form.stay_to) ? 'isRequired' : ''"  
 				    	>
-					  </div>
-					  <div class="form-group col-lg-12 d-flex justify-content-end">
+					  </div> -->
+					  <div class="form-group col-lg-4 form_btn d-flex justify-content-end">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
@@ -103,7 +114,8 @@
 					seat_to:'',
 					stay_from:'',
 					stay_to:'',
-					busttype_id:'',
+					bustype_id:'',
+					busmodel_id:'',
 				},
 				requiredInput:false
 			}
@@ -111,18 +123,21 @@
 		computed:{
 			...mapGetters('typeofbus',['getMassage','getTypeofbusList']),
 			...mapGetters('busclass',['getMassage']),
+			...mapGetters('busmodel',['getBusmodelList'])
 		},
 		async mounted(){
 			await this.actionTypeofbusList()
+			await this.actionBusmodelList()
 		},
 		methods:{
 			...mapActions('typeofbus',['actionTypeofbusList','actionDeleteTypeofbus']),
 			...mapActions('busclass',['actionAddBusclass']),
+			...mapActions('busmodel',['actionBusmodelList']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
 			async saveType(){
-		    	if (this.form.name != '' && this.form.seat_from != '' && this.form.seat_to != '' && this.form.stay_from != '' && this.form.stay_to != '' && this.form.busttype_id != ''){
+		    	if (this.form.name != '' && this.form.seat_from != '' && this.form.stay_from != '' && this.form.bustype_id != '' && this.form.busmodel_id != ''){
 					await this.actionAddBusclass(this.form)
 					if (this.getMassage.success) {
 						toast.fire({
