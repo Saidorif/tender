@@ -17,7 +17,7 @@
                 <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sxema</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Xarkatlanish jadvali</a>
             </li>
         </ul>
         <router-link class="btn btn-primary back_btn" to="/crm/direction">
@@ -186,7 +186,9 @@
             <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <Scheme v-if="loaded" :titulData="this.getDirection" />
             </div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+              <Schedule v-if="loaded" :titulData="this.getDirection" />
+            </div>
         </div>
       </div>
     </div>
@@ -196,13 +198,15 @@
 import DatePicker from "vue2-datepicker";
 import Timing from "../steppassport/Timing";
 import Scheme from "../steppassport/Scheme";
+import Schedule from "../steppassport/Schedule";
 import { mapGetters, mapActions } from "vuex";
 import "vue2-datepicker/index.css";
 export default {
   components: {
     DatePicker,
     Timing,
-    Scheme
+    Scheme,
+    Schedule
   },
   data() {
     return {

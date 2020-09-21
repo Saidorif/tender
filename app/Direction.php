@@ -45,6 +45,11 @@ class Direction extends Model
         return $this->belongsTo(\App\Area::class,'area_to_id');
     }
 
+    public function type()
+    {
+        return $this->belongsTo(\App\DirectionType::class,'type_id');
+    }
+
     public function areaToWith()
     {
         return $this->areaTo()->with(['station']);
