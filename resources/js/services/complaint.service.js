@@ -4,6 +4,9 @@ const ComplaintService = {
 	contact(data){
 		return ApiService.post(`/api/complaint/store`,data)
 	},
+	complaintLength(){
+		return ApiService.get(`/api/complaint/length`)
+	},
 	complaintListsAll(data){
 		return ApiService.post(`/api/complaint?page=${data.page}`,data.items)
 	},
