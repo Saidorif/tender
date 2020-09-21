@@ -67,6 +67,14 @@ Route::group([
             Route::post('directiontype/update/{id}', 'DirectionTypeController@update');
             Route::delete('directiontype/destroy/{id}', 'DirectionTypeController@destroy');
 
+            //Application CRUD
+            Route::post('application', 'ApplicationController@index');
+            Route::post('application/store', 'ApplicationController@store');
+            Route::get('application/list', 'ApplicationController@list');
+            Route::get('application/edit/{id}', 'ApplicationController@edit');
+            Route::post('application/update/{id}', 'ApplicationController@update');
+            Route::delete('application/destroy/{id}', 'ApplicationController@destroy');
+
             //Bus Type CRUD
             Route::post('bustype', 'BusTypeController@index');
             Route::post('bustype/store', 'BusTypeController@store');
