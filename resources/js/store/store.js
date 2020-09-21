@@ -28,6 +28,7 @@ import {typeofbus} from "./typeofbus.module"
 import {busclass} from "./busclass.module"
 import {client} from "./client.module"
 import {complaint} from "./complaint.module"
+import {busmodel} from "./busmodel.module"
 
 import { TokenService } from './../services/storage.service'
 
@@ -63,6 +64,7 @@ const store = new Vuex.Store(
 			busclass,
 			client,
 			complaint,
+			busmodel,
 		},
 		state:{
 			rules:[],

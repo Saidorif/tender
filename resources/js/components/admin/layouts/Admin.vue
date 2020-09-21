@@ -91,7 +91,7 @@
               <span class="peIcon fas fa-comment" style="font-size: 20px;"></span>
               <p>
                 Жалобы
-                <span class="badge badge-primary">21</span>
+                <span class="badge badge-primary">{{getComplaintLength}}2</span>
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -158,6 +158,14 @@
                   <i class="peIcon fas fa-bus"></i>
                   <p>
                     Тип автобуса
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/busmodel">
+                  <i class="peIcon fas fa-bus"></i>
+                  <p>
+                    Модель автобуса
                   </p>
                 </router-link>
               </li>
@@ -248,14 +256,15 @@ export default {
   },
   computed: {
     ...mapGetters(['getUser']),
+    ...mapGetters('complaint',['getComplaintLength']),
   },
   async mounted(){
     await this.profileUser()
-
-
+    await this.actionComplaintLength()
   },
   methods: {
     ...mapActions(['logout','profileUser']),
+    ...mapActions('complaint',['actionComplaintLength']),
     logoutProfile(){
       this.logout();
     },
