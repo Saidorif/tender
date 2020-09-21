@@ -4,7 +4,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-comment"></i>
-				    Вариант жалобы 
+				    Вариант обращения 
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/complaint/add"><i class="fas fa-plus"></i> Добавить</router-link>
 		  	</div>
