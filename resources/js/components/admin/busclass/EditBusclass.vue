@@ -53,7 +53,7 @@
 					    	type="number" 
 					    	class="form-control input_style" 
 					    	id="seat_from" 
-					    	placeholder="Количество сидящих (с)"
+					    	placeholder="Количество сидящих"
 					    	v-model="form.seat_from"
 					    	:class="isRequired(form.seat_from) ? 'isRequired' : ''"  
 				    	>
@@ -75,7 +75,7 @@
 					    	type="number" 
 					    	class="form-control input_style" 
 					    	id="stay_from" 
-					    	placeholder="Пассажировместимость (с)"
+					    	placeholder="Пассажировместимость"
 					    	v-model="form.stay_from"
 					    	:class="isRequired(form.stay_from) ? 'isRequired' : ''"  
 				    	>
