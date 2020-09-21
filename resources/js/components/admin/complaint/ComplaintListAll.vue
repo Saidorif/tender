@@ -4,7 +4,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-comment"></i>
-				    Список жалобы 
+				    Список обращения 
 				</h4>
 		  	</div>
 		  	<div class="card-body">

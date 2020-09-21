@@ -90,7 +90,7 @@
             <a href="#" class="nav-link">
               <span class="peIcon fas fa-comment" style="font-size: 20px;"></span>
               <p>
-                Жалобы
+                Обращения
                 <span class="badge badge-primary">{{getComplaintLength}}2</span>
                 <i class="right fas fa-angle-left"></i>
               </p>
@@ -99,14 +99,14 @@
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/complaint-list">
                   <p>
-                    Список жалобы
+                    Список обращения
                   </p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/complaint">
                   <p>
-                    Вариант жалобы
+                    Вариант обращения
                   </p>
                 </router-link>
               </li>
