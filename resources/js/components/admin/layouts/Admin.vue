@@ -79,6 +79,14 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/crm/application">
+              <i class="peIcon fas fa-file"></i>
+              <p>
+                Заявки
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/crm/employee">
               <i class="peIcon fas fa-users"></i>
               <p>
@@ -90,7 +98,8 @@
             <a href="#" class="nav-link">
               <span class="peIcon fas fa-comment" style="font-size: 20px;"></span>
               <p>
-                Жалобы
+                Обращения
+                <span class="badge badge-primary" v-if="getComplaintLength">{{getComplaintLength}}2</span>
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -98,14 +107,14 @@
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/complaint-list">
                   <p>
-                    Список жалобы
+                    Список обращения
                   </p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/complaint">
                   <p>
-                    Вариант жалобы
+                    Вариант обращения
                   </p>
                 </router-link>
               </li>
@@ -157,6 +166,14 @@
                   <i class="peIcon fas fa-bus"></i>
                   <p>
                     Тип автобуса
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/busmodel">
+                  <i class="peIcon fas fa-bus"></i>
+                  <p>
+                    Модель автобуса
                   </p>
                 </router-link>
               </li>
@@ -247,14 +264,15 @@ export default {
   },
   computed: {
     ...mapGetters(['getUser']),
+    ...mapGetters('complaint',['getComplaintLength']),
   },
   async mounted(){
     await this.profileUser()
-
-
+    await this.actionComplaintLength()
   },
   methods: {
     ...mapActions(['logout','profileUser']),
+    ...mapActions('complaint',['actionComplaintLength']),
     logoutProfile(){
       this.logout();
     },

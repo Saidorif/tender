@@ -13,6 +13,11 @@ import Login from './components/auth/Login'
 import Profile from './components/admin/user/Profile'
 
 // Employee
+import Application from './components/admin/application/Application'
+import AddApplication from './components/admin/application/AddApplication'
+import EditApplication from './components/admin/application/EditApplication'
+
+// Employee
 import Employee from './components/admin/employee/Employee'
 import AddEmployee from './components/admin/employee/AddEmployee'
 import EditEmployee from './components/admin/employee/EditEmployee'
@@ -78,6 +83,11 @@ import Client from './components/admin/client/Client'
 import AddClient from './components/admin/client/AddClient'
 import EditClient from './components/admin/client/EditClient'
 
+// BusModel
+import BusModel from './components/admin/busmodel/BusModel'
+import AddBusModel from './components/admin/busmodel/AddBusModel'
+import EditBusModel from './components/admin/busmodel/EditBusModel'
+
 // Complaint
 import EditComplaintListAll from './components/admin/complaint/EditComplaintListAll'
 import ComplaintListAll from './components/admin/complaint/ComplaintListAll'
@@ -120,6 +130,18 @@ const router = new Router({
 				{
 					path:'profile',
 					component:Profile,
+				},
+				{
+					path:'application',
+					component:Application,
+				},
+				{
+					path:'application/add',
+					component:AddApplication,
+				},
+				{
+					path:'application/edit/:applicationId',
+					component:EditApplication,
 				},
 				{
 					path:'employee',
@@ -300,6 +322,18 @@ const router = new Router({
 				{
 					path:'busclass/edit/:busclassId',
 					component:EditBusclass,
+				},
+				{
+					path:'busmodel',
+					component:BusModel,
+				},
+				{
+					path:'busmodel/add',
+					component:AddBusModel,
+				},
+				{
+					path:'busmodel/edit/:busmodelId',
+					component:EditBusModel,
 				},
 				{
 					path:'passport',

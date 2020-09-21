@@ -7,10 +7,14 @@ const state = {
 	complaint: [],
 	complaintEditListAll: [],
 	complaintList: [],
-	contacts:[]
+	contacts:[],
+	length:null,
 };
 
 const getters = {
+	getComplaintLength(state){
+		return state.length
+	},
 	getComplaints(state){
 		return state.complaints
 	},
@@ -36,6 +40,15 @@ const getters = {
 
 
 const actions = {
+	async actionComplaintLength({commit}){
+		try {
+			const contacts =  await ComplaintService.complaintLength();
+			await commit('setComplaintLength',contacts.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionSendContact({commit},payload){
 		try {
 			const contacts =  await ComplaintService.contact(payload);
@@ -129,6 +142,9 @@ const actions = {
 };
 
 const mutations = {
+	setComplaintLength(state, length){
+		state.length = length
+	},
 	setComplaints(state, complaints){
 		state.complaints = complaints
 	},

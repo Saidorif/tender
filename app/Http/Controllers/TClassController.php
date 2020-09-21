@@ -10,7 +10,7 @@ class TClassController extends Controller
 {
     public function index(Request $request)
     {
-        $result = TClass::with(['bustype'])->paginate(12);
+        $result = TClass::with(['bustype','model'])->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -20,9 +20,33 @@ class TClassController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function find(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'busmodel_id' => 'required|integer',
+            'bustype_id' => 'required|integer',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $params = $request->all();
+        $builder = TClass::query();
+        if(count($params)){
+            if(!empty($params['busmodel_id'])){
+                $builder->where(['busmodel_id' => $params['busmodel_id']]);
+            }
+            if(!empty($params['bustype_id'])){
+                $builder->where(['bustype_id' => $params['bustype_id']]);
+            }
+        }
+        $result = $builder->get();
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function edit($id)
     {
-        $result = TClass::with(['bustype'])->find($id);
+        $result = TClass::with(['bustype','model'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Класс транспорта не найдено']);
         }
@@ -34,11 +58,12 @@ class TClassController extends Controller
         $user = $request->user();
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'busttype_id' => 'required|integer',
+            'busmodel_id' => 'required|integer',
+            'bustype_id' => 'required|integer',
             'seat_from' => 'required|integer',
-            'seat_to' => 'required|integer',
+            // 'seat_to' => 'required|integer',
             'stay_from' => 'required|integer',
-            'stay_to' => 'required|integer',
+            // 'stay_to' => 'required|integer',
         ]);
 
         if($validator->fails()){
@@ -58,11 +83,12 @@ class TClassController extends Controller
         }
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'busttype_id' => 'required|integer',
+            'busmodel_id' => 'required|integer',
+            'bustype_id' => 'required|integer',
             'seat_from' => 'required|integer',
-            'seat_to' => 'required|integer',
+            // 'seat_to' => 'required|integer',
             'stay_from' => 'required|integer',
-            'stay_to' => 'required|integer',
+            // 'stay_to' => 'required|integer',
         ]);
 
         if($validator->fails()){

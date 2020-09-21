@@ -45,7 +45,7 @@ Route::group([
 
             // Complaint
             Route::post('complaint', 'ComplaintController@index');
-            
+            Route::get('complaint/count', 'ComplaintController@count');            
             Route::post('complaint/update/{id}', 'ComplaintController@update')->where('id', '[0-9]+');
             Route::get('complaint/edit/{id}', 'ComplaintController@edit')->where('id', '[0-9]+');
             // Route::delete('complaint/destroy/{id}', 'ComplaintController@destroy')->where('id', '[0-9]+');
@@ -75,10 +75,20 @@ Route::group([
             Route::post('bustype/update/{id}', 'BusTypeController@update');
             Route::delete('bustype/destroy/{id}', 'BusTypeController@destroy');
 
+            //Bus Model CRUD
+            Route::post('busmodel', 'BusModelController@index');
+            Route::post('busmodel/store', 'BusModelController@store');
+            Route::get('busmodel/list', 'BusModelController@list');
+            Route::post('busmodel/find', 'BusModelController@find');
+            Route::get('busmodel/edit/{id}', 'BusModelController@edit');
+            Route::post('busmodel/update/{id}', 'BusModelController@update');
+            Route::delete('busmodel/destroy/{id}', 'BusModelController@destroy');
+
             //Bus Class CRUD
             Route::post('tclass', 'TClassController@index');
             Route::post('tclass/store', 'TClassController@store');
             Route::get('tclass/list', 'TClassController@list');
+            Route::post('tclass/find', 'TClassController@find');
             Route::get('tclass/edit/{id}', 'TClassController@edit');
             Route::post('tclass/update/{id}', 'TClassController@update');
             Route::delete('tclass/destroy/{id}', 'TClassController@destroy');

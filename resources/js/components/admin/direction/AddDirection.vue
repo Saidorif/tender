@@ -151,7 +151,20 @@
                 :class="isRequired(form.distance) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-lg-3 form_btn d-flex justify-content-end">
+            <div class="form-group col-md-3">
+              <label for="profitability">Рентабельность</label>
+              <select
+                class="form-control input_style"
+                v-model="form.profitability"
+                :class="isRequired(form.profitability) ? 'isRequired' : ''"
+                placeholder="Area"
+              >
+                <option value="profitability">Рентабельный</option>
+                <option value="unprofitability">Нерентабельный</option>
+                <option value="middle">Средный</option>
+              </select>
+            </div>
+            <div class="form-group col-lg-6 form_btn d-flex justify-content-end">
               <button type="submit" class="btn btn-primary btn_save_category">
                 <i class="fas fa-save"></i>
                 Сохранить
@@ -190,6 +203,7 @@ export default {
         seasonal: "",
         distance: "",
         type_id: "",
+        profitability: "profitability",
       },
       areaFrom:[],
       areaTo:[],

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Direction extends Model
 {
-    protected $fillable = ['region_from_id','region_to_id','area_from_id','area_to_id','year','distance','type_id','pass_number','station_from_id','station_to_id','name','seasonal','from_where'];
+    protected $fillable = ['region_from_id','region_to_id','area_from_id','area_to_id','year','distance','type_id','pass_number','station_from_id','station_to_id','name','seasonal','from_where','profitability'];
 
     protected $casts = ['from_where' => 'array'];
 
@@ -43,6 +43,11 @@ class Direction extends Model
     public function areaTo()
     {
         return $this->belongsTo(\App\Area::class,'area_to_id');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(\App\DirectionType::class,'type_id');
     }
 
     public function areaToWith()

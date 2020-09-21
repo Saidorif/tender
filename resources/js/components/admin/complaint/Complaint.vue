@@ -4,7 +4,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-comment"></i>
-				    Вариант жалобы 
+				    Вариант обращения 
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/complaint/add"><i class="fas fa-plus"></i> Добавить</router-link>
 		  	</div>
@@ -26,9 +26,9 @@
 								<router-link tag="button" class="btn_transparent" :to='`/crm/complaint/edit/${compl.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteComplaint(compl.id)">
+								<!-- <button class="btn_transparent" @click="deleteComplaint(compl.id)">
 									<i class="pe_icon pe-7s-trash trashColor"></i>
-								</button>
+								</button> -->
 							</td>
 						</tr>
 					</tbody>

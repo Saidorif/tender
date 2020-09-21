@@ -53,7 +53,7 @@ class DirectionController extends Controller
 
     public function edit($id)
     {
-        $result = Direction::with(['regionToWith','regionFromWith','areaFromWith','areaToWith','timingWith','timingDetails'])->find($id);
+        $result = Direction::with(['regionToWith','regionFromWith','areaFromWith','areaToWith','timingWith','timingDetails','type'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
@@ -69,6 +69,7 @@ class DirectionController extends Controller
             'pass_number'  => 'required|string',
             'year'  => 'required|string',
             'distance'  => 'required|string',
+            'profitability'  => ['required',Rule::in(['unprofitable','profitable','middle']),],
             'type_id'  => 'required|integer',
             'region_from' => 'required|array',
             'region_to' => 'required|array',
@@ -90,6 +91,7 @@ class DirectionController extends Controller
             'pass_number' => $inputs['pass_number'],
             'year' => $inputs['year'],
             'distance' => $inputs['distance'],
+            'profitability' => $inputs['profitability'],
             'type_id' => $inputs['type_id'],
             'from_where' => $inputs['from_where'],
             'seasonal' => $inputs['seasonal'],
@@ -119,6 +121,7 @@ class DirectionController extends Controller
             'pass_number'  => 'required|string',
             'year'  => 'required|string',
             'distance'  => 'required|string',
+            'profitability'  => ['required',Rule::in(['unprofitable','profitable','middle']),],
             'type_id'  => 'required|integer',
             'region_from' => 'required|array',
             'region_to' => 'required|array',
@@ -140,6 +143,7 @@ class DirectionController extends Controller
             'pass_number' => $inputs['pass_number'],
             'year' => $inputs['year'],
             'distance' => $inputs['distance'],
+            'profitability' => $inputs['profitability'],
             'type_id' => $inputs['type_id'],
             'from_where' => $inputs['from_where'],
             'seasonal' => $inputs['seasonal'],

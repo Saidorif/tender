@@ -22,6 +22,7 @@ class CreateDirectionsTable extends Migration
             $table->bigInteger('type_id');
             $table->text('from_where');
             $table->string('seasonal');
+            $table->string('profitability')->default('middle');//unprofitable,profitable,middle
             $table->bigInteger('region_from_id');
             $table->bigInteger('region_to_id');
             $table->bigInteger('area_from_id')->nullable();
