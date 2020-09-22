@@ -58,26 +58,8 @@
 							arrItem["distance_from_start_station"] = count.distance_from_start_station
 							arrItem["distance_between_station"] = count.distance_between_station
 							arrItem["count"] = [0]
-							arrItem["number"] = 0
-							arrItem["numbers"] = 0
 							newItems.push(arrItem)
-						}
-						else if(index == 2) {
-							let arrItem = []
-							summ = count.distance_from_start_station * tarif
-							arrItem["start_summ"] = summ
-							arrItem["count"] = [(count.distance_between_station*tarif)]
-							arrItem["number"] = parseInt(count.distance_between_station)
-							arrItem["numbers"] = parseInt(count.distance_between_station)
-							newItems.push(arrItem)
-<<<<<<< HEAD
-						}
-						else {
-							let arrItem = []
-							arrItem["numbers"] = 0;
-=======
 						}else {
->>>>>>> d1b31dbaebb854ca16c7f70dc10a336cb1b6b96a
 							summ = count.distance_from_start_station * tarif
 							arrItem["start_summ"] = summ
 							arrItem["id"] = count.id
@@ -86,20 +68,9 @@
 							arrItem["distance_from_start_station"] = count.distance_from_start_station
 							arrItem["distance_between_station"] = count.distance_between_station
 							arrItem["count"] = []
-<<<<<<< HEAD
-							arrItem["number"] = parseInt(count.distance_between_station)
-							newItems.forEach((val,i)=>{
-								arrItem["numbers"] += val.number
-								arrItem["count"] = []
-								// arrItem["count"].unshift((val.numbers+val.number)*tarif)
-								// arrItem["count"].unshift(val.number*tarif)
-
-							})
-=======
 							for (var i = 1; i < index; i++){
-								arrItem["count"].unshift(summ-newItems[i-1].start_summ)
+								arrItem["count"].push(summ-newItems[i-1].start_summ)
 							}
->>>>>>> d1b31dbaebb854ca16c7f70dc10a336cb1b6b96a
 							newItems.push(arrItem)
 						}
 					})
