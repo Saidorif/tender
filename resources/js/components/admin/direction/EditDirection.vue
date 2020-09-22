@@ -8,16 +8,28 @@
         </h4> -->
         <ul class="nav nav-tabs " id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="titul-tab" data-toggle="tab" href="#titul" role="tab" aria-controls="titul" aria-selected="false">Titul</a>
+                <a 
+                  class="nav-link" 
+                  id="titul-tab" 
+                  data-toggle="tab" 
+                  href="#titul" 
+                  role="tab" 
+                  aria-controls="titul" 
+                  aria-selected="false"
+                  @click="sendDirection"
+                >Titul</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link " id="timing-tab" data-toggle="tab" href="#timing" role="tab" aria-controls="timing" aria-selected="true">Xronametraj</a>
+                <a class="nav-link " id="timing-tab" data-toggle="tab" href="#timing" role="tab" aria-controls="timing" aria-selected="true" @click="sendDirection">Xronametraj</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sxema</a>
+                <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" @click="sendDirection">Sxema</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Xarkatlanish jadvali</a>
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" @click="sendDirection">Xarkatlanish jadvali</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="tarif-tab" data-toggle="tab" href="#tarif" role="tab" aria-controls="tarif" aria-selected="false"@click="sendDirection">Tarif</a>
             </li>
         </ul>
         <router-link class="btn btn-primary back_btn" to="/crm/direction">
@@ -189,6 +201,9 @@
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
               <Schedule v-if="loaded" :titulData="this.getDirection" />
             </div>
+            <div class="tab-pane fade" id="tarif" role="tabpanel" aria-labelledby="tarif-tab">
+              <Tarif v-if="loaded" :titulData="this.getDirection" />
+            </div>
         </div>
       </div>
     </div>
@@ -199,6 +214,7 @@ import DatePicker from "vue2-datepicker";
 import Timing from "../steppassport/Timing";
 import Scheme from "../steppassport/Scheme";
 import Schedule from "../steppassport/Schedule";
+import Tarif from "../steppassport/Tarif";
 import { mapGetters, mapActions } from "vuex";
 import "vue2-datepicker/index.css";
 export default {
@@ -206,6 +222,7 @@ export default {
     DatePicker,
     Timing,
     Scheme,
+    Tarif,
     Schedule
   },
   data() {
@@ -266,6 +283,9 @@ export default {
     ...mapActions("direction", ["actionEditDirection"]),
     isRequired(input) {
       return this.requiredInput && input === "";
+    },
+    async sendDirection(){
+      await this.actionEditDirection(this.$route.params.directionId);
     },
     async saveDirection() {
       if (
