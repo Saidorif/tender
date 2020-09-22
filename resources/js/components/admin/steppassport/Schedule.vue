@@ -45,24 +45,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(table,index) in titulData.timing_with">
+          <tr v-for="(table,index) in form"  v-if="!table.area_from_id || index == form.length - 1">
             <th  colspan="1"></th>
+            <th  colspan="1" class="th_with_input"><input type="text" class="table_input"></th>
             <th  colspan="1"></th>
+            <th  colspan="1" class="th_with_input"><input type="text" class="table_input"></th>
             <th  colspan="1"></th>
+            <th  colspan="1" class="th_with_input"><input type="text" class="table_input"></th>
             <th  colspan="1"></th>
+            <th  colspan="1" class="th_with_input"><input type="text" class="table_input"></th>
+            <th  colspan="1">{{ index == form.length - 1 ? table.whereTo.name : table.whereForm.name}}</th>
             <th  colspan="1"></th>
+            <th  colspan="1" class="th_with_input"><input type="text" class="table_input"></th>
             <th  colspan="1"></th>
+            <th  colspan="1" class="th_with_input"><input type="text" class="table_input"></th>
             <th  colspan="1"></th>
+            <th  colspan="1" class="th_with_input"><input type="text" class="table_input"></th>
             <th  colspan="1"></th>
-            <th  colspan="1">{{table.region_from.name}}</th>
-            <th  colspan="1"></th>
-            <th  colspan="1"></th>
-            <th  colspan="1"></th>
-            <th  colspan="1"></th>
-            <th  colspan="1"></th>
-            <th  colspan="1"></th>
-            <th  colspan="1"></th>
-            <th  colspan="1"></th>
+            <th  colspan="1" class="th_with_input"><input type="text" class="table_input"></th>
           </tr>
         </tbody>
       </table>
@@ -84,6 +84,7 @@ export default {
   },
   async mounted() {
     this.form = this.titulData.timing_with
+    console.log('myform')
     console.log(this.form)
   },
   computed: {
@@ -102,5 +103,14 @@ export default {
 .tabRow {
   padding-left: 30px;
   padding-right: 30px;
+}
+.th_with_input{
+  padding: 0;
+}
+.table_input{
+  width: 70px;
+  padding: 0.25rem;
+  border: none;
+  background: transparent;
 }
 </style>
