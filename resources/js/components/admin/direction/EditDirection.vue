@@ -195,13 +195,13 @@
             <div class="tab-pane fade " id="timing" role="tabpanel" aria-labelledby="home-tab">
                 <Timing v-if="loaded" :titulData="this.getDirection" />
             </div>
-            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <Scheme v-if="loaded" :titulData="this.getDirection" />
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
               <Schedule v-if="loaded" :titulData="this.getDirection" />
             </div>
-            <div class="tab-pane fade" id="tarif" role="tabpanel" aria-labelledby="tarif-tab">
+            <div class="tab-pane fade  show active" id="tarif" role="tabpanel" aria-labelledby="tarif-tab">
               <Tarif v-if="loaded" :titulData="this.getDirection" />
             </div>
         </div>
