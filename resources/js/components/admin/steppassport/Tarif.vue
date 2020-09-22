@@ -50,7 +50,7 @@
 						index = index+1
 						let arrItem = []
 						if (index == 1) {
-							summ = count.distance_from_start_station * tarif
+							summ = Math.round(count.distance_from_start_station) * tarif
 							arrItem["start_summ"] = summ
 							arrItem["id"] = count.id
 							arrItem["whereForm"] = count.whereForm
@@ -60,7 +60,7 @@
 							arrItem["count"] = [0]
 							newItems.push(arrItem)
 						}else {
-							summ = count.distance_from_start_station * tarif
+							summ = Math.round(count.distance_from_start_station) * tarif
 							arrItem["start_summ"] = summ
 							arrItem["id"] = count.id
 							arrItem["whereForm"] = count.whereForm
