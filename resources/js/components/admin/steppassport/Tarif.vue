@@ -6,21 +6,24 @@
 	  			<thead>
 	  				<tr>
 	  					<th>№ т/р</th>
-	  					<th colspan="2">Бошлангич ва оралик охирги бекатлар номи</th>
-	  					<th>Масофа (км.)да</th>
+	  					<th>Бошлангич ва оралик охирги бекатлар номи</th>
+	  					<th colspan="2">Масофа (км.)да</th>
 	  				</tr>
 	  				<tr>
+	  					<th></th>
 	  					<th></th>
 	  					<th>Бошлангич бекатдан</th>
 	  					<th>Бекатлар оралигида</th>
 	  				</tr>
 	  			</thead>
 	  			<tbody>
-	  				<tr v-for="(item,index) in titulData.timing_with">
+	  				<tr v-for="(item,index) in items">
+	  					<td>{{index+1}}</td>
 	  					<td>{{item.whereForm.name}} - {{item.whereTo.name}}</td>
 	  					<td>{{item.distance_from_start_station}}</td>
 	  					<td>{{item.distance_between_station}}</td>
-	  					<td v-for="count in index + 1">{{item.distance_between_station * 65	}}</td>
+	  					<td>{{item.start_summ}}</td>
+	  					<td v-for="(c,i) in item.count" v-if="c > 0">{{c}}</td>
 	  				</tr>
 	  			</tbody>
 	  		</table>
@@ -33,7 +36,7 @@
 		props:['titulData'],
 		data(){
 			return{
-
+				items:[]
 			}
 		},
 		watch:{
@@ -45,10 +48,15 @@
 					let summ = 0
 					counts.forEach((count,index)=>{
 						index = index+1
+						let arrItem = []
 						if (index == 1) {
-							let arrItem = []
 							summ = count.distance_from_start_station * tarif
 							arrItem["start_summ"] = summ
+							arrItem["id"] = count.id
+							arrItem["whereForm"] = count.whereForm
+							arrItem["whereTo"] = count.whereTo
+							arrItem["distance_from_start_station"] = count.distance_from_start_station
+							arrItem["distance_between_station"] = count.distance_between_station
 							arrItem["count"] = [0]
 							arrItem["number"] = 0
 							arrItem["numbers"] = 0
@@ -62,13 +70,23 @@
 							arrItem["number"] = parseInt(count.distance_between_station)
 							arrItem["numbers"] = parseInt(count.distance_between_station)
 							newItems.push(arrItem)
+<<<<<<< HEAD
 						}
 						else {
 							let arrItem = []
 							arrItem["numbers"] = 0;
+=======
+						}else {
+>>>>>>> d1b31dbaebb854ca16c7f70dc10a336cb1b6b96a
 							summ = count.distance_from_start_station * tarif
 							arrItem["start_summ"] = summ
+							arrItem["id"] = count.id
+							arrItem["whereForm"] = count.whereForm
+							arrItem["whereTo"] = count.whereTo
+							arrItem["distance_from_start_station"] = count.distance_from_start_station
+							arrItem["distance_between_station"] = count.distance_between_station
 							arrItem["count"] = []
+<<<<<<< HEAD
 							arrItem["number"] = parseInt(count.distance_between_station)
 							newItems.forEach((val,i)=>{
 								arrItem["numbers"] += val.number
@@ -77,18 +95,26 @@
 								// arrItem["count"].unshift(val.number*tarif)
 
 							})
+=======
+							for (var i = 1; i < index; i++){
+								arrItem["count"].unshift(summ-newItems[i-1].start_summ)
+							}
+>>>>>>> d1b31dbaebb854ca16c7f70dc10a336cb1b6b96a
 							newItems.push(arrItem)
 						}
 					})
-					console.log(newItems)
+					this.items = newItems
 				}
 			}
 		},
-		mounted(){
+		async mounted(){
+			await this.actionEditDirection(this.$route.params.directionId);
 		},
 		computed:{
+			...mapGetters("direction", ["getDirection"]),
 		},
 		methods:{
+			...mapActions("direction", ["actionEditDirection"]),
 			saveData(){
 
 			}
