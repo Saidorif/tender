@@ -29,7 +29,7 @@
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" @click="sendDirection">Xarkatlanish jadvali</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="tarif-tab" data-toggle="tab" href="#tarif" role="tab" aria-controls="tarif" aria-selected="false"@click="sendDirection">Tarif</a>
+                <a class="nav-link active" id="tarif-tab" data-toggle="tab" href="#tarif" role="tab" aria-controls="tarif" aria-selected="false"@click="sendDirection">Tarif</a>
             </li>
         </ul>
         <router-link class="btn btn-primary back_btn" to="/crm/direction">
