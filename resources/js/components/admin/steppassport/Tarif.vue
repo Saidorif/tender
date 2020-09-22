@@ -45,31 +45,19 @@
 					let summ = 0
 					counts.forEach((count,index)=>{
 						index = index+1
+						let arrItem = []
 						if (index == 1) {
-							let arrItem = []
 							summ = count.distance_from_start_station * tarif
 							arrItem["start_summ"] = summ
 							arrItem["count"] = [0]
 							newItems.push(arrItem)
-						}
-						// else if(index == 2) {
-						// 	let arrItem = []
-						// 	summ = count.distance_from_start_station * tarif
-						// 	arrItem["start_summ"] = summ
-						// 	arrItem["count"] = [(count.distance_between_station*tarif)]
-						// 	// arrItem["numbers"].unshift(count.distance_between_station)
-						// 	newItems.push(arrItem)
-						// }
-						else {
-							let arrItem = []
+						}else {
 							summ = count.distance_from_start_station * tarif
 							arrItem["start_summ"] = summ
 							arrItem["count"] = []
-							arrItem["numbers"] = []
-							newItems.forEach((val,i)=>{
-								arrItem["count"].unshift((summ-val.start_summ))
-								arrItem["numbers"].unshift(parseInt(count.distance_between_station))
-							})
+							for (var i = 0; i < index; i++) {
+								arrItem["count"].push((counts[i].distance_from_start_station * tarif))
+							}
 							newItems.push(arrItem)
 						}
 					})

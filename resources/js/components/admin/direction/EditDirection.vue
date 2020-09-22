@@ -23,7 +23,7 @@
                 <a class="nav-link " id="timing-tab" data-toggle="tab" href="#timing" role="tab" aria-controls="timing" aria-selected="true" @click="sendDirection">Xronametraj</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" @click="sendDirection">Sxema</a>
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" @click="sendDirection">Sxema</a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" @click="sendDirection">Xarkatlanish jadvali</a>
