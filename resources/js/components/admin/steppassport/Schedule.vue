@@ -82,7 +82,10 @@ export default {
       form: {},
     };
   },
-  async mounted() {},
+  async mounted() {
+    this.form = this.titulData.timing_with
+    console.log(this.form)
+  },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
   },
