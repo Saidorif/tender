@@ -8,12 +8,12 @@
       </p>
     </div>
     <div class="col-md-4">
-      <p>Qatnovchi avtomobillar soni</p>
+      <p>Qatnovchi avtomobillar soni  <input class="input_bd_none" type="number" v-model="count_bus">- {{count_bus}}</p>
     </div>
     <div class="col-md-4">
       <p>Yolkira xaqqi so'm</p>
     </div>
-    <div class="table-responisve">
+    <div class="table-responisve" v-for="(p_index) in Math.ceil(count_bus / 4)">
       <table class="table table-bordered text-center table-hover table-striped">
         <thead>
           <tr>
@@ -46,7 +46,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(table,index) in form.result"  :key="index" >
+          <tr v-for="(table,index) in form"  :key="index" >
             <th  colspan="1">{{table.time_to_1}} {{index}}</th>
             <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_1, table.time_to_1, index, table)" v-model="table.time_from_1" type="text" class="table_input"></th>
             <th  colspan="1">{{table.time_to_2}}</th>
@@ -55,7 +55,7 @@
             <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_3, table.time_to_3, )" v-model="table.time_from_3" type="text" class="table_input"></th>
             <th  colspan="1">{{table.time_to_4}}</th>
             <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_4, table.time_to_4, )" v-model="table.time_from_4" type="text" class="table_input"></th>
-            <th  colspan="1">{{ index == form.length -1 ? table.whereTo.name : table.whereForm.name}}</th>
+            <th  colspan="1">{{  table.whereForm.name}}</th>
             <th  colspan="1">{{table.time_to_5}}</th>
             <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_5, table.time_to_5, )" v-model="table.time_from_5" type="text" class="table_input"></th>
             <th  colspan="1">{{table.time_to_6}}</th>
@@ -66,26 +66,6 @@
             <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_8, table.time_to_8, )" v-model="table.time_from_8" type="text" class="table_input"></th>
             <th  colspan="1" class="th_with_input"><button @click="removeItem(index)" type="button" class="btn btn-danger btn_trash"><i  class="fas fa-trash"></i></button></th>
           </tr>
-          <!-- <tr v-for="(table,index) in form"  :key="index" >
-            <th  colspan="1">{{table.time_to_1}} {{index}}</th>
-            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_1, table.time_to_1, index, table)" v-model="table.time_from_1" type="text" class="table_input"></th>
-            <th  colspan="1">{{table.time_to_2}}</th>
-            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_2, table.time_to_2, )" v-model="table.time_from_2" type="text" class="table_input" ></th>
-            <th  colspan="1">{{table.time_to_3}}</th>
-            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_3, table.time_to_3, )" v-model="table.time_from_3" type="text" class="table_input"></th>
-            <th  colspan="1">{{table.time_to_4}}</th>
-            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_4, table.time_to_4, )" v-model="table.time_from_4" type="text" class="table_input"></th>
-            <th  colspan="1">{{ index == form.length -1 ? table.whereTo.name : table.whereForm.name}}</th>
-            <th  colspan="1">{{table.time_to_5}}</th>
-            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_5, table.time_to_5, )" v-model="table.time_from_5" type="text" class="table_input"></th>
-            <th  colspan="1">{{table.time_to_6}}</th>
-            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_6, table.time_to_6, )" v-model="table.time_from_6" type="text" class="table_input"></th>
-            <th  colspan="1">{{table.time_to_7}}</th>
-            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_7, table.time_to_7, )" v-model="table.time_from_7" type="text" class="table_input"></th>
-            <th  colspan="1">{{table.time_to_8}}</th>
-            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_8, table.time_to_8, )" v-model="table.time_from_8" type="text" class="table_input"></th>
-            <th  colspan="1" class="th_with_input"><button @click="removeItem(index)" type="button" class="btn btn-danger btn_trash"><i  class="fas fa-trash"></i></button></th>
-          </tr> -->
         </tbody>
       </table>
     </div>
@@ -107,25 +87,27 @@ export default {
   data() {
     return {
       form: {},
+      count_bus: 5
     };
   },
   async mounted() {
-    await this.actionGetScheduleTable({id: this.$route.params.directionId, count: 1})
-    this.form = this.getSchedule
-    // this.form = this.titulData.timing_with
-    // let lastObj = {
-    //   time_from_1
-    //   time_from_2
-    //   time_from_3
-    //   time_from_4
-    //   time_from_5
-    //   time_from_6
-    //   time_from_8:
-    // }
-    this.form.push(this.form[this.form.length -1])
+    await this.actionGetScheduleTable({id: this.$route.params.directionId, count:this.count_bus})
+    this.form = this.titulData.timing_with
+    let lastObj = {
+      time_from_1: '',
+      time_from_2: '',
+      time_from_3: '',
+      time_from_4: '',
+      time_from_5: '',
+      time_from_6: '', 
+      time_from_8: '', 
+      whereForm: this.form[this.form.length -1].whereTo
+    }
+    this.form.push(lastObj)
   },
   computed: {
-    ...mapGetters("direction", ["getDirection", "getSchedule"]),
+    ...mapGetters("direction", ["getDirection"]),
+    ...mapGetters("passportTab", ["getSchedule"]),
   },
   methods: {
     ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable", 'actionGetScheduleTable']),
@@ -166,5 +148,10 @@ export default {
     font-size: 12px;
     margin-left: auto;
     margin-right: auto;
+}
+.input_bd_none{
+  border: none;
+  width: 20px;
+  text-align: center;
 }
 </style>
