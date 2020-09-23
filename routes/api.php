@@ -131,6 +131,8 @@ Route::group([
             Route::get('direction/list', 'DirectionController@list');
             Route::post('direction/find', 'DirectionController@find');
             Route::get('direction/timingdetails', 'DirectionController@timingdetails');
+            Route::get('direction/timingtarif/{id}', 'DirectionController@timingtarif');
+            Route::post('direction/schedule/{id}', 'DirectionController@schedule');
             Route::get('direction/edit/{id}', 'DirectionController@edit');
             Route::post('direction/update/{id}', 'DirectionController@update');
             Route::delete('direction/destroy/{id}', 'DirectionController@destroy');
