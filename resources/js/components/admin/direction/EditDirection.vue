@@ -202,7 +202,7 @@
               <Schedule v-if="loaded" :titulData="this.getDirection" />
             </div>
             <div class="tab-pane fade  show active" id="tarif" role="tabpanel" aria-labelledby="tarif-tab">
-              <Tarif v-if="loaded" :titulData="this.getDirection" />
+              <Tarif v-if="loaded" :titulData="this.getDirection"/>
             </div>
         </div>
       </div>
@@ -281,6 +281,7 @@ export default {
     ...mapActions("area", ["actionAreaByRegion"]),
     ...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
     ...mapActions("direction", ["actionEditDirection"]),
+    ...mapActions("passportTab", ["actionTarif"]),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
@@ -352,6 +353,7 @@ export default {
     ...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("direction", ["getDirection"]),
+    ...mapGetters("passportTab", ["getTarif"]),
     destinations() {
       let from = null;
       let to = null;

@@ -34,7 +34,7 @@
 		props:['titulData'],
 		data(){
 			return{
-				items:[]
+				items:[],
 			}
 		},
 		watch:{
@@ -51,16 +51,17 @@
 						if (index == 1){
 							summ = Math.round(count.distance_from_start_station) * tarif
 							console.log(summ)
+						}else{
+							
 						}
 						console.log(count.distance_from_start_station)
 					})
 				}
-			}
+			},
 		},
 		async mounted(){
 			await this.actionEditDirection(this.$route.params.directionId);
 			await this.actionTarif(this.$route.params.directionId);
-			console.log(this.getTarif)
 		},
 		computed:{
 			...mapGetters("direction", ["getDirection"]),
