@@ -46,7 +46,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(table,index) in form"  :key="index" >
+          <tr v-for="(table,index) in form.result"  :key="index" >
             <th  colspan="1">{{table.time_to_1}} {{index}}</th>
             <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_1, table.time_to_1, index, table)" v-model="table.time_from_1" type="text" class="table_input"></th>
             <th  colspan="1">{{table.time_to_2}}</th>
@@ -66,6 +66,26 @@
             <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_8, table.time_to_8, )" v-model="table.time_from_8" type="text" class="table_input"></th>
             <th  colspan="1" class="th_with_input"><button @click="removeItem(index)" type="button" class="btn btn-danger btn_trash"><i  class="fas fa-trash"></i></button></th>
           </tr>
+          <!-- <tr v-for="(table,index) in form"  :key="index" >
+            <th  colspan="1">{{table.time_to_1}} {{index}}</th>
+            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_1, table.time_to_1, index, table)" v-model="table.time_from_1" type="text" class="table_input"></th>
+            <th  colspan="1">{{table.time_to_2}}</th>
+            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_2, table.time_to_2, )" v-model="table.time_from_2" type="text" class="table_input" ></th>
+            <th  colspan="1">{{table.time_to_3}}</th>
+            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_3, table.time_to_3, )" v-model="table.time_from_3" type="text" class="table_input"></th>
+            <th  colspan="1">{{table.time_to_4}}</th>
+            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_4, table.time_to_4, )" v-model="table.time_from_4" type="text" class="table_input"></th>
+            <th  colspan="1">{{ index == form.length -1 ? table.whereTo.name : table.whereForm.name}}</th>
+            <th  colspan="1">{{table.time_to_5}}</th>
+            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_5, table.time_to_5, )" v-model="table.time_from_5" type="text" class="table_input"></th>
+            <th  colspan="1">{{table.time_to_6}}</th>
+            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_6, table.time_to_6, )" v-model="table.time_from_6" type="text" class="table_input"></th>
+            <th  colspan="1">{{table.time_to_7}}</th>
+            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_7, table.time_to_7, )" v-model="table.time_from_7" type="text" class="table_input"></th>
+            <th  colspan="1">{{table.time_to_8}}</th>
+            <th  colspan="1" class="th_with_input"><input @input="calcToTime(table.time_from_8, table.time_to_8, )" v-model="table.time_from_8" type="text" class="table_input"></th>
+            <th  colspan="1" class="th_with_input"><button @click="removeItem(index)" type="button" class="btn btn-danger btn_trash"><i  class="fas fa-trash"></i></button></th>
+          </tr> -->
         </tbody>
       </table>
     </div>
@@ -90,7 +110,9 @@ export default {
     };
   },
   async mounted() {
-    this.form = this.titulData.timing_with
+    await this.actionGetScheduleTable({id: this.$route.params.directionId, count: 1})
+    this.form = this.getSchedule
+    // this.form = this.titulData.timing_with
     // let lastObj = {
     //   time_from_1
     //   time_from_2
@@ -103,10 +125,10 @@ export default {
     this.form.push(this.form[this.form.length -1])
   },
   computed: {
-    ...mapGetters("direction", ["getDirection"]),
+    ...mapGetters("direction", ["getDirection", "getSchedule"]),
   },
   methods: {
-    ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
+    ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable", 'actionGetScheduleTable']),
     async saveData() {},
     isRequired(input) {
       return this.requiredInput && input === "";
