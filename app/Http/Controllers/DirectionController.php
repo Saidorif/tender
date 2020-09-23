@@ -193,13 +193,21 @@ class DirectionController extends Controller
 
     public function schedule(Request $request,$id)
     {
+        $validator = Validator::make($request->all(), [            
+            'count'  => 'required|integer',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+
         $direction = Direction::find($id);
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
-        $auto_count = 2;
+        $auto_count = $request->input('count');
 
-        $ptimings = PassportTiming::all();
+        $ptimings = $direction->timing;
         $result = [];
         $from = $direction->regionFrom->name;
         $to = $direction->regionTo->name;
