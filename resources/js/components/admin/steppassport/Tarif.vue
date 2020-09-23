@@ -4,7 +4,7 @@
   		<div class="table-responsive">
 	  		<table class="table table-bordered ">
 	  			<thead>
-	  				<tr>
+	  				<!-- <tr>
 	  					<th>№ т/р</th>
 	  					<th>Бошлангич ва оралик охирги бекатлар номи</th>
 	  					<th :colspan="titulData.timing_with.length">Оралиқ ва сўнгги бекат номи ва тариф</th>
@@ -12,14 +12,14 @@
 	  				<tr>
 	  					<th v-for="(item,index) in titulData.timing_with"></th>
 	  					<th v-for="(item,index) in titulData.timing_with">{{item.whereTo.name}}</th>
-	  				</tr>
+	  				</tr> -->
 	  			</thead>
 	  			<tbody>
 	  				<tr v-for="(item,index) in titulData.timing_with">
-	  					<td>{{index+1}}</td>
+	  					<!-- <td>{{index+1}}</td>
 	  					<td>{{item.whereForm.name}}</td>
 	  					<td>{{item.distance_from_start_station}}</td>
-	  					<td>{{item.distance_between_station}}</td>
+	  					<td>{{item.distance_between_station}}</td> -->
 	  					<!-- <td>{{item.start_pass_summ}}</td> -->
 	  					<!-- <td v-for="(c,i) in item.count" v-if="c.pass > 0">{{c.pass}} / {{c.weight}}</td> -->
 	  				</tr>
@@ -53,6 +53,7 @@
 					let tarif = 65
 					let counts = this.titulData.timing_with
 					let summ = 0
+					let summar = 0
 					counts.forEach((count,index)=>{
 						index = index+1
 						let arrItem = []
@@ -87,11 +88,12 @@
 							arrItem["distance_from_start_station"] = Number(count.distance_from_start_station)
 							arrItem["distance_between_station"] = Number(count.distance_between_station)
 							arrItem["count"] = []
-							for (var i = 0; i < numbers.length; i++) {
+							for (var i = 0; i < index; i++) {
 								if (i>1) {
 									for (var k = 0; k <= i; k++) {
-										summ +=numbers[k]
-										newArr.push(summ)
+										summar +=numbers[k]
+										newArr.push(summar)
+										arrItem["count"].push(summ+newItems[i-1].distance_between_station)
 										// console.log(numbers[i])
 									}
 								}
