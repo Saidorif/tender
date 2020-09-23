@@ -7,6 +7,9 @@ const PassportTabService = {
 	clearTimingTable(id){
 		return ApiService.delete(`/api/timing/destroy/${id}`)
 	},
+	tarif(id){
+		return ApiService.get(`/api/direction/timingtarif/${id}`)
+	}
 };
 
 export { PassportTabService };
