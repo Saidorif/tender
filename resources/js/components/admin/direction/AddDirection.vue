@@ -159,8 +159,8 @@
                 :class="isRequired(form.profitability) ? 'isRequired' : ''"
                 placeholder="Area"
               >
-                <option value="profitability">Рентабельный</option>
-                <option value="unprofitability">Нерентабельный</option>
+                <option value="profitable">Рентабельный</option>
+                <option value="unprofitable">Нерентабельный</option>
                 <option value="middle">Средный</option>
               </select>
             </div>

@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
-    <h1>Avtobus qatnov yoli tasviri {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
+    <h1>Avtobus qatnov yoli tasviri {{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
     <div class="map_scheme" v-if="schemeData.length">
       <div class="mid_line"></div>
       <template v-for="(p_item,p_index) in schemeData">
@@ -172,14 +172,7 @@ export default {
           fio: 'M.Jumanazarov',
           date: '21-09-2020'
       },
-      agreedData: [
-          {
-            organization_name: '',
-            position: '',
-            fio: '',
-            date: ''
-          }
-      ],
+      agreedData: [],
       requiredInput: false,
     };
   },
