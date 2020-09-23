@@ -265,7 +265,7 @@
         <tbody>
           <tr v-for="(table,index) in tableData">
             <td scope="row">{{index+1}}</td>
-            <td>{{ table.whereForm.name }} {{ table.whereTo.name }}</td>
+            <td v-if="table.whereTo || table.whereForm">{{ table.whereForm.name }} {{ table.whereTo.name }}</td>
             <td>{{ table.start_speedometer }}</td>
             <td>{{ table.end_speedometer }}</td>
             <td>{{ table.distance_from_start_station }}</td>
