@@ -40,24 +40,72 @@
 		watch:{
 			titulData:{
 				handler(){
+					// for (var i = 0; i < numbers.length; i++) {
+					// 	if (i>1) {
+					// 		for (var k = 0; k <= i; k++) {
+					// 			summ +=numbers[k]
+					// 			newArr.push(summ)
+					// 			// console.log(numbers[i])
+					// 		}
+					// 	}
+					// }
 					let newItems = []
-					let tarif = 20
-					let tarifBagaj = 2500 /**2000**/
-					
+					let tarif = 65
 					let counts = this.titulData.timing_with
 					let summ = 0
 					counts.forEach((count,index)=>{
+						index = index+1
 						let arrItem = []
-						if (index == 1){
+						if (index == 1) {
 							summ = Math.round(count.distance_from_start_station) * tarif
-							console.log(summ)
-						}else{
-							
+							// arrItem["start_summ"] = summ
+							// arrItem["id"] = count.id
+							// arrItem["whereForm"] = count.whereForm
+							// arrItem["whereTo"] = count.whereTo
+							arrItem["distance_from_start_station"] = Number(count.distance_from_start_station)
+							arrItem["distance_between_station"] = Number(count.distance_between_station)
+							arrItem["count"] = [0]
+							newItems.push(arrItem)
 						}
-						console.log(count.distance_from_start_station)
+						// else if (index == 2) {
+						// 	summ = Math.round(count.distance_from_start_station) * tarif
+						// 	// arrItem["start_summ"] = summ
+						// 	// arrItem["id"] = count.id
+						// 	// arrItem["whereForm"] = count.whereForm
+						// 	// arrItem["whereTo"] = count.whereTo
+						// 	arrItem["distance_from_start_station"] = Number(count.distance_from_start_station)
+						// 	arrItem["distance_between_station"] = Number(count.distance_between_station)
+						// 	arrItem["count"] = [Number(count.distance_between_station)]
+						// 	newItems.push(arrItem)
+						// }
+						else {
+							summ = Math.round(count.distance_from_start_station) * tarif
+							// arrItem["start_summ"] = summ
+							// arrItem["id"] = count.id
+							// arrItem["whereForm"] = count.whereForm
+							// arrItem["whereTo"] = count.whereTo
+							arrItem["distance_from_start_station"] = Number(count.distance_from_start_station)
+							arrItem["distance_between_station"] = Number(count.distance_between_station)
+							arrItem["count"] = []
+							for (var i = 0; i < numbers.length; i++) {
+								if (i>1) {
+									for (var k = 0; k <= i; k++) {
+										summ +=numbers[k]
+										newArr.push(summ)
+										// console.log(numbers[i])
+									}
+								}
+							}
+							// for (var i = 1; i < index; i++){
+							// 	arrItem["count"].push(summ+newItems[i-1].distance_between_station)
+							// }
+							newItems.push(arrItem)
+						}
 					})
+					this.items = newItems
+					console.log(this.items)
 				}
-			},
+			}
 		},
 		async mounted(){
 			await this.actionEditDirection(this.$route.params.directionId);
