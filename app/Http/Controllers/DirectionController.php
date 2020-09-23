@@ -212,12 +212,12 @@ class DirectionController extends Controller
         $from = $direction->regionFrom->name;
         $to = $direction->regionTo->name;
         foreach ($ptimings as $key => $timing) {
-            $result[$from][$key]['name'] = $timing->whereForm['name'];
+            $result[$key]['name'] = $timing->whereForm['name'];
             for ($i=0; $i < $auto_count; $i++) { 
-                $result[$from][$key]['timeFrom'][$i]['jonash'] = '00:00';
-                $result[$from][$key]['timeFrom'][$i]['kelish'] = '00:00';
-                $result[$from][$key]['timeTo'][$i]['kelish'] = '00:00';
-                $result[$from][$key]['timeTo'][$i]['kelish'] = '00:00';
+                $result[$key]['timeFrom'][$i]['jonash'] = '00:00';
+                $result[$key]['timeFrom'][$i]['kelish'] = '00:00';
+                $result[$key]['timeTo'][$i]['kelish'] = '00:00';
+                $result[$key]['timeTo'][$i]['kelish'] = '00:00';
             }
         }
         return response()->json([
