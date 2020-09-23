@@ -59,11 +59,15 @@
 		},
 		async mounted(){
 			await this.actionEditDirection(this.$route.params.directionId);
+			await this.actionTarif(this.$route.params.directionId);
+			console.log(this.getTarif)
 		},
 		computed:{
 			...mapGetters("direction", ["getDirection"]),
+			...mapGetters("passportTab", ["getTarif"]),
 		},
 		methods:{
+			...mapActions("passportTab", ["actionTarif"]),
 			...mapActions("direction", ["actionEditDirection"]),
 			checkNumber(number){
 				let weightTarif1 = 45
