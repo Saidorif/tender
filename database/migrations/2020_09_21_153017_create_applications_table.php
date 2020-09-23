@@ -15,15 +15,15 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id'),
-            $table->string('auto_number'),
-            $table->bigInteger('bustype_id'),
-            $table->bigInteger('busmodel_id'),
-            $table->bigInteger('tclass_id'),
-            $table->string('seat_from'),
-            $table->string('stay_count'),
-            $table->string('tarif'),
-            $table->string('estimated_time'),
+            $table->bigInteger('user_id');
+            $table->string('auto_number');
+            $table->bigInteger('bustype_id');
+            $table->bigInteger('busmodel_id');
+            $table->bigInteger('tclass_id');
+            $table->string('seat_from');
+            $table->string('stay_count');
+            $table->string('tarif');
+            $table->string('estimated_time');
             $table->timestamps();
         });
     }

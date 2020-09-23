@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Direction;
 use App\TimingDetails;
+use App\PassportTiming;
 use App\Region;
 use App\Area;
 use Validator;
@@ -169,5 +170,53 @@ class DirectionController extends Controller
         $result->delete();
 
         return response()->json(['success' => true, 'message' => 'Направление удален']);
+    }
+
+    public function timingtarif(Request $request,$id)
+    {
+        $direction = Direction::find($id);
+        if(!$direction){
+            return response()->json(['error' => true, 'message' => 'Направление не найден']);
+        }
+        $ptimings = $direction->timing;
+        $result = [];
+        foreach ($ptimings as $key => $timing) {
+            $result[$key]['name'] = $timing->whereForm['name'];
+            $result[$key]['distance'] = (int)$timing->distance_from_start_station;
+            $result[$key]['summa'] = 65;
+            $result[$key]['summa_bagaj'] = 35;
+            $result[$key]['tarif'] = $result[$key]['summa'] * $result[$key]['distance'];
+            $result[$key]['tarif_bagaj'] = $result[$key]['summa_bagaj'] * $result[$key]['distance'];
+        }
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
+    public function schedule(Request $request,$id)
+    {
+        $direction = Direction::find($id);
+        if(!$direction){
+            return response()->json(['error' => true, 'message' => 'Направление не найден']);
+        }
+        $auto_count = 2;
+
+        $ptimings = PassportTiming::all();
+        $result = [];
+        $from = $direction->regionFrom->name;
+        $to = $direction->regionTo->name;
+        foreach ($ptimings as $key => $timing) {
+            $result[$from][$key]['name'] = $timing->whereForm['name'];
+            for ($i=0; $i < $auto_count; $i++) { 
+                $result[$from][$key]['timeFrom'][$i]['jonash'] = '00:00';
+                $result[$from][$key]['timeFrom'][$i]['kelish'] = '00:00';
+                $result[$from][$key]['timeTo'][$i]['kelish'] = '00:00';
+                $result[$from][$key]['timeTo'][$i]['kelish'] = '00:00';
+            }
+        }
+        return response()->json([
+            'success' => true,
+            'from' => $from,
+            'to' => $to,
+            'result' => $result
+        ]);
     }
 }
