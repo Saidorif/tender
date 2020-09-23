@@ -7,23 +7,21 @@
 	  				<tr>
 	  					<th>№ т/р</th>
 	  					<th>Бошлангич ва оралик охирги бекатлар номи</th>
-	  					<th colspan="2">Масофа (км.)да</th>
+	  					<th :colspan="titulData.timing_with.length">Оралиқ ва сўнгги бекат номи ва тариф</th>
 	  				</tr>
 	  				<tr>
-	  					<th></th>
-	  					<th></th>
-	  					<th>Бошлангич бекатдан</th>
-	  					<th>Бекатлар оралигида</th>
+	  					<th v-for="(item,index) in titulData.timing_with"></th>
+	  					<th v-for="(item,index) in titulData.timing_with">{{item.whereTo.name}}</th>
 	  				</tr>
 	  			</thead>
 	  			<tbody>
-	  				<tr v-for="(item,index) in items">
+	  				<tr v-for="(item,index) in titulData.timing_with">
 	  					<td>{{index+1}}</td>
-	  					<td>{{item.whereForm.name}} - {{item.whereTo.name}}</td>
+	  					<td>{{item.whereForm.name}}</td>
 	  					<td>{{item.distance_from_start_station}}</td>
 	  					<td>{{item.distance_between_station}}</td>
-	  					<td>{{item.start_summ}}</td>
-	  					<td v-for="(c,i) in item.count" v-if="c > 0">{{c}}</td>
+	  					<!-- <td>{{item.start_pass_summ}}</td> -->
+	  					<!-- <td v-for="(c,i) in item.count" v-if="c.pass > 0">{{c.pass}} / {{c.weight}}</td> -->
 	  				</tr>
 	  			</tbody>
 	  		</table>
@@ -43,38 +41,19 @@
 			titulData:{
 				handler(){
 					let newItems = []
-					let tarif = 65
+					let tarif = 20
+					let tarifBagaj = 2500 /**2000**/
+					
 					let counts = this.titulData.timing_with
 					let summ = 0
 					counts.forEach((count,index)=>{
-						index = index+1
 						let arrItem = []
-						if (index == 1) {
+						if (index == 1){
 							summ = Math.round(count.distance_from_start_station) * tarif
-							arrItem["start_summ"] = summ
-							arrItem["id"] = count.id
-							arrItem["whereForm"] = count.whereForm
-							arrItem["whereTo"] = count.whereTo
-							arrItem["distance_from_start_station"] = count.distance_from_start_station
-							arrItem["distance_between_station"] = count.distance_between_station
-							arrItem["count"] = [0]
-							newItems.push(arrItem)
-						}else {
-							summ = Math.round(count.distance_from_start_station) * tarif
-							arrItem["start_summ"] = summ
-							arrItem["id"] = count.id
-							arrItem["whereForm"] = count.whereForm
-							arrItem["whereTo"] = count.whereTo
-							arrItem["distance_from_start_station"] = count.distance_from_start_station
-							arrItem["distance_between_station"] = count.distance_between_station
-							arrItem["count"] = []
-							for (var i = 1; i < index; i++){
-								arrItem["count"].push(summ-newItems[i-1].start_summ)
-							}
-							newItems.push(arrItem)
+							console.log(summ)
 						}
+						console.log(count.distance_from_start_station)
 					})
-					this.items = newItems
 				}
 			}
 		},
@@ -86,6 +65,15 @@
 		},
 		methods:{
 			...mapActions("direction", ["actionEditDirection"]),
+			checkNumber(number){
+				let weightTarif1 = 45
+				let weightTarif2 = 40
+				if (number/100 <= 1) {
+					return weightTarif1
+				}else if(number/100 > 1){
+					return weightTarif1 + weightTarif2
+				}
+			},
 			saveData(){
 
 			}
