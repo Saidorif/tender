@@ -211,6 +211,7 @@ export default {
     ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable", 'actionGetScheduleTable']),
     async saveData() {
       console.log(this.form)
+      await this.actionGetScheduleTable({id: this.$route.params.directionId, data:this.form})
     },
     isRequired(input) {
       return this.requiredInput && input === "";
