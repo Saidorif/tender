@@ -26,10 +26,10 @@
                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" @click="sendDirection">Sxema</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" @click="sendDirection">Xarkatlanish jadvali</a>
+                <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" @click="sendDirection">Xarkatlanish jadvali</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="tarif-tab" data-toggle="tab" href="#tarif" role="tab" aria-controls="tarif" aria-selected="false"@click="sendDirection">Tarif</a>
+                <a class="nav-link " id="tarif-tab" data-toggle="tab" href="#tarif" role="tab" aria-controls="tarif" aria-selected="false"@click="sendDirection">Tarif</a>
             </li>
         </ul>
         <router-link class="btn btn-primary back_btn" to="/crm/direction">
@@ -198,10 +198,10 @@
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <Scheme v-if="loaded" :titulData="this.getDirection" />
             </div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="tab-pane fade show active"  id="contact" role="tabpanel" aria-labelledby="contact-tab">
               <Schedule v-if="loaded" :titulData="this.getDirection" />
             </div>
-            <div class="tab-pane fade  show active" id="tarif" role="tabpanel" aria-labelledby="tarif-tab">
+            <div class="tab-pane fade  " id="tarif" role="tabpanel" aria-labelledby="tarif-tab">
               <Tarif v-if="loaded" :titulData="this.getDirection"/>
             </div>
         </div>

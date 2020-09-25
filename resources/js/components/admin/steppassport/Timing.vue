@@ -265,7 +265,7 @@
         <tbody>
           <tr v-for="(table,index) in tableData">
             <td scope="row">{{index+1}}</td>
-            <td v-if="table.whereTo || table.whereForm">{{ table.whereForm.name }} {{ table.whereTo.name }}</td>
+            <td>{{ table.whereForm ? table.whereForm.name  : '' }} {{ table.whereTo ? table.whereTo.name  : '' }}</td>
             <td>{{ table.start_speedometer }}</td>
             <td>{{ table.end_speedometer }}</td>
             <td>{{ table.distance_from_start_station }}</td>
@@ -343,7 +343,7 @@ export default {
         stationTo: [],
         areaTo: [],
         whereForm: this.titulData.from_where,
-        whereTo: "",
+        whereTo: {},
         detailsOptions: [
           { title: "Xafli yo'l uchastkalari", code: 'danger'},
           { title: "Temir yol", code: 'railway' },
