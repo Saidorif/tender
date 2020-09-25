@@ -7,6 +7,7 @@ use App\Direction;
 use App\TimingDetails;
 use App\PassportTiming;
 use App\Region;
+use App\Reys;
 use App\Area;
 use Validator;
 use Illuminate\Validation\Rule;
@@ -194,7 +195,7 @@ class DirectionController extends Controller
     public function schedule(Request $request,$id)
     {
         $validator = Validator::make($request->all(), [            
-            'count'  => 'nullable|integer',
+            // 'count'  => 'nullable|integer',
         ]);
 
         if($validator->fails()){
@@ -205,12 +206,45 @@ class DirectionController extends Controller
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
-        $auto_count = $request->input('count');
-
-        $ptimings = $direction->timing;
+        $inputs = $request->input('data');
         $result = [];
         $from = $direction->regionFrom->name;
         $to = $direction->regionTo->name;
+        // dd($inputs);
+        foreach ($inputs as $key => $value) {
+            foreach ($value['reyses_from']['reyses'] as $key => $item) {
+                $reys = Reys::create([
+                    'direction_id' => 1,
+                    'station_id'   => $value['stationName']['id'],
+                    'where_id'     => $value['reyses_from']['where']['id'],
+                    'time_from_1'  => $item['time_from_1'],
+                    'time_from_2'  => $item['time_from_2'],
+                    'time_from_3'  => $item['time_from_3'],
+                    'time_from_4'  => $item['time_from_4'],
+                    'time_to_1'    => $item['time_to_1'],
+                    'time_to_2'    => $item['time_to_2'],
+                    'time_to_3'    => $item['time_to_3'],
+                    'time_to_4'    => $item['time_to_4'],
+                ]);
+                $result[] = $reys;
+            }
+            foreach ($value['reyses_to']['reyses'] as $key => $item) {
+                $reys = Reys::create([
+                    'direction_id' => 1,
+                    'station_id'   => $value['stationName']['id'],
+                    'where_id'     => $value['reyses_to']['where']['id'],
+                    'time_from_1'  => $item['time_from_1'],
+                    'time_from_2'  => $item['time_from_2'],
+                    'time_from_3'  => $item['time_from_3'],
+                    'time_from_4'  => $item['time_from_4'],
+                    'time_to_1'    => $item['time_to_1'],
+                    'time_to_2'    => $item['time_to_2'],
+                    'time_to_3'    => $item['time_to_3'],
+                    'time_to_4'    => $item['time_to_4'],
+                ]);
+                $result[] = $reys;
+            }
+        }
         //Get data and store
         return response()->json([
             'success' => true,
