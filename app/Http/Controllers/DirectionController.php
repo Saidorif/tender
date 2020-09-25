@@ -194,7 +194,7 @@ class DirectionController extends Controller
     public function schedule(Request $request,$id)
     {
         $validator = Validator::make($request->all(), [            
-            'count'  => 'required|integer',
+            'count'  => 'nullable|integer',
         ]);
 
         if($validator->fails()){
@@ -211,15 +211,7 @@ class DirectionController extends Controller
         $result = [];
         $from = $direction->regionFrom->name;
         $to = $direction->regionTo->name;
-        foreach ($ptimings as $key => $timing) {
-            $result[$key]['name'] = $timing->whereForm['name'];
-            for ($i=0; $i < $auto_count; $i++) { 
-                $result[$key]['timeFrom'][$i]['jonash'] = '00:00';
-                $result[$key]['timeFrom'][$i]['kelish'] = '00:00';
-                $result[$key]['timeTo'][$i]['kelish'] = '00:00';
-                $result[$key]['timeTo'][$i]['kelish'] = '00:00';
-            }
-        }
+        //Get data and store
         return response()->json([
             'success' => true,
             'from' => $from,
