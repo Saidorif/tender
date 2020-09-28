@@ -9,15 +9,11 @@
 	  					<th>Бошлангич ва оралик охирги бекатлар номи</th>
 	  					<th :colspan="titulData.timing_with.length">Оралиқ ва сўнгги бекат номи ва тариф</th>
 	  				</tr>
-	  				<tr>
-	  					<th v-for="(item,index) in titulData.timing_with"></th>
-	  					<th v-for="(item,index) in titulData.timing_with">{{item.whereTo.name}}</th>
-	  				</tr>
 	  			</thead>
 	  			<tbody>
 	  				<tr v-for="(item,index) in titulData.timing_with">
 	  					<td>{{index+1}}</td>
-	  					<td>{{item.whereForm.name}}</td>
+	  					<td>{{item.whereForm.name}}-{{item.whereTo.name}}</td>
 	  					<td>{{item.distance_from_start_station}}</td>
 	  					<td>{{item.distance_between_station}}</td>
 	  					<!-- <td>{{item.start_pass_summ}}</td> -->
@@ -40,6 +36,9 @@
 		watch:{
 			titulData:{
 				handler(){
+					// let numbers = [109,118,102]
+					// let newArr = [];
+					// let summ = 0;
 					// for (var i = 0; i < numbers.length; i++) {
 					// 	if (i>1) {
 					// 		for (var k = 0; k <= i; k++) {
@@ -49,58 +48,59 @@
 					// 		}
 					// 	}
 					// }
+					// console.log(newArr)
+
 					let newItems = []
 					let tarif = 65
+					
 					let counts = this.titulData.timing_with
 					let summ = 0
 					let summar = 0
 					counts.forEach((count,index)=>{
 						index = index+1
 						let arrItem = []
-						if (index == 1) {
+						if (index == 1){
 							summ = Math.round(count.distance_from_start_station) * tarif
-							// arrItem["start_summ"] = summ
-							// arrItem["id"] = count.id
-							// arrItem["whereForm"] = count.whereForm
-							// arrItem["whereTo"] = count.whereTo
-							arrItem["distance_from_start_station"] = Number(count.distance_from_start_station)
+							arrItem["start_pass_summ"] = summ
+							arrItem["id"] = count.id
+							arrItem["whereForm"] = count.whereForm
+							arrItem["whereTo"] = count.whereTo
+							arrItem["distance_from_start_station"] = count.distance_from_start_station
 							arrItem["distance_between_station"] = Number(count.distance_between_station)
 							arrItem["count"] = [0]
 							newItems.push(arrItem)
-						}
-						// else if (index == 2) {
-						// 	summ = Math.round(count.distance_from_start_station) * tarif
-						// 	// arrItem["start_summ"] = summ
-						// 	// arrItem["id"] = count.id
-						// 	// arrItem["whereForm"] = count.whereForm
-						// 	// arrItem["whereTo"] = count.whereTo
-						// 	arrItem["distance_from_start_station"] = Number(count.distance_from_start_station)
-						// 	arrItem["distance_between_station"] = Number(count.distance_between_station)
-						// 	arrItem["count"] = [Number(count.distance_between_station)]
-						// 	newItems.push(arrItem)
-						// }
-						else {
+						}else{
 							summ = Math.round(count.distance_from_start_station) * tarif
-							// arrItem["start_summ"] = summ
-							// arrItem["id"] = count.id
-							// arrItem["whereForm"] = count.whereForm
-							// arrItem["whereTo"] = count.whereTo
-							arrItem["distance_from_start_station"] = Number(count.distance_from_start_station)
+							arrItem["start_pass_summ"] = summ
+							arrItem["id"] = count.id
+							arrItem["whereForm"] = count.whereForm
+							arrItem["whereTo"] = count.whereTo
+							arrItem["distance_from_start_station"] = count.distance_from_start_station
 							arrItem["distance_between_station"] = Number(count.distance_between_station)
 							arrItem["count"] = []
-							// for (var i = 0; i < index; i++) {
+							// for (var i = 0; i < numbers.length; i++) {
 							// 	if (i>1) {
-							// 		for (var k = 0; k <= i; k++) {
-							// 			summar +=numbers[k]
-							// 			newArr.push(summar)
-							// 			arrItem["count"].push(summ+newItems[i-1].distance_between_station)
+							// 		for (var k = 1; k <= i; k++) {
+							// 			summ +=numbers[k]
+							// 			newArr.push(summ)
 							// 			// console.log(numbers[i])
 							// 		}
 							// 	}
 							// }
-							// for (var i = 1; i < index; i++){
-							// 	arrItem["count"].push(summ+newItems[i-1].distance_between_station)
+							// for (var i = 0; i <= index; i++){
+							// 	if (i>1) {
+							// 		arrItem["count"].push(Number(count.distance_between_station)+Number(newItems[index-i].distance_between_station))
+							// 	}
 							// }
+								let myNum = 0
+							newItems.forEach((s_item, s_index)=>{
+								if (s_index>0) {
+									myNum += Number(newItems[index-s_index - 1].distance_between_station) 
+									arrItem["count"].push(myNum)
+									// console.log(myNum)
+								}
+							})
+							// console.log('+++')
 							newItems.push(arrItem)
 						}
 					})
@@ -109,6 +109,7 @@
 				}
 			}
 		},
+
 		async mounted(){
 			await this.actionEditDirection(this.$route.params.directionId);
 			await this.actionTarif(this.$route.params.directionId);
