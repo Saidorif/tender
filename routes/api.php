@@ -145,6 +145,15 @@ Route::group([
             Route::post('region/update/{id}', 'RegionController@update');
             Route::delete('region/destroy/{id}', 'RegionController@destroy');
             
+            //ConditionalSignController CRUD
+            Route::post('conditionalsign', 'ConditionalSignController@index');
+            Route::get('conditionalsign/list', 'ConditionalSignController@list');
+            Route::post('conditionalsign/store', 'ConditionalSignController@store');
+            
+            Route::get('conditionalsign/edit/{id}', 'ConditionalSignController@edit');
+            Route::post('conditionalsign/update/{id}', 'ConditionalSignController@update');
+            Route::delete('conditionalsign/destroy/{id}', 'ConditionalSignController@destroy');
+            
             //Area CRUD
             Route::post('area', 'AreaController@index');
             Route::post('area/store', 'AreaController@store');

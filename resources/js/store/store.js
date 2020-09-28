@@ -30,6 +30,7 @@ import {client} from "./client.module"
 import {complaint} from "./complaint.module"
 import {busmodel} from "./busmodel.module"
 import {application} from "./application.module"
+import {conditionalsign} from "./conditionalsign.module"
 
 import { TokenService } from './../services/storage.service'
 
@@ -67,6 +68,7 @@ const store = new Vuex.Store(
 			complaint,
 			busmodel,
 			application,
+			conditionalsign,
 		},
 		state:{
 			rules:[],
