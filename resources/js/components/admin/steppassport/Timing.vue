@@ -71,7 +71,7 @@
     <h2>Asosiy ma'lumotlar</h2>
     <div class="col-md-12 tabs_block">
       <div class="form-group col-md-6" v-if="tableData.length == 0">
-        <label for="start_speedometer">Jonash vaqtida</label>
+        <label for="start_speedometer">Jonash vaqtida (km)</label>
         <input
           type="text"
           v-model="form.start_speedometer"
@@ -90,7 +90,7 @@
         ></date-picker>
       </div>
       <div class="form-group col-md-6">
-        <label for="speed_between_station">Bekatlar oraligidagi xarakat</label>
+        <label for="speed_between_station">Bekatlar oraligidagi xarakat (km/soat)</label>
         <input
           type="text"
           v-model="form.speed_between_station"
@@ -99,7 +99,7 @@
         />
       </div>
       <div class="form-group col-md-6">
-        <label for="speed_between_limited_space">Shundan xarakat tezligi chegaralangan oraliqda</label>
+        <label for="speed_between_limited_space">Shundan xarakat tezligi chegaralangan oraliqda (km/soat)</label>
         <input
           type="text"
           v-model="form.speed_between_limited_space"
@@ -186,7 +186,7 @@
         </select>
       </div>
       <div class="form-group col-md-6">
-        <label for="end_speedometer">Kelgan vaqtida</label>
+        <label for="end_speedometer">Kelgan vaqtida (km)</label>
         <input
           type="text"
           v-model="form.end_speedometer"
@@ -205,7 +205,7 @@
         ></date-picker>
       </div>
       <div class="form-group col-md-6">
-        <label for="distance_in_limited_speed">Shundan xarakat tezligi chegaralangan oraliqda</label>
+        <label for="distance_in_limited_speed">Shundan xarakat tezligi chegaralangan oraliqda (km)</label>
         <input
           type="text"
           v-model="form.distance_in_limited_speed"
@@ -214,7 +214,7 @@
         />
       </div>
       <div class="form-group col-md-6">
-        <label for="spendtime_between_limited_space">Shundan xarakat tezligi chegaralangan oraliqda</label>
+        <label for="spendtime_between_limited_space">Shundan xarakat tezligi chegaralangan oraliqda (minut)</label>
         <input
           type="text"
           v-model="form.spendtime_between_limited_space"
