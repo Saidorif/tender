@@ -88,6 +88,11 @@ import BusModel from './components/admin/busmodel/BusModel'
 import AddBusModel from './components/admin/busmodel/AddBusModel'
 import EditBusModel from './components/admin/busmodel/EditBusModel'
 
+// ConditionalSign
+import ConditionalSign from './components/admin/conditionalsign/ConditionalSign'
+import AddConditionalSign from './components/admin/conditionalsign/AddConditionalSign'
+import EditConditionalSign from './components/admin/conditionalsign/EditConditionalSign'
+
 // Complaint
 import EditComplaintListAll from './components/admin/complaint/EditComplaintListAll'
 import ComplaintListAll from './components/admin/complaint/ComplaintListAll'
@@ -334,6 +339,18 @@ const router = new Router({
 				{
 					path:'busmodel/edit/:busmodelId',
 					component:EditBusModel,
+				},
+				{
+					path:'conditionalsign',
+					component:ConditionalSign,
+				},
+				{
+					path:'conditionalsign/add',
+					component:AddConditionalSign,
+				},
+				{
+					path:'conditionalsign/edit/:conditionalsignId',
+					component:EditConditionalSign,
 				},
 				{
 					path:'passport',
