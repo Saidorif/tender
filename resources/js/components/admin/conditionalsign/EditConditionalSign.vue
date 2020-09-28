@@ -4,14 +4,14 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-sign"></i>
-				    Редактировать условный символ 
+				    Добавить условный символ 
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/conditionalsign"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveSign" >
 					<div class="row">
-					  <div class="form-group col-md-9">
+					  <div class="form-group col-md-8">
 					    <label for="name">Название</label>
 					    <input 
 					    	type="text" 
@@ -22,7 +22,30 @@
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
 				    	>
 					  </div>
-					  <div class="form-group col-lg-3 form_btn">
+					  <div class="col-md-4">
+			            <div class="form-group photoFileUploader">
+			              <div class="avatar-upload">
+			                <div class="avatar-edit">
+			                  <input
+			                    type="file"
+			                    id="photo"
+			                    accept=".png, .jpg, .jpeg"
+			                    @change="changePhoto($event)"
+			                  />
+			                  <label for="photo">
+			                    <i class="pe-7s-pen"></i>
+			                  </label>
+			                </div>
+			                <div class="avatar-preview">
+			                  <div
+			                    id="imagePreview"
+			                    :style="{'backgroundImage': 'url('+ photoImg(form.photo) +')'}"
+			                  ></div>
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+					  <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
@@ -41,25 +64,64 @@
 			return{
 				form:{
 					name:'',
+					photo:''
 				},
 				requiredInput:false
 			}
 		},
 		computed:{
-			...mapGetters('conditionalsign',['getMassage'])
+			...mapGetters('conditionalsign',['getMassage','getConditionalSign'])
 		},
 		async mounted(){
 			await this.actionEditConditionalSign(this.$route.params.conditionalsignId)
+			this.form = this.getConditionalSign
 		},
 		methods:{
-			...mapActions('conditionalsign',['actionEditConditionalSign','actionUpdateConditionalSign']),
+			...mapActions('conditionalsign',['actionUpdateConditionalSign','actionEditConditionalSign']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
+		    changePhoto(event) {
+		      let file = event.target.files[0];
+		      if (
+		        event.target.files[0]["type"] === "image/png" ||
+		        event.target.files[0]["type"] === "image/jpeg" ||
+		        event.target.files[0]["type"] === "image/jpg"
+		      ) {
+		        if (file.size > 1048576) {
+		          swal.fire({
+		            type: "error",
+		            title: "Ошибка",
+		            text: "Размер изображения больше лимита"
+		          });
+		        } else {
+		          let reader = new FileReader();
+		          reader.onload = event => {
+		            this.form.photo = event.target.result;
+		          };
+		          reader.readAsDataURL(file);
+		        }
+		      } else {
+		        swal.fire({
+		          type: "error",
+		          title: "Ошибка",
+		          text: "Картинка должна быть только png,jpg,jpeg!"
+		        });
+		      }
+		    },
+		    photoImg(img) {
+		    	if (img) {
+			      if (img.length > 100) {
+			        return img;
+			      } else {
+			        return '/signs/'+img;
+			      }
+		    	}
+		    },
 			async saveSign(){
 		    	if (this.form.name != ''){
-		    		let data = {
-		    			id: this.$route.params.conditionalsignId,
+		    		let data ={
+		    			id:this.$route.params.conditionalsignId,
 		    			items:this.form
 		    		}
 					await this.actionUpdateConditionalSign(data)
@@ -69,9 +131,9 @@
 					    	icon: 'success',
 							title: this.getMassage.message,
 					    })
-						this.$router.push("/crm/conditionalsign");
-						this.requiredInput = false
 					}
+					this.$router.push("/crm/conditionalsign");
+					this.requiredInput = false
 				}else{
 					this.requiredInput = true
 				}

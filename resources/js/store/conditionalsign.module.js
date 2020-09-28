@@ -24,9 +24,9 @@ const getters = {
 
 
 const actions = {
-	async actionConditionalSignList({commit},page){
+	async actionConditionalSignList({commit}){
 		try {
-			const conditionalsigns =  await ConditionalSignService.conditionalsignList(page);
+			const conditionalsigns =  await ConditionalSignService.conditionalsignList();
 			await commit('setRegionList',conditionalsigns.data.result)
 			return true
 		} catch (error) {
@@ -63,7 +63,7 @@ const actions = {
 	async actionUpdateConditionalSign({commit},payload){
 		try {
 			const conditionalsign =  await ConditionalSignService.updateconditionalsign(payload);
-			await commit('setEditConditionalSign',conditionalsign.data.result)
+			await commit('setMessage',conditionalsign.data)
 			return true
 		} catch (error) {
 			return false
@@ -71,7 +71,7 @@ const actions = {
 	},
 	async actionDeleteConditionalSign({commit},id){
 		try {
-			const conditionalsign =  await ConditionalSignService.updateconditionalsign(id);
+			const conditionalsign =  await ConditionalSignService.deleteconditionalsign(id);
 			await commit('setMessage',conditionalsign.data)
 			return true
 		} catch (error) {
@@ -90,7 +90,7 @@ const mutations = {
 	setMessage(state, message){
 		state.message = message
 	},
-	setEditConditionalSign(state, conditionalsign){
+	setConditionalSign(state, conditionalsign){
 		state.conditionalsign = conditionalsign
 	},
 };

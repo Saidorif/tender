@@ -11,7 +11,7 @@
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveSign" >
 					<div class="row">
-					  <div class="form-group col-md-9">
+					  <div class="form-group col-md-8">
 					    <label for="name">Название</label>
 					    <input 
 					    	type="text" 
@@ -22,7 +22,30 @@
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
 				    	>
 					  </div>
-					  <div class="form-group col-lg-3 form_btn">
+					  <div class="col-md-4">
+			            <div class="form-group photoFileUploader">
+			              <div class="avatar-upload">
+			                <div class="avatar-edit">
+			                  <input
+			                    type="file"
+			                    id="photo"
+			                    accept=".png, .jpg, .jpeg"
+			                    @change="changePhoto($event)"
+			                  />
+			                  <label for="photo">
+			                    <i class="pe-7s-pen"></i>
+			                  </label>
+			                </div>
+			                <div class="avatar-preview">
+			                  <div
+			                    id="imagePreview"
+			                    :style="{'backgroundImage': 'url('+ photoImg(form.photo) +')'}"
+			                  ></div>
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+					  <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
@@ -40,7 +63,8 @@
 		data(){
 			return{
 				form:{
-					name:''
+					name:'',
+					photo:''
 				},
 				requiredInput:false
 			}
@@ -55,6 +79,43 @@
 			...mapActions('conditionalsign',['actionAddConditionalSign']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
+		    },
+		    changePhoto(event) {
+		      let file = event.target.files[0];
+		      if (
+		        event.target.files[0]["type"] === "image/png" ||
+		        event.target.files[0]["type"] === "image/jpeg" ||
+		        event.target.files[0]["type"] === "image/jpg"
+		      ) {
+		        if (file.size > 1048576) {
+		          swal.fire({
+		            type: "error",
+		            title: "Ошибка",
+		            text: "Размер изображения больше лимита"
+		          });
+		        } else {
+		          let reader = new FileReader();
+		          reader.onload = event => {
+		            this.form.photo = event.target.result;
+		          };
+		          reader.readAsDataURL(file);
+		        }
+		      } else {
+		        swal.fire({
+		          type: "error",
+		          title: "Ошибка",
+		          text: "Картинка должна быть только png,jpg,jpeg!"
+		        });
+		      }
+		    },
+		    photoImg(img) {
+		    	if (img) {
+			      if (img.length < 100) {
+			        return "/img/user.jpg";
+			      } else {
+			        return img;
+			      }
+		    	}
 		    },
 			async saveSign(){
 		    	if (this.form.name != ''){

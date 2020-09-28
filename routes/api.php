@@ -147,6 +147,7 @@ Route::group([
             
             //ConditionalSignController CRUD
             Route::post('conditionalsign', 'ConditionalSignController@index');
+            Route::get('conditionalsign/list', 'ConditionalSignController@list');
             Route::post('conditionalsign/store', 'ConditionalSignController@store');
             
             Route::get('conditionalsign/edit/{id}', 'ConditionalSignController@edit');
