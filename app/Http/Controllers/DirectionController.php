@@ -179,15 +179,29 @@ class DirectionController extends Controller
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
-        $ptimings = $direction->timing;
+        $ptimings = $direction->timing->toArray();
         $result = [];
-        foreach ($ptimings as $key => $timing) {
-            $result[$key]['name'] = $timing->whereForm['name'];
-            $result[$key]['distance'] = (int)$timing->distance_from_start_station;
-            $result[$key]['summa'] = 65;
-            $result[$key]['summa_bagaj'] = 35;
-            $result[$key]['tarif'] = $result[$key]['summa'] * $result[$key]['distance'];
-            $result[$key]['tarif_bagaj'] = $result[$key]['summa_bagaj'] * $result[$key]['distance'];
+        $test = [];
+        for ($i=0; $i < count($ptimings); $i++) {
+            foreach ($ptimings as $key => $timing) {
+                if($ptimings[$i]['whereForm']['name'] == $timing['whereTo']['name'] || $i > $key){
+                    $result[$i][$key]['from_name'] = '';
+                    $result[$i][$key]['to_name'] = '';
+                    $result[$i][$key]['distance'] = '';
+                    $result[$i][$key]['summa'] = 65;
+                    $result[$i][$key]['summa_bagaj'] = 35;
+                    $result[$i][$key]['tarif'] = '';
+                    $result[$i][$key]['tarif_bagaj'] = '';
+                }else{
+                    $result[$i][$key]['from_name'] = $ptimings[$i]['whereForm']['name'];
+                    $result[$i][$key]['to_name'] = $timing['whereTo']['name'];
+                    $result[$i][$key]['distance'] = (int)$timing['distance_from_start_station'];
+                    $result[$i][$key]['summa'] = 65;
+                    $result[$i][$key]['summa_bagaj'] = 35;
+                    $result[$i][$key]['tarif'] = $result[$i][$key]['summa'] * $result[$i][$key]['distance'];
+                    $result[$i][$key]['tarif_bagaj'] = $result[$i][$key]['summa_bagaj'] * $result[$i][$key]['distance'];
+                }
+            }
         }
         return response()->json(['success' => true, 'result' => $result]);
     }
