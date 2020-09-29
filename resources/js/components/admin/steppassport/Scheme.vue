@@ -1,170 +1,181 @@
 <template>
-  <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
-    <h1>Avtobus qatnov yoli tasviri {{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
-    <div class="map_scheme" v-if="schemeData.length">
-      <div class="mid_line"></div>
-      <template v-for="(p_item,p_index) in schemeData">
-        <div class="stationItem start_point cicle_item" v-if="p_index == 0" :key="p_index">
-          <h6>{{p_item.whereForm ? p_item.whereForm.name : ""}}</h6>
-        </div>
+  <div class="add_area">
+    <div class="card">
+      <div class="card-header tabCard">
+        <PassportTab/>
+      </div>
+      <div class="card-body">
+        <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
+          <h1>Avtobus qatnov yoli tasviri {{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
+          <div class="map_scheme" v-if="schemeData.length">
+            <div class="mid_line"></div>
+            <template v-for="(p_item,p_index) in schemeData">
+              <div class="stationItem start_point cicle_item" v-if="p_index == 0" :key="p_index">
+                <h6>{{p_item.whereForm ? p_item.whereForm.name : ""}}</h6>
+              </div>
 
-        <div class="sm_cicle_item stationItem" v-if="p_index > 0" :key="p_index">
-          <h6>{{p_item.whereForm ? p_item.whereForm.name : ""}}</h6>
-        </div>
+              <div class="sm_cicle_item stationItem" v-if="p_index > 0" :key="p_index">
+                <h6>{{p_item.whereForm ? p_item.whereForm.name : ""}}</h6>
+              </div>
 
-        <template v-for="(ch_item, ch_index) in p_item.details">
-          <template>
-            <div class="icon_item">
-              <img
-                v-if="ch_item.name == 'railway'"
-                src="/img/tr_tracks.jpg"
-                :key="'icon'+p_index+ch_index"
-                width="30"
-              />
-              <img
-                v-if="ch_item.name == 'bridge'"
-                src="/img/bridge.png"
-                :key="'icon'+p_index+ch_index"
-                width="30"
-              />
-              <img
-                v-if="ch_item.name == 'food'"
-                src="/img/eat.png"
-                :key="'icon'+p_index+ch_index"
-                width="30"
-              />
-              <img
-                v-if="ch_item.name == 'rest'"
-                src="/img/hotel.png"
-                :key="'icon'+p_index+ch_index"
-                width="30"
-              />
-              <img
-                v-if="ch_item.name == 'danger'"
-                src="/img/danger.png"
-                :key="'icon'+p_index+ch_index"
-                width="30"
-              />
-              <sup>{{ch_item.count}}</sup>
-            </div>
-          </template>
-        </template>
+              <template v-for="(ch_item, ch_index) in p_item.details">
+                <template>
+                  <div class="icon_item">
+                    <img
+                      v-if="ch_item.name == 'railway'"
+                      src="/img/tr_tracks.jpg"
+                      :key="'icon'+p_index+ch_index"
+                      width="30"
+                    />
+                    <img
+                      v-if="ch_item.name == 'bridge'"
+                      src="/img/bridge.png"
+                      :key="'icon'+p_index+ch_index"
+                      width="30"
+                    />
+                    <img
+                      v-if="ch_item.name == 'food'"
+                      src="/img/eat.png"
+                      :key="'icon'+p_index+ch_index"
+                      width="30"
+                    />
+                    <img
+                      v-if="ch_item.name == 'rest'"
+                      src="/img/hotel.png"
+                      :key="'icon'+p_index+ch_index"
+                      width="30"
+                    />
+                    <img
+                      v-if="ch_item.name == 'danger'"
+                      src="/img/danger.png"
+                      :key="'icon'+p_index+ch_index"
+                      width="30"
+                    />
+                    <sup>{{ch_item.count}}</sup>
+                  </div>
+                </template>
+              </template>
 
-        <div
-          class="end_point cicle_item stationItem"
-          v-if="schemeData.length  == p_index + 1"
-          :key="'last'+p_index"
-        >
-          <h6>{{p_item.whereTo ? p_item.whereTo.name : ""}}</h6>
-        </div>
-      </template>
-    </div>
-    <div class="road_signs col-md-6">
-      <h6>Shatrli belgilar</h6>
-      <ul>
-        <li>
-            <div class="icon_item bdn">
-                <div class="cicle_item"></div>
+              <div
+                class="end_point cicle_item stationItem"
+                v-if="schemeData.length  == p_index + 1"
+                :key="'last'+p_index"
+              >
+                <h6>{{p_item.whereTo ? p_item.whereTo.name : ""}}</h6>
+              </div>
+            </template>
+          </div>
+          <div class="road_signs col-md-6">
+            <h6>Shatrli belgilar</h6>
+            <ul>
+              <li>
+                  <div class="icon_item bdn">
+                      <div class="cicle_item"></div>
+                  </div>
+                  <span>Avtostansiya</span>
+              </li>
+              <li>
+                  <div class="icon_item bdn">
+                      <div class="sm_cicle_item"></div>
+                  </div>
+                  <span>To'xtash joylari</span>
+              </li>
+              <li>
+                <div class="icon_item">
+                  <img src="/img/tr_tracks.jpg" width="30" />
+                </div>
+                <span>Temir yo'lni kesib o'tish joylari</span>
+              </li>
+              <li>
+                <div class="icon_item">
+                  <img src="/img/bridge.png" width="30" />
+                </div>
+                <span>Kesishgan yol ustidan otkazilgan kondalang yollar</span>
+              </li>
+              <li>
+                <div class="icon_item">
+                  <img src="/img/eat.png" width="30" />
+                </div>
+                <span>Ovqatlanish joylari</span>
+              </li>
+              <li>
+                <div class="icon_item">
+                  <img src="/img/hotel.png" width="30" />
+                </div>
+                <span>Dam olish joylari</span>
+              </li>
+              <li>
+                <div class="icon_item">
+                  <img src="/img/danger.png" width="30" />
+                </div>
+                <span> Harkatlanish uchun xafli bo'lgan yo'l uchastkalari</span>
+              </li>
+            </ul>
+          </div>
+          <div class="row col-md-12"  v-if="agreedData.length">
+            <div class="form-group col-md-3 agree_item" v-for="(p_item,p_index) in agreedData">
+              <h6>"Kelishilgan"</h6>
+              <p>{{p_item.organization_name }} {{ p_item.position}}:</p>
+              <p><span></span>{{p_item.fio }}. {{ p_item.date}}</p>
+              <p></p>
             </div>
-            <span>Avtostansiya</span>
-        </li>
-        <li>
-            <div class="icon_item bdn">
-                <div class="sm_cicle_item"></div>
+          </div>
+          <div class="row col-md-12">
+            <div class="form-group col-md-3">
+              <label for="organization_name">Tashkilot nomi</label>
+              <input
+                type="text"
+                v-model="form.organization_name"
+                id="organization_name"
+                class="form-control input_style"
+                :class="isRequired(form.organization_name) ? 'isRequired' : ''"
+              />
             </div>
-            <span>To'xtash joylari</span>
-        </li>
-        <li>
-          <div class="icon_item">
-            <img src="/img/tr_tracks.jpg" width="30" />
+            <div class="form-group col-md-3">
+              <label for="organization_name">Xodim lavozimi</label>
+              <input
+                type="text"
+                v-model="form.position"
+                id="organization_name"
+                class="form-control input_style"
+                :class="isRequired(form.position) ? 'isRequired' : ''"
+              />
+            </div>
+            <div class="form-group col-md-3">
+              <label for="organization_name">F.I.SH</label>
+              <input
+                type="text"
+                v-model="form.fio"
+                id="organization_name"
+                class="form-control input_style"
+                :class="isRequired(form.fio) ? 'isRequired' : ''"
+              />
+            </div>
+            <div class="form-gruop col-md-3">
+              <label for="organization_name">Sana</label>
+              <div class="d-flex">
+                  <date-picker lang="ru" class="input_style" v-model="form.date" type="date" format="DD-MM-YYYY" valueType="format"       :class="isRequired(form.date) ? 'isRequired' : ''"></date-picker>
+                  <button  @click="addAgreeData" type="button" class="btn btn-info ml-2"><i  class="fas fa-plus"></i></button>
+              </div>
+            </div>
           </div>
-          <span>Temir yo'lni kesib o'tish joylari</span>
-        </li>
-        <li>
-          <div class="icon_item">
-            <img src="/img/bridge.png" width="30" />
-          </div>
-          <span>Kesishgan yol ustidan otkazilgan kondalang yollar</span>
-        </li>
-        <li>
-          <div class="icon_item">
-            <img src="/img/eat.png" width="30" />
-          </div>
-          <span>Ovqatlanish joylari</span>
-        </li>
-        <li>
-          <div class="icon_item">
-            <img src="/img/hotel.png" width="30" />
-          </div>
-          <span>Dam olish joylari</span>
-        </li>
-        <li>
-          <div class="icon_item">
-            <img src="/img/danger.png" width="30" />
-          </div>
-          <span> Harkatlanish uchun xafli bo'lgan yo'l uchastkalari</span>
-        </li>
-      </ul>
-    </div>
-    <div class="row col-md-12"  v-if="agreedData.length">
-      <div class="form-group col-md-3 agree_item" v-for="(p_item,p_index) in agreedData">
-        <h6>"Kelishilgan"</h6>
-        <p>{{p_item.organization_name }} {{ p_item.position}}:</p>
-        <p><span></span>{{p_item.fio }}. {{ p_item.date}}</p>
-        <p></p>
+        </form>
       </div>
     </div>
-    <div class="row col-md-12">
-      <div class="form-group col-md-3">
-        <label for="organization_name">Tashkilot nomi</label>
-        <input
-          type="text"
-          v-model="form.organization_name"
-          id="organization_name"
-          class="form-control input_style"
-          :class="isRequired(form.organization_name) ? 'isRequired' : ''"
-        />
-      </div>
-      <div class="form-group col-md-3">
-        <label for="organization_name">Xodim lavozimi</label>
-        <input
-          type="text"
-          v-model="form.position"
-          id="organization_name"
-          class="form-control input_style"
-          :class="isRequired(form.position) ? 'isRequired' : ''"
-        />
-      </div>
-      <div class="form-group col-md-3">
-        <label for="organization_name">F.I.SH</label>
-        <input
-          type="text"
-          v-model="form.fio"
-          id="organization_name"
-          class="form-control input_style"
-          :class="isRequired(form.fio) ? 'isRequired' : ''"
-        />
-      </div>
-      <div class="form-gruop col-md-3">
-        <label for="organization_name">Sana</label>
-        <div class="d-flex">
-            <date-picker lang="ru" class="input_style" v-model="form.date" type="date" format="DD-MM-YYYY" valueType="format"       :class="isRequired(form.date) ? 'isRequired' : ''"></date-picker>
-            <button  @click="addAgreeData" type="button" class="btn btn-info ml-2"><i  class="fas fa-plus"></i></button>
-        </div>
-      </div>
-    </div>
-  </form>
+  </div>
 </template>
 <script>
 import DatePicker from "vue2-datepicker";
 import { mapGetters, mapActions } from "vuex";
+import PassportTab from "./PassportTab";
 export default {
-  props: ["titulData"],
   components: {
     DatePicker,
+    PassportTab,
   },
   data() {
     return {
+      titulData: [],
       schemeData: [],
       form:{
           organization_name: 'Toshkent  shaxri IIBB YXXB',
@@ -177,14 +188,16 @@ export default {
     };
   },
   async mounted() {
+    await this.actionEditDirection(this.$route.params.directionId);
+    this.titulData = this.getDirection
     this.schemeData = this.titulData ? this.titulData.timing_with : [];
-    console.log(this.titulData)
   },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
   },
   methods: {
     ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
+    ...mapActions("direction", ["actionEditDirection"]),
     async saveData() {},
     addAgreeData(){
         let data = this.form

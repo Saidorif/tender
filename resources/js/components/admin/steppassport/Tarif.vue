@@ -1,79 +1,94 @@
 <template>
-	<div class="tarif_column">
-		<div class="add_to_table">
-			<div class="table-responsive">
-		  		<table class="table table-bordered">
-	  				<thead>
-		  				<tr>
-		  					<th>№ т/р</th>
-		  					<th>Ф.И.О</th>
-		  					<th>Таклиф</th>
-		  					<th>Сумма</th>
-		  				</tr>
-		  			</thead>
-		  			<tbody>
-		  				<tr>
-		  					<td>1</td>
-		  					<td>Familiya Ism Sharif</td>
-		  					<td>550</td>
-		  					<td width="25%">
-		  						<input type="number" v-model="form.summa" class="form-control">
-		  					</td>
-		  				</tr>
-  					</tbody>
-	  			</table>
-	  			<div class="btn_send d-flex justify-content-end">
-		  			<button type="button" class="btn btn-primary" @click.prevent="saveData">
-		  				<i class="fas fa-save"></i>
-		  				Сохранить
-		  			</button>
-	  			</div>
-  			</div>
-		</div>
-	  	<form class="row tabRow">
-	  		<h1>Yo'l kira haqi jadvali {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
-	  		<div class="table-responsive">
-		  		<table class="table table-bordered ">
-		  			<thead>
-		  				<tr>
-		  					<th>№ т/р</th>
-		  					<th>Бошлангич ва оралик охирги бекатлар номи</th>
-		  					<template :colspan="titulData.timing_with.length" v-for="(item,index) in titulData.timing_with">
-			  					<th>
-				  					{{item.whereTo.name}}
-				  				</th>
-		  					</template>
-		  				</tr>
-		  			</thead>
-		  			<tbody>
-		  				<tr v-for="(items,index) in getTarif">
-		  					<td>{{index+1}}</td>
-		  					<td>{{items[index].from_name}}</td>
-		  					<template v-for="(item,key) in items">
-		  						<td v-if="item.tarif">
-		  							<div class="tarifs tarif">
-		  								<b>{{item.tarif}}</b>
-		  							</div>
-		  							<div class="tarifs tarif_bagaj">
-		  								<b>{{item.tarif_bagaj}}</b>
-		  							</div>
-		  						</td>
-		  						<td v-else class="has_no_name_tarif"></td>
-		  					</template>
-		  				</tr>
-		  			</tbody>
-		  		</table>
+	<div class="add_area">
+	    <div class="card">
+	  		<div class="card-header tabCard">
+	    		<PassportTab/>
 	  		</div>
-		</form>
-	</div>
+	  		<div class="card-body">
+				<div class="tarif_column">
+					<div class="add_to_table">
+						<div class="table-responsive">
+					  		<table class="table table-bordered">
+				  				<thead>
+					  				<tr>
+					  					<th>№ т/р</th>
+					  					<th>Ф.И.О</th>
+					  					<th>Таклиф</th>
+					  					<th>Сумма</th>
+					  				</tr>
+					  			</thead>
+					  			<tbody>
+					  				<tr>
+					  					<td>1</td>
+					  					<td>Familiya Ism Sharif</td>
+					  					<td>550</td>
+					  					<td width="25%">
+					  						<input type="number" v-model="form.summa" class="form-control">
+					  					</td>
+					  				</tr>
+			  					</tbody>
+				  			</table>
+				  			<div class="btn_send d-flex justify-content-end">
+					  			<button type="button" class="btn btn-primary" @click.prevent="saveData">
+					  				<i class="fas fa-save"></i>
+					  				Сохранить
+					  			</button>
+				  			</div>
+			  			</div>
+					</div>
+				  	<form class="row tabRow">
+				  		<h1>Yo'l kira haqi jadvali {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
+				  		<div class="table-responsive">
+					  		<table class="table table-bordered ">
+					  			<thead>
+					  				<tr>
+					  					<th>№ т/р</th>
+					  					<th>Бошлангич ва оралик охирги бекатлар номи</th>
+					  					<template :colspan="titulData.timing_with.length" v-for="(item,index) in titulData.timing_with">
+						  					<th>
+							  					{{item.whereTo.name}}
+							  				</th>
+					  					</template>
+					  				</tr>
+					  			</thead>
+					  			<tbody>
+					  				<tr v-for="(items,index) in getTarif">
+					  					<td>{{index+1}}</td>
+					  					<td>{{items[index].from_name}}</td>
+					  					<template v-for="(item,key) in items">
+					  						<td v-if="item.tarif">
+					  							<div class="tarifs tarif">
+					  								<b>{{item.tarif}}</b>
+					  							</div>
+					  							<div class="tarifs tarif_bagaj">
+					  								<b>{{item.tarif_bagaj}}</b>
+					  							</div>
+					  						</td>
+					  						<template v-else >
+						  						<td class="has_no_name_tarif" v-if="key !='ddd'"></td>
+					  						</template>
+					  					</template>
+					  				</tr>
+					  			</tbody>
+					  		</table>
+				  		</div>
+					</form>
+				</div>
+		  	</div>
+		</div>
+   </div>
 </template>
 <script>
 	import { mapGetters , mapActions } from 'vuex'
+	import PassportTab from "./PassportTab";
 	export default{
-		props:['titulData'],
+		components: {
+		    PassportTab,
+	  	},
 		data(){
 			return{
 				items:[],
+				titulData:[],
 				form:{
 					user_id:1,
 					summa:''
@@ -159,6 +174,7 @@
 		async mounted(){
 			await this.actionEditDirection(this.$route.params.directionId);
 			await this.actionTarif(this.$route.params.directionId);
+			this.titulData = this.getDirection
 		},
 		computed:{
 			...mapGetters("direction", ["getDirection"]),
