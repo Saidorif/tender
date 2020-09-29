@@ -1,44 +1,25 @@
 <template>
   <div class="card lognCard">
-    <div class="card-body login-card-body">
-      <div class="form_content auth_request">
-        <div class="d-flex justify-content-center">
-          <h3><b>Отправить жалобу!</b></h3>
-        </div>
-          <form @submit.enter.prevent="send">
-            <div class="col-md-12">
-<!--               <div class="input-group">
-                <multiselect 
-                :value="form.direction_id"
-                :options="getComplaintList"
-                @search-change="value => filterVariantList(value)"
-                v-model="form.complaint_category_id" 
-                placeholder="Найдите направление!"
-                :searchable="true"
-                track-by="id"
-                label="name"
-                :max="3"
-                class="form-control"
-                :loading="isLoading"
-                selectLabel="Нажмите Enter, чтобы выбрать"
-                deselectLabel="Нажмите Enter, чтобы удалить"
-                :option="[{name: '', id: 1}]"
-                @select="dispatchAction"
-                >
-                <span slot="noResult">По вашему запросу ничего не найдено</span>
-                <span slot="noOptions">Cписок пустой</span>
-                </multiselect>
-              </div> -->
-         <!--      <div class="input-group">
-                <select 
-                  class="form-control" 
-                  v-model="form.complaint_category_id" 
-                  :class="isRequired(form.complaint_category_id) ? 'isRequired' : ''"  
-                >
-                  <option value="" selected disabled>Выберите вариант жалобы!</option>
-                  <option :value="item.id" v-for="(item,index) in getComplaintList">{{item.name}}</option>
-                </select>
-              </div> -->
+    <header class="main_header">
+      <div class="container">
+          <a href="/" class="logo"><img src="img/logoUz.png" alt=""></a>
+          <ul class="menu_list">
+              <li ><a href="#">Bosh sahifa</a></li>
+              <li><a href="#">Tender haqida</a></li>
+              <li><a href="#">O'tkazilgan tenderlar</a></li>
+              <li class="active"><a href="/contact">Biz bilan aloqa</a></li>
+          </ul>
+          <a href="#" class="btn_login"><i class="fas fa-sign-in-alt"></i>Tizimga kirish</a>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+      <div class="col-md-6">
+
+      </div>
+      <div class="col-md-6">
+        <form @submit.enter.prevent="send">
+          <div class="col-md-12">
               <div class="input-group">
                 <select 
                   class="form-control input_style" 
@@ -145,23 +126,16 @@
                   v-model="form.text"
                   placeholder="Сообщение"
                   :class="isRequired(form.text) ? 'isRequired' : ''"
-                /></textarea>
-         <!--        <div class="input-group-append">
-                  <div
-                    class="input-group-text"
-                    :class="isRequired(form.text) ? 'isRequired' : ''"
-                  >
-                    <img src="/img/file.png" alt />
-                  </div>
-                </div> -->
+                ></textarea>
               </div>
-            </div>
-            <div class="col-md-12">
+          </div>
+          <div class="col-md-12">
               <div class="input-group mt-4">
                 <button type="submit" class="btn btn-primary btn-block">Отправить</button>
               </div>
-            </div>
-          </form>
+          </div>
+        </form>
+      </div>
       </div>
     </div>
   </div>
