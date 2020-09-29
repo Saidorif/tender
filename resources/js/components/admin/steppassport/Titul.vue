@@ -1,166 +1,166 @@
 <template>
-  <div class="add_area">
-      <div class="card">
-        <div class="card-header tabCard">
-            <PassportTab/>
-        </div>
-        <div class="card-body">
-        <form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
-                <div class="row">
-                  <div class="form-group col-md-3">
-                    <label for="type_id">Yo'nalish klasifikatsiyasi</label>
-                    <select
-                      class="form-control input_style"
-                      v-model="form.type_id"
-                      :class="isRequired(form.type_id) ? 'isRequired' : ''"
-                    >
-                      <option value selected disabled>choose option</option>
-                      <option
-                        :value="item.id"
-                        v-for="(item,index) in getTypeofdirectionList"
-                      >{{item.name }} {{item.type}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="seria">Passport raqami</label>
-                    <input
-                      type="number"
-                      v-model="form.pass_number"
-                      class="form-control input_style"
-                      :class="isRequired(form.pass_number) ? 'isRequired' : ''"
-                    />
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="region_id">Shaxardan, viloyatdan</label>
-                    <select
-                      class="form-control input_style"
-                      v-model="form.region_from.region_id"
-                      :class="isRequired(form.region_from.region_id) ? 'isRequired' : ''"
-                      @change="selectRegion('region_from')"
-                    >
-                      <option value selected disabled>choose option</option>
-                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="region_id">Tumandan, qishloqdan, shaxridan</label>
-                    <select
-                      class="form-control input_style"
-                      v-model="form.region_from.area_id"
-                      :class="isRequired(form.region_from.area_id) ? 'isRequired' : ''"
-                      placeholder="Area"
-                      @change="selectArea('region_from')"
-                    >
-                      <option value selected disabled>choose option</option>
-                      <option :value="item.id" v-for="(item,index) in areaFrom">{{item.name}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="region_id">Bekatdan</label>
-                    <select
-                      class="form-control input_style"
-                      v-model="form.region_from.station_id"
-                      :class="isRequired(form.region_from.station_id) ? 'isRequired' : ''"
-                      placeholder="Area"
-                    >
-                      <option value selected disabled>choose option</option>
-                      <option :value="item.id" v-for="(item,index) in stationFrom">{{item.name}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="region_id">Shaxarga, viloyatga</label>
-                    <select
-                      class="form-control input_style"
-                      v-model="form.region_to.region_id"
-                      :class="isRequired(form.region_to.region_id) ? 'isRequired' : ''"
-                      @change="selectRegion('region_to')"
-                    >
-                      <option value selected disabled>choose option</option>
-                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="region_id">Tumanga, qishloqga, shaxriga,</label>
-                    <select
-                      class="form-control input_style"
-                      v-model="form.region_to.area_id"
-                      :class="isRequired(form.region_to.area_id) ? 'isRequired' : ''"
-                      placeholder="Area"
-                      @change="selectArea('region_to')"
-                    >
-                      <option value selected disabled>choose option</option>
-                      <option :value="item.id" v-for="(item,index) in areaTo">{{item.name}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="region_id">Bakatga</label>
-                    <select
-                      class="form-control input_style"
-                      v-model="form.region_to.station_id"
-                      :class="isRequired(form.region_to.station_id) ? 'isRequired' : ''"
-                      placeholder="Area"
-                    >
-                      <option value selected disabled>choose option</option>
-                      <option :value="item.id" v-for="(item,index) in stationTo">{{item.name}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="seasonal">Ishlash mavsumi</label>
-                    <select
-                      class="form-control input_style"
-                      v-model="form.seasonal"
-                      :class="isRequired(form.seasonal) ? 'isRequired' : ''"
-                      placeholder="Area"
-                    >
-                      <option value selected disabled>choose option</option>
-                      <option value="always">Doimiy</option>
-                      <option value="seasonal">Mavsumiy</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-3" v-for="(item,index) in destinations">
-                    <label :for="'from_where'+index">{{item.name}}</label>
-                    <input
-                      type="radio"
-                      v-model="form.from_where"
-                      name="from_where"
-                      :id="'from_where'+index"
-                      :value="item"
-                      class="form-control input_style"
-                    />
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="seria">Yo'nalish ochilish sanasi</label>
-                    <date-picker
-                      lang="ru" 
-                      type="year"
-                      v-model="form.year" 
-                      valueType="format" 
-                      class="input_style"
-                      :class="isRequired(form.year) ? 'isRequired' : ''"
-                      format="YYYY"
-                    ></date-picker>
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="seria">Yonalish masofasi</label>
-                    <input
-                      type="number"
-                      v-model="form.distance"
-                      class="form-control input_style"
-                      :class="isRequired(form.distance) ? 'isRequired' : ''"
-                    />
-                  </div>
-                  <div class="form-group col-lg-3 form_btn d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary btn_save_category">
-                      <i class="fas fa-save"></i>
-                      Сохранить
-                    </button>
-                  </div>
-                </div>
-            </form>
-          </div>
-    </div>
-  </div>
-  </div>
+	<div class="add_area">
+	    <div class="card">
+	  		<div class="card-header tabCard">
+	        	<PassportTab/>
+	  		</div>
+	  		<div class="card-body">
+				<form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
+		            <div class="row">
+		              <div class="form-group col-md-3">
+		                <label for="type_id">Yo'nalish klasifikatsiyasi</label>
+		                <select
+		                  class="form-control input_style"
+		                  v-model="form.type_id"
+		                  :class="isRequired(form.type_id) ? 'isRequired' : ''"
+		                >
+		                  <option value selected disabled>choose option</option>
+		                  <option
+		                    :value="item.id"
+		                    v-for="(item,index) in getTypeofdirectionList"
+		                  >{{item.name }} {{item.type}}</option>
+		                </select>
+		              </div>
+		              <div class="form-group col-md-3">
+		                <label for="seria">Passport raqami</label>
+		                <input
+		                  type="number"
+		                  v-model="form.pass_number"
+		                  class="form-control input_style"
+		                  :class="isRequired(form.pass_number) ? 'isRequired' : ''"
+		                />
+		              </div>
+		              <div class="form-group col-md-3">
+		                <label for="region_id">Shaxardan, viloyatdan</label>
+		                <select
+		                  class="form-control input_style"
+		                  v-model="form.region_from.region_id"
+		                  :class="isRequired(form.region_from.region_id) ? 'isRequired' : ''"
+		                  @change="selectRegion('region_from')"
+		                >
+		                  <option value selected disabled>choose option</option>
+		                  <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+		                </select>
+		              </div>
+		              <div class="form-group col-md-3">
+		                <label for="region_id">Tumandan, qishloqdan, shaxridan</label>
+		                <select
+		                  class="form-control input_style"
+		                  v-model="form.region_from.area_id"
+		                  :class="isRequired(form.region_from.area_id) ? 'isRequired' : ''"
+		                  placeholder="Area"
+		                  @change="selectArea('region_from')"
+		                >
+		                  <option value selected disabled>choose option</option>
+		                  <option :value="item.id" v-for="(item,index) in areaFrom">{{item.name}}</option>
+		                </select>
+		              </div>
+		              <div class="form-group col-md-3">
+		                <label for="region_id">Bekatdan</label>
+		                <select
+		                  class="form-control input_style"
+		                  v-model="form.region_from.station_id"
+		                  :class="isRequired(form.region_from.station_id) ? 'isRequired' : ''"
+		                  placeholder="Area"
+		                >
+		                  <option value selected disabled>choose option</option>
+		                  <option :value="item.id" v-for="(item,index) in stationFrom">{{item.name}}</option>
+		                </select>
+		              </div>
+		              <div class="form-group col-md-3">
+		                <label for="region_id">Shaxarga, viloyatga</label>
+		                <select
+		                  class="form-control input_style"
+		                  v-model="form.region_to.region_id"
+		                  :class="isRequired(form.region_to.region_id) ? 'isRequired' : ''"
+		                  @change="selectRegion('region_to')"
+		                >
+		                  <option value selected disabled>choose option</option>
+		                  <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+		                </select>
+		              </div>
+		              <div class="form-group col-md-3">
+		                <label for="region_id">Tumanga, qishloqga, shaxriga,</label>
+		                <select
+		                  class="form-control input_style"
+		                  v-model="form.region_to.area_id"
+		                  :class="isRequired(form.region_to.area_id) ? 'isRequired' : ''"
+		                  placeholder="Area"
+		                  @change="selectArea('region_to')"
+		                >
+		                  <option value selected disabled>choose option</option>
+		                  <option :value="item.id" v-for="(item,index) in areaTo">{{item.name}}</option>
+		                </select>
+		              </div>
+		              <div class="form-group col-md-3">
+		                <label for="region_id">Bakatga</label>
+		                <select
+		                  class="form-control input_style"
+		                  v-model="form.region_to.station_id"
+		                  :class="isRequired(form.region_to.station_id) ? 'isRequired' : ''"
+		                  placeholder="Area"
+		                >
+		                  <option value selected disabled>choose option</option>
+		                  <option :value="item.id" v-for="(item,index) in stationTo">{{item.name}}</option>
+		                </select>
+		              </div>
+		              <div class="form-group col-md-3">
+		                <label for="seasonal">Ishlash mavsumi</label>
+		                <select
+		                  class="form-control input_style"
+		                  v-model="form.seasonal"
+		                  :class="isRequired(form.seasonal) ? 'isRequired' : ''"
+		                  placeholder="Area"
+		                >
+		                  <option value selected disabled>choose option</option>
+		                  <option value="always">Doimiy</option>
+		                  <option value="seasonal">Mavsumiy</option>
+		                </select>
+		              </div>
+		              <div class="form-group col-md-3" v-for="(item,index) in destinations">
+		                <label :for="'from_where'+index">{{item.name}}</label>
+		                <input
+		                  type="radio"
+		                  v-model="form.from_where"
+		                  name="from_where"
+		                  :id="'from_where'+index"
+		                  :value="item"
+		                  class="form-control input_style"
+		                />
+		              </div>
+		              <div class="form-group col-md-3">
+		                <label for="seria">Yo'nalish ochilish sanasi</label>
+		                <date-picker
+		                  lang="ru" 
+		                  type="year"
+		                  v-model="form.year" 
+		                  valueType="format" 
+		                  class="input_style"
+		                  :class="isRequired(form.year) ? 'isRequired' : ''"
+		                  format="YYYY"
+		                ></date-picker>
+		              </div>
+		              <div class="form-group col-md-3">
+		                <label for="seria">Yonalish masofasi</label>
+		                <input
+		                  type="number"
+		                  v-model="form.distance"
+		                  class="form-control input_style"
+		                  :class="isRequired(form.distance) ? 'isRequired' : ''"
+		                />
+		              </div>
+		              <div class="form-group col-lg-3 form_btn d-flex justify-content-end">
+		                <button type="submit" class="btn btn-primary btn_save_category">
+		                  <i class="fas fa-save"></i>
+		                  Сохранить
+		                </button>
+		              </div>
+		            </div>
+		        </form>
+	        </div>
+		</div>
+	</div>
+	</div>
 </template>
 <script>
 import DatePicker from "vue2-datepicker";

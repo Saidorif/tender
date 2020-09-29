@@ -70,5 +70,10 @@ class Direction extends Model
         return $this->timing()->with(['regionFrom','regionTo','areaFrom','areaTo','stationFrom','stationTo']);
     }
 
+    public function schedule()
+    {
+        return $this->hasMany(\App\Reys::class,'direction_id');
+    }
+
 
 }

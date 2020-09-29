@@ -1,329 +1,343 @@
 <template>
-  <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
-    <h2>Boshlangich ma'lumot</h2>
-    <div class="col-md-12 tabs_block">
-      <div class="form-group col-md-3">
-        <label for="timingDetails_date">O'chov otkazilgan kun</label>
-        <date-picker lang="ru" class="input_style" v-model="timingDetails.date" type="date" format="DD-MM-YYYY" valueType="format"></date-picker>
+  <div class="add_area">
+    <div class="card">
+      <div class="card-header tabCard">
+        <PassportTab/>
       </div>
-      <div class="form-group col-md-3">
-        <label for="avto_model">Xronametraj otqizilgan avtomabil rusumi</label>
-        <input
-          type="text"
-          v-model="timingDetails.avto_model"
-          id="avto_model"
-          class="form-control input_style"
-        />
-      </div>
-      <div class="form-group col-md-3">
-        <label for="avto_number">Xronametraj otqizilgan avtomabil davlat raqami</label>
-        <input
-          type="text"
-          v-model="timingDetails.avto_number"
-          id="avto_number"
-          class="form-control input_style"
-        />
-      </div>
-      <div class="form-group col-md-3">
-        <label for="conclusion">Xulosa</label>
-        <select name="conclusion" id="conclusion" v-model="timingDetails.conclusion" class="form-control input_style">
-          <option value="Talablarga javob beradi">Talablarga javob beradi</option>
-          <option value="Talablarga javob bermaydi">Talablarga javob bermaydi</option>
-        </select>
-      </div>
-      <h4 class="col-md-12">Xronametraj otkazgan shaxslar</h4>
-      <template v-for="(person,p_index) in timingDetails.persons">
-        <div class="form-group col-md-2">
-          <label for="person_name">Ism</label>
-          <input type="text" v-model="person.name"  class="form-control input_style" />
-        </div>
-        <div class="form-group col-md-2">
-          <label for="surname">Familyasi</label>
-          <input type="text" v-model="person.surname"  class="form-control input_style" />
-        </div>
-        <div class="form-group col-md-2">
-          <label for="middlename">Sharifi</label>
-          <input type="text" v-model="person.middlename"  class="form-control input_style" />
-        </div>
-        <div class="form-group col-md-2">
-          <label for="person_job">Ish joyi</label>
-          <input type="text" v-model="person.job" id="person_job" class="form-control input_style" />
-        </div>
-        <div class="form-group col-md-3">
-          <label for="person_position">Lavozimi</label>
-          <input
-            type="text"
-            v-model="person.position"
-            id="person_position"
-            class="form-control input_style"
-          />
-        </div>
-        <div class="form-group col-md-1">
-          <button @click="addPerson()"           type="button" class="btn btn-info mr-2"  v-if="timingDetails.persons.length == p_index  +1 ">
-            <i class="fas fa-plus"></i>
-          </button>
-          <button @click="removePerson(p_index)" type="button" class="btn btn-danger" v-if="p_index > 2">
-            <i class="fas fa-trash"></i>
-          </button>
-        </div>
-      </template>
-    </div>
-    <h2>Asosiy ma'lumotlar</h2>
-    <div class="col-md-12 tabs_block">
-      <div class="form-group col-md-6" v-if="tableData.length == 0">
-        <label for="start_speedometer">Jonash vaqtida (km)</label>
-        <input
-          type="text"
-          v-model="form.start_speedometer"
-          id="start_speedometer"
-          class="form-control input_style"
-        />
-      </div>
-      <div class="form-group col-md-6">
-        <label for="start_time">Boshlash vaqti</label>
-        <date-picker
-          lang="ru"
-          class="input_style"
-          v-model="form.start_time"
-          type="datetime"
-          placeholder="Select datetime"
-        ></date-picker>
-      </div>
-      <div class="form-group col-md-6">
-        <label for="speed_between_station">Bekatlar oraligidagi xarakat (km/soat)</label>
-        <input
-          type="text"
-          v-model="form.speed_between_station"
-          id="speed_between_station"
-          class="form-control input_style"
-        />
-      </div>
-      <div class="form-group col-md-6">
-        <label for="speed_between_limited_space">Shundan xarakat tezligi chegaralangan oraliqda (km/soat)</label>
-        <input
-          type="text"
-          v-model="form.speed_between_limited_space"
-          id="speed_between_limited_space"
-          class="form-control input_style"
-        />
-      </div>
-      <div class="form-group col-md-6 triple_input" v-for="(detail,p_index) in form.details">
-        <label>Qatnov yoli xaqidagi malumotlar</label>
-        <select class="form-control input_style" v-model="detail.name">
-          <option
-            v-for="(s_item,s_index) in form.detailsOptions"
-            :value="s_item.code"
-            :key="s_index"
-          >{{s_item.title}}</option>
-        </select>
-        <input type="text" v-model="detail.count" class="form-control input_style" />
-        <button
-          @click="addDetail()"
-          class="btn btn-info"
-          v-if="form.details.length  == p_index + 1"
-          type="button"
-        >
-          <i class="fas fa-plus"></i>
-        </button>
-        <button
-          @click="removeDetail(p_index)"
-          class="btn btn-danger"
-          v-if="form.details.length  > p_index + 1"
-          type="button"
-        >
-          <i class="fas fa-trash"></i>
-        </button>
-      </div>
-      <div class="form-group col-md-6">
-        <label for="region_to_id">Oraliq toxtash viloyat nomi</label>
-        <input
-          v-model="form.whereTo"
-          type="radio"
-          name="where_to"
-          :value="form.region_to_id"
-          checked
-        />
-        <select
-          class="form-control input_style"
-          v-model="form.region_to_id"
-          @change="selectRegion('region_to_id')"
-        >
-          <option value selected disabled>choose option</option>
-          <option
-            :value="s_item"
-            v-for="(s_item,s_index) in getRegionList"
-            :key="s_index"
-          >{{s_item.name}}</option>
-        </select>
-      </div>
-      <div class="form-group col-md-6">
-        <label for="area_to_id">Oraliq toxtash tuman nomi</label>
-        <input v-model="form.whereTo" type="radio" name="where_to" :value="form.area_to_id" />
-        <select
-          class="form-control input_style"
-          v-model="form.area_to_id"
-          placeholder="Area"
-          @change="selectArea('area_to_id', 'region_to_id')"
-        >
-          <option value selected disabled>choose option</option>
-          <option
-            :value="s_item"
-            v-for="(s_item,s_index) in form.areaTo"
-            :key="s_index"
-          >{{s_item.name}}</option>
-        </select>
-      </div>
-      <div class="form-group col-md-6">
-        <input v-model="form.whereTo" type="radio" name="where_to" :value="form.station_to_id" />
-        <label for="station_to_id">Oraliq toxtash bekat nomi</label>
-        <select class="form-control input_style" v-model="form.station_to_id">
-          <option value selected disabled>choose option</option>
-          <option
-            :value="s_item"
-            v-for="(s_item,s_index) in form.stationTo"
-            :key="s_index"
-          >{{s_item.name}}</option>
-        </select>
-      </div>
-      <div class="form-group col-md-6">
-        <label for="end_speedometer">Kelgan vaqtida (km)</label>
-        <input
-          type="text"
-          v-model="form.end_speedometer"
-          id="end_speedometer"
-          class="form-control input_style"
-        />
-      </div>
-      <div class="form-group col-md-6">
-        <label for="seria">end_time</label>
-        <date-picker
-          lang="ru"
-          class="input_style"
-          v-model="form.end_time"
-          type="datetime"
-          placeholder="Select end_time"
-        ></date-picker>
-      </div>
-      <div class="form-group col-md-6">
-        <label for="distance_in_limited_speed">Shundan xarakat tezligi chegaralangan oraliqda (km)</label>
-        <input
-          type="text"
-          v-model="form.distance_in_limited_speed"
-          id="distance_in_limited_speed"
-          class="form-control input_style"
-        />
-      </div>
-      <div class="form-group col-md-6">
-        <label for="spendtime_between_limited_space">Shundan xarakat tezligi chegaralangan oraliqda (minut)</label>
-        <input
-          type="text"
-          v-model="form.spendtime_between_limited_space"
-          id="spendtime_between_limited_space"
-          class="form-control input_style"
-        />
-      </div>
-    </div>
-    <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
-      <button type="button" @click="clearTable()" class="btn btn-danger mr-2" v-if="tableData.length">
-        <i class="fas fa-trash"></i>
-        Очистить таблисту
-      </button>
-      <button type="button" @click="addItem()" class="btn btn-info mr-2">
-        <i class="fas fa-plus"></i>
-        Добавить
-      </button>
-      <button type="submit" class="btn btn-primary btn_save_category">
-        <i class="fas fa-save"></i>
-        Сохранить
-      </button>
-    </div>
-    <div class="table-responsive" v-if="tableData.length">
-      <table class="table table-bordered text-center table-hover table-striped">
-        <thead>
-          <tr>
-            <th scope="col" rowspan="2">№</th>
-            <th scope="col" rowspan="2">Oraliq toxtash bekatlari</th>
-            <th scope="col" colspan="2">Masofa ulagich ko'rsatkichlari</th>
-            <th scope="col" colspan="3">Masofa (km)</th>
-            <th scope="col" colspan="3">Sariflanadigon vaqt (minut)</th>
-            <th scope="col" colspan="2">Ortacha texnik tezlik (km/soat)</th>
-            <th rowspan="2">Qatnov yol xaqidagi malumotlar</th>
-          </tr>
-          <tr>
-            <th>Jonash vaqtida</th>
-            <th>Kelgan vaqtida</th>
-            <th>Boshlangich bekatdan</th>
-            <th>Bekatlar oraligida</th>
-            <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
-            <th>Bekatlar oralig'idagi xarakat</th>
-            <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
-            <th>Oraliq bekatda toxtash uchun</th>
-            <th>Bekatlar oralig'idagi xarakat</th>
-            <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(table,index) in tableData">
-            <td scope="row">{{index+1}}</td>
-            <td>{{ table.whereForm ? table.whereForm.name  : '' }} {{ table.whereTo ? table.whereTo.name  : '' }}</td>
-            <td>{{ table.start_speedometer }}</td>
-            <td>{{ table.end_speedometer }}</td>
-            <td>{{ table.distance_from_start_station }}</td>
-            <td>{{ table.distance_between_station }}</td>
-            <td>{{ table.distance_in_limited_speed }}</td>
-            <td>{{ table.spendtime_between_station }}</td>
-            <td>{{ table.spendtime_between_limited_space }}</td>
-            <td>{{ table.spendtime_to_stay_station }}</td>
-            <td>{{ table.speed_between_station }}</td>
-            <td>{{ table.speed_between_limited_space }}</td>
-            <td class="detail_td">
-              <span v-for="(detail) in table.details">
-                {{detail.name }} {{ detail.count}}
-                <b>,</b>
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="8" scope="row">Ortacha tezlik = {{technicSpeed}} km/soat</td>
-            <td colspan="8" scope="row">Qatnov tezlik = {{technicSpeed}} km/soat</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="table_footer">
-        <div class="col-md-6">
-          <p>Qatnov yoli xarakat xafsizligiga:  {{timingDetails.conclusion}}</p>
-          <p>Olchov otkazilgan kun:  {{timingDetails.date}} yil</p>
-          <p>Xronametraj otkazilgan avtomobil rusumi va davlat raqami:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
-        </div>
-        <div class="col-md-4 right_item">
-          <div>
-            <p>Olchov <br> qatnashchilari <br>  imzolari:</p>
+      <div class="card-body">
+        <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
+          <h2>Boshlangich ma'lumot</h2>
+          <div class="col-md-12 tabs_block">
+            <div class="form-group col-md-3">
+              <label for="timingDetails_date">O'chov otkazilgan kun</label>
+              <date-picker lang="ru" class="input_style" v-model="timingDetails.date" type="date" format="DD-MM-YYYY" valueType="format"></date-picker>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="avto_model">Xronametraj otqizilgan avtomabil rusumi</label>
+              <input
+                type="text"
+                v-model="timingDetails.avto_model"
+                id="avto_model"
+                class="form-control input_style"
+              />
+            </div>
+            <div class="form-group col-md-3">
+              <label for="avto_number">Xronametraj otqizilgan avtomabil davlat raqami</label>
+              <input
+                type="text"
+                v-model="timingDetails.avto_number"
+                id="avto_number"
+                class="form-control input_style"
+              />
+            </div>
+            <div class="form-group col-md-3">
+              <label for="conclusion">Xulosa</label>
+              <select name="conclusion" id="conclusion" v-model="timingDetails.conclusion" class="form-control input_style">
+                <option value="Talablarga javob beradi">Talablarga javob beradi</option>
+                <option value="Talablarga javob bermaydi">Talablarga javob bermaydi</option>
+              </select>
+            </div>
+            <h4 class="col-md-12">Xronametraj otkazgan shaxslar</h4>
+            <template v-for="(person,p_index) in timingDetails.persons">
+              <div class="form-group col-md-2">
+                <label for="person_name">Ism</label>
+                <input type="text" v-model="person.name"  class="form-control input_style" />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="surname">Familyasi</label>
+                <input type="text" v-model="person.surname"  class="form-control input_style" />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="middlename">Sharifi</label>
+                <input type="text" v-model="person.middlename"  class="form-control input_style" />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="person_job">Ish joyi</label>
+                <input type="text" v-model="person.job" id="person_job" class="form-control input_style" />
+              </div>
+              <div class="form-group col-md-3">
+                <label for="person_position">Lavozimi</label>
+                <input
+                  type="text"
+                  v-model="person.position"
+                  id="person_position"
+                  class="form-control input_style"
+                />
+              </div>
+              <div class="form-group col-md-1">
+                <button @click="addPerson()"           type="button" class="btn btn-info mr-2"  v-if="timingDetails.persons.length == p_index  +1 ">
+                  <i class="fas fa-plus"></i>
+                </button>
+                <button @click="removePerson(p_index)" type="button" class="btn btn-danger" v-if="p_index > 2">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </template>
           </div>
-          <div>
-            <p  v-for="(person,index) in timingDetails.persons">{{person.name.charAt(0)}}.{{person.surname}}</p>
+          <h2>Asosiy ma'lumotlar</h2>
+          <div class="col-md-12 tabs_block">
+            <div class="form-group col-md-6" v-if="tableData.length == 0">
+              <label for="start_speedometer">Jonash vaqtida (km)</label>
+              <input
+                type="text"
+                v-model="form.start_speedometer"
+                id="start_speedometer"
+                class="form-control input_style"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="start_time">Boshlash vaqti</label>
+              <date-picker
+                lang="ru"
+                class="input_style"
+                v-model="form.start_time"
+                type="datetime"
+                placeholder="Select datetime"
+              ></date-picker>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="speed_between_station">Bekatlar oraligidagi xarakat (km/soat)</label>
+              <input
+                type="text"
+                v-model="form.speed_between_station"
+                id="speed_between_station"
+                class="form-control input_style"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="speed_between_limited_space">Shundan xarakat tezligi chegaralangan oraliqda (km/soat)</label>
+              <input
+                type="text"
+                v-model="form.speed_between_limited_space"
+                id="speed_between_limited_space"
+                class="form-control input_style"
+              />
+            </div>
+            <div class="form-group col-md-6 triple_input" v-for="(detail,p_index) in form.details">
+              <label>Qatnov yoli xaqidagi malumotlar</label>
+              <select class="form-control input_style" v-model="detail.name">
+                <option
+                  v-for="(s_item,s_index) in form.detailsOptions"
+                  :value="s_item.code"
+                  :key="s_index"
+                >{{s_item.title}}</option>
+              </select>
+              <input type="text" v-model="detail.count" class="form-control input_style" />
+              <button
+                @click="addDetail()"
+                class="btn btn-info"
+                v-if="form.details.length  == p_index + 1"
+                type="button"
+              >
+                <i class="fas fa-plus"></i>
+              </button>
+              <button
+                @click="removeDetail(p_index)"
+                class="btn btn-danger"
+                v-if="form.details.length  > p_index + 1"
+                type="button"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="region_to_id">Oraliq toxtash viloyat nomi</label>
+              <input
+                v-model="form.whereTo"
+                type="radio"
+                name="where_to"
+                :value="form.region_to_id"
+                checked
+              />
+              <select
+                class="form-control input_style"
+                v-model="form.region_to_id"
+                @change="selectRegion('region_to_id')"
+              >
+                <option value selected disabled>choose option</option>
+                <option
+                  :value="s_item"
+                  v-for="(s_item,s_index) in getRegionList"
+                  :key="s_index"
+                >{{s_item.name}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="area_to_id">Oraliq toxtash tuman nomi</label>
+              <input v-model="form.whereTo" type="radio" name="where_to" :value="form.area_to_id" />
+              <select
+                class="form-control input_style"
+                v-model="form.area_to_id"
+                placeholder="Area"
+                @change="selectArea('area_to_id', 'region_to_id')"
+              >
+                <option value selected disabled>choose option</option>
+                <option
+                  :value="s_item"
+                  v-for="(s_item,s_index) in form.areaTo"
+                  :key="s_index"
+                >{{s_item.name}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <input v-model="form.whereTo" type="radio" name="where_to" :value="form.station_to_id" />
+              <label for="station_to_id">Oraliq toxtash bekat nomi</label>
+              <select class="form-control input_style" v-model="form.station_to_id">
+                <option value selected disabled>choose option</option>
+                <option
+                  :value="s_item"
+                  v-for="(s_item,s_index) in form.stationTo"
+                  :key="s_index"
+                >{{s_item.name}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="end_speedometer">Kelgan vaqtida (km)</label>
+              <input
+                type="text"
+                v-model="form.end_speedometer"
+                id="end_speedometer"
+                class="form-control input_style"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="seria">end_time</label>
+              <date-picker
+                lang="ru"
+                class="input_style"
+                v-model="form.end_time"
+                type="datetime"
+                placeholder="Select end_time"
+              ></date-picker>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="distance_in_limited_speed">Shundan xarakat tezligi chegaralangan oraliqda (km)</label>
+              <input
+                type="text"
+                v-model="form.distance_in_limited_speed"
+                id="distance_in_limited_speed"
+                class="form-control input_style"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="spendtime_between_limited_space">Shundan xarakat tezligi chegaralangan oraliqda (minut)</label>
+              <input
+                type="text"
+                v-model="form.spendtime_between_limited_space"
+                id="spendtime_between_limited_space"
+                class="form-control input_style"
+              />
+            </div>
           </div>
-        </div>
+          <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
+            <button type="button" @click="clearTable()" class="btn btn-danger mr-2" v-if="tableData.length">
+              <i class="fas fa-trash"></i>
+              Очистить таблисту
+            </button>
+            <button type="button" @click="addItem()" class="btn btn-info mr-2">
+              <i class="fas fa-plus"></i>
+              Добавить
+            </button>
+            <button type="submit" class="btn btn-primary btn_save_category">
+              <i class="fas fa-save"></i>
+              Сохранить
+            </button>
+          </div>
+          <div class="table-responsive" v-if="tableData.length">
+            <table class="table table-bordered text-center table-hover table-striped">
+              <thead>
+                <tr>
+                  <th scope="col" rowspan="2">№</th>
+                  <th scope="col" rowspan="2">Oraliq toxtash bekatlari</th>
+                  <th scope="col" colspan="2">Masofa ulagich ko'rsatkichlari</th>
+                  <th scope="col" colspan="3">Masofa (km)</th>
+                  <th scope="col" colspan="3">Sariflanadigon vaqt (minut)</th>
+                  <th scope="col" colspan="2">Ortacha texnik tezlik (km/soat)</th>
+                  <th rowspan="2">Qatnov yol xaqidagi malumotlar</th>
+                </tr>
+                <tr>
+                  <th>Jonash vaqtida</th>
+                  <th>Kelgan vaqtida</th>
+                  <th>Boshlangich bekatdan</th>
+                  <th>Bekatlar oraligida</th>
+                  <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
+                  <th>Bekatlar oralig'idagi xarakat</th>
+                  <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
+                  <th>Oraliq bekatda toxtash uchun</th>
+                  <th>Bekatlar oralig'idagi xarakat</th>
+                  <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(table,index) in tableData">
+                  <td scope="row">{{index+1}}</td>
+                  <td>{{ table.whereForm ? table.whereForm.name  : '' }} {{ table.whereTo ? table.whereTo.name  : '' }}</td>
+                  <td>{{ table.start_speedometer }}</td>
+                  <td>{{ table.end_speedometer }}</td>
+                  <td>{{ table.distance_from_start_station }}</td>
+                  <td>{{ table.distance_between_station }}</td>
+                  <td>{{ table.distance_in_limited_speed }}</td>
+                  <td>{{ table.spendtime_between_station }}</td>
+                  <td>{{ table.spendtime_between_limited_space }}</td>
+                  <td>{{ table.spendtime_to_stay_station }}</td>
+                  <td>{{ table.speed_between_station }}</td>
+                  <td>{{ table.speed_between_limited_space }}</td>
+                  <td class="detail_td">
+                    <span v-for="(detail) in table.details">
+                      {{detail.name }} {{ detail.count}}
+                      <b>,</b>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="8" scope="row">Ortacha tezlik = {{technicSpeed}} km/soat</td>
+                  <td colspan="8" scope="row">Qatnov tezlik = {{technicSpeed}} km/soat</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="table_footer">
+              <div class="col-md-6">
+                <p>Qatnov yoli xarakat xafsizligiga:  {{timingDetails.conclusion}}</p>
+                <p>Olchov otkazilgan kun:  {{timingDetails.date}} yil</p>
+                <p>Xronametraj otkazilgan avtomobil rusumi va davlat raqami:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
+              </div>
+              <div class="col-md-4 right_item">
+                <div>
+                  <p>Olchov <br> qatnashchilari <br>  imzolari:</p>
+                </div>
+                <div>
+                  <p  v-for="(person,index) in timingDetails.persons">{{person.name.charAt(0)}}.{{person.surname}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-  </form>
+  </div>
 </template>
 <script>
 import DatePicker from "vue2-datepicker";
 import { mapGetters, mapActions } from "vuex";
+import PassportTab from "./PassportTab";
 export default {
-  props: ["titulData"],
   components: {
     DatePicker,
+    PassportTab,
   },
   data() {
     return {
+      titulData:[],
       form: {
         direction_id: this.$route.params.directionId,
-        region_from_id: this.titulData.region_from_with,
+        // region_from_id: this.titulData.region_from_with,
+        region_from_id: '',
         region_to_id: "",
-        area_from_id:  this.titulData.area_from_with,
+        // area_from_id:  this.titulData.area_from_with,
+        area_from_id:  '',
         area_to_id: "",
-        station_from_id: this.titulData.station_from_id,
+        // station_from_id: this.titulData.station_from_id,
+        station_from_id: '',
         station_to_id: "",
         start_time: "",
         end_time: "",
@@ -342,7 +356,8 @@ export default {
         stationFrom: [],
         stationTo: [],
         areaTo: [],
-        whereForm: this.titulData.from_where,
+        // whereForm: this.titulData.from_where,
+        whereForm: '',
         whereTo: {},
         detailsOptions: [
           { title: "Xafli yo'l uchastkalari", code: 'danger'},
@@ -369,7 +384,9 @@ export default {
     };
   },
   async mounted() {
+    await this.actionEditDirection(this.$route.params.directionId); 
     await this.actionRegionList();
+    this.titulData = this.getDirection
     this.timingDetails = this.titulData.timing_details.length ? this.titulData.timing_details[0] : this.timingDetails
     this.tableData = this.titulData.timing_with.length ? this.titulData.timing_with : this.tableData
     if(this.tableData.length){
@@ -395,6 +412,7 @@ export default {
     ...mapActions("region", ["actionRegionList"]),
     ...mapActions("station", ["actionStationByRegion"]),
     ...mapActions("area", ["actionAreaByRegion"]),
+    ...mapActions("direction", ["actionEditDirection"]),
     ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
     isRequired(input) {
       return this.requiredInput && input === "";

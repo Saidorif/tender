@@ -18,6 +18,9 @@ class CreateReysTable extends Migration
             $table->integer('direction_id');
             $table->integer('station_id');
             $table->integer('where_id');
+            $table->integer('user_id')->nullable();
+            $table->string('status')->default('active');
+            $table->string('where_type')->default('region');
             $table->string('time_from_1')->nullable();
             $table->string('time_from_2')->nullable();
             $table->string('time_from_3')->nullable();

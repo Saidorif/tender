@@ -102,11 +102,17 @@ import EditComplaint from './components/admin/complaint/EditComplaint'
 
 // PassportTab
 import PassportTab from './components/admin/steppassport/PassportTab'
+import Schedule from './components/admin/steppassport/Schedule'
+import Titul from './components/admin/steppassport/Titul'
+import Timing from './components/admin/steppassport/Timing'
+import Tarif from './components/admin/steppassport/Tarif'
+import Scheme from './components/admin/steppassport/Scheme'
 
 // Home
 import Home from './components/home/Home'
 import Contact from './components/home/Contact'
 
+// StepPassport
 
 // NotFound
 import NotFound from './components/NotFound/NotFound'
@@ -294,6 +300,26 @@ const router = new Router({
 					component:EditDirection,
 				},
 				{
+					path:'direction/titul-tab/:directionId',
+					component:Titul,
+				},
+				{
+					path:'direction/schedule-tab/:directionId',
+					component:Schedule,
+				},
+				{
+					path:'direction/timing-tab/:directionId',
+					component:Timing,
+				},
+				{
+					path:'direction/tarif-tab/:directionId',
+					component:Tarif,
+				},
+				{
+					path:'direction/scheme-tab/:directionId',
+					component:Scheme,
+				},
+				{
 					path:'typeofdirection',
 					component:Typeofdirection,
 				},
@@ -352,10 +378,6 @@ const router = new Router({
 				{
 					path:'conditionalsign/edit/:conditionalsignId',
 					component:EditConditionalSign,
-				},
-				{
-					path:'passport',
-					component:PassportTab,
 				},
 			]
 		},
