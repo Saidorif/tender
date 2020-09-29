@@ -9,7 +9,7 @@
                     <li><a href="#">O'tkazilgan tenderlar</a></li>
                     <li><a href="/contact">Biz bilan aloqa</a></li>
                 </ul>
-                <a href="#" class="btn_login"><i class="fas fa-sign-in-alt"></i>Tizimga kirish</a>
+                <a href="/login" class="btn_login"><i class="fas fa-sign-in-alt"></i>Tizimga kirish</a>
             </div>
         </header>
         <div class="header_banner">

@@ -1,5 +1,5 @@
 <template>
-  <div class="card lognCard">
+  <div class="contacts_page">
     <header class="main_header">
       <div class="container">
           <a href="/" class="logo"><img src="img/logoUz.png" alt=""></a>
@@ -9,133 +9,89 @@
               <li><a href="#">O'tkazilgan tenderlar</a></li>
               <li class="active"><a href="/contact">Biz bilan aloqa</a></li>
           </ul>
-          <a href="#" class="btn_login"><i class="fas fa-sign-in-alt"></i>Tizimga kirish</a>
+          <a href="/login" class="btn_login"><i class="fas fa-sign-in-alt"></i>Tizimga kirish</a>
       </div>
     </header>
     <div class="container">
-      <div class="row">
-      <div class="col-md-6">
-
-      </div>
-      <div class="col-md-6">
-        <form @submit.enter.prevent="send">
-          <div class="col-md-12">
-              <div class="input-group">
-                <select 
-                  class="form-control input_style" 
-                  v-model="form.complaint_category_id" 
-                  :class="isRequired(form.complaint_category_id) ? 'isRequired' : ''"  
-                >
-                  <option value="" selected disabled>Выберите</option>
-                  <option :value="item.id" v-for="(item,index) in getComplaintList">{{item.name}}</option>
-                </select>
-                <div class="input-group-append">
-                  <div
-                    class="input-group-text"
-                    :class="isRequired(form.complaint_category_id) ? 'isRequired' : ''"
+      <div class="contact_block">
+        <div class="col-md-6">
+          <h2 class="title">Bizga o'z <span>taklif</span> va <span>e'trozlaringizni </span> qoldiring!</h2>
+          <p class="sub_title">Taklif va e'torlaringizni formada qoldiring, biz sizning takliflarinigzni va e'trozlarinigzni o'rganib chiqib pochtangiz orqali batafsil ma'lumot beramiza yoki qo'ng'iroq qilamiz agar raqamingizni qoldirsangiz   </p>
+        </div>
+        <div class="col-md-6">
+          <form @submit.enter.prevent="send">
+            <div class="col-md-12">
+                <div class="input-group input_group_with_label">
+                  <select 
+                    class="form-control input_style" 
+                    v-model="form.complaint_category_id" 
+                    :class="isRequired(form.complaint_category_id) ? 'isRequired' : ''"  
                   >
-                    <img src="/img/mail.png" alt=""/>
-                  </div>
+                    <option value="" selected disabled>Tanlang</option>
+                    <option :value="item.id" v-for="(item,index) in getComplaintList">{{item.name}}</option>
+                  </select>
+                  <label for="#">Murojat turi</label>
                 </div>
-              </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="form.surname"
-                  placeholder="Фамилия"
-                  :class="isRequired(form.surname) ? 'isRequired' : ''"
-                />
-                <div class="input-group-append">
-                  <div
-                    class="input-group-text"
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="form.surname"
+                    placeholder="Фамилия"
                     :class="isRequired(form.surname) ? 'isRequired' : ''"
-                  >
-                    <img src="/img/user.png" alt=""/>
-                  </div>
+                  />
                 </div>
-              </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="form.name"
-                  placeholder="Имя"
-                  :class="isRequired(form.name) ? 'isRequired' : ''"
-                />
-                <div class="input-group-append">
-                  <div
-                    class="input-group-text"
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="form.name"
+                    placeholder="Имя"
                     :class="isRequired(form.name) ? 'isRequired' : ''"
-                  >
-                    <img src="/img/user.png" alt=""/>
-                  </div>
+                  />
                 </div>
-              </div>
-              <div class="input-group"> 
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="form.middlename"
-                  placeholder="Отчество"
-                />
-                <div class="input-group-append">
-                  <div
-                    class="input-group-text"
-                  >
-                    <img src="/img/user.png" alt=""/>
-                  </div>
+                <div class="input-group"> 
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="form.middlename"
+                    placeholder="Отчество"
+                  />
                 </div>
-              </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  v-mask="'(99)999-99-99'"
-                  class="form-control"
-                  v-model="form.phone"
-                  placeholder="Телефон"
-                  :class="isRequired(form.phone) ? 'isRequired' : ''"
-                />
-                <div class="input-group-append">
-                  <div
-                    class="input-group-text"
+                <div class="input-group">
+                  <input
+                    type="text"
+                    v-mask="'(99)999-99-99'"
+                    class="form-control"
+                    v-model="form.phone"
+                    placeholder="Телефон"
                     :class="isRequired(form.phone) ? 'isRequired' : ''"
-                  >
-                    <img src="/img/phone.png" alt />
-                  </div>
+                  />
                 </div>
-              </div>
-              <div class="input-group">
-                <input
-                  type="file"
-                  id="file"
-                  class="form-control"
-                  @change="changeFile($event)"
-                />
-                <div class="input-group-append">
-                  <div
-                    class="input-group-text"
-                  >
-                    <img src="/img/docs.png" alt />
-                  </div>
+                <div class="input-group">
+                  <input
+                    type="file"
+                    id="file"
+                    class="form-control"
+                    @change="changeFile($event)"
+                  />
                 </div>
-              </div>
-              <div class="input-group">
-                <textarea
-                  class="form-control"
-                  v-model="form.text"
-                  placeholder="Сообщение"
-                  :class="isRequired(form.text) ? 'isRequired' : ''"
-                ></textarea>
-              </div>
-          </div>
-          <div class="col-md-12">
-              <div class="input-group mt-4">
-                <button type="submit" class="btn btn-primary btn-block">Отправить</button>
-              </div>
-          </div>
-        </form>
-      </div>
+                <div class="input-group">
+                  <textarea
+                    class="form-control"
+                    v-model="form.text"
+                    placeholder="Сообщение"
+                    :class="isRequired(form.text) ? 'isRequired' : ''"
+                  ></textarea>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="input-group mt-4">
+                  <button type="submit" class="btn btn-primary btn-block">Отправить</button>
+                </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
