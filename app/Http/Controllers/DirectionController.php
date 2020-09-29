@@ -224,6 +224,11 @@ class DirectionController extends Controller
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
+        $schedules = $direction->schedule;
+        foreach ($schedules as $key => $value) {
+            $value->status = 'inactive';
+            $value->save();
+        }
         $inputs = $request->input('data');
         $result = [];
         $from = $direction->regionFrom->name;
@@ -231,10 +236,18 @@ class DirectionController extends Controller
         // dd($inputs);
         foreach ($inputs as $key => $value) {
             foreach ($value['reyses_from']['reyses'] as $key => $item) {
+                $where_type = 'region';
+                if (array_key_exists('region_id', $value['reyses_from']['where'])) {
+                    $where_type = 'area';
+                }
+                if(array_key_exists('region_id', $value['reyses_from']['where']) && array_key_exists('area_id', $value['reyses_from']['where'])){
+                    $where_type = 'station';
+                }
                 $reys = Reys::create([
                     'direction_id' => 1,
                     'station_id'   => $value['stationName']['id'],
                     'where_id'     => $value['reyses_from']['where']['id'],
+                    'where_type'   => $where_type,
                     'time_from_1'  => $item['time_from_1'],
                     'time_from_2'  => $item['time_from_2'],
                     'time_from_3'  => $item['time_from_3'],
@@ -247,10 +260,18 @@ class DirectionController extends Controller
                 $result[] = $reys;
             }
             foreach ($value['reyses_to']['reyses'] as $key => $item) {
+                $where_type = 'region';
+                if (array_key_exists('region_id', $value['reyses_from']['where'])) {
+                    $where_type = 'area';
+                }
+                if(array_key_exists('region_id', $value['reyses_from']['where']) && array_key_exists('area_id', $value['reyses_from']['where'])){
+                    $where_type = 'station';
+                }
                 $reys = Reys::create([
                     'direction_id' => 1,
                     'station_id'   => $value['stationName']['id'],
                     'where_id'     => $value['reyses_to']['where']['id'],
+                    'where_type'   => $where_type,
                     'time_from_1'  => $item['time_from_1'],
                     'time_from_2'  => $item['time_from_2'],
                     'time_from_3'  => $item['time_from_3'],
@@ -266,9 +287,33 @@ class DirectionController extends Controller
         //Get data and store
         return response()->json([
             'success' => true,
-            'from' => $from,
-            'to' => $to,
-            'result' => $result
+            'message' => 'Расписание сохранено'
+        ]);
+    }
+
+    public function getSchedule(Request $request, $id)
+    {
+        $result = [];
+        $reyses = Reys::where(['direction_id' => $id,'status' => 'active'])->get();
+        foreach ($reyses as $key => $reys) {
+            if($reys->where_type == 'region'){
+                $station = $reys->region;
+            }
+            if($reys->where_type == 'area'){
+                $station = $reys->area;
+            }
+            if($reys->where_type == 'station'){
+                $station = $reys->station;
+            }
+            $item = $reys->toArray();
+            // $item[] = $station;
+            $result[$reys->where_id][] = $item;
+        }
+        $result = array_values($result);
+        return response()->json([
+            'success' => true,
+            'count' => count($reyses),
+            'result' => $result,
         ]);
     }
 }
