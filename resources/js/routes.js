@@ -107,6 +107,7 @@ import Titul from './components/admin/steppassport/Titul'
 import Timing from './components/admin/steppassport/Timing'
 import Tarif from './components/admin/steppassport/Tarif'
 import Scheme from './components/admin/steppassport/Scheme'
+import Demand from './components/admin/steppassport/Demand'
 
 // Home
 import Home from './components/home/Home'
@@ -318,6 +319,10 @@ const router = new Router({
 				{
 					path:'direction/scheme-tab/:directionId',
 					component:Scheme,
+				},
+				{
+					path:'direction/demand-tab/:directionId',
+					component:Demand,
 				},
 				{
 					path:'typeofdirection',

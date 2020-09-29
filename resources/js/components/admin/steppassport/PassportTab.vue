@@ -16,6 +16,9 @@
       <li class="nav-item">
         <router-link :to='`/crm/direction/tarif-tab/${$route.params.directionId}`'>Tarif</router-link>
       </li>
+      <li class="nav-item">
+        <router-link :to='`/crm/direction/demand-tab/${$route.params.directionId}`'>Talab</router-link>
+      </li>
     </ul>
     <router-link class="btn btn-primary back_btn" to="/crm/direction">
       <span class="peIcon pe-7s-back"></span> 
