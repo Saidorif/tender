@@ -313,7 +313,7 @@
     border-color: #D4E2F5;
 }
 .input-group{
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 .form-control:focus{
     box-shadow: none;
@@ -1133,15 +1133,51 @@ hr{
     padding-bottom: 35px;
         font-family: "Poppins-Regular";
 }
+.contacts_page{
+    background-image: url(/img/bs2.png);
+    background-repeat: no-repeat;
+    background-position: top right;
+}
 .contact_block{
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding-top: 10%;
 }
 .input_group_with_label{
     position: relative;
 }
+.input_group_with_label.input_file{
+    height: auto;
+    border-radius: .1rem;
+    outline: initial!important;
+    -webkit-box-shadow: initial!important;
+    box-shadow: none!important;
+    line-height: 1;
+    border: 1px solid #000;
+    background: #fff;
+    color: #3a3a3a;
+    font-family: "Poppins-Regular";
+    cursor: pointer;
+}
+.input_group_with_label input[type="file"]{
+    opacity: 0;
+    cursor: pointer;
+}
+.input_group_with_label.input_file p{
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 12px;
+    pointer-events: none;
+    font-family: "Poppins-Regular";
+}
+.input_group_with_label select,
 .input_group_with_label input{
     height: auto;
     border-radius: .1rem;
@@ -1151,30 +1187,48 @@ hr{
     font-size: .8rem;
     padding: .5rem .75rem;
     line-height: 1;
-    border: 1px solid #d7d7d7;
+    border: 1px solid #000;
     background: #fff;
     color: #3a3a3a;
+    font-family: "Poppins-Regular";
 }
 .input_group_with_label label{
     position: absolute;
     cursor: text;
     font-size: 90%;
     opacity: 1;
-    top: -.4em;
+    top: -.5em;
     left: .75rem;
     z-index: 3;
     line-height: 1;
     padding: 0 1px;
     background-color: #fff;
-    color: rgba(58,58,58,.7);
     margin-bottom: 0;
+    color: #010101;
+    font-family: "Poppins-SemiBold";
+    padding: 0px 5px;
 }
 .input_group_with_label .form-control{
-    border: 1px solid #d7d7d7;
+    border: 1px solid #858080;
     background: #fff;
     color: #3a3a3a;
     border-radius: 0px;
+    min-height: 40px;
 }
 .input_group_with_label .form-control:focus{
     border-color: #292666;
+}
+.btn_blue_bd_0{
+    line-height: 40px;
+    border-radius: 0px;
+    background-color: #292666;
+    padding-left: 50px;
+    padding-right: 50px;
+    color: #fff;
+    font-weight: 600;
+    font-family: "Poppins-SemiBold";
+    border: 1px solid #292666;
+}
+.contact_block .btn_blue_bd_0{
+    margin-left: auto;
 }
