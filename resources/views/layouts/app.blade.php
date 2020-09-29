@@ -19,6 +19,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('fonts/peicon/css/peicon.css') }}" rel="stylesheet">
+    
+    <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
