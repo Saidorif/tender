@@ -4,7 +4,7 @@
       <div class="container">
           <a href="/" class="logo"><img src="img/logoUz.png" alt=""></a>
           <ul class="menu_list">
-              <li ><a href="#">Bosh sahifa</a></li>
+              <li ><a href="/">Bosh sahifa</a></li>
               <li><a href="#">Tender haqida</a></li>
               <li><a href="#">O'tkazilgan tenderlar</a></li>
               <li class="active"><a href="/contact">Biz bilan aloqa</a></li>
@@ -18,76 +18,83 @@
           <h2 class="title">Bizga o'z <span>taklif</span> va <span>e'trozlaringizni </span> qoldiring!</h2>
           <p class="sub_title">Taklif va e'torlaringizni formada qoldiring, biz sizning takliflarinigzni va e'trozlarinigzni o'rganib chiqib pochtangiz orqali batafsil ma'lumot beramiza yoki qo'ng'iroq qilamiz agar raqamingizni qoldirsangiz   </p>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
           <form @submit.enter.prevent="send">
             <div class="col-md-12">
                 <div class="input-group input_group_with_label">
                   <select 
                     class="form-control input_style" 
                     v-model="form.complaint_category_id" 
-                    :class="isRequired(form.complaint_category_id) ? 'isRequired' : ''"  
+                    :class="isRequired(form.complaint_category_id) ? 'isRequired' : ''" 
+                    id="complaint_category_id" 
                   >
-                    <option value="" selected disabled>Tanlang</option>
                     <option :value="item.id" v-for="(item,index) in getComplaintList">{{item.name}}</option>
                   </select>
-                  <label for="#">Murojat turi</label>
+                  <label for="complaint_category_id">Murojat turi</label>
                 </div>
-                <div class="input-group">
+                <div class="input-group input_group_with_label">
                   <input
                     type="text"
                     class="form-control"
                     v-model="form.surname"
-                    placeholder="Фамилия"
                     :class="isRequired(form.surname) ? 'isRequired' : ''"
+                    id="surname"
                   />
+                  <label for="surname">Familiya</label>
                 </div>
-                <div class="input-group">
+                <div class="input-group input_group_with_label">
                   <input
                     type="text"
+                    id="name"
                     class="form-control"
                     v-model="form.name"
-                    placeholder="Имя"
                     :class="isRequired(form.name) ? 'isRequired' : ''"
                   />
+                  <label for="name">Ism</label>
                 </div>
-                <div class="input-group"> 
+                <div class="input-group input_group_with_label"> 
                   <input
                     type="text"
                     class="form-control"
                     v-model="form.middlename"
-                    placeholder="Отчество"
+                    id="middlename"
                   />
+                  <label for="middlename">Sharifi</label>
                 </div>
-                <div class="input-group">
+                <div class="input-group input_group_with_label">
                   <input
                     type="text"
                     v-mask="'(99)999-99-99'"
                     class="form-control"
+                    id="phone"
                     v-model="form.phone"
-                    placeholder="Телефон"
                     :class="isRequired(form.phone) ? 'isRequired' : ''"
                   />
+                  <label for="phone">Telefon raqam</label>
                 </div>
-                <div class="input-group">
+                <div class="input-group input_group_with_label input_file">
                   <input
                     type="file"
                     id="file"
                     class="form-control"
                     @change="changeFile($event)"
                   />
+                  <p>{{ form.file ? form.file.name : ''}}</p>
+                  <label for="file">Faylni yuklash</label>
                 </div>
-                <div class="input-group">
+                <div class="input-group input_group_with_label">
                   <textarea
                     class="form-control"
+                    id="text"
                     v-model="form.text"
-                    placeholder="Сообщение"
                     :class="isRequired(form.text) ? 'isRequired' : ''"
                   ></textarea>
+                  <label for="text">Xabar matni</label>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="input-group mt-4">
-                  <button type="submit" class="btn btn-primary btn-block">Отправить</button>
+                  <button type="submit" class="btn_blue_bd_0">Yuborish</button>
                 </div>
             </div>
           </form>
@@ -120,6 +127,7 @@ export default {
       },
       requiredInput: false,
       isLoading:false,
+      filename:'',
     };
   },
   computed: {
@@ -153,6 +161,7 @@ export default {
         });
       } else {
         this.form.file = event.target.files[0];
+        console.log(this.form.file)
       }
     },
     dispatchAction(data){
