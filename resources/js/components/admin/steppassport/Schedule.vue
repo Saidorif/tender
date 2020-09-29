@@ -1,184 +1,195 @@
 <template>
-  <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
-    <div class="row col-md-12">
-      <div class="form-group col-md-3">
-        <label for="reys_to_count">Reyslar soni Toshkent tomondan</label>
-        <input
-          type="number"
-          v-model="reys_to_count"
-          id="reys_to_count"
-          class="form-control input_style"
-          :class="isRequired(reys_to_count) ? 'isRequired' : ''"
-          @input="calcCountReys('reys_to_count')"
-        />
+  <div class="add_area">
+    <div class="card">
+      <div class="card-header tabCard">
+        <PassportTab/>
       </div>
-      <div class="form-group col-md-3">
-        <label for="reys_from_count">Reyslar soni Nukus tomondan</label>
-        <input
-          type="number"
-          v-model="reys_from_count"
-          id="reys_from_count"
-          class="form-control input_style"
-          :class="isRequired(reys_from_count) ? 'isRequired' : ''"
-          @input="calcCountReys('reys_from_count')"
-        />
+      <div class="card-body">
+        <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
+          <div class="row col-md-12">
+            <div class="form-group col-md-3">
+              <label for="reys_to_count">Reyslar soni Toshkent tomondan</label>
+              <input
+                type="number"
+                v-model="reys_to_count"
+                id="reys_to_count"
+                class="form-control input_style"
+                :class="isRequired(reys_to_count) ? 'isRequired' : ''"
+                @input="calcCountReys('reys_to_count')"
+              />
+            </div>
+            <div class="form-group col-md-3">
+              <label for="reys_from_count">Reyslar soni Nukus tomondan</label>
+              <input
+                type="number"
+                v-model="reys_from_count"
+                id="reys_from_count"
+                class="form-control input_style"
+                :class="isRequired(reys_from_count) ? 'isRequired' : ''"
+                @input="calcCountReys('reys_from_count')"
+              />
+            </div>
+          </div>
+          <h2>{{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}"Avtobus yo'nalishi qatnov yo'li masofasini va xarakat vaqtini olchash qaydnomasi</h2>
+          <div class="col-md-4">
+            <p>
+              Qatnov yo'l masofasi
+              <b v-if="titulData.timing_with.length">{{titulData.timing_with[titulData.timing_with.length - 1].end_speedometer}} km</b>
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p>Qatnovchi avtomobillar soni  {{count_bus}}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Yolkira xaqqi so'm</p>
+          </div>
+          <template v-if="titulData.timing_with.length && titulData.timing_with[titulData.timing_with.length - 1].end_speedometer > 400">
+            <div class="table-responisve"  v-for="(p_index) in Math.ceil(reys_to_count / 4)"  :key="p_index" >
+              <table class="table table-bordered text-center table-hover table-striped" v-if="form.length">
+                <thead>
+                  <tr>
+                    <th scope="col" colspan="8">{{form[0].reyses_from.where.name}} tomonga</th>
+                    <th scope="col" rowspan="4">Toxtash joylarining nomlari</th>
+                    <th scope="col" colspan="8">{{form[0].reyses_to.where.name}} tomonga</th>
+                    <th scope="col" rowspan="4">Ochirib tashlash</th>
+                  </tr>
+                  <tr>
+                    <th scope="col" colspan="8">Qatnov raqamlari va astronomik vaqt (soat-min)</th>
+                    <th scope="col" colspan="8">Qatnov raqamlari va astronomik vaqt (soat-min)</th>
+                  </tr>
+                  <tr>
+                    <th scope="col" class="reyslist reys1" data-reysnumber="reys1" colspan="2">Reys 1</th>
+                    <th scope="col" class="reyslist reys2" data-reysnumber="reys2" colspan="2">Reys 2</th>
+                    <th scope="col" class="reyslist reys3" data-reysnumber="reys3" colspan="2">Reys 3</th>
+                    <th scope="col" class="reyslist reys4" data-reysnumber="reys4" colspan="2">Reys 4</th>
+                    <th scope="col" class="reyslist reys5" data-reysnumber="reys5" colspan="2">Reys 1</th>
+                    <th scope="col" class="reyslist reys6" data-reysnumber="reys6" colspan="2">Reys 2</th>
+                    <th scope="col" class="reyslist reys7" data-reysnumber="reys7" colspan="2">Reys 3</th>
+                    <th scope="col" class="reyslist reys8" data-reysnumber="reys8" colspan="2">Reys 4</th>
+                  </tr>
+                  <tr>
+                    <th  colspan="1" class="reys1">Kelish vaqti</th>
+                    <th  colspan="1" class="reys1">Jonash vaqti</th>
+                    <th  colspan="1" class="reys2">Kelish vaqti</th>
+                    <th  colspan="1" class="reys2">Jonash vaqti</th>
+                    <th  colspan="1" class="reys3">Kelish vaqti</th>
+                    <th  colspan="1" class="reys3">Jonash vaqti</th>
+                    <th  colspan="1" class="reys4">Kelish vaqti</th>
+                    <th  colspan="1" class="reys4">Jonash vaqti</th>
+                    <th  colspan="1" class="reys5">Kelish vaqti</th>
+                    <th  colspan="1" class="reys5">Jonash vaqti</th>
+                    <th  colspan="1" class="reys6">Kelish vaqti</th>
+                    <th  colspan="1" class="reys6">Jonash vaqti</th>
+                    <th  colspan="1" class="reys7">Kelish vaqti</th>
+                    <th  colspan="1" class="reys7">Jonash vaqti</th>
+                    <th  colspan="1" class="reys8">Kelish vaqti</th>
+                    <th  colspan="1" class="reys8">Jonash vaqti</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(table,index) in form"  :key="index" >
+                  <template>
+                      <td  class="reys1" colspan="1"><input  v-model="table.reyses_from.reyses[p_index-1].time_to_1" type="text" class="table_input"></td>
+                      <td  colspan="1" class="th_with_input reys1"><input  v-model="table.reyses_from.reyses[p_index-1].time_from_1" type="text" class="table_input"></td>
+                      <td  colspan="1" class="reys2 th_with_input"><input  v-model="table.reyses_from.reyses[p_index-1].time_to_2" type="text" class="table_input"></td>
+                      <td  colspan="1" class="th_with_input reys2"><input  v-model="table.reyses_from.reyses[p_index-1].time_from_2" type="text" class="table_input" ></td>
+                      <td  colspan="1"  class="reys3 th_with_input"><input v-model="table.reyses_from.reyses[p_index-1].time_to_3" type="text" class="table_input"></td>
+                      <td  colspan="1" class="th_with_input reys3"><input  v-model="table.reyses_from.reyses[p_index-1].time_from_3" type="text" class="table_input"></td>
+                      <td  colspan="1"  class="reys4 th_with_input"><input v-model="table.reyses_from.reyses[p_index-1].time_to_4" type="text" class="table_input"></td>
+                      <td  colspan="1" class="th_with_input reys4"><input  v-model="table.reyses_from.reyses[p_index-1].time_from_4" type="text" class="table_input"></td>
+                    </template>
+                    <td  colspan="1">{{  table.stationName.name}}</td>
+                    <template>
+                      <td  class="th_with_input reys1" colspan="1"><input  v-model="table.reyses_to.reyses[p_index-1].time_to_1" type="text" class="table_input"></td>
+                      <td  colspan="1" class="th_with_input reys1"><input  v-model="table.reyses_to.reyses[p_index-1].time_from_1" type="text" class="table_input"></td>
+                      <td  colspan="1" class="reys2 th_with_input"><input  v-model="table.reyses_to.reyses[p_index-1].time_to_2" type="text" class="table_input"></td>
+                      <td  colspan="1" class="th_with_input reys2"><input  v-model="table.reyses_to.reyses[p_index-1].time_from_2" type="text" class="table_input" ></td>
+                      <td  colspan="1"  class="reys3 th_with_input"><input  v-model="table.reyses_to.reyses[p_index-1].time_to_3" type="text" class="table_input"></td>
+                      <td  colspan="1" class="th_with_input reys3"><input  v-model="table.reyses_to.reyses[p_index-1].time_from_3" type="text" class="table_input"></td>
+                      <td  colspan="1"  class="reys4 th_with_input"><input  v-model="table.reyses_to.reyses[p_index-1].time_to_4" type="text" class="table_input"></td>
+                      <td  colspan="1" class="th_with_input reys4"><input  v-model="table.reyses_to.reyses[p_index-1].time_from_4" type="text" class="table_input"></td>
+                    </template>
+                    <td  colspan="1" class="th_with_input"><button @click="removeItem(index)" type="button" class="btn btn-danger btn_trash"><i  class="fas fa-trash"></i></button></td>
+                  </tr>
+                </tbody>
+              </table> 
+            </div>
+          </template>
+          <template v-else>
+            <div class="table-responisve"  >
+              <table class="table table-bordered text-center table-hover table-striped" v-if="form.length">
+                <thead>
+                  <tr>
+                    <th scope="col" rowspan="5">Рейс</th>
+                    <th scope="col" colspan="6">От {{form[0].reyses_from.where.name}}</th>
+                    <th scope="col" colspan="6">От {{form[0].reyses_to.where.name}}</th>
+                  </tr>
+                  <tr>
+                    <th colspan="2">наименование начального пункта</th>
+                    <th colspan="2">наименование контрольного пункта</th>
+                    <th colspan="1">наименование кончного пункта</th>
+                    <th colspan="1" rowspan="2">Рейс изчиллиги</th>
+                    <th colspan="2">наименование начального пункта</th>
+                    <th colspan="2">наименование контрольного пункта</th>
+                    <th colspan="1">наименование кончного пункта</th>
+                    <th colspan="1" rowspan="2">Рейс изчиллиги</th>
+                  </tr>
+                  <tr>
+                    <th>Прибытие</th>
+                    <th>Отправление</th>
+                    <th>Прибытие</th>
+                    <th>Отправление</th>
+                    <th>Прибытие</th>
+                    <th>Прибытие</th>
+                    <th>Отправление</th>
+                    <th>Прибытие</th>
+                    <th>Отправление</th>
+                    <th>Прибытие</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr   v-for="(p_item, p_index) in form[0].reyses_from.reyses"  >
+                    <td>{{ p_index + 1 }}</td>
+                      <td  class="reys1" colspan="1"><input v-model="p_item.time_from_1"   type="text" class="table_input"></td>
+                      <td  class="reys1 th_with_input" colspan="1"><input v-model="p_item.time_to_1"   type="text" class="table_input"></td>
+                      <td  class="reys1" colspan="1"><input v-model="p_item.time_from_2"   type="text" class="table_input"></td>
+                      <td  class="reys1 th_with_input" colspan="1"><input v-model="p_item.time_to_2"   type="text" class="table_input"></td>
+                      <td  class="reys1" colspan="1"><input v-model="p_item.time_from_3"   type="text" class="table_input"></td>
+                      <td  class="reys1 th_with_input" colspan="1"><input v-model="p_item.sequence"   type="text" class="table_input"></td>
+                      <td  class="reys1" colspan="1"><input v-model="form[0].reyses_to.reyses[p_index].time_from_1"   type="text" class="table_input"></td>
+                      <td  class="reys1 th_with_input" colspan="1"><input v-model="form[0].reyses_to.reyses[p_index].time_to_1"   type="text" class="table_input"></td>
+                      <td  class="reys1" colspan="1"><input v-model="form[0].reyses_to.reyses[p_index].time_from_2"   type="text" class="table_input"></td>
+                      <td  class="reys1 th_with_input" colspan="1"><input v-model="form[0].reyses_to.reyses[p_index].time_to_2"   type="text" class="table_input"></td>
+                      <td  class="reys1" colspan="1"><input v-model="form[0].reyses_to.reyses[p_index].time_from_3"   type="text" class="table_input"></td>
+                      <td  class="reys1 th_with_input" colspan="1"><input v-model="form[0].reyses_to.reyses[p_index].sequence"   type="text" class="table_input"></td>
+                  </tr>
+                </tbody>
+              </table> 
+            </div>
+          </template>
+          <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
+            <button  type="submit" class="btn btn-primary btn_save_category"><i  class="fas fa-save"></i>
+              Сохранить
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-    <h2>{{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}"Avtobus yo'nalishi qatnov yo'li masofasini va xarakat vaqtini olchash qaydnomasi</h2>
-    <div class="col-md-4">
-      <p>
-        Qatnov yo'l masofasi
-        <b v-if="titulData.timing_with.length">{{titulData.timing_with[titulData.timing_with.length - 1].end_speedometer}} km</b>
-      </p>
-    </div>
-    <div class="col-md-4">
-      <p>Qatnovchi avtomobillar soni  {{count_bus}}</p>
-    </div>
-    <div class="col-md-4">
-      <p>Yolkira xaqqi so'm</p>
-    </div>
-    <template v-if="titulData.timing_with.length && titulData.timing_with[titulData.timing_with.length - 1].end_speedometer > 400">
-      <div class="table-responisve"  v-for="(p_index) in Math.ceil(reys_to_count / 4)"  :key="p_index" >
-        <table class="table table-bordered text-center table-hover table-striped" v-if="form.length">
-          <thead>
-            <tr>
-              <th scope="col" colspan="8">{{form[0].reyses_from.where.name}} tomonga</th>
-              <th scope="col" rowspan="4">Toxtash joylarining nomlari</th>
-              <th scope="col" colspan="8">{{form[0].reyses_to.where.name}} tomonga</th>
-              <th scope="col" rowspan="4">Ochirib tashlash</th>
-            </tr>
-            <tr>
-              <th scope="col" colspan="8">Qatnov raqamlari va astronomik vaqt (soat-min)</th>
-              <th scope="col" colspan="8">Qatnov raqamlari va astronomik vaqt (soat-min)</th>
-            </tr>
-            <tr>
-              <th scope="col" class="reyslist reys1" data-reysnumber="reys1" colspan="2">Reys 1</th>
-              <th scope="col" class="reyslist reys2" data-reysnumber="reys2" colspan="2">Reys 2</th>
-              <th scope="col" class="reyslist reys3" data-reysnumber="reys3" colspan="2">Reys 3</th>
-              <th scope="col" class="reyslist reys4" data-reysnumber="reys4" colspan="2">Reys 4</th>
-              <th scope="col" class="reyslist reys5" data-reysnumber="reys5" colspan="2">Reys 1</th>
-              <th scope="col" class="reyslist reys6" data-reysnumber="reys6" colspan="2">Reys 2</th>
-              <th scope="col" class="reyslist reys7" data-reysnumber="reys7" colspan="2">Reys 3</th>
-              <th scope="col" class="reyslist reys8" data-reysnumber="reys8" colspan="2">Reys 4</th>
-            </tr>
-            <tr>
-              <th  colspan="1" class="reys1">Kelish vaqti</th>
-              <th  colspan="1" class="reys1">Jonash vaqti</th>
-              <th  colspan="1" class="reys2">Kelish vaqti</th>
-              <th  colspan="1" class="reys2">Jonash vaqti</th>
-              <th  colspan="1" class="reys3">Kelish vaqti</th>
-              <th  colspan="1" class="reys3">Jonash vaqti</th>
-              <th  colspan="1" class="reys4">Kelish vaqti</th>
-              <th  colspan="1" class="reys4">Jonash vaqti</th>
-              <th  colspan="1" class="reys5">Kelish vaqti</th>
-              <th  colspan="1" class="reys5">Jonash vaqti</th>
-              <th  colspan="1" class="reys6">Kelish vaqti</th>
-              <th  colspan="1" class="reys6">Jonash vaqti</th>
-              <th  colspan="1" class="reys7">Kelish vaqti</th>
-              <th  colspan="1" class="reys7">Jonash vaqti</th>
-              <th  colspan="1" class="reys8">Kelish vaqti</th>
-              <th  colspan="1" class="reys8">Jonash vaqti</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(table,index) in form"  :key="index" >
-            <template>
-                <td  class="reys1" colspan="1"><input  v-model="table.reyses_from.reyses[p_index-1].time_to_1" type="text" class="table_input"></td>
-                <td  colspan="1" class="th_with_input reys1"><input  v-model="table.reyses_from.reyses[p_index-1].time_from_1" type="text" class="table_input"></td>
-                <td  colspan="1" class="reys2 th_with_input"><input  v-model="table.reyses_from.reyses[p_index-1].time_to_2" type="text" class="table_input"></td>
-                <td  colspan="1" class="th_with_input reys2"><input  v-model="table.reyses_from.reyses[p_index-1].time_from_2" type="text" class="table_input" ></td>
-                <td  colspan="1"  class="reys3 th_with_input"><input v-model="table.reyses_from.reyses[p_index-1].time_to_3" type="text" class="table_input"></td>
-                <td  colspan="1" class="th_with_input reys3"><input  v-model="table.reyses_from.reyses[p_index-1].time_from_3" type="text" class="table_input"></td>
-                <td  colspan="1"  class="reys4 th_with_input"><input v-model="table.reyses_from.reyses[p_index-1].time_to_4" type="text" class="table_input"></td>
-                <td  colspan="1" class="th_with_input reys4"><input  v-model="table.reyses_from.reyses[p_index-1].time_from_4" type="text" class="table_input"></td>
-              </template>
-              <td  colspan="1">{{  table.stationName.name}}</td>
-              <template>
-                <td  class="th_with_input reys1" colspan="1"><input  v-model="table.reyses_to.reyses[p_index-1].time_to_1" type="text" class="table_input"></td>
-                <td  colspan="1" class="th_with_input reys1"><input  v-model="table.reyses_to.reyses[p_index-1].time_from_1" type="text" class="table_input"></td>
-                <td  colspan="1" class="reys2 th_with_input"><input  v-model="table.reyses_to.reyses[p_index-1].time_to_2" type="text" class="table_input"></td>
-                <td  colspan="1" class="th_with_input reys2"><input  v-model="table.reyses_to.reyses[p_index-1].time_from_2" type="text" class="table_input" ></td>
-                <td  colspan="1"  class="reys3 th_with_input"><input  v-model="table.reyses_to.reyses[p_index-1].time_to_3" type="text" class="table_input"></td>
-                <td  colspan="1" class="th_with_input reys3"><input  v-model="table.reyses_to.reyses[p_index-1].time_from_3" type="text" class="table_input"></td>
-                <td  colspan="1"  class="reys4 th_with_input"><input  v-model="table.reyses_to.reyses[p_index-1].time_to_4" type="text" class="table_input"></td>
-                <td  colspan="1" class="th_with_input reys4"><input  v-model="table.reyses_to.reyses[p_index-1].time_from_4" type="text" class="table_input"></td>
-              </template>
-              <td  colspan="1" class="th_with_input"><button @click="removeItem(index)" type="button" class="btn btn-danger btn_trash"><i  class="fas fa-trash"></i></button></td>
-            </tr>
-          </tbody>
-        </table> 
-      </div>
-    </template>
-    <template v-else>
-      <div class="table-responisve"  >
-        <table class="table table-bordered text-center table-hover table-striped" v-if="form.length">
-          <thead>
-            <tr>
-              <th scope="col" rowspan="5">Рейс</th>
-              <th scope="col" colspan="6">От {{form[0].reyses_from.where.name}}</th>
-              <th scope="col" colspan="6">От {{form[0].reyses_to.where.name}}</th>
-            </tr>
-            <tr>
-              <th colspan="2">наименование начального пункта</th>
-              <th colspan="2">наименование контрольного пункта</th>
-              <th colspan="1">наименование кончного пункта</th>
-              <th colspan="1" rowspan="2">Рейс изчиллиги</th>
-              <th colspan="2">наименование начального пункта</th>
-              <th colspan="2">наименование контрольного пункта</th>
-              <th colspan="1">наименование кончного пункта</th>
-              <th colspan="1" rowspan="2">Рейс изчиллиги</th>
-            </tr>
-            <tr>
-              <th>Прибытие</th>
-              <th>Отправление</th>
-              <th>Прибытие</th>
-              <th>Отправление</th>
-              <th>Прибытие</th>
-              <th>Прибытие</th>
-              <th>Отправление</th>
-              <th>Прибытие</th>
-              <th>Отправление</th>
-              <th>Прибытие</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr   v-for="(p_item, p_index) in form[0].reyses_from.reyses"  >
-              <td>{{ p_index + 1 }}</td>
-                <td  class="reys1" colspan="1"><input v-model="p_item.time_from_1"   type="text" class="table_input"></td>
-                <td  class="reys1 th_with_input" colspan="1"><input v-model="p_item.time_to_1"   type="text" class="table_input"></td>
-                <td  class="reys1" colspan="1"><input v-model="p_item.time_from_2"   type="text" class="table_input"></td>
-                <td  class="reys1 th_with_input" colspan="1"><input v-model="p_item.time_to_2"   type="text" class="table_input"></td>
-                <td  class="reys1" colspan="1"><input v-model="p_item.time_from_3"   type="text" class="table_input"></td>
-                <td  class="reys1 th_with_input" colspan="1"><input v-model="p_item.sequence"   type="text" class="table_input"></td>
-                <td  class="reys1" colspan="1"><input v-model="form[0].reyses_to.reyses[p_index].time_from_1"   type="text" class="table_input"></td>
-                <td  class="reys1 th_with_input" colspan="1"><input v-model="form[0].reyses_to.reyses[p_index].time_to_1"   type="text" class="table_input"></td>
-                <td  class="reys1" colspan="1"><input v-model="form[0].reyses_to.reyses[p_index].time_from_2"   type="text" class="table_input"></td>
-                <td  class="reys1 th_with_input" colspan="1"><input v-model="form[0].reyses_to.reyses[p_index].time_to_2"   type="text" class="table_input"></td>
-                <td  class="reys1" colspan="1"><input v-model="form[0].reyses_to.reyses[p_index].time_from_3"   type="text" class="table_input"></td>
-                <td  class="reys1 th_with_input" colspan="1"><input v-model="form[0].reyses_to.reyses[p_index].sequence"   type="text" class="table_input"></td>
-            </tr>
-          </tbody>
-        </table> 
-      </div>
-    </template>
-    <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
-      <button  type="submit" class="btn btn-primary btn_save_category"><i  class="fas fa-save"></i>
-        Сохранить
-      </button>
-    </div>
-  </form>
+  </div>
 </template>
 <script>
 
 import DatePicker from "vue2-datepicker";
 import { mapGetters, mapActions } from "vuex";
+import PassportTab from "./PassportTab";
 export default {
-  props: ["titulData"],
   components: {
     DatePicker,
+    PassportTab,
   },
   data() {
     return {
+      titulData: [],
       form: [],
       count_bus: 5,
       reys_to_count:1,
@@ -186,6 +197,8 @@ export default {
     };
   },
   async mounted() {
+    await this.actionEditDirection(this.$route.params.directionId);
+    this.titulData = this.getDirection
     this.titulData.timing_with.forEach((element, index) => {
       let dataObj = {
         reyses_to:{
@@ -265,6 +278,7 @@ export default {
     ...mapGetters("passportTab", ["getSchedule"]),
   },
   methods: {
+    ...mapActions("direction", ["actionEditDirection"]),
     ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable", 'actionGetScheduleTable']),
     async saveData() {
       await this.actionGetScheduleTable({id: this.$route.params.directionId, data:this.form})

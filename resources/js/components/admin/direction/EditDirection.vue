@@ -1,45 +1,11 @@
 <template>
   <div class="add_area">
-    <div class="card">
-      <div class="card-header tabCard">
-        <!-- <h4 class="title_user">
-          <i class="peIcon fas fa-route"></i>
-          Добавить направление
-        </h4> -->
-        <ul class="nav nav-tabs " id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a 
-                  class="nav-link" 
-                  id="titul-tab" 
-                  data-toggle="tab" 
-                  href="#titul" 
-                  role="tab" 
-                  aria-controls="titul" 
-                  aria-selected="false"
-                  @click="sendDirection"
-                >Titul</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link " id="timing-tab" data-toggle="tab" href="#timing" role="tab" aria-controls="timing" aria-selected="true" @click="sendDirection">Xronametraj</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" @click="sendDirection">Sxema</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" @click="sendDirection">Xarkatlanish jadvali</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link " id="tarif-tab" data-toggle="tab" href="#tarif" role="tab" aria-controls="tarif" aria-selected="false"@click="sendDirection">Tarif</a>
-            </li>
-        </ul>
-        <router-link class="btn btn-primary back_btn" to="/crm/direction">
-          <span class="peIcon pe-7s-back"></span> Назад
-        </router-link>
-      </div>
-      <div class="card-body">
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade" id="titul" role="tabpanel" aria-labelledby="titul-tab">
-              <form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
+      <div class="card">
+        <div class="card-header tabCard">
+            <PassportTab/>
+        </div>
+        <div class="card-body">
+        <form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
                 <div class="row">
                   <div class="form-group col-md-3">
                     <label for="type_id">Yo'nalish klasifikatsiyasi</label>
@@ -190,23 +156,10 @@
                     </button>
                   </div>
                 </div>
-              </form>
-            </div>
-            <div class="tab-pane fade " id="timing" role="tabpanel" aria-labelledby="home-tab">
-                <Timing v-if="loaded" :titulData="this.getDirection" />
-            </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-              <Scheme v-if="loaded" :titulData="this.getDirection" />
-            </div>
-            <div class="tab-pane fade show active"  id="contact" role="tabpanel" aria-labelledby="contact-tab">
-              <Schedule v-if="loaded" :titulData="this.getDirection" />
-            </div>
-            <div class="tab-pane fade  " id="tarif" role="tabpanel" aria-labelledby="tarif-tab">
-              <Tarif v-if="loaded" :titulData="this.getDirection"/>
-            </div>
-        </div>
-      </div>
+            </form>
+          </div>
     </div>
+  </div>
   </div>
 </template>
 <script>
@@ -214,6 +167,7 @@ import DatePicker from "vue2-datepicker";
 import Timing from "../steppassport/Timing";
 import Scheme from "../steppassport/Scheme";
 import Schedule from "../steppassport/Schedule";
+import PassportTab from "../steppassport/PassportTab";
 import Tarif from "../steppassport/Tarif";
 import { mapGetters, mapActions } from "vuex";
 import "vue2-datepicker/index.css";
@@ -223,6 +177,7 @@ export default {
     Timing,
     Scheme,
     Tarif,
+    PassportTab,
     Schedule
   },
   data() {
