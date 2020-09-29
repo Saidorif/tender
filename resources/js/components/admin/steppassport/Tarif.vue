@@ -63,6 +63,9 @@
 					  							<div class="tarifs tarif_bagaj">
 					  								<b>{{item.tarif_bagaj}}</b>
 					  							</div>
+					  							<div class="tarifs tarif_bagaj">
+					  								<b>{{item.distance_test}}KM</b>
+					  							</div>
 					  						</td>
 					  						<template v-else >
 						  						<td class="has_no_name_tarif" v-if="key !='ddd'"></td>

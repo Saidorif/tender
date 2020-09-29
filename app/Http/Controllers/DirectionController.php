@@ -184,9 +184,14 @@ class DirectionController extends Controller
         $test = [];
         for ($i=0; $i < count($ptimings); $i++) {
             foreach ($ptimings as $key => $timing) {
-                $result[$i]['ddd'] = 0;
-                $result[$i]['ddd'] += $timing['distance_from_start_station'];
+                $result[$i]['ddd'][] = (int)$timing['distance_from_start_station'];
+                if($i != 0){
+                    $distance_test = array_sum($result[$i]['ddd']);
+                }else{
+                    $distance_test = (int)$timing['distance_from_start_station'];
+                }
                 if($ptimings[$i]['whereForm']['name'] == $timing['whereTo']['name'] || $i > $key){
+                    $distance_test += (int)$timing['distance_from_start_station'];
                     $result[$i][$key]['from_name'] = '';
                     $result[$i][$key]['to_name'] = '';
                     $result[$i][$key]['distance'] = '';
@@ -199,11 +204,11 @@ class DirectionController extends Controller
                     $result[$i][$key]['from_name'] = $ptimings[$i]['whereForm']['name'];
                     $result[$i][$key]['to_name'] = $timing['whereTo']['name'];
                     $result[$i][$key]['distance'] = (int)$timing['distance_from_start_station'];
-                    $result[$i][$key]['distance_test'] = (int)$result[$i]['ddd'];
+                    $result[$i][$key]['distance_test'] = $distance_test;
                     $result[$i][$key]['summa'] = 65;
                     $result[$i][$key]['summa_bagaj'] = 35;
-                    $result[$i][$key]['tarif'] = $result[$i][$key]['summa'] * $result[$i][$key]['distance'];
-                    $result[$i][$key]['tarif_bagaj'] = $result[$i][$key]['summa_bagaj'] * $result[$i][$key]['distance'];
+                    $result[$i][$key]['tarif'] = $result[$i][$key]['summa'] * $result[$i][$key]['distance_test'];
+                    $result[$i][$key]['tarif_bagaj'] = $result[$i][$key]['summa_bagaj'] * $result[$i][$key]['distance_test'];
                 }
             }
         }
