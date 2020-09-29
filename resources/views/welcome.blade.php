@@ -8,6 +8,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link href="{{ asset('fonts/peicon/css/peicon.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/fonts.css?version=1.1.1') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css?version=1.1.1') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css?version=1.1.1') }}">
 

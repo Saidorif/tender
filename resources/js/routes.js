@@ -104,6 +104,7 @@ import EditComplaint from './components/admin/complaint/EditComplaint'
 import PassportTab from './components/admin/steppassport/PassportTab'
 
 // Home
+import Home from './components/home/Home'
 import Contact from './components/home/Contact'
 
 
@@ -367,6 +368,13 @@ const router = new Router({
 			children:[
 				{
 					path:'/',
+					name:'home',
+					components:{
+						default:Home,
+					},
+				},
+				{
+					path:'/login',
 					name:'login',
 					components:{
 						default:Login,
