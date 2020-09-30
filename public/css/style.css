@@ -1511,3 +1511,7 @@ hr {
   margin-left: auto;
 }
 
+.nav.nav-tabs {
+  border-bottom: 0;
+}
+
