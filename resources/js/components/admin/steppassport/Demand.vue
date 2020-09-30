@@ -133,7 +133,7 @@
               <tr>
                 <td>11</td>
                 <td width="50%"><b>Бекатлар оралиқ интерваллари</b></td>
-                <td><b>10 минут</b></td>
+                <td><b><input type="number" v-model="form.holiday_days" class="form-control"></b></td>
               </tr>
               <!-- 3 end -->
               <!-- 3 s -->
@@ -144,11 +144,11 @@
               </tr>
               <tr>
                 <td>Тошкент-Турткул</td>
-                <td>5 соат 45 минут</td>
+                <td><input type="number" v-model="form.holiday_days" class="form-control"></td>
               </tr>
               <tr>
                 <td>Турткул-Тошкент</td>
-                <td>5 соат 45 минут</td>
+                <td><input type="number" v-model="form.holiday_days" class="form-control"></td>
               </tr>
               <!-- 3 end -->
               <tr>
