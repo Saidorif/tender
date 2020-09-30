@@ -5,13 +5,13 @@
         <router-link :to='`/crm/direction/titul-tab/${$route.params.directionId}`'>Titul</router-link>
       </li>
       <li class="nav-item">
-        <router-link :to='`/crm/direction/schedule-tab/${$route.params.directionId}`'>Xarkatlanish jadvali</router-link>
-      </li>
-      <li class="nav-item">
         <router-link :to='`/crm/direction/timing-tab/${$route.params.directionId}`'>Xronametraj</router-link>
       </li>
       <li class="nav-item">
         <router-link :to='`/crm/direction/scheme-tab/${$route.params.directionId}`'>Sxema</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link :to='`/crm/direction/schedule-tab/${$route.params.directionId}`'>Xarkatlanish jadvali</router-link>
       </li>
       <li class="nav-item">
         <router-link :to='`/crm/direction/tarif-tab/${$route.params.directionId}`'>Tarif</router-link>
