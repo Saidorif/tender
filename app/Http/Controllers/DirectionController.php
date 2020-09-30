@@ -321,4 +321,58 @@ class DirectionController extends Controller
             'result' => $result,
         ]);
     }
+
+    public function requirement(Request $request,$id)
+    {
+        $direction = Direction::find($id);
+        if(!$direction){
+            return response()->json(['error' => true, 'message' => 'Направление не найден']);
+        }
+        $result = [];
+        $from_name = $direction->from_where['name'];
+        $from_id   = $direction->from_where['id'];
+        $to_name   = $direction->timing->last()->whereTo['name'];
+        $to_id     = $direction->timing->last()->whereTo['id'];
+        $data = [
+            'auto_type'                     => $direction->type->type,
+            'auto_type_name'                => $direction->type->name,
+            'auto_model_class'              => $direction->type->tclasModels,
+            'auto_trans_count'              => 10,
+            'auto_trans_working_days'       => '',
+            'auto_trans_weekends'           => '',
+            'auto_trans_status'             => '',
+            'direction_total_length'        => $direction->timing->last()->end_speedometer,
+            'direction_from_value'          => $from_id,
+            'direction_from_name'           => $from_name,
+            'direction_to_value'            => $to_id,
+            'direction_to_name'             => $to_name,
+            'stations_count'                => count($direction->timing),
+            'stations_from_name'            => $from_name,
+            'stations_to_name'              => $to_name,
+            'seasonal'                      => $direction->seasonal,
+            'reyses_count'                  => '?',
+            'reyses_from_value'             => '',
+            'reyses_from_name'              => $from_name,
+            'reyses_to_value'               => '',
+            'reyses_to_name'                => $to_name,
+            'schedule_begin_time'           => '?',
+            'schedule_begin_from'           => '?',
+            'schedule_begin_to'             => '?',
+            'schedule_end_time'             => '?',
+            'schedule_end_from'             => '?',
+            'schedule_end_to'               => '?',
+            'station_intervals'             => '?',
+            'reys_time'                     => '?',
+            'reys_from_value'               => '?',
+            'reys_to_value'                 => '?',
+            'schedules'                     => '?',
+            'tarif'                         => '?',
+            'tarif_one_km'                  => '?',
+            'tarif_city'                    => '?',
+            'transports_capacity'           => '',
+            'transports_seats'              => '',
+            'minimum_bal'                   => '?',
+        ];
+        return response()->json(['success' => true, 'result' => $data]);
+    }
 }
