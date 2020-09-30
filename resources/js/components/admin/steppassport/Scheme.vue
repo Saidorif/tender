@@ -6,7 +6,7 @@
       </div>
       <div class="card-body">
         <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
-          <h1>Avtobus qatnov yoli tasviri {{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
+          <h1 v-if="titulData.type">Avtobus qatnov yoli tasviri {{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
           <div class="map_scheme" v-if="schemeData.length">
             <div class="mid_line"></div>
             <template v-for="(p_item,p_index) in schemeData">
@@ -175,7 +175,7 @@ export default {
   },
   data() {
     return {
-      titulData: [],
+      titulData: {},
       schemeData: [],
       form:{
           organization_name: 'Toshkent  shaxri IIBB YXXB',
@@ -191,6 +191,7 @@ export default {
     await this.actionEditDirection(this.$route.params.directionId);
     this.titulData = this.getDirection
     this.schemeData = this.titulData ? this.titulData.timing_with : [];
+    console.log(this.titulData)
   },
   computed: {
     ...mapGetters("direction", ["getDirection"]),

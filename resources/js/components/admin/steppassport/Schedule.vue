@@ -30,11 +30,11 @@
               />
             </div>
           </div>
-          <h2>{{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}"Avtobus yo'nalishi qatnov yo'li masofasini va xarakat vaqtini olchash qaydnomasi</h2>
+          <h2 v-if="titulData.type">{{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}"Avtobus yo'nalishi qatnov yo'li masofasini va xarakat vaqtini olchash qaydnomasi</h2>
           <div class="col-md-4">
             <p>
               Qatnov yo'l masofasi
-              <b v-if="titulData.timing_with.length">{{titulData.timing_with[titulData.timing_with.length - 1].end_speedometer}} km</b>
+              <b v-if="titulData.timing_with">{{titulData.timing_with[titulData.timing_with.length - 1].end_speedometer}} km</b>
             </p>
           </div>
           <div class="col-md-4">
@@ -43,7 +43,7 @@
           <div class="col-md-4">
             <p>Yolkira xaqqi so'm</p>
           </div>
-          <template v-if="titulData.timing_with.length && titulData.timing_with[titulData.timing_with.length - 1].end_speedometer > 400">
+          <template v-if="titulData.timing_with && titulData.timing_with[titulData.timing_with.length - 1].end_speedometer > 400">
             <div class="table-responisve"  v-for="(p_index) in Math.ceil(reys_to_count / 4)"  :key="p_index" >
               <table class="table table-bordered text-center table-hover table-striped" v-if="form.length">
                 <thead>
@@ -189,7 +189,7 @@ export default {
   },
   data() {
     return {
-      titulData: [],
+      titulData: {},
       form: [],
       count_bus: 5,
       reys_to_count:1,

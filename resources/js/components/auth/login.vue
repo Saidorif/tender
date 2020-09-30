@@ -1,5 +1,19 @@
 <template>
   <div class="card lognCard">
+    <header class="main_header">
+      <div class="container">
+        <a href="/" class="logo"><img src="img/logoUz.png" alt="" /></a>
+        <ul class="menu_list">
+          <li><a href="/">Bosh sahifa</a></li>
+          <li ><a href="/about">Tender haqida</a></li>
+          <li class="active"><a href="/list-tender">O'tkazilgan tenderlar</a></li>
+          <li><a href="/contact">Biz bilan aloqa</a></li>
+        </ul>
+        <a href="/login" class="btn_login"
+          ><i class="fas fa-sign-in-alt"></i>Tizimga kirish</a
+        >
+      </div>
+    </header>
     <div class="card-body login-card-body">
       <div class="col-md-6 auth_tab_block">
         <nav>
@@ -395,14 +409,6 @@
                       :class="isRequired(signUp.license_date) ? 'isRequired' : ''"
                       placeholder="Дата лицензии"
                     ></date-picker>
-           <!--          <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="isRequired(signUp.license_date) ? 'isRequired' : ''"
-                      >
-                        <img src="/img/docs.png" alt />
-                      </div>
-                    </div> -->
                   </div>
                   <div class="pas_confirm_frame">
                     <div class="input-group">

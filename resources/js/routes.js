@@ -110,8 +110,10 @@ import Scheme from './components/admin/steppassport/Scheme'
 import Demand from './components/admin/steppassport/Demand'
 
 // Home
-import Home from './components/home/Home'
-import Contact from './components/home/Contact'
+import Home from './components/pages/Home'
+import Contact from './components/pages/Contact'
+import About from './components/pages/About'
+import TenderList from './components/pages/TenderList'
 
 // StepPassport
 
@@ -412,6 +414,20 @@ const router = new Router({
 					name:'contact',
 					components:{
 						default:Contact,
+					},
+				},
+				{
+					path:'/about',
+					name:'about',
+					components:{
+						default:About,
+					},
+				},
+				{
+					path:'/list-tender',
+					name:'list-tender',
+					components:{
+						default:TenderList,
 					},
 				},
 			]

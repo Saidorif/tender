@@ -1,0 +1,56 @@
+<template>
+  <div class="about_page">
+    <header class="main_header">
+      <div class="container">
+        <a href="/" class="logo"><img src="img/logoUz.png" alt="" /></a>
+        <ul class="menu_list">
+          <li><a href="/">Bosh sahifa</a></li>
+          <li class="active"><a href="/about">Tender haqida</a></li>
+          <li><a href="/list-tender">O'tkazilgan tenderlar</a></li>
+          <li><a href="/contact">Biz bilan aloqa</a></li>
+        </ul>
+        <a href="/login" class="btn_login"
+          ><i class="fas fa-sign-in-alt"></i>Tizimga kirish</a
+        >
+      </div>
+    </header>
+    <div class="container about_block">
+      <div class="col-md-12">
+        <h2 class="title" align="center">
+          Transport vazirligining <span>Tender onlayn</span> platformasi haqida
+        </h2>
+        <p class="sub_title">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos doloribus esse facere id adipisci quae recusandae, quibusdam officia vitae praesentium ipsum neque iusto sint, dolorum magnam natus vel illum architecto!
+        </p>
+        <p class="sub_title">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae dolore autem error, consequatur saepe a eius officia sed minus debitis ratione illum cum? Esse nostrum nihil totam natus. Natus et debitis at impedit fugiat labore consequuntur saepe quibusdam officiis tenetur, hic, ab ipsa adipisci quisquam porro atque! Odit nam, odio saepe adipisci cupiditate provident quod ipsam aperiam et totam alias voluptas ducimus impedit, amet eos. Earum maxime ipsum, sunt vitae veritatis minima ipsa cumque consequatur, eos harum molestias mollitia iure voluptates, voluptatibus at architecto unde temporibus magnam animi ullam. Consequuntur sapiente nisi velit eligendi, tempora beatae et facere laborum eaque!
+        </p>
+        <p class="sub_title">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae dolore autem error, consequatur saepe a eius officia sed minus debitis ratione illum cum? Esse nostrum nihil totam natus. Natus et debitis at impedit fugiat labore consequuntur saepe quibusdam officiis tenetur, hic, ab ipsa adipisci quisquam porro atque! Odit nam, odio saepe adipisci cupiditate provident quod ipsam aperiam et totam alias voluptas ducimus impedit, amet eos. Earum maxime ipsum, sunt vitae veritatis minima ipsa cumque consequatur, eos harum molestias mollitia iure voluptates, voluptatibus at architecto unde temporibus magnam animi ullam. Consequuntur sapiente nisi velit eligendi, tempora beatae et facere laborum eaque!
+        </p>
+        <p class="sub_title">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae dolore autem error, consequatur saepe a eius officia sed minus debitis ratione illum cum? Esse nostrum nihil totam natus. Natus et debitis at impedit fugiat labore consequuntur saepe quibusdam officiis tenetur, hic, ab ipsa adipisci quisquam porro atque! Odit nam, odio saepe adipisci cupiditate provident quod ipsam aperiam et totam alias voluptas ducimus impedit, amet eos. Earum maxime ipsum, sunt vitae veritatis minima ipsa cumque consequatur, eos harum molestias mollitia iure voluptates, voluptatibus at architecto unde temporibus magnam animi ullam. Consequuntur sapiente nisi velit eligendi, tempora beatae et facere laborum eaque!
+        </p>
+        <p class="sub_title">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae dolore autem error, consequatur saepe a eius officia sed minus debitis ratione illum cum? Esse nostrum nihil totam natus. Natus et debitis at impedit fugiat labore consequuntur saepe quibusdam officiis tenetur, hic, ab ipsa adipisci quisquam porro atque! Odit nam, odio saepe adipisci cupiditate provident quod ipsam aperiam et totam alias voluptas ducimus impedit, amet eos. Earum maxime ipsum, sunt vitae veritatis minima ipsa cumque consequatur, eos harum molestias mollitia iure voluptates, voluptatibus at architecto unde temporibus magnam animi ullam. Consequuntur sapiente nisi velit eligendi, tempora beatae et facere laborum eaque!
+        </p>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import { mapActions, mapGetters } from "vuex";
+import DatePicker from "vue2-datepicker";
+import Multiselect from "vue-multiselect";
+import { TokenService } from "./../../services/storage.service";
+export default {
+  data() {
+    return {};
+  },
+  computed: {},
+  async mounted() {},
+  methods: {},
+};
+</script>
+<style scoped>
+</style>
