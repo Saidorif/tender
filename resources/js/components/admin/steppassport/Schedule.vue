@@ -12,7 +12,7 @@
         >
           <div class="row col-md-12">
             <div class="form-group col-md-3">
-              <label for="reys_to_count">Reyslar soni Toshkent tomondan</label>
+              <label for="reys_to_count" v-if="this.titulData">Reyslar soni {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
               <input
                 type="number"
                 v-model="reys_to_count"
@@ -21,8 +21,8 @@
                 :class="isRequired(reys_to_count) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-3">
-              <label for="reys_from_count">Reyslar soni Nukus tomondan</label>
+            <div class="form-group col-md-3" v-if="this.titulData">
+              <label for="reys_from_count">Reyslar soni  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
               <input
                 type="number"
                 v-model="reys_from_count"
@@ -56,35 +56,35 @@
           <div class="col-md-4">
             <p>Yolkira xaqqi so'm</p>
           </div>
-          <div class="table-responisve" v-if="form.whereFrom">
+          <div class="table-responisve" v-if="form.whereTo">
             <table
               class="table table-bordered text-center table-hover table-striped"
             >
               <thead>
                 <tr>
                   <th scope="col" rowspan="5">Qatnovlar</th>
-                  <th scope="col" :colspan="form.whereFrom.stations.length * 2">
-                    Nuks tomondan
+                  <th scope="col" :colspan="form.whereTo.stations.length * 2">
+                    {{form.whereTo.where.name}}
                   </th>
                   <th scope="col" rowspan="3">Reys ischinligi</th>
                 </tr>
                 <tr>
                   <th
                     colspan="2"
-                    v-for="(item, index) in form.whereFrom.stations"
+                    v-for="(item, index) in form.whereTo.stations"
                   >
                     {{ item.name }}
                   </th>
                 </tr>
                 <tr>
-                  <template v-for="(item, index) in form.whereFrom.stations">
+                  <template v-for="(item, index) in form.whereTo.stations">
                     <th>Прибытие</th>
                     <th>Отправление</th>
                   </template>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(p_item, p_index) in form.whereFrom.reyses">
+                <tr v-for="(p_item, p_index) in form.whereTo.reyses">
                   <td>{{ p_index + 1 }}</td>
                   <template v-for="(p_item, p_index) in p_item">
                     <td class="reys1" colspan="1">
@@ -109,35 +109,35 @@
               </tbody>
             </table>
           </div>
-          <div class="table-responisve" v-if="form.whereTo">
+          <div class="table-responisve" v-if="form.whereFrom">
             <table
               class="table table-bordered text-center table-hover table-striped"
             >
               <thead>
                 <tr>
                   <th scope="col" rowspan="5">Qatnovlar</th>
-                  <th scope="col" :colspan="form.whereTo.stations.length * 2">
-                    Nuks tomondan
+                  <th scope="col" :colspan="form.whereFrom.stations.length * 2">
+                     {{form.whereFrom.where.name}}
                   </th>
                   <th scope="col" rowspan="3">Reys ischinligi</th>
                 </tr>
                 <tr>
                   <th
                     colspan="2"
-                    v-for="(item, index) in form.whereTo.stations"
+                    v-for="(item, index) in form.whereFrom.stations"
                   >
                     {{ item.name }}
                   </th>
                 </tr>
                 <tr>
-                  <template v-for="(item, index) in form.whereTo.stations">
+                  <template v-for="(item, index) in form.whereFrom.stations">
                     <th>Прибытие</th>
                     <th>Отправление</th>
                   </template>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(p_item, p_index) in form.whereTo.reyses">
+                <tr v-for="(p_item, p_index) in form.whereFrom.reyses">
                   <td>{{ p_index + 1 }}</td>
                   <template v-for="(p_item, p_index) in p_item">
                     <td class="reys1" colspan="1">
@@ -187,12 +187,12 @@ export default {
       titulData: {},
       form: {
         whereFrom: {
-          where: "tashkent",
+          where: '',
           stations: [],
           reyses: [],
         },
         whereTo: {
-          where: "tashkent",
+          where:  '',
           stations: [],
           reyses: [],
         },
@@ -234,7 +234,8 @@ export default {
     await this.actionEditDirection(this.$route.params.directionId);
     await this.actionGetScheduleTable(this.$route.params.directionId);
     this.titulData = this.getDirection;
-    console.log(this.titulData)
+    this.form.whereFrom.where = this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
+    this.form.whereTo.where = this.titulData.timing_with[0].whereForm;
     this.form.whereTo.stations = this.titulData.timing_with.map((item) => {
       return item.whereForm;
     });

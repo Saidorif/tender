@@ -16,7 +16,7 @@
       <div class="contact_block">
         <div class="col-md-6">
           <h2 class="title">Bizga o'z <span>taklif</span> va <span>e'trozlaringizni </span> qoldiring!</h2>
-          <p class="sub_title">Taklif va e'torlaringizni formada qoldiring, biz sizning takliflarinigzni va e'trozlarinigzni o'rganib chiqib pochtangiz orqali batafsil ma'lumot beramiza yoki qo'ng'iroq qilamiz agar raqamingizni qoldirsangiz   </p>
+          <p class="sub_title">Taklif va e'trozlaringizni formada qoldiring, biz sizning takliflarinigzni va e'trozlarinigzni o'rganib chiqib pochtangiz orqali batafsil ma'lumot beramiza yoki qo'ng'iroq qilamiz agar raqamingizni qoldirsangiz   </p>
         </div>
         <div class="col-md-5">
           <form @submit.enter.prevent="send">
