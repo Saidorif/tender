@@ -29,6 +29,11 @@ class Reys extends Model
         return $this->belongsTo(\App\Station::class,'station_id');
     }
 
+    public function reysTimes()
+    {
+        return $this->hasMany(\App\ReysTime::class,'reys_id')->where(['status' => 'active']);
+    }
+
     public function scopeGoogle($query)
     {   
         return $query->when($this->where_type === 'region',function($q){
