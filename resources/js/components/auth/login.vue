@@ -38,7 +38,7 @@
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn_register_block">
-                <a href="/forgot-password" class="btn_forgot">Parolingizni  unutdingizmi?</a>
+                <a href="/forgot" class="btn_forgot">Parolingizni  unutdingizmi?</a>
                 <a href="/register" class="btn_bd_blue">Ro'yxatdan o'tish</a>
               </div>
                 <button type="submit" class="btn_login">

@@ -1,5 +1,5 @@
 <template>
-  <div class="card lognCard">
+  <div class="card lognCard registerCard">
     <header class="main_header">
       <div class="container">
         <a href="/" class="logo"><img src="img/logoUz.png" alt="" /></a>
@@ -15,495 +15,236 @@
       </div>
     </header>
     <div class="card-body login-card-body">
-      <div class="col-md-6 auth_tab_block">
-        <nav>
-          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a
-              class="nav-item nav-link active"
-              id="nav-home-tab"
-              data-toggle="tab"
-              href="#nav-home"
-              role="tab"
-              aria-controls="nav-home"
-              aria-selected="true"
-              >Логин</a
-            >
-            <a
-              class="nav-item nav-link"
-              id="nav-profile-tab"
-              data-toggle="tab"
-              href="#nav-profile"
-              role="tab"
-              aria-controls="nav-profile"
-              aria-selected="false"
-              >Зарегистрироваться</a
-            >
+      <form @submit.enter.prevent="onSignUp" class="form_content jv_login_block">
+        <div class="flagbg">
+          <div class="input-group input_group_with_label">
+            <select id="complaint_category_id" class="form-control input_style"  v-model="signUp.region_id" :class="isRequired(signUp.region_id) ? 'isRequired' : ''" @change="selectRegion()">
+              <option :value="item.id" v-for="(item, index) in getRegionList">
+                {{ item.name }}
+              </option>
+            </select> 
+            <label for="complaint_category_id">Viloyatni tanlang!</label>
           </div>
-        </nav>
-        <div class="tab-content" id="nav-tabContent">
-          <div
-            class="tab-pane fade show active"
-            id="nav-home"
-            role="tabpanel"
-            aria-labelledby="nav-home-tab"
-          >
-            <div class="form_content">
-              <div class="login_alert" v-if="errorMsg">
-                <i class="fas fa-exclamation-circle mr-2"></i> Неверный логин
-                или пароль
+          <div class="input-group input_group_with_label">
+            <select id="complaint_category_id" class="form-control input_style" 
+              v-model="signUp.area_id" :class="isRequired(signUp.area_id) ? 'isRequired' : ''">
+              <option
+                :value="item.id"
+                v-for="(item, index) in getAreaList"
+              >
+                {{ item.name }}
+              </option>
+            </select> 
+            <label for="complaint_category_id">Viloyat yoki shaharni tanlang!</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              id="address"
+              class="form-control"
+              v-model="signUp.address"
+              :class="isRequired(signUp.address) ? 'isRequired' : ''"
+            />
+            <label  for="address">Manzil</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              id="surname"
+              v-model="signUp.surname"
+              :class="isRequired(signUp.surname) ? 'isRequired' : ''"
+            />
+            <label  for="surname">Familya</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              v-model="signUp.name"
+              :class="isRequired(signUp.name) ? 'isRequired' : ''"
+            />
+            <label  for="name">Ism</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              id="middlename"
+               v-model="signUp.middlename"
+               :class="isRequired(signUp.middlename) ? 'isRequired' : ''"
+            />
+            <label  for="middlename">Sharif</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              v-model="signUp.inn"
+              :class="isRequired(signUp.inn) ? 'isRequired' : ''"
+              v-mask="'999999999'"
+              id="STIR"
+            />
+            <label  for="STIR">STIR</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              id="company_name"
+              v-model="signUp.company_name"
+              :class="isRequired(signUp.company_name) ? 'isRequired' : ''"
+            />
+            <label  for="company_name">Kompaniyani nomi</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              id="trusted_person"
+              v-model="signUp.trusted_person"
+              :class="isRequired(signUp.trusted_person) ? 'isRequired' : ''"
+            />
+            <label  for="trusted_person">Vakolatli shaxs</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="email"
+              class="form-control"
+              id="userEmail"
+              v-model="signUp.email"
+              :class="isRequired(signUp.email) ? 'isRequired' : ''"
+            />
+            <label  for="userEmail">Email</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              id="phone"
+              v-mask="'(99)999-99-99'"
+              v-model="signUp.phone"
+              :class="isRequired(signUp.phone) ? 'isRequired' : ''"
+            />
+            <label  for="phone">Telefon</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              :class="isRequired(signUp.password) ? 'isRequired' : ''"
+              v-model="signUp.password"
+            />
+            <label  for="password">Parol</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="password"
+              class="form-control"
+              id="license_number"
+              v-model="signUp.confirm_password"
+              :class="
+                isRequired(signUp.confirm_password)
+                  ? 'isRequired'
+                  : ''
+              "
+              @input="confirmPassword()"
+            />
+            <label  for="license_number">Parolni tasdiqlang</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              id="city"
+              v-model="signUp.city"
+              :class="isRequired(signUp.city) ? 'isRequired' : ''"
+            />
+            <label  for="city">Bankining manzli</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              id="bank_number"
+              v-model="signUp.bank_number"
+              :class="
+                isRequired(signUp.bank_number) ? 'isRequired' : ''
+              "
+              v-mask="'99999999999999999999'"
+            />
+            <label  for="bank_number">Bank hisob raqami</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              id="mfo"
+              v-model="signUp.mfo"
+              :class="isRequired(signUp.mfo) ? 'isRequired' : ''"
+              v-mask="'99999'"
+            />
+            <label  for="mfo">MFO</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              id="oked"
+              v-model="signUp.oked"
+              :class="isRequired(signUp.oked) ? 'isRequired' : ''"
+              v-mask="'99999'"
+            />
+            <label  for="oked">OKED</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              id="license_number"
+              v-model="signUp.license_number"
+              :class="
+                isRequired(signUp.license_number) ? 'isRequired' : ''"
+              v-mask="'99999'"
+            />
+            <label  for="license_number">Litsenziya nomeri</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <input
+              type="text"
+              class="form-control"
+              id="license_number"
+              v-model="signUp.license_type"
+              :class="isRequired(signUp.license_type) ? 'isRequired' : ''"
+            />
+            <label  for="license_number">Litsenziya turi</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+            <date-picker
+              lang="ru"
+              type="date"
+              v-model="signUp.license_date"
+              valueType="format"
+              :class="
+                isRequired(signUp.license_date) ? 'isRequired' : ''
+              "
+            ></date-picker>
+            <label  for="license_date">Litsenziya sanasi</label>
+          </div>
+          <div  class="input-group input_group_with_label">
+          </div>
+            <div class="btns_block">
+              <div class="btn_register_block">
+                <a href="/login" class="btn_bd_blue">Tizimga kirish</a>
               </div>
-              <p class="login_title">Вход в персональный кабинет</p>
-              <form @submit.enter.prevent="onLogin">
-                <div class="input-group">
-                  <input
-                    type="email"
-                    class="form-control"
-                    placeholder="Email"
-                    v-model="form.email"
-                    :class="isLoginRequired(form.email) ? 'isRequired' : ''"
-                  />
-                  <div class="input-group-append">
-                    <div
-                      class="input-group-text"
-                      :class="isLoginRequired(form.email) ? 'isRequired' : ''"
-                    >
-                      <img src="/img/user.png" alt />
-                    </div>
-                  </div>
-                </div>
-                <div class="input-group">
-                  <input
-                    type="password"
-                    class="form-control"
-                    placeholder="Пароль"
-                    v-model="form.password"
-                    :class="isLoginRequired(form.password) ? 'isRequired' : ''"
-                  />
-                  <div class="input-group-append">
-                    <div
-                      class="input-group-text"
-                      :class="isLoginRequired(form.email) ? 'isRequired' : ''"
-                    >
-                      <img src="/img/key.png" alt />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <!-- /.col -->
-                  <div class="col-12">
-                    <button type="submit" class="btn btn-primary btn-block">
-                      Войти
-                    </button>
-                  </div>
-                  <!-- /.col -->
-                </div>
-              </form>
+              <button type="submit" class="btn_login">
+                Ro'yxatdan o'tish
+              </button>
             </div>
-          </div>
-          <!-- Registration -->
-          <div
-            class="tab-pane fade"
-            id="nav-profile"
-            role="tabpanel"
-            aria-labelledby="nav-profile-tab"
-          >
-            <div class="form_content auth_request">
-              <div class="login_alert" v-if="errorMsgSign">
-                <i class="fas fa-exclamation-circle mr-2"></i>
-                {{ errorMsgSign.message }}
-              </div>
-              <form @submit.enter.prevent="onSignUp">
-                <div class="col-md-6">
-                  <div class="input-group">
-                    <select
-                      class="form-control input_style"
-                      v-model="signUp.region_id"
-                      :class="isRequired(signUp.region_id) ? 'isRequired' : ''"
-                      @change="selectRegion()"
-                    >
-                      <option value selected disabled>Выберите область!</option>
-                      <option
-                        :value="item.id"
-                        v-for="(item, index) in getRegionList"
-                      >
-                        {{ item.name }}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.inn"
-                      :class="isRequired(signUp.inn) ? 'isRequired' : ''"
-                      v-mask="'999999999'"
-                      placeholder="ИНН"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="isRequired(signUp.inn) ? 'isRequired' : ''"
-                      >
-                        <img src="/img/doc.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.surname"
-                      placeholder="Фамилия"
-                      :class="isRequired(signUp.surname) ? 'isRequired' : ''"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="isRequired(signUp.surname) ? 'isRequired' : ''"
-                      >
-                        <img src="/img/user.png" alt="" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.name"
-                      placeholder="Имя"
-                      :class="isRequired(signUp.name) ? 'isRequired' : ''"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="isRequired(signUp.name) ? 'isRequired' : ''"
-                      >
-                        <img src="/img/user.png" alt="" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.middlename"
-                      placeholder="Отчество"
-                      :class="isRequired(signUp.middlename) ? 'isRequired' : ''"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="
-                          isRequired(signUp.middlename) ? 'isRequired' : ''
-                        "
-                      >
-                        <img src="/img/user.png" alt="" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.trusted_person"
-                      placeholder="Уполномоченное лицо"
-                      :class="
-                        isRequired(signUp.trusted_person) ? 'isRequired' : ''
-                      "
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="
-                          isRequired(signUp.trusted_person) ? 'isRequired' : ''
-                        "
-                      >
-                        <img src="/img/user.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="email"
-                      class="form-control"
-                      v-model="signUp.email"
-                      :class="isRequired(signUp.email) ? 'isRequired' : ''"
-                      placeholder="Email"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="isRequired(signUp.email) ? 'isRequired' : ''"
-                      >
-                        <img src="/img/email.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.address"
-                      :class="isRequired(signUp.address) ? 'isRequired' : ''"
-                      placeholder="Адрес"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="isRequired(signUp.address) ? 'isRequired' : ''"
-                      >
-                        <img src="/img/pin.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      v-mask="'(99)999-99-99'"
-                      class="form-control"
-                      v-model="signUp.phone"
-                      placeholder="Телефон"
-                      :class="isRequired(signUp.phone) ? 'isRequired' : ''"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="isRequired(signUp.phone) ? 'isRequired' : ''"
-                      >
-                        <img src="/img/phone.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="password"
-                      class="form-control"
-                      placeholder="Пароль"
-                      :class="isRequired(signUp.password) ? 'isRequired' : ''"
-                      v-model="signUp.password"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="isRequired(signUp.password) ? 'isRequired' : ''"
-                      >
-                        <img src="/img/key.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="input-group">
-                    <select
-                      class="form-control input_style"
-                      v-model="signUp.area_id"
-                      :class="isRequired(signUp.area_id) ? 'isRequired' : ''"
-                    >
-                      <option value selected disabled>
-                        Выберите регин или город!
-                      </option>
-                      <option
-                        :value="item.id"
-                        v-for="(item, index) in getAreaList"
-                      >
-                        {{ item.name }}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.company_name"
-                      :class="
-                        isRequired(signUp.company_name) ? 'isRequired' : ''
-                      "
-                      placeholder="Название компании"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="
-                          isRequired(signUp.company_name) ? 'isRequired' : ''
-                        "
-                      >
-                        <img src="/img/company.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.city"
-                      placeholder="Адрес банка"
-                      :class="isRequired(signUp.city) ? 'isRequired' : ''"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="isRequired(signUp.city) ? 'isRequired' : ''"
-                      >
-                        <img src="/img/mfo.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.bank_number"
-                      :class="
-                        isRequired(signUp.bank_number) ? 'isRequired' : ''
-                      "
-                      v-mask="'99999999999999999999'"
-                      placeholder="Р/счет"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="
-                          isRequired(signUp.bank_number) ? 'isRequired' : ''
-                        "
-                      >
-                        <img src="/img/stir.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.mfo"
-                      :class="isRequired(signUp.mfo) ? 'isRequired' : ''"
-                      v-mask="'99999'"
-                      placeholder="МФО"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="isRequired(signUp.mfo) ? 'isRequired' : ''"
-                      >
-                        <img src="/img/oknx.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.oked"
-                      :class="isRequired(signUp.oked) ? 'isRequired' : ''"
-                      v-mask="'99999'"
-                      placeholder="ОКЕД"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="isRequired(signUp.oked) ? 'isRequired' : ''"
-                      >
-                        <img src="/img/docs.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.license_number"
-                      :class="
-                        isRequired(signUp.license_number) ? 'isRequired' : ''
-                      "
-                      v-mask="'99999'"
-                      placeholder="Номер лицензии"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="
-                          isRequired(signUp.license_number) ? 'isRequired' : ''
-                        "
-                      >
-                        <img src="/img/docs.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="signUp.license_type"
-                      :class="
-                        isRequired(signUp.license_type) ? 'isRequired' : ''
-                      "
-                      placeholder="Тип лицензии"
-                    />
-                    <div class="input-group-append">
-                      <div
-                        class="input-group-text"
-                        :class="
-                          isRequired(signUp.license_type) ? 'isRequired' : ''
-                        "
-                      >
-                        <img src="/img/docs.png" alt />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="input-group register_date">
-                    <date-picker
-                      lang="ru"
-                      type="date"
-                      v-model="signUp.license_date"
-                      valueType="format"
-                      :class="
-                        isRequired(signUp.license_date) ? 'isRequired' : ''
-                      "
-                      placeholder="Дата лицензии"
-                    ></date-picker>
-                  </div>
-                  <div class="pas_confirm_frame">
-                    <div class="input-group">
-                      <input
-                        type="password"
-                        class="form-control"
-                        placeholder="Пароль подтверждения"
-                        v-model="signUp.confirm_password"
-                        :class="
-                          isRequired(signUp.confirm_password)
-                            ? 'isRequired'
-                            : ''
-                        "
-                        @input="confirmPassword()"
-                      />
-                      <div class="input-group-append">
-                        <div
-                          class="input-group-text"
-                          :class="
-                            isRequired(signUp.confirm_password)
-                              ? 'isRequired'
-                              : ''
-                          "
-                        >
-                          <img src="/img/key.png" alt />
-                        </div>
-                      </div>
-                    </div>
-                    <small class="redText" v-if="checkPassword">
-                      <b>Пароль не совпадает</b>
-                    </small>
-                  </div>
-                  <div class="input-group mt-4">
-                    <button type="submit" class="btn btn-primary btn-block">
-                      Зарегистрироваться
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
         </div>
-      </div>
-      <div class="col-md-6" style="position: unset"></div>
+      </form>
     </div>
   </div>
 </template>

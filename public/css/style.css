@@ -1170,6 +1170,7 @@ hr {
   background-color: #fff;
   box-shadow: 0px 11px 68px 0px rgba(0, 0, 0, 0.14);
   width: 100%;
+  z-index: 99;
 }
 
 .main_header .logo {
@@ -1468,6 +1469,32 @@ hr {
   background-repeat: no-repeat;
   background-position: center;
   position: relative;
+}
+
+.jv_login_block .flagbg .input_group_with_label {
+  max-width: calc(100% / 3 - 20px);
+}
+
+.jv_login_block .flagbg .btns_block {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.registerCard .jv_login_block .flagbg {
+  background: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.registerCard .jv_login_block .jv_form_block {
+  width: 50%;
+}
+
+.registerCard .jv_login_block .flagbg::before {
+  display: none;
 }
 
 .jv_login_block .flagbg::before {
