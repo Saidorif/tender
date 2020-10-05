@@ -43,10 +43,10 @@
 					  <div class="form-group col-md-4">
 					    <label for="checked">Маршрут</label>
 					    <multiselect 
-							:value="form.direction_ids"
+							:value="direction_ids"
 							:options="getDirectionFindList"
 							@search-change="value => findDirection(value)"
-							v-model="form.direction_ids" 
+							v-model="direction_ids" 
 	                        placeholder="Выберите маршрут"
 	                        :searchable="true"
 	                        track-by="id"
@@ -87,10 +87,11 @@
 			return{
 				form:{
 					time:'',
-					direction_ids:{name:'',id:''},
+					direction_ids:[],
 					address:'',
 				},
 				requiredInput:false,
+				direction_ids:{},
 				checked:false,
 				isLoading:false,
 			}
@@ -118,11 +119,13 @@
 		      }
 		    },
 		    dispatchAction(data){
-		      this.form.direction_ids =  data;
+		      this.form.direction_ids.push(data.id)
 		    },
 			async saveTender(){
+				console.log(this.form)
 		    	if (this.form.name != ''){
-					// await this.actionAddTenderAnnounce(this.form)
+					await this.actionAddTenderAnnounce(this.form)
+					console.log(this.getMassage)
 					// this.$router.push("/crm/tenderannounce");
 					this.requiredInput = false
 				}else{

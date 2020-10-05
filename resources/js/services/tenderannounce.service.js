@@ -2,22 +2,22 @@ import ApiService from './api.service'
 
 const TenderAnnounceService = {
 	tenderannounceList(){
-		return ApiService.get(`/api/tenderannounce/list`)
+		return ApiService.get(`/api/tender/list`)
 	},
-	tenderannounces(){
-		return ApiService.post(`/api/tenderannounce`)
+	tenderannounceses(){
+		return ApiService.post(`/api/tender`)
 	},
 	addtenderannounce(data){
-		return ApiService.post(`/api/tenderannounce/store`,data)
+		return ApiService.post(`/api/tender/store`,data)
 	},
 	edittenderannounce(id){
-		return ApiService.get(`/api/tenderannounce/edit/${id}`)
+		return ApiService.get(`/api/tender/edit/${id}`)
 	},
 	updatetenderannounce(data){
-		return ApiService.post(`/api/tenderannounce/update/${data.id}`,data)
+		return ApiService.post(`/api/tender/update/${data.id}`,data)
 	},
 	deletetenderannounce(id){
-		return ApiService.delete(`/api/tenderannounce/destroy/${id}`)
+		return ApiService.delete(`/api/tender/destroy/${id}`)
 	},
 };
 
