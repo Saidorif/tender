@@ -10,13 +10,17 @@ class Reys extends Model
         'direction_id',
         'station_id',
         'where',
+        'from',
+        'stations',
         'where_type',
         'status',
         'user_id',
         'type',
     ];
     protected $casts = [
-        'where' => 'array'
+        'where' => 'array',
+        'from' => 'array',
+        'stations' => 'object',
     ];
 
     public function region(){

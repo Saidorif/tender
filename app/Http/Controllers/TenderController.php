@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Tender;
 use App\Direction;
+use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 
 class TenderController extends Controller
@@ -29,10 +30,11 @@ class TenderController extends Controller
         $direction_ids = Direction::pluck('id');
         $validator = Validator::make($request->all(),[
             'direction_ids' => 'required|array',
-            'direction_ids.*' => ['required',Rule::in([$direction_ids])],
+            // 'direction_ids.*' => ['required',Rule::in([$direction_ids])],
+            'direction_ids.*' => 'required|integer',
             'time' => 'required|string',
             'address' => 'required|string',
-            'type' => 'required|string',
+            'type' => ['nullable',Rule::in(['simple','paket'])],
         ]);
 
         if($validator->fails()){
@@ -41,11 +43,17 @@ class TenderController extends Controller
 
         $inputs = $request->all();
         $user = $request->user();
+        if(!array_key_exists('type', $inputs)){
+            $inputs['type'] = 'simple';
+        }
 
         $inputs['status'] = 'pending';
         $inputs['created_by'] = $user->id;
+        $inputs['time'] = Carbon::parse($inputs['time'])->format('Y-m-d H:i:s');
 
-        return response()->json(['success' => true,'inputs' => $inputs ,'result' => $direction_ids]);
+        $tender = Tender::create($inputs);
+
+        return response()->json(['success' => true,'inputs' => $inputs ,'message' => 'Объявление о тендере успешно создано']);
 
         //Store to DB
     }

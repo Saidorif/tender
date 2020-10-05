@@ -15,4 +15,8 @@ class Tender extends Model
         'approved_by',
         'created_by',
     ];
+
+    protected $casts = [
+        'direction_ids' => 'array'
+    ];
 }

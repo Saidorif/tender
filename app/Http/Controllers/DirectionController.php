@@ -269,7 +269,9 @@ class DirectionController extends Controller
             $reys = Reys::create([
                 'direction_id' => $direction->id,
                 'station_id'   => $inputs['whereFrom']['where']['id'],
+                'stations'     => $inputs['whereFrom']['stations'],
                 'where'        => $inputs['whereFrom']['where'],
+                'from'         => $inputs['whereFrom']['from'],
                 'where_type'   => $where_type,
                 'status'       => 'active',
                 'type'         => 'from',
@@ -297,6 +299,8 @@ class DirectionController extends Controller
                 'direction_id' => $direction->id,
                 'station_id'   => $inputs['whereTo']['where']['id'],
                 'where'        => $inputs['whereTo']['where'],
+                'from'         => $inputs['whereTo']['from'],
+                'stations'     => $inputs['whereTo']['stations'],
                 'where_type'   => $where_type,
                 'status'       => 'active',
                 'type'         => 'to',
