@@ -32,14 +32,14 @@
               <input  type="email" id="useremail" class="form-control" v-model="form.email" :class="isLoginRequired(form.email) ? 'isRequired' : ''"> 
               <label  for="useremail">Email</label>
             </div>
-            <div  class="input-group input_group_with_label">
+            <div  class="input-group input_group_with_label mb-5">
               <input  type="password" id="userpassword" class="form-control" v-model="form.password" :class="isLoginRequired(form.password) ? 'isRequired' : ''"> 
               <label  for="userpassword">Parol</label>
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn_register_block">
+                <a href="/forgot-password" class="btn_forgot">Parolingizni  unutdingizmi?</a>
                 <a href="/register" class="btn_bd_blue">Ro'yxatdan o'tish</a>
-                <a href="/forgot-password" class="">Parolingizni  unutdingizmi?</a>
               </div>
                 <button type="submit" class="btn_login">
                   Kirish

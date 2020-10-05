@@ -1343,10 +1343,10 @@ hr{
 }
 .jv_login_block .btn_login{
 
-box-shadow: 0 1px 2px 0 rgba(0,0,0,.15),0 1px 3px 1px rgba(0,0,0,.15)!important;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.15),0 1px 3px 1px rgba(0,0,0,.15)!important;
 }
 .btn_bd_blue{
-    line-height: 40px;
+    line-height: 36px;
     border-radius: 30px;
     border: 1px solid #292666;
     background: #fff;
@@ -1355,8 +1355,21 @@ box-shadow: 0 1px 2px 0 rgba(0,0,0,.15),0 1px 3px 1px rgba(0,0,0,.15)!important;
     color: #292666;
     font-weight: 600;
     font-family: "Poppins-Regular";
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.15),0 1px 3px 1px rgba(0,0,0,.15)!important;
+    display: block;
 }
+.btn_bd_blue:hover{
+    text-decoration: none;
+    background: #292666;
+    color: #fff;
+}
+.btn_register_block .btn_forgot{
+    position: absolute;
+    top: -30px;
+    font-family: "Poppins-Regular";
+    white-space: nowrap;
+    color: #292666;
+}   
 .btn_register_block{
-    display: flex;
-    flex-direction: column;
+    position: relative;
 }
