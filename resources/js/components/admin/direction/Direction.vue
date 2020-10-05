@@ -14,13 +14,10 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Серия направления</th>
 							<th scope="col">Название направления</th>
 							<th scope="col">Номер направления</th>
-							<th scope="col">Регион (From)</th>
-							<th scope="col">Area (From)</th>
-							<th scope="col">Регион (To)</th>
-							<th scope="col">Area (To)</th>
+							<th scope="col">Расстояние направления (м)</th>
+							<th scope="col">Год создания</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
@@ -28,10 +25,9 @@
 						<tr v-for="(direct,index) in getDirections.data">
 							<td scope="row">{{index+1}}</td>
 							<td>{{direct.name}}</td>
-							<td>{{direct.region_from.name}}</td>
-							<td>{{direct.area_from ? direct.area_from.name : ''}}</td>
-							<td>{{direct.region_to.name}}</td>
-							<td>{{direct.area_to ? direct.area_to.name : ''}}</td>
+							<td>{{direct.pass_number}}</td>
+							<td>{{direct.distance}}</td>
+							<td>{{direct.year}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/direction/edit/${direct.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>

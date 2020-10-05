@@ -93,6 +93,11 @@ import ConditionalSign from './components/admin/conditionalsign/ConditionalSign'
 import AddConditionalSign from './components/admin/conditionalsign/AddConditionalSign'
 import EditConditionalSign from './components/admin/conditionalsign/EditConditionalSign'
 
+// TenderAnnounce
+import TenderAnnounce from './components/admin/tenderannounce/TenderAnnounce'
+import AddTenderAnnounce from './components/admin/tenderannounce/AddTenderAnnounce'
+import EditTenderAnnounce from './components/admin/tenderannounce/EditTenderAnnounce'
+
 // Complaint
 import EditComplaintListAll from './components/admin/complaint/EditComplaintListAll'
 import ComplaintListAll from './components/admin/complaint/ComplaintListAll'
@@ -385,6 +390,18 @@ const router = new Router({
 				{
 					path:'conditionalsign/edit/:conditionalsignId',
 					component:EditConditionalSign,
+				},
+				{
+					path:'tenderannounce',
+					component:TenderAnnounce,
+				},
+				{
+					path:'tenderannounce/add',
+					component:AddTenderAnnounce,
+				},
+				{
+					path:'tenderannounce/edit/:tenderannounceId',
+					component:EditTenderAnnounce,
 				},
 			]
 		},

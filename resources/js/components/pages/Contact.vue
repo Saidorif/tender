@@ -1,17 +1,6 @@
 <template>
   <div class="contacts_page">
-    <header class="main_header">
-      <div class="container">
-          <a href="/" class="logo"><img src="img/logoUz.png" alt=""></a>
-          <ul class="menu_list">
-              <li ><a href="/">Bosh sahifa</a></li>
-              <li><a href="/about">Tender haqida</a></li>
-              <li><a href="/list-tender">O'tkazilgan tenderlar</a></li>
-              <li class="active"><a href="/contact">Biz bilan aloqa</a></li>
-          </ul>
-          <a href="/login" class="btn_login"><i class="fas fa-sign-in-alt"></i>Tizimga kirish</a>
-      </div>
-    </header>
+    <Header/>
     <div class="container">
       <div class="contact_block">
         <div class="col-md-6">
@@ -107,11 +96,13 @@
 import { mapActions, mapGetters } from "vuex"
 import DatePicker from "vue2-datepicker";
 import Multiselect from 'vue-multiselect';
+import Header from './Header'
 import { TokenService } from "./../../services/storage.service";
 export default {
   components: {
     DatePicker,
     Multiselect,
+    Header,
   },
   data() {
     return {

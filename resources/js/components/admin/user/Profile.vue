@@ -4,6 +4,9 @@
       <h3 class="card-title title_user mb-0">
         <i class="peIcon pe-7s-user"></i>Мои данные
       </h3>
+      <div class="balance">
+        <strong>Баланс:</strong> {{form.user.balance}}
+      </div>
     </div>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
@@ -32,59 +35,60 @@
           <i class="peIcon pe-7s-unlock"></i> Изменить пароль
         </a>
       </li>
-      <li class="nav-item">
-        <a
-          class="nav-link "
-          id="contact-tab"
-          data-toggle="tab"
-          href="#contact"
-          role="tab"
-          aria-controls="contact"
-          aria-selected="false"
-        >
-          <i class="peIcon pe-7s-user"></i> Резюме
-        </a>
-      </li>
     </ul>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active " id="home" role="tabpanel" aria-labelledby="home-tab">
         <form role="form" @submit.prevent.enter="sendProfile">
           <div class="card-body d-flex flex-wrap" v-if="form.user" >
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="name">Ф.И.О</label>
-                <p class="form-control input_style disabled">{{form.user.name}}</p>
-              </div>
-              <div class="form-group">
-                <label for="name">Должность</label>
-                <p
-                  class="form-control input_style disabled"
-                >{{ form.user.position ? form.user.position.name : '' }}</p>
-              </div>
-              <div class="form-group">
-                <label for="name">E-mail</label>
-                <p class="form-control input_style disabled">{{ form.user.email }}</p>
-              </div>
-              <div class="form-group">
-                <label for="name">Образование (название,профессия,адрес)</label>
-                <p class="form-control input_style disabled">{{ form.user.text }}</p>
-              </div>
-              <div class="form-group">
-                <label for="name">Адрес</label>
-                <p class="form-control input_style disabled">{{ form.user.address }}</p>
-              </div>
-              <div class="input_block_d_flex">
+            <div class="col-md-8">
+              <div class="row">                
                 <div class="form-group col-md-6">
-                  <label for="name">Телефон</label>
+                  <label for="name">Ф.И.О</label>
+                  <p class="form-control input_style disabled">{{form.user.name}}</p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="company_name">Название компании</label>
+                  <p class="form-control input_style disabled">{{ form.user.company_name}}</p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="email">E-mail</label>
+                  <p class="form-control input_style disabled">{{ form.user.email }}</p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name">Адрес</label>
+                  <p class="form-control input_style disabled">{{ form.user.address }}</p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="bank_number">Р/счет</label>
+                  <p class="form-control input_style disabled">{{ form.user.bank_number }}</p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="city">Адрес банка</label>
+                  <p class="form-control input_style disabled">{{ form.user.city }}</p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inn">ИНН</label>
+                  <p class="form-control input_style disabled">{{ form.user.inn }}</p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="mfo">МФО</label>
+                  <p class="form-control input_style disabled">{{ form.user.mfo }}</p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="oked">ОКЕД</label>
+                  <p class="form-control input_style disabled">{{ form.user.oked }}</p>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="phone">Телефон</label>
                   <p class="form-control input_style disabled">{{ form.user.phone }}</p>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="name">Статус</label>
+                  <label for="status">Статус</label>
                   <p class="form-control input_style disabled">{{ form.user.status == 'active' ? 'Активный' : 'Неактивный' }}</p>
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="form-group photoFileUploader" style="margin-bottom: 18px;">
                 <div class="avatar-upload">
                   <div class="avatar-edit">
@@ -99,97 +103,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="avatar-upload">
-                  <div class="avatar-edit">
-                    <input
-                      type="file"
-                      id="image"
-                      accept=".png, .jpg, .jpeg"
-                      @change="changePhoto($event)"
-                    />
-                    <label for="image">
-                      <i class="pe-7s-pen"></i>
-                    </label>
-                  </div>
-                  <div class="avatar-preview">
-                    <div
-                      id="imagePreview"
-                      :style="{'backgroundImage': 'url('+photoImg(form.user.image)+')'}"
-                    ></div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="name">Управления</label>
-                <p class="form-control input_style disabled">{{form.user.category ? form.user.category.name : ''}}</p>
-              </div>
-              <div class="input_block_d_flex">
-                <div class="form-group col-md-6">
-                  <label for="name">Дата рождения</label>
-                  <p
-                    class="form-control input_style disabled"
-                  >{{ form.user.birthday  }}</p>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Пол</label>
-                  <p class="form-control input_style disabled">{{ form.user.gender == 'male' ? 'Мужчина' : 'Женский' }}</p>
-                </div>
-              </div>
-              <div class="input_block_d_flex">
-                <div class="form-group col-md-6">
-                  <label for="name">Дата с</label>
-                  <p
-                    class="form-control input_style disabled"
-                  >{{ form.user.order_date }}</p>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Дата по</label>
-                  <p class="form-control input_style disabled" v-if="form.user.working">до настоящего времени</p>
-                  <p class="form-control input_style disabled" v-else>{{ form.user.leave_date }}</p>
-                </div>
               </div>
             </div>
-            <h5 class="sub_title">Трудовая деятельность</h5>
-            <template v-if="form.user.experience">
-              <div class="row col-md-12" v-for="(ex, index) in form.user.experience">
-                <div class="form-group col-md-3">
-                    <label for="name">Название учреждения</label>
-                    <p
-                      class="form-control input_style disabled"
-                    >{{ ex.company  }}</p>
-                  </div>
-                <div class="form-group col-md-3">
-                    <label for="name">Должность</label>
-                    <p
-                      class="form-control input_style disabled"
-                    >{{ ex.position  }}</p>
-                  </div>
-                <div class="form-group col-md-3">
-                    <label for="name">Дата с</label>
-                    <p
-                      class="form-control input_style disabled"
-                    >{{ ex.date_from  }}</p>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="name">Дата с</label>
-                    <p
-                      class="form-control input_style disabled"
-                    >{{ ex.date_to  }}</p>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="name">Адрес учреждения</label>
-                    <p
-                      class="form-control input_style disabled"
-                    >{{ ex.address  }}</p>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="name">Описание</label>
-                    <p
-                      class="form-control input_style disabled"
-                    >{{ ex.description  }}</p>
-                </div>
-              </div>
-            </template>
             <div class="col-12 d-flex justify-content-end">
               <button type="submit" class="btn btn-primary">
                 <i class="fas fa-save"></i> Сохранить
@@ -207,7 +122,7 @@
                 type="password"
                 class="form-control input_style"
                 id="exampleInputPassword1"
-                placeholder="Password.."
+                placeholder="Пароль.."
                 :class="isRequiredPassword(passwords.password) ? 'isRequired' : ''"
                 v-model="passwords.password"
               />
@@ -234,82 +149,6 @@
             </div>
           </div>
         </form>
-      </div>
-      <div class="tab-pane fade cv_tab" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-        <!-- <button class="print_cv" @click="printCv()">print Cv</button> -->
-        <page size="A4" class="cv_block">
-          <h4 class="cv_title">МАЪЛУМОТНОМА</h4>
-          <div class="cv_header">
-            <div class="cv_user_img">
-              <img :src="photoImg(form.user.image)" :alt="form.user.title" class="cv_user_img">
-            </div>
-            <div class="cv_header_info">
-              <h2>{{ form.user.name }}</h2>
-              <p>{{ form.user.address }}</p>
-              <p><b>Тел:</b> <span style="margin-right: 30px;">{{ form.user.phone }}</span>  <b>Email</b>  {{ form.user.email }} </p>
-            </div>
-          </div>
-          <ul class="cv_body_list">
-            <li>
-              <b>Туғилган йили:</b>
-              <span>{{ form.user.birthday }}</span>
-            </li>
-            <li>
-              <b>Туғилган жойи:</b>
-              <span>Тошкент шахар, Яшнаобод тумани</span>
-            </li>
-            <li>
-              <b>Миллати:</b>
-              <span>Узбек</span>
-            </li>
-            <li>
-              <b>Партиявийлиги:</b>
-              <span>йўқ</span>
-            </li>
-            <li>
-              <b>Маълумоти:</b>
-              <span>олий</span>
-            </li>
-            <li>
-              <b>Тамомлаган:</b>
-              <span>2016 йил – Тошкент автомобил йўллар институти, Ер усти транспортлари эксплуатацияси факултети (бакалавриат)</span>
-            </li>
-            <li>
-              <b>Маълумоти бўйича мутахассислиги:</b>
-              <span>Инженер</span>
-            </li>
-            <li>
-              <b>Илмий даражаси:</b>
-              <span>йўқ</span>
-            </li>
-            <li>
-              <b>Илмий унвони:</b>
-              <span>йўқ</span>
-            </li>
-            <li>
-              <b>Қайси чет тилларинибилади:</b>
-              <span>Рус ва Инглиз тиллари </span>
-            </li>
-            <li>
-              <b>Давлат мукофотлари билан тақдирланганми (қанақа):</b>
-              <span>йўқ </span>
-            </li>
-            <li>
-              <b>Халқ депутатлари, республика, вилоят, шаҳар ва туман Кенгаши депутатими ёки бошқа сайланадиган органларнинг аъзосими (тўлиқ кўрсатилиши лозим)</b>
-              <span>йўқ </span>
-            </li>
-          </ul>
-          <h6 class="cv_exper_subtitle">МЕҲНАТ ФАОЛИЯТИ</h6>
-          <ul class="cv_experience_list">
-            <li v-for="(ex, index) in form.user.experience">
-              <div class="cv_ex_date"><b>{{ex.date_from}}</b> - <b>{{ex.date_to}}</b> </div>
-              <div class="cv_ex_info">
-                <p>{{ ex.company}} {{ex.address}} {{ex.description}}</p>
-                <p>-{{ex.position}}</p>
-              </div>
-            </li>
-          </ul>
-        </page>
       </div>
     </div>
   </div>
@@ -344,6 +183,7 @@ export default {
   async mounted() {
     await this.ActionProfile();
     this.form = this.getProfile;
+    console.log(this.getProfile)
   },
   methods: {
     ...mapActions("user", [
