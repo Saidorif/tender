@@ -8,6 +8,7 @@ use App\TimingDetails;
 use App\PassportTiming;
 use App\Region;
 use App\Reys;
+use App\ReysTime;
 use App\Area;
 use Validator;
 use Illuminate\Validation\Rule;
@@ -219,6 +220,18 @@ class DirectionController extends Controller
     {
         $validator = Validator::make($request->all(), [            
             'data'  => 'required|array',
+            'data.whereFrom'  => 'required|array',
+            'data.whereFrom.reyses'  => 'required|array',
+            'data.whereFrom.reyses.*'  => 'required|array',
+            'data.whereFrom.reyses.*.*.from_date'  => 'required|string',
+            'data.whereFrom.reyses.*.*.to_date'  => 'required|string',
+            'data.whereFrom.reyses.*.*.where'  => 'required|array',
+            'data.whereTo'  => 'required|array',
+            'data.whereTo.reyses'  => 'required|array',
+            'data.whereTo.reyses.*'  => 'required|array',
+            'data.whereTo.reyses.*.*.from_date'  => 'required|string',
+            'data.whereTo.reyses.*.*.to_date'  => 'required|string',
+            'data.whereTo.reyses.*.*.where'  => 'required|array',
         ]);
 
         if($validator->fails()){
@@ -233,63 +246,72 @@ class DirectionController extends Controller
         foreach ($schedules as $key => $value) {
             $value->status = 'inactive';
             $value->save();
+            $reysTimes = $value->reysTimes;
+            foreach ($reysTimes as $key => $item) {
+                $item->status = 'inactive';
+                $item->save();
+            }
         }
         $inputs = $request->input('data');
         $result = [];
         $from = $direction->regionFrom->name;
         $to = $direction->regionTo->name;
-        // dd($inputs);
-        foreach ($inputs as $key => $value) {
-            foreach ($value['reyses_from']['reyses'] as $key => $item) {
-                $where_type = 'region';
-                if (array_key_exists('region_id', $value['reyses_from']['where'])) {
-                    $where_type = 'area';
-                }
-                if(array_key_exists('region_id', $value['reyses_from']['where']) && array_key_exists('area_id', $value['reyses_from']['where'])){
-                    $where_type = 'station';
-                }
-                $reys = Reys::create([
-                    'direction_id' => 1,
-                    'station_id'   => $value['stationName']['id'],
-                    'where_id'     => $value['reyses_from']['where']['id'],
-                    'where_type'   => $where_type,
-                    'time_from_1'  => $item['time_from_1'],
-                    'time_from_2'  => $item['time_from_2'],
-                    'time_from_3'  => $item['time_from_3'],
-                    'time_from_4'  => $item['time_from_4'],
-                    'time_to_1'    => $item['time_to_1'],
-                    'time_to_2'    => $item['time_to_2'],
-                    'time_to_3'    => $item['time_to_3'],
-                    'time_to_4'    => $item['time_to_4'],
-                ]);
-                $result[] = $reys;
+        //Get data and store
+
+        foreach ($inputs['whereFrom']['reyses'] as $key => $reyses_from) {
+            $where_type = 'region';
+            if (array_key_exists('region_id', $inputs['whereFrom']['where'])) {
+                $where_type = 'area';
             }
-            foreach ($value['reyses_to']['reyses'] as $key => $item) {
-                $where_type = 'region';
-                if (array_key_exists('region_id', $value['reyses_from']['where'])) {
-                    $where_type = 'area';
-                }
-                if(array_key_exists('region_id', $value['reyses_from']['where']) && array_key_exists('area_id', $value['reyses_from']['where'])){
-                    $where_type = 'station';
-                }
-                $reys = Reys::create([
-                    'direction_id' => 1,
-                    'station_id'   => $value['stationName']['id'],
-                    'where_id'     => $value['reyses_to']['where']['id'],
-                    'where_type'   => $where_type,
-                    'time_from_1'  => $item['time_from_1'],
-                    'time_from_2'  => $item['time_from_2'],
-                    'time_from_3'  => $item['time_from_3'],
-                    'time_from_4'  => $item['time_from_4'],
-                    'time_to_1'    => $item['time_to_1'],
-                    'time_to_2'    => $item['time_to_2'],
-                    'time_to_3'    => $item['time_to_3'],
-                    'time_to_4'    => $item['time_to_4'],
+            if(array_key_exists('region_id', $inputs['whereFrom']['where']) && array_key_exists('area_id', $inputs['whereFrom']['where'])){
+                $where_type = 'station';
+            }
+            $reys = Reys::create([
+                'direction_id' => $direction->id,
+                'station_id'   => $inputs['whereFrom']['where']['id'],
+                'where'        => $inputs['whereFrom']['where'],
+                'where_type'   => $where_type,
+                'status'       => 'active',
+                'type'         => 'from',
+            ]);
+            foreach ($reyses_from as $key => $item) {
+                $reysTime = ReysTime::create([
+                    'start' => $item['from_date'],
+                    'end' => $item['to_date'],
+                    'where' => $item['where'],
+                    'status' => 'active',
+                    'direction_id' => $direction->id,
+                    'reys_id' => $reys->id,
                 ]);
-                $result[] = $reys;
             }
         }
-        //Get data and store
+        foreach ($inputs['whereTo']['reyses'] as $key => $reyses_from) {
+            $where_type = 'region';
+            if (array_key_exists('region_id', $inputs['whereTo']['where'])) {
+                $where_type = 'area';
+            }
+            if(array_key_exists('region_id', $inputs['whereTo']['where']) && array_key_exists('area_id', $inputs['whereTo']['where'])){
+                $where_type = 'station';
+            }
+            $reys = Reys::create([
+                'direction_id' => $direction->id,
+                'station_id'   => $inputs['whereTo']['where']['id'],
+                'where'        => $inputs['whereTo']['where'],
+                'where_type'   => $where_type,
+                'status'       => 'active',
+                'type'         => 'to',
+            ]);
+            foreach ($reyses_from as $key => $item) {
+                $reysTime = ReysTime::create([
+                    'start' => $item['from_date'],
+                    'end' => $item['to_date'],
+                    'where' => $item['where'],
+                    'status' => 'active',
+                    'direction_id' => $direction->id,
+                    'reys_id' => $reys->id,
+                ]);
+            }
+        }
         return response()->json([
             'success' => true,
             'message' => 'Расписание сохранено'
@@ -299,25 +321,33 @@ class DirectionController extends Controller
     public function getSchedule(Request $request, $id)
     {
         $result = [];
-        $reyses = Reys::where(['direction_id' => $id,'status' => 'active'])->get();
-        foreach ($reyses as $key => $reys) {
-            if($reys->where_type == 'region'){
-                $station = $reys->region;
-            }
-            if($reys->where_type == 'area'){
-                $station = $reys->area;
-            }
-            if($reys->where_type == 'station'){
-                $station = $reys->station;
-            }
-            $item = $reys->toArray();
+        $reysesFrom = Reys::where(['direction_id' => $id,'status' => 'active','type' => 'from'])->get();
+        $reysesTo   = Reys::where(['direction_id' => $id,'status' => 'active','type' => 'to'])->get();
+
+        foreach ($reysesFrom as $key => $reys_from) {
+            // if($reys->where_type == 'region'){
+            //     $station = $reys->region;
+            // }
+            // if($reys->where_type == 'area'){
+            //     $station = $reys->area;
+            // }
+            // if($reys->where_type == 'station'){
+            //     $station = $reys->station;
+            // }
+            // $item = $reys->toArray();
             // $item[] = $station;
-            $result[$reys->where_id][] = $item;
+            $reys_times = $reys_from->reysTimes;
+            $result['whereFrom'][] = $reys_from;
         }
-        $result = array_values($result);
+        foreach ($reysesTo as $key => $reys_to) {
+            $reys_times = $reys_to->reysTimes;
+            $result['whereTo'][] = $reys_to;
+        }
+        // $result = array_values($result);
         return response()->json([
             'success' => true,
-            'count' => count($reyses),
+            'count' => count($reysesFrom),
+            'count' => count($reysesTo),
             'result' => $result,
         ]);
     }

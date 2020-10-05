@@ -6,7 +6,11 @@ const state = {
 	passport: [],
 	tarifs: [],
 	schedule: [],
+<<<<<<< HEAD
 	demand: [],
+=======
+	schedule_msg: ''
+>>>>>>> 602e56d0ff08ce54acfbf2b4efdcac280feb2f6f
 };
 
 const getters = {
@@ -15,6 +19,9 @@ const getters = {
 	},
 	getTarif(state){
 		return state.tarifs
+	},
+	getScheduleResMsg(state){
+		return state.schedule_msg
 	},
 	getSchedule(state){
 		return state.schedule
@@ -39,6 +46,15 @@ const actions = {
 		try {
 			const tarif =  await PassportTabService.tarif(payload);
 			await commit('setTarif',tarif.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionSetScheduleTable({commit},payload){
+		try {
+			const tarif =  await PassportTabService.setScheduleTable(payload);
+			await commit('setScheduleMsg', tarif.data)
 			return true
 		} catch (error) {
 			return false
@@ -85,6 +101,9 @@ const mutations = {
 	},
 	setSchedule(state, item){
 		state.schedule = item
+	},
+	setScheduleMsg(state, item){
+		state.schedule_msg = item
 	}
 };
 

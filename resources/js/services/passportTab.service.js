@@ -4,8 +4,11 @@ const PassportTabService = {
 	addTiming(data){
 		return ApiService.post(`/api/timing/store/${data.timing[0].direction_id}`,data)
 	},
-	getScheduleTable(data){
+	setScheduleTable(data){
 		return ApiService.post(`/api/direction/schedule/${data.id}`,data)
+	},
+	getScheduleTable(id){
+		return ApiService.get(`/api/direction/getschedule/${id}`)
 	},
 	clearTimingTable(id){
 		return ApiService.delete(`/api/timing/destroy/${id}`)

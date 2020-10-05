@@ -17,18 +17,11 @@ class CreateReysTable extends Migration
             $table->bigIncrements('id');
             $table->integer('direction_id');
             $table->integer('station_id');
-            $table->integer('where_id');
+            $table->string('where');//from|to
+            $table->string('type');
             $table->integer('user_id')->nullable();
             $table->string('status')->default('active');
             $table->string('where_type')->default('region');
-            $table->string('time_from_1')->nullable();
-            $table->string('time_from_2')->nullable();
-            $table->string('time_from_3')->nullable();
-            $table->string('time_from_4')->nullable();
-            $table->string('time_to_1')->nullable();
-            $table->string('time_to_2')->nullable();
-            $table->string('time_to_3')->nullable();
-            $table->string('time_to_4')->nullable();
             $table->timestamps();
         });
     }
