@@ -214,9 +214,9 @@ export default {
     DatePicker,
     PassportTab,
   },
-  data() {
-    return {
-      form: {
+  data(){
+    return{
+      form:{
         working_days:'',
         holiday_days:'',
       },
@@ -238,7 +238,7 @@ export default {
       return this.requiredInput && input === "";
     },
     saveData(){
-
+      
     }
   },
 };
