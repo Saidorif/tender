@@ -15,20 +15,30 @@
               <label for="reys_to_count" v-if="this.titulData">Reyslar soni {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
               <input
                 type="number"
-                v-model="reys_to_count"
+                v-model="form.reys_to_count"
                 id="reys_to_count"
                 class="form-control input_style"
-                :class="isRequired(reys_to_count) ? 'isRequired' : ''"
+                :class="isRequired(form.reys_to_count) ? 'isRequired' : ''"
               />
             </div>
             <div class="form-group col-md-3" v-if="this.titulData">
               <label for="reys_from_count">Reyslar soni  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
               <input
                 type="number"
-                v-model="reys_from_count"
+                v-model="form.reys_from_count"
                 id="reys_from_count"
                 class="form-control input_style"
-                :class="isRequired(reys_from_count) ? 'isRequired' : ''"
+                :class="isRequired(form.reys_from_count) ? 'isRequired' : ''"
+              />
+            </div>
+            <div class="form-group col-md-3">
+              <label for="count_bus">Qatnovchi avtomobillar soni </label>
+              <input
+                type="number"
+                v-model="form.count_bus"
+                id="count_bus"
+                class="form-control input_style"
+                :class="isRequired(form.count_bus) ? 'isRequired' : ''"
               />
             </div>
           </div>
@@ -51,12 +61,12 @@
             </p>
           </div>
           <div class="col-md-4">
-            <p>Qatnovchi avtomobillar soni {{ count_bus }}</p>
+            <p>Qatnovchi avtomobillar soni {{ form.count_bus }}</p>
           </div>
           <div class="col-md-4">
             <p>Yolkira xaqqi so'm</p>
           </div>
-          <div class="table-responisve" v-if="form.whereTo">
+          <div class="table-responsive" v-if="form.whereTo">
             <table
               class="table table-bordered text-center table-hover table-striped"
             >
@@ -109,7 +119,7 @@
               </tbody>
             </table>
           </div>
-          <div class="table-responisve" v-if="form.whereFrom">
+          <div class="table-responsive" v-if="form.whereFrom">
             <table
               class="table table-bordered text-center table-hover table-striped"
             >
@@ -190,37 +200,50 @@ export default {
           where: '',
           stations: [],
           reyses: [],
+          from: ''
         },
         whereTo: {
           where:  '',
           stations: [],
           reyses: [],
+          from: ''
         },
+        count_bus: null,
+        reys_to_count: null,
+        reys_from_count: null,
       },
-      count_bus: 5,
-      reys_to_count: 1,
-      reys_from_count: 1,
+
     };
   },
   watch: {
-    reys_to_count: {
+    'form.reys_to_count': {
       handler() {
-        this.form.whereTo.reyses = [];
-        if (this.reys_to_count) {
-          for (let i = 1; i <= this.reys_to_count; i++) {
-            let dataArray = this.form.whereTo.stations.map((item) => {
-              return { from_date: "", to_date: "", where: item };
-            });
-            this.form.whereTo.reyses.push(dataArray);
+        if (this.form.reys_to_count) {
+          if(this.form.reys_to_count > this.form.whereTo.reyses.length  ){
+            for (let i = 1; i <= this.form.reys_to_count - this.form.whereTo.reyses.length; i++) {
+              let dataArray = this.form.whereTo.stations.map((item) => {
+                return { from_date: "", to_date: "", where: item };
+              });
+              this.form.whereTo.reyses.push(dataArray);
+            }
+          }else{
+            this.form.whereTo.reyses = [];
+            for (let i = 1; i <= this.form.reys_to_count; i++) {
+              let dataArray = this.form.whereTo.stations.map((item) => {
+                return { from_date: "", to_date: "", where: item };
+              });
+              this.form.whereTo.reyses.push(dataArray);
+            }
           }
         }
       },
+      deep: true
     },
-    reys_from_count: {
+    'form.reys_from_count': {
       handler() {
         this.form.whereFrom.reyses = [];
-        if (this.reys_from_count) {
-          for (let i = 1; i <= this.reys_from_count; i++) {
+        if (this.form.reys_from_count) {
+          for (let i = 1; i <= this.form.reys_from_count; i++) {
             let dataArray = this.form.whereFrom.stations.map((item) => {
               return { from_date: "", to_date: "", where: item };
             });
@@ -233,21 +256,26 @@ export default {
   async mounted() {
     await this.actionEditDirection(this.$route.params.directionId);
     await this.actionGetScheduleTable(this.$route.params.directionId);
-    this.titulData = this.getDirection;
-    this.form.whereFrom.where = this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
-    this.form.whereTo.where = this.titulData.timing_with[0].whereForm;
-    this.form.whereTo.stations = this.titulData.timing_with.map((item) => {
-      return item.whereForm;
-    });
-    this.form.whereTo.stations = this.titulData.timing_with.map((item) => {
-      return item.whereForm;
-    });
-    this.form.whereFrom.stations = this.titulData.timing_with.map((item) => {
-      return item.whereForm;
-    });
-    this.form.whereFrom.stations = this.titulData.timing_with.map((item) => {
-      return item.whereForm;
-    });
+      this.titulData = this.getDirection;
+    // if(this.getSchedule){
+    //   console.log(this.getSchedule)
+    //   this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
+    //   this.form.whereTo.where = this.getSchedule.whereTo[0].where;
+    //         console.log(this.form)
+    // }else{
+      this.form.whereFrom.where = this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
+      this.form.whereTo.where = this.titulData.timing_with[0].whereForm;
+      this.form.whereFrom.from = this.titulData.timing_with[0].whereForm;
+      this.form.whereTo.from =  this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
+      this.form.whereTo.stations = this.titulData.timing_with.map((item) => {
+        return item.whereForm;
+      });
+      this.form.whereFrom.stations = this.titulData.timing_with.map((item) => {
+        return item.whereForm;
+      });
+
+      this.form.whereFrom.stations = this.form.whereFrom.stations.reverse()
+    // }
   },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
