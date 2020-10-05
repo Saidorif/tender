@@ -1,6 +1,6 @@
 <template>
   <div class="add_area">
-      <div class="card">
+      <div class="card card_with_tabs">
         <div class="card-header tabCard">
             <PassportTab/>
         </div>
@@ -159,7 +159,6 @@
             </form>
           </div>
     </div>
-  </div>
   </div>
 </template>
 <script>
@@ -402,17 +401,5 @@ export default {
 };
 </script>
 <style scoped>
-.tabCard{
-  padding: 0 15px;
-}
-.tabCard .nav.nav-tabs{
-  border: none;
-}
-.tabCard .back_btn{
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-.tabCard .nav-link {
-  padding: .9rem 1rem;
-}
+
 </style>
