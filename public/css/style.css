@@ -34,6 +34,66 @@
 
 .card {
   box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+  border: none;
+}
+
+.card_with_tabs {
+  border: none;
+  box-shadow: none;
+}
+
+.card_with_tabs .card-header {
+  border: none;
+}
+
+.card_with_tabs .card-header.tabCard {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+}
+
+.card_with_tabs .card-header .passport_tab {
+  position: relative;
+  width: 100%;
+}
+
+.card_with_tabs .card-header .passport_tab .nav.nav-tabs a {
+  position: relative;
+  padding: 0 15px;
+  font-family: "Poppins-Medium";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #9CA1AB;
+  text-decoration: none !important;
+}
+
+.card_with_tabs .card-header .passport_tab .nav.nav-tabs a.active {
+  color: #292666;
+}
+
+.card_with_tabs .card-header .passport_tab .nav.nav-tabs a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #292666;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.card_with_tabs .card-header .passport_tab::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  right: 0;
+  background: #EBEFF5;
+  border-radius: 2px;
+  height: 2px;
 }
 
 .peIcon.pe-7s-back {
@@ -1170,6 +1230,7 @@ hr {
   background-color: #fff;
   box-shadow: 0px 11px 68px 0px rgba(0, 0, 0, 0.14);
   width: 100%;
+  z-index: 99;
 }
 
 .main_header .logo {
@@ -1470,6 +1531,32 @@ hr {
   position: relative;
 }
 
+.jv_login_block .flagbg .input_group_with_label {
+  max-width: calc(100% / 3 - 20px);
+}
+
+.jv_login_block .flagbg .btns_block {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.registerCard .jv_login_block .flagbg {
+  background: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.registerCard .jv_login_block .jv_form_block {
+  width: 50%;
+}
+
+.registerCard .jv_login_block .flagbg::before {
+  display: none;
+}
+
 .jv_login_block .flagbg::before {
   content: "";
   position: absolute;
@@ -1525,7 +1612,7 @@ hr {
 }
 
 .btn_bd_blue {
-  line-height: 40px;
+  line-height: 36px;
   border-radius: 30px;
   border: 1px solid #292666;
   background: #fff;
@@ -1534,10 +1621,25 @@ hr {
   color: #292666;
   font-weight: 600;
   font-family: "Poppins-Regular";
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15), 0 1px 3px 1px rgba(0, 0, 0, 0.15) !important;
+  display: block;
+}
+
+.btn_bd_blue:hover {
+  text-decoration: none;
+  background: #292666;
+  color: #fff;
+}
+
+.btn_register_block .btn_forgot {
+  position: absolute;
+  top: -30px;
+  font-family: "Poppins-Regular";
+  white-space: nowrap;
+  color: #292666;
 }
 
 .btn_register_block {
-  display: flex;
-  flex-direction: column;
+  position: relative;
 }
 

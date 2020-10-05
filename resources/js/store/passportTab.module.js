@@ -60,7 +60,7 @@ const actions = {
 	async actionGetScheduleTable({commit},payload){
 		try {
 			const tarif =  await PassportTabService.getScheduleTable(payload);
-			await commit('setSchedule', tarif.data)
+			await commit('setSchedule', tarif.data.result)
 			return true
 		} catch (error) {
 			return false

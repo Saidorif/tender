@@ -44,7 +44,7 @@
 					    <label for="checked">Маршрут</label>
 					    <multiselect 
 							:value="direction_ids"
-							:options="getDirectionFindList"
+							:options="findList"
 							@search-change="value => findDirection(value)"
 							v-model="direction_ids" 
 	                        placeholder="Выберите маршрут"
@@ -62,7 +62,13 @@
 							<span slot="noOptions">Cписок пустой</span>
 						</multiselect>	
 					  </div>
-					  <div class="form-group col-lg-2 form_btn">
+					  <div class="form-group col-md-2 form_btn" v-if="checked">
+						<button type="button" class="btn btn-secondary">
+							<i class="fas fa-plus"></i>
+							Добавить
+						</button>
+				  	  </div>
+					  <div class="form-group col-lg-6 form_btn d-flex justify-content-end">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
@@ -70,6 +76,20 @@
 				  	  </div>
 					</div>
 				</form>
+			  	<div class="table-responsive">
+				  	<table class="table table-bordered">
+				  		<thead>
+				  			<tr>
+				  				<th>№</th>
+				  			</tr>
+				  		</thead>
+				  		<tbody>
+				  			<tr>
+				  				<td>data</td>
+				  			</tr>
+				  		</tbody>
+				  	</table>
+			  	</div>
 		  	</div>
 	  	</div>
 	</div>
@@ -89,16 +109,29 @@
 					time:'',
 					direction_ids:[],
 					address:'',
+					type:'simple',
 				},
 				requiredInput:false,
 				direction_ids:{},
 				checked:false,
 				isLoading:false,
+				items:[],
+				findList:[]
 			}
 		},
 		computed:{
 			...mapGetters('tenderannounce',['getMassage']),
-			...mapGetters('direction',['getDirectionFindList'])
+			...mapGetters('direction',['getDirectionFindList']),
+			...mapGetters("passportTab", ["getSchedule"]),
+		},
+		watch:{
+			checked:{
+				handler(){
+					this.form.direction_ids=[]
+					this.direction_ids={}
+					this.findList = []
+				}
+			}
 		},
 		mounted(){
 
@@ -106,6 +139,16 @@
 		methods:{
 			...mapActions('tenderannounce',['actionAddTenderAnnounce']),
 			...mapActions('direction',['actionDirectionFind']),
+			...mapActions("passportTab", [
+		      "actionGetScheduleTable",
+		    ]),
+			removeDirection(value){
+				this.form.direction_ids = this.form.direction_ids.filter((item,index)=>{
+					if(item != value.id){
+						return item
+					}
+				})
+			},
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
@@ -113,16 +156,21 @@
 		      if(value != ''){
 		        this.isLoading = true
 		        await setTimeout(async ()=>{
-		           await this.actionDirectionFind({name: value})
+					await this.actionDirectionFind({name: value})
+			        this.findList = this.getDirectionFindList
 		        this.isLoading = false
 		        },1000)
 		      }
 		    },
-		    dispatchAction(data){
+		    async dispatchAction(data){
 		      this.form.direction_ids.push(data.id)
+		      if (this.checked) {
+			      await this.actionGetScheduleTable(data.id)
+			      this.items = this.getSchedule
+			      console.log(this.items)
+		      }
 		    },
 			async saveTender(){
-				console.log(this.form)
 		    	if (this.form.name != ''){
 					await this.actionAddTenderAnnounce(this.form)
 					console.log(this.getMassage)

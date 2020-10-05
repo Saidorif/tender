@@ -2,7 +2,7 @@
   <div class="passport_tab">
     <ul class="nav nav-tabs " id="myTab" role="tablist">
       <li class="nav-item">
-        <router-link :to='`/crm/direction/titul-tab/${$route.params.directionId}`'>Titul</router-link>
+        <router-link :to='`/crm/direction/titul-tab/${$route.params.directionId}`' >Titul</router-link>
       </li>
       <li class="nav-item">
         <router-link :to='`/crm/direction/timing-tab/${$route.params.directionId}`'>Xronametraj</router-link>
@@ -20,10 +20,10 @@
         <router-link :to='`/crm/direction/demand-tab/${$route.params.directionId}`'>Talab</router-link>
       </li>
     </ul>
-    <router-link class="btn btn-primary back_btn" to="/crm/direction">
+    <!-- <router-link class="btn btn-primary back_btn" to="/crm/direction">
       <span class="peIcon pe-7s-back"></span> 
       Назад
-    </router-link>
+    </router-link> -->
   </div>
 </template>
 <script>
@@ -45,13 +45,5 @@
 	}
 </script>
 <style scoped>
-	.nav-item{
-    padding: 0px 10px;
-  }
-  .passport_tab{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-  }
+
 </style>
