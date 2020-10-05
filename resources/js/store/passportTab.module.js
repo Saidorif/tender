@@ -6,6 +6,7 @@ const state = {
 	passport: [],
 	tarifs: [],
 	schedule: [],
+	demand: [],
 };
 
 const getters = {
@@ -17,11 +18,23 @@ const getters = {
 	},
 	getSchedule(state){
 		return state.schedule
+	},
+	getDemand(state){
+		return state.demand
 	}
 };
 
 
 const actions = {
+	async actionDemand({commit},id){
+		try {
+			const demand =  await PassportTabService.demands(id);
+			await commit('setDemand',demand.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionTarif({commit},payload){
 		try {
 			const tarif =  await PassportTabService.tarif(payload);
@@ -61,6 +74,9 @@ const actions = {
 };
 
 const mutations = {
+	setDemand(state, demand){
+		state.demand = demand
+	},
 	setTimingMessage(state, timingMessage){
 		state.timingMessage = timingMessage
 	},

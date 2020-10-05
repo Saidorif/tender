@@ -12,6 +12,9 @@ const PassportTabService = {
 	},
 	tarif(id){
 		return ApiService.get(`/api/direction/timingtarif/${id}`)
+	},
+	demands(id){
+		return ApiService.get(`/api/direction/requirement/${id}`)
 	}
 };
 

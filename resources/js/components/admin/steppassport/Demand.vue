@@ -223,15 +223,17 @@ export default {
     };
   },
   async mounted() {
-    await this.actionEditDirection(this.$route.params.directionId);
+    // await this.actionEditDirection(this.$route.params.directionId);
+    await this.actionDemand(this.$route.params.directionId);
+    console.log(this.getDemand)
     },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
-    ...mapGetters("passportTab", ["getSchedule"]),
+    ...mapGetters("passportTab", ['getDemand']),
   },
   methods: {
     ...mapActions("direction", ["actionEditDirection"]),
-    ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable", 'actionGetScheduleTable']),
+    ...mapActions("passportTab", ['actionDemand']),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
