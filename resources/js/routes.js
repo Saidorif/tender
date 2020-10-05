@@ -9,7 +9,9 @@ import store from "./store/store";
 import Dashboard from './components/admin/Dashboard'
 import Admin from './components/admin/layouts/Admin'
 import Master from './components/layouts/Master'
-import Login from './components/auth/Login'
+import Login from './components/auth/login'
+import Register from './components/auth/register'
+import Forgot from './components/auth/forgot'
 import Profile from './components/admin/user/Profile'
 
 // Employee
@@ -424,6 +426,20 @@ const router = new Router({
 					name:'login',
 					components:{
 						default:Login,
+					},
+				},
+				{
+					path:'/register',
+					name:'register',
+					components:{
+						default:Register,
+					},
+				},
+				{
+					path:'/forgot',
+					name:'forgot',
+					components:{
+						default:Forgot,
 					},
 				},
 				{
