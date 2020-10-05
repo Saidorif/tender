@@ -43,6 +43,13 @@ Route::group([
             Route::get('complaintcategory/edit/{id}', 'ComplaintCategoryController@edit')->where('id', '[0-9]+');
             Route::delete('complaintcategory/destroy/{id}', 'ComplaintCategoryController@destroy')->where('id', '[0-9]+');
 
+            // Tender Announce
+            Route::get('tender', 'TenderController@index');
+            Route::post('tender/store', 'TenderController@store');
+            Route::post('tender/update/{id}', 'TenderController@update')->where('id', '[0-9]+');
+            Route::get('tender/edit/{id}', 'TenderController@edit')->where('id', '[0-9]+');
+            Route::delete('tender/destroy/{id}', 'TenderController@destroy')->where('id', '[0-9]+');
+
             // Complaint
             Route::post('complaint', 'ComplaintController@index');
             Route::get('complaint/count', 'ComplaintController@count');            

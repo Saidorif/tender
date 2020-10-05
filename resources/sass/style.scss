@@ -29,6 +29,58 @@
 }
 .card{
   box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03), 0 0.9375rem 1.40625rem rgba(4,9,20,0.03), 0 0.25rem 0.53125rem rgba(4,9,20,0.05), 0 0.125rem 0.1875rem rgba(4,9,20,0.03);
+    border: none;
+}
+.card_with_tabs{
+    border: none;
+    box-shadow: none;
+}
+.card_with_tabs .card-header{
+    border: none;
+}
+.card_with_tabs .card-header.tabCard{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+}
+.card_with_tabs .card-header .passport_tab{
+    position: relative;
+    width: 100%;
+}
+.card_with_tabs .card-header .passport_tab .nav.nav-tabs  a{
+    position: relative;
+    padding: 0 15px;
+    font-family: "Poppins-Medium";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #9CA1AB;
+    text-decoration: none !important;
+}
+.card_with_tabs .card-header .passport_tab .nav.nav-tabs  a.active{
+    color: #292666;
+}
+.card_with_tabs .card-header .passport_tab .nav.nav-tabs  a.active::after{
+    content: "";
+    position: absolute;
+    bottom: -14px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #292666;
+    border-radius: 4px;
+    z-index: 1;
+}
+.card_with_tabs .card-header .passport_tab::after{
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    background: #EBEFF5;
+    border-radius: 2px;
+    height: 2px;
 }
 .peIcon.pe-7s-back{
     color:black;
@@ -1019,8 +1071,6 @@ hr{
 .input-group-text img {
     height: 20px;
 }
-
-
 .container{
     max-width: 1440px;
 }

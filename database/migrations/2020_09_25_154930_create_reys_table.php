@@ -18,6 +18,8 @@ class CreateReysTable extends Migration
             $table->integer('direction_id');
             $table->integer('station_id');
             $table->string('where');//from|to
+            $table->string('from');//from|to
+            $table->text('stations');
             $table->string('type');
             $table->integer('user_id')->nullable();
             $table->string('status')->default('active');

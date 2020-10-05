@@ -1,6 +1,6 @@
 <template>
 	<div class="add_area">
-	    <div class="card">
+	    <div class="card card_with_tabs">
 	  		<div class="card-header tabCard">
 	    		<PassportTab/>
 	  		</div>
