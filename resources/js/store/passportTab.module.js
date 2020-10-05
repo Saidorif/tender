@@ -6,11 +6,8 @@ const state = {
 	passport: [],
 	tarifs: [],
 	schedule: [],
-<<<<<<< HEAD
 	demand: [],
-=======
 	schedule_msg: ''
->>>>>>> 602e56d0ff08ce54acfbf2b4efdcac280feb2f6f
 };
 
 const getters = {
