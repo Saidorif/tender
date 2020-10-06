@@ -47,7 +47,7 @@
 				    	>	
 					  </div>
 					  <div class="form-group col-md-4">
-					    <label for="checked">Маршрут</label>
+					    <label for="marshrut">Маршрут</label>
 					    <multiselect 
 							:value="direction_ids"
 							:options="findList"
@@ -383,7 +383,7 @@
 							return{
 								'direction_id':direction_id,
 								'reys_id':reysItems,
-			    				'status':'custom', 
+			    				'status':reysItems.length > 0 ? 'custom' : 'all', 
 							}
 						})
 					}
