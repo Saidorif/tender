@@ -220,17 +220,20 @@ class DirectionController extends Controller
     {
         $validator = Validator::make($request->all(), [            
             'data'  => 'required|array',
+            'data.count_bus'  => 'required|string',
+            'data.reys_from_count'  => 'required|string',
+            'data.reys_to_count'  => 'required|string',
             'data.whereFrom'  => 'required|array',
             'data.whereFrom.reyses'  => 'required|array',
             'data.whereFrom.reyses.*'  => 'required|array',
-            'data.whereFrom.reyses.*.*.from_date'  => 'required|string',
-            'data.whereFrom.reyses.*.*.to_date'  => 'required|string',
+            'data.whereFrom.reyses.*.*.start'  => 'required|string',
+            'data.whereFrom.reyses.*.*.end'  => 'required|string',
             'data.whereFrom.reyses.*.*.where'  => 'required|array',
             'data.whereTo'  => 'required|array',
             'data.whereTo.reyses'  => 'required|array',
             'data.whereTo.reyses.*'  => 'required|array',
-            'data.whereTo.reyses.*.*.from_date'  => 'required|string',
-            'data.whereTo.reyses.*.*.to_date'  => 'required|string',
+            'data.whereTo.reyses.*.*.start'  => 'required|string',
+            'data.whereTo.reyses.*.*.end'  => 'required|string',
             'data.whereTo.reyses.*.*.where'  => 'required|array',
         ]);
 
@@ -275,11 +278,14 @@ class DirectionController extends Controller
                 'where_type'   => $where_type,
                 'status'       => 'active',
                 'type'         => 'from',
+                'count_bus'    => $inputs['count_bus'],
+                'reys_from_count'=> $inputs['reys_from_count'],
+                'reys_to_count'  => $inputs['reys_to_count'],
             ]);
             foreach ($reyses_from as $key => $item) {
                 $reysTime = ReysTime::create([
-                    'start' => $item['from_date'],
-                    'end' => $item['to_date'],
+                    'start' => $item['start'],
+                    'end' => $item['end'],
                     'where' => $item['where'],
                     'status' => 'active',
                     'direction_id' => $direction->id,
@@ -304,11 +310,14 @@ class DirectionController extends Controller
                 'where_type'   => $where_type,
                 'status'       => 'active',
                 'type'         => 'to',
+                'count_bus'    => $inputs['count_bus'],
+                'reys_from_count'=> $inputs['reys_from_count'],
+                'reys_to_count'  => $inputs['reys_to_count'],
             ]);
             foreach ($reyses_from as $key => $item) {
                 $reysTime = ReysTime::create([
-                    'start' => $item['from_date'],
-                    'end' => $item['to_date'],
+                    'start' => $item['start'],
+                    'end' => $item['end'],
                     'where' => $item['where'],
                     'status' => 'active',
                     'direction_id' => $direction->id,
@@ -324,7 +333,10 @@ class DirectionController extends Controller
 
     public function getSchedule(Request $request, $id)
     {
-        $result = [];
+        $result = [
+            'whereFrom' => [],
+            'whereTo' => [],
+        ];
         $reysesFrom = Reys::where(['direction_id' => $id,'status' => 'active','type' => 'from'])->get();
         $reysesTo   = Reys::where(['direction_id' => $id,'status' => 'active','type' => 'to'])->get();
 

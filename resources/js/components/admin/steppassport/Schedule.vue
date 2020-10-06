@@ -99,14 +99,14 @@
                   <template v-for="(p_item, p_index) in p_item">
                     <td class="reys1" colspan="1">
                       <input
-                        v-model="p_item.from_date"
+                        v-model="p_item.end"
                         type="text"
                         class="table_input"
                       />
                     </td>
                     <td class="reys1" colspan="1">
                       <input
-                        v-model="p_item.to_date"
+                        v-model="p_item.start"
                         type="text"
                         class="table_input"
                       />
@@ -152,14 +152,14 @@
                   <template v-for="(p_item, p_index) in p_item">
                     <td class="reys1" colspan="1">
                       <input
-                        v-model="p_item.from_date"
+                        v-model="p_item.end"
                         type="text"
                         class="table_input"
                       />
                     </td>
                     <td class="reys1" colspan="1">
                       <input
-                        v-model="p_item.to_date"
+                        v-model="p_item.start"
                         type="text"
                         class="table_input"
                       />
@@ -219,22 +219,13 @@ export default {
     'form.reys_to_count': {
       handler() {
         if (this.form.reys_to_count) {
-          if(this.form.reys_to_count > this.form.whereTo.reyses.length  ){
-            for (let i = 1; i <= this.form.reys_to_count - this.form.whereTo.reyses.length; i++) {
-              let dataArray = this.form.whereTo.stations.map((item) => {
-                return { from_date: "", to_date: "", where: item };
-              });
-              this.form.whereTo.reyses.push(dataArray);
-            }
-          }else{
             this.form.whereTo.reyses = [];
             for (let i = 1; i <= this.form.reys_to_count; i++) {
               let dataArray = this.form.whereTo.stations.map((item) => {
-                return { from_date: "", to_date: "", where: item };
+                return { end: "", start: "", where: item };
               });
               this.form.whereTo.reyses.push(dataArray);
             }
-          }
         }
       },
       deep: true
@@ -245,7 +236,7 @@ export default {
         if (this.form.reys_from_count) {
           for (let i = 1; i <= this.form.reys_from_count; i++) {
             let dataArray = this.form.whereFrom.stations.map((item) => {
-              return { from_date: "", to_date: "", where: item };
+              return { end: "", start: "", where: item };
             });
             this.form.whereFrom.reyses.push(dataArray);
           }
@@ -257,12 +248,17 @@ export default {
     await this.actionEditDirection(this.$route.params.directionId);
     await this.actionGetScheduleTable(this.$route.params.directionId);
       this.titulData = this.getDirection;
-    // if(this.getSchedule){
-    //   console.log(this.getSchedule)
-    //   this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
-    //   this.form.whereTo.where = this.getSchedule.whereTo[0].where;
-    //         console.log(this.form)
-    // }else{
+    if(this.getSchedule){
+      console.log(this.getSchedule)
+
+      this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
+      this.form.whereFrom.stations =  this.getSchedule.whereFrom[0].stations
+      this.form.whereFrom.reyses = this.getSchedule.whereFrom
+
+      this.form.whereTo.where = this.getSchedule.whereTo[0].where;
+      this.form.whereTo.stations =  this.getSchedule.whereTo[0].stations
+      this.form.whereTo.reyses = this.getSchedule.whereTo
+    }else{
       this.form.whereFrom.where = this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
       this.form.whereTo.where = this.titulData.timing_with[0].whereForm;
       this.form.whereFrom.from = this.titulData.timing_with[0].whereForm;
@@ -273,9 +269,8 @@ export default {
       this.form.whereFrom.stations = this.titulData.timing_with.map((item) => {
         return item.whereForm;
       });
-
       this.form.whereFrom.stations = this.form.whereFrom.stations.reverse()
-    // }
+    }
   },
   computed: {
     ...mapGetters("direction", ["getDirection"]),

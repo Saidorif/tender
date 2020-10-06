@@ -16,6 +16,9 @@ class Reys extends Model
         'status',
         'user_id',
         'type',
+        'count_bus',
+        'reys_from_count',
+        'reys_to_count',
     ];
     protected $casts = [
         'where' => 'array',
