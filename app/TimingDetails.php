@@ -13,6 +13,8 @@ class TimingDetails extends Model
         'avto_model',
         'conclusion',
         'persons',
+        'technic_speed',
+        'traffic_speed',
     ];
 
     protected $casts = [

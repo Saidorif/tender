@@ -75,5 +75,10 @@ class Direction extends Model
         return $this->hasMany(\App\Reys::class,'direction_id');
     }
 
+    public function schemaDetails()
+    {
+        return $this->hasMany(\App\SchemaDetail::class,'direction_id');
+    }
+
 
 }
