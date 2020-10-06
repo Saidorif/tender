@@ -276,7 +276,11 @@
 			console.log(this.getTenderAnnounce)
 		},
 		methods:{
-			...mapActions('tenderannounce',['actionAddTenderAnnounce','actionEditTenderAnnounce']),
+			...mapActions('tenderannounce',[
+	 			'actionAddTenderAnnounce',
+				'actionEditTenderAnnounce',
+				'actionUpdateTenderAnnounce'
+			]),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions("passportTab", [
 		      "actionGetScheduleTable",
