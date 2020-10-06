@@ -14,8 +14,14 @@ class TenderController extends Controller
 {
     public function index(Request $request)
     {
-        $result = Tender::paginate(12);
-        return response()->json(['success' => true,'result' => $result]);
+        $tenders = Tender::with(['tenderlots'])->paginate(12);
+
+        $tenders->getCollection()->transform(function ($value) {
+            $directions = Direction::with(['type'])->whereIn('id',$value->direction_ids)->get();
+            $value->directions = $directions;
+            return $value;
+        });
+        return response()->json(['success' => true,'result' => $tenders]);
     }
 
     public function edit($id)
@@ -30,40 +36,51 @@ class TenderController extends Controller
     {
         $direction_ids = Direction::pluck('id');
         $validator = Validator::make($request->all(),[
-            '.*.direction_id' => 'required|integer',
-            '.*.reys_id' => 'required|array',
-            '.*.reys_id.*' => 'required|integer',
-            '.*.time' => 'required|string',
-            '.*.address' => 'required|string',
-            '.*.status' => ['required',Rule::in(['all','custom'])],
+            'data.*.direction_id' => 'required|integer',
+            'data.*.reys_id' => 'required|array',
+            'data.*.reys_id.*' => 'required|integer',
+            'time' => 'required|string',
+            'address' => 'required|string',
+            'data.*.status' => ['required',Rule::in(['all','custom'])],
         ]);
 
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
 
-        $data = $request->all();
+        $data = $request->input('data');
         $user = $request->user();
         $direction_ids = [];
+        $tender_lots = [];
+        $tenderTime = Carbon::parse($request->input('time'))->format('Y-m-d H:i:s');
         //Get direction_ids in to one array
         foreach ($data as $key => $value) {
             $direction_ids[] = $value['direction_id'];
+            $tender_lots[$value['direction_id']]['direction_id'] = $value['direction_id'];
+            $tender_lots[$value['direction_id']]['time'] = $tenderTime;
+            $tender_lots[$value['direction_id']]['status'] = $value['status'];
+            if(isset($tender_lots[$value['direction_id']]['reys_id'])){
+                $tender_lots[$value['direction_id']]['reys_id'] = array_merge($value['reys_id'],$tender_lots[$value['direction_id']]['reys_id']);
+            }else{
+                $tender_lots[$value['direction_id']]['reys_id'] = $value['reys_id'];
+            }
         }
+        $direction_ids = array_unique($direction_ids);
         //Store to DB
-        $tenderTime = Carbon::parse($data[0]['time'])->format('Y-m-d H:i:s');
+        
         $tender = Tender::create([
             'time' => $tenderTime,
-            'address' => $data[0]['address'],
+            'address' => $request->input('address'),
             'direction_ids' => $direction_ids,
-            'status' => $data[0]['status'],
+            'status' => 'pending',
             'created_by' => $user->id,
         ]);
 
-        foreach ($data as $key => $item) {
+        foreach ($tender_lots as $key => $item) {
             $tenderLot = TenderLot::create([
                 'tender_id' => $tender->id,
                 'direction_id' => $item['direction_id'],
-                'time' => Carbon::parse($item['time'])->format('Y-m-d H:i:s'),
+                'time' => $tenderTime,
                 'reys_id' => $item['reys_id'],
                 'status' => $item['status'],
             ]);

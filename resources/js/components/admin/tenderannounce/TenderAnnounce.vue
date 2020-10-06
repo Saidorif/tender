@@ -54,7 +54,7 @@
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionTenderAnnounces()
+			await this.actionTenderAnnounces(page)
 		},
 		computed:{
 			...mapGetters('tenderannounce',['getRegions','getMassage'])
@@ -72,7 +72,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Region удалено!',
+						title: 'Тендер удален!',
 				    })
 				}
 			}
