@@ -14,7 +14,7 @@
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveTender" >
 					<div class="row">
-					  <div class="form-group col-md-3">
+					  <div class="form-group col-md-2">
 					    <label for="name">Дата тердера</label>
 					    <date-picker 
 		                  id="time"
@@ -27,7 +27,7 @@
 		                  :class="isRequired(form.time) ? 'isRequired' : ''"
 		                ></date-picker>
 					  </div>
-					  <div class="form-group col-md-5">
+					  <div class="form-group col-md-2">
 					    <label for="address">Адрес</label>
 					    <input 
 					    	type="text" 
@@ -37,7 +37,7 @@
 					    	:class="isRequired(form.address) ? 'isRequired' : ''"
 				    	>	
 					  </div>
-					  <div class="form-group col-md-2">
+					  <div class="form-group col-md-1 check_box_with_label">
 					    <label for="checked">Пакет</label>
 					    <input 
 					    	type="checkbox" 
@@ -45,8 +45,9 @@
 					    	v-model="checked" 
 					    	id="checked"
 				    	>	
+
 					  </div>
-					  <div class="form-group col-md-4">
+					  <div class="form-group col-md-3">
 					    <label for="marshrut">Маршрут</label>
 					    <multiselect 
 							:value="direction_ids"
@@ -68,7 +69,7 @@
 							<span slot="noOptions">Cписок пустой</span>
 						</multiselect>	
 					  </div>
-					  <div class="form-group col-md-2">
+					  <div class="form-group col-md-1 check_box_with_label">
 					    <label for="checkedGrafik">График</label>
 					    <input 
 					    	type="checkbox" 
@@ -77,13 +78,11 @@
 					    	id="checkedGrafik"
 				    	>	
 					  </div>
-					  <div class="form-group col-md-2 form_btn" v-if="checked">
-						<button type="button" class="btn btn-secondary" @click="addToAllItems">
+					  <div class="form-group col-lg-3 form_btn d-flex justify-content-end">
+						<button v-if="checked" type="button" class="btn btn-secondary mr-3" @click="addToAllItems">
 							<i class="fas fa-plus"></i>
 							Добавить
 						</button>
-				  	  </div>
-					  <div class="form-group col-lg-4 form_btn d-flex justify-content-end">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
@@ -484,4 +483,65 @@
 	tr.active{
 		background:#d6d6d6;
 	}
+	.check_box_with_label{
+
+	}
+	.check_box_with_label input{
+		--active: #275EFE;
+		--active-inner: #fff;
+		--focus: 2px rgba(39, 94, 254, .3);
+		--border: #BBC1E1;
+		--border-hover: #275EFE;
+		--background: #fff;
+		--disabled: #F6F8FF;
+		--disabled-inner: #E1E6F9;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		height: 21px;
+		outline: none;
+		display: inline-block;
+		vertical-align: top;
+		position: relative;
+		margin: 0;
+		cursor: pointer;
+		border: 1px solid var(--bc, var(--border));
+		background: var(--b, var(--background));
+		-webkit-transition: background .3s, border-color .3s, box-shadow .2s;
+		transition: background .3s, border-color .3s, box-shadow .2s;
+		width: 38px;
+    	border-radius: 11px;
+		min-height: unset;
+	}
+	.check_box_with_label input::after{
+		content: '';
+		display: block;
+		position: absolute;
+		-webkit-transition: opacity var(--d-o, 0.2s), -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
+		transition: opacity var(--d-o, 0.2s), -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
+		transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+		transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s), -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
+		left: 2px;
+		top: 2px;
+		border-radius: 50%;
+		width: 15px;
+		height: 15px;
+		background: var(--ab, var(--border));
+		-webkit-transform: translateX(var(--x, 0));
+		transform: translateX(var(--x, 0));
+	}
+	.check_box_with_label label{
+		display: block;
+		cursor: pointer;
+		margin-bottom: 15px;
+	}
+	.check_box_with_label input[type='checkbox']:checked {
+		--ab: var(--active-inner);
+		--x: 17px;
+		--b: var(--active);
+		--bc: var(--active);
+		--d-o: .3s;
+		--d-t: .6s;
+		--d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+	}
+
 </style>

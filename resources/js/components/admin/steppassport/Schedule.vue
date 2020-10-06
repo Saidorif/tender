@@ -100,14 +100,14 @@
                   <template v-for="(ch_item, ch_index) in p_item">
                     <td class="reys1" colspan="1">
                       <input
-                        v-model="p_item.end"
+                        v-model="ch_item.end"
                         type="text"
                         class="table_input"
                       />
                     </td>
                     <td class="reys1" colspan="1">
                       <input
-                        v-model="p_item.start"
+                        v-model="ch_item.start"
                         type="text"
                         class="table_input"
                       />
