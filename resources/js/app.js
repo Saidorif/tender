@@ -12,9 +12,9 @@ Vue.use(VueProgressBar,{
 
 Vue.config.devtools = false
 
-// jQuery
-const $ = require('jquery');
-window.$ = $;
+// // jQuery
+// const $ = require('jquery');
+// window.$ = $;
 /* FOR MANAGING USER PERMISSIONS */
 import {abilitiesPlugin} from '@casl/vue'
 import {ability} from "./store/store";
