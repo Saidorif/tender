@@ -14,8 +14,14 @@ class TenderController extends Controller
 {
     public function index(Request $request)
     {
-        $result = Tender::paginate(12);
-        return response()->json(['success' => true,'result' => $result]);
+        $tenders = Tender::with(['tenderlots'])->paginate(12);
+
+        $tenders->getCollection()->transform(function ($value) {
+            $directions = Direction::with(['type'])->whereIn('id',$value->direction_ids)->get();
+            $value->directions = $directions;
+            return $value;
+        });
+        return response()->json(['success' => true,'result' => $tenders]);
     }
 
     public function edit($id)
