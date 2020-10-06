@@ -265,11 +265,11 @@
 		    	}
 		    },
 		    activeClass(item){
-		    	// if (this.choosenFromItems.some(data => data.id === item.id)){
-	    		// 	return true
-		    	// }else{
-		    	// 	return false
-		    	// }
+		    	if (this.choosenFromItems.some(data => data.id === item.id)){
+	    			return true
+		    	}else{
+		    		return false
+		    	}
 		    },
 		    chooseFromItem(value,index){
 		    	if (this.choosenFromItems.some(data => data.id === value.id)){
