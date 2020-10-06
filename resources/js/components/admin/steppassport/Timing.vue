@@ -10,7 +10,7 @@
           <div class="col-md-12 tabs_block">
             <div class="form-group col-md-3">
               <label for="timingDetails_date">O'chov otkazilgan kun</label>
-              <date-picker lang="ru" class="input_style" v-model="timingDetails.date" type="date" format="DD-MM-YYYY" valueType="format"></date-picker>
+              <date-picker lang="ru" class="input_style" v-model="timingDetails.date" type="date" format="DD-MM-YYYY" valueType="format" ></date-picker>
             </div>
             <div class="form-group col-md-3">
               <label for="avto_model">Xronametraj otqizilgan avtomabil rusumi</label>
@@ -83,6 +83,7 @@
                 v-model="form.start_speedometer"
                 id="start_speedometer"
                 class="form-control input_style"
+                :class="isRequired(form.start_speedometer) ? 'isRequired' : ''"
               />
             </div>
             <div class="form-group col-md-6">
@@ -93,6 +94,7 @@
                 v-model="form.start_time"
                 type="datetime"
                 placeholder="Select datetime"
+                :class="isRequired(form.start_time) ? 'isRequired' : ''"
               ></date-picker>
             </div>
             <div class="form-group col-md-6">
@@ -102,6 +104,7 @@
                 v-model="form.speed_between_station"
                 id="speed_between_station"
                 class="form-control input_style"
+                :class="isRequired(form.speed_between_station) ? 'isRequired' : ''"
               />
             </div>
             <div class="form-group col-md-6">
@@ -111,6 +114,7 @@
                 v-model="form.speed_between_limited_space"
                 id="speed_between_limited_space"
                 class="form-control input_style"
+                :class="isRequired(form.speed_between_limited_space) ? 'isRequired' : ''"
               />
             </div>
             <div class="form-group col-md-6 triple_input" v-for="(detail,p_index) in form.details">
@@ -122,7 +126,7 @@
                   :key="s_index"
                 >{{s_item.title}}</option>
               </select>
-              <input type="text" v-model="detail.count" class="form-control input_style" />
+              <input type="text" v-model="detail.count"  class="form-control input_style"  />
               <button
                 @click="addDetail()"
                 class="btn btn-info"
@@ -141,18 +145,19 @@
               </button>
             </div>
             <div class="form-group col-md-6">
-              <label for="region_to_id">Oraliq toxtash viloyat nomi</label>
+              <label for="whereToregion_to_id" :class="isRequired(form.whereTo) ? 'isRequired' : ''">Oraliq toxtash viloyat nomi</label>
               <input
                 v-model="form.whereTo"
                 type="radio"
                 name="where_to"
                 :value="form.region_to_id"
-                checked
+                id="whereToregion_to_id"  
               />
               <select
                 class="form-control input_style"
                 v-model="form.region_to_id"
                 @change="selectRegion('region_to_id')"
+                :class="isRequired(form.region_to_id) ? 'isRequired' : ''"
               >
                 <option value selected disabled>choose option</option>
                 <option
@@ -163,8 +168,8 @@
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="area_to_id">Oraliq toxtash tuman nomi</label>
-              <input v-model="form.whereTo" type="radio" name="where_to" :value="form.area_to_id" />
+              <label for="whereToarea_to_id" :class="isRequired(form.whereTo) ? 'isRequired' : ''">Oraliq toxtash tuman nomi</label>
+              <input v-model="form.whereTo" type="radio" name="where_to" :value="form.area_to_id"  id="whereToarea_to_id"                 />
               <select
                 class="form-control input_style"
                 v-model="form.area_to_id"
@@ -180,8 +185,8 @@
               </select>
             </div>
             <div class="form-group col-md-6">
-              <input v-model="form.whereTo" type="radio" name="where_to" :value="form.station_to_id" />
-              <label for="station_to_id">Oraliq toxtash bekat nomi</label>
+              <input v-model="form.whereTo" type="radio" name="where_to" :value="form.station_to_id"     id="wherestation_to_id"            />
+              <label for="wherestation_to_id" :class="isRequired(form.whereTo) ? 'isRequired' : ''">Oraliq toxtash bekat nomi</label>
               <select class="form-control input_style" v-model="form.station_to_id">
                 <option value selected disabled>choose option</option>
                 <option
@@ -198,6 +203,7 @@
                 v-model="form.end_speedometer"
                 id="end_speedometer"
                 class="form-control input_style"
+                :class="isRequired(form.end_speedometer) ? 'isRequired' : ''"
               />
             </div>
             <div class="form-group col-md-6">
@@ -208,6 +214,7 @@
                 v-model="form.end_time"
                 type="datetime"
                 placeholder="Select end_time"
+                :class="isRequired(form.end_time) ? 'isRequired' : ''"
               ></date-picker>
             </div>
             <div class="form-group col-md-6">
@@ -217,6 +224,7 @@
                 v-model="form.distance_in_limited_speed"
                 id="distance_in_limited_speed"
                 class="form-control input_style"
+                :class="isRequired(form.distance_in_limited_speed) ? 'isRequired' : ''"
               />
             </div>
             <div class="form-group col-md-6">
@@ -226,6 +234,7 @@
                 v-model="form.spendtime_between_limited_space"
                 id="spendtime_between_limited_space"
                 class="form-control input_style"
+                :class="isRequired(form.spendtime_between_limited_space) ? 'isRequired' : ''"
               />
             </div>
           </div>
@@ -274,12 +283,12 @@
                   <td>{{ table.whereForm ? table.whereForm.name  : '' }} {{ table.whereTo ? table.whereTo.name  : '' }}</td>
                   <td>{{ table.start_speedometer }}</td>
                   <td>{{ table.end_speedometer }}</td>
-                  <td>{{ table.distance_from_start_station }}</td>
+                  <td>{{ table.distance_from_start_station }} 55</td>
                   <td>{{ table.distance_between_station }}</td>
                   <td>{{ table.distance_in_limited_speed }}</td>
-                  <td>{{ table.spendtime_between_station }}</td>
+                  <td>{{ table.spendtime_between_station }} 88</td>
                   <td>{{ table.spendtime_between_limited_space }}</td>
-                  <td>{{ table.spendtime_to_stay_station }}</td>
+                  <td>{{ table.spendtime_to_stay_station }} 1010</td>
                   <td>{{ table.speed_between_station }}</td>
                   <td>{{ table.speed_between_limited_space }}</td>
                   <td class="detail_td">
@@ -290,8 +299,8 @@
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="8" scope="row">Ortacha tezlik = {{technicSpeed}} km/soat</td>
-                  <td colspan="8" scope="row">Qatnov tezlik = {{technicSpeed}} km/soat</td>
+                  <td colspan="8" scope="row">Ortacha tezlik = {{technic_speed}} km/soat</td>
+                  <td colspan="8" scope="row">Qatnov tezlik = {{traffic_speed}} km/soat</td>
                 </tr>
               </tbody>
             </table>
@@ -358,7 +367,7 @@ export default {
         areaTo: [],
         // whereForm: this.titulData.from_where,
         whereForm: '',
-        whereTo: {},
+        whereTo: '',
         detailsOptions: [
           { title: "Xafli yo'l uchastkalari", code: 'danger'},
           { title: "Temir yol", code: 'railway' },
@@ -380,7 +389,8 @@ export default {
       },
       tableData: [],
       requiredInput: false,
-      technicSpeed: 0,
+      technic_speed: 0,
+      traffic_speed: 0,
     };
   },
   async mounted() {
@@ -399,6 +409,7 @@ export default {
         item.station_to_id = item.station_to
       })
       this.form.start_speedometer = this.tableData[this.tableData.length - 1].end_speedometer
+      this.calctechnic_speed()
     }
   },
   computed: {
@@ -436,20 +447,30 @@ export default {
         this.form.areaTo = this.getAreaList;
       }
     },
-    calcTechnicSpeed(){
-      let calcRes = 0
+    calctechnic_speed(){
+      let calc_technic_speed = 0
+      let calc_traffic_speed = 0
       this.tableData.forEach((item)=>{
-        calcRes += item.spendtime_between_station 
+        calc_technic_speed += parseFloat(item.spendtime_between_station) 
+        calc_traffic_speed += parseFloat(item.spendtime_to_stay_station) 
       })
-      this.technicSpeed = calcRes /  this.tableData.length
+      this.technic_speed =  (this.tableData[this.tableData.length - 1].distance_from_start_station * 60) /  calc_technic_speed
+      this.traffic_speed =  (this.tableData[this.tableData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
+      this.technic_speed = parseFloat(this.technic_speed).toFixed(1)
+      this.traffic_speed = parseFloat(this.traffic_speed).toFixed(1)
+      // traffic_speed
     },
     addItem() {
       if (
-        this.form.region_to_id != "" &&
         this.form.start_time != "" &&
+        this.form.speed_between_station != "" &&
+        this.form.speed_between_limited_space != "" &&
+        this.form.end_speedometer != "" &&
         this.form.end_time != "" &&
+        this.form.distance_in_limited_speed != "" &&
         this.form.spendtime_between_limited_space != "" &&
-        this.form.whereTo != ""
+        this.form.region_to_id != "" &&
+        this.form.whereTo  != "" 
       ) {
         let thisData = {};
         if (this.tableData.length == 0) {
@@ -550,6 +571,7 @@ export default {
           result_spendtime_between_station
         ).toFixed(0);
         this.tableData.push(this.form);
+        this.calctechnic_speed()
         this.form = thisData;
         this.requiredInput = false;
       } else {
@@ -567,7 +589,7 @@ export default {
       return datum / 1000;
     },
     async saveData() {
-      await this.actionAddTiming({ timing: this.tableData, timingDetails: this.timingDetails });
+      await this.actionAddTiming({ timing: this.tableData, timingDetails: this.timingDetails, technic_speed: this.technic_speed, traffic_speed: this.traffic_speed, });
       if(this.getTimingMassage.success){
           toast.fire({
             type: "success",

@@ -191,7 +191,6 @@ export default {
     await this.actionEditDirection(this.$route.params.directionId);
     this.titulData = this.getDirection
     this.schemeData = this.titulData ? this.titulData.timing_with : [];
-    console.log(this.titulData)
   },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
