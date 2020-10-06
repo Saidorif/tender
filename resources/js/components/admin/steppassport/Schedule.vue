@@ -248,12 +248,16 @@ export default {
     await this.actionEditDirection(this.$route.params.directionId);
     await this.actionGetScheduleTable(this.$route.params.directionId);
       this.titulData = this.getDirection;
-      console.log(this.getSchedule)
     if(this.getSchedule){
+      console.log(this.getSchedule)
+
       this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
       this.form.whereFrom.stations =  this.getSchedule.whereFrom[0].stations
+      this.form.whereFrom.reyses = this.getSchedule.whereFrom
+
       this.form.whereTo.where = this.getSchedule.whereTo[0].where;
       this.form.whereTo.stations =  this.getSchedule.whereTo[0].stations
+      this.form.whereTo.reyses = this.getSchedule.whereTo
     }else{
       this.form.whereFrom.where = this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
       this.form.whereTo.where = this.titulData.timing_with[0].whereForm;
@@ -265,7 +269,6 @@ export default {
       this.form.whereFrom.stations = this.titulData.timing_with.map((item) => {
         return item.whereForm;
       });
-
       this.form.whereFrom.stations = this.form.whereFrom.stations.reverse()
     }
   },
