@@ -219,8 +219,10 @@ export default {
     'form.reys_to_count': {
       handler() {
         if (this.form.reys_to_count) {
-          if(this.form.reys_to_count > this.form.whereTo.reyses.length  ){
-            for (let i = 1; i <= this.form.reys_to_count - this.form.whereTo.reyses.length; i++) {
+          if(this.form.reys_to_count > this.form.whereTo.reyses.length && this.form.whereTo.reyses.length != 0){
+            console.log(this.form.whereTo.reyses.length)
+            console.log(this.form.reys_to_count)
+            for (let i = 1; i <= this.form.reys_to_count - this.form.whereTo.reyses.length + 1; i++) {
               let dataArray = this.form.whereTo.stations.map((item) => {
                 return { from_date: "", to_date: "", where: item };
               });
