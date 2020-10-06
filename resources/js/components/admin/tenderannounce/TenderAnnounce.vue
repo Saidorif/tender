@@ -24,20 +24,29 @@
 						</tr>
 					</thead>
 					<tbody>
-						<!-- <tr v-for="(reg,index) in getRegions.data">
+						<tr v-for="(item,index) in getTenderAnnounces.data">
 							<td scope="row">{{index+1}}</td>
-							<td>{{reg.name}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/region/edit/${reg.id}`'>
+								<ul class="list-inline">
+								    <li v-for="(val,key) in item.directions">
+								    	<b>{{val.name}}</b>
+								    	<em v-if="item.tenderlots.length > 0">({{item.tenderlots.length}} рейс)</em>
+								    </li>
+								</ul>
+							</td>
+							<td>{{item.address}}</td>
+							<td>{{item.time}}</td>
+							<td>
+								<router-link tag="button" class="btn_transparent" :to='`/crm/tenderannounce/edit/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteRegion(reg.id)">
+								<button class="btn_transparent" @click="deleteRegion(item.id)">
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>
-						</tr> -->
+						</tr>
 					</tbody>
-					<!-- <pagination :limit="4" :data="getRegions" @pagination-change-page="getResults"></pagination> -->
+					<pagination :limit="4" :data="getTenderAnnounces" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
 		  </div>
@@ -55,9 +64,10 @@
 		async mounted(){
 			let page = 1;
 			await this.actionTenderAnnounces(page)
+			console.log(this.getTenderAnnounces)
 		},
 		computed:{
-			...mapGetters('tenderannounce',['getRegions','getMassage'])
+			...mapGetters('tenderannounce',['getTenderAnnounces','getMassage'])
 		},
 		methods:{
 			...mapActions('tenderannounce',['actionTenderAnnounces','actionDeleteTenderAnnounce']),

@@ -253,6 +253,7 @@
 					this.form.direction_ids=[]
 					this.direction_ids={}
 					this.findList = []
+					this.allItems = []
 				}
 			},
 			direction_ids:{
@@ -453,7 +454,7 @@
 									title: this.getMassage.message
 							 	});
 								this.requiredInput = false
-							// this.$router.push("/crm/tenderannounce");
+								this.$router.push("/crm/tenderannounce");
 							}
 			    		}else{
 			    			toast.fire({
