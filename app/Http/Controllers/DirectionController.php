@@ -220,9 +220,9 @@ class DirectionController extends Controller
     {
         $validator = Validator::make($request->all(), [            
             'data'  => 'required|array',
-            'data.count_bus'  => 'required|string',
-            'data.reys_from_count'  => 'required|string',
-            'data.reys_to_count'  => 'required|string',
+            'data.count_bus'  => 'required|integer',
+            'data.reys_from_count'  => 'required|integer',
+            'data.reys_to_count'  => 'required|integer',
             'data.whereFrom'  => 'required|array',
             'data.whereFrom.reyses'  => 'required|array',
             'data.whereFrom.reyses.*'  => 'required|array',
