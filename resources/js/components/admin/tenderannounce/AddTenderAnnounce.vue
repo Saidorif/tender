@@ -156,26 +156,28 @@
 				  	</div>
 				</div>
 			  	<!-- All choosen tables -->
-			  	<div class="table-responsive">
+			  	<div class="table-responsive" v-if="allItems.length > 0">
 			  		<div class="d-flex justify-content-center">
 			  			<h4>Выбранные маршруты</h4>
 			  		</div>
 				  	<div class="choosenItemsTable">
 				  		<ul v-for="(item,index) in allItems">
 				  		    <li>
-				  		    	<h4>{{index+1}}</h4>
-				  		    	<button class="btn btn-outline-success" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
-				  		    		<template v-if="item.reyses.length > 0">
-									    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span> 
-									    <span>({{item.reyses.length}} рейсы)</span>
-				  		    		</template>
-				  		    		<template v-else>
-				  		    			<span>{{item.directions.name}}</span>
-				  		    		</template>
-							  	</button>
-							  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
-							  		<i class="fas fa-trash"></i>
-							  	</button>
+				  		    	<div class="d-flex align-items-center">
+					  		    	<h4>{{index+1}})</h4>
+					  		    	<button class="btn btn-outline-success mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
+					  		    		<template v-if="item.reyses.length > 0">
+										    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span> 
+										    <span>({{item.reyses.length}} рейсы)</span>
+					  		    		</template>
+					  		    		<template v-else>
+					  		    			<span>{{item.directions.name}}</span>
+					  		    		</template>
+								  	</button>
+								  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
+								  		<i class="fas fa-trash"></i>
+								  	</button>
+				  		    	</div>
 							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
 								  <table class="table table-bordered table-hover">
 							  			<thead>
@@ -451,14 +453,14 @@
 			    			toast.fire({
 								type: "error",
 								icon: "error",
-								title: 'Packet should be more then 2 data!'
+								title: 'В пакете должны быть минимум 2 маршрута!'
 						 	});
 			    		}
 		    		}else{
 		    			toast.fire({
 							type: "error",
 							icon: "error",
-							title: 'Data is empty'
+							title: 'Маршрут выберите!'
 					 	});
 		    		}
 				}else{
