@@ -4,18 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tender extends Model
+class TenderLot extends Model
 {
     protected $fillable = [
-        'direction_ids',
+        'tender_id',
+        'direction_id',
+        'reys_id',
         'time',
-        'address',
         'status',
-        'approved_by',
-        'created_by',
     ];
 
     protected $casts = [
-        'direction_ids' => 'array'
+        'direction_id' => 'array',
+        'reys_id'      => 'array'
     ];
 }

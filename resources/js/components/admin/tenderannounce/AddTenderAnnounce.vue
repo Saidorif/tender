@@ -384,42 +384,44 @@
 								'direction_id':direction_id,
 								'reys_id':reysItems,
 			    				'status':'custom', 
-			    				time:this.form.time,
-								address:this.form.address,
 							}
 						})
-					}else{
-						let newItems = this.choosenFromItems.map((item,index)=>{
-							return item.id
-						})
-						data = [{
-			    			direction_id:this.direction_ids.id,
-			    			reys_id:newItems,
-			    			status:'custom', 
-			    			time:this.form.time,
-							address:this.form.address,
-			    		}]
 					}
+					// else{
+					// 	let newItems = this.choosenFromItems.map((item,index)=>{
+					// 		return item.id
+					// 	})
+					// 	data = [{
+			  //   			direction_id:this.direction_ids.id,
+			  //   			reys_id:newItems,
+			  //   			status:'custom', 
+			  //   			time:this.form.time,
+					// 		address:this.form.address,
+			  //   		}]
+					// }
 				}
-				else if(this.checkedGrafik){
-					let newItems = this.choosenFromItems.map((item,index)=>{
+				else if(this.checkedGrafik && !this.checked){
+					let newFromItems = this.choosenFromItems.map((item,index)=>{
+						return item.id
+					})
+					let newToItems = this.choosenToItems.map((item,index)=>{
 						return item.id
 					})
 					data = [{
 		    			direction_id:this.direction_ids.id,
-		    			reys_id:newItems,
+		    			reys_id:newFromItems,
+		    			status:'custom',
+		    		},{
+		    			direction_id:this.direction_ids.id,
+		    			reys_id:newToItems,
 		    			status:'custom', 
-		    			time:this.form.time,
-						address:this.form.address,
 		    		}]
 				}
-				else if(!this.checkedGrafik){
+				else if(!this.checkedGrafik && !this.checked){
 					data = [{
 		    			direction_id:this.direction_ids.id,
 		    			reys_id:[],
 		    			status:'all', 
-		    			time:this.form.time,
-						address:this.form.address,
 		    		}]
 				}
 				let checkLengthData = true
@@ -434,11 +436,15 @@
 						checkLengthDataExists = false
 					}
 				})
-
+				let newData = {
+					data:data,
+					time:this.form.time,
+					address:this.form.address,
+				}
 		    	if (this.form.time != '' && this.form.address != ''){
 		    		if (checkLengthDataExists) {
 			    		if (checkLengthData) {
-							await this.actionAddTenderAnnounce(data)
+							await this.actionAddTenderAnnounce(newData)
 							if (this.getMassage.success) {
 								console.log(this.getMassage)
 								toast.fire({
