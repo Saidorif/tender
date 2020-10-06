@@ -62,7 +62,7 @@
 							<span slot="noOptions">Cписок пустой</span>
 						</multiselect>	
 					  </div>
-					  <div class="form-group col-md-2" v-if="checked">
+					  <div class="form-group col-md-2">
 					    <label for="checkedGrafik">График</label>
 					    <input 
 					    	type="checkbox" 
@@ -86,7 +86,7 @@
 					</div>
 				</form>
 				<!-- From Name -->
-				<div>
+				<div v-if="checkedGrafik">
 				  	<div class="table-responsive" v-if="fromItems.length">
 				  		<div class="d-flex justify-content-center">
 				  			<h4>{{fromName}}</h4>
@@ -146,7 +146,7 @@
 				  	</div>
 				</div>
 			  	<!-- All choosen tables -->
-			  	<div class="table-responsive">
+	<!-- 		  	<div class="table-responsive">
 			  		<div class="d-flex justify-content-center">
 			  			<h4>Выбранные маршруты</h4>
 			  		</div>
@@ -155,7 +155,7 @@
 				  		    <li>
 				  		    	<h4>{{index+1}}</h4>
 				  		    	<button class="btn btn-outline-success" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
-								    {{item.reys_times[0].where.name}}-{{item.where.name}} 1 ta reys
+								    {{item.reys_times[0].where.name}}-{{item.where.name}}
 							  	</button>
 							  	<div class="collapse" :id="'collapseExample'+index">
 								  <table class="table table-bordered table-hover">
@@ -172,7 +172,7 @@
 				  			</li>
 				  		</ul>
 				  	</div>
-			  	</div>
+			  	</div> -->
 		  	</div>
 	  	</div>
 	</div>
@@ -231,9 +231,9 @@
 						this.checkedGrafik = false
 						this.fromName = ''
 						this.choosenFromItems = ''
-						this.fromItems = []
 						this.fromFirstItems = []
-						this.choosenFromItems = []
+						this.fromItems = []
+						this.choosenToItems = []
 						this.toFirstItems = []
 						this.toItems = []
 					}
@@ -250,7 +250,8 @@
 		      "actionGetScheduleTable",
 		    ]),
 		    addToAllItems(){
-		    	if (this.checkedGrafik){
+		    	if(this.checkedGrafik){
+		    		console.log(this.choosenFromItems)
 		    		let data = {
 		    			direction_id:'',
 		    			reys_id:'',
@@ -265,7 +266,7 @@
 		    	}
 		    },
 		    activeClass(item){
-		    	if (this.choosenFromItems.some(data => data.id === item.id)) {
+		    	if (this.choosenFromItems.some(data => data.id === item.id)){
 	    			return true
 		    	}else{
 		    		return false
@@ -300,19 +301,17 @@
 		      }
 		    },
 		    async dispatchAction(data){
-		      this.form.direction_ids.push(data.id);
-		      if (this.checked){
-			      await this.actionGetScheduleTable(data.id)
-			      console.log(this.getSchedule)
+	      		this.form.direction_ids.push(data.id);
+		      	await this.actionGetScheduleTable(data.id)
+		      	console.log(this.getSchedule)
 			      // From Items
-			      this.fromFirstItems = this.getSchedule.whereFrom[0];
-			      this.fromItems = this.getSchedule.whereFrom
-			      this.fromName = this.getSchedule ? this.getSchedule.whereFrom[0].reys_times[0].where.name : ''
-			      // To Items
-			      this.toFirstItems = this.getSchedule.whereTo[0]
-			      this.toItems = this.getSchedule.whereTo
-			      this.toName = this.getSchedule ? this.getSchedule.whereTo[0].reys_times[0].where.name : ''
-		      }
+				this.fromFirstItems = this.getSchedule.whereFrom[0];
+				this.fromItems = this.getSchedule.whereFrom
+				this.fromName = this.getSchedule ? this.getSchedule.whereFrom[0].reys_times[0].where.name : ''
+				// To Items
+				this.toFirstItems = this.getSchedule.whereTo[0]
+				this.toItems = this.getSchedule.whereTo
+				this.toName = this.getSchedule ? this.getSchedule.whereTo[0].reys_times[0].where.name : ''
 		    },
 			async saveTender(){
 		    	if (this.form.name != ''){
