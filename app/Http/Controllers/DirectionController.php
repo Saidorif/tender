@@ -333,7 +333,10 @@ class DirectionController extends Controller
 
     public function getSchedule(Request $request, $id)
     {
-        $result = [];
+        $result = [
+            'whereFrom' => [],
+            'whereTo' => [],
+        ];
         $reysesFrom = Reys::where(['direction_id' => $id,'status' => 'active','type' => 'from'])->get();
         $reysesTo   = Reys::where(['direction_id' => $id,'status' => 'active','type' => 'to'])->get();
 
