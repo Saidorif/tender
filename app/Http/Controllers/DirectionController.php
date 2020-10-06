@@ -226,14 +226,14 @@ class DirectionController extends Controller
             'data.whereFrom'  => 'required|array',
             'data.whereFrom.reyses'  => 'required|array',
             'data.whereFrom.reyses.*'  => 'required|array',
-            'data.whereFrom.reyses.*.*.from_date'  => 'required|string',
-            'data.whereFrom.reyses.*.*.to_date'  => 'required|string',
+            'data.whereFrom.reyses.*.*.start'  => 'required|string',
+            'data.whereFrom.reyses.*.*.end'  => 'required|string',
             'data.whereFrom.reyses.*.*.where'  => 'required|array',
             'data.whereTo'  => 'required|array',
             'data.whereTo.reyses'  => 'required|array',
             'data.whereTo.reyses.*'  => 'required|array',
-            'data.whereTo.reyses.*.*.from_date'  => 'required|string',
-            'data.whereTo.reyses.*.*.to_date'  => 'required|string',
+            'data.whereTo.reyses.*.*.start'  => 'required|string',
+            'data.whereTo.reyses.*.*.end'  => 'required|string',
             'data.whereTo.reyses.*.*.where'  => 'required|array',
         ]);
 
@@ -284,8 +284,8 @@ class DirectionController extends Controller
             ]);
             foreach ($reyses_from as $key => $item) {
                 $reysTime = ReysTime::create([
-                    'start' => $item['from_date'],
-                    'end' => $item['to_date'],
+                    'start' => $item['start'],
+                    'end' => $item['end'],
                     'where' => $item['where'],
                     'status' => 'active',
                     'direction_id' => $direction->id,
@@ -316,8 +316,8 @@ class DirectionController extends Controller
             ]);
             foreach ($reyses_from as $key => $item) {
                 $reysTime = ReysTime::create([
-                    'start' => $item['from_date'],
-                    'end' => $item['to_date'],
+                    'start' => $item['start'],
+                    'end' => $item['end'],
                     'where' => $item['where'],
                     'status' => 'active',
                     'direction_id' => $direction->id,
