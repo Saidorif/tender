@@ -28,7 +28,7 @@
 							<td scope="row">{{index+1}}</td>
 							<td>
 								<ul class="list-inline">
-								    <li v-for="(val,key) in item.directions">
+								    <li v-for="(val,key) in item.direction_ids">
 								    	<b>{{val.name}}</b>
 								    	<em v-if="item.tenderlots[index].reys_id.length > 0">
 									    	({{item.tenderlots[index].reys_id.length}} рейс)
