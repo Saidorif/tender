@@ -15,7 +15,7 @@
               <label for="reys_to_count" v-if="this.titulData">Reyslar soni {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
               <input
                 type="number"
-                v-model="form.reys_to_count"
+                v-model.number="form.reys_to_count"
                 id="reys_to_count"
                 class="form-control input_style"
                 :class="isRequired(form.reys_to_count) ? 'isRequired' : ''"
@@ -25,7 +25,7 @@
               <label for="reys_from_count">Reyslar soni  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
               <input
                 type="number"
-                v-model="form.reys_from_count"
+                v-model.number="form.reys_from_count"
                 id="reys_from_count"
                 class="form-control input_style"
                 :class="isRequired(form.reys_from_count) ? 'isRequired' : ''"
@@ -35,7 +35,7 @@
               <label for="count_bus">Qatnovchi avtomobillar soni </label>
               <input
                 type="number"
-                v-model="form.count_bus"
+                v-model.number="form.count_bus"
                 id="count_bus"
                 class="form-control input_style"
                 :class="isRequired(form.count_bus) ? 'isRequired' : ''"
@@ -97,7 +97,7 @@
               <tbody>
                 <tr v-for="(p_item, p_index) in form.whereTo.reyses">
                   <td>{{ p_index + 1 }}</td>
-                  <template v-for="(p_item, p_index) in p_item">
+                  <template v-for="(ch_item, ch_index) in p_item">
                     <td class="reys1" colspan="1">
                       <input
                         v-model="p_item.end"
@@ -114,7 +114,7 @@
                     </td>
                   </template>
                   <td class="reys1" colspan="1">
-                    <input type="text" class="table_input" />
+                    <input type="text" v-model="p_item.bus_number" class="table_input" />
                   </td>
                 </tr>
               </tbody>
@@ -148,24 +148,24 @@
               <tbody>
                 <tr v-for="(p_item, p_index) in form.whereFrom.reyses">
                   <td>{{ p_index + 1 }}</td>
-                  <template v-for="(p_item, p_index) in p_item">
+                  <template v-for="(ch_item, ch_index) in p_item">
                     <td class="reys1" colspan="1">
                       <input
-                        v-model="p_item.end"
+                        v-model="ch_item.end"
                         type="text"
                         class="table_input"
                       />
                     </td>
                     <td class="reys1" colspan="1">
                       <input
-                        v-model="p_item.start"
+                        v-model="ch_item.start"
                         type="text"
                         class="table_input"
                       />
                     </td>
                   </template>
                   <td class="reys1" colspan="1">
-                    <input type="text" class="table_input" />
+                    <input type="text" v-model="p_item.bus_number" class="table_input" />
                   </td>
                 </tr>
               </tbody>
@@ -277,7 +277,6 @@ export default {
     await this.actionEditDirection(this.$route.params.directionId);
     await this.actionGetScheduleTable(this.$route.params.directionId);
       this.titulData = this.getDirection;
-      console.log(this.getSchedule)
 
     if(this.getSchedule.whereFrom.length && this.getSchedule.whereTo.length){
       this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
@@ -325,7 +324,6 @@ export default {
       "actionGetScheduleTable",
     ]),
     async saveData() {
-      console.log(this.form)
       if (
         this.form.count_bus != "" &&
         this.form.reys_to_count != "" &&
@@ -375,7 +373,9 @@ export default {
       }).then( async (result) => {
         if (result.value) {
           this.form[parentName].stations.splice(index, 1);
-          this.form[parentName].reyses.splice(index, 1);
+          this.form[parentName].reyses.forEach((item)=>{
+            item.splice(index, 1)
+          })
         }
       })
     }
