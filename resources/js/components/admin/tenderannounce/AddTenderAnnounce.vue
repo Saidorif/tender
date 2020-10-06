@@ -47,7 +47,7 @@
 				    	>	
 					  </div>
 					  <div class="form-group col-md-4">
-					    <label for="checked">Маршрут</label>
+					    <label for="marshrut">Маршрут</label>
 					    <multiselect 
 							:value="direction_ids"
 							:options="findList"
