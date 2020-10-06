@@ -5,7 +5,7 @@ const state = {
 	timingMessage: [],
 	passport: [],
 	tarifs: [],
-	schedule: [],
+	schedule: {},
 	demand: [],
 	schedule_msg: ''
 };

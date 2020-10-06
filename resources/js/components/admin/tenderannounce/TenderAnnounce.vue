@@ -17,7 +17,9 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
+							<th scope="col">Название маршрута</th>
+							<th scope="col">Адрес</th>
+							<th scope="col">Дата тендера</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
