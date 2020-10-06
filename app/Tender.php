@@ -24,4 +24,22 @@ class Tender extends Model
     {
         return $this->hasMany(\App\TenderLot::class,'tender_id');
     }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(\App\User::class,'created_by');
+    }
+
+    public function approvedBy()
+    {
+        return $this->belongsTo(\App\User::class,'approved_by');
+    }
+
+    public function getDirectionIdsAttribute($value)
+    {
+        $value = json_decode($value,true);
+        // var_dump($value);die;
+        $directions = Direction::whereIn('id', $value)->get();
+        return $directions;
+    }
 }
