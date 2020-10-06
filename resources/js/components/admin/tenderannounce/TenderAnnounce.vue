@@ -30,7 +30,9 @@
 								<ul class="list-inline">
 								    <li v-for="(val,key) in item.directions">
 								    	<b>{{val.name}}</b>
-								    	<em v-if="item.tenderlots.length > 0">({{item.tenderlots.length}} рейс)</em>
+								    	<em v-if="item.tenderlots[index].reys_id.length > 0">
+									    	({{item.tenderlots[index].reys_id.length}} рейс)
+									    </em>
 								    </li>
 								</ul>
 							</td>

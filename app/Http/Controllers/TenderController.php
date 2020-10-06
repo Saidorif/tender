@@ -16,20 +16,22 @@ class TenderController extends Controller
     {
         $tenders = Tender::with(['tenderlots'])->paginate(12);
 
-        $tenders->getCollection()->transform(function ($value) {
-            $directions = Direction::with(['type'])->whereIn('id',$value->direction_ids)->get();
-            $value->directions = $directions;
-            return $value;
-        });
+        // $tenders->getCollection()->transform(function ($value) {
+        //     $directions = Direction::with(['type'])->whereIn('id',$value->direction_ids)->get();
+        //     $value->directions = $directions;
+        //     return $value;
+        // });
         return response()->json(['success' => true,'result' => $tenders]);
     }
 
     public function edit($id)
     {
-        $result = Tender::find($id);
+        $result = Tender::with(['tenderlots','createdBy','approvedBy'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
         }
+
+        return response()->json(['success' => true, 'result' => $result]);
     }
 
     public function store(Request $request)

@@ -70,6 +70,8 @@ class PassportTimingController extends Controller
             'timing.*.whereForm' => 'required',
             'timing.*.whereTo' => 'required',
             'timingDetails' => 'required|array',
+            'technic_speed' => 'required|string',
+            'traffic_speed' => 'required|string',
             'timingDetails.date' => 'required|string',
             'timingDetails.avto_number' => 'required|string',
             'timingDetails.avto_model' => 'required|string',
@@ -133,6 +135,8 @@ class PassportTimingController extends Controller
             'avto_model' => $timing['avto_model'],
             'conclusion' => $timing['conclusion'],
             'persons' => $timing['persons'],
+            'technic_speed' => $request->input('technic_speed'),
+            'traffic_speed' => $request->input('traffic_speed'),
         ]);
 
         return response()->json(['success' => true, 'message' => 'Хронометраж успешно создан']);

@@ -132,6 +132,13 @@ Route::group([
             Route::get('timing/edit/{id}', 'PassportTimingController@edit');
             Route::delete('timing/destroy/{id}', 'PassportTimingController@destroy');
 
+            //SchemaDetails
+            Route::get('schemadetail', 'SchemaDetailController@index');
+            Route::post('schemadetail/store/{id}', 'SchemaDetailController@store');
+            Route::get('schemadetail/list', 'SchemaDetailController@list');
+            Route::get('schemadetail/edit/{id}', 'SchemaDetailController@edit');
+            Route::delete('schemadetail/destroy/{id}', 'SchemaDetailController@destroy');
+
             //Direction CRUD
             Route::post('direction', 'DirectionController@index');
             Route::post('direction/store', 'DirectionController@store');

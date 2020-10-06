@@ -20,6 +20,8 @@ class CreateTimingDetailsTable extends Migration
             $table->string('avto_number');
             $table->string('avto_model');
             $table->string('conclusion');
+            $table->string('technic_speed');
+            $table->string('traffic_speed');
             $table->text('persons');
             $table->timestamps();
         });
