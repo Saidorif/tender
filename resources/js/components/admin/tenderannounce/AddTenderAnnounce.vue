@@ -29,7 +29,13 @@
 					  </div>
 					  <div class="form-group col-md-5">
 					    <label for="address">Адрес</label>
-					    <input type="text" class="form-control input_style" v-model="form.address" id="address">	
+					    <input 
+					    	type="text" 
+					    	class="form-control input_style" 
+					    	v-model="form.address" 
+					    	id="address"
+					    	:class="isRequired(form.address) ? 'isRequired' : ''"
+				    	>	
 					  </div>
 					  <div class="form-group col-md-2">
 					    <label for="checked">Пакет</label>
@@ -102,7 +108,7 @@
 					  			<tr 
 					  				v-for="(items,index) in fromItems" 
 					  				@click.prevent="chooseFromItem(items,index)"
-					  				:class="activeClass(items) ? 'active' : ''"
+					  				:class="activeFromClass(items) ? 'active' : ''"
 				  				>
 					  				<td>
 					  					<label>
@@ -130,7 +136,11 @@
 					  			</tr>
 					  		</thead>
 					  		<tbody>
-					  			<tr v-for="(items,index) in  toItems">
+					  			<tr 
+					  				v-for="(items,index) in  toItems"
+					  				@click.prevent="chooseToItem(items,index)"
+					  				:class="activeToClass(items) ? 'active' : ''"
+				  				>
 					  				<td>
 					  					<label>
 				  							{{index+1}}
@@ -146,22 +156,40 @@
 				  	</div>
 				</div>
 			  	<!-- All choosen tables -->
-	<!-- 		  	<div class="table-responsive">
+			  	<div class="table-responsive">
 			  		<div class="d-flex justify-content-center">
 			  			<h4>Выбранные маршруты</h4>
 			  		</div>
 				  	<div class="choosenItemsTable">
-				  		<ul v-for="(item,index) in choosenFromItems">
+				  		<ul v-for="(item,index) in allItems">
 				  		    <li>
 				  		    	<h4>{{index+1}}</h4>
 				  		    	<button class="btn btn-outline-success" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
-								    {{item.reys_times[0].where.name}}-{{item.where.name}}
+				  		    		<template v-if="item.reyses.length > 0">
+									    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span> 
+									    <span>({{item.reyses.length}} рейсы)</span>
+				  		    		</template>
+				  		    		<template v-else>
+				  		    			<span>{{item.directions.name}}</span>
+				  		    		</template>
 							  	</button>
-							  	<div class="collapse" :id="'collapseExample'+index">
+							  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
+							  		<i class="fas fa-trash"></i>
+							  	</button>
+							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
 								  <table class="table table-bordered table-hover">
-								  		<tbody>
+							  			<thead>
 								  			<tr>
-								  				<template v-for="(val,key) in item.reys_times">
+								  				<th>№</th>
+								  				<th v-for="(item,index) in item.reyses[0].reys_times" colspan="2">
+									  				{{item.where.name}}
+									  			</th>
+								  			</tr>
+								  		</thead>
+								  		<tbody>
+								  			<tr v-for="(reys,key) in item.reyses">
+								  				<td>{{key+1}}</td>
+								  				<template v-for="(val,key) in reys.reys_times">
 									  				<td>{{val.start}}</td>
 									  				<td>{{val.end}}</td>
 								  				</template>
@@ -172,7 +200,7 @@
 				  			</li>
 				  		</ul>
 				  	</div>
-			  	</div> -->
+			  	</div>
 		  	</div>
 	  	</div>
 	</div>
@@ -189,8 +217,8 @@
 		data(){
 			return{
 				form:{
-					time:'',
 					direction_ids:[],
+					time:'',
 					address:'',
 					type:'simple',
 				},
@@ -230,9 +258,10 @@
 					if (this.direction_ids != '' || this.direction_ids != null) {
 						this.checkedGrafik = false
 						this.fromName = ''
-						this.choosenFromItems = ''
+						this.choosenFromItems = []
 						this.fromFirstItems = []
 						this.fromItems = []
+						this.toName = ''
 						this.choosenToItems = []
 						this.toFirstItems = []
 						this.toItems = []
@@ -250,23 +279,46 @@
 		      "actionGetScheduleTable",
 		    ]),
 		    addToAllItems(){
-		    	if(this.checkedGrafik){
-		    		console.log(this.choosenFromItems)
-		    		let data = {
-		    			direction_id:'',
-		    			reys_id:'',
-		    			status:'grafik', 
-		    		}
-		    	}else{
-		    		let data = {
-		    			direction_id:'',
-		    			reys_id:'',
-		    			status:'grafik', 
-		    		}
+		    	if (this.checked) {
+			    	if(this.checkedGrafik){
+			    		if (this.choosenFromItems.length > 0) {
+				    		let value = {
+				    			directions:this.direction_ids,
+				    			reyses:this.choosenFromItems
+				    		}
+				    		this.allItems.push(value)
+			    		}
+			    		if (this.choosenToItems.length > 0) {
+				    		let value = {
+				    			directions:this.direction_ids,
+				    			reyses:this.choosenToItems
+				    		}
+				    		this.allItems.push(value)
+			    		}
+			    		this.choosenFromItems = []
+			    		this.choosenToItems = []
+			    		this.direction_ids = {}
+			    	}else{
+			    		let value = {
+			    			directions:this.direction_ids,
+			    			reyses:[]
+			    		}
+			    		this.allItems.push(value)
+			    		this.choosenFromItems = []
+			    		this.choosenToItems = []
+			    		this.direction_ids = {}
+			    	}
 		    	}
 		    },
-		    activeClass(item){
+		    activeFromClass(item){
 		    	if (this.choosenFromItems.some(data => data.id === item.id)){
+	    			return true
+		    	}else{
+		    		return false
+		    	}
+		    },
+		    activeToClass(item){
+		    	if (this.choosenToItems.some(data => data.id === item.id)){
 	    			return true
 		    	}else{
 		    		return false
@@ -278,15 +330,14 @@
 		    	}else{
 			    	this.choosenFromItems.push(value)
 		    	}
-		    	console.log(this.choosenFromItems)
 		    },
-			// removeDirection(value){
-			// 	this.form.direction_ids = this.form.direction_ids.filter((item,index)=>{
-			// 		if(item != value.id){
-			// 			return item
-			// 		}
-			// 	})
-			// },
+		    chooseToItem(value,index){
+		    	if (this.choosenToItems.some(data => data.id === value.id)){
+			    	Vue.delete(this.choosenToItems, index)
+		    	}else{
+			    	this.choosenToItems.push(value)
+		    	}
+		    },
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
@@ -303,22 +354,113 @@
 		    async dispatchAction(data){
 	      		this.form.direction_ids.push(data.id);
 		      	await this.actionGetScheduleTable(data.id)
-		      	console.log(this.getSchedule)
 			      // From Items
 				this.fromFirstItems = this.getSchedule.whereFrom[0];
 				this.fromItems = this.getSchedule.whereFrom
-				this.fromName = this.getSchedule ? this.getSchedule.whereFrom[0].reys_times[0].where.name : ''
+				this.fromName = this.getSchedule ? this.getSchedule.whereFrom[0].where.name : ''
 				// To Items
 				this.toFirstItems = this.getSchedule.whereTo[0]
 				this.toItems = this.getSchedule.whereTo
-				this.toName = this.getSchedule ? this.getSchedule.whereTo[0].reys_times[0].where.name : ''
+				this.toName = this.getSchedule ? this.getSchedule.whereTo[0].where.name : ''
+		    },
+		    removeFromAllItems(index){
+		    	Vue.delete(this.allItems,index)
 		    },
 			async saveTender(){
-		    	if (this.form.name != ''){
-					await this.actionAddTenderAnnounce(this.form)
-					console.log(this.getMassage)
-					// this.$router.push("/crm/tenderannounce");
-					this.requiredInput = false
+				let data = [];
+				if(this.checked){
+					if (this.allItems.length > 0){
+						data = this.allItems.map((item,index)=>{
+							let direction_id = item.directions.id
+							let reysItems = [] 
+							if (item.reyses.length > 0) {
+								reysItems = item.reyses.map((i,k)=>{
+									return i.id
+								})
+							}
+							return{
+								'direction_id':direction_id,
+								'reys_id':reysItems,
+			    				'status':'custom', 
+			    				time:this.form.time,
+								address:this.form.address,
+							}
+						})
+					}else{
+						let newItems = this.choosenFromItems.map((item,index)=>{
+							return item.id
+						})
+						data = [{
+			    			direction_id:this.direction_ids.id,
+			    			reys_id:newItems,
+			    			status:'custom', 
+			    			time:this.form.time,
+							address:this.form.address,
+			    		}]
+					}
+				}
+				else if(this.checkedGrafik){
+					let newItems = this.choosenFromItems.map((item,index)=>{
+						return item.id
+					})
+					data = [{
+		    			direction_id:this.direction_ids.id,
+		    			reys_id:newItems,
+		    			status:'custom', 
+		    			time:this.form.time,
+						address:this.form.address,
+		    		}]
+				}
+				else if(!this.checkedGrafik){
+					data = [{
+		    			direction_id:this.direction_ids.id,
+		    			reys_id:[],
+		    			status:'all', 
+		    			time:this.form.time,
+						address:this.form.address,
+		    		}]
+				}
+				let checkLengthData = true
+				if (this.checked && this.allItems.length < 2) {
+					checkLengthData = false
+				}
+				let checkLengthDataExists = true
+				data.forEach((data,index)=>{
+					if (data.direction_id) {
+						checkLengthDataExists = true
+					}else{
+						checkLengthDataExists = false
+					}
+				})
+
+		    	if (this.form.time != '' && this.form.address != ''){
+		    		if (checkLengthDataExists) {
+			    		if (checkLengthData) {
+							await this.actionAddTenderAnnounce(data)
+							if (this.getMassage.success) {
+								console.log(this.getMassage)
+								toast.fire({
+									type: "success",
+									icon: "success",
+									title: this.getMassage.message
+							 	});
+								this.requiredInput = false
+							// this.$router.push("/crm/tenderannounce");
+							}
+			    		}else{
+			    			toast.fire({
+								type: "error",
+								icon: "error",
+								title: 'Packet should be more then 2 data!'
+						 	});
+			    		}
+		    		}else{
+		    			toast.fire({
+							type: "error",
+							icon: "error",
+							title: 'Data is empty'
+					 	});
+		    		}
 				}else{
 					this.requiredInput = true
 				}
