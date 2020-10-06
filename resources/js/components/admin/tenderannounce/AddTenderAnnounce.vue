@@ -383,7 +383,7 @@
 							return{
 								'direction_id':direction_id,
 								'reys_id':reysItems,
-			    				'status':'custom', 
+			    				'status':reysItems.length > 0 ? 'custom' : 'all', 
 							}
 						})
 					}
