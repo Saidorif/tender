@@ -21,6 +21,9 @@ class CreateReysTable extends Migration
             $table->string('from');//from|to
             $table->text('stations');
             $table->string('type');
+            $table->integer('count_bus');
+            $table->integer('reys_from_count');
+            $table->integer('reys_to_count');
             $table->integer('user_id')->nullable();
             $table->string('status')->default('active');
             $table->string('where_type')->default('region');
