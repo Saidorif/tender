@@ -251,6 +251,7 @@
 		    ]),
 		    addToAllItems(){
 		    	if(this.checkedGrafik){
+		    		console.log(this.choosenFromItems)
 		    		let data = {
 		    			direction_id:'',
 		    			reys_id:'',
