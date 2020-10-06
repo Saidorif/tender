@@ -243,7 +243,7 @@
 			}
 		},
 		computed:{
-			...mapGetters('tenderannounce',['getMassage']),
+			...mapGetters('tenderannounce',['getMassage','getTenderAnnounce']),
 			...mapGetters('direction',['getDirectionFindList']),
 			...mapGetters("passportTab", ["getSchedule"]),
 		},
@@ -271,11 +271,12 @@
 				}
 			}
 		},
-		mounted(){
-
+		async mounted(){
+			await this.actionEditTenderAnnounce(this.$route.params.tenderannounceId)
+			console.log(this.getTenderAnnounce)
 		},
 		methods:{
-			...mapActions('tenderannounce',['actionAddTenderAnnounce']),
+			...mapActions('tenderannounce',['actionAddTenderAnnounce','actionEditTenderAnnounce']),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions("passportTab", [
 		      "actionGetScheduleTable",
