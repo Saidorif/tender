@@ -84,6 +84,7 @@
                     v-for="(item, index) in form.whereTo.stations"
                   >
                     {{ item.name }}
+                    <i v-if="index != 0 && index != form.whereTo.stations.length - 1" class="trashTable fas fa-trash"  @click="removeStation('whereTo', index)"></i>
                   </th>
                 </tr>
                 <tr>
@@ -132,11 +133,9 @@
                   <th scope="col" rowspan="3">Reys ischinligi</th>
                 </tr>
                 <tr>
-                  <th
-                    colspan="2"
-                    v-for="(item, index) in form.whereFrom.stations"
-                  >
+                  <th colspan="2" v-for="(item, index) in form.whereFrom.stations" >
                     {{ item.name }}
+                    <i v-if="index != 0 && index != form.whereFrom.stations.length - 1" class="trashTable fas fa-trash"  @click="removeStation('whereFrom', index)"></i>
                   </th>
                 </tr>
                 <tr>
@@ -212,19 +211,34 @@ export default {
         reys_to_count: null,
         reys_from_count: null,
       },
-
+      requiredInput: false,
     };
   },
   watch: {
     'form.reys_to_count': {
       handler() {
         if (this.form.reys_to_count) {
-            this.form.whereTo.reyses = [];
-            for (let i = 1; i <= this.form.reys_to_count; i++) {
-              let dataArray = this.form.whereTo.stations.map((item) => {
-                return { end: "", start: "", where: item };
-              });
-              this.form.whereTo.reyses.push(dataArray);
+            if(this.getSchedule.whereTo.length){
+              if(this.form.reys_to_count > this.form.whereTo.reyses.length){
+                let forEachNumber = this.form.reys_to_count - this.form.whereTo.reyses.length
+                for (let index = 0; index < forEachNumber; index++) {
+                    let dataArray = this.form.whereTo.stations.map((item) => {
+                      return { end: "", start: "", where: item };
+                    });
+                    this.form.whereTo.reyses.push(dataArray);
+                }
+              }else{
+                let forEachNumber =  this.form.whereTo.reyses.length - this.form.reys_to_count
+                this.form.whereTo.reyses.splice(-forEachNumber, forEachNumber);
+              }
+            }else{
+              this.form.whereTo.reyses = [];
+              for (let i = 1; i <= this.form.reys_to_count; i++) {
+                let dataArray = this.form.whereTo.stations.map((item) => {
+                  return { end: "", start: "", where: item };
+                });
+                this.form.whereTo.reyses.push(dataArray);
+              }
             }
         }
       },
@@ -232,15 +246,30 @@ export default {
     },
     'form.reys_from_count': {
       handler() {
-        this.form.whereFrom.reyses = [];
-        if (this.form.reys_from_count) {
-          for (let i = 1; i <= this.form.reys_from_count; i++) {
-            let dataArray = this.form.whereFrom.stations.map((item) => {
-              return { end: "", start: "", where: item };
-            });
-            this.form.whereFrom.reyses.push(dataArray);
+          if (this.form.reys_from_count) {
+            if(this.getSchedule.whereFrom.length){
+              if(this.form.reys_from_count > this.form.whereFrom.reyses.length){
+                let forEachNumber = this.form.reys_from_count - this.form.whereFrom.reyses.length
+                for (let index = 0; index < forEachNumber; index++) {
+                    let dataArray = this.form.whereFrom.stations.map((item) => {
+                      return { end: "", start: "", where: item };
+                    });
+                    this.form.whereFrom.reyses.push(dataArray);
+                }
+              }else{
+                let forEachNumber =  this.form.whereFrom.reyses.length - this.form.reys_from_count
+                this.form.whereFrom.reyses.splice(-forEachNumber, forEachNumber);
+              }
+            }else{
+              this.form.whereFrom.reyses = [];
+              for (let i = 1; i <= this.form.reys_from_count; i++) {
+                let dataArray = this.form.whereFrom.stations.map((item) => {
+                  return { end: "", start: "", where: item };
+                });
+                this.form.whereFrom.reyses.push(dataArray);
+              }
+            }
           }
-        }
       },
     },
   },
@@ -248,26 +277,37 @@ export default {
     await this.actionEditDirection(this.$route.params.directionId);
     await this.actionGetScheduleTable(this.$route.params.directionId);
       this.titulData = this.getDirection;
-    if(this.getSchedule){
       console.log(this.getSchedule)
 
+    if(this.getSchedule.whereFrom.length && this.getSchedule.whereTo.length){
       this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
       this.form.whereFrom.stations =  this.getSchedule.whereFrom[0].stations
-      this.form.whereFrom.reyses = this.getSchedule.whereFrom
+      this.getSchedule.whereFrom.forEach(element => {
+        this.form.whereFrom.reyses.push(element.reys_times)
+      });
 
       this.form.whereTo.where = this.getSchedule.whereTo[0].where;
       this.form.whereTo.stations =  this.getSchedule.whereTo[0].stations
-      this.form.whereTo.reyses = this.getSchedule.whereTo
+      this.getSchedule.whereTo.forEach(element => {
+        this.form.whereTo.reyses.push(element.reys_times)
+      });
+      this.form.count_bus = this.getSchedule.whereFrom[0].count_bus
+      this.form.reys_from_count = this.getSchedule.whereFrom[0].reys_from_count
+      this.form.reys_to_count = this.getSchedule.whereFrom[0].reys_to_count
+
     }else{
       this.form.whereFrom.where = this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
       this.form.whereTo.where = this.titulData.timing_with[0].whereForm;
       this.form.whereFrom.from = this.titulData.timing_with[0].whereForm;
       this.form.whereTo.from =  this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
-      this.form.whereTo.stations = this.titulData.timing_with.map((item) => {
-        return item.whereForm;
-      });
-      this.form.whereFrom.stations = this.titulData.timing_with.map((item) => {
-        return item.whereForm;
+      let stationsLeng = this.titulData.timing_with.length;
+      this.titulData.timing_with.forEach((item, i) => {
+        this.form.whereTo.stations.push(item.whereForm)
+        this.form.whereFrom.stations.push(item.whereForm);
+        if(stationsLeng == i + 1){
+          this.form.whereTo.stations.push(item.whereTo)
+          this.form.whereFrom.stations.push(item.whereTo);
+        }
       });
       this.form.whereFrom.stations = this.form.whereFrom.stations.reverse()
     }
@@ -285,22 +325,32 @@ export default {
       "actionGetScheduleTable",
     ]),
     async saveData() {
-      await this.actionSetScheduleTable({
-        id: this.$route.params.directionId,
-        data: this.form,
-      });
-      if (this.getScheduleResMsg.success) {
-        toast.fire({
-          type: "success",
-          icon: "success",
-          title: "Malumotlar saqlandi",
+      console.log(this.form)
+      if (
+        this.form.count_bus != "" &&
+        this.form.reys_to_count != "" &&
+        this.form.reys_from_count != ""
+      ) {
+        await this.actionSetScheduleTable({
+          id: this.$route.params.directionId,
+          data: this.form,
         });
-      } else {
-        toast.fire({
-          type: "error",
-          icon: "error",
-          title: "nmadir nito",
-        });
+        if (this.getScheduleResMsg.success) {
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: "Malumotlar saqlandi",
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: "nmadir nito",
+          });
+        }
+        this.requiredInput = false;
+      }else{
+        this.requiredInput = true;
       }
     },
     isRequired(input) {
@@ -312,6 +362,23 @@ export default {
     calcToTime(fromTime, toTime, index, thisItem) {
       let nextItem = this.form[index];
     },
+    removeStation(parentName, index){
+      window.swal.fire({
+        title: 'Ishonchingiz komilmi?',
+        text: "Siz buni qaytarib ololmaysiz!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: "Ha, uni o'chirib tashlang!",
+        cancelButtonText: "Bekor qilish",
+      }).then( async (result) => {
+        if (result.value) {
+          this.form[parentName].stations.splice(index, 1);
+          this.form[parentName].reyses.splice(index, 1);
+        }
+      })
+    }
   },
 };
 </script>
@@ -357,5 +424,20 @@ export default {
 }
 tbody tr td:focus-within {
   border-bottom: 1px solid #000;
+}
+.trashTable{
+  color: red;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  cursor: pointer;
+  opacity: 0;
+  transition: .5s;
+}
+th{
+  position: relative;
+}
+th:hover .trashTable{
+  opacity: 1;
 }
 </style>
