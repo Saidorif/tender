@@ -375,7 +375,7 @@
 						data = this.allItems.map((item,index)=>{
 							let direction_id = item.directions.id
 							let reysItems = [] 
-							if (item.reyses.length > 0) {
+							if (item.reyses.length > 0){
 								reysItems = item.reyses.map((i,k)=>{
 									return i.id
 								})

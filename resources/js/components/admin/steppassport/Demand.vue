@@ -189,7 +189,7 @@
               <tr>
                 <td>16</td>
                 <td width="50%"><b>Минимал балл</b></td>
-                <td>{{form.minimum_bal}}</td>
+                <td><input type="number" v-model="form.minimum_bal" class="form-control"></td>
               </tr>
             </tbody>
           </table>
