@@ -105,15 +105,26 @@ class TenderController extends Controller
         }
         $inputs = $request->all();
         $tender_lots = TenderLot::where(['tender_id' => $tender->id,'direction_id' => $inputs['direction_id']])->first();
-        $tenderlots_reys_ids = $tender_lots->reys_id;
-        $result = array_diff($tenderlots_reys_ids, $inputs['reys_id']);
-        // $tender_lots->reys_id = $result;
-        // $tender_lots->save();
-        return response()->json([
-            'success' => true,
-            'inputs' => $inputs['reys_id'],
-            'tenderlots_reys_ids' => $tenderlots_reys_ids,
-            'result' => $result
-        ]);
+        if(count($inputs['reys_id']) == 0){
+            $tender->direction_ids = [];
+            $tender->save();
+
+            $tender_lots->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'OK'
+            ]);
+        }else{
+            $tenderlots_reys_ids = $tender_lots->reys_id;
+            $result = array_diff($tenderlots_reys_ids, $inputs['reys_id']);
+            $tender_lots->reys_id = $result;
+            $tender_lots->save();
+            return response()->json([
+                'success' => true,
+                'inputs' => $inputs['reys_id'],
+                'tenderlots_reys_ids' => $tenderlots_reys_ids,
+                'result' => $result
+            ]);            
+        }
     }
 }
