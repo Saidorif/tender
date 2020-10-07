@@ -249,12 +249,14 @@
 			  		    	<template v-if="lots[index].reys_id == 0">
 			  		    		<li>
 					  		    	<div class="d-flex align-items-center">
-						  		    	<button class="btn btn-outline-success mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
+						  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
 						  		    		<template>
 						  		    			<span>{{items.name}}</span>
 						  		    		</template>
 									  	</button>
-									  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
+									  	<button type="button" class="btn btn-danger" 
+									  		@click.prevent="removeFromEditItems(null,items)"
+								  		>
 									  		<i class="fas fa-trash"></i>
 									  	</button>
 					  		    	</div>
@@ -468,15 +470,19 @@
 		      "actionGetScheduleTable",
 		    ]),
 		    async removeFromEditItems(lots,reys){
-		    	let lot_list = lots.reys_id
 		    	let reys_id = []
 		    	let direction_id = 0;
-		    	reys.forEach((item,index)=>{
-			    	if (lot_list.includes(item.id)) {
-			    		reys_id.push(item.id)
-			    		direction_id = item.direction_id
-			    	}
-		    	})
+		    	if (lots) {
+			    	let lot_list = lots.reys_id
+			    	reys.forEach((item,index)=>{
+				    	if (lot_list.includes(item.id)) {
+				    		reys_id.push(item.id)
+				    		direction_id = item.direction_id
+				    	}
+			    	})
+		    	}else{
+		    		direction_id = reys.id
+		    	}
 		    	let data = {
 		    		direction_id,
 		    		reys_id
