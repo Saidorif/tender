@@ -157,85 +157,101 @@
 				<!-- All edit choosen tables -->
 			  	<div class="table-responsive" v-if="edit_direction_ids.length > 0">
 			  		<div class="d-flex justify-content-center">
-			  			<h4>Выбранные маршруты</h4>
+			  			<h4>Маршруты</h4>
 			  		</div>
 				  	<div class="choosenItemsTable">
 				  		<ul v-for="(items,index) in edit_direction_ids">
 			  		    	<!-- <h4>{{index+1}})</h4> -->
-				  		    <li class="mb-2" v-if="getLengthReys(lots[index],items.reysesTo) > 0">
-				  		    	<div class="d-flex align-items-center">
-					  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+'from'" aria-expanded="false" :aria-controls="'collapseExample'+index+'from'">
-					  		    		<template>
-										    <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span> 
-										    <span>({{getLengthReys(lots[index],items.reysesFrom)}} рейсы)</span>
-					  		    		</template>
-								  	</button>
-								  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
-								  		<i class="fas fa-trash"></i>
-								  	</button>
-				  		    	</div>
-							  	<div class="collapse" :id="'collapseExample'+index+'from'" v-if="items.reysesFrom.length > 0">
-								  <table class="table table-bordered">
-							  			<thead>
-								  			<tr>
-								  				<th>№</th>
-								  				<th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
-									  				{{item.where.name}}
-									  			</th>
-								  			</tr>
-								  		</thead>
-								  		<tbody>
-								  			<tr 
-								  				v-for="(reys,key) in items.reysesFrom"
-								  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
-							  				>
-								  				<td>{{key+1}}</td>
-								  				<template v-for="(val,key) in reys.reys_times">
-									  				<td>{{val.start}}</td>
-									  				<td>{{val.end}}</td>
-								  				</template>
-								  			</tr>
-								  		</tbody>
-								  	</table>
-								</div>
-				  			</li>
-				  		    <li v-if="getLengthReys(lots[index],items.reysesTo) > 0">
-				  		    	<div class="d-flex align-items-center">
-					  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+'to'" aria-expanded="false" :aria-controls="'collapseExample'+index+'to'">
-					  		    		<template>
-										    <span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span> 
-										    <span>({{getLengthReys(lots[index],items.reysesTo)}} рейсы)</span>
-					  		    		</template>
-								  	</button>
-								  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
-								  		<i class="fas fa-trash"></i>
-								  	</button>
-				  		    	</div>
-							  	<div class="collapse" :id="'collapseExample'+index+'to'" v-if="items.reysesTo.length > 0">
-								  <table class="table table-bordered table-hover">
-							  			<thead>
-								  			<tr>
-								  				<th>№</th>
-								  				<th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
-									  				{{item.where.name}}
-									  			</th>
-								  			</tr>
-								  		</thead>
-								  		<tbody>
-								  			<tr 
-								  				v-for="(reys,key) in items.reysesTo"
-								  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
-							  				>
-								  				<td>{{key+1}}</td>
-								  				<template v-for="(val,key) in reys.reys_times">
-									  				<td>{{val.start}}</td>
-									  				<td>{{val.end}}</td>
-								  				</template>
-								  			</tr>
-								  		</tbody>
-								  	</table>
-								</div>
-				  			</li>
+			  		    	<template>
+					  		    <li class="mb-2" v-if="getLengthReys(lots[index],items.reysesTo) > 0">
+					  		    	<div class="d-flex align-items-center">
+						  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+'from'" aria-expanded="false" :aria-controls="'collapseExample'+index+'from'">
+						  		    		<template>
+											    <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span> 
+											    <span>({{getLengthReys(lots[index],items.reysesFrom)}} рейсы)</span>
+						  		    		</template>
+									  	</button>
+									  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
+									  		<i class="fas fa-trash"></i>
+									  	</button>
+					  		    	</div>
+								  	<div class="collapse" :id="'collapseExample'+index+'from'" v-if="items.reysesFrom.length > 0">
+									  <table class="table table-bordered">
+								  			<thead>
+									  			<tr>
+									  				<th>№</th>
+									  				<th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
+										  				{{item.where.name}}
+										  			</th>
+									  			</tr>
+									  		</thead>
+									  		<tbody>
+									  			<tr 
+									  				v-for="(reys,key) in items.reysesFrom"
+									  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
+								  				>
+									  				<td>{{key+1}}</td>
+									  				<template v-for="(val,key) in reys.reys_times">
+										  				<td>{{val.start}}</td>
+										  				<td>{{val.end}}</td>
+									  				</template>
+									  			</tr>
+									  		</tbody>
+									  	</table>
+									</div>
+					  			</li>
+					  		    <li v-if="getLengthReys(lots[index],items.reysesTo) > 0">
+					  		    	<div class="d-flex align-items-center">
+						  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+'to'" aria-expanded="false" :aria-controls="'collapseExample'+index+'to'">
+						  		    		<template>
+											    <span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span> 
+											    <span>({{getLengthReys(lots[index],items.reysesTo)}} рейсы)</span>
+						  		    		</template>
+									  	</button>
+									  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
+									  		<i class="fas fa-trash"></i>
+									  	</button>
+					  		    	</div>
+								  	<div class="collapse" :id="'collapseExample'+index+'to'" v-if="items.reysesTo.length > 0">
+									  <table class="table table-bordered table-hover">
+								  			<thead>
+									  			<tr>
+									  				<th>№</th>
+									  				<th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
+										  				{{item.where.name}}
+										  			</th>
+									  			</tr>
+									  		</thead>
+									  		<tbody>
+									  			<tr 
+									  				v-for="(reys,key) in items.reysesTo"
+									  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
+								  				>
+									  				<td>{{key+1}}</td>
+									  				<template v-for="(val,key) in reys.reys_times">
+										  				<td>{{val.start}}</td>
+										  				<td>{{val.end}}</td>
+									  				</template>
+									  			</tr>
+									  		</tbody>
+									  	</table>
+									</div>
+					  			</li>
+			  		    	</template>
+			  		    	<template v-if="lots[index].reys_id == 0">
+			  		    		<li>
+					  		    	<div class="d-flex align-items-center">
+						  		    	<button class="btn btn-outline-success mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
+						  		    		<template>
+						  		    			<span>{{items.name}}</span>
+						  		    		</template>
+									  	</button>
+									  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
+									  		<i class="fas fa-trash"></i>
+									  	</button>
+					  		    	</div>
+				  		    	</li>
+			  		    	</template>
 				  		</ul>
 				  	</div>
 			  	</div>
@@ -430,7 +446,7 @@
 			this.form.address = this.getTenderAnnounce.address
 			this.edit_direction_ids= this.getTenderAnnounce.direction_ids
 			this.lots= this.getTenderAnnounce.tenderlots
-			// console.log(this.getTenderAnnounce)
+			console.log(this.getTenderAnnounce)
 		},
 		methods:{
 			...mapActions('tenderannounce',[
