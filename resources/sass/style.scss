@@ -1341,11 +1341,14 @@ hr{
 .jv_login_block .flagbg{
      padding: 30px;
      width: 45%;
-     background-image: url(/img/uzbflag.jpg);
+    //  background-image: url(/img/uzbflag.jpg);
      background-size: auto 100%;
      background-repeat: no-repeat;
      background-position: center;
      position: relative;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
 }
 .jv_login_block .flagbg .input_group_with_label{
     max-width: calc(100%  / 3 - 20px);
@@ -1361,6 +1364,7 @@ hr{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    flex-direction: row;
 }
 .registerCard .jv_login_block  .jv_form_block{
     width: 50%;
@@ -1375,7 +1379,7 @@ hr{
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,.8);
+    background: rgba(41, 38, 102, .8);
     z-index: 1;
 }
 .jv_login_block .flagbg h6{
@@ -1443,4 +1447,104 @@ hr{
 }   
 .btn_register_block{
     position: relative;
+}
+
+.check_box_with_label{
+
+}
+.check_box_with_label input{
+    --active: #275EFE;
+    --active-inner: #fff;
+    --focus: 2px rgba(39, 94, 254, .3);
+    --border: #BBC1E1;
+    --border-hover: #275EFE;
+    --background: #fff;
+    --disabled: #F6F8FF;
+    --disabled-inner: #E1E6F9;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 21px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    border: 1px solid var(--bc, var(--border));
+    background: var(--b, var(--background));
+    -webkit-transition: background .3s, border-color .3s, box-shadow .2s;
+    transition: background .3s, border-color .3s, box-shadow .2s;
+    width: 38px;
+    border-radius: 11px;
+    min-height: unset;
+}
+.check_box_with_label input::after{
+    content: '';
+    display: block;
+    position: absolute;
+    -webkit-transition: opacity var(--d-o, 0.2s), -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
+    transition: opacity var(--d-o, 0.2s), -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
+    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s), -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    background: var(--ab, var(--border));
+    -webkit-transform: translateX(var(--x, 0));
+    transform: translateX(var(--x, 0));
+}
+.check_box_with_label label{
+    display: block;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+.check_box_with_label input[type='checkbox']:checked {
+    --ab: var(--active-inner);
+    --x: 17px;
+    --b: var(--active);
+    --bc: var(--active);
+    --d-o: .3s;
+    --d-t: .6s;
+    --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+}
+.input_radio_with_label{
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+}
+.input_radio_with_label input{
+    position: absolute;
+    left: 0;
+    opacity: 0;
+}
+.input_radio_with_label label{
+    padding:  5px 20px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.25);
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+.input_radio_with_label label:hover{
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+.input_radio_with_label input:checked + label{
+    background: #00236D;
+    color: #fff;
+}
+.input_radios_block{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.input_radios_block p{
+    width: 100%;
+    font-weight: 700;
+    margin-bottom: 0;
 }

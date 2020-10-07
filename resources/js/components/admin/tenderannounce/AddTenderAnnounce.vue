@@ -41,7 +41,7 @@
 					    <label for="checked">Пакет</label>
 					    <input 
 					    	type="checkbox" 
-					    	class="form-control input_style" 
+					    	class="input_style" 
 					    	v-model="checked" 
 					    	id="checked"
 				    	>	
@@ -73,7 +73,7 @@
 					    <label for="checkedGrafik">График</label>
 					    <input 
 					    	type="checkbox" 
-					    	class="form-control input_style" 
+					    	class="input_style" 
 					    	v-model="checkedGrafik" 
 					    	id="checkedGrafik"
 				    	>	
@@ -483,65 +483,6 @@
 	tr.active{
 		background:#d6d6d6;
 	}
-	.check_box_with_label{
 
-	}
-	.check_box_with_label input{
-		--active: #275EFE;
-		--active-inner: #fff;
-		--focus: 2px rgba(39, 94, 254, .3);
-		--border: #BBC1E1;
-		--border-hover: #275EFE;
-		--background: #fff;
-		--disabled: #F6F8FF;
-		--disabled-inner: #E1E6F9;
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		height: 21px;
-		outline: none;
-		display: inline-block;
-		vertical-align: top;
-		position: relative;
-		margin: 0;
-		cursor: pointer;
-		border: 1px solid var(--bc, var(--border));
-		background: var(--b, var(--background));
-		-webkit-transition: background .3s, border-color .3s, box-shadow .2s;
-		transition: background .3s, border-color .3s, box-shadow .2s;
-		width: 38px;
-    	border-radius: 11px;
-		min-height: unset;
-	}
-	.check_box_with_label input::after{
-		content: '';
-		display: block;
-		position: absolute;
-		-webkit-transition: opacity var(--d-o, 0.2s), -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
-		transition: opacity var(--d-o, 0.2s), -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
-		transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
-		transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s), -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
-		left: 2px;
-		top: 2px;
-		border-radius: 50%;
-		width: 15px;
-		height: 15px;
-		background: var(--ab, var(--border));
-		-webkit-transform: translateX(var(--x, 0));
-		transform: translateX(var(--x, 0));
-	}
-	.check_box_with_label label{
-		display: block;
-		cursor: pointer;
-		margin-bottom: 15px;
-	}
-	.check_box_with_label input[type='checkbox']:checked {
-		--ab: var(--active-inner);
-		--x: 17px;
-		--b: var(--active);
-		--bc: var(--active);
-		--d-o: .3s;
-		--d-t: .6s;
-		--d-t-e: cubic-bezier(.2, .85, .32, 1.2);
-	}
 
 </style>

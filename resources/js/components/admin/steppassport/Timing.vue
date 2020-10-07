@@ -283,12 +283,12 @@
                   <td>{{ table.whereForm ? table.whereForm.name  : '' }} {{ table.whereTo ? table.whereTo.name  : '' }}</td>
                   <td>{{ table.start_speedometer }}</td>
                   <td>{{ table.end_speedometer }}</td>
-                  <td>{{ table.distance_from_start_station }} 55</td>
+                  <td>{{ table.distance_from_start_station }} </td>
                   <td>{{ table.distance_between_station }}</td>
                   <td>{{ table.distance_in_limited_speed }}</td>
-                  <td>{{ table.spendtime_between_station }} 88</td>
+                  <td>{{ table.spendtime_between_station }} </td>
                   <td>{{ table.spendtime_between_limited_space }}</td>
-                  <td>{{ table.spendtime_to_stay_station }} 1010</td>
+                  <td>{{ table.spendtime_to_stay_station }} </td>
                   <td>{{ table.speed_between_station }}</td>
                   <td>{{ table.speed_between_limited_space }}</td>
                   <td class="detail_td">

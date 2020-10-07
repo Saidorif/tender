@@ -83,7 +83,7 @@
                 <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
               <label for="region_id">Tumanga, qishloqga, shaxriga,</label>
               <select
                 class="form-control input_style"
@@ -95,7 +95,7 @@
                 <option :value="item.id" v-for="(item,index) in areaTo">{{item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
               <label for="region_id">Bakatga</label>
               <select
                 class="form-control input_style"
@@ -106,7 +106,7 @@
                 <option :value="item.id" v-for="(item,index) in stationTo">{{item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
               <label for="seasonal">Ishlash mavsumi</label>
               <select
                 class="form-control input_style"
@@ -119,18 +119,20 @@
                 <option value="seasonal">Mavsumiy</option>
               </select>
             </div>
-            <div class="form-group col-md-3" v-for="(item,index) in destinations">
-              <label :for="'from_where'+index">{{item.name}}</label>
-              <input
-                type="radio"
-                v-model="form.from_where"
-                name="from_where"
-                :id="'from_where'+index"
-                :value="item"
-                class="form-control input_style"
-              />
+            <div class="col-md-3 input_radios_block">
+              <p>Qaysi tarafdan</p>
+              <div class="form-group input_radio_with_label" v-for="(item,index) in destinations">
+                <input
+                  type="radio"
+                  v-model="form.from_where"
+                  name="from_where"
+                  :id="'from_where'+index"
+                  :value="item"
+                />
+                <label :for="'from_where'+index">{{item.name}}</label>
+              </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
               <label for="seria">Yo'nalish ochilish sanasi</label>
               <date-picker 
                 lang="ru" 
@@ -142,7 +144,7 @@
                 format="YYYY"
               ></date-picker>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
               <label for="seria">Yonalish masofasi</label>
               <input
                 type="number"
@@ -151,7 +153,7 @@
                 :class="isRequired(form.distance) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
               <label for="profitability">Рентабельность</label>
               <select
                 class="form-control input_style"
@@ -164,7 +166,7 @@
                 <option value="middle">Средный</option>
               </select>
             </div>
-            <div class="form-group col-lg-6 form_btn d-flex justify-content-end">
+            <div class="form-group col-lg-2 form_btn d-flex justify-content-end">
               <button type="submit" class="btn btn-primary btn_save_category">
                 <i class="fas fa-save"></i>
                 Сохранить
