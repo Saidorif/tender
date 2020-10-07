@@ -69,6 +69,15 @@ const actions = {
 			return false
 		}
 	},
+	async actionDeleteTenderAnnounceItem({commit},payload){
+		try {
+			const tenderannounce =  await TenderAnnounceService.deletetenderannounceItem(payload);
+			await commit('setMessage',tenderannounce.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionDeleteTenderAnnounce({commit},id){
 		try {
 			const tenderannounce =  await TenderAnnounceService.deletetenderannounce(id);

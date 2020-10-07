@@ -19,6 +19,9 @@ const TenderAnnounceService = {
 	deletetenderannounce(id){
 		return ApiService.delete(`/api/tender/destroy/${id}`)
 	},
+	deletetenderannounceItem(data){
+		return ApiService.post(`/api/tender/remove/${data.direction_id}`,data)
+	},
 };
 
 export { TenderAnnounceService };

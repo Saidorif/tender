@@ -171,7 +171,11 @@
 											    <span>({{getLengthReys(lots[index],items.reysesFrom)}} рейсы)</span>
 						  		    		</template>
 									  	</button>
-									  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
+									  	<button 
+									  		type="button" 
+									  		class="btn btn-danger" 
+									  		@click.prevent="removeFromEditItems(lots[index],items.reysesFrom)"
+								  		>
 									  		<i class="fas fa-trash"></i>
 									  	</button>
 					  		    	</div>
@@ -208,7 +212,11 @@
 											    <span>({{getLengthReys(lots[index],items.reysesTo)}} рейсы)</span>
 						  		    		</template>
 									  	</button>
-									  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
+									  	<button 
+									  		type="button" 
+									  		class="btn btn-danger" 
+									  		@click.prevent="removeFromEditItems(lots[index],items.reysesTo)"
+								  		>
 									  		<i class="fas fa-trash"></i>
 									  	</button>
 					  		    	</div>
@@ -288,7 +296,7 @@
 									  				{{item.where.name}}
 									  			</th>
 								  			</tr>
-								  		</thead>
+								  		</thead>f
 								  		<tbody>
 								  			<tr v-for="(reys,key) in item.reyses">
 								  				<td>{{key+1}}</td>
@@ -452,12 +460,37 @@
 			...mapActions('tenderannounce',[
 	 			'actionAddTenderAnnounce',
 				'actionEditTenderAnnounce',
-				'actionUpdateTenderAnnounce'
+				'actionUpdateTenderAnnounce',
+				'actionDeleteTenderAnnounceItem'
 			]),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions("passportTab", [
 		      "actionGetScheduleTable",
 		    ]),
+		    async removeFromEditItems(lots,reys){
+		    	let lot_list = lots.reys_id
+		    	let reys_id = []
+		    	let direction_id = 0;
+		    	reys.forEach((item,index)=>{
+			    	if (lot_list.includes(item.id)) {
+			    		reys_id.push(item.id)
+			    		direction_id = item.direction_id
+			    	}
+		    	})
+		    	let data = {
+		    		direction_id,
+		    		reys_id
+		    	}
+		    	await this.actionDeleteTenderAnnounceItem(data)
+		    	if (this.getMassage.success) {
+				 	await this.actionEditTenderAnnounce(this.$route.params.tenderannounceId)
+			    	toast.fire({
+						type: "success",
+						icon: "success",
+						title: this.getMassage.message
+				 	});
+		    	}
+		    },
 		    activeEditClass(lots,id){
 		    	let lot_list = lots.reys_id
 	    		if (lot_list.includes(id)) {
@@ -737,5 +770,7 @@
 		--d-t: .6s;
 		--d-t-e: cubic-bezier(.2, .85, .32, 1.2);
 	}
-
+	input.disabled {
+	  cursor: not-allowed;
+	}
 </style>
