@@ -163,7 +163,8 @@
 				  		<ul v-for="(items,index) in edit_direction_ids">
 			  		    	<!-- <h4>{{index+1}})</h4> -->
 			  		    	<template>
-					  		    <li class="mb-2" v-if="getLengthReys(lots[index],items.reysesTo) > 0">
+					  		    <!-- <li class="mb-2" v-if="getLengthReys(lots[index],items.reysesTo) > 0"> -->
+					  		    <li class="mb-2">
 					  		    	<div class="d-flex align-items-center">
 						  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+'from'" aria-expanded="false" :aria-controls="'collapseExample'+index+'from'">
 						  		    		<template>
@@ -204,7 +205,8 @@
 									  	</table>
 									</div>
 					  			</li>
-					  		    <li v-if="getLengthReys(lots[index],items.reysesTo) > 0">
+					  		    <!-- <li v-if="getLengthReys(lots[index],items.reysesTo) > 0"> -->
+					  		    <li>
 					  		    	<div class="d-flex align-items-center">
 						  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+'to'" aria-expanded="false" :aria-controls="'collapseExample'+index+'to'">
 						  		    		<template>
@@ -456,7 +458,7 @@
 			this.form.address = this.getTenderAnnounce.address
 			this.edit_direction_ids= this.getTenderAnnounce.direction_ids
 			this.lots= this.getTenderAnnounce.tenderlots
-			console.log(this.getTenderAnnounce)
+			// console.log(this.getTenderAnnounce)
 		},
 		methods:{
 			...mapActions('tenderannounce',[
@@ -499,12 +501,16 @@
 		    	}
 		    },
 		    activeEditClass(lots,id){
-		    	let lot_list = lots.reys_id
-	    		if (lot_list.includes(id)) {
-	    			return true
-	    		}
+		    	if (lots.length > 0) {
+			    	let lot_list = lots.reys_id
+		    		if (lot_list.includes(id)) {
+		    			return true
+		    		}
+		    	}
 		    },
 		    getLengthReys(lots,reys){
+		    	console.log(reys)
+		    	console.log(lots)
 		    	if (lots.length > 0) {
 			    	let lot_list = lots.reys_id
 			    	let count = 0;
