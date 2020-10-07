@@ -32,7 +32,7 @@ class SchemaDetailController extends Controller
 
     public function store(Request $request, $id)
     {
-        $user = $request->user();
+        
         $validator = Validator::make($request->all(), [
             'data.*.organ' => 'required|string',
             'data.*.job' => 'required|string',
@@ -44,6 +44,7 @@ class SchemaDetailController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
+        dd($request->all());
         $direction = Direction::find($id);
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найдено']);
