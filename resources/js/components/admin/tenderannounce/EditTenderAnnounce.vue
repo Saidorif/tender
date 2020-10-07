@@ -127,11 +127,11 @@
 				  		<div class="d-flex justify-content-center">
 				  			<h4>{{toName}}</h4>
 				  		</div>
-					  	<table class="table table-bordered table-hover">
+					  	<table class="table table-bordered">
 					  		<thead>
 					  			<tr>
 					  				<th>№</th>
-					  				<th v-for="(item,index) in  toFirstItems.reys_times" colspan="2">{{item.where.name}}</th>
+					  				<th v-for="(item,index) in toFirstItems.reys_times" colspan="2">{{item.where.name}}</th>
 					  			</tr>
 					  		</thead>
 					  		<tbody>
@@ -175,7 +175,7 @@
 								  	</button>
 				  		    	</div>
 							  	<div class="collapse" :id="'collapseExample'+index+'from'" v-if="items.reysesFrom.length > 0">
-								  <table class="table table-bordered table-hover">
+								  <table class="table table-bordered">
 							  			<thead>
 								  			<tr>
 								  				<th>№</th>
