@@ -1,5 +1,6 @@
 <template>
   <div class="about_page">
+    <Loader v-if="laoding"/>
     <Header/>
     <div class="container about_block">
       <div class="col-md-12">
@@ -31,15 +32,21 @@ import DatePicker from "vue2-datepicker";
 import Multiselect from "vue-multiselect";
 import { TokenService } from "./../../services/storage.service";
 import Header from './Header'
+import Loader from '../Loader'
 export default {
     components:{
-        Header
+        Header,
+        Loader
     },
   data() {
-    return {};
+    return {
+      laoding: true
+    };
   },
   computed: {},
-  async mounted() {},
+  async mounted() {
+    this.laoding = false
+  },
   methods: {},
 };
 </script>

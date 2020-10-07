@@ -1,5 +1,6 @@
 <template>
 	<div class="role">
+		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -41,15 +42,20 @@
 </template>
 <script>
 	import {mapActions, mapGetters} from 'vuex'
+	import Loader from '../../Loader'
 	export default{
+		components:{
+			Loader
+		},
 		data(){
 			return{
-
+				laoding: true
 			}
 		},
 		async mounted(){
 			let page = 1;
 			await this.actionPositions()
+			this.laoding = false
 		},
 		computed:{
 			...mapGetters('position',['getPositions','getMassage'])
@@ -57,7 +63,9 @@
 		methods:{
 			...mapActions('position',['actionPositions','actionDeletePosition']),
 			async getResults(page = 1){ 
+				this.laoding = true
 				await this.actionPositions(page)
+				this.laoding = false
 			},
 			async deletePosition(id){
 				if(confirm("Вы действительно хотите удалить?")){

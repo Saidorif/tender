@@ -1,5 +1,6 @@
 <template>
 	<div class="edit_region">
+		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -36,13 +37,18 @@
 </template>
 <script>
 	import { mapGetters , mapActions } from 'vuex'
+	import Loader from '../../Loader'
 	export default{
+		components:{
+			Loader
+		},
 		data(){
 			return{
 				form:{
 					name:''
 				},
-				requiredInput:false
+				requiredInput:false,
+				laoding: true
 			}
 		},
 		computed:{
@@ -50,6 +56,7 @@
 		},
 		async mounted(){
 			await this.actionEditRegion(this.$route.params.regionId)
+			this.laoding = false
 			this.form = this.getRegion
 		},
 		methods:{
@@ -59,7 +66,10 @@
 		    },
 			async saveRegion(){
 		    	if (this.form.name != ''){
+					this.laoding = true
 					await this.actionUpdateRegion(this.form)
+					this.laoding = false
+
 					this.$router.push("/crm/region");
 					this.requiredInput = false
 				}else{

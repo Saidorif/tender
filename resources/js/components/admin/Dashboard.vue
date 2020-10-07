@@ -1,5 +1,6 @@
 <template>
 	<div class="dashboard">
+		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -24,16 +25,19 @@
 	// import Bar from './chart/Bar'
 	// import Line from './chart/Line'
 	// import Pie from './chart/Pie'
+	import Loader from '../Loader'
 	import {mapActions, mapGetters} from 'vuex'
 	export default{
 		components:{
 			// Bar,
 			// Line,
 			// Pie,
+			Loader
 		},
 		data(){
 			return{
 				loaded: false,
+				laoding: true
 			}
 		},
 		computed:{
@@ -45,7 +49,7 @@
 		async mounted(){
 			await this.actionDashboard()
 			this.loaded = true
-			console.log(this.getDashboard)
+			this.laoding = false
 		}
 	}
 </script>

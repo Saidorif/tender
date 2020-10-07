@@ -1,5 +1,6 @@
 <template>
 	<div class="add_region">
+		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -209,11 +210,13 @@
 <script>
 	import DatePicker from "vue2-datepicker";
 	import Multiselect from 'vue-multiselect';
+	import Loader from '../../Loader'
 	import { mapGetters , mapActions } from 'vuex'
 	export default{
 		components: {
 	    	DatePicker,
-	    	Multiselect,
+			Multiselect,
+			Loader
 	  	},
 		data(){
 			return{
@@ -239,6 +242,7 @@
 				choosenToItems:[],
 				findList:[],
 				tableItems:[],
+				laoding: true
 			}
 		},
 		computed:{
@@ -272,7 +276,7 @@
 			}
 		},
 		mounted(){
-
+			this.laoding = false
 		},
 		methods:{
 			...mapActions('tenderannounce',['actionAddTenderAnnounce']),
@@ -354,8 +358,10 @@
 		      }
 		    },
 		    async dispatchAction(data){
-	      		this.form.direction_ids.push(data.id);
-		      	await this.actionGetScheduleTable(data.id)
+				  this.form.direction_ids.push(data.id);
+				  this.laoding = true
+				  await this.actionGetScheduleTable(data.id)
+				  this.laoding = false
 			      // From Items
 				this.fromFirstItems = this.getSchedule.whereFrom[0];
 				this.fromItems = this.getSchedule.whereFrom
@@ -444,7 +450,9 @@
 		    	if (this.form.time != '' && this.form.address != ''){
 		    		if (checkLengthDataExists) {
 			    		if (checkLengthData) {
+							this.laoding = true
 							await this.actionAddTenderAnnounce(newData)
+							this.laoding = false
 							if (this.getMassage.success) {
 								console.log(this.getMassage)
 								toast.fire({

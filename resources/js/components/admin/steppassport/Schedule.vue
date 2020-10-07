@@ -1,5 +1,6 @@
 <template>
   <div class="add_area">
+    <Loader v-if="laoding"/>
     <div class="card card_with_tabs">
       <div class="card-header tabCard">
         <PassportTab />
@@ -184,10 +185,12 @@
 import DatePicker from "vue2-datepicker";
 import { mapGetters, mapActions } from "vuex";
 import PassportTab from "./PassportTab";
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
     PassportTab,
+    Loader
   },
   data() {
     return {
@@ -210,6 +213,7 @@ export default {
         reys_from_count: '',
       },
       requiredInput: false,
+      laoding: true
     };
   },
   watch: {
@@ -274,6 +278,7 @@ export default {
   async mounted() {
     await this.actionEditDirection(this.$route.params.directionId);
     await this.actionGetScheduleTable(this.$route.params.directionId);
+    this.laoding = false
       this.titulData = this.getDirection;
 
     if(this.getSchedule.whereFrom.length && this.getSchedule.whereTo.length){
@@ -327,10 +332,12 @@ export default {
         this.form.reys_to_count != "" &&
         this.form.reys_from_count != ""
       ) {
+        this.laoding = true
         await this.actionSetScheduleTable({
           id: this.$route.params.directionId,
           data: this.form,
         });
+        this.laoding = false
         if (this.getScheduleResMsg.success) {
           toast.fire({
             type: "success",

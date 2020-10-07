@@ -1,5 +1,6 @@
 <template>
 	<div class="role">
+		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -43,14 +44,19 @@
 </template>
 <script>
 	import {mapActions, mapGetters} from 'vuex'
+	import Loader from '../../Loader'
 	export default{
+		components:{
+			Loader
+		},
 		data(){
 			return{
-
+				laoding: true
 			}
 		},
 		async mounted(){
 			await this.actionConts()
+			this.laoding = false
 		},
 		computed:{
 			...mapGetters('conts',['getConts','getMassage'])
@@ -58,7 +64,9 @@
 		methods:{
 			...mapActions('conts',['actionConts']),
 			async getResults(page = 1){ 
+				this.laoding = true
 				await this.actionConts(page)
+				this.laoding = false
 			},
 		}
 	}

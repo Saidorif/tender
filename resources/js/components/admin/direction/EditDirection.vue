@@ -1,5 +1,6 @@
 <template>
   <div class="add_area">
+    <Loader v-if="laoding"/>
       <div class="card card_with_tabs">
         <div class="card-header tabCard">
             <PassportTab/>
@@ -172,6 +173,7 @@ import PassportTab from "../steppassport/PassportTab";
 import Tarif from "../steppassport/Tarif";
 import { mapGetters, mapActions } from "vuex";
 import "vue2-datepicker/index.css";
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
@@ -179,7 +181,8 @@ export default {
     Scheme,
     Tarif,
     PassportTab,
-    Schedule
+    Schedule,
+    Loader
   },
   data() {
     return {
@@ -207,12 +210,14 @@ export default {
       stationTo: [],
       requiredInput: false,
       loaded: false,
+      laoding: true
     };
   },
   async mounted() {
     await this.actionRegionList();
     await this.actionTypeofdirectionList();
     await this.actionEditDirection(this.$route.params.directionId);
+    this.laoding = false
     this.form.pass_number = this.getDirection.pass_number;
     this.form.region_from.region_id = this.getDirection.region_from_id;
     this.form.region_from.area_id = this.getDirection.area_from_id;
@@ -242,7 +247,9 @@ export default {
       return this.requiredInput && input === "";
     },
     async sendDirection(){
+      this.laoding = true
       await this.actionEditDirection(this.$route.params.directionId);
+      this.laoding = false
     },
     async saveDirection() {
       if (
@@ -259,7 +266,9 @@ export default {
         this.form.from_where != "" &&
         this.form.seasonal != ""
       ) {
+        this.laoding = true
         await this.actionAddDirection(this.form);
+        this.laoding = false
         if (this.getMassage.success) {
           toast.fire({
             type: "success",

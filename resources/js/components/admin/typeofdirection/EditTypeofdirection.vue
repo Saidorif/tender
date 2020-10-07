@@ -1,5 +1,6 @@
 <template>
 	<div class="add_region">
+		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -48,14 +49,19 @@
 </template>
 <script>
 	import { mapGetters , mapActions } from 'vuex'
+	import Loader from '../../Loader'
 	export default{
+		components:{
+			Loader
+		},
 		data(){
 			return{
 				form:{
 					name:'',
 					type:''
 				},
-				requiredInput:false
+				requiredInput:false,
+				laoding: true
 			}
 		},
 		computed:{
@@ -64,6 +70,7 @@
 		async mounted(){
 			await this.actionEditTypeofdirection(this.$route.params.typeofdirectionId)
 			this.form = this.getTypeofdirection
+			this.laoding = false
 		},
 		methods:{
 			...mapActions('typeofdirection',['actionEditTypeofdirection','actionUpdateTypeofdirection']),
@@ -72,7 +79,9 @@
 		    },
 			async saveType(){
 		    	if (this.form.name != '' && this.form.type != ''){
+					this.laoding = true
 					await this.actionUpdateTypeofdirection(this.form)
+					this.laoding = false
 		    		if (this.getMassage.success) {
 						toast.fire({
 				            type: "success",

@@ -1,19 +1,7 @@
 <template>
   <div class="card lognCard">
-    <header class="main_header">
-      <div class="container">
-        <a href="/" class="logo"><img src="img/logoUz.png" alt="" /></a>
-        <ul class="menu_list">
-          <li><a href="/">Bosh sahifa</a></li>
-          <li><a href="/about">Tender haqida</a></li>
-          <li><a href="/list-tender">O'tkazilgan tenderlar</a></li>
-          <li><a href="/contact">Biz bilan aloqa</a></li>
-        </ul>
-        <a href="/login" class="btn_login"
-          ><i class="fas fa-sign-in-alt"></i>Tizimga kirish</a
-        >
-      </div>
-    </header>
+    <Loader v-if="laoding"/>
+    <Header/>
     <div class="card-body login-card-body">
       <div class="form_content jv_login_block">
         <div class="flagbg">
@@ -55,9 +43,13 @@
 import { mapActions, mapGetters } from "vuex";
 import DatePicker from "vue2-datepicker";
 import { TokenService } from "./../../services/storage.service";
+import Header from '../pages/Header'
+import Loader from '../Loader'
 export default {
   components: {
     DatePicker,
+    Header,
+    Loader
   },
   data() {
     return {
@@ -92,6 +84,7 @@ export default {
       requiredLoginInput: false,
       requiredInput: false,
       checkPassword: false,
+            laoding: true
     };
   },
   computed: {
@@ -106,6 +99,7 @@ export default {
   },
   async mounted() {
     await this.actionRegionList();
+       this.laoding = false
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
@@ -133,8 +127,10 @@ export default {
     async onLogin() {
       this.$Progress.start();
       if (this.form.email != "" && this.form.password != "") {
+        this.laoding = true
         await this.login(this.form);
         await this.authenticationErrorCode;
+        this.laoding = false
         if (!this.authenticationErrorCode) {
           toast.fire({
             type: "success",

@@ -1,5 +1,6 @@
 <template>
 	<div class="add_role">
+		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -36,14 +37,22 @@
 </template>
 <script>
 	import {mapActions, mapGetters} from 'vuex'
+	import Loader from '../../Loader'
 	export default{
+		components:{
+			Loader
+		},
 		data(){
 			return{
 				form:{
 					name:'',
 				},
-				requiredInput:false
+				requiredInput:false,
+				laoding: true
 			}
+		},
+		mounted(){
+			this.laoding = false
 		},
 		computed:{
 			...mapGetters('position',['getMassage'])
@@ -55,7 +64,9 @@
 		    },
 		    async savePosition(){
 		    	if (this.form.name != ''){
+					this.laoding = true
 					await this.actionAddPosition(this.form)
+					this.laoding = false
 					this.$router.push("/crm/position");
 					this.requiredInput = false
 				}else{

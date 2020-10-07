@@ -1,5 +1,6 @@
 <template>
 	<div class="area">
+		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -47,15 +48,20 @@
 </template>
 <script>
 	import { mapGetters , mapActions } from 'vuex'
+	import Loader from '../../Loader'
 	export default{
+		components:{
+			Loader
+		},
 		data(){
 			return{
-
+				laoding: true
 			}
 		},
 		async mounted(){
 			let page = 1;
 			await this.actionDirections()
+			this.laoding = false
 		},
 		computed:{
 			...mapGetters('direction',['getDirections','getMassage'])
@@ -68,8 +74,10 @@
 			async deletePassport(id){
 				if(confirm("Вы действительно хотите удалить?")){
 					let page = 1
+					this.laoding = true
 					await this.actionDeleteDirection(id)
 					await this.actionDirections(page)
+					this.laoding = false
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',

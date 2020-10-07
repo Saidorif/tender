@@ -1,5 +1,6 @@
 <template>
   <div class="add_area">
+    <Loader v-if="laoding"/>
     <div class="card card_with_tabs">
       <div class="card-header tabCard">
         <PassportTab/>
@@ -329,10 +330,12 @@
 import DatePicker from "vue2-datepicker";
 import { mapGetters, mapActions } from "vuex";
 import PassportTab from "./PassportTab";
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
     PassportTab,
+    Loader
   },
   data() {
     return {
@@ -391,11 +394,13 @@ export default {
       requiredInput: false,
       technic_speed: 0,
       traffic_speed: 0,
+      laoding: true
     };
   },
   async mounted() {
     await this.actionEditDirection(this.$route.params.directionId); 
     await this.actionRegionList();
+    this.laoding = false
     this.titulData = this.getDirection
     this.timingDetails = this.titulData.timing_details.length ? this.titulData.timing_details[0] : this.timingDetails
     this.tableData = this.titulData.timing_with.length ? this.titulData.timing_with : this.tableData
@@ -429,10 +434,12 @@ export default {
       return this.requiredInput && input === "";
     },
     async selectArea(this_select, parent_select) {
+      this.laoding = true
       await this.actionStationByRegion({
         region_id: this.form[parent_select].id,
         area_id: this.form[this_select].id,
       });
+      this.laoding = false
       if (this_select == "area_from_id") {
         this.form.stationFrom = this.getStationsList;
       } else if (this_select == "area_to_id") {
@@ -589,7 +596,9 @@ export default {
       return datum / 1000;
     },
     async saveData() {
+      this.laoding = true
       await this.actionAddTiming({ timing: this.tableData, timingDetails: this.timingDetails, technic_speed: this.technic_speed, traffic_speed: this.traffic_speed, });
+      this.laoding = false
       if(this.getTimingMassage.success){
           toast.fire({
             type: "success",
