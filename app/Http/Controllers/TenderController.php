@@ -122,8 +122,9 @@ class TenderController extends Controller
             return response()->json([
                 'success' => true,
                 'inputs' => $inputs['reys_id'],
-                'tenderlots_reys_ids' => $tenderlots_reys_ids,
-                'result' => $result
+                'result_array_value' => array_values($result),
+                'result' => $result,
+                'message' => 'OK'
             ]);            
         }
     }
