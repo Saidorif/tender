@@ -60,13 +60,12 @@
 	export default{
 		data(){
 			return{
-
+				
 			}
 		},
 		async mounted(){
 			let page = 1;
 			await this.actionTenderAnnounces(page)
-			console.log(this.getTenderAnnounces)
 		},
 		computed:{
 			...mapGetters('tenderannounce',['getTenderAnnounces','getMassage'])
