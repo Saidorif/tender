@@ -505,14 +505,16 @@
 	    		}
 		    },
 		    getLengthReys(lots,reys){
-		    	let lot_list = lots.reys_id
-		    	let count = 0;
-		    	reys.forEach((item,index)=>{
-			    	if (lot_list.includes(item.id)) {
-			    		count++
-			    	}
-		    	})
-		    	return count
+		    	if (lots.length > 0) {
+			    	let lot_list = lots.reys_id
+			    	let count = 0;
+			    	reys.forEach((item,index)=>{
+				    	if (lot_list.includes(item.id)) {
+				    		count++
+				    	}
+			    	})
+			    	return count
+		    	}
 		    },
 		    addToAllItems(){
 		    	if (Object.keys(this.direction_ids).length > 0) {
