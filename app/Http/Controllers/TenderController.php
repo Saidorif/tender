@@ -38,7 +38,7 @@ class TenderController extends Controller
         $direction_ids = Direction::pluck('id');
         $validator = Validator::make($request->all(),[
             'data.*.direction_id' => 'required|integer',
-            'data.*.reys_id' => 'required|array',
+            'data.*.reys_id' => 'nullable|array',
             'data.*.reys_id.*' => 'required|integer',
             'time' => 'required|string',
             'address' => 'required|string',
