@@ -515,34 +515,36 @@
 		    	return count
 		    },
 		    addToAllItems(){
-		    	if (this.checked) {
-			    	if(this.checkedGrafik){
-			    		if (this.choosenFromItems.length > 0) {
+		    	if (Object.keys(this.direction_ids).length > 0) {
+			    	if (this.checked) {
+				    	if(this.checkedGrafik){
+				    		if (this.choosenFromItems.length > 0) {
+					    		let value = {
+					    			directions:this.direction_ids,
+					    			reyses:this.choosenFromItems
+					    		}
+					    		this.allItems.push(value)
+				    		}
+				    		if (this.choosenToItems.length > 0) {
+					    		let value = {
+					    			directions:this.direction_ids,
+					    			reyses:this.choosenToItems
+					    		}
+					    		this.allItems.push(value)
+				    		}
+				    		this.choosenFromItems = []
+				    		this.choosenToItems = []
+				    		this.direction_ids = {}
+				    	}else{
 				    		let value = {
 				    			directions:this.direction_ids,
-				    			reyses:this.choosenFromItems
+				    			reyses:[]
 				    		}
 				    		this.allItems.push(value)
-			    		}
-			    		if (this.choosenToItems.length > 0) {
-				    		let value = {
-				    			directions:this.direction_ids,
-				    			reyses:this.choosenToItems
-				    		}
-				    		this.allItems.push(value)
-			    		}
-			    		this.choosenFromItems = []
-			    		this.choosenToItems = []
-			    		this.direction_ids = {}
-			    	}else{
-			    		let value = {
-			    			directions:this.direction_ids,
-			    			reyses:[]
-			    		}
-			    		this.allItems.push(value)
-			    		this.choosenFromItems = []
-			    		this.choosenToItems = []
-			    		this.direction_ids = {}
+				    		this.choosenFromItems = []
+				    		this.choosenToItems = []
+				    		this.direction_ids = {}
+				    	}
 			    	}
 		    	}
 		    },
