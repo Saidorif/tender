@@ -37,15 +37,18 @@ class Tender extends Model
 
     public function getDirectionIdsAttribute($value)
     {
-        $value = json_decode($value,true);
-        $directions = Direction::whereIn('id', $value)->get();
-        foreach($directions as $key => $value){
-            $reysesFrom = Reys::where(['direction_id' => $value->id,'status' => 'active','type' => 'from'])->get();
-            $reysesTo   = Reys::where(['direction_id' => $value->id,'status' => 'active','type' => 'to'])->get();
+        $d_ids = json_decode($value,true);
+        $result = [];
+        foreach ($d_ids as $key => $id) {
+            $direction = Direction::where(['id' => $id])->first();
+            $result[] = $direction;
+        }
+        foreach($result as $key => $value){
+            $reysesFrom = Reys::with(['reysTimes'])->where(['direction_id' => $value->id,'status' => 'active','type' => 'from'])->get();
+            $reysesTo   = Reys::with(['reysTimes'])->where(['direction_id' => $value->id,'status' => 'active','type' => 'to'])->get();
             $value->reysesFrom = $reysesFrom;
             $value->reysesTo = $reysesTo;
-            return $value;
         };
-        return $directions;
+        return $result;
     }
 }

@@ -202,6 +202,72 @@
 				  		</ul>
 				  	</div>
 			  	</div>
+
+			  	<!-- edit items -->
+			  	<div v-for="(direct,i) in edit_direction_ids">
+				  	<div class="table-responsive" v-if="direct.reysesFrom.length">
+				  		<div class="d-flex justify-content-center">
+				  			<h4>{{direct.reysesFrom[0].where.name}}-{{direct.reysesFrom[0].from.name}}</h4>
+				  		</div>
+					  	<table class="table table-bordered table-hover">
+					  		<thead>
+					  			<tr>
+					  				<th>№</th>
+					  				<th v-for="(item,index) in direct.reysesFrom[0].reys_times" colspan="2">{{item.where.name}}</th>
+					  			</tr>
+					  		</thead>
+					  		<tbody>
+					  			<tr 
+					  				v-for="(items,index) in direct.reysesFrom" 
+					  				:class="activeEditClass(lots[i],items.id) ? 'active' : ''"
+				  				>
+					  				<!-- @click.prevent="chooseFromItem(items,index)" -->
+					  				<td>
+					  					<label>
+				  							{{index+1}}
+				  						</label>
+					  				</td>
+					  				<template v-for="(item,key) in items.reys_times">
+						  				<td>{{item.start}}</td>
+						  				<td>{{item.end}}</td>
+					  				</template>
+					  			</tr>
+					  		</tbody>
+					  	</table>
+				  	</div>
+				  	<!-- To Name -->
+				  	<div class="table-responsive" v-if="direct.reysesTo.length">
+				  		<div class="d-flex justify-content-center">
+				  			<h4>{{direct.reysesFrom[0].from.name}}-{{direct.reysesFrom[0].where.name}}</h4>
+				  		</div>
+					  	<table class="table table-bordered table-hover">
+					  		<thead>
+					  			<tr>
+					  				<th>№</th>
+					  				<th v-for="(item,index) in  direct.reysesTo[0].reys_times" colspan="2">{{item.where.name}}</th>
+					  			</tr>
+					  		</thead>
+					  		<tbody>
+					  			<tr 
+					  				v-for="(items,index) in direct.reysesTo"
+					  				:class="activeEditClass(lots[i],items.id) ? 'active' : ''"
+				  				>
+					  	<!-- 			@click.prevent="chooseToItem(items,index)"
+					  				:class="activeToClass(items) ? 'active' : ''" -->
+					  				<td>
+					  					<label>
+				  							{{index+1}}
+				  						</label>
+					  				</td>
+					  				<template v-for="(item,key) in items.reys_times">
+						  				<td>{{item.start}}</td>
+						  				<td>{{item.end}}</td>
+					  				</template>
+					  			</tr>
+					  		</tbody>
+					  	</table>
+				  	</div>
+				</div>
 		  	</div>
 	  	</div>
 	</div>
@@ -239,6 +305,8 @@
 				choosenToItems:[],
 				findList:[],
 				tableItems:[],
+				edit_direction_ids:[],
+				lots:[],
 			}
 		},
 		computed:{
@@ -274,6 +342,8 @@
 			await this.actionEditTenderAnnounce(this.$route.params.tenderannounceId)
 			this.form.time = this.getTenderAnnounce.time
 			this.form.address = this.getTenderAnnounce.address
+			this.edit_direction_ids= this.getTenderAnnounce.direction_ids
+			this.lots= this.getTenderAnnounce.tenderlots
 			console.log(this.getTenderAnnounce)
 		},
 		methods:{
@@ -286,6 +356,12 @@
 			...mapActions("passportTab", [
 		      "actionGetScheduleTable",
 		    ]),
+		    activeEditClass(lots,id){
+		    	let lot_list = lots.reys_id
+	    		if (lot_list.includes(id)) {
+	    			return true
+	    		}
+		    },
 		    addToAllItems(){
 		    	if (this.checked) {
 			    	if(this.checkedGrafik){

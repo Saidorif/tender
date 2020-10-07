@@ -67,6 +67,8 @@ class TenderController extends Controller
             }
         }
         $direction_ids = array_unique($direction_ids);
+        $direction_ids = array_values($direction_ids);
+        // print_r($direction_ids);die;
         //Store to DB
         
         $tender = Tender::create([
