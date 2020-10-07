@@ -117,7 +117,7 @@ class TenderController extends Controller
         }else{
             $tenderlots_reys_ids = $tender_lots->reys_id;
             $result = array_diff($tenderlots_reys_ids, $inputs['reys_id']);
-            $tender_lots->reys_id = $result;
+            $tender_lots->reys_id = array_values($result);
             $tender_lots->save();
             return response()->json([
                 'success' => true,
