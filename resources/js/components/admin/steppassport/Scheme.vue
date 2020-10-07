@@ -115,49 +115,55 @@
           <div class="row col-md-12"  v-if="agreedData.length">
             <div class="form-group col-md-3 agree_item" v-for="(p_item,p_index) in agreedData">
               <h6>"Kelishilgan"</h6>
-              <p>{{p_item.organization_name }} {{ p_item.position}}:</p>
+              <p>{{p_item.organ }} {{ p_item.job}}:</p>
               <p><span></span>{{p_item.fio }}. {{ p_item.date}}</p>
               <p></p>
             </div>
           </div>
           <div class="row col-md-12">
             <div class="form-group col-md-3">
-              <label for="organization_name">Tashkilot nomi</label>
+              <label for="organ">Tashkilot nomi</label>
               <input
                 type="text"
-                v-model="form.organization_name"
-                id="organization_name"
+                v-model="form.organ"
+                id="organ"
                 class="form-control input_style"
-                :class="isRequired(form.organization_name) ? 'isRequired' : ''"
+                :class="isRequired(form.organ) ? 'isRequired' : ''"
               />
             </div>
             <div class="form-group col-md-3">
-              <label for="organization_name">Xodim lavozimi</label>
+              <label for="organ">Xodim lavozimi</label>
               <input
                 type="text"
-                v-model="form.position"
-                id="organization_name"
+                v-model="form.job"
+                id="organ"
                 class="form-control input_style"
-                :class="isRequired(form.position) ? 'isRequired' : ''"
+                :class="isRequired(form.job) ? 'isRequired' : ''"
               />
             </div>
             <div class="form-group col-md-3">
-              <label for="organization_name">F.I.SH</label>
+              <label for="organ">F.I.SH</label>
               <input
                 type="text"
                 v-model="form.fio"
-                id="organization_name"
+                id="organ"
                 class="form-control input_style"
                 :class="isRequired(form.fio) ? 'isRequired' : ''"
               />
             </div>
             <div class="form-gruop col-md-3">
-              <label for="organization_name">Sana</label>
+              <label for="organ">Sana</label>
               <div class="d-flex">
                   <date-picker lang="ru" class="input_style" v-model="form.date" type="date" format="DD-MM-YYYY" valueType="format"       :class="isRequired(form.date) ? 'isRequired' : ''"></date-picker>
                   <button  @click="addAgreeData" type="button" class="btn btn-info ml-2"><i  class="fas fa-plus"></i></button>
               </div>
             </div>
+          </div>
+          <div class="col-md-12 btn_send d-flex justify-content-end">
+            <button type="button" class="btn btn-primary" @click.prevent="saveData">
+                <i class="fas fa-save"></i>
+                Сохранить
+            </button>
           </div>
         </form>
       </div>
@@ -178,10 +184,11 @@ export default {
       titulData: {},
       schemeData: [],
       form:{
-          organization_name: 'Toshkent  shaxri IIBB YXXB',
-          position: "Yo'l nazorati bo'limi",
-          fio: 'M.Jumanazarov',
-          date: '21-09-2020'
+          organ: '',
+          job: "",
+          fio: '',
+          date: '',
+          direction_id: this.$route.params.directionId,
       },
       agreedData: [],
       requiredInput: false,
@@ -194,21 +201,47 @@ export default {
   },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
+    ...mapGetters("passportTab", ["getMsg"]),
   },
   methods: {
-    ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
+    ...mapActions("passportTab", ["actionAddTiming", "actionAddSchemadetail"]),
     ...mapActions("direction", ["actionEditDirection"]),
-    async saveData() {},
+    async saveData() {
+      if(this.agreedData.length){
+        await this.actionAddSchemadetail({id:this.$route.params.directionId, data:this.agreedData})
+        if(this.getMsg.success){
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getTimingMassage.message
+          });
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: 'Tizimda xotolik bor. iltimos qaytadan urinib koring!'
+          });
+        }
+      }else{
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: 'Malumotlar formasini toldinring!'
+        });
+      }
+
+    },
     addAgreeData(){
         let data = this.form
-        if(this.form.organization_name != "" && this.form.position != "" && this.form.fio != "" && this.form.date != ""){
+        if(this.form.organ != "" && this.form.job != "" && this.form.fio != "" && this.form.date != ""){
             this.requiredInput = false;
             this.agreedData.push(data)
                 this.form = {
-                organization_name: '',
-                position: '',
+                organ: '',
+                job: '',
                 fio: '',
-                date: ''
+                date: '',
+                direction_id: this.$route.params.directionId,
             }
         } else {
             this.requiredInput = true;

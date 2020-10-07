@@ -121,9 +121,7 @@
             </table>
           </div>
           <div class="table-responsive" v-if="form.whereFrom">
-            <table
-              class="table table-bordered text-center table-hover table-striped"
-            >
+            <table  class="table table-bordered text-center table-hover table-striped">
               <thead>
                 <tr>
                   <th scope="col" rowspan="5">Qatnovlar</th>
@@ -207,9 +205,9 @@ export default {
           reyses: [],
           from: ''
         },
-        count_bus: null,
-        reys_to_count: null,
-        reys_from_count: null,
+        count_bus: '',
+        reys_to_count: '',
+        reys_from_count: '',
       },
       requiredInput: false,
     };

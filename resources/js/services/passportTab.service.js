@@ -7,6 +7,9 @@ const PassportTabService = {
 	setScheduleTable(data){
 		return ApiService.post(`/api/direction/schedule/${data.id}`,data)
 	},
+	addSchemadetail(data){
+		return ApiService.post(`/api/schemadetail/store/${data.id}`,data)
+	},
 	getScheduleTable(id){
 		return ApiService.get(`/api/direction/getschedule/${id}`)
 	},

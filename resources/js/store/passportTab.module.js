@@ -7,7 +7,8 @@ const state = {
 	tarifs: [],
 	schedule: {},
 	demand: [],
-	schedule_msg: ''
+	schedule_msg: '',
+	msg: ''
 };
 
 const getters = {
@@ -25,6 +26,9 @@ const getters = {
 	},
 	getDemand(state){
 		return state.demand
+	},
+	getMsg(state){
+		return state.msg
 	}
 };
 
@@ -75,6 +79,15 @@ const actions = {
 			return false
 		}
 	},
+	async actionAddSchemadetail({commit},payload){
+		try {
+			const timingData =  await PassportTabService.addSchemadetail(payload);
+			await commit('setMsg',timingData.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async clearTimingTable({commit},payload){
 		try {
 			const timingData =  await PassportTabService.clearTimingTable(payload);
@@ -101,6 +114,9 @@ const mutations = {
 	},
 	setScheduleMsg(state, item){
 		state.schedule_msg = item
+	},
+	setMsg(state, item){
+		state.msg = item
 	}
 };
 
