@@ -46,6 +46,7 @@ Route::group([
             // Tender Announce
             Route::post('tender', 'TenderController@index');
             Route::post('tender/store', 'TenderController@store');
+            Route::post('tender/remove/{id}', 'TenderController@remove')->where('id', '[0-9]+');
             Route::post('tender/update/{id}', 'TenderController@update')->where('id', '[0-9]+');
             Route::get('tender/edit/{id}', 'TenderController@edit')->where('id', '[0-9]+');
             Route::delete('tender/destroy/{id}', 'TenderController@destroy')->where('id', '[0-9]+');

@@ -15,7 +15,7 @@ class CreateTendersTable extends Migration
     {
         Schema::create('tenders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('direction_ids');
+            $table->string('direction_ids')->nullable();
             $table->dateTime('time');
             $table->string('address');
             $table->string('status');

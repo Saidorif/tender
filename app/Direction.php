@@ -79,6 +79,10 @@ class Direction extends Model
     {
         return $this->hasMany(\App\SchemaDetail::class,'direction_id');
     }
+    public function tenderlots()
+    {
+        return $this->hasMany(\App\TenderLot::class,'direction_id');
+    }
 
 
 }
