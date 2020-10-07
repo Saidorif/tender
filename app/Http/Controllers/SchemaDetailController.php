@@ -34,17 +34,16 @@ class SchemaDetailController extends Controller
     {
         
         $validator = Validator::make($request->all(), [
+            'data' => 'required|array',
             'data.*.organ' => 'required|string',
             'data.*.job' => 'required|string',
             'data.*.fio' => 'required|string',
             'data.*.date' => 'required|string',
-            'data.*.direction_id' => 'required|integer',
         ]);
 
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
-        dd($request->all());
         $direction = Direction::find($id);
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найдено']);
@@ -55,6 +54,7 @@ class SchemaDetailController extends Controller
         }
         $inputs = $request->input('data');
         foreach ($inputs as $key => $value) {
+            $value['direction_id'] = $direction->id;
             $result = SchemaDetail::create($value);
         }
         return response()->json(['success' => true, 'message' => 'Детали схемы успешно создана']);

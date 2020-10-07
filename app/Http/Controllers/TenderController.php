@@ -30,8 +30,6 @@ class TenderController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
         }
-        // $directions = $result->direction_ids;
-
         return response()->json(['success' => true, 'result' => $result]);
     }
 
