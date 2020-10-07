@@ -163,8 +163,9 @@
 				  		<ul v-for="(items,index) in edit_direction_ids">
 			  		    	<!-- <h4>{{index+1}})</h4> -->
 			  		    	<template>
-					  		    <!-- <li class="mb-2" v-if="getLengthReys(lots[index],items.reysesTo) > 0"> -->
-					  		    <li class="mb-2">
+					  		    <li class="mb-2" v-if="getLengthReys(lots[index],items.reysesFrom) > 0">
+
+					  		    <!-- <li class="mb-2"> -->
 					  		    	<div class="d-flex align-items-center">
 						  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+'from'" aria-expanded="false" :aria-controls="'collapseExample'+index+'from'">
 						  		    		<template>
@@ -175,7 +176,7 @@
 									  	<button 
 									  		type="button" 
 									  		class="btn btn-danger" 
-									  		@click.prevent="removeFromEditItems(lots[index],items.reysesFrom)"
+									  		@click.prevent="removeFromEditItems(lots[index],items.reysesFrom,items)"
 								  		>
 									  		<i class="fas fa-trash"></i>
 									  	</button>
@@ -205,8 +206,8 @@
 									  	</table>
 									</div>
 					  			</li>
-					  		    <!-- <li v-if="getLengthReys(lots[index],items.reysesTo) > 0"> -->
-					  		    <li>
+					  		    <li v-if="getLengthReys(lots[index],items.reysesTo) > 0">
+					  		    <!-- <li> -->
 					  		    	<div class="d-flex align-items-center">
 						  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+'to'" aria-expanded="false" :aria-controls="'collapseExample'+index+'to'">
 						  		    		<template>
@@ -217,7 +218,7 @@
 									  	<button 
 									  		type="button" 
 									  		class="btn btn-danger" 
-									  		@click.prevent="removeFromEditItems(lots[index],items.reysesTo)"
+									  		@click.prevent="removeFromEditItems(lots[index],items.reysesTo,items)"
 								  		>
 									  		<i class="fas fa-trash"></i>
 									  	</button>
@@ -257,7 +258,7 @@
 						  		    		</template>
 									  	</button>
 									  	<button type="button" class="btn btn-danger" 
-									  		@click.prevent="removeFromEditItems(null,items)"
+									  		@click.prevent="removeFromEditItems(null,null,items)"
 								  		>
 									  		<i class="fas fa-trash"></i>
 									  	</button>
@@ -429,6 +430,14 @@
 			...mapGetters("passportTab", ["getSchedule"]),
 		},
 		watch:{
+			getTenderAnnounce:{
+				handler(){
+					this.form.time = this.getTenderAnnounce.time
+					this.form.address = this.getTenderAnnounce.address
+					this.edit_direction_ids= this.getTenderAnnounce.direction_ids
+					this.lots= this.getTenderAnnounce.tenderlots
+				}
+			},
 			checked:{
 				handler(){
 					this.form.direction_ids=[]
@@ -471,23 +480,20 @@
 			...mapActions("passportTab", [
 		      "actionGetScheduleTable",
 		    ]),
-		    async removeFromEditItems(lots,reys){
+		    async removeFromEditItems(lots,reys,directions){
+		    	console.log(directions)
 		    	let reys_id = []
-		    	let direction_id = 0;
-		    	if (lots) {
+		    	if (lots && reys) {
 			    	let lot_list = lots.reys_id
 			    	reys.forEach((item,index)=>{
 				    	if (lot_list.includes(item.id)) {
 				    		reys_id.push(item.id)
-				    		direction_id = item.direction_id
 				    	}
 			    	})
-		    	}else{
-		    		direction_id = reys.id
 		    	}
 		    	let data = {
 		    		id:this.$route.params.tenderannounceId,
-		    		direction_id,
+		    		direction_id:directions.id,
 		    		reys_id
 		    	}
 		    	await this.actionDeleteTenderAnnounceItem(data)
@@ -501,8 +507,8 @@
 		    	}
 		    },
 		    activeEditClass(lots,id){
-		    	if (lots.length > 0) {
-			    	let lot_list = lots.reys_id
+		    	let lot_list = lots.reys_id
+		    	if (lot_list.length > 0) {
 		    		if (lot_list.includes(id)) {
 		    			return true
 		    		}
@@ -511,16 +517,14 @@
 		    getLengthReys(lots,reys){
 		    	console.log(reys)
 		    	console.log(lots)
-		    	if (lots.length > 0) {
-			    	let lot_list = lots.reys_id
-			    	let count = 0;
-			    	reys.forEach((item,index)=>{
-				    	if (lot_list.includes(item.id)) {
-				    		count++
-				    	}
-			    	})
-			    	return count
-		    	}
+		    	let lot_list = lots.reys_id
+		    	let count = 0;
+		    	reys.forEach((item,index)=>{
+			    	if (lot_list.includes(item.id)) {
+			    		count++
+			    	}
+		    	})
+		    	return count
 		    },
 		    addToAllItems(){
 		    	if (Object.keys(this.direction_ids).length > 0) {
