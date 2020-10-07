@@ -1,5 +1,6 @@
 <template>
 	<div class="add_area">
+    <Loader v-if="laoding"/>
 	    <div class="card card_with_tabs">
 	  		<div class="card-header tabCard">
 	        	<PassportTab/>
@@ -117,18 +118,20 @@
 		                  <option value="seasonal">Mavsumiy</option>
 		                </select>
 		              </div>
-		              <div class="form-group col-md-3" v-for="(item,index) in destinations">
-		                <label :for="'from_where'+index">{{item.name}}</label>
-		                <input
-		                  type="radio"
-		                  v-model="form.from_where"
-		                  name="from_where"
-		                  :id="'from_where'+index"
-		                  :value="item"
-		                  class="form-control input_style"
-		                />
-		              </div>
-		              <div class="form-group col-md-3">
+                  <div class="col-md-3 input_radios_block">
+                    <p>Qaysi tarafdan</p>
+                    <div class="form-group input_radio_with_label" v-for="(item,index) in destinations">
+                      <input
+                        type="radio"
+                        v-model="form.from_where"
+                        name="from_where"
+                        :id="'from_where'+index"
+                        :value="item"
+                      />
+                      <label :for="'from_where'+index">{{item.name}}</label>
+                    </div>
+                  </div>
+		              <div class="form-group col-md-2">
 		                <label for="seria">Yo'nalish ochilish sanasi</label>
 		                <date-picker
 		                  lang="ru" 
@@ -140,7 +143,7 @@
 		                  format="YYYY"
 		                ></date-picker>
 		              </div>
-		              <div class="form-group col-md-3">
+		              <div class="form-group col-md-2">
 		                <label for="seria">Yonalish masofasi</label>
 		                <input
 		                  type="number"
@@ -149,7 +152,7 @@
 		                  :class="isRequired(form.distance) ? 'isRequired' : ''"
 		                />
 		              </div>
-		              <div class="form-group col-lg-3 form_btn d-flex justify-content-end">
+		              <div class="form-group col-lg-2 form_btn d-flex justify-content-end">
 		                <button type="submit" class="btn btn-primary btn_save_category">
 		                  <i class="fas fa-save"></i>
 		                  Сохранить
@@ -159,7 +162,6 @@
 		        </form>
 	        </div>
 		</div>
-	</div>
 	</div>
 </template>
 <script>
@@ -171,6 +173,7 @@ import PassportTab from "../steppassport/PassportTab";
 import Tarif from "../steppassport/Tarif";
 import { mapGetters, mapActions } from "vuex";
 import "vue2-datepicker/index.css";
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
@@ -178,7 +181,8 @@ export default {
     Scheme,
     Tarif,
     PassportTab,
-    Schedule
+    Schedule,
+    Loader
   },
   data() {
     return {
@@ -206,12 +210,14 @@ export default {
       stationTo: [],
       requiredInput: false,
       loaded: false,
+      laoding: true
     };
   },
   async mounted() {
     await this.actionRegionList();
     await this.actionTypeofdirectionList();
     await this.actionEditDirection(this.$route.params.directionId);
+    this.laoding = false
     this.form.pass_number = this.getDirection.pass_number;
     this.form.region_from.region_id = this.getDirection.region_from_id;
     this.form.region_from.area_id = this.getDirection.area_from_id;

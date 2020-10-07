@@ -1,5 +1,6 @@
 <template>
 	<div class="add_area">
+		<Loader v-if="laoding"/>
 	    <div class="card card_with_tabs">
 	  		<div class="card-header tabCard">
 	    		<PassportTab/>
@@ -84,9 +85,12 @@
 <script>
 	import { mapGetters , mapActions } from 'vuex'
 	import PassportTab from "./PassportTab";
+import Loader from '../../Loader'
+
 	export default{
 		components: {
-		    PassportTab,
+			PassportTab,
+			Loader
 	  	},
 		data(){
 			return{
@@ -95,7 +99,8 @@
 				form:{
 					user_id:1,
 					summa:''
-				}
+				},
+				laoding: true
 			}
 		},
 		watch:{
@@ -178,6 +183,7 @@
 			await this.actionEditDirection(this.$route.params.directionId);
 			await this.actionTarif(this.$route.params.directionId);
 			this.titulData = this.getDirection
+			this.laoding = false
 		},
 		computed:{
 			...mapGetters("direction", ["getDirection"]),

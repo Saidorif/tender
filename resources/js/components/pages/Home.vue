@@ -1,5 +1,6 @@
 <template>
     <div class="home_page">
+        <Loader v-if="laoding"/>
         <Header/>
         <div class="header_banner">
             <div class="container">
@@ -17,18 +18,33 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import Header from './Header'
+import Loader from '../Loader'
 export default {
     components:{
-        Header
+        Header,
+        Loader
     },
   data() {
-    return {};
+    return {
+        laoding: true
+    };
   },
   computed: {},
-  mounted() {},
+  mounted() {
+    this.laoding = false
+  },
   methods: {},
 };
 </script>
 <style  scoped>
 
 </style>
+
+
+<Loader v-if="laoding"/>
+import Loader from '../../Loader'
+components:{
+    Loader
+},
+laoding: true
+this.laoding = false

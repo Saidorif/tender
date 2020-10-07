@@ -1,5 +1,6 @@
 <template>
   <div class="contacts_page">
+    <Loader v-if="laoding"/>
     <Header/>
     <div class="container">
       <div class="contact_block">
@@ -98,11 +99,13 @@ import DatePicker from "vue2-datepicker";
 import Multiselect from 'vue-multiselect';
 import Header from './Header'
 import { TokenService } from "./../../services/storage.service";
+import Loader from '../Loader'
 export default {
   components: {
     DatePicker,
     Multiselect,
     Header,
+    Loader
   },
   data() {
     return {
@@ -119,6 +122,7 @@ export default {
       requiredInput: false,
       isLoading:false,
       filename:'',
+      laoding: true
     };
   },
   computed: {
@@ -126,6 +130,7 @@ export default {
   },
   async mounted() {
     await this.actionComplaintList();
+    this.laoding = false
   },
   methods: {
     ...mapActions('complaint',['actionComplaintList','actionSendContact']),

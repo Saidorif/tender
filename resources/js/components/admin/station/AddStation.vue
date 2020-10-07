@@ -1,5 +1,6 @@
 <template>
 	<div class="add_area">
+		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -73,7 +74,11 @@
 </template>
 <script>
 	import { mapGetters , mapActions } from 'vuex'
+	import Loader from '../../Loader'
 	export default{
+		components:{
+			Loader
+		},
 		data(){
 			return{
 				form:{
@@ -82,7 +87,8 @@
 					station_type:'',
 					name:'',
 				},
-				requiredInput:false
+				requiredInput:false,
+				laoding: true
 			}
 		},
 		computed:{
@@ -92,6 +98,8 @@
 		},
 		async mounted(){
 			await this.actionRegionList()
+			this.laoding = false
+			
 		},
 		methods:{
 			...mapActions('region',['actionRegionList']),
@@ -102,8 +110,9 @@
 		    },
 			async saveArea(){
 		    	if (this.form.name != '' && this.form.region_id != '' && this.form.area_id != '' && this.form.station_type != ''){
+					this.laoding = true
 					await this.actionAddStation(this.form)
-					
+					this.laoding = false
 					if(this.getMassage.success){
 						this.$router.push("/crm/station");
 					}

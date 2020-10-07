@@ -1,5 +1,6 @@
 <template>
   <div class="add_area">
+    <Loader v-if="laoding"/>
     <div class="card card_with_tabs">
       <div class="card-header tabCard">
         <PassportTab/>
@@ -174,10 +175,12 @@
 import DatePicker from "vue2-datepicker";
 import { mapGetters, mapActions } from "vuex";
 import PassportTab from "./PassportTab";
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
     PassportTab,
+    Loader
   },
   data() {
     return {
@@ -192,10 +195,12 @@ export default {
       },
       agreedData: [],
       requiredInput: false,
+      laoding: true
     };
   },
   async mounted() {
     await this.actionEditDirection(this.$route.params.directionId);
+    this.laoding = false
     this.titulData = this.getDirection
     this.schemeData = this.titulData ? this.titulData.timing_with : [];
   },
@@ -208,7 +213,9 @@ export default {
     ...mapActions("direction", ["actionEditDirection"]),
     async saveData() {
       if(this.agreedData.length){
+        this.laoding = true
         await this.actionAddSchemadetail({id:this.$route.params.directionId, data:this.agreedData})
+        this.laoding = false
         if(this.getMsg.success){
           toast.fire({
             type: "success",

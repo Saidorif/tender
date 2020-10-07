@@ -1,5 +1,6 @@
 <template>
   <div class="card">
+    <Loader v-if="laoding"/>
     <div class="card-header">
       <h3 class="card-title title_user mb-0">
         <i class="peIcon pe-7s-user"></i>Мои данные
@@ -155,7 +156,11 @@
 </template>	
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Loader from '../../Loader'
 export default {
+  components:{
+      Loader
+  },
   data() {
     return {
       form: {
@@ -174,7 +179,8 @@ export default {
       },
       requiredInput: false,
       requiredPassword: false,
-      checkPassword: false
+      checkPassword: false,
+      laoding: true
     };
   },
   computed: {
@@ -183,7 +189,7 @@ export default {
   async mounted() {
     await this.ActionProfile();
     this.form = this.getProfile;
-    console.log(this.getProfile)
+    this.laoding = false
   },
   methods: {
     ...mapActions("user", [

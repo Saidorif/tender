@@ -1281,7 +1281,7 @@ hr {
   color: #292666;
 }
 
-.main_header .menu_list li.active a:before,
+.main_header .menu_list li a.active:before,
 .main_header .menu_list li a:hover:before {
   width: 100%;
 }

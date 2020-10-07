@@ -1,5 +1,6 @@
 <template>
 	<div class="add_cont">
+		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -47,15 +48,20 @@
 	</div>
 </template>
 <script>
+	import Loader from '../../Loader'
 	import {mapActions, mapGetters} from 'vuex'
 	export default{
+		components:{
+			Loader
+		},
 		data(){
 			return{
 				form:{
 					name:'',
 					label:''
 				},
-				requiredInput:false
+				requiredInput:false,
+				laoding: true
 			}
 		},
 		computed:{
@@ -68,7 +74,9 @@
 		    },
 		    async saveCont(){
 		    	if (this.form.name != '' && this.form.label != ''){
+					this.laoding = true
 					await this.actionAddCont(this.form)
+					this.laoding = false
 					if (this.getMassage.success) {
 						toast.fire({
 					    	type: 'success',

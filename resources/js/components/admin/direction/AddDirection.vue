@@ -1,5 +1,6 @@
 <template>
   <div class="add_area">
+    <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <h4 class="title_user">
@@ -182,9 +183,11 @@
 import DatePicker from "vue2-datepicker";
 import { mapGetters, mapActions } from "vuex";
 import 'vue2-datepicker/index.css';
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
+    Loader
   },
   data() {
     return {
@@ -212,11 +215,13 @@ export default {
       stationFrom:[],
       stationTo:[],
       requiredInput: false,
+      laoding: true
     };
   },
   async mounted() {
     await this.actionRegionList();
     await this.actionTypeofdirectionList();
+    this.laoding = false
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
@@ -238,7 +243,9 @@ export default {
         this.form.from_where != "" &&
         this.form.seasonal != "" 
       ) {
-		await this.actionAddDirection(this.form)
+        this.laoding = true
+    await this.actionAddDirection(this.form)
+    this.laoding = false
 		if(this.getMassage.success){
 			toast.fire({
 				type: "success",

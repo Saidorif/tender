@@ -3,8 +3,8 @@
         <div class="container">
             <router-link to="/" class="logo"><img src="img/logoUz.png" alt=""></router-link>
             <ul class="menu_list">
-                <li class="active">
-                    <router-link to="/">Bosh sahifa</router-link>
+                <li >
+                    <router-link to="/" exact>Bosh sahifa</router-link>
                 </li>
                 <li>
                     <router-link to="/about">Tender haqida</router-link>

@@ -1,5 +1,6 @@
 <template>
 	<div class="region">
+		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -43,7 +44,11 @@
 </template>
 <script>
 	import { mapGetters , mapActions } from 'vuex'
+	import Loader from '../../Loader'
 	export default{
+		components:{
+			Loader
+		},
 		data(){
 			return{
 
@@ -52,6 +57,7 @@
 		async mounted(){
 			let page = 1;
 			await this.actionTypeofdirections()
+			this.laoding = false
 		},
 		computed:{
 			...mapGetters('typeofdirection',['getTypeofdirections','getMassage'])
@@ -64,7 +70,9 @@
 			async deleteType(id){
 				if(confirm("Вы действительно хотите удалить?")){
 					let page = 1
+					this.laoding = true
 					await this.actionDeleteTypeofdirection(id)
+					this.laoding = false
 					if (this.getMassage.error) {
 						await this.actionTypeofdirections(page)
 						toast.fire({

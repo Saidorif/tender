@@ -1,5 +1,6 @@
 <template>
   <div class="add_area">
+    <Loader v-if="laoding"/>
     <div class="card card_with_tabs">
       <div class="card-header tabCard">
         <PassportTab/>
@@ -213,19 +214,23 @@
 import DatePicker from "vue2-datepicker";
 import { mapGetters, mapActions } from "vuex";
 import PassportTab from "./PassportTab";
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
     PassportTab,
+    Loader
   },
   data(){
     return{
       form:{},
+      laoding: true
     };
   },
   async mounted(){
     // await this.actionEditDirection(this.$route.params.directionId);
     await this.actionDemand(this.$route.params.directionId);
+    this.laoding = false
     this.form = this.getDemand
     Vue.set(this.form,'stations_from_value','')
     Vue.set(this.form,'stations_to_value','')
