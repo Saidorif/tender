@@ -484,6 +484,7 @@
 		    		direction_id = reys.id
 		    	}
 		    	let data = {
+		    		id:this.$route.params.tenderannounceId,
 		    		direction_id,
 		    		reys_id
 		    	}
