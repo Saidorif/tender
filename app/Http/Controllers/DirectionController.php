@@ -226,14 +226,14 @@ class DirectionController extends Controller
             'data.whereFrom'  => 'required|array',
             'data.whereFrom.reyses'  => 'required|array',
             'data.whereFrom.reyses.*'  => 'required|array',
-            'data.whereFrom.reyses.*.*.start'  => 'required|string',
-            'data.whereFrom.reyses.*.*.end'  => 'required|string',
+            'data.whereFrom.reyses.*.*.start'  => 'nullable|string',
+            'data.whereFrom.reyses.*.*.end'  => 'nullable|string',
             'data.whereFrom.reyses.*.*.where'  => 'required|array',
             'data.whereTo'  => 'required|array',
             'data.whereTo.reyses'  => 'required|array',
             'data.whereTo.reyses.*'  => 'required|array',
-            'data.whereTo.reyses.*.*.start'  => 'required|string',
-            'data.whereTo.reyses.*.*.end'  => 'required|string',
+            'data.whereTo.reyses.*.*.start'  => 'nullable|string',
+            'data.whereTo.reyses.*.*.end'  => 'nullable|string',
             'data.whereTo.reyses.*.*.where'  => 'required|array',
         ]);
 

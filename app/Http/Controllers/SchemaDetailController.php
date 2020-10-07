@@ -32,13 +32,13 @@ class SchemaDetailController extends Controller
 
     public function store(Request $request, $id)
     {
-        $user = $request->user();
+        
         $validator = Validator::make($request->all(), [
+            'data' => 'required|array',
             'data.*.organ' => 'required|string',
             'data.*.job' => 'required|string',
             'data.*.fio' => 'required|string',
             'data.*.date' => 'required|string',
-            'data.*.direction_id' => 'required|integer',
         ]);
 
         if($validator->fails()){
@@ -54,6 +54,7 @@ class SchemaDetailController extends Controller
         }
         $inputs = $request->input('data');
         foreach ($inputs as $key => $value) {
+            $value['direction_id'] = $direction->id;
             $result = SchemaDetail::create($value);
         }
         return response()->json(['success' => true, 'message' => 'Детали схемы успешно создана']);
