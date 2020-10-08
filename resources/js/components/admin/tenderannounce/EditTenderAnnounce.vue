@@ -467,7 +467,6 @@
 			this.form.address = this.getTenderAnnounce.address
 			this.edit_direction_ids= this.getTenderAnnounce.direction_ids
 			this.lots= this.getTenderAnnounce.tenderlots
-			// console.log(this.getTenderAnnounce)
 		},
 		methods:{
 			...mapActions('tenderannounce',[
@@ -481,7 +480,6 @@
 		      "actionGetScheduleTable",
 		    ]),
 		    async removeFromEditItems(lots,reys,directions){
-		    	console.log(directions)
 		    	let reys_id = []
 		    	if (lots && reys) {
 			    	let lot_list = lots.reys_id
@@ -515,8 +513,6 @@
 		    	}
 		    },
 		    getLengthReys(lots,reys){
-		    	console.log(reys)
-		    	console.log(lots)
 		    	let lot_list = lots.reys_id
 		    	let count = 0;
 		    	reys.forEach((item,index)=>{
@@ -590,6 +586,15 @@
 		    },
 			isRequired(input){
 	    		return this.requiredInput && input === '';
+		    },
+		    checkData(items){
+		    	let new_arr = []
+		    	items.forEach((item,index)=>{
+					if (item.direction_id) {
+			    		new_arr.push(item)
+					}
+				})
+				return new_arr
 		    },
 		    async findDirection(value){
 		      if(value != ''){
@@ -684,17 +689,28 @@
 						checkLengthDataExists = false
 					}
 				})
+
+				this.lots = this.lots.map((lot,index)=>{
+					return{
+						direction_id:lot.direction_id,
+						reys_id:lot.reys_id,
+						status:lot.status,
+					}
+				})
+				this.lots.forEach((item,index)=>{
+					data.push(item)					
+				})
 				let newData = {
-					data:data,
+					id:this.$route.params.tenderannounceId,
+					data:this.checkData(data),
 					time:this.form.time,
 					address:this.form.address,
 				}
 		    	if (this.form.time != '' && this.form.address != ''){
-		    		if (checkLengthDataExists) {
+		    		// if (checkLengthDataExists) {
 			    		if (checkLengthData) {
-							await this.actionAddTenderAnnounce(newData)
+							await this.actionUpdateTenderAnnounce(newData)
 							if (this.getMassage.success) {
-								console.log(this.getMassage)
 								toast.fire({
 									type: "success",
 									icon: "success",
@@ -710,13 +726,14 @@
 								title: 'В пакете должны быть минимум 2 маршрута!'
 						 	});
 			    		}
-		    		}else{
-		    			toast.fire({
-							type: "error",
-							icon: "error",
-							title: 'Маршрут выберите!'
-					 	});
-		    		}
+		    	// 	}
+		    	// 	else{
+		    	// 		toast.fire({
+							// type: "error",
+							// icon: "error",
+							// title: 'Маршрут выберите!'
+					 	// });
+		    	// 	}
 				}else{
 					this.requiredInput = true
 				}
