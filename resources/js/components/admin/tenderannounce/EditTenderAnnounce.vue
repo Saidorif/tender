@@ -224,7 +224,7 @@
 									  	</button>
 					  		    	</div>
 								  	<div class="collapse" :id="'collapseExample'+index+'to'" v-if="items.reysesTo.length > 0">
-									  <table class="table table-bordered table-hover">
+									  <table class="table table-bordered">
 								  			<thead>
 									  			<tr>
 									  				<th>№</th>
