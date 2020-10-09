@@ -92,6 +92,25 @@ class TenderController extends Controller
         return response()->json(['success' => true,'message' => 'Объявление о тендере успешно создано']);
     }
 
+    public function update(Request $request,$id)
+    {
+        $tender = Tender::find($id);
+        if(!$tender){
+            return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
+        }
+        $validator = Validator::make($request->all(),[
+            'address' => 'required|string',
+            'time'    => 'required|string'
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inputs = $request->only('address','time');
+        $tender->update($inputs);
+        return response()->json(['success' => true,'message' => 'Объявление о тендере успешно обновлено']);
+    }
+
     public function remove(Request $request, $id)
     {
         $validator = Validator::make($request->all(),[
