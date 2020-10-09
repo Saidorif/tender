@@ -175,11 +175,17 @@
 									  	</button>
 									  	<button 
 									  		type="button" 
-									  		class="btn btn-danger" 
+									  		class="btn btn-danger mr-3" 
 									  		@click.prevent="removeFromEditItems(lots[index],items.reysesFrom,items)"
 								  		>
 									  		<i class="fas fa-trash"></i>
 									  	</button>
+									  	<router-link 
+									  		:to='`/crm/direction/demand-tab/${items.id}`' 
+									  		class="btn btn-outline-info"
+								  		>
+										  	<i class="fas fa-eye"></i>
+									  	</router-link>
 					  		    	</div>
 								  	<div class="collapse" :id="'collapseExample'+index+'from'" v-if="items.reysesFrom.length > 0">
 									  <table class="table table-bordered">
@@ -217,11 +223,17 @@
 									  	</button>
 									  	<button 
 									  		type="button" 
-									  		class="btn btn-danger" 
+									  		class="btn btn-danger mr-3" 
 									  		@click.prevent="removeFromEditItems(lots[index],items.reysesTo,items)"
 								  		>
 									  		<i class="fas fa-trash"></i>
 									  	</button>
+									  	<router-link 
+									  		:to='`/crm/direction/demand-tab/${items.id}`' 
+									  		class="btn btn-outline-info"
+								  		>
+										  	<i class="fas fa-eye"></i>
+									  	</router-link>
 					  		    	</div>
 								  	<div class="collapse" :id="'collapseExample'+index+'to'" v-if="items.reysesTo.length > 0">
 									  <table class="table table-bordered">
@@ -257,11 +269,17 @@
 						  		    			<span>{{items.name}}</span>
 						  		    		</template>
 									  	</button>
-									  	<button type="button" class="btn btn-danger" 
+									  	<button type="button" class="btn btn-danger mr-3" 
 									  		@click.prevent="removeFromEditItems(null,null,items)"
 								  		>
 									  		<i class="fas fa-trash"></i>
 									  	</button>
+									  	<router-link 
+									  		:to='`/crm/direction/demand-tab/${items.id}`' 
+									  		class="btn btn-outline-info"
+								  		>
+										  	<i class="fas fa-eye"></i>
+									  	</router-link>
 					  		    	</div>
 				  		    	</li>
 			  		    	</template>
@@ -465,8 +483,8 @@
 			await this.actionEditTenderAnnounce(this.$route.params.tenderannounceId)
 			this.form.time = this.getTenderAnnounce.time
 			this.form.address = this.getTenderAnnounce.address
-			this.edit_direction_ids= this.getTenderAnnounce.direction_ids
-			this.lots= this.getTenderAnnounce.tenderlots
+			this.edit_direction_ids = this.getTenderAnnounce.direction_ids
+			this.lots = this.getTenderAnnounce.tenderlots
 		},
 		methods:{
 			...mapActions('tenderannounce',[
