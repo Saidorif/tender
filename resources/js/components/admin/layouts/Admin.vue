@@ -201,6 +201,14 @@
                   </p>
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/confirm-tender">
+                  <i class="peIcon fas fa-clipboard-check"></i>
+                  <p>
+                    подтвердить тендер
+                  </p>
+                </router-link>
+              </li>
             </ul>
           </li>  
           <li class="nav-item has-treeview">
