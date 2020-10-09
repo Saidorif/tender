@@ -5,7 +5,7 @@ const ConfirmtenderSerivce = {
 		return ApiService.post(`/api/tender/reject/${data.id}`, data)
 	},
 	completedTender(id){
-		return ApiService.get(`/api/tender/completed/${id}`)
+		return ApiService.get(`/api/tender/complete/${id}`)
 	},
 };
 
