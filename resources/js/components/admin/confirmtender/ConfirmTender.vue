@@ -16,6 +16,7 @@
 							<th scope="col">Название маршрута</th>
 							<th scope="col">Адрес</th>
 							<th scope="col">Дата тендера</th>
+							<th scope="col">Статус</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
@@ -34,6 +35,9 @@
 							</td>
 							<td>{{item.address}}</td>
 							<td>{{item.time}}</td>
+							<td v-if="item.status == 'pending'">в ожидании </td>
+							<td v-if="item.status == 'rejected'"> отказно </td>
+							<td v-else>{{item.status}} </td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/confirm-tender/edit/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>

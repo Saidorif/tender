@@ -30,7 +30,7 @@
             >
               <i class="fas fa-ban"></i> Отказ
             </button>
-            <button type="button" class="btn btn-success">
+            <button type="button" class="btn btn-success" @click="completedTender()">
               <i class="far fa-check-circle"></i>Подтвердить
             </button>
           </div>
@@ -235,6 +235,7 @@ export default {
   methods: {
     ...mapActions("confirmtender", [
       "actionRejectTender",
+      "actionCompletedTender"
     ]),
     ...mapActions("tenderannounce", [
       "actionAddTenderAnnounce",
@@ -292,9 +293,29 @@ export default {
     isRequired(input) {
       return this.requiredInput && input === "";
     },
-    rejectTender(){
+    async completedTender(){
+      await this.actionCompletedTender(this.$route.params.tenderannounceId);
+      if(this.getRejMassage.success){
+        toast.fire({
+				  type: "success",
+				  icon: "success",
+				  title: this.getRejMassage.message
+				});
+        this.$router.push("/crm/confirm-tender");
+      }
+    },
+    async rejectTender(){
       if (this.rejectmsg != '' && this.rejectmsg != null){
-        this.actionRejectTender({id:this.$route.params.tenderannounceId, message: this.rejectmsg })
+        await this.actionRejectTender({id:this.$route.params.tenderannounceId, message: this.rejectmsg })
+        $('#exampleModal').modal('hide')
+        if(this.getRejMassage.success){
+          toast.fire({
+				    type: "success",
+				    icon: "success",
+				    title: this.getRejMassage.message
+				  });
+          this.$router.push("/crm/confirm-tender");
+        }
         this.requiredInput = false
       }else{
         this.requiredInput = true

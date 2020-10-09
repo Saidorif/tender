@@ -15,7 +15,16 @@ const actions = {
 	async actionRejectTender({commit},payload){
 		try {
 			const types =  await ConfirmtenderSerivce.rejectTender(payload);
-			await commit('setMessage',types.data.result)
+			await commit('setMessage',types.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionCompletedTender({commit},id){
+		try {
+			const types =  await ConfirmtenderSerivce.completedTender(id);
+			await commit('setMessage',types.data)
 			return true
 		} catch (error) {
 			return false
