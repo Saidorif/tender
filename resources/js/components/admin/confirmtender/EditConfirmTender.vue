@@ -3,8 +3,8 @@
     <div class="card">
       <div class="card-header">
         <h4 class="title_user">
-          <i class="peIcon fas fa-bullhorn"></i>
-          Подтверждение тендера
+          <i class="peIcon fas fa-clipboard-check"></i>
+          Подтвердить тендер
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/confirm-tender">
           <span class="peIcon pe-7s-back"></span>
