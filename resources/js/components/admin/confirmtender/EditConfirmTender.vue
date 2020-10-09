@@ -1,0 +1,401 @@
+<template>
+  <div class="add_region">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="title_user">
+          <i class="peIcon fas fa-bullhorn"></i>
+          Подтверждение тендера
+        </h4>
+        <router-link class="btn btn-primary back_btn" to="/crm/confirm-tender">
+          <span class="peIcon pe-7s-back"></span>
+          Назад
+        </router-link>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="form-group col-md-2">
+            <label for="name">Дата тердера</label>
+            <p>{{ form.time }}</p>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="address">Адрес</label>
+            <p>{{ form.address }}</p>
+          </div>
+          <div class="col-md-2 ml_auto">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-toggle="modal"
+              data-target="#exampleModal"
+            >
+              <i class="fas fa-ban"></i> Отказ
+            </button>
+            <button type="button" class="btn btn-success" @click="completedTender()">
+              <i class="far fa-check-circle"></i>Подтвердить
+            </button>
+          </div>
+        </div>
+        <!-- All edit choosen tables -->
+        <div class="table-responsive" v-if="edit_direction_ids.length > 0">
+          <div class="choosenItemsTable">
+            <ul v-for="(items, index) in edit_direction_ids">
+              <!-- <h4>{{index+1}})</h4> -->
+              <template>
+                <li
+                  class="mb-2"
+                  v-if="getLengthReys(lots[index], items.reysesFrom) > 0"
+                >
+                  <h4>
+                    <span
+                      >{{ items.reysesFrom[0].where.name }} -
+                      {{ items.reysesFrom[0].from.name }}</span
+                    >
+                  </h4>
+                  <b
+                    >({{
+                      getLengthReys(lots[index], items.reysesFrom)
+                    }}
+                    рейсы)</b
+                  >
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>№</th>
+                        <th
+                          v-for="(item, index) in items.reysesFrom[0]
+                            .reys_times"
+                          colspan="2"
+                        >
+                          {{ item.where.name }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="(reys, key) in items.reysesFrom"
+                        :class="
+                          activeEditClass(lots[index], reys.id) ? 'active' : ''
+                        "
+                      >
+                        <td>{{ key + 1 }}</td>
+                        <template v-for="(val, key) in reys.reys_times">
+                          <td>{{ val.start }}</td>
+                          <td>{{ val.end }}</td>
+                        </template>
+                      </tr>
+                    </tbody>
+                  </table>
+                </li>
+                <li v-if="getLengthReys(lots[index], items.reysesTo) > 0">
+                  <h4>
+                    <span
+                      >{{ items.reysesTo[0].where.name }} -
+                      {{ items.reysesTo[0].from.name }}</span
+                    >
+                  </h4>
+                  <b
+                    >({{ getLengthReys(lots[index], items.reysesTo) }} рейсы)</b
+                  >
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>№</th>
+                        <th
+                          v-for="(item, index) in items.reysesTo[0].reys_times"
+                          colspan="2"
+                        >
+                          {{ item.where.name }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        v-for="(reys, key) in items.reysesTo"
+                        :class="
+                          activeEditClass(lots[index], reys.id) ? 'active' : ''
+                        "
+                      >
+                        <td>{{ key + 1 }}</td>
+                        <template v-for="(val, key) in reys.reys_times">
+                          <td>{{ val.start }}</td>
+                          <td>{{ val.end }}</td>
+                        </template>
+                      </tr>
+                    </tbody>
+                  </table>
+                </li>
+              </template>
+              <template v-if="lots[index].reys_id == 0">
+                <li>
+                  <div class="d-flex align-items-center">
+                    <button
+                      class="btn btn-outline-secondary mr-3 ml-3"
+                      type="button"
+                      data-toggle="collapse"
+                      :data-target="'#collapseExample' + index"
+                      aria-expanded="false"
+                      :aria-controls="'collapseExample' + index"
+                    >
+                      <template>
+                        <span>{{ items.name }}</span>
+                      </template>
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      @click.prevent="removeFromEditItems(null, null, items)"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </li>
+              </template>
+            </ul>
+          </div>
+        </div>
+
+
+
+        <!-- cancel modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Причина отказа</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <textarea class="form-control" v-model="rejectmsg" name="" id="" cols="30" rows="10" placeholder="Техт отказа" :class="isRequired(rejectmsg) ? 'isRequired' : ''"  ></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary" @click="rejectTender()">Отправить</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import DatePicker from "vue2-datepicker";
+import Multiselect from "vue-multiselect";
+import { mapGetters, mapActions } from "vuex";
+export default {
+  components: {
+    DatePicker,
+    Multiselect,
+  },
+  data() {
+    return {
+      form: {
+        direction_ids: [],
+        time: "",
+        address: "",
+        type: "simple",
+      },
+      requiredInput: false,
+      direction_ids: {},
+      checked: false,
+      checkedGrafik: false,
+      isLoading: false,
+      allItems: [],
+      fromName: "",
+      fromItems: [],
+      fromFirstItems: [],
+      choosenFromItems: [],
+      toName: "",
+      toFirstItems: [],
+      toItems: [],
+      choosenToItems: [],
+      findList: [],
+      tableItems: [],
+      edit_direction_ids: [],
+      lots: [],
+      rejectmsg: '',
+    };
+  },
+  computed: {
+    ...mapGetters("tenderannounce", ["getMassage", "getTenderAnnounce"]),
+    ...mapGetters("direction", ["getDirectionFindList"]),
+    ...mapGetters("passportTab", ["getSchedule"]),
+    ...mapGetters("confirmtender", ["getRejMassage"]),
+  },
+  async mounted() {
+    await this.actionEditTenderAnnounce(this.$route.params.tenderannounceId);
+    this.form.time = this.getTenderAnnounce.time;
+    this.form.address = this.getTenderAnnounce.address;
+    this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
+    this.lots = this.getTenderAnnounce.tenderlots;
+  },
+  methods: {
+    ...mapActions("confirmtender", [
+      "actionRejectTender",
+      "actionCompletedTender"
+    ]),
+    ...mapActions("tenderannounce", [
+      "actionAddTenderAnnounce",
+      "actionEditTenderAnnounce",
+      "actionUpdateTenderAnnounce",
+      "actionDeleteTenderAnnounceItem",
+    ]),
+    ...mapActions("direction", ["actionDirectionFind"]),
+    ...mapActions("passportTab", ["actionGetScheduleTable"]),
+    async removeFromEditItems(lots, reys, directions) {
+      let reys_id = [];
+      if (lots && reys) {
+        let lot_list = lots.reys_id;
+        reys.forEach((item, index) => {
+          if (lot_list.includes(item.id)) {
+            reys_id.push(item.id);
+          }
+        });
+      }
+      let data = {
+        id: this.$route.params.tenderannounceId,
+        direction_id: directions.id,
+        reys_id,
+      };
+      await this.actionDeleteTenderAnnounceItem(data);
+      if (this.getMassage.success) {
+        await this.actionEditTenderAnnounce(
+          this.$route.params.tenderannounceId
+        );
+        toast.fire({
+          type: "success",
+          icon: "success",
+          title: this.getMassage.message,
+        });
+      }
+    },
+    activeEditClass(lots, id) {
+      let lot_list = lots.reys_id;
+      if (lot_list.length > 0) {
+        if (lot_list.includes(id)) {
+          return true;
+        }
+      }
+    },
+    getLengthReys(lots, reys) {
+      let lot_list = lots.reys_id;
+      let count = 0;
+      reys.forEach((item, index) => {
+        if (lot_list.includes(item.id)) {
+          count++;
+        }
+      });
+      return count;
+    },
+    isRequired(input) {
+      return this.requiredInput && input === "";
+    },
+    async completedTender(){
+      await this.actionCompletedTender(this.$route.params.tenderannounceId);
+      if(this.getRejMassage.success){
+        toast.fire({
+				  type: "success",
+				  icon: "success",
+				  title: this.getRejMassage.message
+				});
+        this.$router.push("/crm/confirm-tender");
+      }
+    },
+    async rejectTender(){
+      if (this.rejectmsg != '' && this.rejectmsg != null){
+        await this.actionRejectTender({id:this.$route.params.tenderannounceId, message: this.rejectmsg })
+        $('#exampleModal').modal('hide')
+        if(this.getRejMassage.success){
+          toast.fire({
+				    type: "success",
+				    icon: "success",
+				    title: this.getRejMassage.message
+				  });
+          this.$router.push("/crm/confirm-tender");
+        }
+        this.requiredInput = false
+      }else{
+        this.requiredInput = true
+      }
+    }
+  },
+};
+</script>
+<style scoped>
+tr {
+  cursor: pointer !important;
+}
+tr.active {
+  background: #d6d6d6;
+}
+.check_box_with_label {
+}
+.check_box_with_label input {
+  --active: #275efe;
+  --active-inner: #fff;
+  --focus: 2px rgba(39, 94, 254, 0.3);
+  --border: #bbc1e1;
+  --border-hover: #275efe;
+  --background: #fff;
+  --disabled: #f6f8ff;
+  --disabled-inner: #e1e6f9;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 21px;
+  outline: none;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+  border: 1px solid var(--bc, var(--border));
+  background: var(--b, var(--background));
+  -webkit-transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+  width: 38px;
+  border-radius: 11px;
+  min-height: unset;
+}
+.check_box_with_label input::after {
+  content: "";
+  display: block;
+  position: absolute;
+  -webkit-transition: opacity var(--d-o, 0.2s),
+    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
+  transition: opacity var(--d-o, 0.2s),
+    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
+  transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
+    opacity var(--d-o, 0.2s);
+  transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
+    opacity var(--d-o, 0.2s),
+    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
+  left: 2px;
+  top: 2px;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  background: var(--ab, var(--border));
+  -webkit-transform: translateX(var(--x, 0));
+  transform: translateX(var(--x, 0));
+}
+.check_box_with_label label {
+  display: block;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+.check_box_with_label input[type="checkbox"]:checked {
+  --ab: var(--active-inner);
+  --x: 17px;
+  --b: var(--active);
+  --bc: var(--active);
+  --d-o: 0.3s;
+  --d-t: 0.6s;
+  --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+}
+input.disabled {
+  cursor: not-allowed;
+}
+</style>

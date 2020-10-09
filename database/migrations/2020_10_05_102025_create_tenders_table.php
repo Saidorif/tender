@@ -18,6 +18,7 @@ class CreateTendersTable extends Migration
             $table->string('direction_ids')->nullable();
             $table->dateTime('time');
             $table->string('address');
+            $table->string('message')->nullable();
             $table->string('status');
             $table->bigInteger('approved_by')->nullable();
             $table->bigInteger('created_by');

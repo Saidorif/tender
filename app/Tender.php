@@ -12,6 +12,7 @@ class Tender extends Model
         'time',
         'address',
         'status',
+        'message',
         'approved_by',
         'created_by',
     ];
