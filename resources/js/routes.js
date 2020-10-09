@@ -116,6 +116,11 @@ import Tarif from './components/admin/steppassport/Tarif'
 import Scheme from './components/admin/steppassport/Scheme'
 import Demand from './components/admin/steppassport/Demand'
 
+// ConfirmTender
+import ConfirmTender from './components/admin/confirmtender/ConfirmTender'
+import AddConfirmTender from './components/admin/confirmtender/AddConfirmTender'
+import EditConfirmTender from './components/admin/confirmtender/EditConfirmTender'
+
 // Home
 import Home from './components/pages/Home'
 import Contact from './components/pages/Contact'
@@ -404,6 +409,18 @@ const router = new Router({
 				{
 					path:'tenderannounce/edit/:tenderannounceId',
 					component:EditTenderAnnounce,
+				},
+				{
+					path:'confirm-tender',
+					component:ConfirmTender,
+				},
+				{
+					path:'confirm-tender/add',
+					component:AddConfirmTender,
+				},
+				{
+					path:'confirm-tender/edit/:tenderannounceId',
+					component:EditConfirmTender,
 				},
 			]
 		},
