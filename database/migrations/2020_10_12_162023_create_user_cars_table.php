@@ -17,6 +17,7 @@ class CreateUserCarsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
             $table->bigInteger('direction_id')->nullable();
+            $table->bigInteger('tender_id')->nullable();
             $table->string('status')->default('active')->nullable();
             $table->string('auto_number')->nullable();
             $table->bigInteger('bustype_id')->nullable();

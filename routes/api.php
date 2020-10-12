@@ -79,6 +79,7 @@ Route::group([
 
             //Application CRUD
             Route::post('application', 'ApplicationController@index');
+            Route::post('application/car/store', 'ApplicationController@carStore');
             Route::post('application/store', 'ApplicationController@store');
             Route::get('application/list', 'ApplicationController@list');
             Route::get('application/edit/{id}', 'ApplicationController@edit');

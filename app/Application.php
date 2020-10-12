@@ -27,4 +27,9 @@ class Application extends Model
     {
         return $this->hasMany(\App\UserCar::class,'direction_id');
     }
+
+    public function carsWith()
+    {
+        return $this->cars()->with(['bustype','busmodel','tclass']);
+    }
 }
