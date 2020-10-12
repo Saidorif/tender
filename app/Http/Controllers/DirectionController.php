@@ -185,9 +185,9 @@ class DirectionController extends Controller
         $test = [];
         for ($i=0; $i < count($ptimings); $i++) {
             foreach ($ptimings as $key => $timing) {
-                $result[$i]['ddd'][] = (int)$timing['distance_from_start_station'];
-                if($i != 0){
-                    $distance_test = array_sum($result[$i]['ddd']);
+                $result[$key]['ddd'][] = (int)$timing['distance_from_start_station'];
+                if($key != 0){
+                    $distance_test = array_sum($result[$key]['ddd']);
                 }else{
                     $distance_test = (int)$timing['distance_from_start_station'];
                 }
@@ -379,6 +379,8 @@ class DirectionController extends Controller
         $from_id   = $direction->from_where['id'];
         $to_name   = $direction->timing->last()->whereTo['name'];
         $to_id     = $direction->timing->last()->whereTo['id'];
+        $ptimings  = $direction->timing->toArray();
+        // dd($ptimings);
         $data = [
             'auto_type'                     => $direction->type->type,
             'auto_type_name'                => $direction->type->name,
@@ -401,17 +403,17 @@ class DirectionController extends Controller
             'reyses_from_name'              => $from_name,
             'reyses_to_value'               => '',
             'reyses_to_name'                => $to_name,
-            'schedule_begin_time'           => $direction->schedule->first()->reysTimes->last()->start,
-            'schedule_begin_from'           => $direction->schedule->first()->reysTimes->first()->start,
-            'schedule_begin_to'             => $direction->schedule->first()->reysTimes->last()->end,
-            'schedule_end_time'             => $direction->schedule->last()->reysTimes->last()->start,
-            'schedule_end_from'             => $direction->schedule->last()->reysTimes->first()->start,
-            'schedule_end_to'               => $direction->schedule->last()->reysTimes->last()->end,
+            'schedule_begin_time'           => '-',//Дастлабки рейс (ишни бошлаш) вақти
+            'schedule_begin_from'           => '00:00',//Toshkent томондан
+            'schedule_begin_to'             => '00:00',//Nukus томондан
+            'schedule_end_time'             => '-',//Сўнги рейс (ишни тугалланиш) вақти
+            'schedule_end_from'             => '00:00',//Toshkent томондан
+            'schedule_end_to'               => '00:00',//Nukus томондан 
             'station_intervals'             => '?',
-            'reys_time'                     => '?',
-            'reys_from_value'               => '?',
-            'reys_to_value'                 => '?',
-            'schedules'                     => '?',
+            'reys_time'                     => array_sum(array_column($ptimings, 'spendtime_between_station')),
+            'reys_from_value'               => '00:00',
+            'reys_to_value'                 => '00:00',
+            'schedules'                     => '-',
             'tarif'                         => '?',
             'tarif_one_km'                  => '?',
             'tarif_city'                    => '?',
