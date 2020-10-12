@@ -5,22 +5,22 @@
     <div class="container">
       <div class="contact_block">
         <div class="col-md-6">
-          <h2 class="title">Bizga o'z <span>taklif</span> va <span>e'trozlaringizni </span> qoldiring!</h2>
-          <p class="sub_title">Taklif va e'trozlaringizni formada qoldiring, biz sizning takliflarinigzni va e'trozlarinigzni o'rganib chiqib pochtangiz orqali batafsil ma'lumot beramiza yoki qo'ng'iroq qilamiz agar raqamingizni qoldirsangiz   </p>
+          <h2 class="title" v-html="$t('contacts_page.title')"></h2>
+          <p class="sub_title" > {{$t('contacts_page.sub_title')}} </p>
         </div>
         <div class="col-md-5">
           <form @submit.enter.prevent="send">
             <div class="col-md-12">
                 <div class="input-group input_group_with_label">
-                  <select 
-                    class="form-control input_style" 
-                    v-model="form.complaint_category_id" 
-                    :class="isRequired(form.complaint_category_id) ? 'isRequired' : ''" 
-                    id="complaint_category_id" 
+                  <select
+                    class="form-control input_style"
+                    v-model="form.complaint_category_id"
+                    :class="isRequired(form.complaint_category_id) ? 'isRequired' : ''"
+                    id="complaint_category_id"
                   >
                     <option :value="item.id" v-for="(item,index) in getComplaintList">{{item.name}}</option>
                   </select>
-                  <label for="complaint_category_id">Murojat turi</label>
+                  <label for="complaint_category_id">{{$t('contacts_page.appeal_type')}}</label>
                 </div>
                 <div class="input-group input_group_with_label">
                   <input
@@ -30,7 +30,7 @@
                     :class="isRequired(form.surname) ? 'isRequired' : ''"
                     id="surname"
                   />
-                  <label for="surname">Familiya</label>
+                  <label for="surname"> {{$t('contacts_page.surname')}}</label>
                 </div>
                 <div class="input-group input_group_with_label">
                   <input
@@ -40,16 +40,16 @@
                     v-model="form.name"
                     :class="isRequired(form.name) ? 'isRequired' : ''"
                   />
-                  <label for="name">Ism</label>
+                  <label for="name"> {{$t('contacts_page.name')}}</label>
                 </div>
-                <div class="input-group input_group_with_label"> 
+                <div class="input-group input_group_with_label">
                   <input
                     type="text"
                     class="form-control"
                     v-model="form.middlename"
                     id="middlename"
                   />
-                  <label for="middlename">Sharifi</label>
+                  <label for="middlename"> {{$t('contacts_page.middlename')}}</label>
                 </div>
                 <div class="input-group input_group_with_label">
                   <input
@@ -60,7 +60,7 @@
                     v-model="form.phone"
                     :class="isRequired(form.phone) ? 'isRequired' : ''"
                   />
-                  <label for="phone">Telefon raqam</label>
+                  <label for="phone"> {{$t('contacts_page.phone')}}</label>
                 </div>
                 <div class="input-group input_group_with_label input_file">
                   <input
@@ -70,7 +70,7 @@
                     @change="changeFile($event)"
                   />
                   <p>{{ form.file ? form.file.name : ''}}</p>
-                  <label for="file">Faylni yuklash</label>
+                  <label for="file"> {{$t('contacts_page.file_upload')}}</label>
                 </div>
                 <div class="input-group input_group_with_label">
                   <textarea
@@ -79,12 +79,12 @@
                     v-model="form.text"
                     :class="isRequired(form.text) ? 'isRequired' : ''"
                   ></textarea>
-                  <label for="text">Xabar matni</label>
+                  <label for="text"> {{$t('contacts_page.text')}}</label>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="input-group mt-4">
-                  <button type="submit" class="btn_blue_bd_0">Yuborish</button>
+                  <button type="submit" class="btn_blue_bd_0">Yuborish {{$t('contacts_page.send')}}</button>
                 </div>
             </div>
           </form>
@@ -187,7 +187,7 @@ export default {
             icon: "success",
             title: "Сообщение",
             text: this.getMassage.message
-          }); 
+          });
         }else{
           swal.fire({
             type: "error",

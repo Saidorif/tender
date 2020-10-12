@@ -4,8 +4,8 @@
     <Header/>
     <div class="container about_block">
       <div class="col-md-12">
-        <h2 class="title" align="center">
-          Transport vazirligining <span>Tender onlayn</span> platformasi haqida
+        <h2 class="title" align="center" v-html="$t('about_tender.title')">
+
         </h2>
         <p class="sub_title">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos doloribus esse facere id adipisci quae recusandae, quibusdam officia vitae praesentium ipsum neque iusto sint, dolorum magnam natus vel illum architecto!

@@ -17,7 +17,7 @@
 }
 .brand-link{
     border-bottom:1px solid #52dcbc;
-    color: #fff;   
+    color: #fff;
     text-align: center;
     padding: 13px .5rem !important;
 }
@@ -389,12 +389,12 @@
 .pe-7s-menu{
     color: #fff;
 }
-.btn-primary:focus, 
+.btn-primary:focus,
 .btn-primary.focus{
     box-shadow: none;
 }
 .isRequired{
-    border-color: red !important; 
+    border-color: red !important;
 }
 .radio_style_input{
     opacity: 0;
@@ -444,9 +444,9 @@
     justify-content: flex-start;
     position: relative;
 }
-.radio_style_input:checked + .radio_style_label:after{ 
+.radio_style_input:checked + .radio_style_label:after{
     transform: scale(0.7);
-} 
+}
 .test_header{
     display: flex;
     justify-content: space-between;
@@ -461,20 +461,20 @@
 .test_pogination_responsive::-webkit-scrollbar {
     width: 1px;
   }
-  
+
   /* Track */
   .test_pogination_responsive::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0); 
+    background: rgba(0,0,0,0);
   }
-   
+
   /* Handle */
   .test_pogination_responsive::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0); 
+    background: rgba(0,0,0,0);
   }
-  
+
   /* Handle on hover */
   .test_pogination_responsive::-webkit-scrollbar-thumb:hover {
-    background: rgba(0,0,0,0);  
+    background: rgba(0,0,0,0);
   }
 .test_pogination{
     display: flex;
@@ -890,7 +890,7 @@ hr{
       display: flex;
       align-items: center;
     }
-    .nav-tabs .nav-link.active, 
+    .nav-tabs .nav-link.active,
     .nav-tabs .nav-item.show .nav-link{
       border: none;
       border-bottom: 3px solid;
@@ -932,7 +932,7 @@ hr{
     background: #f1f1f1;
     border-color: #d6d6d6;
   }
-  
+
   .avatar-upload .avatar-preview {
     width: 192px;
     height: 192px;
@@ -1007,7 +1007,7 @@ hr{
     border: 1px solid var(--bc, var(--border));
     background: var(--b, var(--background));
     transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
-  } 
+  }
   .input_switch::before{
       content: '';
       position: absolute;
@@ -1182,7 +1182,7 @@ hr{
 .header_banner .left_item  p{
     font-size: 18px;
     padding-bottom: 35px;
-        font-family: "Poppins-Regular";
+    font-family: "Poppins-Regular";
 }
 .tender_page,
 .about_page,
@@ -1203,6 +1203,12 @@ hr{
     padding-top: 0;
     margin-top: 0;
 }
+.home_page .sub_title{
+    max-width: 520px;
+}
+.tender_page .sub_title{
+    max-width: unset;
+}
 .about_page .about_block .sub_title{
     border: none;
     padding-bottom: 0px;
@@ -1210,6 +1216,7 @@ hr{
     text-align: justify;
     font-size: 16px;
     font-weight: normal;
+    max-width: 100%;
 }
 .contact_block{
     height: 100%;
@@ -1405,7 +1412,7 @@ hr{
     padding: 80px;
     width: 55%;
 }
-.login-card-body .input-group .form-control, 
+.login-card-body .input-group .form-control,
 .register-card-body .input-group .form-control{
     border: 1px solid #858080;
 }
@@ -1444,7 +1451,7 @@ hr{
     font-family: "Poppins-Regular";
     white-space: nowrap;
     color: #292666;
-}   
+}
 .btn_register_block{
     position: relative;
 }

@@ -3,6 +3,8 @@ window.Vue = require('vue');
 
 // ProgressBar
 import VueProgressBar from 'vue-progressbar';
+// lang
+import i18n from './i18n'
 
 Vue.use(VueProgressBar,{
   color: 'rgb(143,255,199)',
@@ -77,6 +79,7 @@ if (TokenService.getToken()) {
 const app = new Vue({
     el: '#app',
     router,
+    i18n,
     components:{
       Master,
     },
