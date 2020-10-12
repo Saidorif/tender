@@ -1,0 +1,24 @@
+{
+    "site_name": "Главная страница",
+    "menu":{
+        "reestr": "Реестр",
+        "about_lisence": "О лицензии",
+        "send_request": "Отправить заявку",
+        "auth": "Авторизация"
+    },
+    "admin_menu": {
+        "admin_panel": "Админ панель",
+        "my_requests":"Мои заявки",
+        "change_pass":"Изменить пароль",
+        "my_payments":"Мои платежи",
+        "my_license":"Мои лицензии",
+        "license_list":"Список лицензии",
+        "requests":"Заявки",
+        "payments":"Платежи",
+        "employee":"Сотрудники",
+        "position":"Должность",
+        "settings":"Настройки",
+        "setting":"Настройка",
+        "my_info":"Мои данные"
+    }
+}

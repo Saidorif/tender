@@ -4,17 +4,17 @@
     <Header/>
     <div class="container tender_block">
       <div class="col-md-12">
-        <h2 class="title" align="center">O'tkazilgan  <span>tenderlar</span> ro'yxati</h2>
-        <p class="sub_title">Bu bo'limda siz bo'lib o'tkan tenderlar royxati bilan tanishasiz</p>
+        <h2 class="title" align="center" v-html="$t('conducted_tenders.title')"></h2>
+        <p class="sub_title">{{$t('conducted_tenders.sub_title')}}</p>
         <div class="table-responsive mt-5">
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                     <tr>
                         <th>№</th>
-                        <th>Yonalish nomi</th>
-                        <th>Yonalish masofasi (km)</th>
-                        <th>Korxona nomi</th>
-                        <th>Sana</th>
+                        <th>{{$t('conducted_tenders.table.direction_name')}}</th>
+                        <th>{{$t('conducted_tenders.table.directional_distance')}}</th>
+                        <th>{{$t('conducted_tenders.table.company_name')}}</th>
+                        <th>{{$t('conducted_tenders.table.date')}}</th>
                     </tr>
                 </thead>
                 <tbody>
