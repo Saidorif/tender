@@ -6,7 +6,14 @@
 			    	<i class="peIcon fas fa-file"></i>
 				    Заявки
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/application/add"><i class="fas fa-plus"></i> Добавить</router-link>
+				<button type="button" class="btn btn-primary" @click.prevent="getEditId">
+					<i class="fas fa-plus"></i> 
+					Добавить
+				</button>
+		<!-- 		<router-link class="btn btn-primary" to="/crm/application/add">
+					<i class="fas fa-plus"></i> 
+					Добавить
+				</router-link> -->
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -52,12 +59,28 @@
 			await this.actionApplications()
 		},
 		computed:{
-			...mapGetters('application',['getApplications','getMassage'])
+			...mapGetters('application',[
+				'getApplications',
+				'getApplication',
+				'getMassage',
+				'getAddMessage'
+			])
 		},
 		methods:{
-			...mapActions('application',['actionApplications','actionDeleteApplication']),
+			...mapActions('application',[
+					'actionApplications',
+					'actionDeleteApplication',
+					'actionAddApplication',
+				]),
 			async getResults(page = 1){ 
 				await this.actionApplications(page)
+			},
+			async getEditId(){
+				await this.actionAddApplication()
+				if (this.getAddMessage.success) {
+					this.$router.push("/crm/application/edit/"+this.getAddMessage.result.id);
+					console.log(this.getAddMessage.result)
+				}
 			},
 			async deleteRegion(id){
 				if(confirm("Вы действительно хотите удалить?")){

@@ -4,6 +4,7 @@ const state = {
 	applications: {},
 	applicationlist: [],
 	message: [],
+	addmessage: [],
 	application: [],
 };
 
@@ -19,6 +20,9 @@ const getters = {
 	},
 	getApplication(state){
 		return state.application
+	},
+	getAddMessage(state){
+		return state.addmessage
 	},
 };
 
@@ -45,7 +49,7 @@ const actions = {
 	async actionAddApplication({commit},payload){
 		try {
 			const applications =  await ApplicationService.addapplication(payload);
-			await commit('setMessage',applications.data)
+			await commit('setAddMessage',applications.data)
 			return true
 		} catch (error) {
 			return false
@@ -86,6 +90,9 @@ const mutations = {
 	},
 	setApplications(state, applications){
 		state.applications = applications
+	},
+	setAddMessage(state, addmessage){
+		state.addmessage = addmessage
 	},
 	setMessage(state, message){
 		state.message = message
