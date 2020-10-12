@@ -4,27 +4,27 @@
             <router-link to="/" class="logo"><img src="img/logoUz.png" alt=""></router-link>
             <ul class="menu_list">
                 <li >
-                    <router-link to="/" exact>Bosh sahifa</router-link>
+                    <router-link to="/" exact> {{ $t('menu.home') }} </router-link>
                 </li>
                 <li>
-                    <router-link to="/about">Tender haqida</router-link>
+                    <router-link to="/about">{{ $t('menu.about_tender') }}</router-link>
                 </li>
                 <li>
-                    <router-link to="/list-tender">O'tkazilgan tenderlar</router-link>
+                    <router-link to="/list-tender"> {{ $t('menu.conducted_tenders') }}</router-link>
                 </li>
                 <li>
-                    <router-link to="/contact">Biz bilan aloqa</router-link>
+                    <router-link to="/contact">{{ $t('menu.contacts') }}</router-link>
                 </li>
             </ul>
             <router-link to="/login" class="btn_login">
                 <i class="fas fa-sign-in-alt"></i>
-                Tizimga kirish
+                {{$t('menu.login')}}
             </router-link>
         </div>
     </header>
 </template>
 <script>
 	export default{
-		
+
 	}
 </script>

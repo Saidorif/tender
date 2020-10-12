@@ -3,8 +3,8 @@
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
-			    	<i class="peIcon fas fa-bullhorn"></i>
-				    Подтверждение тендера 
+			    	<i class="peIcon fas fa-clipboard-check"></i>
+				    Подтвердить тендер
 				</h4>
 		  	</div>
 		  	<div class="card-body">

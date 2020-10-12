@@ -79,6 +79,14 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/crm/confirm-tender">
+              <i class="peIcon fas fa-clipboard-check"></i>
+              <p>
+                Подтвердить тендер
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/crm/position">
               <i class="peIcon pe-7s-graph1"></i>
               <p>
@@ -198,14 +206,6 @@
                   <i class="peIcon fas fa-sign"></i>
                   <p>
                     Условные символы
-                  </p>
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link class="nav-link" to="/crm/confirm-tender">
-                  <i class="peIcon fas fa-clipboard-check"></i>
-                  <p>
-                    подтвердить тендер
                   </p>
                 </router-link>
               </li>

@@ -1,0 +1,54 @@
+{
+    "site_name": "Bosh sahifa",
+    "menu":{
+        "home": "Bosh sahifa",
+        "about_tender": "Tender haqida",
+        "conducted_tenders": "O'tqazilgan tenderlar",
+        "contacts": "Biz bilan aloqa",
+        "login":"Tizimga kirish"
+    },
+    "admin_menu": {
+        "admin_panel": "Administrator paneli",
+        "my_requests":"So'rovnomalarim",
+        "change_pass":"Parolni o'zgartirish",
+        "my_payments":"To'lovlarim",
+        "my_license":"Litsenziyalarim",
+        "license_list":"Litsenziyalar ro'yxati",
+        "requests":"So'rovnomalar",
+        "payments":"To'lovlar",
+        "employee":"Xodimlar",
+        "position":"Lavozim",
+        "settings":"Sozlamalar",
+        "setting":"Sozlama",
+        "my_info":"Ma'lumotlarim"
+    },
+    "home_page":{
+        "title": "Transport vazirligi  <span>tender</span>  platformasi",
+        "sub_title": "Endi siz uyingizda o'tirgan holda tenderda  qatnashish imkonyatiga  ega bo'ldingiz."
+    },
+    "about_tender":{
+        "title": "Transport vazirligining <span>Tender onlayn</span> platformasi haqida",
+        "sub_title": "Endi siz uyingizda o'tirgan holda tenderda qatnashish imkonyatiga ega bo'ldingiz."
+    },
+    "conducted_tenders":{
+        "title": "O'tkazilgan  <span>tenderlar</span> ro'yxati ",
+        "sub_title": "Bu bo'limda siz bo'lib o'tkan tenderlar royxati bilan tanishasiz",
+        "table": {
+            "direction_name": "Yo'nalish nomi",
+            "directional_distance": "Yo'nalish masofasi (km)",
+            "company_name": "Korxona nomi",
+            "date": "Sana"
+        }
+    },
+    "contacts_page":{
+        "title": "Bizga o'z <span>taklif</span> va <span>e'trozlaringizni </span> qoldiring!",
+        "sub_title": "Taklif va e'trozlaringizni formada qoldiring, biz sizning takliflarinigzni va e'trozlarinigzni o'rganib chiqib pochtangiz orqali batafsil ma'lumot beramiza yoki qo'ng'iroq qilamiz agar raqamingizni qoldirsangiz ",
+        "appeal_type": "Murojat turi",
+        "surname":"Familiya",
+        "name":"Ism",
+        "middlename":"Sharifi",
+        "phone":"Telefon raqam",
+        "file_upload":"Faylni yuklash",
+        "text":"Xabar matni"
+    }
+}
