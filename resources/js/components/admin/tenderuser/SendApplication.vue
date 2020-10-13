@@ -426,9 +426,6 @@
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
-		    saveData(){
-
-		    },
 		    removeDirectionFromList(data){
 		    	this.direction_ids = {}
 		    	this.findList = []
@@ -459,11 +456,34 @@
 		    	}
 		    },
 		    async addCar(){
-				this.car['app_id'] = this.$route.params.userapplicationId
-		    	await this.actionAddCar(this.car)
-		    	if(this.getMassage.success){
-			    	await this.actionEditApplication(this.$route.params.userapplicationId)
+		    	if (this.car.auto_number != '' && this.car.bustype_id != '' && this.car.busmodel_id != '' && this.car.tclass_id != '' && 
+			    	this.car.qty_reys != '' && this.car.capacity != '' && this.car.seat_qty != '' && this.car.date != '') 
+		    	{
+					this.car['app_id'] = this.$route.params.userapplicationId
+			    	await this.actionAddCar(this.car)
+			    	if(this.getMassage.success){
+				    	await this.actionEditApplication(this.$route.params.userapplicationId)
+				    	this.car.auto_number = ''
+				    	this.car.bustype_id = ''
+				    	this.car.busmodel_id = ''
+				    	this.car.tclass_id = ''
+				    	this.car.qty_reys = ''
+				    	this.car.capacity = ''
+				    	this.car.seat_qty = ''
+				    	this.car.date = ''
+				    	this.car.conditioner = false
+				    	this.car.internet = false
+				    	this.car.bio_toilet = false
+				    	this.car.bus_adapted = false
+				    	this.car.telephone_power = false
+				    	this.car.monitor = false
+				    	this.car.tclasses = []
+			    	}
+		    		this.requiredInput = false
+		    	}else{
+		    		this.requiredInput = true
 		    	}
+
 		    },
 		    async saveData(){
 		    	this.car['app_id'] = this.$route.params.userapplicationId
