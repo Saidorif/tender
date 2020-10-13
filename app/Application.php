@@ -19,6 +19,8 @@ class Application extends Model
         'gps',
     ];
 
+    protected $casts = ['direction_ids' => 'array'];
+
     public function user()
     {
         return $this->belongsTo(\App\User::class,'user_id');

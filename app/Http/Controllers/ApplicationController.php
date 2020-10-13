@@ -56,7 +56,8 @@ class ApplicationController extends Controller
         foreach($tender->direction_ids as $key => $direction){
             $direction_ids[] = $direction['id'];
         }
-        print_r($direction_ids);die;
+        // print_r($direction_ids);die;
+        $inputs['direction_ids'] = $direction_ids;
         $application = Application::create($inputs);
         return response()->json([
             'success' => true,
