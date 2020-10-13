@@ -62,174 +62,13 @@
 					    	>
 				  	  	</div>
 				  	  	<div class="form-group col-md-2 btn_save d-flex justify-content-end">
-						  	  <button type="button" class="btn btn-secondary mr-3" @click.prevent="addCar">
+						  	  <button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal">
 							  		<i class="fas fa-plus"></i>
 								  	Добавить авто 
-						      </button>	 
+						      </button>	
 				      	</div>
 					</div>
-					<div class="row"> 				
-					  <div class="form-group col-md-3">
-					    <label for="auto_number">Номер Авто</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="auto_number" 
-					    	placeholder="Номер Авто"
-					    	v-model="car.auto_number"
-					    	:class="isRequired(car.auto_number) ? 'isRequired' : ''"  
-				    	>
-					  </div>
-					  <div class="form-group col-md-3">
-					    <label for="bustype_id">Тип Авто</label> 
-					    <select 
-						    class="form-control input_style" 
-					    	id="bustype_id" 
-					    	placeholder="Номер Авто"
-					    	v-model="car.bustype_id"
-					    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''" 
-					    	@change="selectClass(car.bustype_id, car.busmodel_id)"
-					    >
-					    	<option value="" selected disabled>Выберите тип авто!</option>
-					    	<option :value="busType.id" v-for="(busType,index) in getTypeofbusList">{{busType.name}}</option>
-					    </select>
-					  </div>
-					  <div class="form-group col-md-3">
-					    <label for="busmodel_id">Модель Авто</label>
-					    <select 
-						    class="form-control input_style" 
-					    	id="busmodel_id" 
-					    	placeholder="Номер Авто"
-					    	v-model="car.busmodel_id"
-					    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''" 
-					    	@change="selectClass(car.bustype_id, car.busmodel_id)"
-					    >
-					    	<option value="" selected disabled>Выберите модель авто!</option>
-					    	<option :value="busmodel.id" v-for="(busmodel,index) in getBusmodelList">{{busmodel.name}}</option>
-					    </select>
-					  </div>
-					  <div class="form-group col-md-3">
-					    <label for="tclass_id">Класс Авто</label>
-					    <select 
-						    class="form-control input_style" 
-					    	id="tclass_id" 
-					    	placeholder="Номер Авто"
-					    	v-model="car.tclass_id"
-					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''" 
-
-					    >
-					    	<option value="" selected disabled>Выберите класс авто!</option>
-					    	<option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
-					    </select>
-					  </div>
-					  <div class="form-group col-md-3">
-					    <label for="date">Дата выпуска</label>
-					    <input 
-					    	type="date" 
-					    	class="form-control input_style" 
-					    	id="date" 
-					    	v-model="car.date"
-					    	:class="isRequired(car.date) ? 'isRequired' : ''"  
-				    	>
-					  </div>
-					  <div class="form-group col-md-3">
-					    <label for="capacity">Вместимость</label>
-					    <input 
-					    	type="number" 
-					    	class="form-control input_style" 
-					    	id="capacity" 
-					    	placeholder="Вместимость"
-					    	v-model="car.capacity"
-					    	:class="isRequired(car.capacity) ? 'isRequired' : ''"  
-				    	>
-					  </div>
-					  <div class="form-group col-md-3">
-					    <label for="seat_qty">Количество сидящих</label>
-					    <input 
-					    	type="number" 
-					    	class="form-control input_style" 
-					    	id="seat_qty" 
-					    	placeholder="Количество сидящих"
-					    	v-model="car.seat_qty"
-					    	:class="isRequired(car.seat_qty) ? 'isRequired' : ''"  
-				    	>
-					  </div>
-					  <div class="form-group col-md-3">
-					    <label for="qty_reys">Количество рейсов</label>
-					    <input 
-					    	type="number" 
-					    	class="form-control input_style" 
-					    	id="qty_reys" 
-					    	placeholder="Количество рейсов"
-					    	v-model="car.qty_reys"
-					    	:class="isRequired(car.qty_reys) ? 'isRequired' : ''"  
-				    	>
-					  </div>
-					  <div class="form-group col-md-12 table table-responsive">
-					  	<table class="table table-bordered">
-					  		<thead>
-					  			<tr>
-					  				<th width="1%">1</th>
-					  				<th width="50%">Кондиционер (климат-назорати тизими)</th>
-					  				<th>
-					  					<input type="checkbox" value="1" v-model="car.conditioner">
-					  				</th>
-					  			</tr>
-					  			<tr>
-					  				<th>2</th>
-					  				<th width="50%">Интернет</th>
-					  				<th> 
-					  					<input type="checkbox" value="1" v-model="car.internet">
-					  				</th>
-					  			</tr>
-					  			<tr>
-					  				<th>3</th>
-					  				<th width="50%">Биохожатхона</th>
-					  				<th>
-					  					<input type="checkbox" value="1" v-model="car.bio_toilet">
-					  				</th>
-					  			</tr>
-					  			<tr>
-					  				<th>4</th>
-					  				<th width="50%">
-					  					Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган
-					  					гурухларига мослашганлиги
-					  				</th>
-					  				<th>
-					  					<input type="checkbox" value="1" v-model="car.bus_adapted">
-					  				</th>
-					  			</tr>
-					  			<tr>
-					  				<th>5</th>
-					  				<th width="50%">
-					  					Телефон қувватлагичлари
-					  				</th>
-					  				<th>
-					  					<input type="checkbox" value="1" v-model="car.telephone_power">
-					  				</th>
-					  			</tr>
-					  			<tr>
-					  				<th>6</th>
-					  				<th width="50%">
-					  					Хар бир ўриндиқда монитор (планшет)
-					  				</th>
-					  				<th>
-					  					<input type="checkbox" value="1" v-model="car.monitor">
-					  				</th>
-					  			</tr>
-					  			<tr>
-					  				<th>7</th>
-					  				<th width="50%">
-					  					Бекатларни эълон қилиш
-					  				</th>
-					  				<th>
-					  					<input type="checkbox" value="1" v-model="car.station_announce">
-					  				</th>
-					  			</tr>
-					  		</thead>
-					  	</table>
-					  </div>
-					  <hr>
+					<div class="row"> 	
 					  	<div class="form-group col-md-12 table table-responsive">
 						  	<h4>Тадбирлар режаси</h4>
 						  	<table class="table table-bordered">
@@ -340,6 +179,194 @@
 				</form>
 		  	</div>
 	  	</div>
+	  	<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Новое авто</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <div class="row">
+		        	<div class="form-group col-md-3">
+					    <label for="auto_number">Номер Авто</label>
+					    <input 
+					    	type="text" 
+					    	class="form-control input_style" 
+					    	id="auto_number" 
+					    	placeholder="Номер Авто"
+					    	v-model="car.auto_number"
+					    	:class="isRequired(car.auto_number) ? 'isRequired' : ''"  
+				    	>
+				  	</div>
+				  	<div class="form-group col-md-3">
+					    <label for="bustype_id">Тип Авто</label> 
+					    <select 
+						    class="form-control input_style" 
+					    	id="bustype_id" 
+					    	placeholder="Номер Авто"
+					    	v-model="car.bustype_id"
+					    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''" 
+					    	@change="selectClass(car.bustype_id, car.busmodel_id)"
+					    >
+					    	<option value="" selected disabled>Выберите тип авто!</option>
+					    	<option :value="busType.id" v-for="(busType,index) in getTypeofbusList">{{busType.name}}</option>
+					    </select>
+				  	</div>
+				  	<div class="form-group col-md-3">
+					    <label for="busmodel_id">Модель Авто</label>
+					    <select 
+						    class="form-control input_style" 
+					    	id="busmodel_id" 
+					    	placeholder="Номер Авто"
+					    	v-model="car.busmodel_id"
+					    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''" 
+					    	@change="selectClass(car.bustype_id, car.busmodel_id)"
+					    >
+					    	<option value="" selected disabled>Выберите модель авто!</option>
+					    	<option :value="busmodel.id" v-for="(busmodel,index) in getBusmodelList">{{busmodel.name}}</option>
+					    </select>
+				  	</div>
+				  	<div class="form-group col-md-3">
+					    <label for="tclass_id">Класс Авто</label>
+					    <select 
+						    class="form-control input_style" 
+					    	id="tclass_id" 
+					    	placeholder="Номер Авто"
+					    	v-model="car.tclass_id"
+					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''" 
+
+					    >
+					    	<option value="" selected disabled>Выберите класс авто!</option>
+					    	<option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
+					    </select>
+				  	</div>
+				  	<div class="form-group col-md-3">
+					    <label for="date">Дата выпуска</label>
+					    <input 
+					    	type="date" 
+					    	class="form-control input_style" 
+					    	id="date" 
+					    	v-model="car.date"
+					    	:class="isRequired(car.date) ? 'isRequired' : ''"  
+				    	>
+				  	</div>
+				  	<div class="form-group col-md-3">
+					    <label for="capacity">Вместимость</label>
+					    <input 
+					    	type="number" 
+					    	class="form-control input_style" 
+					    	id="capacity" 
+					    	placeholder="Вместимость"
+					    	v-model="car.capacity"
+					    	:class="isRequired(car.capacity) ? 'isRequired' : ''"  
+				    	>
+				  	</div>
+				  	<div class="form-group col-md-3">
+					    <label for="seat_qty">Количество сидящих</label>
+					    <input 
+					    	type="number" 
+					    	class="form-control input_style" 
+					    	id="seat_qty" 
+					    	placeholder="Количество сидящих"
+					    	v-model="car.seat_qty"
+					    	:class="isRequired(car.seat_qty) ? 'isRequired' : ''"  
+				    	>
+				  	</div>
+				  	<div class="form-group col-md-3">
+					    <label for="qty_reys">Количество рейсов</label>
+					    <input 
+					    	type="number" 
+					    	class="form-control input_style" 
+					    	id="qty_reys" 
+					    	placeholder="Количество рейсов"
+					    	v-model="car.qty_reys"
+					    	:class="isRequired(car.qty_reys) ? 'isRequired' : ''"  
+				    	>
+				  	</div>
+				  	<div class="form-group col-md-12 table table-responsive">
+					  	<table class="table table-bordered">
+					  		<thead>
+					  			<tr>
+					  				<th width="1%">1</th>
+					  				<th width="50%">Кондиционер (климат-назорати тизими)</th>
+					  				<th>
+					  					<input type="checkbox" value="1" v-model="car.conditioner">
+					  				</th>
+					  			</tr>
+					  			<tr>
+					  				<th>2</th>
+					  				<th width="50%">Интернет</th>
+					  				<th> 
+					  					<input type="checkbox" value="1" v-model="car.internet">
+					  				</th>
+					  			</tr>
+					  			<tr>
+					  				<th>3</th>
+					  				<th width="50%">Биохожатхона</th>
+					  				<th>
+					  					<input type="checkbox" value="1" v-model="car.bio_toilet">
+					  				</th>
+					  			</tr>
+					  			<tr>
+					  				<th>4</th>
+					  				<th width="50%">
+					  					Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган
+					  					гурухларига мослашганлиги
+					  				</th>
+					  				<th>
+					  					<input type="checkbox" value="1" v-model="car.bus_adapted">
+					  				</th>
+					  			</tr>
+					  			<tr>
+					  				<th>5</th>
+					  				<th width="50%">
+					  					Телефон қувватлагичлари
+					  				</th>
+					  				<th>
+					  					<input type="checkbox" value="1" v-model="car.telephone_power">
+					  				</th>
+					  			</tr>
+					  			<tr>
+					  				<th>6</th>
+					  				<th width="50%">
+					  					Хар бир ўриндиқда монитор (планшет)
+					  				</th>
+					  				<th>
+					  					<input type="checkbox" value="1" v-model="car.monitor">
+					  				</th>
+					  			</tr>
+					  			<tr>
+					  				<th>7</th>
+					  				<th width="50%">
+					  					Бекатларни эълон қилиш
+					  				</th>
+					  				<th>
+					  					<input type="checkbox" value="1" v-model="car.station_announce">
+					  				</th>
+					  			</tr>
+					  		</thead>
+					  	</table>
+				    </div>
+		        </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-warning" data-dismiss="modal">
+		        	<i class="fas fa-times"></i>
+		        	Закрыть
+		        </button>
+		        <button type="button" class="btn btn-primary" @click.prevent="addCar">
+		        	<i class="fas fa-save"></i>
+		        	Сохранить
+		        </button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- Modal -->
 	</div>
 </template>
 <script>
@@ -425,8 +452,29 @@
 			...mapActions('busmodel',['actionBusmodelList']),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
+			defaultValuesOfCar(){
+				this.car.auto_number = ''
+		    	this.car.bustype_id = ''
+		    	this.car.busmodel_id = ''
+		    	this.car.tclass_id = ''
+		    	this.car.qty_reys = ''
+		    	this.car.capacity = ''
+		    	this.car.seat_qty = ''
+		    	this.car.date = ''
+		    	this.car.conditioner = false
+		    	this.car.internet = false
+		    	this.car.bio_toilet = false
+		    	this.car.bus_adapted = false
+		    	this.car.telephone_power = false
+		    	this.car.monitor = false
+		    	this.car.tclasses = []
+		    },
 			isRequired(input){
 	    		return this.requiredInput && input === '';
+		    },
+		    openModal(){
+		    	$('#myModal').modal('show')
+		    	this.defaultValuesOfCar()
 		    },
 		    removeDirectionFromList(data){
 		    	this.direction_ids = {}
@@ -465,21 +513,8 @@
 			    	await this.actionAddCar(this.car)
 			    	if(this.getMassage.success){
 				    	await this.actionEditApplication(this.$route.params.userapplicationId)
-				    	this.car.auto_number = ''
-				    	this.car.bustype_id = ''
-				    	this.car.busmodel_id = ''
-				    	this.car.tclass_id = ''
-				    	this.car.qty_reys = ''
-				    	this.car.capacity = ''
-				    	this.car.seat_qty = ''
-				    	this.car.date = ''
-				    	this.car.conditioner = false
-				    	this.car.internet = false
-				    	this.car.bio_toilet = false
-				    	this.car.bus_adapted = false
-				    	this.car.telephone_power = false
-				    	this.car.monitor = false
-				    	this.car.tclasses = []
+				    	$('#myModal').modal('hide')
+				    	// this.defaultValuesOfCar()
 			    	}
 		    		this.requiredInput = false
 		    	}else{
