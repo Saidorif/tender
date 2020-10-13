@@ -76,8 +76,8 @@
 					    	class="form-control input_style" 
 					    	id="auto_number" 
 					    	placeholder="Номер Авто"
-					    	v-model="form.car.auto_number"
-					    	:class="isRequired(form.car.auto_number) ? 'isRequired' : ''"  
+					    	v-model="car.auto_number"
+					    	:class="isRequired(car.auto_number) ? 'isRequired' : ''"  
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
@@ -86,9 +86,9 @@
 						    class="form-control input_style" 
 					    	id="bustype_id" 
 					    	placeholder="Номер Авто"
-					    	v-model="form.car.bustype_id"
-					    	:class="isRequired(form.car.bustype_id) ? 'isRequired' : ''" 
-					    	@change="selectClass(form.car.bustype_id, form.car.busmodel_id)"
+					    	v-model="car.bustype_id"
+					    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''" 
+					    	@change="selectClass(car.bustype_id, car.busmodel_id)"
 					    >
 					    	<option value="" selected disabled>Выберите тип авто!</option>
 					    	<option :value="busType.id" v-for="(busType,index) in getTypeofbusList">{{busType.name}}</option>
@@ -100,9 +100,9 @@
 						    class="form-control input_style" 
 					    	id="busmodel_id" 
 					    	placeholder="Номер Авто"
-					    	v-model="form.car.busmodel_id"
-					    	:class="isRequired(form.car.busmodel_id) ? 'isRequired' : ''" 
-					    	@change="selectClass(form.car.bustype_id, form.car.busmodel_id)"
+					    	v-model="car.busmodel_id"
+					    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''" 
+					    	@change="selectClass(car.bustype_id, car.busmodel_id)"
 					    >
 					    	<option value="" selected disabled>Выберите модель авто!</option>
 					    	<option :value="busmodel.id" v-for="(busmodel,index) in getBusmodelList">{{busmodel.name}}</option>
@@ -114,12 +114,12 @@
 						    class="form-control input_style" 
 					    	id="tclass_id" 
 					    	placeholder="Номер Авто"
-					    	v-model="form.car.tclass_id"
-					    	:class="isRequired(form.car.tclass_id) ? 'isRequired' : ''" 
+					    	v-model="car.tclass_id"
+					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''" 
 
 					    >
 					    	<option value="" selected disabled>Выберите класс авто!</option>
-					    	<option :value="busClass.id" v-for="(busClass,index) in form.car.tclasses">{{busClass.name}}</option>
+					    	<option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
 					    </select>
 					  </div>
 					  <div class="form-group col-md-3">
@@ -129,8 +129,8 @@
 					    	class="form-control input_style" 
 					    	id="date" 
 					    	placeholder="Вместимость"
-					    	v-model="form.car.date"
-					    	:class="isRequired(form.car.date) ? 'isRequired' : ''"  
+					    	v-model="car.date"
+					    	:class="isRequired(car.date) ? 'isRequired' : ''"  
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
@@ -140,8 +140,8 @@
 					    	class="form-control input_style" 
 					    	id="capacity" 
 					    	placeholder="Вместимость"
-					    	v-model="form.car.capacity"
-					    	:class="isRequired(form.car.capacity) ? 'isRequired' : ''"  
+					    	v-model="car.capacity"
+					    	:class="isRequired(car.capacity) ? 'isRequired' : ''"  
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
@@ -151,8 +151,8 @@
 					    	class="form-control input_style" 
 					    	id="seat_qty" 
 					    	placeholder="Количество сидящих"
-					    	v-model="form.car.seat_qty"
-					    	:class="isRequired(form.car.seat_qty) ? 'isRequired' : ''"  
+					    	v-model="car.seat_qty"
+					    	:class="isRequired(car.seat_qty) ? 'isRequired' : ''"  
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
@@ -162,8 +162,8 @@
 					    	class="form-control input_style" 
 					    	id="qty_reys" 
 					    	placeholder="Количество рейсов"
-					    	v-model="form.car.qty_reys"
-					    	:class="isRequired(form.car.qty_reys) ? 'isRequired' : ''"  
+					    	v-model="car.qty_reys"
+					    	:class="isRequired(car.qty_reys) ? 'isRequired' : ''"  
 				    	>
 					  </div>
 					  <div class="form-group col-md-12 table table-responsive">
@@ -173,21 +173,21 @@
 					  				<th width="1%">1</th>
 					  				<th width="50%">Кондиционер (климат-назорати тизими)</th>
 					  				<th>
-					  					<input type="checkbox" value="1" v-model="form.car.conditioner">
+					  					<input type="checkbox" value="1" v-model="car.conditioner">
 					  				</th>
 					  			</tr>
 					  			<tr>
 					  				<th>2</th>
 					  				<th width="50%">Интернет</th>
 					  				<th> 
-					  					<input type="checkbox" value="1" v-model="form.car.internet">
+					  					<input type="checkbox" value="1" v-model="car.internet">
 					  				</th>
 					  			</tr>
 					  			<tr>
 					  				<th>3</th>
 					  				<th width="50%">Биохожатхона</th>
 					  				<th>
-					  					<input type="checkbox" value="1" v-model="form.car.bio_toilet">
+					  					<input type="checkbox" value="1" v-model="car.bio_toilet">
 					  				</th>
 					  			</tr>
 					  			<tr>
@@ -197,7 +197,7 @@
 					  					гурухларига мослашганлиги
 					  				</th>
 					  				<th>
-					  					<input type="checkbox" value="1" v-model="form.car.bus_adapted">
+					  					<input type="checkbox" value="1" v-model="car.bus_adapted">
 					  				</th>
 					  			</tr>
 					  			<tr>
@@ -206,7 +206,7 @@
 					  					Телефон қувватлагичлари
 					  				</th>
 					  				<th>
-					  					<input type="checkbox" value="1" v-model="form.car.telephone_power">
+					  					<input type="checkbox" value="1" v-model="car.telephone_power">
 					  				</th>
 					  			</tr>
 					  			<tr>
@@ -215,7 +215,7 @@
 					  					Хар бир ўриндиқда монитор (планшет)
 					  				</th>
 					  				<th>
-					  					<input type="checkbox" value="1" v-model="form.car.monitor">
+					  					<input type="checkbox" value="1" v-model="car.monitor">
 					  				</th>
 					  			</tr>
 					  			<tr>
@@ -224,7 +224,7 @@
 					  					Бекатларни эълон қилиш
 					  				</th>
 					  				<th>
-					  					<input type="checkbox" value="1" v-model="form.car.station_announce">
+					  					<input type="checkbox" value="1" v-model="car.station_announce">
 					  				</th>
 					  			</tr>
 					  		</thead>
@@ -353,23 +353,6 @@
 		data(){
 			return{
 				form:{
-					car:{
-						auto_number:'',
-						bustype_id:'',
-						busmodel_id:'',
-						tclass_id:'',
-						qty_reys:'',
-						capacity:'',
-						seat_qty:'',
-						date:'',
-						conditioner:'',
-						internet:'',
-						bio_toilet:'',
-						bus_adapted:'',
-						telephone_power:'',
-						monitor:'',
-						tclasses:[]
-					},
 					direction_ids:[],
 					tarif:'',
 					direction_id:'',
@@ -378,6 +361,23 @@
 					videoregistrator:'',
 					gps:'',
 					hours_rule:'',
+				},
+				car:{
+					auto_number:'',
+					bustype_id:'',
+					busmodel_id:'',
+					tclass_id:'',
+					qty_reys:'',
+					capacity:'',
+					seat_qty:'',
+					date:'',
+					conditioner:false,
+					internet:false,
+					bio_toilet:false,
+					bus_adapted:false,
+					telephone_power:false,
+					monitor:false,
+					tclasses:[]
 				},
 				cars_with:[
 					{
@@ -389,12 +389,12 @@
 						capacity:'',
 						seat_qty:'',
 						date:'',
-						conditioner:'',
-						internet:'',
-						bio_toilet:'',
-						bus_adapted:'',
-						telephone_power:'',
-						monitor:'',
+						conditioner:false,
+						internet:false,
+						bio_toilet:false,
+						bus_adapted:false,
+						telephone_power:false,
+						monitor:false,
 						tclasses:[]
 					}
 				],
@@ -427,24 +427,6 @@
 			await this.actionBusmodelList()
 			this.form = this.getApplication
 			Vue.set(this.form,'direction_ids',[])
-			Vue.set(this.form,'car',
-				{
-					auto_number:'',
-					bustype_id:'',
-					busmodel_id:'',
-					tclass_id:'',
-					qty_reys:'',
-					capacity:'',
-					seat_qty:'',
-					date:'',
-					conditioner:'',
-					internet:'',
-					bio_toilet:'',
-					bus_adapted:'',
-					telephone_power:'',
-					monitor:'',
-					tclasses:[]
-				})
 			console.log(this.form)
 		},
 		methods:{
@@ -478,19 +460,22 @@
 		      }
 		    },
 		    async selectClass(bustype_id,busmodel_id){
-		    	this.form.car.tclass_id = ''
+		    	this.car.tclass_id = ''
 		    	if (bustype_id && busmodel_id) {
 		    		let data = {
 		    			'bustype_id':bustype_id,
 		    			'busmodel_id':busmodel_id
 		    		}
 			    	await this.actionBusclassFind(data)
-		    		this.form.car.tclasses = this.getBusclassFindList
+		    		this.car.tclasses = this.getBusclassFindList
 		    	}
 		    },
 		    async saveData(){
-		    	await this.actionAddCar(this.form)
+		    	this.car['app_id'] = this.$route.params.userapplicationId
+		    	await this.actionAddCar(this.car)
+		    	await this.actionEditApplication(this.$route.params.userapplicationId)
 		    	console.log(this.getMassage)
+		    	console.log(this.getApplication)
 		   //  	let item = {
 		   //  		auto_number:'',
 					// bustype_id:'',
