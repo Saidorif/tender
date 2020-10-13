@@ -35,4 +35,9 @@ class Application extends Model
     {
         return $this->cars()->with(['bustype','busmodel','tclass']);
     }
+
+    public function tender()
+    {
+        return $this->belongsTo(\App\Tender::class,'tender_id');
+    }
 }
