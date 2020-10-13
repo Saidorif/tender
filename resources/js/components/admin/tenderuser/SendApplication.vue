@@ -62,7 +62,7 @@
 					    	>
 				  	  	</div>
 				  	  	<div class="form-group col-md-2 btn_save d-flex justify-content-end">
-						  	  <button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
+						  	  <button type="button" class="btn btn-secondary mr-3" @click.prevent="addCar">
 							  		<i class="fas fa-plus"></i>
 								  	Добавить авто 
 						      </button>	 
@@ -128,7 +128,6 @@
 					    	type="date" 
 					    	class="form-control input_style" 
 					    	id="date" 
-					    	placeholder="Вместимость"
 					    	v-model="car.date"
 					    	:class="isRequired(car.date) ? 'isRequired' : ''"  
 				    	>
@@ -288,7 +287,7 @@
 						  		</thead>
 						  	</table>
 					  	</div>
-						<div class="form-group col-md-12 table table-responsive">
+						<div class="form-group col-md-12 table table-responsive" v-if="cars_with.length > 0">
 							<table class="table table-bordered">
 								<thead>
 									<tr>
@@ -305,21 +304,21 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td>data</td>
-										<td>data</td>
-										<td>data</td>
-										<td>data</td>
-										<td>data</td>
-										<td>data</td>
-										<td>data</td>
-										<td>data</td>
+									<tr v-for="(car,index) in cars_with">
+										<td>{{index+1}}</td>
+										<td>{{car.auto_number}}</td>
+										<td>{{car.bustype.name}}</td>
+										<td>{{car.busmodel.name}}</td>
+										<td>{{car.tclass.name}}</td>
+										<td>{{car.date}}</td>
+										<td>{{car.capacity}}</td>
+										<td>{{car.seat_qty}}</td>
+										<td>{{car.qty_reys}}</td>
 										<td>
 											<button type="button" class="btn_transparent">
 												<i class="pe_icon pe-7s-edit editColor"></i>
 											</button>
-											<button type="button" class="btn_transparent" @click="deleteCar">
+											<button type="button" class="btn_transparent" @click="deleteCar(car.id)">
 												<i class="pe_icon pe-7s-trash trashColor"></i>
 											</button>
 										</td>
@@ -356,11 +355,11 @@
 					direction_ids:[],
 					tarif:'',
 					direction_id:'',
-					daily_medical_job:'',
-					daily_technical_job:'',
-					videoregistrator:'',
-					gps:'',
-					hours_rule:'',
+					daily_medical_job:false,
+					daily_technical_job:false,
+					videoregistrator:false,
+					gps:false,
+					hours_rule:false,
 				},
 				car:{
 					auto_number:'',
@@ -379,25 +378,7 @@
 					monitor:false,
 					tclasses:[]
 				},
-				cars_with:[
-					{
-						auto_number:'',
-						bustype_id:'',
-						busmodel_id:'',
-						tclass_id:'',
-						qty_reys:'',
-						capacity:'',
-						seat_qty:'',
-						date:'',
-						conditioner:false,
-						internet:false,
-						bio_toilet:false,
-						bus_adapted:false,
-						telephone_power:false,
-						monitor:false,
-						tclasses:[]
-					}
-				],
+				cars_with:[],
 				findList:[],
 				direction_ids:{},
 				requiredInput:false,
@@ -421,13 +402,20 @@
 		    	})
 		    },
 		},
+		watch:{
+			getApplication:{
+				handler(){
+		    		this.cars_with = this.getApplication.cars_with
+				}
+			}
+		},
 		async mounted(){
 			await this.actionEditApplication(this.$route.params.userapplicationId)
 			await this.actionTypeofbusList()
 			await this.actionBusmodelList()
 			this.form = this.getApplication
+			this.cars_with = this.getApplication.cars_with
 			Vue.set(this.form,'direction_ids',[])
-			console.log(this.form)
 		},
 		methods:{
 			...mapActions('application',['actionEditApplication','actionUpdateApplication','actionAddCar']),
@@ -470,12 +458,19 @@
 		    		this.car.tclasses = this.getBusclassFindList
 		    	}
 		    },
+		    async addCar(){
+				this.car['app_id'] = this.$route.params.userapplicationId
+		    	await this.actionAddCar(this.car)
+		    	if(this.getMassage.success){
+			    	await this.actionEditApplication(this.$route.params.userapplicationId)
+		    	}
+		    },
 		    async saveData(){
 		    	this.car['app_id'] = this.$route.params.userapplicationId
 		    	await this.actionAddCar(this.car)
-		    	await this.actionEditApplication(this.$route.params.userapplicationId)
-		    	console.log(this.getMassage)
-		    	console.log(this.getApplication)
+		    	if(this.getMassage.success){
+			    	await this.actionEditApplication(this.$route.params.userapplicationId)
+		    	}
 		   //  	let item = {
 		   //  		auto_number:'',
 					// bustype_id:'',
