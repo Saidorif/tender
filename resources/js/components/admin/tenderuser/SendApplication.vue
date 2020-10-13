@@ -139,15 +139,6 @@
 					  	</div>
 				  		<div class="form-group col-lg-12">
 				  			<div class="row">
-				  				<div class="form-group col-md-2">
-						  			<a href="#" title="" download="" class="btn btn-outline-dark">
-						  				<i class="fas fa-download"></i>
-						  				Название файла
-						  			</a>
-						  			<button type="button" class="btn btn-danger">
-						  				<i class="fas fa-trash-alt"></i>
-						  			</button>
-				  				</div>
 				  				<div class="form-group col-md-3">
 						  			<input
 					                    type="file"
@@ -162,6 +153,19 @@
 					  					<i class="fas fa-plus"></i>
 					  					Добавить файл
 						  			</button>	
+				  				</div>
+				  				<div class="form-group col-md-12" v-if="files.length > 0">
+				  					<ul class="list-inline d-flex">
+				  					    <li v-for="(f_name,index) in files" class="mr-4">
+								  			<a :href="'/'+f_name.path+'/'+f_name.hash" title="" download="" class="btn btn-outline-dark">
+								  				<i class="fas fa-download"></i>
+								  				{{f_name.original_name}}
+								  			</a>
+								  			<button type="button" class="btn btn-danger" @click.prevent="removeFile(f_name.id)">
+								  				<i class="fas fa-trash-alt"></i>
+								  			</button>
+				  					    </li>
+				  					</ul>
 				  				</div>
 				  			</div>
 				  		</div>
@@ -572,6 +576,7 @@
 					tclasses:[]
 				},
 				file:'',
+				files:[],
 				cars_with:[],
 				findList:[],
 				direction_ids:{},
@@ -602,6 +607,7 @@
 				handler(){
 					if (this.getApplication) {
 			    		this.cars_with = this.getApplication.cars_with
+						this.files = this.getApplication.attachment
 					}
 				}
 			}
@@ -612,10 +618,17 @@
 			await this.actionBusmodelList()
 			this.form = this.getApplication
 			this.cars_with = this.getApplication.cars_with
+			this.files = this.getApplication.attachment
 			Vue.set(this.form,'direction_ids',[])
 		},
 		methods:{
-			...mapActions('application',['actionEditApplication','actionUpdateApplication','actionAddCar','actionAddFile']),
+			...mapActions('application',[
+				'actionEditApplication',
+				'actionUpdateApplication',
+				'actionAddCar',
+				'actionAddFile',
+				'actionRemoveFile',
+			]),
 			...mapActions('typeofbus',['actionTypeofbusList']),
 			...mapActions('busmodel',['actionBusmodelList']),
 			...mapActions('direction',['actionDirectionFind']),
@@ -654,7 +667,26 @@
 				formData.append('file', this.file);
 				formData.append('app_id', this.$route.params.userapplicationId);
 				await this.actionAddFile(formData)
-				console.log(this.getMassage)
+				if(this.getMassage.success){
+					toast.fire({
+			            type: "success",
+			            icon: "success",
+			            title: this.getMassage.message
+		          	});
+					await this.actionEditApplication(this.$route.params.userapplicationId)
+				}
+		    },
+		    async removeFile(id){
+		    	await this.actionRemoveFile(id)
+		    	if(this.getMassage.success){
+					toast.fire({
+			            type: "success",
+			            icon: "success",
+			            title: this.getMassage.message
+		          	});
+					await this.actionEditApplication(this.$route.params.userapplicationId)
+				}
+
 		    },
 			showTable(index){ 
 				this.showBtn = index 
