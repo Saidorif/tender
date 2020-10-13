@@ -40,7 +40,10 @@ $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
+<<<<<<< HEAD
 // $app->configure('cors');
+=======
+>>>>>>> b4e687b75023875d8f2160becaa4b04885169108
 /*
 |--------------------------------------------------------------------------
 | Return The Application
