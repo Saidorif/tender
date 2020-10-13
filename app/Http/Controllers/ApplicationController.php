@@ -70,7 +70,7 @@ class ApplicationController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'auto_number' => 'required|string',
-            'direction_id' => 'required|integer',
+            'app_id' => 'required|integer',
             'tender_id' => 'required|integer',
             'bustype_id' => 'required|string',
             'busmodel_id' => 'required|string',
