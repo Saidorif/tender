@@ -20,7 +20,7 @@ const ApplicationService = {
 		return ApiService.delete(`/api/application/destroy/${id}`)
 	},
 	sendusereditapplication(data){
-		return ApiService.post(`/api/application`,data)
+		return ApiService.post(`/api/application/tender/store`,data)
 	},
 	sendUserApplication(data){
 		return ApiService.post(`/api/application`,data)

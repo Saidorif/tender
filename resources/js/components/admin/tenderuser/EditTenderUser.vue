@@ -231,11 +231,10 @@
 		    		tender_id:this.$route.params.tenderuserId
 		    	}
 				await this.actionUserEditApplication(data)
-				console.log(this.getUserEditApplication)
-				// if (this.getAddMessage.success) {
-				// 	this.$router.push("/crm/tenderuser/application/"+this.getAddMessage.result.id);
-				// 	console.log(this.getAddMessage.result)
-				// }
+				if (this.getUserEditApplication.success) {
+					this.$router.push("/crm/tenderuser/application/"+this.getUserEditApplication.result.id);
+					console.log(this.getUserEditApplication)
+				}
 			},
 		    activeEditClass(lots,id){
 		    	let lot_list = lots.reys_id
