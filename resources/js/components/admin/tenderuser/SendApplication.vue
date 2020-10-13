@@ -62,15 +62,17 @@
 					    	>
 				  	  	</div>
 				  	  	<div class="form-group col-md-2 btn_save d-flex justify-content-end">
-						  	  <button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal">
-							  		<i class="fas fa-plus"></i>
-								  	Добавить авто 
-						      </button>	
+					  	  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal">
+						  		<i class="fas fa-plus"></i>
+							  	Добавить авто 
+					      	</button>	
 				      	</div>
 					</div>
 					<div class="row"> 	
 					  	<div class="form-group col-md-12 table table-responsive">
-						  	<h4>Тадбирлар режаси</h4>
+					  		<div class="d-flex justify-content-center">
+							  	<h4>Тадбирлар режаси</h4>
+							</div>
 						  	<table class="table table-bordered">
 						  		<thead>
 						  			<tr>
@@ -80,7 +82,13 @@
 						  					ўтказиш учун барча шароитлар яратилган
 						  				</th>
 						  				<th>
-						  					<input type="checkbox" name="" value="1" v-model="form.daily_technical_job">
+						  					<input 
+						  						type="checkbox" 
+						  						name="daily_technical_job" 
+						  						true-value="1"
+												false-value="0"
+						  						v-model="form.daily_technical_job"
+					  						>
 						  				</th>
 						  			</tr>
 						  			<tr>
@@ -90,7 +98,13 @@
 						  					шароитлар яратилган
 						  				</th>
 						  				<th>
-						  					<input type="checkbox" name="" value="1" v-model="form.daily_medical_job">
+						  					<input 
+						  						type="checkbox" 
+						  						name="daily_medical_job" 
+						  						true-value="1"
+												false-value="0"
+						  						v-model="form.daily_medical_job"
+					  						>
 						  				</th>
 						  			</tr>
 						  			<tr>
@@ -100,7 +114,13 @@
 						  					ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
 						  				</th>
 						  				<th>
-						  					<input type="checkbox" name="" value="1" v-model="form.hours_rule">
+						  					<input 
+						  						type="checkbox" 
+						  						name="hours_rule" 
+						  						true-value="1"
+												false-value="0"
+						  						v-model="form.hours_rule"
+					  						>
 						  				</th>
 						  			</tr>
 						  			<tr>
@@ -110,7 +130,13 @@
 						  					ўрнатилган
 						  				</th>
 						  				<th>
-						  					<input type="checkbox" name="" value="1" v-model="form.videoregistrator">
+						  					<input 
+						  						type="checkbox" 
+						  						name="videoregistrator" 
+						  						true-value="1"
+												false-value="0"
+						  						v-model="form.videoregistrator"
+					  						>
 						  				</th>
 						  			</tr>
 						  			<tr>
@@ -120,13 +146,22 @@
 						  					тизимига уланган
 						  				</th>
 						  				<th>
-						  					<input type="checkbox" name="" value="1" v-model="form.gps">
+						  					<input 
+						  						type="checkbox" 
+						  						name="gps" 
+						  						true-value="1"
+												false-value="0"
+						  						v-model="form.gps"
+					  						>
 						  				</th>
 						  			</tr>
 						  		</thead>
 						  	</table>
 					  	</div>
 						<div class="form-group col-md-12 table table-responsive" v-if="cars_with.length > 0">
+							<div class="d-flex justify-content-center">
+								<h4>Мои автомобили</h4>
+							</div>
 							<table class="table table-bordered">
 								<thead>
 									<tr>
@@ -143,25 +178,128 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr v-for="(car,index) in cars_with">
-										<td>{{index+1}}</td>
-										<td>{{car.auto_number}}</td>
-										<td>{{car.bustype.name}}</td>
-										<td>{{car.busmodel.name}}</td>
-										<td>{{car.tclass.name}}</td>
-										<td>{{car.date}}</td>
-										<td>{{car.capacity}}</td>
-										<td>{{car.seat_qty}}</td>
-										<td>{{car.qty_reys}}</td>
-										<td>
-											<button type="button" class="btn_transparent">
-												<i class="pe_icon pe-7s-edit editColor"></i>
-											</button>
-											<button type="button" class="btn_transparent" @click.prevent="deleteCar(car.id)">
-												<i class="pe_icon pe-7s-trash trashColor"></i>
-											</button>
-										</td>
-									</tr>
+									<template v-for="(car,index) in cars_with">
+										<tr>
+											<td>{{index+1}}</td>
+											<td>{{car.auto_number}}</td>
+											<td>{{car.bustype.name}}</td>
+											<td>{{car.busmodel.name}}</td>
+											<td>{{car.tclass.name}}</td>
+											<td>{{car.date}}</td>
+											<td>{{car.capacity}}</td>
+											<td>{{car.seat_qty}}</td>
+											<td>{{car.qty_reys}}</td>
+											<td>
+												<button type="button" class="btn_transparent" @click.prevent="showTable(index)">
+													<i class="pe-7s-angle-down-circle"></i>
+												</button>
+												<button type="button" class="btn_transparent" @click.prevent="deleteCar(car.id)">
+													<i class="pe_icon pe-7s-trash trashColor"></i>
+												</button>
+											</td>
+										</tr>
+										<tr v-if="showBtn == index">
+											<td colspan="10">
+												<table class="table table-bordered">
+											  		<thead>
+											  			<tr>
+											  				<th width="1%">1</th>
+											  				<th width="50%">Кондиционер (климат-назорати тизими)</th>
+											  				<th>
+											  					<input 
+											  						type="checkbox" 
+											  						true-value="1"
+																	false-value="0"
+											  						v-model="car.conditioner"
+										  						>
+											  				</th>
+											  			</tr>
+											  			<tr>
+											  				<th>2</th>
+											  				<th width="50%">Интернет</th>
+											  				<th> 
+											  					<input 
+											  						type="checkbox" 
+											  						true-value="1"
+																	false-value="0"
+											  						v-model="car.internet"
+										  						>
+											  				</th>
+											  			</tr>
+											  			<tr>
+											  				<th>3</th>
+											  				<th width="50%">Биохожатхона</th>
+											  				<th>
+											  					<input 
+											  						type="checkbox" 
+											  						true-value="1"
+																	false-value="0" 
+											  						v-model="car.bio_toilet"
+										  						>
+											  				</th>
+											  			</tr>
+											  			<tr>
+											  				<th>4</th>
+											  				<th width="50%">
+											  					Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган
+											  					гурухларига мослашганлиги
+											  				</th>
+											  				<th>
+											  					<input 
+											  						type="checkbox" 
+											  						true-value="1"
+																	false-value="0"
+											  						v-model="car.bus_adapted"
+										  						>
+											  				</th>
+											  			</tr>
+											  			<tr>
+											  				<th>5</th>
+											  				<th width="50%">
+											  					Телефон қувватлагичлари
+											  				</th>
+											  				<th>
+											  					<input 
+											  						type="checkbox" 
+											  						true-value="1"
+																	false-value="0"
+											  						v-model="car.telephone_power"
+										  						>
+											  				</th>
+											  			</tr>
+											  			<tr>
+											  				<th>6</th>
+											  				<th width="50%">
+											  					Хар бир ўриндиқда монитор (планшет)
+											  				</th>
+											  				<th>
+											  					<input 
+											  						type="checkbox" 
+											  						true-value="1"
+																	false-value="0" 
+											  						v-model="car.monitor"
+										  						>
+											  				</th>
+											  			</tr>
+											  			<tr>
+											  				<th>7</th>
+											  				<th width="50%">
+											  					Бекатларни эълон қилиш
+											  				</th>
+											  				<th>
+											  					<input 
+											  						type="checkbox" 
+											  						true-value="1"
+																	false-value="0"
+											  						v-model="car.station_announce"
+										  						>
+											  				</th>
+											  			</tr>
+											  		</thead>
+											  	</table>
+											</td>
+										</tr>
+									</template>
 								</tbody>
 							</table>
 						</div>
@@ -294,21 +432,36 @@
 					  				<th width="1%">1</th>
 					  				<th width="50%">Кондиционер (климат-назорати тизими)</th>
 					  				<th>
-					  					<input type="checkbox" value="1" v-model="car.conditioner">
+					  					<input 
+					  						type="checkbox" 
+					  						true-value="1"
+											false-value="0"
+					  						v-model="car.conditioner"
+				  						>
 					  				</th>
 					  			</tr>
 					  			<tr>
 					  				<th>2</th>
 					  				<th width="50%">Интернет</th>
 					  				<th> 
-					  					<input type="checkbox" value="1" v-model="car.internet">
+					  					<input 
+					  						type="checkbox" 
+					  						true-value="1"
+											false-value="0"
+					  						v-model="car.internet"
+				  						>
 					  				</th>
 					  			</tr>
 					  			<tr>
 					  				<th>3</th>
 					  				<th width="50%">Биохожатхона</th>
 					  				<th>
-					  					<input type="checkbox" value="1" v-model="car.bio_toilet">
+					  					<input 
+					  						type="checkbox" 
+					  						true-value="1"
+											false-value="0" 
+					  						v-model="car.bio_toilet"
+				  						>
 					  				</th>
 					  			</tr>
 					  			<tr>
@@ -318,7 +471,12 @@
 					  					гурухларига мослашганлиги
 					  				</th>
 					  				<th>
-					  					<input type="checkbox" value="1" v-model="car.bus_adapted">
+					  					<input 
+					  						type="checkbox" 
+					  						true-value="1"
+											false-value="0"
+					  						v-model="car.bus_adapted"
+				  						>
 					  				</th>
 					  			</tr>
 					  			<tr>
@@ -327,7 +485,12 @@
 					  					Телефон қувватлагичлари
 					  				</th>
 					  				<th>
-					  					<input type="checkbox" value="1" v-model="car.telephone_power">
+					  					<input 
+					  						type="checkbox" 
+					  						true-value="1"
+											false-value="0"
+					  						v-model="car.telephone_power"
+				  						>
 					  				</th>
 					  			</tr>
 					  			<tr>
@@ -336,7 +499,12 @@
 					  					Хар бир ўриндиқда монитор (планшет)
 					  				</th>
 					  				<th>
-					  					<input type="checkbox" value="1" v-model="car.monitor">
+					  					<input 
+					  						type="checkbox" 
+					  						true-value="1"
+											false-value="0" 
+					  						v-model="car.monitor"
+				  						>
 					  				</th>
 					  			</tr>
 					  			<tr>
@@ -345,7 +513,12 @@
 					  					Бекатларни эълон қилиш
 					  				</th>
 					  				<th>
-					  					<input type="checkbox" value="1" v-model="car.station_announce">
+					  					<input 
+					  						type="checkbox" 
+					  						true-value="1"
+											false-value="0"
+					  						v-model="car.station_announce"
+				  						>
 					  				</th>
 					  			</tr>
 					  		</thead>
@@ -409,6 +582,7 @@
 				findList:[],
 				direction_ids:{},
 				requiredInput:false,
+				showBtn:Number,
 				isLoading:false,
 				newItems:[]
 			}
@@ -452,6 +626,9 @@
 			...mapActions('busmodel',['actionBusmodelList']),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
+			showTable(index){ 
+				this.showBtn = index 
+			},
 			defaultValuesOfCar(){
 				this.car.auto_number = ''
 		    	this.car.bustype_id = ''
@@ -461,12 +638,12 @@
 		    	this.car.capacity = ''
 		    	this.car.seat_qty = ''
 		    	this.car.date = ''
-		    	this.car.conditioner = false
-		    	this.car.internet = false
-		    	this.car.bio_toilet = false
-		    	this.car.bus_adapted = false
-		    	this.car.telephone_power = false
-		    	this.car.monitor = false
+		    	this.car.conditioner = 0
+		    	this.car.internet = 0
+		    	this.car.bio_toilet = 0
+		    	this.car.bus_adapted = 0
+		    	this.car.telephone_power = 0
+		    	this.car.monitor = 0
 		    	this.car.tclasses = []
 		    },
 			isRequired(input){
