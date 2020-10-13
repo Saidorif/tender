@@ -62,10 +62,10 @@
 					    	>
 				  	  	</div>
 				  	  	<div class="form-group col-md-2 btn_save d-flex justify-content-end">
-						  	  <button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal">
-							  		<i class="fas fa-plus"></i>
-								  	Добавить авто 
-						      </button>	
+					  	  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal">
+						  		<i class="fas fa-plus"></i>
+							  	Добавить авто 
+					      	</button>	
 				      	</div>
 					</div>
 					<div class="row"> 	
