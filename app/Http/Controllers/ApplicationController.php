@@ -117,19 +117,20 @@ class ApplicationController extends Controller
             return response()->json(['error' => true, 'message' => 'Заявка не найдено']);
         }
         $validator = Validator::make($request->all(),[
-            'direction_id' => 'nullable|integer',
+            'tender_id' => 'required|integer',
             'tarif' => 'nullable|integer',
             'status' => 'nullable|string',
-            'daily_technical_job' => 'nullable|string',
-            'daily_medical_job' => 'nullable|string',
-            '30_hours_rule' => 'nullable|string',
-            'videoregistrator' => 'nullable|string',
-            'gps' => 'nullable|string',
+            'daily_technical_job' => 'nullable|boolean',
+            'daily_medical_job' => 'nullable|boolean',
+            '30_hours_rule' => 'nullable|boolean',
+            'videoregistrator' => 'nullable|boolean',
+            'gps' => 'nullable|boolean',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        $inputs['status'] = 'active';
         $application->update($inputs);
         return response()->json(['success' => true, 'message' => 'Заявка обновлено']);
     }
