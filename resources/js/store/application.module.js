@@ -6,6 +6,8 @@ const state = {
 	message: [],
 	addmessage: [],
 	application: [],
+	usereditapplication: [],
+	userapplications: [],
 };
 
 const getters = {
@@ -24,10 +26,34 @@ const getters = {
 	getAddMessage(state){
 		return state.addmessage
 	},
+	getUserApplications(state){
+		return state.userapplications
+	},
+	getUserEditApplication(state){
+		return state.usereditapplication
+	},
 };
 
 
 const actions = {
+	async actionUserEditApplication({commit},data){
+		try {
+			const applications =  await ApplicationService.sendusereditapplication(data);
+			await commit('setUserEditApplication',applications.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionApplicationList({commit},data){
+		try {
+			const applications =  await ApplicationService.sendUserApplication(data);
+			await commit('setUserApplications',applications.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionApplicationList({commit},page){
 		try {
 			const applications =  await ApplicationService.applicationList(page);
@@ -99,6 +125,12 @@ const mutations = {
 	},
 	setEditApplication(state, application){
 		state.application = application
+	},
+	setUserEditApplication(state, usereditapplication){
+		state.usereditapplication = usereditapplication
+	},
+	setUserApplications(state, userapplications){
+		state.userapplications = userapplications
 	},
 };
 
