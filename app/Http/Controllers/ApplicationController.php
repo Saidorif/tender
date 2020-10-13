@@ -102,7 +102,7 @@ class ApplicationController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $application = Application::with(['user','carsWith'])->find($id);
+        $application = Application::with(['user','carsWith','tender'])->find($id);
         if(!$application){
             return response()->json(['error' => true, 'message' => 'Заявка не найдено']);
         }
