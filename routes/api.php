@@ -29,6 +29,9 @@ Route::group([
             //Dashboard
             Route::get('dashboard', 'DashboardController@index');
 
+            //File upload
+            Route::post('file/store', 'FileController@store');
+
             //User model
             Route::get('profile', 'UserController@profile');
             Route::post('change-password', 'UserController@changePasword');

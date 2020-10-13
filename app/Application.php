@@ -40,4 +40,9 @@ class Application extends Model
     {
         return $this->belongsTo(\App\Tender::class,'tender_id');
     }
+
+    public function attachment()
+    {
+        return $this->hasMany(\App\File::class,'app_id');
+    }
 }
