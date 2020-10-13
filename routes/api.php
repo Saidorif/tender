@@ -46,6 +46,7 @@ Route::group([
             // Tender Announce
             Route::post('tender', 'TenderController@index');
             Route::post('tender/store', 'TenderController@store');
+            Route::post('tender/list', 'TenderController@list');
             Route::post('tender/remove/{id}', 'TenderController@remove')->where('id', '[0-9]+');
             Route::post('tender/update/{id}', 'TenderController@update')->where('id', '[0-9]+');
             Route::post('tender/reject/{id}', 'TenderController@reject')->where('id', '[0-9]+');
@@ -81,6 +82,7 @@ Route::group([
             Route::post('application', 'ApplicationController@index');
             Route::post('application/car/store', 'ApplicationController@carStore');
             Route::post('application/store', 'ApplicationController@store');
+            Route::post('application/tender/store', 'ApplicationController@storeFromTenders');
             Route::get('application/list', 'ApplicationController@list');
             Route::get('application/edit/{id}', 'ApplicationController@edit');
             Route::post('application/update/{id}', 'ApplicationController@update');

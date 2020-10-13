@@ -16,7 +16,7 @@ class CreateUserCarsTable extends Migration
         Schema::create('user_cars', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
-            $table->bigInteger('direction_id')->nullable();
+            $table->bigInteger('app_id')->nullable();
             $table->bigInteger('tender_id')->nullable();
             $table->string('status')->default('active')->nullable();
             $table->string('auto_number')->nullable();

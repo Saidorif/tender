@@ -16,7 +16,7 @@ class CreateApplicationsTable extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
-            $table->bigInteger('direction_id')->nullable();
+            $table->string('direction_ids')->nullable();
             $table->bigInteger('tender_id')->nullable();
             $table->string('tarif')->nullable();
             $table->string('status')->default('active')->nullable();

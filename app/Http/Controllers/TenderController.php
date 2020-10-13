@@ -15,13 +15,34 @@ class TenderController extends Controller
     public function index(Request $request)
     {
         $tenders = Tender::with(['tenderlots'])->paginate(12);
-
-        // $tenders->getCollection()->transform(function ($value) {
-        //     $directions = Direction::with(['type'])->whereIn('id',$value->direction_ids)->get();
-        //     $value->directions = $directions;
-        //     return $value;
-        // });
         return response()->json(['success' => true,'result' => $tenders]);
+    }
+
+    public function list(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name'  => 'required|string',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inputs = $request->all();
+        $builder = Direction::query();
+        $builder->where('name','LIKE', '%'.$inputs['name'].'%');
+        $builder->orWhere('pass_number','LIKE', '%'.$inputs['name'].'%');
+        $directions = $builder->get();
+        $direction_ids = $directions->pluck(['id']);
+
+        $tenderBuilder = Tender::query();
+        if(count($directions) > 0){
+            $tenderBuilder->whereJsonContains('direction_ids', $direction_ids);
+        }
+        $tenders = $tenderBuilder->get();
+        return response()->json([
+            'success' => true,
+            'result' => $tenders,
+        ]);
     }
 
     public function edit($id)

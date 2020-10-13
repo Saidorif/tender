@@ -8,7 +8,8 @@ class Application extends Model
 {
     protected $fillable = [
         'user_id',
-        'direction_id',
+        'direction_ids',
+        'tender_id',
         'tarif',
         'status',
         'daily_technical_job',
@@ -25,7 +26,7 @@ class Application extends Model
 
     public function cars()
     {
-        return $this->hasMany(\App\UserCar::class,'direction_id');
+        return $this->hasMany(\App\UserCar::class,'tender_id');
     }
 
     public function carsWith()

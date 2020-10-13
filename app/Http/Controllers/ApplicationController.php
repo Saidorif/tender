@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Validation\Rule;
 use App\Application;
+use App\Tender;
 use App\UserCar;
 
 class ApplicationController extends Controller
@@ -28,6 +29,34 @@ class ApplicationController extends Controller
         $user = $request->user();
         $inputs = $request->all();
         $inputs['user_id'] = $user->id;
+        $application = Application::create($inputs);
+        return response()->json([
+            'success' => true,
+            'result' => $application,
+            'message' => 'Заявка создано'
+        ]);
+    }
+
+    public function storeFromTenders(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'tender_id' => 'required|integer',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inputs = $request->only('tender_id');
+        $tender = Tender::find($inputs['tender_id']);
+        if(!$tender){
+            return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
+        }
+        $user = $request->user();
+        $inputs['user_id'] = $user->id;
+        $direction_ids = [];
+        foreach($tender->direction_ids as $key => $direction){
+            $direction_ids[] = $direction['id'];
+        }
+        print_r($direction_ids);die;
         $application = Application::create($inputs);
         return response()->json([
             'success' => true,

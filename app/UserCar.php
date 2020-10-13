@@ -9,7 +9,7 @@ class UserCar extends Model
     protected $fillable = [
         'user_id',
         'tender_id',
-        'direction_id',
+        'app_id',
         'status',
         'auto_number',
         'bustype_id',
