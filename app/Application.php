@@ -28,7 +28,7 @@ class Application extends Model
 
     public function cars()
     {
-        return $this->hasMany(\App\UserCar::class,'tender_id');
+        return $this->hasMany(\App\UserCar::class,'app_id');
     }
 
     public function carsWith()
