@@ -9,7 +9,7 @@
 				<router-link class="btn btn-primary back_btn" to="/crm/application"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
 		  	<div class="card-body">
-		  		<form>
+		  		<form enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-7">
 							<div class="row">
@@ -17,27 +17,6 @@
 									class="form-group" 
 									:class="direction_ids && Object.keys(direction_ids).length > 0 ? ' col-md-10' : ' col-md-12'"
 								>
-								    <!-- <label for="marshrut">Маршрут</label> -->
-				<!-- 				    <multiselect 
-										:value="direction_ids"
-										:options="findList"
-										@search-change="value => findDirection(value)"
-										v-model="direction_ids" 
-				                        placeholder="Выберите маршрут"
-				                        :searchable="true"
-				                        track-by="id"
-				                        label="name"
-				                        :max="3"
-										:loading="isLoading"
-										selectLabel="Нажмите Enter, чтобы выбрать"
-										deselectLabel="Нажмите Enter, чтобы удалить"
-										:option="[{name: 'Otash', id: 1}]"
-										@select="dispatchAction"
-										@remove="removeDirectionFromList"
-										>
-										<span slot="noResult">По вашему запросу ничего не найдено</span>
-										<span slot="noOptions">Cписок пустой</span>
-									</multiselect>	 -->
 								</div>	
 							  	<div class="form-group col-md-2 btn_show" v-if="direction_ids && Object.keys(direction_ids).length > 0">
 								  	<button 
@@ -158,6 +137,34 @@
 						  		</thead>
 						  	</table>
 					  	</div>
+				  		<div class="form-group col-lg-12">
+				  			<div class="row">
+				  				<div class="form-group col-md-2">
+						  			<a href="#" title="" download="" class="btn btn-outline-dark">
+						  				<i class="fas fa-download"></i>
+						  				Название файла
+						  			</a>
+						  			<button type="button" class="btn btn-danger">
+						  				<i class="fas fa-trash-alt"></i>
+						  			</button>
+				  				</div>
+				  				<div class="form-group col-md-3">
+						  			<input
+					                    type="file"
+					                    class="form-control"
+					                    id="image"
+					                    accept=".png, .jpg, .jpeg"
+					                    @change="changePhoto($event)"
+					                  />
+				  				</div>
+				  				<div class="form-group col-md-2">
+						  			<button type="button" class="btn btn-info text-white" @click.prevent="addFile">
+					  					<i class="fas fa-plus"></i>
+					  					Добавить файл
+						  			</button>	
+				  				</div>
+				  			</div>
+				  		</div>
 						<div class="form-group col-md-12 table table-responsive" v-if="cars_with.length > 0">
 							<div class="d-flex justify-content-center">
 								<h4>Мои автомобили</h4>
@@ -578,6 +585,7 @@
 					monitor:0,
 					tclasses:[]
 				},
+				file:'',
 				cars_with:[],
 				findList:[],
 				direction_ids:{},
@@ -626,6 +634,40 @@
 			...mapActions('busmodel',['actionBusmodelList']),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
+		    changePhoto(event) {
+		      this.file = event.target.files[0];
+		      // let file = event.target.files[0];
+		      // if (
+		      //   event.target.files[0]["type"] === "image/png" ||
+		      //   event.target.files[0]["type"] === "image/jpeg" ||
+		      //   event.target.files[0]["type"] === "image/jpg"
+		      // ) {
+		      //   if (file.size > 1048576) {
+		      //     swal.fire({
+		      //       type: "error",
+		      //       title: "Ошибка",
+		      //       text: "Размер изображения больше лимита"
+		      //     });
+		      //   } else {
+		      //     let reader = new FileReader();
+		      //     reader.onload = event => {
+		      //       this.file = event.target.result;
+		      //     };
+		      //     reader.readAsDataURL(file);
+		      //   }
+		      // } else {
+		      //   swal.fire({
+		      //     type: "error",
+		      //     title: "Ошибка",
+		      //     text: "Картинка должна быть только png,jpg,jpeg!"
+		      //   });
+		      // }
+		    },
+		    addFile(){
+		    	let formData = new FormData();
+				formData.append('file', this.file);
+				console.log(formData.get('file'))
+		    },
 			showTable(index){ 
 				this.showBtn = index 
 			},
