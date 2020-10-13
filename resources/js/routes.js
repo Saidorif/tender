@@ -127,7 +127,10 @@ import Contact from './components/pages/Contact'
 import About from './components/pages/About'
 import TenderList from './components/pages/TenderList'
 
-// StepPassport
+// TenderUser
+import TenderUser from './components/admin/tenderuser/TenderUser'
+import EditTenderUser from './components/admin/tenderuser/EditTenderUser'
+import SendApplication from './components/admin/tenderuser/SendApplication'
 
 // NotFound
 import NotFound from './components/NotFound/NotFound'
@@ -421,6 +424,18 @@ const router = new Router({
 				{
 					path:'confirm-tender/edit/:tenderannounceId',
 					component:EditConfirmTender,
+				},
+				{
+					path:'tenderuser',
+					component:TenderUser,
+				},
+				{
+					path:'tenderuser/edit/:tenderuserId',
+					component:EditTenderUser,
+				},
+				{
+					path:'tenderuser/application/:userapplicationId',
+					component:SendApplication,
 				},
 			]
 		},

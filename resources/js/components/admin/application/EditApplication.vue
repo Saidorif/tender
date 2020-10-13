@@ -379,7 +379,7 @@
 					gps:'',
 					hours_rule:'',
 				},
-				cars:[
+				cars_with:[
 					{
 						auto_number:'',
 						bustype_id:'',
