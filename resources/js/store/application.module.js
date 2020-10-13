@@ -102,7 +102,7 @@ const actions = {
 	async actionUpdateApplication({commit},payload){
 		try {
 			const application =  await ApplicationService.updateapplication(payload);
-			await commit('setEditApplication',application.data.result)
+			await commit('setMessage',application.data)
 			return true
 		} catch (error) {
 			return false

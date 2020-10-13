@@ -9,7 +9,7 @@
 				<router-link class="btn btn-primary back_btn" to="/crm/application"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
 		  	<div class="card-body">
-		  		<form @submit.prevent.enter="saveApplication" >
+		  		<form>
 					<div class="row">
 						<div class="form-group col-md-7">
 							<div class="row">
@@ -318,7 +318,7 @@
 											<button type="button" class="btn_transparent">
 												<i class="pe_icon pe-7s-edit editColor"></i>
 											</button>
-											<button type="button" class="btn_transparent" @click="deleteCar(car.id)">
+											<button type="button" class="btn_transparent" @click.prevent="deleteCar(car.id)">
 												<i class="pe_icon pe-7s-trash trashColor"></i>
 											</button>
 										</td>
@@ -405,7 +405,9 @@
 		watch:{
 			getApplication:{
 				handler(){
-		    		this.cars_with = this.getApplication.cars_with
+					if (this.getApplication) {
+			    		this.cars_with = this.getApplication.cars_with
+					}
 				}
 			}
 		},
@@ -486,42 +488,19 @@
 
 		    },
 		    async saveData(){
-		    	this.car['app_id'] = this.$route.params.userapplicationId
-		    	await this.actionAddCar(this.car)
+		    	await this.actionUpdateApplication(this.form)
 		    	if(this.getMassage.success){
-			    	await this.actionEditApplication(this.$route.params.userapplicationId)
+		    		toast.fire({
+			            type: "success",
+			            icon: "success",
+			            title: this.getMassage.message
+		          	});
+		    		await this.actionEditApplication(this.$route.params.userapplicationId)
 		    	}
-		   //  	let item = {
-		   //  		auto_number:'',
-					// bustype_id:'',
-					// busmodel_id:'',
-					// tclass_id:'',
-					// qty_reys:'',
-					// capacity:'',
-					// seat_qty:'',
-					// date:'',
-					// conditioner:'',
-					// internet:'',
-					// bio_toilet:'',
-					// bus_adapted:'',
-					// telephone_power:'',
-					// monitor:'',
-					// tclasses:[],
-		   //  	}
-		   //  	this.form.cars.push(item)
 		    },
 		    deleteCar(index){
 		    	// this.form.cars.splice(index, 1);
 		    },
-			async saveApplication(){
-		    	if (this.form.seat != '' && this.form.tarif != '' && this.requiredInput){
-					await this.actionAddApplication(this.form)
-					this.$router.push("/crm/application");
-					this.requiredInput = false
-				}else{
-					this.requiredInput = true
-				}
-		    }
 		}
 	}
 </script>
