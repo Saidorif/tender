@@ -213,36 +213,30 @@
 											  				<th width="1%">1</th>
 											  				<th width="50%">Кондиционер (климат-назорати тизими)</th>
 											  				<th>
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0"
-											  						v-model="car.conditioner"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.conditioner == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  			<tr>
 											  				<th>2</th>
 											  				<th width="50%">Интернет</th>
 											  				<th> 
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0"
-											  						v-model="car.internet"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.internet == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  			<tr>
 											  				<th>3</th>
 											  				<th width="50%">Биохожатхона</th>
 											  				<th>
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0" 
-											  						v-model="car.bio_toilet"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.bio_toilet == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  			<tr>
@@ -252,12 +246,10 @@
 											  					гурухларига мослашганлиги
 											  				</th>
 											  				<th>
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0"
-											  						v-model="car.bus_adapted"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.bus_adapted == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  			<tr>
@@ -266,12 +258,10 @@
 											  					Телефон қувватлагичлари
 											  				</th>
 											  				<th>
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0"
-											  						v-model="car.telephone_power"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.telephone_power == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  			<tr>
@@ -280,12 +270,10 @@
 											  					Хар бир ўриндиқда монитор (планшет)
 											  				</th>
 											  				<th>
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0" 
-											  						v-model="car.monitor"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.monitor == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  			<tr>
@@ -294,12 +282,10 @@
 											  					Бекатларни эълон қилиш
 											  				</th>
 											  				<th>
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0"
-											  						v-model="car.station_announce"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.station_announce == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  		</thead>
@@ -629,7 +615,7 @@
 			Vue.set(this.form,'direction_ids',[])
 		},
 		methods:{
-			...mapActions('application',['actionEditApplication','actionUpdateApplication','actionAddCar']),
+			...mapActions('application',['actionEditApplication','actionUpdateApplication','actionAddCar','actionAddFile']),
 			...mapActions('typeofbus',['actionTypeofbusList']),
 			...mapActions('busmodel',['actionBusmodelList']),
 			...mapActions('direction',['actionDirectionFind']),
@@ -663,10 +649,12 @@
 		      //   });
 		      // }
 		    },
-		    addFile(){
+		    async addFile(){
 		    	let formData = new FormData();
 				formData.append('file', this.file);
-				console.log(formData.get('file'))
+				formData.append('app_id', this.$route.params.userapplicationId);
+				await this.actionAddFile(formData)
+				console.log(this.getMassage)
 		    },
 			showTable(index){ 
 				this.showBtn = index 
