@@ -17,8 +17,8 @@
 									class="form-group" 
 									:class="direction_ids && Object.keys(direction_ids).length > 0 ? ' col-md-10' : ' col-md-12'"
 								>
-								    <label for="marshrut">Маршрут</label>
-								    <multiselect 
+								    <!-- <label for="marshrut">Маршрут</label> -->
+				<!-- 				    <multiselect 
 										:value="direction_ids"
 										:options="findList"
 										@search-change="value => findDirection(value)"
@@ -37,7 +37,7 @@
 										>
 										<span slot="noResult">По вашему запросу ничего не найдено</span>
 										<span slot="noOptions">Cписок пустой</span>
-									</multiselect>	
+									</multiselect>	 -->
 								</div>	
 							  	<div class="form-group col-md-2 btn_show" v-if="direction_ids && Object.keys(direction_ids).length > 0">
 								  	<button 
@@ -62,7 +62,7 @@
 					    	>
 				  	  	</div>
 				  	  	<div class="form-group col-md-2 btn_save d-flex justify-content-end">
-						  	  <button type="button" class="btn btn-secondary mr-3" @click.prevent="addCar">
+						  	  <button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
 							  		<i class="fas fa-plus"></i>
 								  	Добавить авто 
 						      </button>	 
@@ -422,7 +422,7 @@
 		    },
 		},
 		async mounted(){
-			await this.actionEditApplication(this.$route.params.applicationId)
+			await this.actionEditApplication(this.$route.params.userapplicationId)
 			await this.actionTypeofbusList()
 			await this.actionBusmodelList()
 			this.form = this.getApplication
@@ -448,7 +448,7 @@
 			console.log(this.form)
 		},
 		methods:{
-			...mapActions('application',['actionEditApplication','actionUpdateApplication']),
+			...mapActions('application',['actionEditApplication','actionUpdateApplication','actionAddCar']),
 			...mapActions('typeofbus',['actionTypeofbusList']),
 			...mapActions('busmodel',['actionBusmodelList']),
 			...mapActions('direction',['actionDirectionFind']),
@@ -488,8 +488,9 @@
 		    		this.form.car.tclasses = this.getBusclassFindList
 		    	}
 		    },
-		    addCar(){
-		    	console.log(this.form)
+		    async saveData(){
+		    	await this.actionAddCar(this.form)
+		    	console.log(this.getMassage)
 		   //  	let item = {
 		   //  		auto_number:'',
 					// bustype_id:'',

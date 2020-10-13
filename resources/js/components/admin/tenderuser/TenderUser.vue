@@ -6,10 +6,10 @@
 			    	<i class="peIcon fas fa-bullhorn"></i>
 				    Тендеры
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/tenderannounce/add">
+<!-- 				<router-link class="btn btn-primary" to="/crm/tenderannounce/add">
 					<i class="fas fa-plus"></i> 
 					Добавить
-				</router-link>
+				</router-link> -->
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">

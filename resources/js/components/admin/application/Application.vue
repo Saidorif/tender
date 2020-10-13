@@ -6,10 +6,10 @@
 			    	<i class="peIcon fas fa-file"></i>
 				    Заявки
 				</h4>
-				<button type="button" class="btn btn-primary" @click.prevent="getEditId">
+	<!-- 			<button type="button" class="btn btn-primary" @click.prevent="getEditId">
 					<i class="fas fa-plus"></i> 
 					Добавить
-				</button>
+				</button> -->
 		<!-- 		<router-link class="btn btn-primary" to="/crm/application/add">
 					<i class="fas fa-plus"></i> 
 					Добавить
@@ -30,7 +30,7 @@
 							<td scope="row">{{index+1}}</td>
 							<td>{{reg.name}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/application/edit/${reg.id}`'>
+								<router-link tag="button" class="btn_transparent" :to='`/crm/application/user/${reg.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
 								<button class="btn_transparent" @click="deleteRegion(reg.id)">
@@ -68,10 +68,10 @@
 		},
 		methods:{
 			...mapActions('application',[
-					'actionApplications',
-					'actionDeleteApplication',
-					'actionAddApplication',
-				]),
+				'actionApplications',
+				'actionDeleteApplication',
+				'actionAddApplication',
+			]),
 			async getResults(page = 1){ 
 				await this.actionApplications(page)
 			},

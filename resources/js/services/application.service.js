@@ -25,6 +25,9 @@ const ApplicationService = {
 	sendUserApplication(data){
 		return ApiService.post(`/api/application`,data)
 	},
+	addCar(data){
+		return ApiService.post(`/api/application/car/store`,data)
+	},
 };
 
 export { ApplicationService };

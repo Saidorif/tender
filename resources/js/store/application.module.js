@@ -36,6 +36,15 @@ const getters = {
 
 
 const actions = {
+	async actionAddCar({commit},payload){
+		try {
+			const applications =  await ApplicationService.addCar(payload);
+			await commit('setMessage',applications.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionUserEditApplication({commit},data){
 		try {
 			const applications =  await ApplicationService.sendusereditapplication(data);

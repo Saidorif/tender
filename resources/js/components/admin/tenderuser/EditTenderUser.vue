@@ -231,9 +231,8 @@
 		    		tender_id:this.$route.params.tenderuserId
 		    	}
 				await this.actionUserEditApplication(data)
-				if (this.getUserEditApplication.success) {
-					this.$router.push("/crm/tenderuser/application/"+this.getUserEditApplication.result.id);
-					console.log(this.getUserEditApplication)
+				if (this.getUserEditApplication.success){
+					this.$router.push("/crm/application/user/"+this.getUserEditApplication.result.id);
 				}
 			},
 		    activeEditClass(lots,id){

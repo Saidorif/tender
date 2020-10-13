@@ -434,7 +434,7 @@ const router = new Router({
 					component:EditTenderUser,
 				},
 				{
-					path:'tenderuser/application/:userapplicationId',
+					path:'application/user/:userapplicationId',
 					component:SendApplication,
 				},
 			]
