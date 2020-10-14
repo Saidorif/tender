@@ -13,18 +13,15 @@
 					<div class="row">
 						<div class="form-group col-md-7">
 							<div class="row">
-								<div 
-									class="form-group" 
-									:class="direction_ids && Object.keys(direction_ids).length > 0 ? ' col-md-10' : ' col-md-12'"
-								>
-								</div>	
-							  	<div class="form-group col-md-2 btn_show" v-if="direction_ids && Object.keys(direction_ids).length > 0">
+							  	<div class="form-group col-md-3 btn_show">
 								  	<button 
 								  		type="button" 
 								  		class="btn btn-outline-info" 
+								  		@click.prevent="showDirections =! showDirections"
 							  		>
-							  			<i class="fas fa-eye"></i>
-							  			Посмотреть
+							  			<i class="fas fa-route"></i>
+							  			Направления
+							  			<i class="pe-7s-angle-down-circle"></i>
 							  		</button>
 						  	  	</div>
 							</div>
@@ -46,6 +43,135 @@
 							  	Добавить авто 
 					      	</button>	
 				      	</div>
+					</div>
+					<div class="row" v-if="showDirections"> 	
+						<div class="col-md-12">
+							<div class="table-responsive" v-if="direction_ids.length > 0">
+						  		<div class="d-flex justify-content-center">
+						  			<h4>Маршруты</h4>
+						  		</div>
+							  	<div class="choosenItemsTable">
+							  		<ul v-for="(items,index) in direction_ids">
+						  		    	<template>
+								  		    <!-- <li class="mb-2" v-if="getLengthReys(lots[index],items.reysesFrom) > 0"> -->
+								  		    <li class="mb-2">
+
+								  		    	<div class="d-flex align-items-center">
+									  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+'from'" aria-expanded="false" :aria-controls="'collapseExample'+index+'from'">
+									  		    		<template>
+														    <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span> 
+														    <!-- <span>({{getLengthReys(lots[index],items.reysesFrom)}} рейсы)</span> -->
+									  		    		</template>
+												  	</button>
+												  	<button 
+												  		type="button" 
+												  		class="btn btn-danger mr-3" 
+												  		@click.prevent="removeFromEditItems(lots[index],items.reysesFrom,items)"
+											  		>
+												  		<i class="fas fa-trash"></i>
+												  	</button>
+												  	<router-link 
+												  		:to='`/crm/direction/demand-tab/${items.id}`' 
+												  		class="btn btn-outline-info"
+											  		>
+													  	<i class="fas fa-eye"></i>
+												  	</router-link>
+								  		    	</div>
+											  	<div class="collapse" :id="'collapseExample'+index+'from'" v-if="items.reysesFrom.length > 0">
+												  <table class="table table-bordered">
+											  			<thead>
+												  			<tr>
+												  				<th>№</th>
+												  				<th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
+													  				{{item.where.name}}
+													  			</th>
+												  			</tr>
+												  		</thead>
+												  		<tbody>
+												  			<tr 
+												  				v-for="(reys,key) in items.reysesFrom"
+												  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
+											  				>
+												  				<td>{{key+1}}</td>
+												  				<template v-for="(val,key) in reys.reys_times">
+													  				<td>{{val.start}}</td>
+													  				<td>{{val.end}}</td>
+												  				</template>
+												  			</tr>
+												  		</tbody>
+												  	</table>
+												</div>
+								  			</li>
+								  		    <!-- <li v-if="getLengthReys(lots[index],items.reysesTo) > 0"> -->
+								  		    <li>
+								  		    	<div class="d-flex align-items-center">
+									  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+'to'" aria-expanded="false" :aria-controls="'collapseExample'+index+'to'">
+									  		    		<template>
+														    <span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span> 
+														    <!-- <span>({{getLengthReys(lots[index],items.reysesTo)}} рейсы)</span> -->
+									  		    		</template>
+												  	</button>
+												  	<button 
+												  		type="button" 
+												  		class="btn btn-danger mr-3" 
+												  		@click.prevent="removeFromEditItems(lots[index],items.reysesTo,items)"
+											  		>
+												  		<i class="fas fa-trash"></i>
+												  	</button>
+												  	<router-link 
+												  		:to='`/crm/direction/demand-tab/${items.id}`' 
+												  		class="btn btn-outline-info"
+											  		>
+													  	<i class="fas fa-eye"></i>
+												  	</router-link>
+								  		    	</div>
+											  	<div class="collapse" :id="'collapseExample'+index+'to'" v-if="items.reysesTo.length > 0">
+												  <table class="table table-bordered">
+											  			<thead>
+												  			<tr>
+												  				<th>№</th>
+												  				<th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
+													  				{{item.where.name}}
+													  			</th>
+												  			</tr>
+												  		</thead>
+												  		<tbody>
+												  			<tr 
+												  				v-for="(reys,key) in items.reysesTo"
+												  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
+											  				>
+												  				<td>{{key+1}}</td>
+												  				<template v-for="(val,key) in reys.reys_times">
+													  				<td>{{val.start}}</td>
+													  				<td>{{val.end}}</td>
+												  				</template>
+												  			</tr>
+												  		</tbody>
+												  	</table>
+												</div>
+								  			</li>
+						  		    	</template>
+						  		    	<template v-if="lots[index].reys_id == 0">
+						  		    		<li>
+								  		    	<div class="d-flex align-items-center">
+									  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
+									  		    		<template>
+									  		    			<span>{{items.name}}</span>
+									  		    		</template>
+												  	</button>
+												  	<router-link 
+												  		:to='`/crm/direction/demand-tab/${items.id}`' 
+												  		class="btn btn-outline-info"
+											  		>
+													  	<i class="fas fa-eye"></i>
+												  	</router-link>
+								  		    	</div>
+							  		    	</li>
+						  		    	</template>
+							  		</ul>
+							  	</div>
+						  	</div>										
+						</div>			
 					</div>
 					<div class="row"> 	
 					  	<div class="form-group col-md-12 table table-responsive">
@@ -161,9 +287,9 @@
 								  				<i class="fas fa-download"></i>
 								  				{{f_name.original_name}}
 								  			</a>
-								  			<button type="button" class="btn btn-danger" @click.prevent="removeFile(f_name.id)">
-								  				<i class="fas fa-trash-alt"></i>
-								  			</button>
+								  			<button type="button" class="btn_transparent" @click.prevent="removeFile(f_name.id)">
+												<i class="pe_icon pe-7s-trash trashColor"></i>
+											</button>
 				  					    </li>
 				  					</ul>
 				  				</div>
@@ -579,11 +705,12 @@
 				files:[],
 				cars_with:[],
 				findList:[],
-				direction_ids:{},
+				direction_ids:[],
 				requiredInput:false,
 				showBtn:Number,
 				isLoading:false,
-				newItems:[]
+				newItems:[],
+				showDirections:false,
 			}
 		},
 		computed:{
@@ -619,7 +746,7 @@
 			this.form = this.getApplication
 			this.cars_with = this.getApplication.cars_with
 			this.files = this.getApplication.attachment
-			Vue.set(this.form,'direction_ids',[])
+			this.direction_ids = this.getApplication.tender.direction_ids
 		},
 		methods:{
 			...mapActions('application',[
@@ -633,6 +760,14 @@
 			...mapActions('busmodel',['actionBusmodelList']),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
+			activeEditClass(lots,id){
+		    	let lot_list = lots.reys_id
+		    	if (lot_list.length > 0) {
+		    		if (lot_list.includes(id)) {
+		    			return true
+		    		}
+		    	}
+		    },
 		    changePhoto(event) {
 		      this.file = event.target.files[0];
 		      // let file = event.target.files[0];
@@ -673,11 +808,12 @@
 			            icon: "success",
 			            title: this.getMassage.message
 		          	});
+		          	this.file = ''
 					await this.actionEditApplication(this.$route.params.userapplicationId)
 				}
 		    },
 		    async removeFile(id){
-		    	await this.actionRemoveFile(id)
+		    	await this.actionRemoveFile(id);
 		    	if(this.getMassage.success){
 					toast.fire({
 			            type: "success",
@@ -686,7 +822,6 @@
 		          	});
 					await this.actionEditApplication(this.$route.params.userapplicationId)
 				}
-
 		    },
 			showTable(index){ 
 				this.showBtn = index 
