@@ -14,7 +14,7 @@ class Application extends Model
         'status',
         'daily_technical_job',
         'daily_medical_job',
-        '30_hours_rule',
+        'hours_rule',
         'videoregistrator',
         'gps',
     ];

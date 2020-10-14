@@ -136,7 +136,7 @@ class ApplicationController extends Controller
             'status' => 'nullable|string',
             'daily_technical_job' => 'nullable|boolean',
             'daily_medical_job' => 'nullable|boolean',
-            '30_hours_rule' => 'nullable|boolean',
+            'hours_rule' => 'nullable|boolean',
             'videoregistrator' => 'nullable|boolean',
             'gps' => 'nullable|boolean',
         ]);
