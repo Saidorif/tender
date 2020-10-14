@@ -111,6 +111,14 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/crm/payment">
+              <i class="peIcon fas fa-money-bill-alt"></i>
+              <p>
+                Платежи
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/crm/employee">
               <i class="peIcon fas fa-users"></i>
               <p>
