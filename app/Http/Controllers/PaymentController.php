@@ -45,6 +45,7 @@ class PaymentController extends Controller
         }
         $inputs['user_id'] = $client->id;
         $inputs['created_by'] = $user->id;
+        unset($inputs['status']);
         $payment = Payment::create($inputs);
 
         return response()->json(['success' => true, 'message' => 'Платеж успешно создан']);
