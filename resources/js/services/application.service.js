@@ -32,7 +32,10 @@ const ApplicationService = {
 		return ApiService.post(`/api/file/store`,data)
 	},
 	removeFile(id){
-		return ApiService.post(`/api/file/destroy/`+id)
+		return ApiService.delete(`/api/file/destroy/`+id)
+	},
+	removeCar(id){
+		return ApiService.delete(`/api/car/destroy/`+id)
 	},
 };
 

@@ -36,6 +36,15 @@ const getters = {
 
 
 const actions = {
+	async actionRemoveCar({commit},id){
+		try {
+			const applications =  await ApplicationService.removeCar(id);
+			await commit('setMessage',applications.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionRemoveFile({commit},id){
 		try {
 			const applications =  await ApplicationService.removeFile(id);

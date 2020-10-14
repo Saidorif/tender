@@ -52,6 +52,7 @@
 						  		</div>
 							  	<div class="choosenItemsTable">
 							  		<ul v-for="(items,index) in direction_ids">
+							  			<h3>{{index+1}})</h3>
 						  		    	<template>
 								  		    <li class="mb-2">
 								  		    	<h4>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</h4>
@@ -693,6 +694,7 @@
 				'actionAddCar',
 				'actionAddFile',
 				'actionRemoveFile',
+				'actionRemoveCar',
 			]),
 			...mapActions('typeofbus',['actionTypeofbusList']),
 			...mapActions('busmodel',['actionBusmodelList']),
@@ -756,15 +758,17 @@
 				}
 		    },
 		    async removeFile(id){
-		    	await this.actionRemoveFile(id);
-		    	if(this.getMassage.success){
-					toast.fire({
-			            type: "success",
-			            icon: "success",
-			            title: this.getMassage.message
-		          	});
-					await this.actionEditApplication(this.$route.params.userapplicationId)
-				}
+		    	if(confirm("Вы действительно хотите удалить?")){
+			    	await this.actionRemoveFile(id);
+			    	if(this.getMassage.success){
+						toast.fire({
+				            type: "success",
+				            icon: "success",
+				            title: this.getMassage.message
+			          	});
+						await this.actionEditApplication(this.$route.params.userapplicationId)
+					}
+		    	}
 		    },
 			showTable(index){ 
 				this.showBtn = index 
@@ -850,8 +854,18 @@
 		    		await this.actionEditApplication(this.$route.params.userapplicationId)
 		    	}
 		    },
-		    deleteCar(index){
-		    	// this.form.cars.splice(index, 1);
+		    async deleteCar(id){
+		    	if(confirm("Вы действительно хотите удалить?")){
+			    	await this.actionRemoveCar(id);
+			    	if(this.getMassage.success){
+						toast.fire({
+				            type: "success",
+				            icon: "success",
+				            title: this.getMassage.message
+			          	});
+						await this.actionEditApplication(this.$route.params.userapplicationId)
+					}
+		    	}
 		    },
 		}
 	}
