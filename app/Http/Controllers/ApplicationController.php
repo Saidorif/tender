@@ -14,7 +14,7 @@ class ApplicationController extends Controller
 
     public function index()
     {
-        $result = Application::orderBy('id', 'DESC')->with(['user'])->paginate(12);
+        $result = Application::orderBy('id', 'DESC')->with(['user','carsWith','tender','attachment'])->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -96,8 +96,22 @@ class ApplicationController extends Controller
         return response()->json([
             'success' => true,
             'result' => $result,
-            'message' => 'Заявка создано'
+            'message' => 'Автотранспорт создано'
         ]);
+    }
+
+    public function carDestroy(Request $request,$id)
+    {
+        $user = $request->user();
+        $car = UserCar::find($id);
+        if(!$car){
+            return response()->json(['error' => true, 'message' => 'Автотранспорт не найдено']);
+        }
+        if($user->id != $car->user_id){
+            return response()->json(['error' => true, 'message' => 'Автотранспорт не найдено']);
+        }
+        $car->delete();
+        return response()->json(['success' => true, 'message' => 'Автотранспорт удалено']);
     }
 
     public function edit(Request $request, $id)
