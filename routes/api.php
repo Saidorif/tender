@@ -34,11 +34,19 @@ Route::group([
             Route::delete('file/destroy/{id}', 'FileController@destroy');
 
             //User model
+            Route::post('user/find', 'UserController@find');
             Route::get('profile', 'UserController@profile');
             Route::post('change-password', 'UserController@changePasword');
             Route::post('carrier', 'UserController@carrier');
             Route::get('carrier/edit/{id}', 'UserController@carrierEdit');
             Route::get('carrier/update', 'UserController@carrierUpdate');
+
+            //Payment model
+            Route::post('payment', 'PaymentController@index');
+            Route::post('payment/store', 'PaymentController@store');
+            Route::get('payment/edit/{id}', 'PaymentController@edit');
+            Route::post('payment/update/{id}', 'PaymentController@update');
+            Route::delete('payment/destroy/{id}', 'PaymentController@destroy');
 
             // ComplaintCategory
             Route::get('complaintcategory', 'ComplaintCategoryController@index');
