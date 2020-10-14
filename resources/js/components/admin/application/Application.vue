@@ -21,14 +21,35 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
+							<th scope="col">Маршруты</th>
+							<th scope="col">Адрес</th>
+							<th scope="col">Статус</th>
+							<th scope="col">Количество автотранспорта</th>
+							<th scope="col">Дата</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="(reg,index) in getApplications.data">
 							<td scope="row">{{index+1}}</td>
-							<td>{{reg.name}}</td>
+							<td>
+								<ul class="list-inline">
+								    <li v-for="(val,key) in reg.tender.direction_ids">
+								    	<b>{{val.name}}</b>
+								    	<em v-if="reg.tender.tenderlots[key].reys_id.length > 0">
+									    	({{reg.tender.tenderlots[key].reys_id.length}} рейс)
+									    </em>
+								    </li>
+								</ul>
+							</td>
+							<td>{{reg.tender.address}}</td>
+							<td>
+								<div class="badge badge-warning">
+									{{reg.tender.status}}
+								</div>
+							</td>
+							<td width="15%">{{reg.cars_with.length}}</td>
+							<td>{{reg.tender.time}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/application/user/${reg.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
