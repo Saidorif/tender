@@ -13,34 +13,28 @@
 		  		<form @submit.prevent.enter="savePayment" >
 					<div class="row">
 					  <div class="form-group col-md-3">
-					    <label for="name">Названия компаний</label>
+					    <label for="name">Названиe компаний</label>
 					    <multiselect 
-							:value="direction_ids"
+							:value="values"
 							:options="findList"
-							@search-change="value => findDirection(value)"
-							v-model="direction_ids" 
-	                        placeholder="Выберите маршрут"
+							@search-change="value => findCompany(value)"
+							v-model="values" 
+	                        placeholder="Выберите название компаний"
 	                        :searchable="true"
 	                        track-by="id"
-	                        label="name"
+	                        label="company_name"
 	                        :max="3"
 							:loading="isLoading"
 							selectLabel="Нажмите Enter, чтобы выбрать"
 							deselectLabel="Нажмите Enter, чтобы удалить"
-							:option="[{name: 'Otash', id: 1}]"
+							:option="[]"
+							:class="isRequired(form.inn) ? 'isRequired' : ''"  
 							@select="dispatchAction"
+							@remove="removeInn"
 							>
 							<span slot="noResult">По вашему запросу ничего не найдено</span>
 							<span slot="noOptions">Cписок пустой</span>
 						</multiselect>	
-				<!-- 	    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="name" 
-					    	placeholder="Названия компаний"
-					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
-				    	> -->
 					  </div>
 					  <div class="form-group col-md-2">
 					    <label for="summ">Сумма</label>
@@ -65,14 +59,14 @@
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="detail">Детали</label>
+					    <label for="details">Детали</label>
 					    <input 
 					    	type="text" 
 					    	class="form-control input_style" 
-					    	id="detail" 
+					    	id="details" 
 					    	placeholder="Область"
-					    	v-model="form.detail"
-					    	:class="isRequired(form.detail) ? 'isRequired' : ''"  
+					    	v-model="form.details"
+					    	:class="isRequired(form.details) ? 'isRequired' : ''"  
 				    	>
 					  </div>
 					  <div class="form-group col-lg-2 form_btn">
@@ -89,23 +83,26 @@
 </template>
 <script>
 	import { mapGetters , mapActions } from 'vuex'
+	import Multiselect from 'vue-multiselect';
 	import Loader from '../../Loader'
 	export default{
 		components:{
-			Loader
+			Loader,
+			Multiselect,
 		},
 		data(){
 			return{
 				form:{
-					company_id:'',
-					company_name:'',
+					inn:'',
 					summ:'',
 					date:'',
-					detail:'',
+					details:'',
 				},
 				requiredInput:false,
 				laoding: true,
+				isLoading: true,
 				findList:[],
+				values:[],
 			}
 		},
 		computed:{
@@ -114,6 +111,7 @@
 		},
 		mounted(){
 			this.laoding = false
+			this.isLoading = false
 		},
 		methods:{
 			...mapActions('payment',['actionAddPayment']),
@@ -121,29 +119,37 @@
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
-		    async findDirection(value){
-		   //    if(value != ''){
-		   //      this.isLoading = true
-		   //      await setTimeout(async ()=>{
-					// await this.actionFindByCompanies({name: value})
-			  //       this.findList = this.getFindByCompanies
-		   //      this.isLoading = false
-		   //      },1000)
-		   //    }
+		    async findCompany(value){
+		      if(value != ''){
+		        this.isLoading = true
+		        await setTimeout(async ()=>{
+					await this.actionFindByCompanies({name: value})
+			        this.findList =  this.getFindByCompanies ? this.getFindByCompanies : []
+		        this.isLoading = false
+		        },1000)
+		      }
 		    },
 		    async dispatchAction(data){
-		  		// this.form.direction_ids.push(data.id);
-			  	// this.laoding = true
-			  	// await this.actionGetScheduleTable(data.id)
-			  	// this.laoding = false
+		    	this.form.inn = data.inn
+		    },
+		    removeInn(){
+		    	this.form.inn = ''
+		    	this.findList = []
 		    },
 			async savePayment(){
-		    	if (this.form.name != ''){
+		    	if (this.form.date != '' && this.form.inn != '' && this.form.summ != '' && this.form.details != ''){
 					this.laoding = true
 					await this.actionAddPayment(this.form)
-					this.laoding = false
-					this.$router.push("/crm/payment");
-					this.requiredInput = false
+					if (this.getMassage.success) {
+						toast.fire({
+					    	type: 'success',
+					    	icon: 'success',
+							title: this.getMassage.message,
+					    })
+						this.laoding = false
+						this.$router.push("/crm/payment");
+						this.requiredInput = false
+					}
 				}else{
 					this.requiredInput = true
 				}
