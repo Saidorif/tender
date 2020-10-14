@@ -30,6 +30,26 @@ class UserController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function find(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name'    => 'required|string|min:3',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inputs = $request->all();
+        $client = User::where('company_name','LIKE','%'.$inputs['name'].'%')
+                ->orWhere('inn','LIKE','%'.$inputs['name'].'%')
+                ->orWhere('name','LIKE','%'.$inputs['name'].'%')
+                ->orWhere('surname','LIKE','%'.$inputs['name'].'%')
+                ->orWhere('middlename','LIKE','%'.$inputs['name'].'%')
+                ->get();
+
+        return response()->json(['success' => true, 'result' => $client]);
+    }
+
     public function changePasword(Request $request)
     {
         $user = $request->user();
