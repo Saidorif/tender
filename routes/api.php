@@ -31,6 +31,7 @@ Route::group([
 
             //File upload
             Route::post('file/store', 'FileController@store');
+            Route::delete('file/destroy/{id}', 'FileController@destroy');
 
             //User model
             Route::get('profile', 'UserController@profile');

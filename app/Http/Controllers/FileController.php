@@ -165,22 +165,26 @@ class FileController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($hash)
+    public function destroy($id)
     {
-        $file = File::where('hash', $hash)->get()->first();
+        $file = File::where('id', $id)->get()->first();
 
         if($file) {
             $path = $file->path.'/'.$file->hash;
 
-            if(Storage::disk('public_uploads')->exists($path))
-                unlink(public_path($path));
+            if(file_exists($path)){
+                unlink($path);
+            }
+
+            // if(Storage::disk('public_uploads')->exists($path))
+            //     unlink(public_path($path));
 
             File::destroy($file->id);
 
-            return response()->json(['status'=>'success','message'=>'File has been deleted']);
+            return response()->json(['success' => true,'message'=>'File has been deleted']);
         }
         else
-            return response()->json(['status'=>'success','message'=>'File not found']);
+            return response()->json(['error' => true,'message'=>'File not found']);
     }
 
 }
