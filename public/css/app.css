@@ -26258,6 +26258,10 @@ svg:not(:root).svg-inline--fa {
   content: "\F1BA";
 }
 
+tr.active {
+  background: #d6d6d6;
+}
+
 .login_logo {
   display: flex;
   justify-content: center;

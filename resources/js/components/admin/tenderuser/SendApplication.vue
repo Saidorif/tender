@@ -13,18 +13,15 @@
 					<div class="row">
 						<div class="form-group col-md-7">
 							<div class="row">
-								<div 
-									class="form-group" 
-									:class="direction_ids && Object.keys(direction_ids).length > 0 ? ' col-md-10' : ' col-md-12'"
-								>
-								</div>	
-							  	<div class="form-group col-md-2 btn_show" v-if="direction_ids && Object.keys(direction_ids).length > 0">
+							  	<div class="form-group col-md-3 btn_show">
 								  	<button 
 								  		type="button" 
 								  		class="btn btn-outline-info" 
+								  		@click.prevent="showDirections =! showDirections"
 							  		>
-							  			<i class="fas fa-eye"></i>
-							  			Посмотреть
+							  			<i class="fas fa-route"></i>
+							  			Маршруты
+							  			<i class="pe-7s-angle-down-circle"></i>
 							  		</button>
 						  	  	</div>
 							</div>
@@ -46,6 +43,72 @@
 							  	Добавить авто 
 					      	</button>	
 				      	</div>
+					</div>
+					<div class="row" v-if="showDirections"> 	
+						<div class="col-md-12">
+							<div class="table-responsive" v-if="direction_ids.length > 0">
+						  		<div class="d-flex justify-content-center">
+						  			<h4>Маршруты</h4>
+						  		</div>
+							  	<div class="choosenItemsTable">
+							  		<ul v-for="(items,index) in direction_ids">
+							  			<h3>{{index+1}})</h3>
+						  		    	<template>
+								  		    <li class="mb-2">
+								  		    	<h4>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</h4>
+								  		    	<table class="table table-bordered">
+										  			<thead>
+											  			<tr>
+											  				<th>№</th>
+											  				<th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
+												  				{{item.where.name}}
+												  			</th>
+											  			</tr>
+											  		</thead>
+											  		<tbody>
+											  			<tr 
+											  				v-for="(reys,key) in items.reysesFrom"
+											  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
+										  				>
+											  				<td>{{key+1}}</td>
+											  				<template v-for="(val,key) in reys.reys_times">
+												  				<td>{{val.start}}</td>
+												  				<td>{{val.end}}</td>
+											  				</template>
+											  			</tr>
+											  		</tbody>
+											  	</table>
+								  			</li>
+								  		    <li>
+								  		    	<h4>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</h4>
+								  		    	<table class="table table-bordered">
+										  			<thead>
+											  			<tr>
+											  				<th>№</th>
+											  				<th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
+												  				{{item.where.name}}
+												  			</th>
+											  			</tr>
+											  		</thead>
+											  		<tbody>
+											  			<tr 
+											  				v-for="(reys,key) in items.reysesTo"
+											  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
+										  				>
+											  				<td>{{key+1}}</td>
+											  				<template v-for="(val,key) in reys.reys_times">
+												  				<td>{{val.start}}</td>
+												  				<td>{{val.end}}</td>
+											  				</template>
+											  			</tr>
+											  		</tbody>
+										  	 	</table>
+								  			</li>
+						  		    	</template>
+							  		</ul>
+							  	</div>
+						  	</div>										
+						</div>			
 					</div>
 					<div class="row"> 	
 					  	<div class="form-group col-md-12 table table-responsive">
@@ -137,17 +200,8 @@
 						  		</thead>
 						  	</table>
 					  	</div>
-				  		<div class="form-group col-lg-12">
+				  		<div class="form-group col-lg-12" v-if="form.hours_rule == 1">
 				  			<div class="row">
-				  				<div class="form-group col-md-2">
-						  			<a href="#" title="" download="" class="btn btn-outline-dark">
-						  				<i class="fas fa-download"></i>
-						  				Название файла
-						  			</a>
-						  			<button type="button" class="btn btn-danger">
-						  				<i class="fas fa-trash-alt"></i>
-						  			</button>
-				  				</div>
 				  				<div class="form-group col-md-3">
 						  			<input
 					                    type="file"
@@ -162,6 +216,19 @@
 					  					<i class="fas fa-plus"></i>
 					  					Добавить файл
 						  			</button>	
+				  				</div>
+				  				<div class="form-group col-md-12" v-if="files.length > 0">
+				  					<ul class="list-inline d-flex">
+				  					    <li v-for="(f_name,index) in files" class="mr-4">
+								  			<a :href="'/'+f_name.path+'/'+f_name.hash" title="" download="" class="btn btn-outline-dark">
+								  				<i class="fas fa-download"></i>
+								  				{{f_name.original_name}}
+								  			</a>
+								  			<button type="button" class="btn_transparent" @click.prevent="removeFile(f_name.id)">
+												<i class="pe_icon pe-7s-trash trashColor"></i>
+											</button>
+				  					    </li>
+				  					</ul>
 				  				</div>
 				  			</div>
 				  		</div>
@@ -213,36 +280,30 @@
 											  				<th width="1%">1</th>
 											  				<th width="50%">Кондиционер (климат-назорати тизими)</th>
 											  				<th>
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0"
-											  						v-model="car.conditioner"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.conditioner == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  			<tr>
 											  				<th>2</th>
 											  				<th width="50%">Интернет</th>
 											  				<th> 
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0"
-											  						v-model="car.internet"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.internet == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  			<tr>
 											  				<th>3</th>
 											  				<th width="50%">Биохожатхона</th>
 											  				<th>
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0" 
-											  						v-model="car.bio_toilet"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.bio_toilet == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  			<tr>
@@ -252,12 +313,10 @@
 											  					гурухларига мослашганлиги
 											  				</th>
 											  				<th>
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0"
-											  						v-model="car.bus_adapted"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.bus_adapted == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  			<tr>
@@ -266,12 +325,10 @@
 											  					Телефон қувватлагичлари
 											  				</th>
 											  				<th>
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0"
-											  						v-model="car.telephone_power"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.telephone_power == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  			<tr>
@@ -280,12 +337,10 @@
 											  					Хар бир ўриндиқда монитор (планшет)
 											  				</th>
 											  				<th>
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0" 
-											  						v-model="car.monitor"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.monitor == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  			<tr>
@@ -294,12 +349,10 @@
 											  					Бекатларни эълон қилиш
 											  				</th>
 											  				<th>
-											  					<input 
-											  						type="checkbox" 
-											  						true-value="1"
-																	false-value="0"
-											  						v-model="car.station_announce"
-										  						>
+											  					<i 
+											  						class="fas text-success"
+											  						:class="car.station_announce == 1 ? ' fa-check-circle' : ''"
+										  						></i>
 											  				</th>
 											  			</tr>
 											  		</thead>
@@ -586,13 +639,16 @@
 					tclasses:[]
 				},
 				file:'',
+				files:[],
 				cars_with:[],
 				findList:[],
-				direction_ids:{},
+				direction_ids:[],
+				lots:[],
 				requiredInput:false,
 				showBtn:Number,
 				isLoading:false,
-				newItems:[]
+				newItems:[],
+				showDirections:false,
 			}
 		},
 		computed:{
@@ -616,6 +672,7 @@
 				handler(){
 					if (this.getApplication) {
 			    		this.cars_with = this.getApplication.cars_with
+						this.files = this.getApplication.attachment
 					}
 				}
 			}
@@ -626,14 +683,36 @@
 			await this.actionBusmodelList()
 			this.form = this.getApplication
 			this.cars_with = this.getApplication.cars_with
-			Vue.set(this.form,'direction_ids',[])
+			this.files = this.getApplication.attachment
+			this.direction_ids = this.getApplication.tender.direction_ids
+			this.lots = this.getApplication.tender.tenderlots
 		},
 		methods:{
-			...mapActions('application',['actionEditApplication','actionUpdateApplication','actionAddCar']),
+			...mapActions('application',[
+				'actionEditApplication',
+				'actionUpdateApplication',
+				'actionAddCar',
+				'actionAddFile',
+				'actionRemoveFile',
+				'actionRemoveCar',
+			]),
 			...mapActions('typeofbus',['actionTypeofbusList']),
 			...mapActions('busmodel',['actionBusmodelList']),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
+			activeEditClass(lots,id){
+		    	let lot_list = lots.reys_id
+				if (lots.status == 'all') {
+					return true
+				}
+				else{
+			    	if (lot_list.length > 0) {
+			    		if (lot_list.includes(id)) {
+			    			return true
+			    		}
+			    	}
+				}	
+		    },
 		    changePhoto(event) {
 		      this.file = event.target.files[0];
 		      // let file = event.target.files[0];
@@ -663,10 +742,33 @@
 		      //   });
 		      // }
 		    },
-		    addFile(){
+		    async addFile(){
 		    	let formData = new FormData();
 				formData.append('file', this.file);
-				console.log(formData.get('file'))
+				formData.append('app_id', this.$route.params.userapplicationId);
+				await this.actionAddFile(formData)
+				if(this.getMassage.success){
+					toast.fire({
+			            type: "success",
+			            icon: "success",
+			            title: this.getMassage.message
+		          	});
+		          	this.file = ''
+					await this.actionEditApplication(this.$route.params.userapplicationId)
+				}
+		    },
+		    async removeFile(id){
+		    	if(confirm("Вы действительно хотите удалить?")){
+			    	await this.actionRemoveFile(id);
+			    	if(this.getMassage.success){
+						toast.fire({
+				            type: "success",
+				            icon: "success",
+				            title: this.getMassage.message
+			          	});
+						await this.actionEditApplication(this.$route.params.userapplicationId)
+					}
+		    	}
 		    },
 			showTable(index){ 
 				this.showBtn = index 
@@ -752,8 +854,18 @@
 		    		await this.actionEditApplication(this.$route.params.userapplicationId)
 		    	}
 		    },
-		    deleteCar(index){
-		    	// this.form.cars.splice(index, 1);
+		    async deleteCar(id){
+		    	if(confirm("Вы действительно хотите удалить?")){
+			    	await this.actionRemoveCar(id);
+			    	if(this.getMassage.success){
+						toast.fire({
+				            type: "success",
+				            icon: "success",
+				            title: this.getMassage.message
+			          	});
+						await this.actionEditApplication(this.$route.params.userapplicationId)
+					}
+		    	}
 		    },
 		}
 	}

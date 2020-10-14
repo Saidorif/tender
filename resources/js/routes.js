@@ -132,6 +132,11 @@ import TenderUser from './components/admin/tenderuser/TenderUser'
 import EditTenderUser from './components/admin/tenderuser/EditTenderUser'
 import SendApplication from './components/admin/tenderuser/SendApplication'
 
+// Payment
+import Payment from './components/admin/payment/Payment'
+import EditPayment from './components/admin/payment/EditPayment'
+import AddPayment from './components/admin/payment/AddPayment'
+
 // NotFound
 import NotFound from './components/NotFound/NotFound'
 const router = new Router({
@@ -424,6 +429,18 @@ const router = new Router({
 				{
 					path:'confirm-tender/edit/:tenderannounceId',
 					component:EditConfirmTender,
+				},
+				{
+					path:'payment',
+					component:Payment,
+				},
+				{
+					path:'payment/add',
+					component:AddPayment,
+				},
+				{
+					path:'payment/edit/:paymentId',
+					component:EditPayment,
 				},
 				{
 					path:'tenderuser',

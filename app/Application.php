@@ -14,7 +14,7 @@ class Application extends Model
         'status',
         'daily_technical_job',
         'daily_medical_job',
-        '30_hours_rule',
+        'hours_rule',
         'videoregistrator',
         'gps',
     ];
@@ -38,6 +38,11 @@ class Application extends Model
 
     public function tender()
     {
-        return $this->belongsTo(\App\Tender::class,'tender_id');
+        return $this->belongsTo(\App\Tender::class,'tender_id')->with('tenderlots');
+    }
+
+    public function attachment()
+    {
+        return $this->hasMany(\App\File::class,'app_id');
     }
 }

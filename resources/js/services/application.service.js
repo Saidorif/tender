@@ -28,6 +28,15 @@ const ApplicationService = {
 	addCar(data){
 		return ApiService.post(`/api/application/car/store`,data)
 	},
+	addFile(data){
+		return ApiService.post(`/api/file/store`,data)
+	},
+	removeFile(id){
+		return ApiService.delete(`/api/file/destroy/`+id)
+	},
+	removeCar(id){
+		return ApiService.delete(`/api/application/car/destroy/`+id)
+	},
 };
 
 export { ApplicationService };

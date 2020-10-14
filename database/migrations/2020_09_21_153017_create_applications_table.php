@@ -22,7 +22,7 @@ class CreateApplicationsTable extends Migration
             $table->string('status')->default('active')->nullable();
             $table->string('daily_technical_job')->nullable();
             $table->string('daily_medical_job')->nullable();
-            $table->string('30_hours_rule')->nullable();
+            $table->string('hours_rule')->nullable();
             $table->string('videoregistrator')->nullable();
             $table->string('gps')->nullable();
             $table->timestamps();

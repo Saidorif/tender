@@ -36,6 +36,33 @@ const getters = {
 
 
 const actions = {
+	async actionRemoveCar({commit},id){
+		try {
+			const applications =  await ApplicationService.removeCar(id);
+			await commit('setMessage',applications.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionRemoveFile({commit},id){
+		try {
+			const applications =  await ApplicationService.removeFile(id);
+			await commit('setMessage',applications.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionAddFile({commit},payload){
+		try {
+			const applications =  await ApplicationService.addFile(payload);
+			await commit('setMessage',applications.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionAddCar({commit},payload){
 		try {
 			const applications =  await ApplicationService.addCar(payload);
