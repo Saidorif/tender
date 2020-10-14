@@ -38,7 +38,7 @@ class Application extends Model
 
     public function tender()
     {
-        return $this->belongsTo(\App\Tender::class,'tender_id');
+        return $this->belongsTo(\App\Tender::class,'tender_id')->with('tenderlots');
     }
 
     public function attachment()
