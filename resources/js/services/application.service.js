@@ -35,7 +35,7 @@ const ApplicationService = {
 		return ApiService.delete(`/api/file/destroy/`+id)
 	},
 	removeCar(id){
-		return ApiService.delete(`/api/car/destroy/`+id)
+		return ApiService.delete(`/api/application/car/destroy/`+id)
 	},
 };
 

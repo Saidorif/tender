@@ -20,7 +20,7 @@
 								  		@click.prevent="showDirections =! showDirections"
 							  		>
 							  			<i class="fas fa-route"></i>
-							  			Направления
+							  			Маршруты
 							  			<i class="pe-7s-angle-down-circle"></i>
 							  		</button>
 						  	  	</div>
