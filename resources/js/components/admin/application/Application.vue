@@ -33,7 +33,7 @@
 						<tr v-for="(reg,index) in getApplications.data">
 							<td scope="row">{{index+1}}</td>
 							<td>
-								<ul class="list-inline">
+								<ul class="list-inline" v-if="reg.tender.direction_ids.length > 0">
 								    <li v-for="(val,key) in reg.tender.direction_ids">
 								    	<b>{{val.name}}</b>
 								    	<em v-if="reg.tender.tenderlots[key].reys_id.length > 0">
@@ -45,7 +45,7 @@
 							<td>{{reg.tender.address}}</td>
 							<td>
 								<div class="badge badge-warning">
-									{{reg.tender.status}}
+									{{reg.status}}
 								</div>
 							</td>
 							<td width="15%">{{reg.cars_with.length}}</td>
