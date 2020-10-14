@@ -53,8 +53,8 @@
 							  	<div class="choosenItemsTable">
 							  		<ul v-for="(items,index) in direction_ids">
 						  		    	<template>
-								  		    <!-- <li class="mb-2" v-if="getLengthReys(lots[index],items.reysesFrom) > 0"> -->
 								  		    <li class="mb-2">
+								  		    	<h4>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</h4>
 								  		    	<table class="table table-bordered">
 										  			<thead>
 											  			<tr>
@@ -78,8 +78,8 @@
 											  		</tbody>
 											  	</table>
 								  			</li>
-								  		    <!-- <li v-if="getLengthReys(lots[index],items.reysesTo) > 0"> -->
 								  		    <li>
+								  		    	<h4>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</h4>
 								  		    	<table class="table table-bordered">
 										  			<thead>
 											  			<tr>
@@ -103,23 +103,6 @@
 											  		</tbody>
 										  	 	</table>
 								  			</li>
-						  		    	</template>
-						  		    	<template v-if="lots[index].reys_id == 0">
-						  		    		<li>
-								  		    	<div class="d-flex align-items-center">
-									  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
-									  		    		<template>
-									  		    			<span>{{items.name}}</span>
-									  		    		</template>
-												  	</button>
-												  	<router-link 
-												  		:to='`/crm/direction/demand-tab/${items.id}`' 
-												  		class="btn btn-outline-info"
-											  		>
-													  	<i class="fas fa-eye"></i>
-												  	</router-link>
-								  		    	</div>
-							  		    	</li>
 						  		    	</template>
 							  		</ul>
 							  	</div>
@@ -717,11 +700,16 @@
 			...mapActions('busclass',['actionBusclassFind']),
 			activeEditClass(lots,id){
 		    	let lot_list = lots.reys_id
-		    	if (lot_list.length > 0) {
-		    		if (lot_list.includes(id)) {
-		    			return true
-		    		}
-		    	}
+				if (lots.status == 'all') {
+					return true
+				}
+				else{
+			    	if (lot_list.length > 0) {
+			    		if (lot_list.includes(id)) {
+			    			return true
+			    		}
+			    	}
+				}	
 		    },
 		    changePhoto(event) {
 		      this.file = event.target.files[0];

@@ -763,9 +763,6 @@
 	tr{
 		cursor:pointer !important;
 	}
-	tr.active{
-		background:#d6d6d6;
-	}
 	.check_box_with_label{
 
 	}

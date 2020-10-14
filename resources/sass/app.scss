@@ -15,6 +15,9 @@
 @import "~@fortawesome/fontawesome-free/css/solid";
 @import "~@fortawesome/fontawesome-free/css/svg-with-js";
 @import "~@fortawesome/fontawesome-free/css/v4-shims";
+tr.active{
+  background:#d6d6d6;
+}
 .login_logo{
 	display:flex;
 	justify-content:center;
