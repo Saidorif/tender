@@ -39,6 +39,15 @@ const actions = {
 			return false
 		}
 	},
+	async actionClientUpdate({commit},payload){
+		try {
+			const clients =  await ClientService.clientUpdate(payload);
+			await commit('setMessage',clients.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 };
 
 const mutations = {
@@ -47,6 +56,9 @@ const mutations = {
 	},
 	setClient(state, client){
 		state.client = client
+	},
+	setMessage(state, message){
+		state.message = message
 	},
 };
 

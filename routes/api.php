@@ -39,7 +39,7 @@ Route::group([
             Route::post('change-password', 'UserController@changePasword');
             Route::post('carrier', 'UserController@carrier');
             Route::get('carrier/edit/{id}', 'UserController@carrierEdit');
-            Route::get('carrier/update', 'UserController@carrierUpdate');
+            Route::post('carrier/update/{id}', 'UserController@carrierUpdate');
 
             //Payment model
             Route::post('payment', 'PaymentController@index');
