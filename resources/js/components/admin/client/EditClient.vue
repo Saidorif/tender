@@ -247,14 +247,15 @@ export default {
   watch:{
     getClient:{
       handler(){
-        if (this.form.status == 'active') {
-          this.statusText = 'Активировать'
-          this.statusClass = ' btn-success'
-          this.statusFont = ' fa-check'
-        }else if (this.form.status == 'inactive') {
+        this.form = this.getClient
+        if (this.form.status == 'inactive') {
           this.statusText = 'Заблокировать'
           this.statusClass = ' btn-danger'
           this.statusFont = ' fa-lock'
+        }else{
+          this.statusText = 'Активировать'
+          this.statusClass = ' btn-success'
+          this.statusFont = ' fa-check'
         }
       }
     }
