@@ -1,6 +1,6 @@
 const TOKEN_KEY = 'access_token'
-const USER = 'user'
-const GUEST = 'guestInfo'
+const USER = 'dd'
+const GUEST = 'oo'
 
 const TokenService = {
 	getToken() {
@@ -10,11 +10,12 @@ const TokenService = {
 		localStorage.setItem(TOKEN_KEY, token);
 	},
 	saveCurrentUser(user){
-		localStorage.setItem(USER, JSON.stringify(user));
+		let us = btoa(unescape(encodeURIComponent(JSON.stringify(user)))); 
+		localStorage.setItem(USER, JSON.stringify(us));
 	},
 
 	getCurrentUser(){
-		let data = JSON.parse(localStorage.getItem(USER));
+		let data = JSON.parse(decodeURIComponent(escape(atob(localStorage.getItem(USER)))));
 		return data;
 	},
 	saveGuestInfo(guest){
