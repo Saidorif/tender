@@ -42,11 +42,12 @@
         <form role="form" @submit.prevent.enter="sendProfile">
           <div class="card-body d-flex flex-wrap" v-if="form.user" >
             <div class="col-md-8">
-              <div class="row">                
+              <div class="row">
                 <div class="form-group col-md-6">
                   <label for="name">Ф.И.О</label>
                   <p class="form-control input_style disabled">{{form.user.name}}</p>
                 </div>
+
                 <div class="form-group col-md-6">
                   <label for="company_name">Название компании</label>
                   <p class="form-control input_style disabled">{{ form.user.company_name}}</p>
@@ -153,7 +154,7 @@
       </div>
     </div>
   </div>
-</template>	
+</template>
 <script>
 import { mapActions, mapGetters } from "vuex";
 import Loader from '../../Loader'
@@ -312,14 +313,14 @@ export default {
     margin: 0px auto;
     margin-bottom: 0.5cm;
   }
-  page[size="A4"] {  
+  page[size="A4"] {
     width: 21cm;
-    height: 29.7cm; 
+    height: 29.7cm;
     padding: 30px;
   }
   page[size="A4"][layout="landscape"] {
     width: 29.7cm;
-    height: 21cm;  
+    height: 21cm;
   }
   .cv_title{
     text-align: center;
@@ -376,7 +377,7 @@ export default {
     font-weight: bold;
   }
   .cv_experience_list{
-    
+
   }
   .cv_experience_list li{
     list-style: none;
@@ -409,14 +410,14 @@ export default {
         margin: 0px auto;
         margin-bottom: 0.5cm;
       }
-      page[size="A4"] {  
+      page[size="A4"] {
         width: 21cm;
-        height: 29.7cm; 
+        height: 29.7cm;
         padding: 30px;
       }
       page[size="A4"][layout="landscape"] {
         width: 29.7cm;
-        height: 21cm;  
+        height: 21cm;
       }
       .cv_title{
         text-align: center;
@@ -473,7 +474,7 @@ export default {
         font-weight: bold;
       }
       .cv_experience_list{
-        
+
       }
       .cv_experience_list li{
         list-style: none;

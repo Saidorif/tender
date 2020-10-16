@@ -3,12 +3,12 @@
 }
 
 .main-sidebar {
-  background: black;
+  background: #292666;
 }
 
 .main-header {
   box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
-  background: black;
+  background: #292666;
   color: #fff;
 }
 
@@ -109,6 +109,10 @@
   color: #52dcbc;
 }
 
+.nav-sidebar .nav-item > .nav-link .peIcon {
+  color: #fff;
+}
+
 .nav-sidebar .nav-item > .nav-link {
   display: flex;
   align-items: center;
@@ -116,13 +120,15 @@
 }
 
 .nav-pills .nav-link {
-  color: #52dcbc;
+  color: #fff;
   font-weight: bold;
 }
 
+.nav-pills .nav-link:not(.active):hover,
+.nav-pills .nav-link:not(.active):hover .peIcon,
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #52dcbc;
+  color: #fff;
   background: #376786;
   font-weight: bold;
   font-weight: bold;
