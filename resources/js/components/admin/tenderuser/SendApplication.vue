@@ -859,14 +859,30 @@
 
 		    },
 		    async saveData(){
-		    	await this.actionUpdateApplication(this.form)
-		    	if(this.getMassage.success){
+		    	let check = true
+		    	if (this.form.hours_rule == 1) {
+		    		if (this.files.length > 0) {
+		    			check = true
+		    		}else{
+		    			check = false
+		    		}
+		    	}
+		    	if (check) {
+			    	await this.actionUpdateApplication(this.form)
+			    	if(this.getMassage.success){
+			    		toast.fire({
+				            type: "success",
+				            icon: "success",
+				            title: this.getMassage.message
+			          	});
+			    		await this.actionEditApplication(this.$route.params.userapplicationId)
+			    	}
+		    	}else{
 		    		toast.fire({
-			            type: "success",
-			            icon: "success",
-			            title: this.getMassage.message
+			            type: "error",
+			            icon: "error",
+			            title: 'Загрузите файл!'
 		          	});
-		    		await this.actionEditApplication(this.$route.params.userapplicationId)
 		    	}
 		    },
 		    async deleteCar(id){
