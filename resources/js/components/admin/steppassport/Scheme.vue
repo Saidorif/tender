@@ -326,6 +326,9 @@ export default {
   font-weight: bold;
   top: -30px;
 }
+.start_point.stationItem h6{
+    left: 30px;
+}
 .icon_item {
   position: relative;
   border: 1px solid #000;

@@ -2,11 +2,11 @@
     background: #fefbff;
 }
 .main-sidebar{
-  background: black;
+  background: #292666;
 }
 .main-header{
   box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03), 0 0.9375rem 1.40625rem rgba(4,9,20,0.03), 0 0.25rem 0.53125rem rgba(4,9,20,0.05), 0 0.125rem 0.1875rem rgba(4,9,20,0.03);
-  background: black;
+  background: #292666;
   color: #fff;
 }
 
@@ -81,6 +81,10 @@
     border-radius: 2px;
     height: 2px;
 }
+.table thead th{
+    border-bottom: 2px solid #292666;
+}
+
 .peIcon.pe-7s-back{
     color:black;
 }
@@ -91,7 +95,10 @@
   line-height: 33px;
   font-size: 22px;
   transition: color 300ms;
-  color: #52dcbc;
+  color: #292666;
+}
+.nav-sidebar .nav-item>.nav-link .peIcon{
+    color: #fff;
 }
 .nav-sidebar .nav-item>.nav-link{
   display: flex;
@@ -99,11 +106,12 @@
   transition-delay: 300ms;
 }
 .nav-pills .nav-link {
-    color: #52dcbc;
+    color: #fff;
     font-weight:bold;
 }
+.nav-pills .nav-link:not(.active):hover, .nav-pills .nav-link:not(.active):hover .peIcon,
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link{
-  color: #52dcbc;
+  color: #fff;
   background: #376786;
   font-weight: bold;
   font-weight: bold;
@@ -139,7 +147,10 @@
     padding-bottom: 0.25rem;
     padding-left: 0.25rem;
     vertical-align: middle;
-    border-top: 1px solid #e9ecef;
+    border-top: 1px solid #292666;
+}
+.table-bordered th, .table-bordered td{
+    border: 1px solid #292666;
 }
 .table-hover tbody tr:hover{
     background-color: #e0f3ff;
@@ -199,13 +210,27 @@
 }
 .btn.btn-primary.back_btn.active,
 .btn.btn-primary{
-    color: black;
-    background: #75d0c0;
-    border: 1px solid #75d0c0;
+    color: white;
+    background: #292666;
+    border: 1px solid #292666;
     font-size: 16px;
     line-height: 20px;
-    font-weight:bold;
-    height: 35px;
+    font-weight: bold;
+    padding: 0px 20px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+}
+.btn.btn-primary.back_btn.active i,
+.btn.btn-primary i{
+    margin-right: 5px;
+}
+.btn-outline-info{
+    border: 1px solid #292666;
+    color: #292666;
+}
+.btn-outline-info i{
+    color: #292666;
 }
 .btn.btn-primary span{
     width: auto;
@@ -346,7 +371,7 @@
 }
 .form-control{
     background: #FFFFFF;
-    border: 1px solid #bae8e0;
+    border: 1px solid #292666;
     box-sizing: border-box;
     border-radius: 5px;
     font-style: normal;
