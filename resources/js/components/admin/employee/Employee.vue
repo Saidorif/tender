@@ -5,10 +5,10 @@
 		  		<div class="header_title">
 				    <h4 class="title_user">
 				    	<i  class="peIcon fas fa-users"></i>
-					     Сотрудники 
+					     Сотрудники
 					</h4>
 					<div class="add_user_btn">
-			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
+			            <button type="button" class="btn btn-info toggleFilter mr-2" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
 			            	Филтр
 						</button>
@@ -52,7 +52,7 @@
 	  							<label for="position_id">Должность</label>
   								<select name="" v-model="filter.position_id" class="form-control" >
   									<option value="">Выберите должность!</option>
-  									<option :value="position.id" v-for="(position,index) in getPositionList" :key="position.id">	
+  									<option :value="position.id" v-for="(position,index) in getPositionList" :key="position.id">
   										{{position.name}}
   									</option>
   								</select>
@@ -72,7 +72,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="area_id">Регион/Город!</label>
 			                    <select
-			                      id="area_id"	
+			                      id="area_id"
 			                      class="form-control input_style"
 			                      v-model="filter.area_id"
 			                    >
@@ -84,11 +84,11 @@
 	  							<label for="role_id">Рол</label>
   								<select name="" v-model="filter.role_id" class="form-control" >
   									<option value="">Выберите рол!</option>
-  									<option :value="role.id" v-for="(role,index) in getRoleList" :key="role.id">	
+  									<option :value="role.id" v-for="(role,index) in getRoleList" :key="role.id">
   										{{role.name}}
   									</option>
   								</select>
-				  			</div>	
+				  			</div>
 						  	<div class="col-lg-3 form-group btn_search">
 							  	<button type="button" class="btn btn-primary mr-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
@@ -98,9 +98,9 @@
 							  		<i class="fas fa-times"></i>
 								  	сброс
 							  	</button>
-					  	  	</div>	
+					  	  	</div>
 				  		</div>
-				  	</div>	
+				  	</div>
 			  	</transition>
 		  	</div>
 		  	<div class="card-body">
@@ -188,7 +188,7 @@
 			async selectRegion(){
 		      await this.actionAreaByRegion({ region_id: this.filter.region_id });
 		    },
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionEmployees({page:page,items:this.filter})
 			},
 			toggleFilter(){
@@ -228,5 +228,8 @@
 	}
 </script>
 <style scoped>
-	
+	.add_user_btn{
+        display: flex;
+        align-items: stretch;
+    }
 </style>

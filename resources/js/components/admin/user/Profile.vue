@@ -5,7 +5,7 @@
       <h3 class="card-title title_user mb-0">
         <i class="peIcon pe-7s-user"></i>Мои данные
       </h3>
-      <div class="balance">
+      <div class="balance" v-if="form.user">
         <strong>Баланс:</strong> {{form.user.balance}}
       </div>
     </div>

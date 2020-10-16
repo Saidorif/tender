@@ -14,9 +14,9 @@
 						<div class="form-group col-md-7">
 							<div class="row">
 							  	<div class="form-group col-md-3 btn_show">
-								  	<button 
-								  		type="button" 
-								  		class="btn btn-outline-info" 
+								  	<button
+								  		type="button"
+								  		class="btn btn-outline-info"
 								  		@click.prevent="showDirections =! showDirections"
 							  		>
 							  			<i class="fas fa-route"></i>
@@ -28,23 +28,23 @@
 					  	</div>
 					  	<div class="form-group col-md-3">
 						    <label for="tarif">Тариф</label>
-						    <input 
-						    	type="number" 
-						    	class="form-control input_style" 
-						    	id="tarif" 
+						    <input
+						    	type="number"
+						    	class="form-control input_style"
+						    	id="tarif"
 						    	placeholder="Тариф"
 						    	v-model="form.tarif"
-						    	:class="isRequired(form.tarif) ? 'isRequired' : ''"  
+						    	:class="isRequired(form.tarif) ? 'isRequired' : ''"
 					    	>
 				  	  	</div>
 				  	  	<div class="form-group col-md-2 btn_save d-flex justify-content-end">
 					  	  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal">
 						  		<i class="fas fa-plus"></i>
-							  	Добавить авто 
-					      	</button>	
+							  	Добавить авто
+					      	</button>
 				      	</div>
 					</div>
-					<div class="row" v-if="showDirections"> 	
+					<div class="row" v-if="showDirections">
 						<div class="col-md-12">
 							<div class="table-responsive" v-if="direction_ids.length > 0">
 						  		<div class="d-flex justify-content-center">
@@ -66,7 +66,7 @@
 											  			</tr>
 											  		</thead>
 											  		<tbody>
-											  			<tr 
+											  			<tr
 											  				v-for="(reys,key) in items.reysesFrom"
 											  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
 										  				>
@@ -91,7 +91,7 @@
 											  			</tr>
 											  		</thead>
 											  		<tbody>
-											  			<tr 
+											  			<tr
 											  				v-for="(reys,key) in items.reysesTo"
 											  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
 										  				>
@@ -107,10 +107,10 @@
 						  		    	</template>
 							  		</ul>
 							  	</div>
-						  	</div>										
-						</div>			
+						  	</div>
+						</div>
 					</div>
-					<div class="row"> 	
+					<div class="row">
 					  	<div class="form-group col-md-12 table table-responsive">
 					  		<div class="d-flex justify-content-center">
 							  	<h4>Тадбирлар режаси</h4>
@@ -120,13 +120,13 @@
 						  			<tr>
 						  				<th width="1%">1</th>
 						  				<th width="50%">
-						  					Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан 
+						  					Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан
 						  					ўтказиш учун барча шароитлар яратилган
 						  				</th>
 						  				<th>
-						  					<input 
-						  						type="checkbox" 
-						  						name="daily_technical_job" 
+						  					<input
+						  						type="checkbox"
+						  						name="daily_technical_job"
 						  						true-value="1"
 												false-value="0"
 						  						v-model="form.daily_technical_job"
@@ -140,9 +140,9 @@
 						  					шароитлар яратилган
 						  				</th>
 						  				<th>
-						  					<input 
-						  						type="checkbox" 
-						  						name="daily_medical_job" 
+						  					<input
+						  						type="checkbox"
+						  						name="daily_medical_job"
 						  						true-value="1"
 												false-value="0"
 						  						v-model="form.daily_medical_job"
@@ -152,13 +152,13 @@
 						  			<tr>
 						  				<th>3</th>
 						  				<th width="50%">
-						  					Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча 
+						  					Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча
 						  					ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
 						  				</th>
 						  				<th>
-						  					<input 
-						  						type="checkbox" 
-						  						name="hours_rule" 
+						  					<input
+						  						type="checkbox"
+						  						name="hours_rule"
 						  						true-value="1"
 												false-value="0"
 						  						v-model="form.hours_rule"
@@ -172,9 +172,9 @@
 						  					ўрнатилган
 						  				</th>
 						  				<th>
-						  					<input 
-						  						type="checkbox" 
-						  						name="videoregistrator" 
+						  					<input
+						  						type="checkbox"
+						  						name="videoregistrator"
 						  						true-value="1"
 												false-value="0"
 						  						v-model="form.videoregistrator"
@@ -188,9 +188,9 @@
 						  					тизимига уланган
 						  				</th>
 						  				<th>
-						  					<input 
-						  						type="checkbox" 
-						  						name="gps" 
+						  					<input
+						  						type="checkbox"
+						  						name="gps"
 						  						true-value="1"
 												false-value="0"
 						  						v-model="form.gps"
@@ -201,8 +201,8 @@
 						  	</table>
 					  	</div>
 				  		<div class="form-group col-lg-12" v-if="form.hours_rule == 1">
-				  			<div class="row">
-				  				<div class="form-group col-md-3">
+				  			<div class="row pl-3">
+				  				<!-- <div class="form-group col-md-3">
 						  			<input
 					                    type="file"
 					                    class="form-control"
@@ -210,12 +210,23 @@
 					                    accept=".png, .jpg, .jpeg"
 					                    @change="changePhoto($event)"
 					                  />
-				  				</div>
+				  				</div> -->
+                                <div class=" input-group input_group_with_label input_file col-md-3">
+                                    <input
+					                    type="file"
+					                    class="form-control"
+					                    id="image"
+					                    accept=".png, .jpg, .jpeg"
+					                    @change="changePhoto($event)"
+                                    />
+                                    <p>{{ file ? file.name : ''}}</p>
+                                    <label for="file"> {{$t('contacts_page.file_upload')}}</label>
+                                </div>
 				  				<div class="form-group col-md-2">
 						  			<button type="button" class="btn btn-info text-white" @click.prevent="addFile">
 					  					<i class="fas fa-plus"></i>
 					  					Добавить файл
-						  			</button>	
+						  			</button>
 				  				</div>
 				  				<div class="form-group col-md-12" v-if="files.length > 0">
 				  					<ul class="list-inline d-flex">
@@ -224,7 +235,7 @@
 								  				<i class="fas fa-download"></i>
 								  				{{f_name.original_name}}
 								  			</a>
-								  			<button type="button" class="btn_transparent" @click.prevent="removeFile(f_name.id)">
+								  			<button type="button" class="btn btn-danger" @click.prevent="removeFile(f_name.id)">
 												<i class="pe_icon pe-7s-trash trashColor"></i>
 											</button>
 				  					    </li>
@@ -280,7 +291,7 @@
 											  				<th width="1%">1</th>
 											  				<th width="50%">Кондиционер (климат-назорати тизими)</th>
 											  				<th>
-											  					<i 
+											  					<i
 											  						class="fas text-success"
 											  						:class="car.conditioner == 1 ? ' fa-check-circle' : ''"
 										  						></i>
@@ -289,8 +300,8 @@
 											  			<tr>
 											  				<th>2</th>
 											  				<th width="50%">Интернет</th>
-											  				<th> 
-											  					<i 
+											  				<th>
+											  					<i
 											  						class="fas text-success"
 											  						:class="car.internet == 1 ? ' fa-check-circle' : ''"
 										  						></i>
@@ -300,7 +311,7 @@
 											  				<th>3</th>
 											  				<th width="50%">Биохожатхона</th>
 											  				<th>
-											  					<i 
+											  					<i
 											  						class="fas text-success"
 											  						:class="car.bio_toilet == 1 ? ' fa-check-circle' : ''"
 										  						></i>
@@ -313,7 +324,7 @@
 											  					гурухларига мослашганлиги
 											  				</th>
 											  				<th>
-											  					<i 
+											  					<i
 											  						class="fas text-success"
 											  						:class="car.bus_adapted == 1 ? ' fa-check-circle' : ''"
 										  						></i>
@@ -325,7 +336,7 @@
 											  					Телефон қувватлагичлари
 											  				</th>
 											  				<th>
-											  					<i 
+											  					<i
 											  						class="fas text-success"
 											  						:class="car.telephone_power == 1 ? ' fa-check-circle' : ''"
 										  						></i>
@@ -337,7 +348,7 @@
 											  					Хар бир ўриндиқда монитор (планшет)
 											  				</th>
 											  				<th>
-											  					<i 
+											  					<i
 											  						class="fas text-success"
 											  						:class="car.monitor == 1 ? ' fa-check-circle' : ''"
 										  						></i>
@@ -349,7 +360,7 @@
 											  					Бекатларни эълон қилиш
 											  				</th>
 											  				<th>
-											  					<i 
+											  					<i
 											  						class="fas text-success"
 											  						:class="car.station_announce == 1 ? ' fa-check-circle' : ''"
 										  						></i>
@@ -371,7 +382,7 @@
 						  	<button type="button" class="btn btn-primary btn_save_category">
 						  		<i class="far fa-share-square"></i>
 							  	Отправить
-							</button>	
+							</button>
 				  	  	</div>
 					</div>
 				</form>
@@ -391,23 +402,23 @@
 		        <div class="row">
 		        	<div class="form-group col-md-3">
 					    <label for="auto_number">Номер Авто</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="auto_number" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="auto_number"
 					    	placeholder="Номер Авто"
 					    	v-model="car.auto_number"
-					    	:class="isRequired(car.auto_number) ? 'isRequired' : ''"  
+					    	:class="isRequired(car.auto_number) ? 'isRequired' : ''"
 				    	>
 				  	</div>
 				  	<div class="form-group col-md-3">
-					    <label for="bustype_id">Тип Авто</label> 
-					    <select 
-						    class="form-control input_style" 
-					    	id="bustype_id" 
+					    <label for="bustype_id">Тип Авто</label>
+					    <select
+						    class="form-control input_style"
+					    	id="bustype_id"
 					    	placeholder="Номер Авто"
 					    	v-model="car.bustype_id"
-					    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''" 
+					    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''"
 					    	@change="selectClass(car.bustype_id, car.busmodel_id)"
 					    >
 					    	<option value="" selected disabled>Выберите тип авто!</option>
@@ -416,12 +427,12 @@
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="busmodel_id">Модель Авто</label>
-					    <select 
-						    class="form-control input_style" 
-					    	id="busmodel_id" 
+					    <select
+						    class="form-control input_style"
+					    	id="busmodel_id"
 					    	placeholder="Номер Авто"
 					    	v-model="car.busmodel_id"
-					    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''" 
+					    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
 					    	@change="selectClass(car.bustype_id, car.busmodel_id)"
 					    >
 					    	<option value="" selected disabled>Выберите модель авто!</option>
@@ -430,12 +441,12 @@
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="tclass_id">Класс Авто</label>
-					    <select 
-						    class="form-control input_style" 
-					    	id="tclass_id" 
+					    <select
+						    class="form-control input_style"
+					    	id="tclass_id"
 					    	placeholder="Номер Авто"
 					    	v-model="car.tclass_id"
-					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''" 
+					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
 
 					    >
 					    	<option value="" selected disabled>Выберите класс авто!</option>
@@ -444,45 +455,45 @@
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="date">Дата выпуска</label>
-					    <input 
-					    	type="date" 
-					    	class="form-control input_style" 
-					    	id="date" 
+					    <input
+					    	type="date"
+					    	class="form-control input_style"
+					    	id="date"
 					    	v-model="car.date"
-					    	:class="isRequired(car.date) ? 'isRequired' : ''"  
+					    	:class="isRequired(car.date) ? 'isRequired' : ''"
 				    	>
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="capacity">Вместимость</label>
-					    <input 
-					    	type="number" 
-					    	class="form-control input_style" 
-					    	id="capacity" 
+					    <input
+					    	type="number"
+					    	class="form-control input_style"
+					    	id="capacity"
 					    	placeholder="Вместимость"
 					    	v-model="car.capacity"
-					    	:class="isRequired(car.capacity) ? 'isRequired' : ''"  
+					    	:class="isRequired(car.capacity) ? 'isRequired' : ''"
 				    	>
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="seat_qty">Количество сидящих</label>
-					    <input 
-					    	type="number" 
-					    	class="form-control input_style" 
-					    	id="seat_qty" 
+					    <input
+					    	type="number"
+					    	class="form-control input_style"
+					    	id="seat_qty"
 					    	placeholder="Количество сидящих"
 					    	v-model="car.seat_qty"
-					    	:class="isRequired(car.seat_qty) ? 'isRequired' : ''"  
+					    	:class="isRequired(car.seat_qty) ? 'isRequired' : ''"
 				    	>
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="qty_reys">Количество рейсов</label>
-					    <input 
-					    	type="number" 
-					    	class="form-control input_style" 
-					    	id="qty_reys" 
+					    <input
+					    	type="number"
+					    	class="form-control input_style"
+					    	id="qty_reys"
 					    	placeholder="Количество рейсов"
 					    	v-model="car.qty_reys"
-					    	:class="isRequired(car.qty_reys) ? 'isRequired' : ''"  
+					    	:class="isRequired(car.qty_reys) ? 'isRequired' : ''"
 				    	>
 				  	</div>
 				  	<div class="form-group col-md-12 table table-responsive">
@@ -492,8 +503,8 @@
 					  				<th width="1%">1</th>
 					  				<th width="50%">Кондиционер (климат-назорати тизими)</th>
 					  				<th>
-					  					<input 
-					  						type="checkbox" 
+					  					<input
+					  						type="checkbox"
 					  						true-value="1"
 											false-value="0"
 					  						v-model="car.conditioner"
@@ -503,9 +514,9 @@
 					  			<tr>
 					  				<th>2</th>
 					  				<th width="50%">Интернет</th>
-					  				<th> 
-					  					<input 
-					  						type="checkbox" 
+					  				<th>
+					  					<input
+					  						type="checkbox"
 					  						true-value="1"
 											false-value="0"
 					  						v-model="car.internet"
@@ -516,10 +527,10 @@
 					  				<th>3</th>
 					  				<th width="50%">Биохожатхона</th>
 					  				<th>
-					  					<input 
-					  						type="checkbox" 
+					  					<input
+					  						type="checkbox"
 					  						true-value="1"
-											false-value="0" 
+											false-value="0"
 					  						v-model="car.bio_toilet"
 				  						>
 					  				</th>
@@ -531,8 +542,8 @@
 					  					гурухларига мослашганлиги
 					  				</th>
 					  				<th>
-					  					<input 
-					  						type="checkbox" 
+					  					<input
+					  						type="checkbox"
 					  						true-value="1"
 											false-value="0"
 					  						v-model="car.bus_adapted"
@@ -545,8 +556,8 @@
 					  					Телефон қувватлагичлари
 					  				</th>
 					  				<th>
-					  					<input 
-					  						type="checkbox" 
+					  					<input
+					  						type="checkbox"
 					  						true-value="1"
 											false-value="0"
 					  						v-model="car.telephone_power"
@@ -559,10 +570,10 @@
 					  					Хар бир ўриндиқда монитор (планшет)
 					  				</th>
 					  				<th>
-					  					<input 
-					  						type="checkbox" 
+					  					<input
+					  						type="checkbox"
 					  						true-value="1"
-											false-value="0" 
+											false-value="0"
 					  						v-model="car.monitor"
 				  						>
 					  				</th>
@@ -573,8 +584,8 @@
 					  					Бекатларни эълон қилиш
 					  				</th>
 					  				<th>
-					  					<input 
-					  						type="checkbox" 
+					  					<input
+					  						type="checkbox"
 					  						true-value="1"
 											false-value="0"
 					  						v-model="car.station_announce"
@@ -711,7 +722,7 @@
 			    			return true
 			    		}
 			    	}
-				}	
+				}
 		    },
 		    changePhoto(event) {
 		      this.file = event.target.files[0];
@@ -770,8 +781,12 @@
 					}
 		    	}
 		    },
-			showTable(index){ 
-				this.showBtn = index 
+			showTable(index){
+                if(this.showBtn == index){
+                    this.showBtn = Number
+                }else{
+                    this.showBtn = index
+                }
 			},
 			defaultValuesOfCar(){
 				this.car.auto_number = ''
@@ -827,8 +842,8 @@
 		    	}
 		    },
 		    async addCar(){
-		    	if (this.car.auto_number != '' && this.car.bustype_id != '' && this.car.busmodel_id != '' && this.car.tclass_id != '' && 
-			    	this.car.qty_reys != '' && this.car.capacity != '' && this.car.seat_qty != '' && this.car.date != '') 
+		    	if (this.car.auto_number != '' && this.car.bustype_id != '' && this.car.busmodel_id != '' && this.car.tclass_id != '' &&
+			    	this.car.qty_reys != '' && this.car.capacity != '' && this.car.seat_qty != '' && this.car.date != '')
 		    	{
 					this.car['app_id'] = this.$route.params.userapplicationId
 			    	await this.actionAddCar(this.car)
