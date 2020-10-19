@@ -108,13 +108,20 @@ import AddComplaint from './components/admin/complaint/AddComplaint'
 import EditComplaint from './components/admin/complaint/EditComplaint'
 
 // PassportTab
-import PassportTab from './components/admin/steppassport/PassportTab'
 import Schedule from './components/admin/steppassport/Schedule'
 import Titul from './components/admin/steppassport/Titul'
 import Timing from './components/admin/steppassport/Timing'
 import Tarif from './components/admin/steppassport/Tarif'
 import Scheme from './components/admin/steppassport/Scheme'
 import Demand from './components/admin/steppassport/Demand'
+
+// PassportTab
+import UserSchedule from './components/admin/stepuser/Schedule'
+import UserTitul from './components/admin/stepuser/Titul'
+import UserTiming from './components/admin/stepuser/Timing'
+import UserTarif from './components/admin/stepuser/Tarif'
+import UserScheme from './components/admin/stepuser/Scheme'
+import UserDemand from './components/admin/stepuser/Demand'
 
 // ConfirmTender
 import ConfirmTender from './components/admin/confirmtender/ConfirmTender'
@@ -346,6 +353,32 @@ const router = new Router({
 					path:'direction/demand-tab/:directionId',
 					component:Demand,
 				},
+				// *****
+				{
+					path:'stepuser/titul-tab/:directionId',
+					component:UserTitul,
+				},
+				{
+					path:'stepuser/schedule-tab/:directionId',
+					component:UserSchedule,
+				},
+				{
+					path:'stepuser/timing-tab/:directionId',
+					component:UserTiming,
+				},
+				{
+					path:'stepuser/tarif-tab/:directionId',
+					component:UserTarif,
+				},
+				{
+					path:'stepuser/scheme-tab/:directionId',
+					component:UserScheme,
+				},
+				{
+					path:'stepuser/demand-tab/:directionId',
+					component:UserDemand,
+				},
+				// *****
 				{
 					path:'typeofdirection',
 					component:Typeofdirection,

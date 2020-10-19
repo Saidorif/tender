@@ -167,12 +167,12 @@
                       >{{ items.reysesFrom[0].where.name }} -
                       {{ items.reysesFrom[0].from.name }}</span
                     >
-                                              <router-link
-                            :to="`/crm/direction/demand-tab/${items.id}`"
-                            class="btn btn-outline-info"
-                          >
-                            <i class="fas fa-eye"></i>
-                          </router-link>
+                      <router-link
+                        :to="`/crm/stepuser/demand-tab/${items.id}`"
+                        class="btn btn-outline-info"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </router-link>
                   </h4>
                   <b
                     >({{
@@ -216,7 +216,7 @@
                       {{ items.reysesTo[0].from.name }}</span
                     >
                      <router-link
-                            :to="`/crm/direction/demand-tab/${items.id}`"
+                            :to="`/crm/stepuser/demand-tab/${items.id}`"
                             class="btn btn-outline-info"
                           >
                             <i class="fas fa-eye"></i>
@@ -269,13 +269,12 @@
                         <span>{{ items.name }}</span>
                       </template>
                     </button>
-                    <button
-                      type="button"
-                      class="btn btn-danger"
-                      @click.prevent="removeFromEditItems(null, null, items)"
-                    >
-                      <i class="fas fa-trash"></i>
-                    </button>
+                    <router-link 
+                        :to='`/crm/stepuser/demand-tab/${items.id}`' 
+                        class="btn btn-outline-info"
+                      >
+                        <i class="fas fa-eye"></i>
+                    </router-link>
                   </div>
                 </li>
               </template>
