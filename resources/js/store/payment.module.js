@@ -63,7 +63,7 @@ const actions = {
 	async actionUpdatePayment({commit},payload){
 		try {
 			const payment =  await PaymentService.updatepayment(payload);
-			await commit('setEditPayment',payment.data.result)
+			await commit('setMessage',payment.data)
 			return true
 		} catch (error) {
 			return false

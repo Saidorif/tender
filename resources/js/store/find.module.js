@@ -15,7 +15,7 @@ const actions = {
 	async actionFindByCompanies({commit},payload){
 		try {
 			const companies =  await FindService.findUserByCompanyName(payload);
-			await commit('setFindByCompanies',companies.data)
+			await commit('setFindByCompanies',companies.data.result)
 			return true
 		} catch (error) {
 			return false

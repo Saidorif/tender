@@ -15,19 +15,40 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
+							<th scope="col">Название компании</th>
+							<th scope="col">Статус</th>
+							<th scope="col">ИНН</th>
+							<th scope="col">Сумма</th>
+							<th scope="col">Дата</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="(reg,index) in getPayments.data">
 							<td scope="row">{{index+1}}</td>
-							<td>{{reg.name}}</td>
+							<td>{{reg.user.company_name}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/payment/edit/${reg.id}`'>
+								<div class="badge" :class="getStatusClass(reg.status)">
+									{{getStatusName(reg.status)}}
+								</div>
+							</td>
+							<td>{{reg.user.inn}}</td>
+							<td>{{reg.summ}}</td>
+							<td>{{reg.date}}</td>
+							<td>
+								<router-link 
+									tag="button" 
+									class="btn_transparent" 
+									:to='`/crm/payment/edit/${reg.id}`'
+									v-if="reg.status != 'active'"
+								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteRegion(reg.id)">
+								<button 
+									class="btn_transparent" 
+									@click="deleteRegion(reg.id)"
+									v-if="reg.status != 'active'"
+								>
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>
@@ -67,18 +88,34 @@
 				await this.actionPayments(page)
 				this.laoding = false
 			},
+			getStatusClass(name){
+				if (name == 'active') {
+					return 'badge-success';
+				}else{
+					return 'badge-warning';
+				}
+			},
+			getStatusName(name){
+				if (name == 'active') {
+					return 'Активный';
+				}else{
+					return 'Не активный';
+				}
+			},
 			async deleteRegion(id){
 				if(confirm("Вы действительно хотите удалить?")){
 					let page = 1
 					this.laoding = true
-					await this.actionDeletePayment(id)
-					await this.actionPayments(page)
+					await this.actionDeletePayment(id);
+					await this.actionPayments(page);
 					this.laoding = false
-					toast.fire({
-				    	type: 'success',
-				    	icon: 'success',
-						title: 'Платеж удалено!',
-				    })
+					if (this.getMassage.success){
+						toast.fire({
+					    	type: 'success',
+					    	icon: 'success',
+							title: this.getMassage.message,
+					    })
+					}
 				}
 			}
 		}

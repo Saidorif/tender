@@ -1,32 +1,86 @@
 <template>
-	<div class="edit_region">
+	<div class="add_region">
 		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-money-bill-alt"></i>
-				    Изменить Платеж
+				    Добавить Платеж
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/payment">
-					<span class="peIcon pe-7s-back"></span> 
-					Назад
-				</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/payment"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="savePayment" >
 					<div class="row">
-					  <div class="form-group col-md-9">
-					    <label for="name">Область</label>
+					  <div class="form-group col-md-3">
+					    <label for="name">Названиe компаний</label>
+					    <multiselect 
+							:value="values"
+							:options="findList"
+							@search-change="value => findCompany(value)"
+							v-model="values" 
+	                        placeholder="Выберите название компаний"
+	                        :searchable="true"
+	                        track-by="id"
+	                        label="company_name"
+	                        :max="3"
+							:loading="isLoading"
+							selectLabel="Нажмите Enter, чтобы выбрать"
+							deselectLabel="Нажмите Enter, чтобы удалить"
+							:option="[]"
+							:class="isRequired(form.inn) ? 'isRequired' : ''"  
+							@select="dispatchAction"
+							@remove="removeInn"
+							>
+							<span slot="noResult">По вашему запросу ничего не найдено</span>
+							<span slot="noOptions">Cписок пустой</span>
+						</multiselect>	
+					  </div>
+					  <div class="form-group col-md-2">
+					    <label for="summ">Сумма</label>
+					    <input 
+					    	type="number" 
+					    	class="form-control input_style" 
+					    	id="summ" 
+					    	placeholder="Сумма"
+					    	v-model="form.summ"
+					    	:class="isRequired(form.summ) ? 'isRequired' : ''"  
+				    	>
+					  </div>
+					  <div class="form-group col-md-2">
+					    <label for="date">Дата</label>
+					    <input 
+					    	type="date" 
+					    	class="form-control input_style" 
+					    	id="date" 
+					    	placeholder="Дата"
+					    	v-model="form.date"
+					    	:class="isRequired(form.date) ? 'isRequired' : ''"  
+				    	>
+					  </div>
+					  <div class="form-group col-md-2">
+					    <label for="status">Статус</label>
+					    <select 
+					    	v-model="form.status" 
+					    	:class="isRequired(form.status) ? 'isRequired' : ''"  
+					    	class="form-control input_style" 
+				    	>
+					    	<option value="active">Активный</option>
+					    	<option value="draft">Не активный</option>
+					    </select>
+					  </div>
+					  <div class="form-group col-md-3">
+					    <label for="details">Детали</label>
 					    <input 
 					    	type="text" 
 					    	class="form-control input_style" 
-					    	id="name" 
+					    	id="details" 
 					    	placeholder="Область"
-					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
+					    	v-model="form.details"
+					    	:class="isRequired(form.details) ? 'isRequired' : ''"  
 				    	>
 					  </div>
-					  <div class="form-group col-lg-3 form_btn">
+					  <div class="form-group col-lg-12 d-flex justify-content-end">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
@@ -40,41 +94,77 @@
 </template>
 <script>
 	import { mapGetters , mapActions } from 'vuex'
+	import Multiselect from 'vue-multiselect';
 	import Loader from '../../Loader'
 	export default{
 		components:{
-			Loader
+			Loader,
+			Multiselect,
 		},
 		data(){
 			return{
 				form:{
-					name:''
+					inn:'',
+					summ:'',
+					date:'',
+					details:'',
+					status:'',
 				},
 				requiredInput:false,
-				laoding: true
+				laoding: true,
+				isLoading: true,
+				findList:[],
+				values:[],
 			}
 		},
 		computed:{
-			...mapGetters('payment',['getMassage','getPayment'])
+			...mapGetters('payment',['getMassage','getPayment']),
+			...mapGetters('find',['getFindByCompanies']),
 		},
 		async mounted(){
-			await this.actionEditPayment(this.$route.params.regionId)
+			await this.actionEditPayment(this.$route.params.paymentId)
+			this.values = this.getPayment.user
+			this.form = this.getPayment
 			this.laoding = false
-			this.form = this.getRegion
+			this.isLoading = false
 		},
 		methods:{
-			...mapActions('payment',['actionUpdatePayment','actionEditPayment']),
+			...mapActions('payment',['actionEditPayment','actionUpdatePayment']),
+			...mapActions('find',['actionFindByCompanies']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
+		    async findCompany(value){
+		      if(value != ''){
+		        this.isLoading = true
+		        await setTimeout(async ()=>{
+					await this.actionFindByCompanies({name: value})
+			        this.findList =  this.getFindByCompanies ? this.getFindByCompanies : []
+		        this.isLoading = false
+		        },1000)
+		      }
+		    },
+		    async dispatchAction(data){
+		    	this.form.inn = data.inn
+		    },
+		    removeInn(){
+		    	this.form.inn = ''
+		    	this.findList = []
+		    },
 			async savePayment(){
-		    	if (this.form.name != ''){
+		    	if (this.form.date != '' && this.form.inn != '' && this.form.summ != '' && this.form.details != ''){
 					this.laoding = true
 					await this.actionUpdatePayment(this.form)
-					this.laoding = false
-
-					this.$router.push("/crm/payment");
-					this.requiredInput = false
+					if (this.getMassage.success) {
+						toast.fire({
+					    	type: 'success',
+					    	icon: 'success',
+							title: this.getMassage.message,
+					    })
+						this.laoding = false
+						this.$router.push("/crm/payment");
+						this.requiredInput = false
+					}
 				}else{
 					this.requiredInput = true
 				}

@@ -244,22 +244,48 @@ export default {
     await this.actionClientEdit(this.$route.params.clientId);
     this.form = this.getClient
   },
+  watch:{
+    getClient:{
+      handler(){
+        this.form = this.getClient
+        if (this.form.status == 'inactive') {
+          this.statusText = 'Заблокировать'
+          this.statusClass = ' btn-danger'
+          this.statusFont = ' fa-lock'
+        }else{
+          this.statusText = 'Активировать'
+          this.statusClass = ' btn-success'
+          this.statusFont = ' fa-check'
+        }
+      }
+    }
+  },
   computed: {
     ...mapGetters("client", ["getMassage","getClient"]),
   },
   methods: {
-    ...mapActions("client", ["actionClientEdit"]),
-    changeStatus(){
-      if (this.statusText == 'Активировать') {
-        this.statusText = 'Заблокировать'
-        this.statusClass = ' btn-danger'
-        this.statusFont = ' fa-lock'
+    ...mapActions("client", ["actionClientEdit",'actionClientUpdate']),
+    async changeStatus(){
+      let status = ''
+      if (this.form.status == 'active') {
+        status = 'inactive'
       }else{
-        this.statusText = 'Активировать'
-        this.statusClass = ' btn-success'
-        this.statusFont = ' fa-check'
+        status = 'active'
       }
-    }
+      let data ={
+        id:this.$route.params.clientId,
+        status:  status
+      }
+      await this.actionClientUpdate(data)
+      if (this.getMassage.success){
+        toast.fire({
+          type: 'success',
+          icon: 'success',
+          title: this.getMassage.message,
+        })
+        await this.actionClientEdit(this.$route.params.clientId);
+      }
+    },
     // confirmPassword() {
     //   if (this.form.password && this.form.confirm_password) {
     //     if (this.form.password != this.form.confirm_password) {

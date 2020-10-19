@@ -7,6 +7,9 @@ const ClientService = {
 	clientEdit(id){
 		return ApiService.get(`/api/carrier/edit/${id}`)
 	},
+	clientUpdate(data){
+		return ApiService.post(`/api/carrier/update/${data.id}`,data)
+	},
 };
 
 export { ClientService };
