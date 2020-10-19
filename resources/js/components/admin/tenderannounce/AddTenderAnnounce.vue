@@ -61,7 +61,10 @@
 			  			<h4>Лоты</h4>
 			  		</div>
 				  	<div class="choosenItemsTable" v-for="(lots,lot_key) in allLotes">
-				  		<h4 class="lot_n"><em>Лот №</em> {{lot_key+1}}</h4>
+				  		<div class="d-flex">
+					  		<h4 class="lot_n"><em>Лот №</em> {{lot_key+1}}</h4>
+					  		<i class="fas fa-trash text-danger lot_remove" @click.prevent="removeLot(lot_key)"></i>
+				  		</div>
 				  		<ul v-for="(item,index) in lots">
 				  		    <li>
 				  		    	<div class="d-flex align-items-center">
@@ -74,9 +77,6 @@
 					  		    		<template v-else>
 					  		    			<span>{{item.directions.name}}</span>
 					  		    		</template>
-								  	</button>
-								  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
-								  		<i class="fas fa-trash"></i>
 								  	</button>
 				  		    	</div>
 							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
@@ -390,6 +390,16 @@
 		    	$('#myModal').modal('show')
 		    	this.defaultValuesOfCar()
 		    },
+		    removeLot(index){
+		    	if(confirm("Вы действительно хотите удалить?")){
+		    		Vue.delete(this.allLotes,index)
+					toast.fire({
+				    	type: 'success',
+				    	icon: 'success',
+						title: 'Удалено!',
+				    })
+				}
+		    },
 		    addToAllItems(){
 		    	if (Object.keys(this.direction_ids).length > 0) {
 			    	// if (this.checked) {
@@ -423,7 +433,6 @@
 				    	}
 			    	// }
 		    	}
-		    	console.log(this.allItems)
 		    },
 		    activeFromClass(item){
 		    	if (this.choosenFromItems.some(data => data.id === item.id)){
@@ -481,25 +490,36 @@
 				this.toName = this.getSchedule ? this.getSchedule.whereTo[0].where.name : ''
 		    },
 		    removeFromAllItems(index){
-		    	Vue.delete(this.allItems,index)
+		    	if(confirm("Вы действительно хотите удалить?")){
+		    		Vue.delete(this.allItems,index)
+					toast.fire({
+				    	type: 'success',
+				    	icon: 'success',
+						title: 'Удалено!',
+				    })
+				}
 		    },
 			async saveTender(){
 				let data = [];
-				if(this.checked){
-					if (this.allItems.length > 0){
-						data = this.allItems.map((item,index)=>{
-							let direction_id = item.directions.id
-							let reysItems = [] 
-							if (item.reyses.length > 0){
-								reysItems = item.reyses.map((i,k)=>{
-									return i.id
-								})
-							}
-							return{
-								'direction_id':direction_id,
-								'reys_id':reysItems,
-			    				'status':reysItems.length > 0 ? 'custom' : 'all', 
-							}
+				let lotItem = [];
+				// if(this.checked){
+					if (this.allLotes.length > 0){
+						this.allLotes.forEach((lots,l)=>{
+							lotItem = lots.map((item,index)=>{
+								let direction_id = item.directions.id
+								let reysItems = [] 
+								if (item.reyses.length > 0){
+									reysItems = item.reyses.map((i,k)=>{
+										return i.id
+									})
+								}
+								return{
+									'direction_id':direction_id,
+									'reys_id':reysItems,
+				    				'status':reysItems.length > 0 ? 'custom' : 'all', 
+								}
+							})
+							data.push(lotItem)
 						})
 					}
 					// else{
@@ -514,78 +534,93 @@
 					// 		address:this.form.address,
 			  //   		}]
 					// }
-				}
-				else if(this.checkedGrafik && !this.checked){
-					let newFromItems = this.choosenFromItems.map((item,index)=>{
-						return item.id
-					})
-					let newToItems = this.choosenToItems.map((item,index)=>{
-						return item.id
-					})
-					data = [{
-		    			direction_id:this.direction_ids.id,
-		    			reys_id:newFromItems,
-		    			status:'custom',
-		    		},{
-		    			direction_id:this.direction_ids.id,
-		    			reys_id:newToItems,
-		    			status:'custom', 
-		    		}]
-				}
-				else if(!this.checkedGrafik && !this.checked){
-					data = [{
-		    			direction_id:this.direction_ids.id,
-		    			reys_id:[],
-		    			status:'all', 
-		    		}]
-				}
-				let checkLengthData = true
-				if (this.checked && this.allItems.length < 2) {
-					checkLengthData = false
-				}
-				let checkLengthDataExists = true
-				data.forEach((data,index)=>{
-					if (data.direction_id) {
-						checkLengthDataExists = true
-					}else{
-						checkLengthDataExists = false
-					}
-				})
+				// }
+				// else if(this.checkedGrafik && !this.checked){
+				// 	let newFromItems = this.choosenFromItems.map((item,index)=>{
+				// 		return item.id
+				// 	})
+				// 	let newToItems = this.choosenToItems.map((item,index)=>{
+				// 		return item.id
+				// 	})
+				// 	data = [{
+		  //   			direction_id:this.direction_ids.id,
+		  //   			reys_id:newFromItems,
+		  //   			status:'custom',
+		  //   		},{
+		  //   			direction_id:this.direction_ids.id,
+		  //   			reys_id:newToItems,
+		  //   			status:'custom', 
+		  //   		}]
+				// }
+				// else if(!this.checkedGrafik && !this.checked){
+				// 	data = [{
+		  //   			direction_id:this.direction_ids.id,
+		  //   			reys_id:[],
+		  //   			status:'all', 
+		  //   		}]
+				// }
+
+				// let checkLengthData = true
+				// if (this.checked && this.allItems.length < 2) {
+				// 	checkLengthData = false
+				// }
+				// let checkLengthDataExists = true
+				// data.forEach((data,index)=>{
+				// 	if (data.direction_id) {
+				// 		checkLengthDataExists = true
+				// 	}else{
+				// 		checkLengthDataExists = false
+				// 	}
+				// })
 				let newData = {
 					data:data,
 					time:this.form.time,
 					address:this.form.address,
 				}
 		    	if (this.form.time != '' && this.form.address != ''){
-		    		if (checkLengthDataExists) {
-			    		if (checkLengthData) {
-							this.laoding = true
-							await this.actionAddTenderAnnounce(newData)
-							this.laoding = false
-							if (this.getMassage.success) {
-								console.log(this.getMassage)
-								toast.fire({
-									type: "success",
-									icon: "success",
-									title: this.getMassage.message
-							 	});
-								this.requiredInput = false
-								this.$router.push("/crm/tenderannounce");
-							}
-			    		}else{
-			    			toast.fire({
-								type: "error",
-								icon: "error",
-								title: 'В пакете должны быть минимум 2 маршрута!'
-						 	});
-			    		}
-		    		}else{
-		    			toast.fire({
-							type: "error",
-							icon: "error",
-							title: 'Маршрут выберите!'
+		    		this.laoding = true
+					await this.actionAddTenderAnnounce(newData)
+					this.laoding = false
+					if (this.getMassage.success) {
+						console.log(this.getMassage)
+						toast.fire({
+							type: "success",
+							icon: "success",
+							title: this.getMassage.message
 					 	});
-		    		}
+						this.requiredInput = false
+						this.$router.push("/crm/tenderannounce");
+					}
+		    	// 	if (checkLengthDataExists) {
+			    // 		if (checkLengthData) {
+							// this.laoding = true
+							// await this.actionAddTenderAnnounce(newData)
+							// this.laoding = false
+							// if (this.getMassage.success) {
+							// 	console.log(this.getMassage)
+							// 	toast.fire({
+							// 		type: "success",
+							// 		icon: "success",
+							// 		title: this.getMassage.message
+							//  	});
+							// 	this.requiredInput = false
+							// 	this.$router.push("/crm/tenderannounce");
+							// }
+			    // 		}else{
+			    // 			toast.fire({
+							// 	type: "error",
+							// 	icon: "error",
+							// 	title: 'В пакете должны быть минимум 2 маршрута!'
+						 // 	});
+			    // 		}
+		    	// 	}
+		    	// 	else{
+		    	// 		toast.fire({
+							// type: "error",
+							// icon: "error",
+							// title: 'Маршрут выберите!'
+					 	// });
+		    	// 	}
 				}else{
 					this.requiredInput = true
 				}
@@ -607,5 +642,12 @@
 		min-height:500px;
 	}
 	.lot_n{
+		
+	}
+	.lot_remove{
+	    margin-top: 2px;
+	    margin-left: 60px;
+	    cursor: pointer;
+	    font-size: 20px;
 	}
 </style>
