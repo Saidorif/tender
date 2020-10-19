@@ -84,5 +84,14 @@ class Direction extends Model
         return $this->hasMany(\App\TenderLot::class,'direction_id');
     }
 
+    public function stationFrom()
+    {
+        return $this->belongsTo(\App\Station::class,'station_from_id');
+    }
+    public function stationTo()
+    {
+        return $this->belongsTo(\App\Station::class,'station_to_id');
+    }
+
 
 }

@@ -56,7 +56,18 @@ class DirectionController extends Controller
 
     public function edit($id)
     {
-        $result = Direction::with(['regionToWith','regionFromWith','areaFromWith','areaToWith','timingWith','timingDetails','type','schemaDetails'])->find($id);
+        $result = Direction::with([
+            'regionToWith',
+            'regionFromWith',
+            'areaFromWith',
+            'areaToWith',
+            'timingWith',
+            'timingDetails',
+            'type',
+            'stationFrom',
+            'stationTo',
+            'schemaDetails'
+        ])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
