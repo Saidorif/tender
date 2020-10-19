@@ -346,7 +346,6 @@
 					this.form.direction_ids=[]
 					this.direction_ids={}
 					this.findList = []
-					this.allItems = []
 				}
 			},
 			direction_ids:{
@@ -375,8 +374,23 @@
 		      "actionGetScheduleTable",
 		    ]),
 		    addLot(){
-		    	this.allLotes.push(this.allItems)
-		    	$('#myModal').modal('hide')
+		    	if (this.allItems.length > 0) {
+			    	if (this.checked) {
+			    		if (this.allItems.length > 1) {
+			    			this.allLotes.push(this.allItems)
+				    		$('#myModal').modal('hide')
+			    		}else{
+			    			toast.fire({
+								type: "error",
+								icon: "error",
+								title: 'В пакете должны быть минимум 2 маршрута!'
+						 	});
+			    		}
+			    	}else{
+			    		this.allLotes.push(this.allItems)
+				    	$('#myModal').modal('hide')
+			    	}
+		    	}
 		    },
 		    defaultValuesOfCar(){
 		    	this.choosenFromItems = []
