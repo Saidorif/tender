@@ -15,7 +15,7 @@
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveTender" >
 					<div class="row">
-					  <div class="form-group col-md-2">
+					  <div class="form-group col-md-4">
 					    <label for="name">Дата тердера</label>
 					    <date-picker 
 		                  id="time"
@@ -28,17 +28,98 @@
 		                  :class="isRequired(form.time) ? 'isRequired' : ''"
 		                ></date-picker>
 					  </div>
-					  <div class="form-group col-md-2">
+					  <div class="form-group col-md-4">
 					    <label for="address">Адрес</label>
 					    <input 
 					    	type="text" 
 					    	class="form-control input_style" 
 					    	v-model="form.address" 
 					    	id="address"
+					    	placeholder="Адрес..." 
 					    	:class="isRequired(form.address) ? 'isRequired' : ''"
 				    	>	
 					  </div>
-					  <div class="form-group col-md-1 check_box_with_label">
+					  <div class="form-group col-lg-4 form_btn d-flex justify-content-end">
+<!-- 						<button v-if="checked" type="button" class="btn btn-secondary mr-3" @click="addToAllItems">
+							<i class="fas fa-plus"></i>
+							Добавить
+						</button>
+ -->					<button type="button" class="btn btn-secondary mr-3" @click="openModal">
+							<i class="fas fa-plus"></i>
+							Добавить лот
+						</button>
+					  	<button type="submit" class="btn btn-primary btn_save_category">
+					  		<i class="fas fa-save"></i>
+						  	Сохранить
+						</button>	
+				  	  </div>
+					</div>
+				</form>
+				<!-- all choosen lots -->
+		  		<div class="table-responsive" v-if="allLotes.length > 0">
+			  		<div class="d-flex justify-content-center">
+			  			<h4>Лоты</h4>
+			  		</div>
+				  	<div class="choosenItemsTable" v-for="(lots,lot_key) in allLotes">
+				  		<h4 class="lot_n"><em>Лот №</em> {{lot_key+1}}</h4>
+				  		<ul v-for="(item,index) in lots">
+				  		    <li>
+				  		    	<div class="d-flex align-items-center">
+					  		    	<h4>{{index+1}})</h4>
+					  		    	<button class="btn btn-outline-success mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
+					  		    		<template v-if="item.reyses.length > 0">
+										    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span> 
+										    <span>({{item.reyses.length}} рейсы)</span>
+					  		    		</template>
+					  		    		<template v-else>
+					  		    			<span>{{item.directions.name}}</span>
+					  		    		</template>
+								  	</button>
+								  	<button type="button" class="btn btn-danger" @click.prevent="removeFromAllItems(index)">
+								  		<i class="fas fa-trash"></i>
+								  	</button>
+				  		    	</div>
+							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
+								  <table class="table table-bordered table-hover">
+							  			<thead>
+								  			<tr>
+								  				<th>№</th>
+								  				<th v-for="(item,index) in item.reyses[0].reys_times" colspan="2">
+									  				{{item.where.name}}
+									  			</th>
+								  			</tr>
+								  		</thead>
+								  		<tbody>
+								  			<tr v-for="(reys,key) in item.reyses">
+								  				<td>{{key+1}}</td>
+								  				<template v-for="(val,key) in reys.reys_times">
+									  				<td>{{val.start}}</td>
+									  				<td>{{val.end}}</td>
+								  				</template>
+								  			</tr>
+								  		</tbody>
+								  	</table>
+								</div>
+				  			</li>
+				  		</ul>
+				  		<hr>
+				  	</div>
+			  	</div>
+		  	</div>
+	  	</div>
+	  	<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Новый лот</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+	        	<div class="row">
+	        		<div class="form-group col-md-2 check_box_with_label">
 					    <label for="checked">Пакет</label>
 					    <input 
 					    	type="checkbox" 
@@ -47,8 +128,8 @@
 					    	id="checked"
 				    	>	
 
-					  </div>
-					  <div class="form-group col-md-3">
+				  	</div>
+				  	<div class="form-group col-md-5">
 					    <label for="marshrut">Маршрут</label>
 					    <multiselect 
 							:value="direction_ids"
@@ -69,8 +150,8 @@
 							<span slot="noResult">По вашему запросу ничего не найдено</span>
 							<span slot="noOptions">Cписок пустой</span>
 						</multiselect>	
-					  </div>
-					  <div class="form-group col-md-1 check_box_with_label">
+				  	</div>
+				  	<div class="form-group col-md-2 check_box_with_label" v-if="Object.keys(direction_ids).length > 0">
 					    <label for="checkedGrafik">График</label>
 					    <input 
 					    	type="checkbox" 
@@ -78,20 +159,15 @@
 					    	v-model="checkedGrafik" 
 					    	id="checkedGrafik"
 				    	>	
-					  </div>
-					  <div class="form-group col-lg-3 form_btn d-flex justify-content-end">
-						<button v-if="checked" type="button" class="btn btn-secondary mr-3" @click="addToAllItems">
-							<i class="fas fa-plus"></i>
-							Добавить
-						</button>
-					  	<button type="submit" class="btn btn-primary btn_save_category">
-					  		<i class="fas fa-save"></i>
-						  	Сохранить
-						</button>	
-				  	  </div>
-					</div>
-				</form>
-				<!-- From Name -->
+				  	</div>
+				  	<div class="form-group col-md-3 d-flex align-items-center mt-4">
+			    	 	<button type="button" class="btn btn-outline-success" @click.prevent="addToAllItems">
+				        	<i class="fas fa-plus"></i>
+				        	Выбрать маршрут
+				        </button>
+				  	</div>
+	        	</div>
+	        	<!-- From Name -->
 				<div v-if="checkedGrafik">
 				  	<div class="table-responsive" v-if="fromItems.length">
 				  		<div class="d-flex justify-content-center">
@@ -203,8 +279,21 @@
 				  		</ul>
 				  	</div>
 			  	</div>
-		  	</div>
-	  	</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-warning" data-dismiss="modal">
+		        	<i class="fas fa-times"></i>
+		        	Закрыть
+		        </button>
+		        <button type="button" class="btn btn-primary" @click.prevent="addLot">
+		        	<i class="fas fa-plus"></i>
+		        	Добавить в список
+		        </button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- Modal -->
 	</div>
 </template>
 <script>
@@ -228,6 +317,7 @@
 				},
 				requiredInput:false,
 				direction_ids:{},
+				allLotes:[],
 				checked:false,
 				checkedGrafik:false,
 				isLoading:false,
@@ -284,9 +374,25 @@
 			...mapActions("passportTab", [
 		      "actionGetScheduleTable",
 		    ]),
+		    addLot(){
+		    	this.allLotes.push(this.allItems)
+		    	$('#myModal').modal('hide')
+		    },
+		    defaultValuesOfCar(){
+		    	this.choosenFromItems = []
+	    		this.choosenToItems = []
+	    		this.direction_ids = {}
+	    		this.allItems = []
+	    		this.form.direction_ids=[]
+				this.findList = []
+		    },
+		    openModal(){
+		    	$('#myModal').modal('show')
+		    	this.defaultValuesOfCar()
+		    },
 		    addToAllItems(){
 		    	if (Object.keys(this.direction_ids).length > 0) {
-			    	if (this.checked) {
+			    	// if (this.checked) {
 				    	if(this.checkedGrafik){
 				    		if (this.choosenFromItems.length > 0) {
 					    		let value = {
@@ -315,8 +421,9 @@
 				    		this.choosenToItems = []
 				    		this.direction_ids = {}
 				    	}
-			    	}
+			    	// }
 		    	}
+		    	console.log(this.allItems)
 		    },
 		    activeFromClass(item){
 		    	if (this.choosenFromItems.some(data => data.id === item.id)){
@@ -493,6 +600,12 @@
 	tr.active{
 		background:#d6d6d6;
 	}
-
-
+	.modal-xl {
+	    max-width: 80%;
+	}
+	.modal-body{
+		min-height:500px;
+	}
+	.lot_n{
+	}
 </style>

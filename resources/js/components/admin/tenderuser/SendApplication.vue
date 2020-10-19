@@ -11,32 +11,41 @@
 		  	<div class="card-body">
 		  		<form enctype="multipart/form-data">
 					<div class="row">
-						<div class="form-group col-md-7">
-							<div class="row">
-							  	<div class="form-group col-md-3 btn_show">
-								  	<button
-								  		type="button"
-								  		class="btn btn-outline-info"
-								  		@click.prevent="showDirections =! showDirections"
-							  		>
-							  			<i class="fas fa-route"></i>
-							  			Маршруты
-							  			<i class="pe-7s-angle-down-circle"></i>
-							  		</button>
-						  	  	</div>
-							</div>
+						<div class="form-group col-md-3 d-flex align-items-center mt-4">
+							<button
+						  		type="button"
+						  		class="btn btn-outline-info"
+						  		@click.prevent="showDirections =! showDirections"
+					  		>
+					  			<i class="fas fa-route"></i>
+					  			Маршруты
+					  			<i class="pe-7s-angle-down-circle"></i>
+					  		</button>
 					  	</div>
-					  	<div class="form-group col-md-3">
+					  	<div class="form-group col-md-4">
 						    <label for="tarif">Тариф</label>
-						    <input
+						    <div class="d-flex align-items-center">
+						    	<span class="road_price">Йул хаққи:</span>
+						    	<input
 						    	type="number"
 						    	class="form-control input_style"
 						    	id="tarif"
 						    	placeholder="Тариф"
 						    	v-model="form.tarif"
 						    	:class="isRequired(form.tarif) ? 'isRequired' : ''"
-					    	>
+					    	></div>
 				  	  	</div>
+				  	  	<div class="form-group col-md-3">
+						    <label for="qty_reys">Количество рейсов</label>
+						    <input
+						    	type="number"
+						    	class="form-control input_style"
+						    	id="qty_reys"
+						    	placeholder="Количество рейсов"
+						    	v-model="form.qty_reys"
+						    	:class="isRequired(form.qty_reys) ? 'isRequired' : ''"
+					    	>
+					  	</div>
 				  	  	<div class="form-group col-md-2 btn_save d-flex justify-content-end">
 					  	  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal">
 						  		<i class="fas fa-plus"></i>
@@ -113,7 +122,9 @@
 					<div class="row">
 					  	<div class="form-group col-md-12 table table-responsive">
 					  		<div class="d-flex justify-content-center">
-							  	<h4>Тадбирлар режаси</h4>
+							  	<h4>
+								  	Йўналишларда ишлаётганда ҳаракатланиш хавфсизлигини таъминлаш бўйича қатнашчи томонидан амалга оширилган тадбирлар режаси қуйидагича баҳоланади:
+							  	</h4>
 							</div>
 						  	<table class="table table-bordered">
 						  		<thead>
@@ -252,13 +263,12 @@
 									<tr>
 										<th>№</th>
 										<th>Номер Авто</th>
-										<th>Тип Авто</th>
+										<th>Категория Авто</th>
 										<th>Модель Авто</th>
 										<th>Класс Авто</th>
 										<th>Дата выпуска</th>
 										<th>Вместимость</th>
 										<th>Количество сидящих</th>
-										<th>Количество рейсов</th>
 										<th>Действия</th>
 									</tr>
 								</thead>
@@ -273,7 +283,6 @@
 											<td>{{car.date}}</td>
 											<td>{{car.capacity}}</td>
 											<td>{{car.seat_qty}}</td>
-											<td>{{car.qty_reys}}</td>
 											<td>
 												<button type="button" class="btn_transparent" @click.prevent="showTable(index)">
 													<i class="pe-7s-angle-down-circle"></i>
@@ -289,7 +298,7 @@
 											  		<thead>
 											  			<tr>
 											  				<th width="1%">1</th>
-											  				<th width="50%">Кондиционер (климат-назорати тизими)</th>
+											  				<th width="80%">Кондиционер (климат-назорати тизими)</th>
 											  				<th>
 											  					<i
 											  						class="fas text-success"
@@ -299,7 +308,7 @@
 											  			</tr>
 											  			<tr>
 											  				<th>2</th>
-											  				<th width="50%">Интернет</th>
+											  				<th width="80%">Интернет</th>
 											  				<th>
 											  					<i
 											  						class="fas text-success"
@@ -309,7 +318,7 @@
 											  			</tr>
 											  			<tr>
 											  				<th>3</th>
-											  				<th width="50%">Биохожатхона</th>
+											  				<th width="80%">Биохожатхона</th>
 											  				<th>
 											  					<i
 											  						class="fas text-success"
@@ -319,7 +328,7 @@
 											  			</tr>
 											  			<tr>
 											  				<th>4</th>
-											  				<th width="50%">
+											  				<th width="80%">
 											  					Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган
 											  					гурухларига мослашганлиги
 											  				</th>
@@ -332,7 +341,7 @@
 											  			</tr>
 											  			<tr>
 											  				<th>5</th>
-											  				<th width="50%">
+											  				<th width="80%">
 											  					Телефон қувватлагичлари
 											  				</th>
 											  				<th>
@@ -344,7 +353,7 @@
 											  			</tr>
 											  			<tr>
 											  				<th>6</th>
-											  				<th width="50%">
+											  				<th width="80%">
 											  					Хар бир ўриндиқда монитор (планшет)
 											  				</th>
 											  				<th>
@@ -356,8 +365,8 @@
 											  			</tr>
 											  			<tr>
 											  				<th>7</th>
-											  				<th width="50%">
-											  					Бекатларни эълон қилиш
+											  				<th width="80%">
+											  					Бекатларни эълон қилиш аудио тизими
 											  				</th>
 											  				<th>
 											  					<i
@@ -412,7 +421,7 @@
 				    	>
 				  	</div>
 				  	<div class="form-group col-md-3">
-					    <label for="bustype_id">Тип Авто</label>
+					    <label for="bustype_id">Категория Авто</label>
 					    <select
 						    class="form-control input_style"
 					    	id="bustype_id"
@@ -421,7 +430,7 @@
 					    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''"
 					    	@change="selectClass(car.bustype_id, car.busmodel_id)"
 					    >
-					    	<option value="" selected disabled>Выберите тип авто!</option>
+					    	<option value="" selected disabled>Выберите категорию авто!</option>
 					    	<option :value="busType.id" v-for="(busType,index) in getTypeofbusList">{{busType.name}}</option>
 					    </select>
 				  	</div>
@@ -453,7 +462,7 @@
 					    	<option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
 					    </select>
 				  	</div>
-				  	<div class="form-group col-md-3">
+				  	<div class="form-group col-md-4">
 					    <label for="date">Дата выпуска</label>
 					    <input
 					    	type="date"
@@ -463,7 +472,7 @@
 					    	:class="isRequired(car.date) ? 'isRequired' : ''"
 				    	>
 				  	</div>
-				  	<div class="form-group col-md-3">
+				  	<div class="form-group col-md-4">
 					    <label for="capacity">Вместимость</label>
 					    <input
 					    	type="number"
@@ -471,10 +480,11 @@
 					    	id="capacity"
 					    	placeholder="Вместимость"
 					    	v-model="car.capacity"
+					    	max="999"
 					    	:class="isRequired(car.capacity) ? 'isRequired' : ''"
 				    	>
 				  	</div>
-				  	<div class="form-group col-md-3">
+				  	<div class="form-group col-md-4">
 					    <label for="seat_qty">Количество сидящих</label>
 					    <input
 					    	type="number"
@@ -485,23 +495,12 @@
 					    	:class="isRequired(car.seat_qty) ? 'isRequired' : ''"
 				    	>
 				  	</div>
-				  	<div class="form-group col-md-3">
-					    <label for="qty_reys">Количество рейсов</label>
-					    <input
-					    	type="number"
-					    	class="form-control input_style"
-					    	id="qty_reys"
-					    	placeholder="Количество рейсов"
-					    	v-model="car.qty_reys"
-					    	:class="isRequired(car.qty_reys) ? 'isRequired' : ''"
-				    	>
-				  	</div>
 				  	<div class="form-group col-md-12 table table-responsive">
 					  	<table class="table table-bordered">
 					  		<thead>
 					  			<tr>
 					  				<th width="1%">1</th>
-					  				<th width="50%">Кондиционер (климат-назорати тизими)</th>
+					  				<th width="80%">Кондиционер (климат-назорати тизими)</th>
 					  				<th>
 					  					<input
 					  						type="checkbox"
@@ -513,7 +512,7 @@
 					  			</tr>
 					  			<tr>
 					  				<th>2</th>
-					  				<th width="50%">Интернет</th>
+					  				<th width="80%">Интернет</th>
 					  				<th>
 					  					<input
 					  						type="checkbox"
@@ -525,7 +524,7 @@
 					  			</tr>
 					  			<tr>
 					  				<th>3</th>
-					  				<th width="50%">Биохожатхона</th>
+					  				<th width="80%">Биохожатхона</th>
 					  				<th>
 					  					<input
 					  						type="checkbox"
@@ -537,7 +536,7 @@
 					  			</tr>
 					  			<tr>
 					  				<th>4</th>
-					  				<th width="50%">
+					  				<th width="80%">
 					  					Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган
 					  					гурухларига мослашганлиги
 					  				</th>
@@ -552,7 +551,7 @@
 					  			</tr>
 					  			<tr>
 					  				<th>5</th>
-					  				<th width="50%">
+					  				<th width="80%">
 					  					Телефон қувватлагичлари
 					  				</th>
 					  				<th>
@@ -566,7 +565,7 @@
 					  			</tr>
 					  			<tr>
 					  				<th>6</th>
-					  				<th width="50%">
+					  				<th width="80%">
 					  					Хар бир ўриндиқда монитор (планшет)
 					  				</th>
 					  				<th>
@@ -580,8 +579,8 @@
 					  			</tr>
 					  			<tr>
 					  				<th>7</th>
-					  				<th width="50%">
-					  					Бекатларни эълон қилиш
+					  				<th width="80%">
+					  					Бекатларни эълон қилиш аудио тизими
 					  				</th>
 					  				<th>
 					  					<input
@@ -630,6 +629,7 @@
 					daily_technical_job:0,
 					videoregistrator:0,
 					gps:0,
+					qty_reys:'',
 					hours_rule:0,
 				},
 				car:{
@@ -637,7 +637,6 @@
 					bustype_id:'',
 					busmodel_id:'',
 					tclass_id:'',
-					qty_reys:'',
 					capacity:'',
 					seat_qty:'',
 					date:'',
@@ -793,7 +792,6 @@
 		    	this.car.bustype_id = ''
 		    	this.car.busmodel_id = ''
 		    	this.car.tclass_id = ''
-		    	this.car.qty_reys = ''
 		    	this.car.capacity = ''
 		    	this.car.seat_qty = ''
 		    	this.car.date = ''
@@ -842,8 +840,7 @@
 		    	}
 		    },
 		    async addCar(){
-		    	if (this.car.auto_number != '' && this.car.bustype_id != '' && this.car.busmodel_id != '' && this.car.tclass_id != '' &&
-			    	this.car.qty_reys != '' && this.car.capacity != '' && this.car.seat_qty != '' && this.car.date != '')
+		    	if (this.car.auto_number != '' && this.car.bustype_id != '' && this.car.busmodel_id != '' && this.car.tclass_id != '' && this.car.capacity != '' && this.car.seat_qty != '' && this.car.date != '')
 		    	{
 					this.car['app_id'] = this.$route.params.userapplicationId
 			    	await this.actionAddCar(this.car)
@@ -911,5 +908,8 @@
 	    display: flex;
 	    align-items: center;
 	    margin-top: 15px;
+	}
+	.road_price{
+    	width: 84px;
 	}
 </style>
