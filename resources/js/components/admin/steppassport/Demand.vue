@@ -62,11 +62,11 @@
               </tr>
               <tr>
                 <td>{{form.direction_from_name}}-{{form.direction_to_name}}</td>
-                <td><input type="number" v-model="form.holiday_days" class="form-control"></td>
+                <td><input type="number" v-model="form.direction_from_value" class="form-control"></td>
               </tr>
               <tr>
                 <td>{{form.direction_to_name}}-{{form.direction_from_name}}</td>
-                <td><input type="number" v-model="form.holiday_days" class="form-control"></td>
+                <td><input type="number" v-model="form.direction_to_value" class="form-control"></td>
               </tr>
               <!-- 3 end -->
               <!-- 3 s -->

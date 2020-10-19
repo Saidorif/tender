@@ -31,19 +31,13 @@
               <label for="region_id">Tumandan, qishloqdan, shaxridan</label>
               <div class="form-control input_style">
                 {{item.area_from_with ? item.area_from_with.name : ''}}
-              </div>
+              </div>     
             </div>
             <div class="form-group col-md-3">
               <label for="region_id">Bekatdan</label>
-              <select
-                class="form-control input_style"
-                v-model="form.region_from.station_id"
-                :class="isRequired(form.region_from.station_id) ? 'isRequired' : ''"
-                placeholder="Area"
-              >
-                <option value selected disabled>choose option</option>
-                <option :value="item.id" v-for="(item,index) in stationFrom">{{item.name}}</option>
-              </select>
+              <div class="form-control input_style">
+                {{item.station_from ? item.station_from.name : ''}}
+              </div>
             </div>
             <div class="form-group col-md-3">
               <label for="region_id">Shaxarga, viloyatga</label>
@@ -59,15 +53,9 @@
             </div>
             <div class="form-group col-md-3">
               <label for="region_id">Bakatga</label>
-              <select
-                class="form-control input_style"
-                v-model="form.region_to.station_id"
-                :class="isRequired(form.region_to.station_id) ? 'isRequired' : ''"
-                placeholder="Area"
-              >
-                <option value selected disabled>choose option</option>
-                <option :value="item.id" v-for="(item,index) in stationTo">{{item.name}}</option>
-              </select>
+              <div class="form-control input_style">
+                {{item.station_to ? item.station_to.name : ''}}
+              </div>
             </div>
             <div class="form-group col-md-3">
               <label for="seasonal">Ishlash mavsumi</label>
