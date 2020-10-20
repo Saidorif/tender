@@ -192,37 +192,52 @@ class TenderController extends Controller
     public function remove(Request $request, $id)
     {
         $validator = Validator::make($request->all(),[
-            'direction_id' => 'required|integer',
-            'reys_id' => 'required|array',
-            'reys_id.*' => 'required|integer',
+            'lot_id' => 'required|integer',
         ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
         $tender = Tender::find($id);
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
         }
         $inputs = $request->all();
-        $tender_lots = TenderLot::where(['tender_id' => $tender->id,'direction_id' => $inputs['direction_id']])->first();
-        if(count($inputs['reys_id']) == 0){
-            $tender->direction_ids = [];
-            $tender->save();
-
-            $tender_lots->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'OK'
-            ]);
-        }else{
-            $tenderlots_reys_ids = $tender_lots->reys_id;
-            $result = array_diff($tenderlots_reys_ids, $inputs['reys_id']);
-            $tender_lots->reys_id = array_values($result);
-            $tender_lots->save();
-            return response()->json([
-                'success' => true,
-                'inputs' => $inputs['reys_id'],
-                'result_array_value' => array_values($result),
-                'result' => $result,
-                'message' => 'OK'
-            ]);            
+        $tender_lots = TenderLot::where(['tender_id' => $tender->id,'id' => $inputs['lot_id']])->first();
+        if(!$tender_lots){
+            return response()->json(['error' => true, 'message' => 'Тендер лот не найдено']);
         }
+        $d_ids = $tender_lots->getDirection();
+        $tender_lots->delete();
+        $t_d_ids = array_diff($tender->getDirection(), $d_ids);
+        $tender->direction_ids = $t_d_ids;
+        $tender->save();
+        return response()->json([
+            'success' => true,
+            't_d_ids' => $t_d_ids,
+            'success' => true,
+            'message' => 'OK'
+        ]);
+        // if(count($inputs['reys_id']) == 0){
+        //     $tender->direction_ids = [];
+        //     $tender->save();
+
+        //     $tender_lots->delete();
+        //     return response()->json([
+        //         'success' => true,
+        //         'message' => 'OK'
+        //     ]);
+        // }else{
+        //     $tenderlots_reys_ids = $tender_lots->reys_id;
+        //     $result = array_diff($tenderlots_reys_ids, $inputs['reys_id']);
+        //     $tender_lots->reys_id = array_values($result);
+        //     $tender_lots->save();
+        //     return response()->json([
+        //         'success' => true,
+        //         'inputs' => $inputs['reys_id'],
+        //         'result_array_value' => array_values($result),
+        //         'result' => $result,
+        //         'message' => 'OK'
+        //     ]);            
+        // }
     }
 }
