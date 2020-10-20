@@ -83,7 +83,6 @@ class TenderController extends Controller
                 $tender_lots[$key]['direction_id'][] = $value['direction_id'];
                 $tender_lots[$key]['time'] = $tenderTime;
                 $tender_lots[$key]['status'] = $value['status'];
-                // $tender_lots[$key]['reys_id'][] = $value['reys_id'];
                 if(isset($tender_lots[$key]['reys_id'])){
                     $tender_lots[$key]['reys_id'] = array_merge($value['reys_id'],$tender_lots[$key]['reys_id']);
                 }else{
@@ -93,7 +92,6 @@ class TenderController extends Controller
         }
         $direction_ids = array_unique($direction_ids);
         $direction_ids = array_values($direction_ids);
-        // return response()->json(['error' => true, 'result' => $tender_lots]);
         
         //Create Tender Object        
         $tender = Tender::create([
@@ -103,7 +101,6 @@ class TenderController extends Controller
             'status' => 'pending',
             'created_by' => $user->id,
         ]);
-        // return response()->json(['error' => true,'result' => $tender_lots]);
 
         //Create tender LOTS
         foreach ($data as $key => $items) {
@@ -140,15 +137,45 @@ class TenderController extends Controller
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
         }
         $validator = Validator::make($request->all(),[
+            'data' => 'required|array',
+            'data.*.*.direction_id' => 'required|integer',
+            'data.*.*.reys_id' => 'nullable|array',
+            'data.*.*.reys_id.*' => 'required|integer',
+            'time' => 'required|string',
             'address' => 'required|string',
-            'time'    => 'required|string'
+            'data.*.*.status' => ['required',Rule::in(['all','custom'])],
         ]);
 
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->only('address','time');
+        $data = $request->input('data');
+        $user = $request->user();
         $tender->update($inputs);
+
+        foreach ($data as $key => $items) {
+            $lotArr = [];
+            foreach ($items as $k => $item) {
+                if(isset($lotArr['reys_id'])){
+                    $lotArr['reys_id'] = array_merge($item['reys_id'],$lotArr['reys_id']);
+                }else{
+                    $lotArr['reys_id'] = $item['reys_id'];
+                }
+                $lotArr['direction_id'][] = $item['direction_id'];
+                $lotArr['status'] = $item['status'];
+                $lotArr['time'] = $tender->time;
+                $lotArr['tender_id'] = $tender->id;
+            }
+            $lotArr['direction_id'] = array_unique($lotArr['direction_id']);
+            $tenderLot = TenderLot::create([
+                'tender_id' => $tender->id,
+                'direction_id' => $lotArr['direction_id'],
+                'time' => $tender->time,
+                'reys_id' => $lotArr['reys_id'],
+                'status' => 'pending',
+            ]);
+        }
         return response()->json(['success' => true,'message' => 'Объявление о тендере успешно обновлено']);
     }
 
