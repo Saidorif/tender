@@ -4,8 +4,8 @@ const ApplicationService = {
 	applicationList(){
 		return ApiService.get(`/api/application/list`)
 	},
-	Applications(){
-		return ApiService.post(`/api/application`)
+	Applications(page){
+		return ApiService.post(`/api/application?page=`+page)
 	},
 	addapplication(data){
 		return ApiService.post(`/api/application/store`,data)

@@ -151,7 +151,7 @@
                 </router-link>
               </li>
             </ul>
-          </li>  
+          </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="peIcon fas fa-cogs" style="font-size: 20px;"></i>
@@ -201,6 +201,22 @@
                   </p>
                 </router-link>
               </li>
+                <li class="nav-item">
+                <router-link class="nav-link" to="/crm/busclass">
+                  <i class="peIcon fas fa-bus-alt"></i>
+                  <p>
+                    Класс автобуса
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/busbrand">
+                  <i class="peIcon fas fa-bus"></i>
+                  <p>
+                    Марка автобуса
+                  </p>
+                </router-link>
+              </li>
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/busmodel">
                   <i class="peIcon fas fa-bus"></i>
@@ -209,14 +225,7 @@
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
-                <router-link class="nav-link" to="/crm/busclass">
-                  <i class="peIcon fas fa-bus-alt"></i>
-                  <p>
-                    Класс автобуса
-                  </p>
-                </router-link>
-              </li>
+
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/conditionalsign">
                   <i class="peIcon fas fa-sign"></i>
@@ -226,7 +235,7 @@
                 </router-link>
               </li>
             </ul>
-          </li>  
+          </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <span class="peIcon pe-7s-settings" style="font-size: 20px;"></span>
@@ -258,7 +267,7 @@
                 </router-link>
               </li>
             </ul>
-          </li>  
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -274,7 +283,7 @@
         <div class="row">
           <div class="col-lg-12">
             <router-view></router-view>
-            <vue-progress-bar></vue-progress-bar> 
+            <vue-progress-bar></vue-progress-bar>
           </div>
         </div>
       </div>
@@ -299,7 +308,7 @@ export default {
   },
   data(){
     return {
-      
+
     }
   },
   computed: {
@@ -316,7 +325,7 @@ export default {
     logoutProfile(){
       this.logout();
     },
-    
+
   }
 };
 </script>
