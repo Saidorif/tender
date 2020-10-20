@@ -146,6 +146,7 @@
 							deselectLabel="Нажмите Enter, чтобы удалить"
 							:option="[{name: 'Otash', id: 1}]"
 							@select="dispatchAction"
+							@remove="removeDirect"
 							>
 							<span slot="noResult">По вашему запросу ничего не найдено</span>
 							<span slot="noOptions">Cписок пустой</span>
@@ -414,18 +415,23 @@
 				    })
 				}
 		    },
+		    removeDirect(){
+		    	this.form.direction_ids=[]
+		    	this.direction_ids={}
+				this.findList = []
+		    },
 		    addToAllItems(){
 		    	if (Object.keys(this.direction_ids).length > 0) {
 			    	// if (this.checked) {
 				    	if(this.checkedGrafik){
-				    		if (this.choosenFromItems.length > 0) {
+				    		if (this.choosenFromItems.length > 0){
 					    		let value = {
 					    			directions:this.direction_ids,
 					    			reyses:this.choosenFromItems
 					    		}
 					    		this.allItems.push(value)
 				    		}
-				    		if (this.choosenToItems.length > 0) {
+				    		if (this.choosenToItems.length > 0){
 					    		let value = {
 					    			directions:this.direction_ids,
 					    			reyses:this.choosenToItems
@@ -440,8 +446,42 @@
 				    			directions:this.direction_ids,
 				    			reyses:[]
 				    		}
-				    		this.allItems.push(value)
-				    		this.choosenFromItems = []
+				    		let checkLot = true
+				    		let checkItem = true
+				    		this.allLotes.forEach((lots,index)=>{
+				    			lots.forEach((lot,i)=>{
+					    			if (lot.directions.id == value.directions.id && lot.reyses.length == 0 && value.reyses.length == 0) {
+					    				checkLot = false
+					    			}else{
+					    				checkLot = true
+					    			}
+				    			})
+				    		})
+				    		this.allItems.forEach((item,index)=>{
+				    			if (item.directions.id == value.directions.id && item.reyses.length == 0 && value.reyses.length == 0) {
+				    				checkItem = false
+				    			}else{
+				    				checkItem = true
+				    			}
+				    		})
+				    		if (!checkLot) {
+				    			toast.fire({
+							    	type: 'error',
+							    	icon: 'error',
+									title: 'В списке лота существует!',
+							    })
+				    		}else{
+					    		if (checkItem) {
+				    				this.allItems.push(value)
+					    		}else{
+					    			toast.fire({
+								    	type: 'error',
+								    	icon: 'error',
+										title: 'Этот маршрут уже выбрано!',
+								    })
+					    		}
+				    		}
+		    				this.choosenFromItems = []
 				    		this.choosenToItems = []
 				    		this.direction_ids = {}
 				    	}
