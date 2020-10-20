@@ -1,24 +1,24 @@
 import ApiService from './api.service'
 
-const BusModelService = {
-	busmodelList(){
-		return ApiService.get(`/api/busmodel/list`)
+const BusBrandService = {
+	busmarkaList(){
+		return ApiService.get(`/api/busmarka/list`)
 	},
-	busmodels(){
-		return ApiService.post(`/api/busmodel`)
+	busmarkas(){
+		return ApiService.post(`/api/busmarka`)
 	},
-	addbusmodel(data){
-		return ApiService.post(`/api/busmodel/store`,data)
+	addbusmarka(data){
+		return ApiService.post(`/api/busmarka/store`,data)
 	},
-	editbusmodel(id){
-		return ApiService.get(`/api/busmodel/edit/${id}`)
+	editbusmarka(id){
+		return ApiService.get(`/api/busmarka/edit/${id}`)
 	},
-	updatebusmodel(data){
-		return ApiService.post(`/api/busmodel/update/${data.id}`,data)
+	updatebusmarka(data){
+		return ApiService.post(`/api/busmarka/update/${data.id}`,data)
 	},
-	deletebusmodel(id){
-		return ApiService.delete(`/api/busmodel/destroy/${id}`)
+	deletebusmarka(id){
+		return ApiService.delete(`/api/busmarka/destroy/${id}`)
 	},
 };
 
-export { BusModelService };
+export { BusBrandService };

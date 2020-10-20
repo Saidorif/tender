@@ -1,77 +1,77 @@
-import {BusModelService} from "../services/busmodel.service";
+import {BusBrandService} from "../services/busbrand.service";
 
 const state = {
-	busmodels: {},
-	busmodellist: [],
+	busbrands: {},
+	busbrandlist: [],
 	message: [],
-	busmodel: [],
+	busbrand: [],
 };
 
 const getters = {
-	getBusmodelList(state){
-		return state.busmodellist
+	getBusBrandList(state){
+		return state.busbrandlist
 	},
-	getBusmodels(state){
-		return state.busmodels
+	getBusBrands(state){
+		return state.busbrands
 	},
 	getMassage(state){
 		return state.message
 	},
-	getBusmodel(state){
-		return state.busmodel
+	getBusBrand(state){
+		return state.busbrand
 	},
 };
 
 
 const actions = {
-	async actionBusmodelList({commit},page){
+	async actionBusBrandList({commit},page){
 		try {
-			const types =  await BusModelService.busmodelList(page);
-			await commit('setBusmodelList',types.data.result)
+            const types =  await BusBrandService.busmarkaList(page);
+			await commit('setBusBrandList',types.data.result)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionBusmodels({commit},page){
+	async actionBusBrands({commit},page){
 		try {
-			const types =  await BusModelService.busmodels(page);
-			await commit('setBusmodels',types.data.result)
+			const types =  await BusBrandService.busmarkas(page);
+			await commit('setBusBrands',types.data.result)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionAddBusmodel({commit},payload){
+	async actionAddBusBrand({commit},payload){
 		try {
-			const types =  await BusModelService.addbusmodel(payload);
+			const types =  await BusBrandService.addbusmarka(payload);
 			await commit('setMessage',types.data)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionEditBusmodel({commit},id){
+	async actionEditBusBrand({commit},id){
 		try {
-			const types =  await BusModelService.editbusmodel(id);
-			await commit('setEditBusmodel',types.data.result)
+			const types =  await BusBrandService.editbusmarka(id);
+			await commit('setEditBusBrand',types.data.result)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionUpdateBusmodel({commit},payload){
+	async actionUpdateBusBrand({commit},payload){
 		try {
-			const types =  await BusModelService.updatebusmodel(payload);
+			const types =  await BusBrandService.updatebusmarka(payload);
 			await commit('setMessage',types.data)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionDeleteBusmodel({commit},id){
+	async actionDeleteBusBrand({commit},id){
 		try {
-			const types =  await BusModelService.deletebusmodel(id);
+			const types =  await BusBrandService.deletebusmarka(id);
 			await commit('setMessage',types.data)
 			return true
 		} catch (error) {
@@ -81,21 +81,21 @@ const actions = {
 };
 
 const mutations = {
-	setBusmodelList(state, busmodellist){
-		state.busmodellist = busmodellist
+	setBusBrandList(state, busbrandlist){
+		state.busbrandlist = busbrandlist
 	},
-	setBusmodels(state, busmodels){
-		state.busmodels = busmodels
+	setBusBrands(state, busbrand){
+		state.busbrands = busbrand
 	},
 	setMessage(state, message){
 		state.message = message
 	},
-	setEditBusmodel(state, busmodel){
-		state.busmodel = busmodel
+	setEditBusBrand(state, busbrand){
+		state.busbrand = busbrand
 	},
 };
 
-export const busmodel = {
+export const busbrand = {
 	namespaced: true,
 	state,
 	getters,

@@ -21,11 +21,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for="(model,index) in getBusmodels.data">
+							<tr v-for="(model,index) in getBusBrands.data">
 								<td scope="row">{{index+1}}</td>
 								<td>{{model.name}}</td>
 								<td>
-									<router-link tag="button" class="btn_transparent" :to='`/crm/busmodel/edit/${model.id}`'>
+									<router-link tag="button" class="btn_transparent" :to='`/crm/busbrand/edit/${model.id}`'>
 										<i class="pe_icon pe-7s-edit editColor"></i>
 									</router-link>
 									<button class="btn_transparent" @click="deleteType(model.id)">
@@ -34,7 +34,7 @@
 								</td>
 							</tr>
 						</tbody>
-						<pagination :limit="4" :data="getBusmodels" @pagination-change-page="getResults"></pagination>
+						<pagination :limit="4" :data="getBusBrands" @pagination-change-page="getResults"></pagination>
 					</table>
 				</div>
 			  </div>
@@ -51,22 +51,22 @@
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionBusmodels()
+			await this.actionBusBrands()
 		},
 		computed:{
-			...mapGetters('busmodel',['getBusmodels','getMassage'])
+			...mapGetters('busbrand',['getBusBrands','getMassage'])
 		},
 		methods:{
-			...mapActions('busmodel',['actionBusmodels','actionDeleteBusmodel']),
+			...mapActions('busbrand',['actionBusBrands','actionDeleteBusmodel']),
 			async getResults(page = 1){
-				await this.actionBusmodels(page)
+				await this.actionBusBrands(page)
 			},
 			async deleteType(id){
 				if(confirm("Вы действительно хотите удалить?")){
 					let page = 1
 					await this.actionDeleteBusmodel(id)
 					if (this.getMassage.error) {
-						await this.actionBusmodels(page)
+						await this.actionBusBrands(page)
 						toast.fire({
 				            type: "success",
 				            icon: "success",
