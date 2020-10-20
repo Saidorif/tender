@@ -26,18 +26,6 @@
                 {{ form.address }}
               </div>
             </div>
-            <div
-              class="form-group col-md-7 d-flex justify-content-end align-items-end"
-            >
-              <button
-                type="button"
-                class="btn btn-info btn_save_category"
-                @click.prevent="getEditId"
-              >
-                <i class="far fa-share-square text-light"></i>
-                <span class="text-light">Отправить заявку</span>
-              </button>
-            </div>
           </div>
         </form>
         <!-- All edit choosen tables -->
@@ -173,6 +161,14 @@
                       >
                         <i class="fas fa-eye"></i>
                       </router-link>
+                      <button
+                        type="button"
+                        class="btn btn-info btn_save_category"
+                        @click.prevent="getEditId"
+                      >
+                        <i class="far fa-share-square text-light"></i>
+                        <span class="text-light">Отправить заявку</span>
+                      </button>
                   </h4>
                   <b
                     >({{
@@ -216,11 +212,19 @@
                       {{ items.reysesTo[0].from.name }}</span
                     >
                      <router-link
-                            :to="`/crm/stepuser/demand-tab/${items.id}`"
-                            class="btn btn-outline-info"
-                          >
-                            <i class="fas fa-eye"></i>
-                          </router-link>
+                        :to="`/crm/stepuser/demand-tab/${items.id}`"
+                        class="btn btn-outline-info"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </router-link>
+                      <button
+                        type="button"
+                        class="btn btn-info btn_save_category"
+                        @click.prevent="getEditId"
+                      >
+                        <i class="far fa-share-square text-light"></i>
+                        <span class="text-light">Отправить заявку</span>
+                      </button>
                   </h4>
                   <b
                     >({{ getLengthReys(lots[index], items.reysesTo) }} рейсы)</b
@@ -271,10 +275,18 @@
                     </button>
                     <router-link 
                         :to='`/crm/stepuser/demand-tab/${items.id}`' 
-                        class="btn btn-outline-info"
+                        class="btn btn-outline-info mr-2"
                       >
                         <i class="fas fa-eye"></i>
                     </router-link>
+                    <button
+                      type="button"
+                      class="btn btn-info btn_save_category"
+                      @click.prevent="getEditId"
+                    >
+                      <i class="far fa-share-square text-light"></i>
+                      <span class="text-light">Отправить заявку</span>
+                    </button>
                   </div>
                 </li>
               </template>
