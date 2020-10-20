@@ -118,6 +118,15 @@ Route::group([
             Route::post('busmodel/update/{id}', 'BusModelController@update');
             Route::delete('busmodel/destroy/{id}', 'BusModelController@destroy');
 
+            //Bus Marka CRUD
+            Route::post('busmarka', 'BusMarkaController@index');
+            Route::post('busmarka/store', 'BusMarkaController@store');
+            Route::get('busmarka/list', 'BusMarkaController@list');
+            Route::post('busmarka/find', 'BusMarkaController@find');
+            Route::get('busmarka/edit/{id}', 'BusMarkaController@edit');
+            Route::post('busmarka/update/{id}', 'BusMarkaController@update');
+            Route::delete('busmarka/destroy/{id}', 'BusMarkaController@destroy');
+
             //Bus Class CRUD
             Route::post('tclass', 'TClassController@index');
             Route::post('tclass/store', 'TClassController@store');
