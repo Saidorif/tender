@@ -63,7 +63,7 @@ const actions = {
 	async actionUpdateTenderAnnounce({commit},payload){
 		try {
 			const tenderannounce =  await TenderAnnounceService.updatetenderannounce(payload);
-			await commit('setMessage',tenderannounce.data.result)
+			await commit('setMessage',tenderannounce.data)
 			return true
 		} catch (error) {
 			return false

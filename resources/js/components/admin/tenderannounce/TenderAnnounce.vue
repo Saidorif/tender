@@ -27,14 +27,10 @@
 						<tr v-for="(item,index) in getTenderAnnounces.data">
 							<td scope="row">{{index+1}}</td>
 							<td>
-								<ul class="list-inline">
-								    <li v-for="(val,key) in item.direction_ids">
-								    	<b>{{val.name}}</b>
-								    	<em v-if="item.tenderlots[key].reys_id.length > 0">
-									    	({{item.tenderlots[key].reys_id.length}} рейс)
-									    </em>
-								    </li>
-								</ul>
+								<em>
+							    	{{item.tenderlots.length}}
+							    	<span>{{item.tenderlots.length > 1 ? 'лоты' :'лот'}}</span>
+							    </em>
 							</td>
 							<td>{{item.address}}</td>
 							<td>{{item.time}}</td>
