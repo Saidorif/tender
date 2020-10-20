@@ -78,22 +78,24 @@ class TenderController extends Controller
         $tenderTime = Carbon::parse($request->input('time'))->format('Y-m-d H:i:s');
         //Get direction_ids in to one array
         foreach ($data as $key => $d) {
-            foreach ($d as $key => $value) {
+            foreach ($d as $k => $value) {
                 $direction_ids[] = $value['direction_id'];
-                $tender_lots[$value['direction_id']]['direction_id'] = $value['direction_id'];
-                $tender_lots[$value['direction_id']]['time'] = $tenderTime;
-                $tender_lots[$value['direction_id']]['status'] = $value['status'];
-                if(isset($tender_lots[$value['direction_id']]['reys_id'])){
-                    $tender_lots[$value['direction_id']]['reys_id'] = array_merge($value['reys_id'],$tender_lots[$value['direction_id']]['reys_id']);
+                $tender_lots[$key]['direction_id'][] = $value['direction_id'];
+                $tender_lots[$key]['time'] = $tenderTime;
+                $tender_lots[$key]['status'] = $value['status'];
+                // $tender_lots[$key]['reys_id'][] = $value['reys_id'];
+                if(isset($tender_lots[$key]['reys_id'])){
+                    $tender_lots[$key]['reys_id'] = array_merge($value['reys_id'],$tender_lots[$key]['reys_id']);
                 }else{
-                    $tender_lots[$value['direction_id']]['reys_id'] = $value['reys_id'];
+                    $tender_lots[$key]['reys_id'] = $value['reys_id'];
                 }
             }
         }
         $direction_ids = array_unique($direction_ids);
         $direction_ids = array_values($direction_ids);
-        //Store to DB
+        // return response()->json(['error' => true, 'result' => $tender_lots]);
         
+        //Create Tender Object        
         $tender = Tender::create([
             'time' => $tenderTime,
             'address' => $request->input('address'),
@@ -103,15 +105,30 @@ class TenderController extends Controller
         ]);
         // return response()->json(['error' => true,'result' => $tender_lots]);
 
-        foreach ($tender_lots as $key => $item) {
+        //Create tender LOTS
+        foreach ($data as $key => $items) {
+            $lotArr = [];
+            foreach ($items as $k => $item) {
+                if(isset($lotArr['reys_id'])){
+                    $lotArr['reys_id'] = array_merge($item['reys_id'],$lotArr['reys_id']);
+                }else{
+                    $lotArr['reys_id'] = $item['reys_id'];
+                }
+                $lotArr['direction_id'][] = $item['direction_id'];
+                $lotArr['status'] = $item['status'];
+                $lotArr['time'] = $tenderTime;
+                $lotArr['tender_id'] = $tender->id;
+            }
+            $lotArr['direction_id'] = array_unique($lotArr['direction_id']);
             $tenderLot = TenderLot::create([
                 'tender_id' => $tender->id,
-                'direction_id' => $item['direction_id'],
+                'direction_id' => $lotArr['direction_id'],
                 'time' => $tenderTime,
-                'reys_id' => $item['reys_id'],
-                'status' => $item['status'],
+                'reys_id' => $lotArr['reys_id'],
+                'status' => 'pending',
             ]);
         }
+        // return response()->json(['error' => true,'result' => $lotArr]);
 
         return response()->json(['success' => true,'message' => 'Объявление о тендере успешно создано']);
     }
