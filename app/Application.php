@@ -10,6 +10,7 @@ class Application extends Model
         'user_id',
         'direction_ids',
         'tender_id',
+        'lot_id',
         'tarif',
         'status',
         'daily_technical_job',

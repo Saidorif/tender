@@ -41,11 +41,12 @@ class ApplicationController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'tender_id' => 'required|integer',
+            'lot_id' => 'required|integer',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
-        $inputs = $request->only('tender_id');
+        $inputs = $request->only('tender_id','lot_id');
         $tender = Tender::find($inputs['tender_id']);
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
