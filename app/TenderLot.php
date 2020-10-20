@@ -19,6 +19,15 @@ class TenderLot extends Model
         'reys_id'      => 'array'
     ];
 
+    public function getDirection()
+    {
+        $result = [];
+        foreach ($this->direction_id as $key => $direction) {
+            $result[] = $direction->id;
+        }
+        return $result;
+    }
+
     public function getDirectionIdAttribute($value)
     {
         $d_ids = json_decode($value,true);

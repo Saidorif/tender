@@ -46,27 +46,27 @@
 			}
 		},
 		computed:{
-			...mapGetters('busmodel',['getMassage','getBusmodel'])
+			...mapGetters('busbrand',['getMassage','getBusBrand'])
 		},
 		async mounted(){
-			await this.actionEditBusmodel(this.$route.params.busmodelId)
-			this.form = this.getBusmodel
+			await this.actionEditBusBrand(this.$route.params.busbrandId)
+			this.form = this.getBusBrand
 		},
 		methods:{
-			...mapActions('busmodel',['actionEditBusmodel','actionUpdateBusmodel']),
+			...mapActions('busbrand',['actionEditBusBrand','actionUpdateBusBrand']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
 			async saveType(){
 		    	if (this.form.name != ''){
-					await this.actionUpdateBusmodel(this.form)
+					await this.actionUpdateBusBrand(this.form)
 		    		if (this.getMassage.success) {
 						toast.fire({
 				            type: "success",
 				            icon: "success",
 				            title: this.getMassage.message
 				          });
-						this.$router.push("/crm/busmodel");
+						this.$router.push("/crm/busbrand");
 						this.requiredInput = false
 					}
 				}else{

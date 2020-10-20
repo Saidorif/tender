@@ -42,20 +42,33 @@ class Tender extends Model
         return $this->belongsTo(\App\User::class,'approved_by');
     }
 
+    public function getDirection()
+    {
+        $result = [];
+        foreach ($this->direction_ids as $key => $direction) {
+            $result[] = $direction->id;
+        }
+        return $result;
+    }
+
     public function getDirectionIdsAttribute($value)
     {
         $d_ids = json_decode($value,true);
+        // $d_ids = json_decode($d_ids,true);
         $result = [];
-        foreach ($d_ids as $key => $id) {
-            $direction = Direction::where(['id' => $id])->first();
-            $result[] = $direction;
+        // var_dump(json_decode($d_ids,true));die;
+        if(!empty($d_ids)){
+            foreach ($d_ids as $key => $id) {
+                $direction = Direction::where(['id' => $id])->first();
+                $result[] = $direction;
+            }
+            foreach($result as $key => $value){
+                $reysesFrom = Reys::with(['reysTimes'])->where(['direction_id' => $value->id,'status' => 'active','type' => 'from'])->get();
+                $reysesTo   = Reys::with(['reysTimes'])->where(['direction_id' => $value->id,'status' => 'active','type' => 'to'])->get();
+                $value->reysesFrom = $reysesFrom;
+                $value->reysesTo = $reysesTo;
+            };            
         }
-        foreach($result as $key => $value){
-            $reysesFrom = Reys::with(['reysTimes'])->where(['direction_id' => $value->id,'status' => 'active','type' => 'from'])->get();
-            $reysesTo   = Reys::with(['reysTimes'])->where(['direction_id' => $value->id,'status' => 'active','type' => 'to'])->get();
-            $value->reysesFrom = $reysesFrom;
-            $value->reysesTo = $reysesTo;
-        };
         return $result;
     }
 }

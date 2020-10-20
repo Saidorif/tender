@@ -46,19 +46,19 @@
 			}
 		},
 		computed:{
-			...mapGetters('busmodel',['getMassage'])
+			...mapGetters('busbrand',['getMassage'])
 		},
 		mounted(){
 
 		},
 		methods:{
-			...mapActions('busmodel',['actionAddBusmodel']),
+			...mapActions('busbrand',['actionAddBusBrand']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
 			async saveType(){
 		    	if (this.form.name != ''){
-					await this.actionAddBusmodel(this.form)
+					await this.actionAddBusBrand(this.form)
 					if (this.getMassage.success) {
 						toast.fire({
 				            type: "success",

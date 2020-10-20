@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// ability 
+// ability
 import storage from "./storage"
 import {abilityPlugin, ability as appAbility} from './ability'
 import router from "./../routes"
@@ -29,6 +29,7 @@ import {busclass} from "./busclass.module"
 import {client} from "./client.module"
 import {complaint} from "./complaint.module"
 import {busmodel} from "./busmodel.module"
+import {busbrand} from "./busbrand.module"
 import {application} from "./application.module"
 import {conditionalsign} from "./conditionalsign.module"
 import {tenderannounce} from "./tenderannounce.module"
@@ -70,7 +71,8 @@ const store = new Vuex.Store(
 			busclass,
 			client,
 			complaint,
-			busmodel,
+            busmodel,
+            busbrand,
 			application,
 			conditionalsign,
 			tenderannounce,
@@ -160,7 +162,7 @@ const store = new Vuex.Store(
 					const newUser = await UserService.register(payload);
 					await commit('setRegisterError', newUser);
 				}catch(e){}
-			}, 
+			},
 			logout({ commit }){
 				UserService.logout();
 				commit('logoutSuccess');
