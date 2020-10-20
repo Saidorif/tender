@@ -4,29 +4,29 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-bus"></i>
-				    Добавить Модель автобуса
+				    Добавить Марка автобуса
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/busmodel"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/busbrand"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveType" >
 					<div class="row">
 					  <div class="form-group col-md-9">
 					    <label for="name">Название</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="name" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="name"
 					    	placeholder="Название"
 					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-lg-3 d-flex justify-content-end saveBtn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
-						</button>	
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -65,7 +65,7 @@
 				            icon: "success",
 				            title: this.getMassage.message
 				          });
-						this.$router.push("/crm/busmodel");
+						this.$router.push("/crm/busbrand");
 						this.requiredInput = false
 					}
 				}else{
