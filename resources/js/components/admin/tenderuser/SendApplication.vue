@@ -122,8 +122,8 @@
 					<div class="row">
 					  	<div class="form-group col-md-12 table table-responsive">
 					  		<div class="d-flex justify-content-center">
-							  	<h4>
-								  	Йўналишларда ишлаётганда ҳаракатланиш хавфсизлигини таъминлаш бўйича қатнашчи томонидан амалга оширилган тадбирлар режаси қуйидагича баҳоланади:
+							  	<h4 class="app_title">
+								  	Йўналишларда ишлаётганда ҳаракатланиш хавфсизлигини таъминлаш бўйича қатнашчи томонидан амалга оширилган тадбирлар режаси қуйидагича баҳоланади
 							  	</h4>
 							</div>
 						  	<table class="table table-bordered">
@@ -911,5 +911,9 @@
 	}
 	.road_price{
     	width: 84px;
+	}
+	.app_title{
+		width:75%;
+		text-align: center;
 	}
 </style>

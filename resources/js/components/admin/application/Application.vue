@@ -72,12 +72,11 @@
 	export default{
 		data(){
 			return{
-
 			}
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionApplications()
+			await this.actionApplications(page)
 		},
 		computed:{
 			...mapGetters('application',[
@@ -100,7 +99,6 @@
 				await this.actionAddApplication()
 				if (this.getAddMessage.success) {
 					this.$router.push("/crm/application/edit/"+this.getAddMessage.result.id);
-					console.log(this.getAddMessage.result)
 				}
 			},
 			async deleteRegion(id){
