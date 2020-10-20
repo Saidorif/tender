@@ -90,6 +90,11 @@ import BusModel from './components/admin/busmodel/BusModel'
 import AddBusModel from './components/admin/busmodel/AddBusModel'
 import EditBusModel from './components/admin/busmodel/EditBusModel'
 
+// BusBrand
+import BusBrand from './components/admin/busbrand/BusBrand'
+import AddBusBrand from './components/admin/busbrand/AddBusBrand'
+import EditBusBrand from './components/admin/busbrand/EditBusBrand'
+
 // ConditionalSign
 import ConditionalSign from './components/admin/conditionalsign/ConditionalSign'
 import AddConditionalSign from './components/admin/conditionalsign/AddConditionalSign'
@@ -147,11 +152,11 @@ import AddPayment from './components/admin/payment/AddPayment'
 // NotFound
 import NotFound from './components/NotFound/NotFound'
 const router = new Router({
-	mode: 'history', 
+	mode: 'history',
 	base: process.env.BASE_URL,
 	linkActiveClass: 'active',
 	routes: [
-		// public components 
+		// public components
 		{
 			path:'/crm',
 			name:'crm',
@@ -426,7 +431,19 @@ const router = new Router({
 				{
 					path:'busmodel/edit/:busmodelId',
 					component:EditBusModel,
+                },
+                {
+					path:'busbrand',
+					component:BusBrand,
+                },
+                {
+					path:'busbrand/add',
+					component:AddBusBrand,
 				},
+				{
+					path:'busbrand/edit/:busbrandId',
+					component:EditBusBrand,
+                },
 				{
 					path:'conditionalsign',
 					component:ConditionalSign,
@@ -577,7 +594,7 @@ router.beforeEach((to, from, next) => {
       	next()
     }
   } else {
-    next() 
+    next()
   }
 })
 
