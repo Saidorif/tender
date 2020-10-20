@@ -170,7 +170,7 @@
 				  		</ul>
 				  	</div>
 			  	</div>
-			  					<!-- all choosen lots -->
+			  	<!-- all choosen lots -->
 		  		<div class="table-responsive" v-if="allLotes.length > 0">
 			  		<div class="d-flex justify-content-center">
 			  			<h4>Добавленные лоты</h4>
