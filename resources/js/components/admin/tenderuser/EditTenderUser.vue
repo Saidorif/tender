@@ -320,6 +320,7 @@ export default {
     ...mapGetters("tenderannounce", ["getMassage", "getTenderAnnounce"]),
     ...mapGetters("direction", ["getDirectionFindList"]),
     ...mapGetters("passportTab", ["getSchedule"]),
+    ...mapGetters("busbrand", ["getBusBrandList"]),
   },
   watch: {
     getTenderAnnounce: {
@@ -356,7 +357,6 @@ export default {
     ]),
     ...mapActions("direction", ["actionDirectionFind"]),
     ...mapActions("passportTab", ["actionGetScheduleTable"]),
-    ...mapActions("busbrand", ["actionBusBrandList"]),
     async getEditId(id) {
       let data = {
         tender_id: this.$route.params.tenderuserId,
