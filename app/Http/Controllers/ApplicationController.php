@@ -14,7 +14,7 @@ class ApplicationController extends Controller
 
     public function index()
     {
-        $result = Application::orderBy('id', 'DESC')->with(['user','carsWith','tender','attachment'])->paginate(12);
+        $result = Application::orderBy('id', 'DESC')->with(['user','carsWith','lots','attachment'])->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
