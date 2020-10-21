@@ -667,6 +667,7 @@
 			...mapGetters('typeofbus',['getTypeofbusList']),
 			...mapGetters('busmodel',['getBusmodelList']),
 			...mapGetters('busclass',['getBusclassFindList']),
+    		...mapGetters("busbrand", ["getBusBrandList"]),
 		    checkCars(){
 		    	this.form.cars.forEach((item,index)=>{
 	    			if (item.auto_number != '' && item.bustype_id != '' && item.busmodel_id != '' && item.tclass_id != '') {
@@ -691,6 +692,7 @@
 			await this.actionEditApplication(this.$route.params.userapplicationId)
 			await this.actionTypeofbusList()
 			await this.actionBusmodelList()
+			await this.actionBusBrandList()
 			this.form = this.getApplication
 			this.cars_with = this.getApplication.cars_with
 			this.files = this.getApplication.attachment
@@ -710,6 +712,7 @@
 			...mapActions('busmodel',['actionBusmodelList']),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
+			...mapActions("busbrand", ["actionBusBrandList"]),
 			activeEditClass(lots,id){
 		    	let lot_list = lots.reys_id
 				if (lots.status == 'all') {
