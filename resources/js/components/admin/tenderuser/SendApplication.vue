@@ -264,8 +264,9 @@
 										<th>№</th>
 										<th>Номер Авто</th>
 										<th>Категория Авто</th>
-										<th>Модель Авто</th>
 										<th>Класс Авто</th>
+										<th>Марка Авто</th>
+										<th>Модель Авто</th>
 										<th>Дата выпуска</th>
 										<th>Вместимость</th>
 										<th>Количество сидящих</th>
@@ -278,8 +279,9 @@
 											<td>{{index+1}}</td>
 											<td>{{car.auto_number}}</td>
 											<td>{{car.bustype.name}}</td>
-											<td>{{car.busmodel.name}}</td>
 											<td>{{car.tclass.name}}</td>
+											<td>{{car.busmarka ? car.busmarka.name : ''}}</td>
+											<td>{{car.busmodel.name}}</td>
 											<td>{{car.date}}</td>
 											<td>{{car.capacity}}</td>
 											<td>{{car.seat_qty}}</td>

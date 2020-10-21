@@ -6,14 +6,6 @@
 			    	<i class="peIcon fas fa-file"></i>
 				    Заявки
 				</h4>
-	<!-- 			<button type="button" class="btn btn-primary" @click.prevent="getEditId">
-					<i class="fas fa-plus"></i> 
-					Добавить
-				</button> -->
-		<!-- 		<router-link class="btn btn-primary" to="/crm/application/add">
-					<i class="fas fa-plus"></i> 
-					Добавить
-				</router-link> -->
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -21,7 +13,7 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Маршруты</th>
+							<th scope="col">Лоты</th>
 							<th scope="col">Адрес</th>
 							<th scope="col">Статус</th>
 							<th scope="col">Количество автотранспорта</th>
@@ -33,14 +25,10 @@
 						<tr v-for="(reg,index) in getApplications.data">
 							<td scope="row">{{index+1}}</td>
 							<td>
-								<ul class="list-inline" v-if="reg.tender.direction_ids.length > 0">
-								    <li v-for="(val,key) in reg.tender.direction_ids">
-								    	<b>{{val.name}}</b>
-								    	<em v-if="reg.tender.tenderlots[key].reys_id.length > 0">
-									    	({{reg.tender.tenderlots[key].reys_id.length}} рейс)
-									    </em>
-								    </li>
-								</ul>
+								<em>
+							    	{{reg.tender.tenderlots.length}}
+							    	<span>{{reg.tender.tenderlots.length > 1 ? 'лоты' :'лот'}}</span>
+							    </em>
 							</td>
 							<td>{{reg.tender.address}}</td>
 							<td>
