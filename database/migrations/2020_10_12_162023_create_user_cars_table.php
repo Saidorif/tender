@@ -22,6 +22,7 @@ class CreateUserCarsTable extends Migration
             $table->string('auto_number')->nullable();
             $table->bigInteger('bustype_id')->nullable();
             $table->bigInteger('busmodel_id')->nullable();
+            $table->bigInteger('busmarka_id')->nullable();
             $table->bigInteger('tclass_id')->nullable();
             $table->string('qty_reys')->nullable();
             $table->string('capacity')->nullable();

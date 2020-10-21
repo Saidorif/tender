@@ -15,7 +15,7 @@ class UserCar extends Model
         'bustype_id',
         'busmodel_id',
         'tclass_id',
-        'qty_reys',
+        'busmarka_id',
         'capacity',
         'seat_qty',
         'date',
@@ -40,6 +40,11 @@ class UserCar extends Model
     public function busmodel()
     {
         return $this->belongsTo(\App\BUsModel::class,'busmodel_id');
+    }
+
+    public function busmarka()
+    {
+        return $this->belongsTo(\App\BusMarka::class,'busmarka_id');
     }
 
     public function tclass()
