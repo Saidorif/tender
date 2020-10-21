@@ -17,9 +17,11 @@ class CreateTClassesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->bigInteger('bustype_id');
+            $table->bigInteger('busmarka_id');
             $table->bigInteger('busmodel_id');
             $table->integer('seat_from');
             $table->integer('seat_to')->nullable();
+            $table->string('desc')->nullable();
             $table->integer('stay_from');
             $table->integer('stay_to')->nullable();
             $table->timestamps();

@@ -34,6 +34,7 @@ class BusTypeController extends Controller
         $user = $request->user();
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
+            'desc' => 'nullable|string',
         ]);
 
         if($validator->fails()){
@@ -53,6 +54,7 @@ class BusTypeController extends Controller
         }
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
+            'desc' => 'nullable|string',
         ]);
 
         if($validator->fails()){
