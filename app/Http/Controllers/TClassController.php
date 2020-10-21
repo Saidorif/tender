@@ -46,7 +46,7 @@ class TClassController extends Controller
 
     public function edit($id)
     {
-        $result = TClass::with(['bustype','model'])->find($id);
+        $result = TClass::with(['bustype','model','marka'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Класс транспорта не найдено']);
         }
@@ -60,6 +60,8 @@ class TClassController extends Controller
             'name' => 'required|string',
             'busmodel_id' => 'required|integer',
             'bustype_id' => 'required|integer',
+            'busbrand_id' => 'required|integer',
+            'desc' => 'nullable|string',
             'seat_from' => 'required|integer',
             // 'seat_to' => 'required|integer',
             'stay_from' => 'required|integer',
@@ -70,6 +72,7 @@ class TClassController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        $inputs['busmarka_id'] = $inputs['busbrand_id'];
         $result = TClass::create($inputs);
         return response()->json(['success' => true, 'message' => 'Класс транспорта успешно создана']);
     }
@@ -86,6 +89,8 @@ class TClassController extends Controller
             'busmodel_id' => 'required|integer',
             'bustype_id' => 'required|integer',
             'seat_from' => 'required|integer',
+            'busbrand_id' => 'required|integer',
+            'desc' => 'nullable|string',
             // 'seat_to' => 'required|integer',
             'stay_from' => 'required|integer',
             // 'stay_to' => 'required|integer',
@@ -95,6 +100,7 @@ class TClassController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        $inputs['busmarka_id'] = $inputs['busbrand_id'];
         $result->update($inputs);
         return response()->json(['success' => true, 'message' => 'Класс транспорта успешно обновлено']);
     }
