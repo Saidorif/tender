@@ -6,6 +6,14 @@
 			    	<i class="peIcon fas fa-file"></i>
 				    Заявки
 				</h4>
+	<!-- 			<button type="button" class="btn btn-primary" @click.prevent="getEditId">
+					<i class="fas fa-plus"></i> 
+					Добавить
+				</button> -->
+		<!-- 		<router-link class="btn btn-primary" to="/crm/application/add">
+					<i class="fas fa-plus"></i> 
+					Добавить
+				</router-link> -->
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -13,8 +21,7 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Лоты</th>
-							<th scope="col">Адрес</th>
+							<th scope="col">Маршруты</th>
 							<th scope="col">Статус</th>
 							<th scope="col">Количество автотранспорта</th>
 							<th scope="col">Дата</th>
@@ -25,19 +32,19 @@
 						<tr v-for="(reg,index) in getApplications.data">
 							<td scope="row">{{index+1}}</td>
 							<td>
-								<em>
-							    	{{reg.tender.tenderlots.length}}
-							    	<span>{{reg.tender.tenderlots.length > 1 ? 'лоты' :'лот'}}</span>
-							    </em>
+								<ul class="list-inline" v-if="reg.lots.direction_id.length > 0">
+								    <li v-for="(val,key) in reg.lots.direction_id">
+								    	<b>{{val.name}}</b>
+								    </li>
+								</ul>
 							</td>
-							<td>{{reg.tender.address}}</td>
 							<td>
 								<div class="badge badge-warning">
 									{{reg.status}}
 								</div>
 							</td>
 							<td width="15%">{{reg.cars_with.length}}</td>
-							<td>{{reg.tender.time}}</td>
+							<td>{{reg.lots.time}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/application/user/${reg.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
