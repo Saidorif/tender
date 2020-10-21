@@ -446,10 +446,10 @@
 					    	placeholder="Номер Авто"
 					    	v-model="car.tclass_id"
 					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
-
+					    	@change="selectMarka(car.tclass_id)"
 					    >
 					    	<option value="" selected disabled>Выберите класс авто!</option>
-					    	<option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
+					    	<option :value="busClass.id" v-for="(busClass,index) in tclasses">{{busClass.name}}</option>
 					    </select>
 				  	</div>
 				  	<div class="form-group col-md-3">
@@ -460,9 +460,10 @@
 					    	placeholder="Номер Авто"
 					    	v-model="car.busmarka_id"
 					    	:class="isRequired(car.busmarka_id) ? 'isRequired' : ''"
+					    	@change="selectModel(car.busmarka_id)"
 					    >
 					    	<option value="" selected disabled>Выберите марку авто!</option>
-					    	<option :value="mark.id" v-for="(mark,index) in getBusBrandList">{{mark.name}}</option>
+					    	<option :value="item.marka.id" v-for="(item,index) in bus_marks">{{item.marka.name}}</option>
 					    </select>
 				  	</div>
 				  	<div class="form-group col-md-3">
@@ -475,7 +476,7 @@
 					    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
 					    >
 					    	<option value="" selected disabled>Выберите модель авто!</option>
-					    	<option :value="busmodel.id" v-for="(busmodel,index) in getBusmodelList">{{busmodel.name}}</option>
+					    	<option :value="item.model.id" v-for="(item,index) in bus_models">{{item.model.name}}</option>
 					    </select>
 				  	</div>
 				  	<div class="form-group col-md-3">
@@ -663,8 +664,11 @@
 					bus_adapted:0,
 					telephone_power:0,
 					monitor:0,
-					tclasses:[]
+					station_announce:0,
 				},
+				tclasses:[],
+				bus_marks:[],
+				bus_models:[],
 				file:'',
 				files:[],
 				cars_with:[],
@@ -702,6 +706,11 @@
 			    		this.cars_with = this.getApplication.cars_with
 						this.files = this.getApplication.attachment
 					}
+				}
+			},
+			getBusclassFindList:{
+				handler(){
+					this.tclasses = this.getBusclassFindList
 				}
 			}
 		},
@@ -810,19 +819,19 @@
 			defaultValuesOfCar(){
 				this.car.auto_number = ''
 		    	this.car.bustype_id = ''
-		    	this.car.busmodel_id = ''
 		    	this.car.tclass_id = ''
 		    	this.car.busmarka_id = ''
+		    	this.car.busmodel_id = ''
+		    	this.car.date = ''
 		    	this.car.capacity = ''
 		    	this.car.seat_qty = ''
-		    	this.car.date = ''
 		    	this.car.conditioner = 0
 		    	this.car.internet = 0
 		    	this.car.bio_toilet = 0
 		    	this.car.bus_adapted = 0
 		    	this.car.telephone_power = 0
 		    	this.car.monitor = 0
-		    	this.car.tclasses = []
+		    	this.car.station_announce = 0
 		    },
 			isRequired(input){
 	    		return this.requiredInput && input === '';
@@ -851,23 +860,50 @@
 		    },
 		    async selectClass(bustype_id){
 		    	this.car.tclass_id = ''
+		    	this.car.busmarka_id = ''
+		    	this.car.busmodel_id = ''
 		    	if (bustype_id) {
 		    		let data = {
 		    			'bustype_id':bustype_id,
 		    		}
 			    	await this.actionBusclassFind(data)
-		    		console.log(this.getBusclassFindList)
+			    	this.tclasses = this.getBusclassFindList
 		    	}
 		    },
+		    async selectMarka(tclass_id){
+		    	this.car.busmarka_id = ''
+		    	this.car.busmodel_id = ''
+		    	this.bus_marks = this.tclasses.filter((item,index)=>{
+		    		if (item.id == tclass_id) {
+		    			return item
+		    		}
+		    	})
+		    },
+		    async selectModel(marka_id){
+		    	this.car.busmodel_id = ''
+		    	this.bus_models = this.bus_marks.filter((item,index)=>{
+		    		if (item.marka.id == marka_id) {
+		    			return item
+		    		}
+		    	})
+		    },
 		    async addCar(){
-		    	if (this.car.auto_number != '' && this.car.bustype_id != '' && this.car.busmodel_id != '' && this.car.tclass_id != '' && this.car.capacity != '' && this.car.seat_qty != '' && this.car.date != '')
+		    	if (
+	    			this.car.auto_number != '' && 
+	    			this.car.bustype_id != '' && 
+	    			this.car.tclass_id != '' && 
+	    			this.car.busmarka_id != '' && 
+	    			this.car.busmodel_id != '' && 
+	    			this.car.date != '' &&
+	    			this.car.capacity != '' && 
+	    			this.car.seat_qty != ''
+    			)
 		    	{
 					this.car['app_id'] = this.$route.params.userapplicationId
 			    	await this.actionAddCar(this.car)
 			    	if(this.getMassage.success){
 				    	await this.actionEditApplication(this.$route.params.userapplicationId)
 				    	$('#myModal').modal('hide')
-				    	// this.defaultValuesOfCar()
 			    	}
 		    		this.requiredInput = false
 		    	}else{
