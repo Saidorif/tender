@@ -320,6 +320,7 @@ export default {
     ...mapGetters("tenderannounce", ["getMassage", "getTenderAnnounce"]),
     ...mapGetters("direction", ["getDirectionFindList"]),
     ...mapGetters("passportTab", ["getSchedule"]),
+    ...mapGetters("busbrand", ["getBusBrandList"]),
   },
   watch: {
     getTenderAnnounce: {
@@ -368,23 +369,25 @@ export default {
         );
       }
     },
-    activeEditClass(lots, id) {
-      let lot_list = lots.reys_id;
+    activeEditClass(lots,id){
+      let lot_list = lots.reys_id
       if (lot_list.length > 0) {
         if (lot_list.includes(id)) {
-          return true;
+          return true
         }
       }
     },
-    getLengthReys(lots, reys) {
-      let lot_list = lots.reys_id;
-      let count = 0;
-      reys.forEach((item, index) => {
-        if (lot_list.includes(item.id)) {
-          count++;
-        }
-      });
-      return count;
+    getLengthReys(lots,reys){
+      if (lots) {
+        let lot_list = lots.reys_id
+        let count = 0;
+        reys.forEach((item,index)=>{
+          if (lot_list.includes(item.id)) {
+            count++
+          }
+        })
+        return count
+      }
     },
     isRequired(input) {
       return this.requiredInput && input === "";

@@ -428,24 +428,14 @@
 					    	placeholder="Номер Авто"
 					    	v-model="car.bustype_id"
 					    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''"
-					    	@change="selectClass(car.bustype_id, car.busmodel_id)"
+					    	@change="selectClass(car.bustype_id)"
 					    >
 					    	<option value="" selected disabled>Выберите категорию авто!</option>
-					    	<option :value="busType.id" v-for="(busType,index) in getTypeofbusList">{{busType.name}}</option>
-					    </select>
-				  	</div>
-				  	<div class="form-group col-md-3">
-					    <label for="busmodel_id">Модель Авто</label>
-					    <select
-						    class="form-control input_style"
-					    	id="busmodel_id"
-					    	placeholder="Номер Авто"
-					    	v-model="car.busmodel_id"
-					    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
-					    	@change="selectClass(car.bustype_id, car.busmodel_id)"
-					    >
-					    	<option value="" selected disabled>Выберите модель авто!</option>
-					    	<option :value="busmodel.id" v-for="(busmodel,index) in getBusmodelList">{{busmodel.name}}</option>
+					    	<option 
+					    		:value="busType.id" 
+					    		v-for="(busType,index) in getTypeofbusList"
+					    		data-toggle="tooltip" data-placement="right" title="Tooltip on right"
+				    		>{{busType.name}}</option>
 					    </select>
 				  	</div>
 				  	<div class="form-group col-md-3">
@@ -462,7 +452,33 @@
 					    	<option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
 					    </select>
 				  	</div>
-				  	<div class="form-group col-md-4">
+				  	<div class="form-group col-md-3">
+					    <label for="busmarka_id">Марка Авто</label>
+					    <select
+						    class="form-control input_style"
+					    	id="busmarka_id"
+					    	placeholder="Номер Авто"
+					    	v-model="car.busmarka_id"
+					    	:class="isRequired(car.busmarka_id) ? 'isRequired' : ''"
+					    >
+					    	<option value="" selected disabled>Выберите марку авто!</option>
+					    	<option :value="mark.id" v-for="(mark,index) in getBusBrandList">{{mark.name}}</option>
+					    </select>
+				  	</div>
+				  	<div class="form-group col-md-3">
+					    <label for="busmodel_id">Модель Авто</label>
+					    <select
+						    class="form-control input_style"
+					    	id="busmodel_id"
+					    	placeholder="Номер Авто"
+					    	v-model="car.busmodel_id"
+					    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
+					    >
+					    	<option value="" selected disabled>Выберите модель авто!</option>
+					    	<option :value="busmodel.id" v-for="(busmodel,index) in getBusmodelList">{{busmodel.name}}</option>
+					    </select>
+				  	</div>
+				  	<div class="form-group col-md-3">
 					    <label for="date">Дата выпуска</label>
 					    <input
 					    	type="date"
@@ -472,7 +488,7 @@
 					    	:class="isRequired(car.date) ? 'isRequired' : ''"
 				    	>
 				  	</div>
-				  	<div class="form-group col-md-4">
+				  	<div class="form-group col-md-3">
 					    <label for="capacity">Вместимость</label>
 					    <input
 					    	type="number"
@@ -484,7 +500,7 @@
 					    	:class="isRequired(car.capacity) ? 'isRequired' : ''"
 				    	>
 				  	</div>
-				  	<div class="form-group col-md-4">
+				  	<div class="form-group col-md-3">
 					    <label for="seat_qty">Количество сидящих</label>
 					    <input
 					    	type="number"
@@ -635,6 +651,7 @@
 				car:{
 					auto_number:'',
 					bustype_id:'',
+					busmarka_id:'',
 					busmodel_id:'',
 					tclass_id:'',
 					capacity:'',
@@ -667,6 +684,7 @@
 			...mapGetters('typeofbus',['getTypeofbusList']),
 			...mapGetters('busmodel',['getBusmodelList']),
 			...mapGetters('busclass',['getBusclassFindList']),
+    		...mapGetters("busbrand", ["getBusBrandList"]),
 		    checkCars(){
 		    	this.form.cars.forEach((item,index)=>{
 	    			if (item.auto_number != '' && item.bustype_id != '' && item.busmodel_id != '' && item.tclass_id != '') {
@@ -691,6 +709,7 @@
 			await this.actionEditApplication(this.$route.params.userapplicationId)
 			await this.actionTypeofbusList()
 			await this.actionBusmodelList()
+			await this.actionBusBrandList()
 			this.form = this.getApplication
 			this.cars_with = this.getApplication.cars_with
 			this.files = this.getApplication.attachment
@@ -710,6 +729,7 @@
 			...mapActions('busmodel',['actionBusmodelList']),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
+			...mapActions("busbrand", ["actionBusBrandList"]),
 			activeEditClass(lots,id){
 		    	let lot_list = lots.reys_id
 				if (lots.status == 'all') {
@@ -792,6 +812,7 @@
 		    	this.car.bustype_id = ''
 		    	this.car.busmodel_id = ''
 		    	this.car.tclass_id = ''
+		    	this.car.busmarka_id = ''
 		    	this.car.capacity = ''
 		    	this.car.seat_qty = ''
 		    	this.car.date = ''
@@ -828,15 +849,14 @@
 		        },1000)
 		      }
 		    },
-		    async selectClass(bustype_id,busmodel_id){
+		    async selectClass(bustype_id){
 		    	this.car.tclass_id = ''
-		    	if (bustype_id && busmodel_id) {
+		    	if (bustype_id) {
 		    		let data = {
 		    			'bustype_id':bustype_id,
-		    			'busmodel_id':busmodel_id
 		    		}
 			    	await this.actionBusclassFind(data)
-		    		this.car.tclasses = this.getBusclassFindList
+		    		console.log(this.getBusclassFindList)
 		    	}
 		    },
 		    async addCar(){

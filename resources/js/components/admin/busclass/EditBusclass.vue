@@ -33,6 +33,17 @@
               </select>
             </div>
             <div class="form-group col-md-4">
+              <label for="name">Название класса</label>
+              <input
+                type="text"
+                class="form-control input_style"
+                id="name"
+                placeholder="Название класса"
+                v-model="form.name"
+                :class="isRequired(form.name) ? 'isRequired' : ''"
+              />
+            </div>
+            <div class="form-group col-md-4">
               <label for="busmodel_id">Марка автобуса</label>
               <select
                 class="form-control input_style"
@@ -67,17 +78,6 @@
                   {{ item.name }}
                 </option>
               </select>
-            </div>
-            <div class="form-group col-md-4">
-              <label for="name">Название класса</label>
-              <input
-                type="text"
-                class="form-control input_style"
-                id="name"
-                placeholder="Название класса"
-                v-model="form.name"
-                :class="isRequired(form.name) ? 'isRequired' : ''"
-              />
             </div>
             <div class="form-group col-md-4">
               <label for="seat_from">Количество сидящих</label>
