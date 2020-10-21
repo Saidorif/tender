@@ -23,7 +23,7 @@ class TClassController extends Controller
     public function find(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'busmodel_id' => 'required|integer',
+            // 'busmodel_id' => 'required|integer',
             'bustype_id' => 'required|integer',
         ]);
 
@@ -40,7 +40,7 @@ class TClassController extends Controller
                 $builder->where(['bustype_id' => $params['bustype_id']]);
             }
         }
-        $result = $builder->get();
+        $result = $builder->with(['model','bustype','marka'])->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
 
