@@ -80,7 +80,7 @@ class ApplicationController extends Controller
             // 'qty_reys' => 'required|integer',
             'capacity' => 'required|integer',
             'seat_qty' => 'required|integer',
-            'date' => 'required|min:1900|max:2500|size:4',
+            'date' => 'required|integer|min:1900|max:'.date('Y'),
             'conditioner' => 'required|boolean',
             'internet' => 'required|boolean',
             'bio_toilet' => 'required|boolean',

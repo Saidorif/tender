@@ -12,6 +12,7 @@ class Application extends Model
         'tender_id',
         'lot_id',
         'tarif',
+        'qty_reys',
         'status',
         'daily_technical_job',
         'daily_medical_job',

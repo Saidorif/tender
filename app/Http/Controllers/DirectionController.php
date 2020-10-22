@@ -147,7 +147,7 @@ class DirectionController extends Controller
         }
         $region_ids = Region::pluck('id');
         $area_ids = Area::pluck('id');
-        $all_reg_ids = array_merge($region_ids,$area_ids);
+        // $all_reg_ids = array_merge($region_ids,$area_ids);
         $validator = Validator::make($request->all(), [            
             'pass_number'  => 'required|string',
             'year'  => 'required|string',
