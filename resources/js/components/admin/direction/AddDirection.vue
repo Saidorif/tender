@@ -323,9 +323,9 @@ export default {
       return this.requiredInput && input === "";
     },
     async selectClass(car){
-      // this.car.tclass_id = ''
-      // this.car.busmarka_id = ''
-      // this.car.busmodel_id = ''
+      car.tclass_id = ''
+      car.busmarka_id = ''
+      car.busmodel_id = ''
       if (car.bustype_id) {
         let data = {
           'bustype_id':car.bustype_id,
@@ -335,18 +335,18 @@ export default {
       }
     },
     async selectMarka(car){
-      // this.car.busmarka_id = ''
-      // this.car.busmodel_id = ''
+      car.busmarka_id = ''
+      car.busmodel_id = ''
       car.bus_marks = car.tclasses.filter((item,index)=>{
-        if (item.id == car.tclass_id) {
+        if (item.id == car.tclass_id){
           return item
         }
       })
     },
     async selectModel(car){
-      // this.car.busmodel_id = ''
+      car.busmodel_id = ''
       car.bus_models = car.bus_marks.filter((item,index)=>{
-        if (item.marka.id == car.busmarka_id) {
+        if (item.marka.id == car.busmarka_id){
           return item
         }
       })
