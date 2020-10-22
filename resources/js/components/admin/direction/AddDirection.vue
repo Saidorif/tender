@@ -8,7 +8,8 @@
           Добавить направление
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/direction">
-          <span class="peIcon pe-7s-back"></span> Назад
+          <span class="peIcon pe-7s-back"></span> 
+          Назад
         </router-link>
       </div>
       <div class="card-body">
@@ -133,7 +134,7 @@
                 <label :for="'from_where'+index">{{item.name}}</label>
               </div>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
               <label for="seria">Yo'nalish ochilish sanasi</label>
               <date-picker 
                 lang="ru" 
@@ -145,7 +146,7 @@
                 format="YYYY"
               ></date-picker>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
               <label for="seria">Yonalish masofasi</label>
               <input
                 type="number"
@@ -154,7 +155,7 @@
                 :class="isRequired(form.distance) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
               <label for="profitability">Рентабельность</label>
               <select
                 class="form-control input_style"
@@ -167,7 +168,82 @@
                 <option value="middle">Средный</option>
               </select>
             </div>
-            <div class="form-group col-lg-2 form_btn d-flex justify-content-end">
+            <div class="col-lg-12">
+              <div class="d-flex justify-content-center">
+                <h3><strong>Автотранспорты</strong></h3>
+              </div>
+              <div class="row" v-for="(car,index) in cars">
+                <h4 class="car_index">{{index+1}})</h4>
+                <div class="form-group col-md-2">
+                  <label :for="'bustype_id'+index">Категория Авто</label>
+                  <select
+                    class="form-control input_style"
+                    :id="'bustype_id'+index"
+                    placeholder="Номер Авто"
+                    v-model="car.bustype_id"
+                    :class="isRequired(car.bustype_id) ? 'isRequired' : ''"
+                    @change="selectClass(car)"
+                  >
+                    <option value="" selected disabled>Выберите категорию авто!</option>
+                    <option 
+                      :value="busType.id" 
+                      v-for="(busType,index) in getTypeofbusList"
+                    >{{busType.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="tclass_id">Класс Авто</label>
+                  <select
+                    class="form-control input_style"
+                    id="tclass_id"
+                    placeholder="Номер Авто"
+                    v-model="car.tclass_id"
+                    :class="isRequired(car.tclass_id) ? 'isRequired' : ''"
+                    @change="selectMarka(car)"
+                  >
+                    <option value="" selected disabled>Выберите класс авто!</option>
+                    <option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="busmarka_id">Марка Авто</label>
+                  <select
+                    class="form-control input_style"
+                    id="busmarka_id"
+                    placeholder="Номер Авто"
+                    v-model="car.busmarka_id"
+                    :class="isRequired(car.busmarka_id) ? 'isRequired' : ''"
+                    @change="selectModel(car)"
+                  >
+                    <option value="" selected disabled>Выберите марку авто!</option>
+                    <option :value="item.marka.id" v-for="(item,index) in car.bus_marks">{{item.marka.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="busmodel_id">Модель Авто</label>
+                  <select
+                    class="form-control input_style"
+                    id="busmodel_id"
+                    placeholder="Номер Авто"
+                    v-model="car.busmodel_id"
+                    :class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
+                  >
+                    <option value="" selected disabled>Выберите модель авто!</option>
+                    <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-1 btn_remove_auto" v-if="cars.length > 1">
+                  <button type="button" class="btn btn-danger" @click.prevent="removeCar(index)">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
+              <button type="button" class="btn btn-info btn_save_category mr-3" @click.prevent="addCar">
+                <i class="fas fa-plus"></i>
+                Добавить авто
+              </button>
               <button type="submit" class="btn btn-primary btn_save_category">
                 <i class="fas fa-save"></i>
                 Сохранить
@@ -210,6 +286,17 @@ export default {
         type_id: "",
         profitability: "profitability",
       },
+      cars:[
+        {
+          bustype_id:'',
+          tclass_id:'',
+          busmarka_id:'',
+          busmodel_id:'',
+          tclasses:[],
+          bus_models:[],
+          bus_marks:[],
+        }
+      ],
       areaFrom:[],
       areaTo:[],
       stationFrom:[],
@@ -220,17 +307,64 @@ export default {
   },
   async mounted() {
     await this.actionRegionList();
+    await this.actionTypeofbusList();
     await this.actionTypeofdirectionList();
     this.laoding = false
   },
   methods: {
+    ...mapActions('typeofbus',['actionTypeofbusList']),
     ...mapActions("region", ["actionRegionList"]),
     ...mapActions("station", ["actionStationByRegion"]),
     ...mapActions("area", ["actionAreaByRegion"]),
     ...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
     ...mapActions("direction", ["actionAddDirection"]),
+    ...mapActions('busclass',['actionBusclassFind']),
     isRequired(input) {
       return this.requiredInput && input === "";
+    },
+    async selectClass(car){
+      // this.car.tclass_id = ''
+      // this.car.busmarka_id = ''
+      // this.car.busmodel_id = ''
+      if (car.bustype_id) {
+        let data = {
+          'bustype_id':car.bustype_id,
+        }
+        await this.actionBusclassFind(data)
+        car.tclasses = this.getBusclassFindList
+      }
+    },
+    async selectMarka(car){
+      // this.car.busmarka_id = ''
+      // this.car.busmodel_id = ''
+      car.bus_marks = car.tclasses.filter((item,index)=>{
+        if (item.id == car.tclass_id) {
+          return item
+        }
+      })
+    },
+    async selectModel(car){
+      // this.car.busmodel_id = ''
+      car.bus_models = car.bus_marks.filter((item,index)=>{
+        if (item.marka.id == car.busmarka_id) {
+          return item
+        }
+      })
+    },
+    removeCar(index){
+      Vue.delete(this.cars,index)
+    },
+    addCar(){
+      this.cars.push(
+        {
+          bustype_id:'',
+          tclass_id:'',
+          busmarka_id:'',
+          busmodel_id:'',
+          tclasses:[],
+          bus_models:[],
+          bus_marks:[],
+        })
     },
     async saveDirection() {
       if (
@@ -243,23 +377,24 @@ export default {
         this.form.from_where != "" &&
         this.form.seasonal != "" 
       ) {
+        this.form['cars'] = this.cars
         this.laoding = true
-    await this.actionAddDirection(this.form)
-    this.laoding = false
-		if(this.getMassage.success){
-			toast.fire({
-				type: "success",
-				icon: "success",
-				title: this.getMassage.message
-			 });
-			this.$router.push(`/crm/direction/edit/${this.getMassage.result.id}`);
-		}else{
-			toast.fire({
-				type: "error",
-				icon: "error",
-				title: 'Whoops..Something went wrong!'
-			 });
-		}
+        await this.actionAddDirection(this.form)
+        this.laoding = false
+    		if(this.getMassage.success){
+    			toast.fire({
+    				type: "success",
+    				icon: "success",
+    				title: this.getMassage.message
+    			 });
+    			this.$router.push(`/crm/direction/edit/${this.getMassage.result.id}`);
+    		}else{
+    			toast.fire({
+    				type: "error",
+    				icon: "error",
+    				title: 'Whoops..Something went wrong!'
+    			 });
+    		}
       this.requiredInput = false;
       } else {
         this.requiredInput = true;
@@ -290,6 +425,8 @@ export default {
     },
   },
   computed: {
+    ...mapGetters('busclass',['getBusclassFindList']),
+    ...mapGetters('typeofbus',['getTypeofbusList']),
     ...mapGetters("region", ["getRegionList"]),
     ...mapGetters("area", ["getAreaList"]),
     ...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
@@ -365,4 +502,13 @@ export default {
 };
 </script>
 <style scoped>
+  .btn_remove_auto{
+    display:flex;
+    align-items: center;
+    margin-top: 30px;
+  }
+  .car_index{
+    margin-top: 35px;
+    margin-left: 15px;
+  }
 </style>
