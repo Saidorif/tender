@@ -164,7 +164,7 @@ class DirectionController extends Controller
             'region_to.region_id'  => ['required',Rule::in($region_ids),],
             'region_to.area_id'    => ['nullable',Rule::in($area_ids),],
             'region_to.station_id'    => ['nullable',Rule::in($area_ids),],
-            'cars' => 'required|array',
+            'cars' => 'nullable|array',
             'cars.*.busmarka_id' => 'required|integer',
             'cars.*.busmodel_id' => 'required|integer',
             'cars.*.bustype_id' => 'required|integer',
@@ -204,6 +204,16 @@ class DirectionController extends Controller
         }
 
         return response()->json(['success' => true, 'message' => 'Направление успешно обновлен']);
+    }
+
+    public function deleteDirectionCar(Request $request,$id)
+    {
+        $direction_car = DirectionCar::find($id);
+        if(!$direction_car){
+            return response()->json(['error' => true, 'message' => 'Автотранспорт не найден']);
+        }
+        $direction_car->delete();
+        return response()->json(['success' => true, 'message' => 'Автотранспорт удален']);
     }
 
     public function destroy(Request $request, $id)

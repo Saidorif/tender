@@ -367,12 +367,10 @@ class TenderController extends Controller
             $app_qatnovlar_ball = 3;
         }
         //6.Transport kategoriyasiga mosligi
-        $tender_cars = $firstLot->direction_id;
+        $tender_cars = $firstLot->direction_id[0]->cars;
         $app_categoriya = 0;
-            print_r($tender_cars);die;
         foreach ($tender_cars as $key => $t_car) {
             foreach ($app->cars as $key => $a_car) {
-
                 if($t_car->bustype_id == $a_car->bustype_id){
                     $app_categoriya ++;
                 }

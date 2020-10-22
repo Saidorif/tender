@@ -181,6 +181,7 @@ Route::group([
             Route::get('direction/edit/{id}', 'DirectionController@edit');
             Route::post('direction/update/{id}', 'DirectionController@update');
             Route::delete('direction/destroy/{id}', 'DirectionController@destroy');
+            Route::delete('direction/car/destroy/{id}', 'DirectionController@deleteDirectionCar');
 
             //Region CRUD
             Route::post('region', 'RegionController@index');
