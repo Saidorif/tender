@@ -59,6 +59,7 @@ Route::group([
             Route::post('tender', 'TenderController@index');
             Route::post('tender/store', 'TenderController@store');
             Route::post('tender/list', 'TenderController@list');
+            Route::get('tender/ball/{id}', 'TenderController@appBall')->where('id', '[0-9]+');
             Route::post('tender/remove/{id}', 'TenderController@remove')->where('id', '[0-9]+');
             Route::post('tender/update/{id}', 'TenderController@update')->where('id', '[0-9]+');
             Route::post('tender/reject/{id}', 'TenderController@reject')->where('id', '[0-9]+');

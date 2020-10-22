@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Tender;
+use App\Application;
 use App\TenderLot;
+use App\DirectionType;
 use App\Direction;
 use Carbon\Carbon;
 use Illuminate\Validation\Rule;
@@ -266,5 +268,37 @@ class TenderController extends Controller
         //         'message' => 'OK'
         //     ]);            
         // }
+    }
+
+    public function appBall(Request $request,$id)
+    {
+        $app = Application::find($id);
+        if(!$app){
+            return response()->json(['error' => true, 'message' => 'Заявка не найдено']);
+        }
+        $result = [];
+        //2.Tarif
+        $app_tarif = (int)$app->tarif;
+        $tender_tarif = 65;//$app->tender->tarif;
+        $firstLot = $app->lots()->first();
+        $yonalish = $firstLot->direction_id[0]->type->type;
+        //3.Avto year
+        //4.Yolovchilar sigimi
+        //5.Qatnovlar soni
+        //6.Transport kategoriyasiga mosligi
+        //7.Transport modelining mosligi
+        //8.Qoshimcha qulayliklar mavjudligi
+        //9.Tadbirlar rejasi
+        //10.Ustuvor mezonlar
+        //97 100-80-20
+
+        $result['app_tarif'] = $app_tarif;
+        $result['tender_tarif'] = $tender_tarif;
+        return response()->json([
+            'success' => true,
+            'yonalish' => $yonalish,
+            // 'type_id' => $direction,
+            'result' => $result
+        ]);
     }
 }

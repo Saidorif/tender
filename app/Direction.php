@@ -93,5 +93,15 @@ class Direction extends Model
         return $this->belongsTo(\App\Station::class,'station_to_id');
     }
 
+    public function cars()
+    {
+        return $this->hasMany(\App\DirectionCar::class,'direction_id');
+    }
+
+    public function carsWith()
+    {
+        return $this->cars()->with(['model','marka','bustype','tclass']);
+    }
+
 
 }
