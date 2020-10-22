@@ -362,11 +362,19 @@ export default {
     ...mapActions("station", ["actionStationByRegion"]),
     ...mapActions("area", ["actionAreaByRegion"]),
     ...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
-    ...mapActions("direction", ["actionEditDirection"]),
+    ...mapActions("direction", ["actionEditDirection","actionCarDeleteDirection"]),
     ...mapActions("passportTab", ["actionTarif"]),
     ...mapActions("direction", ["actionUpdateDirection"]),
-    removeEditCar(id){
-      console.log(id)
+    async removeEditCar(id){
+      await this.actionCarDeleteDirection(id)
+      if (this.getMassage.success){
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getMassage.message,
+          });
+          await this.actionEditDirection(this.$route.params.directionId);
+        }
     },
     async selectClass(car){
       car.tclass_id = ''
@@ -442,7 +450,8 @@ export default {
             icon: "success",
             title: this.getMassage.message,
           });
-          this.$router.push(`/crm/direction/${this.getMassage.id}`);
+          // this.$router.push(`/crm/direction/${this.getMassage.id}`);
+          await this.actionEditDirection(this.$route.params.directionId);
         } else {
           toast.fire({
             type: "error",
