@@ -278,11 +278,44 @@ class TenderController extends Controller
         }
         $result = [];
         //2.Tarif
-        $app_tarif = (int)$app->tarif;
-        $tender_tarif = 65;//$app->tender->tarif;
+        $app_tarif = (int)$app->tarif;//Taklif
+        $tender_tarif = 80;//$app->tender->tarif; Talab
         $firstLot = $app->lots()->first();
         $yonalish = $firstLot->direction_id[0]->type->type;
+        $tarif_foizda = round(100 - (100*$app_tarif/$tender_tarif));
+        $app_tarif_ball = 0;
+        //Agar taklif talabdan 21% dan yuqori bolsa
+        if($tarif_foizda <= -21){
+            $app_tarif_ball = 0;
+            // die('Agar taklif talabdan 21% dan yuqori bolsa');
+        }
+        //Agar taklif talabdan 11 - 20% dan yuqori bolsa
+        if($tarif_foizda >= -20 && $tarif_foizda <= -11){
+            $app_tarif_ball = 1;
+            // die('Agar taklif talabdan 11 - 20% dan yuqori bolsa');
+        }
+        //Agar taklif talabdan 5 - 10% dan yuqori bolsa
+        if($tarif_foizda < -5 && $tarif_foizda >= -10){
+            $app_tarif_ball = 2;
+            // die('Agar taklif talabdan 5 - 10% dan yuqori bolsa');
+        }
+        //Agar taklif talabga mos bolsa
+        if($tarif_foizda == 0){
+            $app_tarif_ball = 3;
+            // die('Agar taklif talabga mos bolsa');
+        }
+        //Agar taklif talabdan 10 - 20% dan past bolsa
+        if($tarif_foizda >= 10 && $tarif_foizda <= 20){
+            $app_tarif_ball = 4;
+            // die('Agar taklif talabdan 10 - 20% dan past bolsa');
+        }
+        //Agar taklif talabdan 21%  va undan past bolsa
+        if($tarif_foizda >= 21){
+            $app_tarif_ball = 5;
+            // die('Agar taklif talabdan 21%  va undan past bolsa');
+        }
         //3.Avto year
+        $app->cars;
         //4.Yolovchilar sigimi
         //5.Qatnovlar soni
         //6.Transport kategoriyasiga mosligi
@@ -296,8 +329,11 @@ class TenderController extends Controller
         $result['tender_tarif'] = $tender_tarif;
         return response()->json([
             'success' => true,
+            'app_tarif' => $app_tarif,
+            'tender_tarif' => $tender_tarif,
             'yonalish' => $yonalish,
-            // 'type_id' => $direction,
+            'tarif_foizda' => $tarif_foizda,
+            'app_tarif_ball' => $app_tarif_ball,
             'result' => $result
         ]);
     }
