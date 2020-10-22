@@ -8,6 +8,7 @@ use App\TimingDetails;
 use App\PassportTiming;
 use App\Region;
 use App\Reys;
+use App\DirectionCar;
 use App\ReysTime;
 use App\Area;
 use Validator;
@@ -66,6 +67,7 @@ class DirectionController extends Controller
             'type',
             'stationFrom',
             'stationTo',
+            'carsWith',
             'schemaDetails'
         ])->find($id);
         if(!$result){
@@ -95,6 +97,11 @@ class DirectionController extends Controller
             'region_to.region_id'  => ['required',Rule::in($region_ids),],
             'region_to.area_id'    => ['nullable',Rule::in($area_ids),],
             'region_to.station_id'    => ['nullable',Rule::in($area_ids),],
+            'cars' => 'required|array',
+            'cars.*.busmarka_id' => 'required|integer',
+            'cars.*.busmodel_id' => 'required|integer',
+            'cars.*.bustype_id' => 'required|integer',
+            'cars.*.tclass_id' => 'required|integer',
         ]);
 
         if($validator->fails()){
@@ -118,6 +125,16 @@ class DirectionController extends Controller
         ]);
         $direction->name = $direction->regionFrom->name.'-'.$direction->regionTo->name;
         $direction->save();
+
+        foreach ($inputs['cars'] as $key => $car) {
+            $direction_car = DirectionCar::create([
+                'busmarka_id' => $car['busmarka_id'],
+                'busmodel_id' => $car['busmodel_id'],
+                'bustype_id' => $car['bustype_id'],
+                'tclass_id' => $car['tclass_id'],
+                'direction_id' => $direction->id
+            ]);
+        }
 
         return response()->json(['success' => true, 'message' => 'Направление успешно создан','result' => $direction]);
     }
