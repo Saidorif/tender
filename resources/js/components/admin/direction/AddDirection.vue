@@ -313,12 +313,12 @@ export default {
   },
   methods: {
     ...mapActions('typeofbus',['actionTypeofbusList']),
+    ...mapActions('busclass',['actionBusclassFind']),
     ...mapActions("region", ["actionRegionList"]),
     ...mapActions("station", ["actionStationByRegion"]),
     ...mapActions("area", ["actionAreaByRegion"]),
     ...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
     ...mapActions("direction", ["actionAddDirection"]),
-    ...mapActions('busclass',['actionBusclassFind']),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
