@@ -421,7 +421,7 @@ export default {
       ) {
         this.laoding = true
       this.form['id'] = this.$route.params.directionId
-      this.form['cars'] = this.cars_with
+      this.form['cars'] = this.cars
         await this.actionUpdateDirection(this.form);
         this.laoding = false
         if (this.getMassage.success) {
