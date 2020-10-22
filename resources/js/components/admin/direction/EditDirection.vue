@@ -105,7 +105,7 @@
                       <option :value="item.id" v-for="(item,index) in stationTo">{{item.name}}</option>
                     </select>
                   </div>
-                  <div class="form-group col-md-3">
+                  <div class="form-group col-md-2">
                     <label for="seasonal">Ishlash mavsumi</label>
                     <select
                       class="form-control input_style"
@@ -118,7 +118,7 @@
                       <option value="seasonal">Mavsumiy</option>
                     </select>
                   </div>
-                  <div class="col-md-3 input_radios_block">
+                  <div class="col-md-4 input_radios_block">
                     <p>Qaysi tarafdan</p>
                     <div class="form-group input_radio_with_label" v-for="(item,index) in destinations">
                       <input
@@ -142,6 +142,18 @@
                       :class="isRequired(form.year) ? 'isRequired' : ''"
                       format="YYYY"
                     ></date-picker>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="profitability">Рентабельность</label>
+                    <select
+                      class="form-control input_style"
+                      v-model="form.profitability"
+                      :class="isRequired(form.profitability) ? 'isRequired' : ''"
+                    >
+                      <option value="profitable">Рентабельный</option>
+                      <option value="unprofitable">Нерентабельный</option>
+                      <option value="middle">Средный</option>
+                    </select>
                   </div>
                   <div class="form-group col-md-2">
                     <label for="seria">Yonalish masofasi</label>
@@ -306,7 +318,7 @@ export default {
         seasonal: "",
         distance: "",
         type_id: "",
-        profitability: "profitability",
+        profitability: "profitable",
       },
       cars:[],
       cars_with:[],
