@@ -278,26 +278,116 @@ class TenderController extends Controller
         }
         $result = [];
         //2.Tarif
-        $app_tarif = (int)$app->tarif;
-        $tender_tarif = 65;//$app->tender->tarif;
+        $app_tarif = (int)$app->tarif;//Taklif
+        $tender_tarif = 80;//$app->tender->tarif; Talab
+        $tender_avto_capacity = 15;//Tender avto transport orindiqlar sigimi
         $firstLot = $app->lots()->first();
         $yonalish = $firstLot->direction_id[0]->type->type;
+        $tarif_foizda = round(100 - (100*$app_tarif/$tender_tarif));
+        $app_tarif_ball = 0;
+        //Agar taklif talabdan 21% dan yuqori bolsa
+        if($tarif_foizda <= -21){
+            $app_tarif_ball = 0;
+        }
+        //Agar taklif talabdan 11 - 20% dan yuqori bolsa
+        if($tarif_foizda >= -20 && $tarif_foizda <= -11){
+            $app_tarif_ball = 1;
+        }
+        //Agar taklif talabdan 5 - 10% dan yuqori bolsa
+        if($tarif_foizda < -5 && $tarif_foizda >= -10){
+            $app_tarif_ball = 2;
+        }
+        //Agar taklif talabga mos bolsa
+        if($tarif_foizda == 0){
+            $app_tarif_ball = 3;
+        }
+        //Agar taklif talabdan 10 - 20% dan past bolsa
+        if($tarif_foizda >= 10 && $tarif_foizda <= 20){
+            $app_tarif_ball = 4;
+        }
+        //Agar taklif talabdan 21%  va undan past bolsa
+        if($tarif_foizda >= 21){
+            $app_tarif_ball = 5;
+        }
         //3.Avto year
+        $app_avto_years = 0;
+        $app_avto_capacity = 0;
+        foreach($app->cars as $key => $cars){
+            $app_avto_years += date('Y') - $cars->date;
+            $app_avto_capacity += $cars->seat_qty;
+        }
+        $app_avto_total = $app_avto_years / count($app->cars);
+
+        $app_avto_ball = 0;
+        //Avto ishlab chiqarilgan yildan boshlab necha yil otgani
+        if($app_avto_total >= 0 && $app_avto_total <= 2){
+            $app_avto_ball = 10;
+        }
+        if($app_avto_total >= 3 && $app_avto_total <= 5){
+            $app_avto_ball = 7;
+        }
+        if($app_avto_total >= 6 && $app_avto_total <= 8){
+            $app_avto_ball = 6;
+        }
+        if($app_avto_total >= 9 && $app_avto_total <= 11){
+            $app_avto_ball = 5;
+        }
+        if($app_avto_total >= 12 && $app_avto_total <= 14){
+            $app_avto_ball = 3;
+        }
+
         //4.Yolovchilar sigimi
+        $app_avto_capacity_ball = 0;
+        $app_avto_capacity_foiz = round(100 - (100 * $app_avto_capacity / $tender_avto_capacity));
+        //Taklif etilgan korsatkich talabdan 11% va undan yuqori
+        if($app_avto_capacity_foiz <= -11){
+            $app_avto_capacity_ball = 5;
+        }
+        //Taklif etilgan korsatkich talabdan 5% - 10% oraliqda yuqori
+        if($app_avto_capacity_foiz <= -5 && $app_avto_capacity_foiz >= -10){
+            $app_avto_capacity_ball = 4;
+        }
+        //Taklif etilgan korsatkich talabga mos kelsa
+        if($app_avto_capacity_foiz == 0){
+            $app_avto_capacity_ball = 3;
+        }
+        //Taklif etilgan korsatkich talabdan 5% - 10% oraliqda past
+        if($app_avto_capacity_foiz >= 5 && $app_avto_capacity_foiz <= 10){
+            $app_avto_capacity_ball = 2;
+        }
+        //Taklif etilgan korsatkich talabdan 11% oraliqda past
+        if($app_avto_capacity_foiz >= 11){
+            $app_avto_capacity_ball = 1;
+        }
         //5.Qatnovlar soni
+        $app_qatnovlar_ball = 0;
+        //Agar taklif etilgan qatnovlar soni talabga teng yoki yuqori bolsa 3 ball bomasa 0 
+        $tender_qatnovlar_soni = count($firstLot->direction_id[0]->schedule);
+        if((int)$app->qty_reys >= $tender_qatnovlar_soni){
+            $app_qatnovlar_ball = 3;
+        }
         //6.Transport kategoriyasiga mosligi
+        $tender_cars = $firstLot->direction_id[0]->cars;
+        $app_categoriya = 0;
+        foreach ($tender_cars as $key => $t_car) {
+            foreach ($app->cars as $key => $a_car) {
+                if($t_car->bustype_id == $a_car->bustype_id){
+                    $app_categoriya ++;
+                }
+            }
+        }
         //7.Transport modelining mosligi
         //8.Qoshimcha qulayliklar mavjudligi
         //9.Tadbirlar rejasi
         //10.Ustuvor mezonlar
-        //97 100-80-20
 
-        $result['app_tarif'] = $app_tarif;
-        $result['tender_tarif'] = $tender_tarif;
+        $result['app_tarif_ball'] = $app_tarif_ball;
+        $result['app_avto_ball'] = $app_avto_ball;
+        $result['app_avto_capacity_ball'] = $app_avto_capacity_ball;
+        $result['app_qatnovlar_ball'] = $app_qatnovlar_ball;
+        $result['app_categoriya'] = $app_categoriya;
         return response()->json([
             'success' => true,
-            'yonalish' => $yonalish,
-            // 'type_id' => $direction,
             'result' => $result
         ]);
     }
