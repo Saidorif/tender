@@ -330,6 +330,31 @@ export default {
       laoding: true
     };
   },
+  watch:{
+    getDirection:{
+      handler(){
+        this.laoding = false
+        this.form.pass_number = this.getDirection.pass_number;
+        this.form.region_from.region_id = this.getDirection.region_from_id;
+        this.form.region_from.area_id = this.getDirection.area_from_id;
+        this.form.region_from.station_id = this.getDirection.station_from_id;
+        this.form.region_to.region_id = this.getDirection.region_to_id;
+        this.form.region_to.area_id = this.getDirection.area_to_id;
+        this.form.region_to.station_id = this.getDirection.station_to_id;
+        this.form.year = this.getDirection.year.toString();
+        this.form.from_where = this.getDirection.from_where;
+        this.form.seasonal = this.getDirection.seasonal;
+        this.form.distance = this.getDirection.distance;
+        this.form.type_id = this.getDirection.type_id;
+        this.cars_with = this.getDirection.cars_with;
+        this.areaFrom = this.getDirection.region_from_with.area;
+        this.areaTo = this.getDirection.region_to_with.area;
+        this.stationFrom =  this.getDirection.area_from_with ? this.getDirection.area_from_with.station : '';
+        this.stationTo = this.getDirection.area_to_with ? this.getDirection.area_to_with.station : '';
+        this.loaded = true
+      }
+    }
+  },
   async mounted() {
     await this.actionRegionList();
     await this.actionTypeofbusList();
@@ -366,15 +391,17 @@ export default {
     ...mapActions("passportTab", ["actionTarif"]),
     ...mapActions("direction", ["actionUpdateDirection"]),
     async removeEditCar(id){
-      await this.actionCarDeleteDirection(id)
-      if (this.getMassage.success){
+      if(confirm("Вы действительно хотите удалить?")){
+        await this.actionCarDeleteDirection(id)
+        if (this.getMassage.success){
+          await this.actionEditDirection(this.$route.params.directionId);
           toast.fire({
             type: "success",
             icon: "success",
             title: this.getMassage.message,
           });
-          await this.actionEditDirection(this.$route.params.directionId);
         }
+      }
     },
     async selectClass(car){
       car.tclass_id = ''
@@ -440,8 +467,8 @@ export default {
         this.form.seasonal != ""
       ) {
         this.laoding = true
-      this.form['id'] = this.$route.params.directionId
-      this.form['cars'] = this.cars
+        this.form['id'] = this.$route.params.directionId
+        this.form['cars'] = this.cars
         await this.actionUpdateDirection(this.form);
         this.laoding = false
         if (this.getMassage.success) {
@@ -450,7 +477,8 @@ export default {
             icon: "success",
             title: this.getMassage.message,
           });
-          // this.$router.push(`/crm/direction/${this.getMassage.id}`);
+          // this.$router.push(`/crm/direction/edit/${this.getMassage.id}`);
+          this.cars = []
           await this.actionEditDirection(this.$route.params.directionId);
         } else {
           toast.fire({
@@ -495,7 +523,7 @@ export default {
     ...mapGetters("area", ["getAreaList"]),
     ...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
     ...mapGetters("station", ["getStationsList"]),
-    ...mapGetters("direction", ["getDirection"]),
+    ...mapGetters("direction", ["getDirection",'getMassage']),
     ...mapGetters("passportTab", ["getTarif"]),
     destinations() {
       let from = null;
