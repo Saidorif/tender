@@ -483,13 +483,15 @@
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="date">Дата выпуска</label>
-					    <input
-					    	type="date"
-					    	class="form-control input_style"
-					    	id="date"
-					    	v-model="car.date"
-					    	:class="isRequired(car.date) ? 'isRequired' : ''"
-				    	>
+					    <date-picker 
+		                  lang="ru" 
+		                  type="year"
+		                  placeholder="Дата выпуска"
+		                  v-model="car.date" 
+		                  valueType="format" 
+		                  class="input_style"
+		                  :class="isRequired(car.date) ? 'isRequired' : ''"
+		                ></date-picker>
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="capacity">Вместимость</label>
@@ -632,11 +634,13 @@
 	</div>
 </template>
 <script>
+	import DatePicker from "vue2-datepicker";
 	import { mapGetters , mapActions } from 'vuex'
 	import Multiselect from 'vue-multiselect';
 	export default{
 		components:{
-			Multiselect
+			Multiselect,
+			DatePicker,
 		},
 		data(){
 			return{
@@ -834,6 +838,7 @@
 		    	this.car.telephone_power = 0
 		    	this.car.monitor = 0
 		    	this.car.station_announce = 0
+		    	this.requiredInput = false
 		    },
 			isRequired(input){
 	    		return this.requiredInput && input === '';

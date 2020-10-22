@@ -180,7 +180,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-12">
+                  <div class="col-lg-12" v-if="cars.length > 0">
                     <div class="d-flex justify-content-center">
                       <h3><strong>Добавленные автотранспорты</strong></h3>
                     </div>
@@ -244,7 +244,7 @@
                           <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option>
                         </select>
                       </div>
-                      <div class="form-group col-md-1 btn_remove_auto" v-if="cars.length > 1">
+                      <div class="form-group col-md-1 btn_remove_auto">
                         <button type="button" class="btn btn-danger" @click.prevent="removeCar(index)">
                           <i class="fas fa-trash"></i>
                         </button>
@@ -308,17 +308,7 @@ export default {
         type_id: "",
         profitability: "profitability",
       },
-      cars:[
-        {
-          bustype_id:'',
-          tclass_id:'',
-          busmarka_id:'',
-          busmodel_id:'',
-          tclasses:[],
-          bus_models:[],
-          bus_marks:[],
-        }
-      ],
+      cars:[],
       cars_with:[],
       areaFrom:[],
       areaTo:[],
