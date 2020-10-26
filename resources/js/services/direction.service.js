@@ -19,6 +19,9 @@ const DirectService = {
 	deleteDirection(id){
 		return ApiService.delete(`/api/direction/destroy/${id}`)
 	},
+	deleteCarDirection(id){
+		return ApiService.delete(`/api/direction/car/destroy/${id}`)
+	},
 };
 
 export { DirectService };

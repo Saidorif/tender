@@ -24,6 +24,15 @@ const getters = {
 
 
 const actions = {
+	async actionCarDeleteDirection({commit},id){
+		try {
+			const directions =  await DirectService.deleteCarDirection(id);
+			await commit('setMessage',directions.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionDirectionFind({commit},payload){
 		try {
 			const directions =  await DirectService.directFind(payload);
@@ -63,7 +72,7 @@ const actions = {
 	async actionUpdateDirection({commit},payload){
 		try {
 			const direction =  await DirectService.updateDirection(payload);
-			await commit('setEditDirection',direction.data.result)
+			await commit('setMessage',direction.data)
 			return true
 		} catch (error) {
 			return false

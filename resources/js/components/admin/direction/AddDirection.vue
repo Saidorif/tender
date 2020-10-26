@@ -85,7 +85,7 @@
                 <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
               <label for="region_id">Tumanga, qishloqga, shaxriga,</label>
               <select
                 class="form-control input_style"
@@ -97,7 +97,7 @@
                 <option :value="item.id" v-for="(item,index) in areaTo">{{item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
               <label for="region_id">Bakatga</label>
               <select
                 class="form-control input_style"
@@ -121,7 +121,7 @@
                 <option value="seasonal">Mavsumiy</option>
               </select>
             </div>
-            <div class="col-md-3 input_radios_block">
+            <div class="col-md-4 input_radios_block">
               <p>Qaysi tarafdan</p>
               <div class="form-group input_radio_with_label" v-for="(item,index) in destinations">
                 <input
@@ -167,6 +167,15 @@
                 <option value="unprofitable">Нерентабельный</option>
                 <option value="middle">Средный</option>
               </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="tarif">Tarif</label>
+              <input
+                type="number"
+                v-model="form.tarif"
+                class="form-control input_style"
+                :class="isRequired(form.tarif) ? 'isRequired' : ''"
+              />
             </div>
             <div class="col-lg-12">
               <div class="d-flex justify-content-center">
@@ -269,6 +278,7 @@ export default {
     return {
       form: {
         pass_number: "",
+        tarif: "",
         region_from: {
           region_id: "",
           area_id: "",
@@ -284,7 +294,7 @@ export default {
         seasonal: "",
         distance: "",
         type_id: "",
-        profitability: "profitability",
+        profitability: "profitable",
       },
       cars:[
         {
@@ -369,6 +379,7 @@ export default {
     async saveDirection() {
       if (
         this.form.pass_number != "" &&
+        this.form.tarif != "" &&
         this.form.year != "" &&
         this.form.distance != "" &&
         this.form.type_id != ""  &&
