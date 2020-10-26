@@ -172,7 +172,7 @@
               <label for="tarif">Tarif</label>
               <input
                 type="number"
-                v-model="form.pass_number"
+                v-model="form.tarif"
                 class="form-control input_style"
                 :class="isRequired(form.tarif) ? 'isRequired' : ''"
               />
