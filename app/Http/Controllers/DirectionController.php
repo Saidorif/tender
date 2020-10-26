@@ -10,6 +10,7 @@ use App\Region;
 use App\Reys;
 use App\DirectionCar;
 use App\ReysTime;
+use App\DirectionReq;
 use App\Area;
 use Validator;
 use Illuminate\Validation\Rule;
@@ -431,17 +432,20 @@ class DirectionController extends Controller
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
+        if($direction->requirement){
+            return response()->json(['success' => true, 'result' => $direction->requirement]);
+        }
         $result = [];
         $from_name = $direction->from_where['name'];
         $from_id   = $direction->from_where['id'];
         $to_name   = $direction->timing->last()->whereTo['name'];
         $to_id     = $direction->timing->last()->whereTo['id'];
         $ptimings  = $direction->timing->toArray();
-        // dd($ptimings);
         $data = [
-            'auto_type'                     => $direction->type->type,
+            'direction_id'                  => $direction->id,
+            'auto_type'                     => $direction->type->id,
             'auto_type_name'                => $direction->type->name,
-            'auto_model_class'              => $direction->type->tclasModels,
+            'auto_model_class'              => $direction->cars->pluck('id'),
             'auto_trans_count'              => 10,
             'auto_trans_working_days'       => '',
             'auto_trans_weekends'           => '',
@@ -478,6 +482,68 @@ class DirectionController extends Controller
             'transports_seats'              => '',
             'minimum_bal'                   => '?',
         ];
-        return response()->json(['success' => true, 'result' => $data]);
+        $direction_req = DirectionReq::create($data);
+        $res = DirectionReq::find($direction_req->id);
+        return response()->json(['success' => true, 'result' => $res]);
+    }
+
+    public function storeRequirement(Request $request,$id)
+    {
+        $direction = Direction::find($id);
+        if(!$direction){
+            return response()->json(['error' => true, 'message' => 'Направление не найден']);
+        }
+        $validator = Validator::make($request->all(), [            
+            'direction_id' => 'required|integer',
+            'auto_type' => 'required|integer',
+            'auto_type_name' => 'required|string',
+            // 'auto_model_class' => 'required|string',
+            'auto_trans_count' => 'required|string',
+            'auto_trans_working_days' => 'required|string',
+            'auto_trans_weekends' => 'required|string',
+            'auto_trans_status' => 'required|string',
+            'direction_total_length' => 'required|string',
+            'direction_from_value' => 'required|string',
+            'direction_from_name' => 'required|string',
+            'direction_to_value' => 'required|string',
+            'direction_to_name' => 'required|string',
+            'stations_count' => 'required|string',
+            'stations_from_name' => 'required|string',
+            'stations_to_name' => 'required|string',
+            'seasonal' => 'required|string',
+            'reyses_count' => 'required|string',
+            'reyses_from_value' => 'required|string',
+            'reyses_from_name' => 'required|string',
+            'reyses_to_value' => 'required|string',
+            'reyses_to_name' => 'required|string',
+            'schedule_begin_time' => 'required|string',
+            'schedule_begin_from' => 'required|string',
+            'schedule_begin_to' => 'required|string',
+            'schedule_end_time' => 'required|string',
+            'schedule_end_from' => 'required|string',
+            'schedule_end_to' => 'required|string',
+            'station_intervals' => 'required|string',
+            'reys_time' => 'required|string',
+            'reys_from_value' => 'required|string',
+            'reys_to_value' => 'required|string',
+            'schedules' => 'required|string',
+            'tarif' => 'required|string',
+            'tarif_one_km' => 'required|string',
+            'tarif_city' => 'required|string',
+            'transports_capacity' => 'required|string',
+            'transports_seats' => 'required|string',
+            'minimum_bal' => 'required|string',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+
+        $inputs = $request->all();
+        unset($inputs['auto_model_class']);
+        $inputs['direction_id'] = $direction->id;
+
+        $direction->requirement->update($inputs);
+        return response()->json(['success' => true, 'message' => 'Требование обновлен']);
     }
 }

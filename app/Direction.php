@@ -103,5 +103,10 @@ class Direction extends Model
         return $this->cars()->with(['model','marka','bustype','tclass']);
     }
 
+    public function requirement()
+    {
+        return $this->hasOne(\App\DirectionReq::class,'direction_id')->with(['type']);
+    }
+
 
 }

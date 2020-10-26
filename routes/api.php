@@ -178,6 +178,7 @@ Route::group([
             Route::post('direction/schedule/{id}', 'DirectionController@schedule');
             Route::get('direction/getschedule/{id}', 'DirectionController@getSchedule');
             Route::get('direction/requirement/{id}', 'DirectionController@requirement');
+            Route::post('direction/requirement/{id}', 'DirectionController@storeRequirement');
             Route::get('direction/edit/{id}', 'DirectionController@edit');
             Route::post('direction/update/{id}', 'DirectionController@update');
             Route::delete('direction/destroy/{id}', 'DirectionController@destroy');
