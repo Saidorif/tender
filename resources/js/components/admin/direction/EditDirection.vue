@@ -131,7 +131,7 @@
                       <label :for="'from_where'+index">{{item.name}}</label>
                     </div>
                   </div>
-                  <div class="form-group col-md-2">
+                  <div class="form-group col-md-3">
                     <label for="seria">Yo'nalish ochilish sanasi</label>
                     <date-picker
                       lang="ru" 
@@ -143,7 +143,7 @@
                       format="YYYY"
                     ></date-picker>
                   </div>
-                  <div class="form-group col-md-2">
+                  <div class="form-group col-md-3">
                     <label for="profitability">Рентабельность</label>
                     <select
                       class="form-control input_style"
@@ -155,13 +155,22 @@
                       <option value="middle">Средный</option>
                     </select>
                   </div>
-                  <div class="form-group col-md-2">
+                  <div class="form-group col-md-3">
                     <label for="seria">Yonalish masofasi</label>
                     <input
                       type="number"
                       v-model="form.distance"
                       class="form-control input_style"
                       :class="isRequired(form.distance) ? 'isRequired' : ''"
+                    />
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="tarif">Tarif</label>
+                    <input
+                      type="number"
+                      v-model="form.pass_number"
+                      class="form-control input_style"
+                      :class="isRequired(form.tarif) ? 'isRequired' : ''"
                     />
                   </div>
                   <div class="col-lg-12" v-if="cars_with.length > 0">
@@ -303,6 +312,7 @@ export default {
     return {
       form: {
         pass_number: "",
+        tarif: "",
         region_from: {
           region_id: "",
           area_id: "",
@@ -458,6 +468,7 @@ export default {
     async saveDirection() {
       if (
         this.form.pass_number != "" &&
+        this.form.tarif != "" &&
         this.form.year != "" &&
         this.form.distance != "" &&
         this.form.type_id != ""  &&
