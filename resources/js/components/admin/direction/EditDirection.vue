@@ -345,6 +345,7 @@ export default {
       handler(){
         this.laoding = false
         this.form.pass_number = this.getDirection.pass_number;
+        this.form.tarif = this.getDirection.tarif;
         this.form.region_from.region_id = this.getDirection.region_from_id;
         this.form.region_from.area_id = this.getDirection.area_from_id;
         this.form.region_from.station_id = this.getDirection.station_from_id;
@@ -372,6 +373,7 @@ export default {
     await this.actionEditDirection(this.$route.params.directionId);
     this.laoding = false
     this.form.pass_number = this.getDirection.pass_number;
+    this.form.tarif = this.getDirection.tarif;
     this.form.region_from.region_id = this.getDirection.region_from_id;
     this.form.region_from.area_id = this.getDirection.area_from_id;
     this.form.region_from.station_id = this.getDirection.station_from_id;
