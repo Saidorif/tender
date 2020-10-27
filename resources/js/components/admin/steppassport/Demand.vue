@@ -52,7 +52,7 @@
               <tr>
                 <td>4</td>
                 <td width="50%"><b>Автотранспорт воситалари ҳолати</b></td>
-                <td>14 йилдан</td>
+                <td><input type="number" v-model="form.auto_trans_status" class="form-control">йилдан</td>
               </tr>
               <!-- 3 s -->
               <tr>
@@ -97,11 +97,11 @@
               </tr>
               <tr>
                 <td>{{form.reyses_from_name}}-{{form.reyses_to_name}}</td>
-                <td>{{form.reyses_from_value}}</td>
+                <td><input type="number" v-model="form.reyses_from_value" class="form-control"></td>
               </tr>
               <tr>
                 <td>{{form.reyses_to_name}}-{{form.reyses_from_name}}</td>
-                <td>{{form.reyses_to_value}}</td>
+                <td><input type="number" v-model="form.reyses_to_value" class="form-control"></td>
               </tr>
               <!-- 3 end -->
               <!-- 3 s -->
