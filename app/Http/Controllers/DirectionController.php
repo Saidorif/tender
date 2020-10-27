@@ -99,7 +99,7 @@ class DirectionController extends Controller
             'region_to.region_id'  => ['required',Rule::in($region_ids),],
             'region_to.area_id'    => ['nullable',Rule::in($area_ids),],
             'region_to.station_id'    => ['nullable',Rule::in($area_ids),],
-            'cars' => 'required|array',
+            'cars' => 'nullable|array',
             'cars.*.busmarka_id' => 'required|integer',
             'cars.*.busmodel_id' => 'required|integer',
             'cars.*.bustype_id' => 'required|integer',
