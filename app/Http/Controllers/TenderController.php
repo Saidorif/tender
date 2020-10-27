@@ -9,6 +9,7 @@ use App\Application;
 use App\TenderLot;
 use App\DirectionType;
 use App\Direction;
+use App\Reys;
 use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 
@@ -85,6 +86,20 @@ class TenderController extends Controller
                 $tender_lots[$key]['direction_id'][] = $value['direction_id'];
                 $tender_lots[$key]['time'] = $tenderTime;
                 $tender_lots[$key]['status'] = $value['status'];
+                if($value['status'] == 'custom'){
+                    foreach ($value['reys_id'] as $key => $reys) {
+                        $reys = Reys::find($reys);
+                        $reys->status = 'pending';
+                        $reys->save();
+                    }
+                }
+                if($value['status'] == 'all'){
+                    $direction = Direction::find($value['direction_id']);
+                    foreach ($direction->schedule as $key => $r) {
+                        $r->status = 'pending';
+                        $r->save();
+                    }
+                }
                 if(isset($tender_lots[$key]['reys_id'])){
                     $tender_lots[$key]['reys_id'] = array_merge($value['reys_id'],$tender_lots[$key]['reys_id']);
                 }else{
