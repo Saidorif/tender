@@ -21,6 +21,9 @@ const PassportTabService = {
 	},
 	demands(id){
 		return ApiService.get(`/api/direction/requirement/${id}`)
+	},
+	demandSave(data){
+		return ApiService.post(`/api/direction/requirement/${data.id}`,data.items)
 	}
 };
 

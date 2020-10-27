@@ -196,7 +196,7 @@
           </table>
           <div class="text_place">
             <label for="text">Текст</label>
-            <textarea id="text" class="form-control" v-model="form.holiday_days"></textarea>
+            <textarea id="text" class="form-control" v-model="form.text"></textarea>
           </div>
           <div class="btn_send d-flex justify-content-end">
             <button type="button" class="btn btn-primary" @click.prevent="saveData">
@@ -235,14 +235,15 @@ export default {
     Vue.set(this.form,'stations_from_value','')
     Vue.set(this.form,'stations_to_value','')
     Vue.set(this.form,'station_intervals','')
+    Vue.set(this.form,'text','')
     },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
-    ...mapGetters("passportTab", ['getDemand']),
+    ...mapGetters("passportTab", ['getDemand','getMsg']),
   },
   methods: {
     ...mapActions("direction", ["actionEditDirection"]),
-    ...mapActions("passportTab", ['actionDemand']),
+    ...mapActions("passportTab", ['actionDemand','actionDemandSave']),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
@@ -254,8 +255,13 @@ export default {
         return 'Mavsumiy';
       }
     },
-    saveData(){
-        
+    async saveData(){
+      let data ={
+        id: this.$route.params.directionId,
+        items:this.form       
+      }
+      await this.actionDemandSave(data)
+      console.log(this.getMsg)
     }
   },
 };

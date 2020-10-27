@@ -34,6 +34,15 @@ const getters = {
 
 
 const actions = {
+	async actionDemandSavr({commit},payload){
+		try {
+			const demand =  await PassportTabService.demandSave(payload);
+			await commit('setMsg',demand.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionDemand({commit},id){
 		try {
 			const demand =  await PassportTabService.demands(id);

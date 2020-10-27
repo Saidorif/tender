@@ -479,28 +479,37 @@ export default {
         this.form.from_where != "" &&
         this.form.seasonal != ""
       ) {
-        this.laoding = true
-        this.form['id'] = this.$route.params.directionId
-        this.form['cars'] = this.cars
-        await this.actionUpdateDirection(this.form);
-        this.laoding = false
-        if (this.getMassage.success) {
-          toast.fire({
-            type: "success",
-            icon: "success",
-            title: this.getMassage.message,
-          });
-          // this.$router.push(`/crm/direction/edit/${this.getMassage.id}`);
-          this.cars = []
-          await this.actionEditDirection(this.$route.params.directionId);
-        } else {
+        if (this.checkCars) {
+          this.laoding = true
+          this.form['id'] = this.$route.params.directionId
+          this.form['cars'] = this.cars
+          await this.actionUpdateDirection(this.form);
+          this.laoding = false
+          if (this.getMassage.success) {
+            toast.fire({
+              type: "success",
+              icon: "success",
+              title: this.getMassage.message,
+            });
+            // this.$router.push(`/crm/direction/edit/${this.getMassage.id}`);
+            this.cars = []
+            await this.actionEditDirection(this.$route.params.directionId);
+          } else {
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: "error whoops",
+            });
+          }
+          this.requiredInput = false;
+        }
+        else{
           toast.fire({
             type: "error",
             icon: "error",
-            title: "error whoops",
+            title: 'Заполните все поля!'
           });
         }
-        this.requiredInput = false;
       } else {
         this.requiredInput = true;
       }
@@ -538,6 +547,21 @@ export default {
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("direction", ["getDirection",'getMassage']),
     ...mapGetters("passportTab", ["getTarif"]),
+    checkCars(){
+      if(this.cars.length > 0){
+        let result = true
+        this.cars.forEach((item,index)=>{
+          if (item.bustype_id != '' && item.tclass_id != '' && item.busmarka_id != '' && item.busmodel_id != '') {
+            result = true
+          }else{
+            result = false
+          }
+        })
+        return result;
+      }else{
+        return true
+      }
+    },
     destinations() {
       let from = null;
       let to = null;
