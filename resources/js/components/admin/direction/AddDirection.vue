@@ -241,7 +241,7 @@
                     <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option>
                   </select>
                 </div>
-                <div class="form-group col-md-1 btn_remove_auto" v-if="cars.length > 1">
+                <div class="form-group col-md-1 btn_remove_auto">
                   <button type="button" class="btn btn-danger" @click.prevent="removeCar(index)">
                     <i class="fas fa-trash"></i>
                   </button>
@@ -251,7 +251,7 @@
             <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
               <button type="button" class="btn btn-info btn_save_category mr-3" @click.prevent="addCar">
                 <i class="fas fa-plus"></i>
-                Добавить авто
+                Добавить авто 
               </button>
               <button type="submit" class="btn btn-primary btn_save_category">
                 <i class="fas fa-save"></i>
@@ -378,24 +378,32 @@ export default {
         this.form.from_where != "" &&
         this.form.seasonal != "" 
       ) {
-        this.form['cars'] = this.cars
-        this.laoding = true
-        await this.actionAddDirection(this.form)
-        this.laoding = false
-    		if(this.getMassage.success){
-    			toast.fire({
-    				type: "success",
-    				icon: "success",
-    				title: this.getMassage.message
-    			 });
-    			this.$router.push(`/crm/direction/edit/${this.getMassage.result.id}`);
-    		}else{
-    			toast.fire({
-    				type: "error",
-    				icon: "error",
-    				title: 'Whoops..Something went wrong!'
-    			 });
-    		}
+        if (this.checkCars) {
+          this.form['cars'] = this.cars
+          this.laoding = true
+          await this.actionAddDirection(this.form)
+          this.laoding = false
+      		if(this.getMassage.success){
+      			toast.fire({
+      				type: "success",
+      				icon: "success",
+      				title: this.getMassage.message
+      			 });
+      			this.$router.push(`/crm/direction/edit/${this.getMassage.result.id}`);
+      		}else{
+      			toast.fire({
+      				type: "error",
+      				icon: "error",
+      				title: 'Whoops..Something went wrong!'
+      			 });
+      		}
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: 'Заполните все поля!'
+           });
+        }
       this.requiredInput = false;
       } else {
         this.requiredInput = true;
@@ -433,6 +441,21 @@ export default {
     ...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("direction", ["getMassage"]),
+    checkCars(){
+      if(this.cars.length > 0){
+        let result = true
+        this.cars.forEach((item,index)=>{
+          if (item.bustype_id != '' && item.tclass_id != '' && item.busmarka_id != '' && item.busmodel_id != '') {
+            result = true
+          }else{
+            result = false
+          }
+        })
+        return result;
+      }else{
+        return true
+      }
+    },
     destinations(){
       let from = null;
       let to = null;
