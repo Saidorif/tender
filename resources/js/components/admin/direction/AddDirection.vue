@@ -177,7 +177,7 @@
                 :class="isRequired(form.tarif) ? 'isRequired' : ''"
               />
             </div>
-            <div class="col-lg-12">
+            <div class="col-lg-12" v-if="cars.length > 0">
               <div class="d-flex justify-content-center">
                 <h3><strong>Автотранспорты</strong></h3>
               </div>
@@ -296,17 +296,7 @@ export default {
         type_id: "",
         profitability: "profitable",
       },
-      cars:[
-        {
-          bustype_id:'',
-          tclass_id:'',
-          busmarka_id:'',
-          busmodel_id:'',
-          tclasses:[],
-          bus_models:[],
-          bus_marks:[],
-        }
-      ],
+      cars:[],
       areaFrom:[],
       areaTo:[],
       stationFrom:[],
