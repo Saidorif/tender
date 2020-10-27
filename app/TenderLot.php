@@ -37,8 +37,8 @@ class TenderLot extends Model
             $result[] = $direction;
         }
         foreach($result as $key => $value){
-            $reysesFrom = Reys::with(['reysTimes'])->where(['direction_id' => $value->id,'status' => 'active','type' => 'from'])->get();
-            $reysesTo   = Reys::with(['reysTimes'])->where(['direction_id' => $value->id,'status' => 'active','type' => 'to'])->get();
+            $reysesFrom = Reys::with(['reysTimes'])->where(['direction_id' => $value->id,'type' => 'from'])->get();
+            $reysesTo   = Reys::with(['reysTimes'])->where(['direction_id' => $value->id,'type' => 'to'])->get();
             $value->reysesFrom = $reysesFrom;
             $value->reysesTo = $reysesTo;
         };
