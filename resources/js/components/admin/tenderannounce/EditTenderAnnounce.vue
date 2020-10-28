@@ -64,12 +64,11 @@
 					  		<i class="fas fa-trash text-danger lot_remove" @click.prevent="removeEditLot(t_lots.id)"></i>
 				  		</div>
 				  		<ul v-for="(items,index) in t_lots.direction_id">
+				  			<h4>{{index+1}})</h4>
 			  		    	<template>
-					  		    <li class="mb-2" v-if="getLengthReys(lots[index],items.reysesFrom) > 0">
-
-					  		    <!-- <li class="mb-2"> -->
+					  		    <li class="mb-2">
 					  		    	<div class="d-flex align-items-center">
-						  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+'from'" aria-expanded="false" :aria-controls="'collapseExample'+index+'from'">
+						  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+t_index+'from'" aria-expanded="false" :aria-controls="'collapseExample'+index+t_index+'from'">
 						  		    		<template>
 											    <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span> 
 											    <span>({{getLengthReys(lots[index],items.reysesFrom)}} рейсы)</span>
@@ -82,7 +81,7 @@
 										  	<i class="fas fa-eye"></i>
 									  	</router-link>
 					  		    	</div>
-								  	<div class="collapse" :id="'collapseExample'+index+'from'" v-if="items.reysesFrom.length > 0">
+								  	<div class="collapse" :id="'collapseExample'+index+t_index+'from'" v-if="items.reysesFrom.length > 0">
 									  <table class="table table-bordered">
 								  			<thead>
 									  			<tr>
@@ -95,7 +94,7 @@
 									  		<tbody>
 									  			<tr 
 									  				v-for="(reys,key) in items.reysesFrom"
-									  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
+									  				:class="activeEditClass(reys)"
 								  				>
 									  				<td>{{key+1}}</td>
 									  				<template v-for="(val,key) in reys.reys_times">
@@ -107,10 +106,9 @@
 									  	</table>
 									</div>
 					  			</li>
-					  		    <li v-if="getLengthReys(lots[index],items.reysesTo) > 0">
-					  		    <!-- <li> -->
+					  		    <li class="mb-2">
 					  		    	<div class="d-flex align-items-center">
-						  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+'to'" aria-expanded="false" :aria-controls="'collapseExample'+index+'to'">
+						  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+t_index+'to'" aria-expanded="false" :aria-controls="'collapseExample'+index+t_index+'to'">
 						  		    		<template>
 											    <span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span> 
 											    <span>({{getLengthReys(lots[index],items.reysesTo)}} рейсы)</span>
@@ -123,7 +121,7 @@
 										  	<i class="fas fa-eye"></i>
 									  	</router-link>
 					  		    	</div>
-								  	<div class="collapse" :id="'collapseExample'+index+'to'" v-if="items.reysesTo.length > 0">
+								  	<div class="collapse" :id="'collapseExample'+index+t_index+'to'" v-if="items.reysesTo.length > 0">
 									  <table class="table table-bordered">
 								  			<thead>
 									  			<tr>
@@ -136,7 +134,7 @@
 									  		<tbody>
 									  			<tr 
 									  				v-for="(reys,key) in items.reysesTo"
-									  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
+									  				:class="activeEditClass(reys)"
 								  				>
 									  				<td>{{key+1}}</td>
 									  				<template v-for="(val,key) in reys.reys_times">
@@ -150,7 +148,7 @@
 					  			</li>
 			  		    	</template>
 			  		    	<!-- <template v-if="lots[index].reys_id == 0"> -->
-			  		    	<template>
+			  	<!-- 	    	<template>
 			  		    		<li>
 					  		    	<div class="d-flex align-items-center">
 						  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
@@ -166,7 +164,7 @@
 									  	</router-link>
 					  		    	</div>
 				  		    	</li>
-			  		    	</template>
+			  		    	</template> -->
 				  		</ul>
 				  	</div>
 			  	</div>
@@ -288,7 +286,7 @@
 				  		<div class="d-flex justify-content-center">
 				  			<h4>{{fromName}}</h4>
 				  		</div>
-					  	<table class="table table-bordered table-hover">
+					  	<table class="table table-bordered">
 					  		<thead>
 					  			<tr>
 					  				<th>№</th>
@@ -299,7 +297,7 @@
 					  			<tr 
 					  				v-for="(items,index) in fromItems" 
 					  				@click.prevent="chooseFromItem(items,index)"
-					  				:class="activeFromClass(items) ? 'active' : ''"
+					  				:class="activeFromClass(items)"
 				  				>
 					  				<td>
 					  					<label>
@@ -319,7 +317,7 @@
 				  		<div class="d-flex justify-content-center">
 				  			<h4>{{toName}}</h4>
 				  		</div>
-					  	<table class="table table-bordered table-hover">
+					  	<table class="table table-bordered">
 					  		<thead>
 					  			<tr>
 					  				<th>№</th>
@@ -330,7 +328,7 @@
 					  			<tr 
 					  				v-for="(items,index) in  toItems"
 					  				@click.prevent="chooseToItem(items,index)"
-					  				:class="activeToClass(items) ? 'active' : ''"
+					  				:class="activeToClass(items)"
 				  				>
 					  				<td>
 					  					<label>
@@ -569,13 +567,18 @@
 		    	this.direction_ids={}
 				this.findList = []
 		    },
-		    activeEditClass(lots,id){
-		    	let lot_list = lots.reys_id
-		    	if (lot_list.length > 0) {
-		    		if (lot_list.includes(id)) {
-		    			return true
-		    		}
+		    activeEditClass(item){
+		    	if (item.status == 'active') {
+	    			return 'edit-active'
+		    	}else{
+		    		return 'edit-pending'
 		    	}
+		    	// let lot_list = lots.reys_id
+		    	// if (lot_list.length > 0) {
+		    	// 	if (lot_list.includes(id)) {
+		    	// 		return true
+		    	// 	}
+		    	// }
 		    },
 		    getLengthReys(lots,reys){
 		    	if (lots) {
@@ -658,31 +661,43 @@
 		    	}
 		    },
 		    activeFromClass(item){
-		    	if (this.choosenFromItems.some(data => data.id === item.id)){
-	    			return true
+		    	if (item.status == 'active') {
+			    	if (this.choosenFromItems.some(data => data.id === item.id)){
+		    			return 'active'
+			    	}else{
+			    		return 'inactive'
+			    	}
 		    	}else{
-		    		return false
+		    		return 'pending'
 		    	}
 		    },
 		    activeToClass(item){
-		    	if (this.choosenToItems.some(data => data.id === item.id)){
-	    			return true
+		    	if (item.status == 'active') {
+			    	if (this.choosenToItems.some(data => data.id === item.id)){
+		    			return 'active'
+			    	}else{
+			    		return 'inactive'
+			    	}
 		    	}else{
-		    		return false
+		    		return 'pending'
 		    	}
 		    },
 		    chooseFromItem(value,index){
-		    	if (this.choosenFromItems.some(data => data.id === value.id)){
-			    	Vue.delete(this.choosenFromItems, index)
-		    	}else{
-			    	this.choosenFromItems.push(value)
+		    	if (value.status == 'active') {
+			    	if (this.choosenFromItems.some(data => data.id === value.id)){
+				    	Vue.delete(this.choosenFromItems, index)
+			    	}else{
+				    	this.choosenFromItems.push(value)
+			    	}
 		    	}
 		    },
 		    chooseToItem(value,index){
-		    	if (this.choosenToItems.some(data => data.id === value.id)){
-			    	Vue.delete(this.choosenToItems, index)
-		    	}else{
-			    	this.choosenToItems.push(value)
+		    	if (value.status == 'active') {
+			    	if (this.choosenToItems.some(data => data.id === value.id)){
+				    	Vue.delete(this.choosenToItems, index)
+			    	}else{
+				    	this.choosenToItems.push(value)
+			    	}
 		    	}
 		    },
 			isRequired(input){
@@ -868,11 +883,18 @@
 	    cursor: pointer;
 	    font-size: 20px;
 	}
-	tr{
+	tr.active,tr.inactive{
 		cursor:pointer !important;
 	}
-	.check_box_with_label{
-
+	tr.active:hover,tr.inactive:hover{
+		background:#d0d0d0 !important;
+	}
+	tr.active,tr.edit-pending{
+		background:#d6d6d6;
+	}
+	tr.pending{
+		background:#8e8e8e;
+		cursor:not-allowed !important;
 	}
 	.check_box_with_label input{
 		--active: #275EFE;

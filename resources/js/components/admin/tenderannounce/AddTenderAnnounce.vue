@@ -174,7 +174,7 @@
 				  		<div class="d-flex justify-content-center">
 				  			<h4>{{fromName}}</h4>
 				  		</div>
-					  	<table class="table table-bordered table-hover">
+					  	<table class="table table-bordered">
 					  		<thead>
 					  			<tr>
 					  				<th>№</th>
@@ -185,7 +185,7 @@
 					  			<tr 
 					  				v-for="(items,index) in fromItems" 
 					  				@click.prevent="chooseFromItem(items,index)"
-					  				:class="activeFromClass(items) ? 'active' : ''"
+					  				:class="activeFromClass(items)"
 				  				>
 					  				<td>
 					  					<label>
@@ -205,7 +205,7 @@
 				  		<div class="d-flex justify-content-center">
 				  			<h4>{{toName}}</h4>
 				  		</div>
-					  	<table class="table table-bordered table-hover">
+					  	<table class="table table-bordered">
 					  		<thead>
 					  			<tr>
 					  				<th>№</th>
@@ -216,7 +216,7 @@
 					  			<tr 
 					  				v-for="(items,index) in  toItems"
 					  				@click.prevent="chooseToItem(items,index)"
-					  				:class="activeToClass(items) ? 'active' : ''"
+					  				:class="activeToClass(items)"
 				  				>
 					  				<td>
 					  					<label>
@@ -489,31 +489,43 @@
 		    	}
 		    },
 		    activeFromClass(item){
-		    	if (this.choosenFromItems.some(data => data.id === item.id)){
-	    			return true
+		    	if (item.status == 'active') {
+			    	if (this.choosenFromItems.some(data => data.id === item.id)){
+		    			return 'active'
+			    	}else{
+			    		return 'inactive'
+			    	}
 		    	}else{
-		    		return false
+		    		return 'pending'
 		    	}
 		    },
 		    activeToClass(item){
-		    	if (this.choosenToItems.some(data => data.id === item.id)){
-	    			return true
+		    	if (item.status == 'active') {
+			    	if (this.choosenToItems.some(data => data.id === item.id)){
+		    			return 'active'
+			    	}else{
+			    		return 'inactive'
+			    	}
 		    	}else{
-		    		return false
+		    		return 'pending'
 		    	}
 		    },
 		    chooseFromItem(value,index){
-		    	if (this.choosenFromItems.some(data => data.id === value.id)){
-			    	Vue.delete(this.choosenFromItems, index)
-		    	}else{
-			    	this.choosenFromItems.push(value)
+		    	if (value.status == 'active') {
+			    	if (this.choosenFromItems.some(data => data.id === value.id)){
+				    	Vue.delete(this.choosenFromItems, index)
+			    	}else{
+				    	this.choosenFromItems.push(value)
+			    	}
 		    	}
 		    },
 		    chooseToItem(value,index){
-		    	if (this.choosenToItems.some(data => data.id === value.id)){
-			    	Vue.delete(this.choosenToItems, index)
-		    	}else{
-			    	this.choosenToItems.push(value)
+		    	if (value.status == 'active') {
+			    	if (this.choosenToItems.some(data => data.id === value.id)){
+				    	Vue.delete(this.choosenToItems, index)
+			    	}else{
+				    	this.choosenToItems.push(value)
+			    	}
 		    	}
 		    },
 			isRequired(input){
@@ -683,11 +695,18 @@
 	}
 </script>
 <style scoped>
-	tr{
+	tr.active,tr.inactive{
 		cursor:pointer !important;
+	}
+	tr.active:hover,tr.inactive:hover{
+		background:#d0d0d0 !important;
 	}
 	tr.active{
 		background:#d6d6d6;
+	}
+	tr.pending{
+		background:#8e8e8e;
+		cursor:not-allowed !important;
 	}
 	.modal-xl {
 	    max-width: 80%;
