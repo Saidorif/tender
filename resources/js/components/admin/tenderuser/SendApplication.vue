@@ -61,10 +61,10 @@
 						  		</div>
 							  	<div class="choosenItemsTable">
 							  		<ul v-for="(items,index) in direction_ids">
-							  			<h3>{{index+1}})</h3>
+							  			<h3><em>{{index+1}})</em> <strong>Маршрут</strong>: <em>{{items.name}}</em></h3>
 						  		    	<template>
 								  		    <li class="mb-2">
-								  		    	<h4>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</h4>
+								  		    	<h4><em>Со стороны:</em>  <b>{{items.reysesFrom[0].where.name}}</b></h4>
 								  		    	<table class="table table-bordered">
 										  			<thead>
 											  			<tr>
@@ -77,7 +77,7 @@
 											  		<tbody>
 											  			<tr
 											  				v-for="(reys,key) in items.reysesFrom"
-											  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
+											  				:class="activeEditClass(reys) ? 'active' : ''"
 										  				>
 											  				<td>{{key+1}}</td>
 											  				<template v-for="(val,key) in reys.reys_times">
@@ -89,7 +89,7 @@
 											  	</table>
 								  			</li>
 								  		    <li>
-								  		    	<h4>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</h4>
+								  		    	<h4><em>Со стороны:</em>  <b>{{items.reysesTo[0].where.name}}</b></h4>
 								  		    	<table class="table table-bordered">
 										  			<thead>
 											  			<tr>
@@ -102,7 +102,7 @@
 											  		<tbody>
 											  			<tr
 											  				v-for="(reys,key) in items.reysesTo"
-											  				:class="activeEditClass(lots[index],reys.id) ? 'active' : ''"
+											  				:class="activeEditClass(reys) ? 'active' : ''"
 										  				>
 											  				<td>{{key+1}}</td>
 											  				<template v-for="(val,key) in reys.reys_times">
@@ -114,6 +114,7 @@
 										  	 	</table>
 								  			</li>
 						  		    	</template>
+						  		    	<hr>
 							  		</ul>
 							  	</div>
 						  	</div>
@@ -745,18 +746,12 @@
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
 			...mapActions("busbrand", ["actionBusBrandList"]),
-			activeEditClass(lots,id){
-		    	let lot_list = lots.reys_id
-				if (lots.status == 'all') {
-					return true
-				}
-				else{
-			    	if (lot_list.length > 0) {
-			    		if (lot_list.includes(id)) {
-			    			return true
-			    		}
-			    	}
-				}
+			activeEditClass(item){
+		    	if (item.status == 'active') {
+	    			return 'edit-active'
+		    	}else{
+		    		return 'edit-pending'
+		    	}
 		    },
 		    changePhoto(event) {
 		      this.file = event.target.files[0];
