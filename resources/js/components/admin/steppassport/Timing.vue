@@ -152,7 +152,7 @@
                 type="radio"
                 name="where_to"
                 :value="form.region_to_id"
-                id="whereToregion_to_id"  
+                id="whereToregion_to_id"
               />
               <select
                 class="form-control input_style"
@@ -342,13 +342,13 @@ export default {
       titulData:[],
       form: {
         direction_id: this.$route.params.directionId,
-        // region_from_id: this.titulData.region_from_with,
+        // region_from_id: this.titulData ? this.titulData.region_from_with : '',
         region_from_id: '',
         region_to_id: "",
-        // area_from_id:  this.titulData.area_from_with,
+        // area_from_id:  this.titulData ? this.titulData.area_from_with : '',
         area_from_id:  '',
         area_to_id: "",
-        // station_from_id: this.titulData.station_from_id,
+        // station_from_id: this.titulData ? this.titulData.station_from_id : '',
         station_from_id: '',
         station_to_id: "",
         start_time: "",
@@ -368,7 +368,7 @@ export default {
         stationFrom: [],
         stationTo: [],
         areaTo: [],
-        // whereForm: this.titulData.from_where,
+        // whereForm:  this.titulData ? this.titulData.from_where : '',
         whereForm: '',
         whereTo: '',
         detailsOptions: [
@@ -398,7 +398,7 @@ export default {
     };
   },
   async mounted() {
-    await this.actionEditDirection(this.$route.params.directionId); 
+    await this.actionEditDirection(this.$route.params.directionId);
     await this.actionRegionList();
     this.laoding = false
     this.titulData = this.getDirection
@@ -416,6 +416,12 @@ export default {
       this.form.start_speedometer = this.tableData[this.tableData.length - 1].end_speedometer
       this.calctechnic_speed()
     }
+    this.form.region_from_id = this.titulData.region_from_with;
+    this.form.area_from_id = this.titulData.area_from_with;
+    this.form.station_from_id = this.titulData.station_from_id;
+    this.form.whereForm = this.titulData.from_where;
+    console.log(this.form)
+
   },
   computed: {
     ...mapGetters("region", ["getRegionList"]),
@@ -458,8 +464,8 @@ export default {
       let calc_technic_speed = 0
       let calc_traffic_speed = 0
       this.tableData.forEach((item)=>{
-        calc_technic_speed += parseFloat(item.spendtime_between_station) 
-        calc_traffic_speed += parseFloat(item.spendtime_to_stay_station) 
+        calc_technic_speed += parseFloat(item.spendtime_between_station)
+        calc_traffic_speed += parseFloat(item.spendtime_to_stay_station)
       })
       this.technic_speed =  (this.tableData[this.tableData.length - 1].distance_from_start_station * 60) /  calc_technic_speed
       this.traffic_speed =  (this.tableData[this.tableData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
@@ -477,7 +483,7 @@ export default {
         this.form.distance_in_limited_speed != "" &&
         this.form.spendtime_between_limited_space != "" &&
         this.form.region_to_id != "" &&
-        this.form.whereTo  != "" 
+        this.form.whereTo  != ""
       ) {
         let thisData = {};
         if (this.tableData.length == 0) {

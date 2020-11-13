@@ -33,6 +33,7 @@
 							<td>{{item.time}}</td>
 							<td v-if="item.status == 'pending'">в ожидании </td>
 							<td v-if="item.status == 'rejected'"> отказно </td>
+							<td v-if="item.status == 'completed'"> принято </td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/confirm-tender/edit/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -52,7 +53,7 @@
 	export default{
 		data(){
 			return{
-				
+
 			}
 		},
 		async mounted(){
@@ -64,7 +65,7 @@
 		},
 		methods:{
 			...mapActions('tenderannounce',['actionTenderAnnounces','actionDeleteTenderAnnounce']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionTenderAnnounces(page)
 			},
 			async deleteRegion(id){
