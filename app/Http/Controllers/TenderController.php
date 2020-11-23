@@ -393,7 +393,48 @@ class TenderController extends Controller
         }
         //7.Transport modelining mosligi
         //8.Qoshimcha qulayliklar mavjudligi
+        $avto_qulayliklar_ball = 0;
+        foreach($app->cars as $key => $car){
+            if((int)$car->conditioner == 1){
+                $avto_qulayliklar_ball += 1.20;
+            }
+            if((int)$car->internet == 1){
+                $avto_qulayliklar_ball += 1.15;
+            }
+            if((int)$car->bio_toilet == 1){
+                $avto_qulayliklar_ball += 1.10;
+            }
+            if((int)$car->bus_adapted == 1){
+                $avto_qulayliklar_ball += 1.20;
+            }
+            if((int)$car->telephone_power == 1){
+                $avto_qulayliklar_ball += 1.05;
+            }
+            if((int)$car->monitor == 1){
+                $avto_qulayliklar_ball += 1.05;
+            }
+            if($car->station_announce){
+                $avto_qulayliklar_ball += 1.05;
+            }
+        }
+        $avto_qulayliklar_ball = $avto_qulayliklar_ball / count($app->cars);
         //9.Tadbirlar rejasi
+        $tadbirlar_rejasi_ball = 0;
+        if((int)$app->daily_technical_job == 1){
+            $tadbirlar_rejasi_ball += 1;
+        }
+        if((int)$app->daily_medical_job == 1){
+            $tadbirlar_rejasi_ball += 1;
+        }
+        if((int)$app->hours_rule == 1){
+            $tadbirlar_rejasi_ball += 1;
+        }
+        if((int)$app->videoregistrator == 1){
+            $tadbirlar_rejasi_ball += 1;
+        }
+        if((int)$app->gps == 1){
+            $tadbirlar_rejasi_ball += 1;
+        }
         //10.Ustuvor mezonlar
 
         $result['app_tarif_ball'] = $app_tarif_ball;
@@ -401,6 +442,8 @@ class TenderController extends Controller
         $result['app_avto_capacity_ball'] = $app_avto_capacity_ball;
         $result['app_qatnovlar_ball'] = $app_qatnovlar_ball;
         $result['app_categoriya'] = $app_categoriya;
+        $result['avto_qulayliklar_ball'] = round($avto_qulayliklar_ball,3);
+        $result['tadbirlar_rejasi_ball'] = $tadbirlar_rejasi_ball;
         return response()->json([
             'success' => true,
             'result' => $result

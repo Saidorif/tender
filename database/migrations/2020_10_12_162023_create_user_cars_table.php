@@ -33,6 +33,7 @@ class CreateUserCarsTable extends Migration
             $table->string('bio_toilet')->nullable();
             $table->string('bus_adapted')->nullable();
             $table->string('telephone_power')->nullable();
+            $table->string('station_announce')->nullable();
             $table->string('monitor')->nullable();
             $table->timestamps();
         });
