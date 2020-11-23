@@ -31,6 +31,8 @@ class CreateDirectionReqsTable extends Migration
             $table->string('stations_count')->nullable();
             $table->string('stations_from_name')->nullable();
             $table->string('stations_to_name')->nullable();
+            $table->string('stations_from_value')->nullable();
+            $table->string('stations_to_value')->nullable();
             $table->string('seasonal')->nullable();
             $table->string('reyses_count')->nullable();
             $table->string('reyses_from_value')->nullable();
