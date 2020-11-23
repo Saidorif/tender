@@ -37,7 +37,7 @@ const actions = {
 	async actionDemandSave({commit},payload){
 		try {
 			const demand =  await PassportTabService.demandSave(payload);
-			await commit('setMsg',demand.data.result)
+			await commit('setMsg',demand.data)
 			return true
 		} catch (error) {
 			return false
