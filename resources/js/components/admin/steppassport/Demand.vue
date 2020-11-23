@@ -210,7 +210,6 @@
   </div>
 </template>
 <script>
-
 import DatePicker from "vue2-datepicker";
 import { mapGetters, mapActions } from "vuex";
 import PassportTab from "./PassportTab";
@@ -248,7 +247,7 @@ export default {
       return this.requiredInput && input === "";
     },
     getSeasonalName(name){
-      if (name == 'always') {
+      if (name == 'always'){
         return 'Doimiy';
       }
       else if (name == 'seasonal') {
@@ -261,7 +260,19 @@ export default {
         items:this.form       
       }
       await this.actionDemandSave(data)
-      console.log(this.getMsg)
+      if (this.getMsg.success) {
+        toast.fire({
+          type: 'success',
+          icon: 'success',
+          title: this.getMsg.message,
+        })
+      }else{
+        toast.fire({
+          type: 'error',
+          icon: 'error',
+          title: 'Error',
+        })
+      }
     }
   },
 };

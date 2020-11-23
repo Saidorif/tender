@@ -27,7 +27,7 @@ class CreateUserCarsTable extends Migration
             $table->string('qty_reys')->nullable();
             $table->string('capacity')->nullable();
             $table->string('seat_qty')->nullable();
-            $table->year('date')->nullable();
+            $table->string('date')->nullable();
             $table->string('conditioner')->nullable();
             $table->string('internet')->nullable();
             $table->string('bio_toilet')->nullable();
