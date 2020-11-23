@@ -25,6 +25,7 @@ class UserCar extends Model
         'bus_adapted',
         'telephone_power',
         'monitor',
+        // 'station_announce',
     ];
 
     public function user()

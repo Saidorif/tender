@@ -23,6 +23,8 @@ class DirectionReq extends Model
         'stations_count',
         'stations_from_name',
         'stations_to_name',
+        'stations_from_value',
+        'stations_to_value',
         'seasonal',
         'reyses_count',
         'reyses_from_value',
