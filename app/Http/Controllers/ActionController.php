@@ -15,13 +15,6 @@ class ActionController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
-
-    public function create()
-    {
-        //
-    }
-
-
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
@@ -35,13 +28,6 @@ class ActionController extends Controller
         $controller = Action::create($inputs);
         return response()->json(['success' => true, 'message' => 'Действие создано']);
     }
-
-
-    public function show(Action $action)
-    {
-        //
-    }
-
 
     public function edit(Request $request, $id)
     {
@@ -69,11 +55,5 @@ class ActionController extends Controller
         $inputs = $request->all();
         $action->update($inputs);
         return response()->json(['success' => true, 'message' => 'Действие обновлено']);
-    }
-
-
-    public function destroy(Action $action)
-    {
-        //
     }
 }
