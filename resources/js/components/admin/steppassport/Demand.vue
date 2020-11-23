@@ -231,10 +231,6 @@ export default {
     await this.actionDemand(this.$route.params.directionId);
     this.laoding = false
     this.form = this.getDemand
-    Vue.set(this.form,'stations_from_value','')
-    Vue.set(this.form,'stations_to_value','')
-    Vue.set(this.form,'station_intervals','')
-    Vue.set(this.form,'text','')
     },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
