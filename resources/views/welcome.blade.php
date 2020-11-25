@@ -19,6 +19,5 @@
         </div>
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/print.js') }}"></script>
-
     </body>
 </html>
