@@ -231,10 +231,6 @@ export default {
     await this.actionDemand(this.$route.params.directionId);
     this.laoding = false
     this.form = this.getDemand
-    Vue.set(this.form,'stations_from_value','')
-    Vue.set(this.form,'stations_to_value','')
-    Vue.set(this.form,'station_intervals','')
-    Vue.set(this.form,'text','')
     },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
@@ -243,24 +239,23 @@ export default {
   methods: {
     ...mapActions("direction", ["actionEditDirection"]),
     ...mapActions("passportTab", ['actionDemand','actionDemandSave']),
-    isRequired(input) {
+    isRequired(input){
       return this.requiredInput && input === "";
     },
     getSeasonalName(name){
       if (name == 'always'){
         return 'Doimiy';
-      }
-      else if (name == 'seasonal') {
+      }else if(name == 'seasonal'){
         return 'Mavsumiy';
       }
     },
     async saveData(){
-      let data ={
+      let data = {
         id: this.$route.params.directionId,
         items:this.form       
       }
       await this.actionDemandSave(data)
-      if (this.getMsg.success) {
+      if (this.getMsg.success){
         toast.fire({
           type: 'success',
           icon: 'success',
@@ -273,7 +268,7 @@ export default {
           title: 'Error',
         })
       }
-    }
+    },
   },
 };
 </script>
