@@ -187,7 +187,6 @@ Route::group([
             //Integration
             Route::post('adliya','IntegrationController@adliya');
             Route::post('gai/vehicle','IntegrationController@getVehicleInfo');
-            Route::get('gai/token','IntegrationController@getGaiToken');
 
             //Region CRUD
             Route::post('region', 'RegionController@index');
