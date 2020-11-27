@@ -8,6 +8,8 @@ const state = {
 	application: [],
 	usereditapplication: [],
 	userapplications: [],
+	gai: [],
+	adliya: [],
 };
 
 const getters = {
@@ -32,10 +34,34 @@ const getters = {
 	getUserEditApplication(state){
 		return state.usereditapplication
 	},
+	getGaiVehicle(state){
+		return state.gai
+	},
+	getAdliya(state){
+		return state.adliya
+	},
 };
 
 
 const actions = {
+	async actionAdliya({commit},payload){
+		try {
+			const applications =  await ApplicationService.adliyaApi(payload);
+			await commit('setAdliya',applications.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionGaiVehicle({commit},payload){
+		try {
+			const applications =  await ApplicationService.gaiApi(payload);
+			await commit('setGaiVehicle',applications.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionRemoveCar({commit},id){
 		try {
 			const applications =  await ApplicationService.removeCar(id);
@@ -167,6 +193,12 @@ const mutations = {
 	},
 	setUserApplications(state, userapplications){
 		state.userapplications = userapplications
+	},
+	setGaiVehicle(state, gai){
+		state.gai = gai
+	},
+	setAdliya(state, adliya){
+		state.adliya = adliya
 	},
 };
 

@@ -81,7 +81,7 @@
 				if(status == 'pending'){
 					return 'В ожидании'
 				}else if(status == 'rejected'){
-					return 'Отказно'
+					return 'Отказано'
 				}else if(status == 'completed'){
 					return 'Завершен'
 				}

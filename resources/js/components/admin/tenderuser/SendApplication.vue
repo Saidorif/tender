@@ -640,6 +640,43 @@
 			    			</div>
 			    		</div>
 				    </div>
+				    <div class="col-md-12" v-if="car.owner_type == 'owner'">
+				    	<div class="row">
+				    		<div class="form-group col-md-4">
+							    <label for="pTexpassportSery">Серия техпаспорта</label>
+							    <input
+							    	type="text"
+							    	class="form-control input_style"
+							    	id="pTexpassportSery"
+							    	placeholder="Серия техпаспорта"
+							    	v-model="car.pTexpassportSery"
+							    	:class="isRequired(car.pTexpassportSery) ? 'isRequired' : ''"
+						    	>
+						  	</div> 
+				    		<div class="form-group col-md-4">
+							    <label for="pTexpassportNumber">Номер техпаспорта</label>
+							    <input
+							    	type="number"
+							    	class="form-control input_style"
+							    	id="pTexpassportNumber"
+							    	placeholder="Номер техпаспорта"
+							    	v-model="car.pTexpassportNumber"
+							    	:class="isRequired(car.pTexpassportNumber) ? 'isRequired' : ''"
+						    	>
+						  	</div>
+				    		<div class="form-group col-md-4">
+							    <label for="pPlateNumber">Номер машины</label>
+							    <input
+							    	type="text"
+							    	class="form-control input_style"
+							    	id="pPlateNumber"
+							    	placeholder="Номер машины"
+							    	v-model="car.pPlateNumber"
+							    	:class="isRequired(car.pPlateNumber) ? 'isRequired' : ''"
+						    	>
+						  	</div>
+					  	</div>
+			    	</div>
 				    <div class="col-md-12" v-if="car.owner_type == 'rent'">
 				    	<div class="row">
 				    		<div class="form-group col-md-3">
@@ -651,7 +688,6 @@
 							    	v-model="car.pType"
 							    	:class="isRequired(car.pType) ? 'isRequired' : ''"
 							    >
-							    	<option value="" selected disabled>Выберите тип!</option>
 							    	<option value="0">Физическое лицо</option>}
 							    	<option value="1">Юридическое лицо</option>}
 							    </select>
@@ -684,7 +720,7 @@
 							    	type="text"
 							    	class="form-control input_style"
 							    	id="pKuzov"
-							    	placeholder="ПИНФЛ"
+							    	placeholder="Номер кузова"
 							    	v-model="car.pKuzov"
 							    	:class="isRequired(car.pKuzov) ? 'isRequired' : ''"
 						    	>
@@ -771,12 +807,15 @@
 					monitor:0,
 					station_announce:0,
 					owner_type:'owner',
-					pType:'',
+					pType:0,
 					pINN:'',
 					pPinfl:'',
 					pKuzov:'',
 					pNumberNatarius:'',
 					pDateNatarius:'',
+					pTexpassportSery:'',
+				  	pTexpassportNumber:'',
+				   	pPlateNumber:'',
 				},
 				tclasses:[],
 				bus_marks:[],
@@ -796,7 +835,12 @@
 		},
 		computed:{
 			...mapGetters('direction',['getDirectionFindList']),
-			...mapGetters('application',['getMassage','getApplication']),
+			...mapGetters('application',[
+				'getMassage',
+				'getApplication',
+				'getGaiVehicle',
+				'getAdliya',
+			]),
 			...mapGetters('typeofbus',['getTypeofbusList']),
 			...mapGetters('busmodel',['getBusmodelList']),
 			...mapGetters('busclass',['getBusclassFindList']),
@@ -845,6 +889,8 @@
 				'actionAddFile',
 				'actionRemoveFile',
 				'actionRemoveCar',
+				'actionGaiVehicle',
+				'actionAdliya',
 			]),
 			...mapActions('typeofbus',['actionTypeofbusList']),
 			...mapActions('busmodel',['actionBusmodelList']),
@@ -939,12 +985,15 @@
 		    	this.car.monitor = 0
 		    	this.car.station_announce = 0
 		    	this.car.owner_type='owner'
-				this.car.pType=''
+				this.car.pType=0
 				this.car.pINN=''
 				this.car.pPinfl=''
 				this.car.pKuzov=''
 				this.car.pNumberNatarius=''
 				this.car.pDateNatarius=''
+				this.car.pTexpassportSery=''
+				this.car.pTexpassportNumber=''
+				this.car.pPlateNumber=''
 		    	this.requiredInput = false
 		    },
 			isRequired(input){
@@ -1002,27 +1051,33 @@
 		    	})
 		    },
 		    async addCar(){
-		    	if (
-	    			this.car.auto_number != '' && 
-	    			this.car.bustype_id != '' && 
-	    			this.car.tclass_id != '' && 
-	    			this.car.busmarka_id != '' && 
-	    			this.car.busmodel_id != '' && 
-	    			this.car.date != '' &&
-	    			this.car.capacity != '' && 
-	    			this.car.seat_qty != ''
-    			)
-		    	{
-					this.car['app_id'] = this.$route.params.userapplicationId
-			    	await this.actionAddCar(this.car)
-			    	if(this.getMassage.success){
-				    	await this.actionEditApplication(this.$route.params.userapplicationId)
-				    	$('#myModal').modal('hide')
-			    	}
-		    		this.requiredInput = false
-		    	}else{
-		    		this.requiredInput = true
-		    	}
+	    		if (this.car.owner_type == 'owner') {
+		    		await this.actionGaiVehicle(this.car)
+		    		console.log(this.getGaiVehicle)
+	    		}else if(this.car.owner_type == 'rent'){
+		    		await this.actionAdliya(this.car)
+	    		}
+		    	// if (
+	    		// 	this.car.auto_number != '' && 
+	    		// 	this.car.bustype_id != '' && 
+	    		// 	this.car.tclass_id != '' && 
+	    		// 	this.car.busmarka_id != '' && 
+	    		// 	this.car.busmodel_id != '' && 
+	    		// 	this.car.date != '' &&
+	    		// 	this.car.capacity != '' && 
+	    		// 	this.car.seat_qty != ''
+    			// )
+		    	// {
+					// this.car['app_id'] = this.$route.params.userapplicationId
+			  //   	await this.actionAddCar(this.car)
+			  //   	if(this.getMassage.success){
+				 //    	await this.actionEditApplication(this.$route.params.userapplicationId)
+				 //    	$('#myModal').modal('hide')
+			  //   	}
+		    	// 	this.requiredInput = false
+		    	// }else{
+		    	// 	this.requiredInput = true
+		    	// }
 
 		    },
 		    async saveData(){
