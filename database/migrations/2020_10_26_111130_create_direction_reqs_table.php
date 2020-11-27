@@ -16,7 +16,7 @@ class CreateDirectionReqsTable extends Migration
         Schema::create('direction_reqs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('direction_id');
-            $table->bigInteger('auto_type')->nullable();
+            $table->integer('auto_type')->nullable();
             $table->string('auto_type_name')->nullable();
             $table->string('auto_model_class')->nullable();
             $table->string('auto_trans_count')->nullable();

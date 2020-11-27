@@ -184,6 +184,10 @@ Route::group([
             Route::delete('direction/destroy/{id}', 'DirectionController@destroy');
             Route::delete('direction/car/destroy/{id}', 'DirectionController@deleteDirectionCar');
 
+            //Integration
+            Route::post('adliya','IntegrationController@adliya');
+            Route::post('gai/vehicle','IntegrationController@getVehicleInfo');
+
             //Region CRUD
             Route::post('region', 'RegionController@index');
             Route::post('region/store', 'RegionController@store');
