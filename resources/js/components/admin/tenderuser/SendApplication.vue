@@ -1056,6 +1056,7 @@
 		    		console.log(this.getGaiVehicle)
 	    		}else if(this.car.owner_type == 'rent'){
 		    		await this.actionAdliya(this.car)
+		    		console.log(this.getAdliya)
 	    		}
 		    	// if (
 	    		// 	this.car.auto_number != '' && 
