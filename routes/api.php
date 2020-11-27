@@ -100,7 +100,7 @@ Route::group([
             Route::get('application/list', 'ApplicationController@list');
             Route::get('application/edit/{id}', 'ApplicationController@edit');
             Route::post('application/update/{id}', 'ApplicationController@update');
-            Route::delete('application/destroy/{id}', 'ApplicationController@destroy');
+            Route::get('application/activate/{id}', 'ApplicationController@activate');
 
             //Bus Type CRUD
             Route::post('bustype', 'BusTypeController@index');

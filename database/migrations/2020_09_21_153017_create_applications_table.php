@@ -26,6 +26,7 @@ class CreateApplicationsTable extends Migration
             $table->string('hours_rule')->nullable();
             $table->string('videoregistrator')->nullable();
             $table->string('gps')->nullable();
+            $table->string('qr_code')->nullable();
             $table->timestamps();
         });
     }

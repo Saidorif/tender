@@ -125,7 +125,6 @@ class ApplicationController extends Controller
         return response()->json(['success' => true, 'result' => $application]);
     }
 
-
     public function update(Request $request, $id)
     {
         $application = Application::find($id);
@@ -151,9 +150,24 @@ class ApplicationController extends Controller
         return response()->json(['success' => true, 'message' => 'Заявка обновлено']);
     }
 
-
-    public function destroy(Action $action)
+    public function activate(Request $request, $id)
     {
-        //
+        $application = Application::find($id);
+        if(!$application){
+            return response()->json(['error' => true, 'message' => 'Заявка не найдено']);
+        }
+        if($application->status == 'accepted'){
+            return response()->json(['error' => true, 'message' => 'Application already accepted...']);
+        }
+        $text = $application->user->company_name."\n";
+        $text .= "ДАТА: ".$application->tender->time."\n";
+        $the_file = time().'_'.$application->id;
+        $qrcode = \QrCode::encoding('UTF-8')->format('png')->size(200)->generate($text, public_path('qrcodes/'.$the_file.'.png'));
+
+        //Update application
+        $application->qr_code = 'qrcodes/'.$the_file.'.png';
+        $application->status = 'accepted';
+        $application->save();
+        return response()->json(['success' => true, 'message' => 'Application accepted']);
     }
 }
