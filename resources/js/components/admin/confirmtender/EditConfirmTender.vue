@@ -59,7 +59,7 @@
 					  		    		</template>
 								  	</button>
 								  	<router-link
-								  		:to='`/crm/direction/demand-tab/${items.id}`'
+								  		:to='`/crm/stepuser/demand-tab/${items.id}`'
 								  		class="btn btn-outline-info"
 							  		>
 									  	<i class="fas fa-eye"></i>

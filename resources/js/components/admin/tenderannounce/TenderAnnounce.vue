@@ -35,8 +35,11 @@
 							</td>
 							<td>{{item.address}}</td>
 							<td>{{item.time}}</td>
-							<td v-if="item.status == 'pending'">в ожидании </td>
-							<td v-if="item.status == 'rejected'"> отказно </td>
+							<td>
+								<div class="badge" :class="getStatusClass(item.status)">
+									{{getStatusName(item.status)}}
+								</div>
+							</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/tenderannounce/edit/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -59,7 +62,7 @@
 	export default{
 		data(){
 			return{
-
+		
 			}
 		},
 		async mounted(){
@@ -73,6 +76,24 @@
 			...mapActions('tenderannounce',['actionTenderAnnounces','actionDeleteTenderAnnounce']),
 			async getResults(page = 1){
 				await this.actionTenderAnnounces(page)
+			},
+			getStatusName(status){
+				if(status == 'pending'){
+					return 'В ожидании'
+				}else if(status == 'rejected'){
+					return 'Отказно'
+				}else if(status == 'completed'){
+					return 'Завершен'
+				}
+			},
+			getStatusClass(status){
+				if(status == 'pending'){
+					return 'badge-secondary'
+				}else if(status == 'rejected'){
+					return 'badge-danger'
+				}else if(status == 'completed'){
+					return 'badge-success'
+				}
 			},
 			async deleteRegion(id){
 				if(confirm("Вы действительно хотите удалить?")){

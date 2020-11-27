@@ -616,6 +616,104 @@
 					  		</thead>
 					  	</table>
 				    </div>
+				    <div class="col-md-12">
+			    		<div class="row">
+			    			<div class="form-group col-md-2">
+			    				<label for="owner">Хозяин</label>
+		    					<input
+			  						type="radio"
+			  						name="gps"
+			  						value="owner"
+			  						id="owner"
+			  						v-model="car.owner_type"
+		  						>
+			    			</div>
+			    			<div class="form-group col-md-2">
+			    				<label for="rent">Аренда</label>
+		    					<input
+			  						type="radio"
+			  						name="gps"
+			  						value="rent"
+			  						id="rent"
+			  						v-model="car.owner_type"
+		  						>
+			    			</div>
+			    		</div>
+				    </div>
+				    <div class="col-md-12" v-if="car.owner_type == 'rent'">
+				    	<div class="row">
+				    		<div class="form-group col-md-3">
+				    			<label for="pType">Тип заявителя</label>
+							    <select
+								    class="form-control input_style"
+							    	id="pType"
+							    	placeholder="Номер Авто"
+							    	v-model="car.pType"
+							    	:class="isRequired(car.pType) ? 'isRequired' : ''"
+							    >
+							    	<option value="" selected disabled>Выберите тип!</option>
+							    	<option value="0">Физическое лицо</option>}
+							    	<option value="1">Юридическое лицо</option>}
+							    </select>
+				    		</div>
+				    		<div class="form-group col-md-3" v-if="car.pType == 1">
+							    <label for="pINN">ИНН</label>
+							    <input
+							    	type="number"
+							    	class="form-control input_style"
+							    	id="pINN"
+							    	placeholder="ИНН"
+							    	v-model="car.pINN"
+							    	:class="isRequired(car.pINN) ? 'isRequired' : ''"
+						    	>
+						  	</div>
+				    		<div class="form-group col-md-3" v-if="car.pType == 0">
+							    <label for="pPinfl">ПИНФЛ</label>
+							    <input
+							    	type="text"
+							    	class="form-control input_style"
+							    	id="pPinfl"
+							    	placeholder="ПИНФЛ"
+							    	v-model="car.pPinfl"
+							    	:class="isRequired(car.pPinfl) ? 'isRequired' : ''"
+						    	>
+						  	</div>
+				    		<div class="form-group col-md-6">
+							    <label for="pKuzov">Номер кузова</label>
+							    <input
+							    	type="text"
+							    	class="form-control input_style"
+							    	id="pKuzov"
+							    	placeholder="ПИНФЛ"
+							    	v-model="car.pKuzov"
+							    	:class="isRequired(car.pKuzov) ? 'isRequired' : ''"
+						    	>
+						  	</div>
+				    		<div class="form-group col-md-6">
+							    <label for="pNumberNatarius">Номер реестра нотариального действия</label>
+							    <input
+							    	type="text"
+							    	class="form-control input_style"
+							    	id="pNumberNatarius"
+							    	placeholder="Номер реестра..."
+							    	v-model="car.pNumberNatarius"
+							    	:class="isRequired(car.pNumberNatarius) ? 'isRequired' : ''"
+						    	>
+						  	</div>
+				    		<div class="form-group col-md-6">
+							    <label for="pDateNatarius">Дата нотариального действия</label>
+							    <date-picker 
+				                  lang="ru" 
+				                  type="date"
+				                  placeholder="Дата выпуска"
+				                  v-model="car.pDateNatarius" 
+				                  valueType="format" 
+				                  class="input_style"
+				                  :class="isRequired(car.pDateNatarius) ? 'isRequired' : ''"
+				                ></date-picker>
+						  	</div>
+				    	</div>	
+				    </div>
 		        </div>
 		      </div>
 		      <div class="modal-footer">
@@ -672,6 +770,13 @@
 					telephone_power:0,
 					monitor:0,
 					station_announce:0,
+					owner_type:'owner',
+					pType:'',
+					pINN:'',
+					pPinfl:'',
+					pKuzov:'',
+					pNumberNatarius:'',
+					pDateNatarius:'',
 				},
 				tclasses:[],
 				bus_marks:[],
@@ -719,7 +824,7 @@
 				handler(){
 					this.tclasses = this.getBusclassFindList
 				}
-			}
+			},
 		},
 		async mounted(){
 			await this.actionEditApplication(this.$route.params.userapplicationId)
@@ -833,6 +938,13 @@
 		    	this.car.telephone_power = 0
 		    	this.car.monitor = 0
 		    	this.car.station_announce = 0
+		    	this.car.owner_type='owner'
+				this.car.pType=''
+				this.car.pINN=''
+				this.car.pPinfl=''
+				this.car.pKuzov=''
+				this.car.pNumberNatarius=''
+				this.car.pDateNatarius=''
 		    	this.requiredInput = false
 		    },
 			isRequired(input){
