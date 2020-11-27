@@ -37,6 +37,12 @@ const ApplicationService = {
 	removeCar(id){
 		return ApiService.delete(`/api/application/car/destroy/`+id)
 	},
+	gaiApi(data){
+		return ApiService.post(`/api/gai/vehicle`,data)
+	},
+	adliyaApi(data){
+		return ApiService.post(`/api/adliya`,data)
+	},
 };
 
 export { ApplicationService };
