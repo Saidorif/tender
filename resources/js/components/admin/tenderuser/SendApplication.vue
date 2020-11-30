@@ -670,6 +670,7 @@
 							    	type="text"
 							    	class="form-control input_style"
 							    	id="pPlateNumber"
+							    	v-mask="'********'"
 							    	placeholder="Номер машины"
 							    	v-model="car.pPlateNumber"
 							    	:class="isRequired(car.pPlateNumber) ? 'isRequired' : ''"
@@ -869,6 +870,29 @@
 					this.tclasses = this.getBusclassFindList
 				}
 			},
+			'car.owner_type':{
+				handler(){
+					if (this.car.owner_type == 'owner') {
+						this.car.pType=0
+						this.car.pINN=''
+						this.car.pPinfl=''
+						this.car.pKuzov=''
+						this.car.pNumberNatarius=''
+						this.car.pDateNatarius=''
+					}else if(this.car.owner_type == 'rent'){
+						this.car.pTexpassportSery=''
+						this.car.pTexpassportNumber=''
+						this.car.pPlateNumber=''
+					}
+				}
+			},deep:true,
+			'car.pPlateNumber':{
+				handler(){
+					if (this.car.pPlateNumber.length > 8) {
+			          this.car.pPlateNumber = this.car.pPlateNumber.slice(0,8)
+			        }
+				}
+			},deep:true,
 		},
 		async mounted(){
 			await this.actionEditApplication(this.$route.params.userapplicationId)
@@ -1051,7 +1075,7 @@
 		    	})
 		    },
 		    async addCar(){
-	    		if (this.car.owner_type == 'owner') {
+	    		if (this.car.owner_type == 'owner'){
 		    		await this.actionGaiVehicle(this.car)
 		    		console.log(this.getGaiVehicle)
 	    		}else if(this.car.owner_type == 'rent'){
