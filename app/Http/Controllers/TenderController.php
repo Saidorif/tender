@@ -294,7 +294,8 @@ class TenderController extends Controller
         $result = [];
         //2.Tarif
         $app_tarif = (int)$app->tarif;//Taklif
-        $tender_tarif = 80;//$app->tender->tarif; Talab
+        print_r($app->tender->tarif);die;
+        $tender_tarif = $app->tender->tarif; //Talab
         $tender_avto_capacity = 15;//Tender avto transport orindiqlar sigimi
         $firstLot = $app->lots()->first();
         $yonalish = $firstLot->direction_id[0]->type->type;
