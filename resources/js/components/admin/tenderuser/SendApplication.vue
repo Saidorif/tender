@@ -783,32 +783,31 @@
 		</div>
 		<!-- QRCODE Modal -->
 		<div class="modal fade" id="qrcodeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  	<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+		  	<div class="modal-dialog modal-dialog-centered">
 			    <div class="modal-content">
 		      		<div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLabel">QrCode информация</h5>
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
 		      		</div>
-			      <div class="modal-body d-flex justify-content-center">
-		      		 <div class="qr_code_modal">
-		      		 	<h4><b>Ваша заявка принята!</b></h4>
-		      		 	<div>
-		      		 		<b>Номер заявки №</b> {{form.id}}
-		      		 	</div>
-		      		 	<div>
-		      		 		<b>Дата тендера:</b> {{form.tender ? $g.getDate(form.tender.time) : ''}}
-		      		 	</div>
-		      		 	<div>
-		      		 		<b>Адрес:</b> {{form.tender ? form.tender.address : ''}}
-		      		 	</div>
-		      		 	<div>
-		      		 		<b>Время тендера:</b> {{form.tender ? $g.getTime(form.tender.time) : ''}}
-		      		 	</div>
-		      		 	<img :src="'/'+form.qr_code" alt="">
-		      		 </div>
-		      	  </div>
+		      		<div class="modal-body d-flex justify-content-center">
+		      		 	<div class="qr_code_modal">
+			      		 	<h4><b>Ваша заявка принята!</b></h4>
+			      		 	<div>
+			      		 		<b>Номер заявки №</b> {{form.id}}
+			      		 	</div>
+			      		 	<div>
+			      		 		<b>Дата тендера:</b> {{form.tender ? $g.getDate(form.tender.time) : ''}}
+			      		 	</div>
+			      		 	<div>
+			      		 		<b>Адрес:</b> {{form.tender ? form.tender.address : ''}}
+			      		 	</div>
+			      		 	<div>
+			      		 		<b>Время тендера:</b> {{form.tender ? $g.getTime(form.tender.time) : ''}}
+			      		 	</div>
+			      		 	<img :src="'/'+form.qr_code" alt="">
+	      		 		</div>
+	      	  		</div>
 	      	  	</div>
 	  	  	</div>
   	  	</div>
@@ -1242,7 +1241,7 @@
 	}
 	.qr_code_modal{
 		border: 1px solid black;
-	    width: 360px;
+	    width: 100%;
 	    padding: 20px;
 	    text-align:center;
 	}
