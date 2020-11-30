@@ -391,7 +391,7 @@
 						  		<i class="fas fa-save"></i>
 							  	Сохранить
 							</button>
-						  	<button type="button" class="btn btn-primary btn_save_category">
+						  	<button type="button" class="btn btn-primary btn_save_category" @click.prevent="activate">
 						  		<i class="far fa-share-square"></i>
 							  	Отправить
 							</button>
@@ -670,6 +670,7 @@
 							    	type="text"
 							    	class="form-control input_style"
 							    	id="pPlateNumber"
+							    	v-mask="'********'"
 							    	placeholder="Номер машины"
 							    	v-model="car.pPlateNumber"
 							    	:class="isRequired(car.pPlateNumber) ? 'isRequired' : ''"
@@ -840,6 +841,7 @@
 				'getApplication',
 				'getGaiVehicle',
 				'getAdliya',
+				'getActivate',
 			]),
 			...mapGetters('typeofbus',['getTypeofbusList']),
 			...mapGetters('busmodel',['getBusmodelList']),
@@ -869,6 +871,29 @@
 					this.tclasses = this.getBusclassFindList
 				}
 			},
+			'car.owner_type':{
+				handler(){
+					if (this.car.owner_type == 'owner') {
+						this.car.pType=0
+						this.car.pINN=''
+						this.car.pPinfl=''
+						this.car.pKuzov=''
+						this.car.pNumberNatarius=''
+						this.car.pDateNatarius=''
+					}else if(this.car.owner_type == 'rent'){
+						this.car.pTexpassportSery=''
+						this.car.pTexpassportNumber=''
+						this.car.pPlateNumber=''
+					}
+				}
+			},deep:true,
+			'car.pPlateNumber':{
+				handler(){
+					if (this.car.pPlateNumber.length > 8) {
+			          this.car.pPlateNumber = this.car.pPlateNumber.slice(0,8)
+			        }
+				}
+			},deep:true,
 		},
 		async mounted(){
 			await this.actionEditApplication(this.$route.params.userapplicationId)
@@ -891,12 +916,17 @@
 				'actionRemoveCar',
 				'actionGaiVehicle',
 				'actionAdliya',
+				'actionActivate',
 			]),
 			...mapActions('typeofbus',['actionTypeofbusList']),
 			...mapActions('busmodel',['actionBusmodelList']),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
-			...mapActions("busbrand", ["actionBusBrandList"]),
+			...mapActions("busbrand",["actionBusBrandList"]),
+			async activate(){
+				await this.actionActivate(this.$route.params.userapplicationId)
+				console.log(this.getActivate)
+			},
 			activeEditClass(item){
 		    	if (item.status == 'active') {
 	    			return 'edit-active'
@@ -1051,7 +1081,7 @@
 		    	})
 		    },
 		    async addCar(){
-	    		// if (this.car.owner_type == 'owner') {
+	    		// if (this.car.owner_type == 'owner'){
 		    	// 	await this.actionGaiVehicle(this.car)
 		    	// 	console.log(this.getGaiVehicle)
 	    		// }else if(this.car.owner_type == 'rent'){
@@ -1079,7 +1109,6 @@
 		    	}else{
 		    		this.requiredInput = true
 		    	}
-
 		    },
 		    async saveData(){
 		    	let check = true
