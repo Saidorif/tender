@@ -10,6 +10,7 @@ const state = {
 	userapplications: [],
 	gai: [],
 	adliya: [],
+	active: [],
 };
 
 const getters = {
@@ -40,10 +41,22 @@ const getters = {
 	getAdliya(state){
 		return state.adliya
 	},
+	getActivate(state){
+		return state.active
+	},
 };
 
 
 const actions = {
+	async actionActivate({commit},id){
+		try {
+			const applications =  await ApplicationService.activate(id);
+			await commit('setActivate',applications.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionAdliya({commit},payload){
 		try {
 			const applications =  await ApplicationService.adliyaApi(payload);
@@ -199,6 +212,9 @@ const mutations = {
 	},
 	setAdliya(state, adliya){
 		state.adliya = adliya
+	},
+	setActivate(state, active){
+		state.active = active
 	},
 };
 

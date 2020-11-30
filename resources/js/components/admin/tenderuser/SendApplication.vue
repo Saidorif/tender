@@ -391,7 +391,7 @@
 						  		<i class="fas fa-save"></i>
 							  	Сохранить
 							</button>
-						  	<button type="button" class="btn btn-primary btn_save_category">
+						  	<button type="button" class="btn btn-primary btn_save_category" @click.prevent="activate">
 						  		<i class="far fa-share-square"></i>
 							  	Отправить
 							</button>
@@ -841,6 +841,7 @@
 				'getApplication',
 				'getGaiVehicle',
 				'getAdliya',
+				'getActivate',
 			]),
 			...mapGetters('typeofbus',['getTypeofbusList']),
 			...mapGetters('busmodel',['getBusmodelList']),
@@ -915,12 +916,17 @@
 				'actionRemoveCar',
 				'actionGaiVehicle',
 				'actionAdliya',
+				'actionActivate',
 			]),
 			...mapActions('typeofbus',['actionTypeofbusList']),
 			...mapActions('busmodel',['actionBusmodelList']),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
-			...mapActions("busbrand", ["actionBusBrandList"]),
+			...mapActions("busbrand",["actionBusBrandList"]),
+			async activate(){
+				await this.actionActivate(this.$route.params.userapplicationId)
+				console.log(this.getActivate)
+			},
 			activeEditClass(item){
 		    	if (item.status == 'active') {
 	    			return 'edit-active'
@@ -1082,34 +1088,6 @@
 		    	// 	await this.actionAdliya(this.car)
 		    	// 	console.log(this.getAdliya)
 	    		// }
-		    	if (
-	    			this.car.auto_number != '' && 
-	    			this.car.bustype_id != '' && 
-	    			this.car.tclass_id != '' && 
-	    			this.car.busmarka_id != '' && 
-	    			this.car.busmodel_id != '' && 
-	    			this.car.date != '' &&
-	    			this.car.capacity != '' && 
-	    			this.car.seat_qty != ''
-    			)
-		    	{
-					this.car['app_id'] = this.$route.params.userapplicationId
-			    	await this.actionAddCar(this.car)
-			    	if(this.getMassage.success){
-				    	await this.actionEditApplication(this.$route.params.userapplicationId)
-				    	$('#myModal').modal('hide')
-			    	}
-		    		this.requiredInput = false
-		    	}else{
-		    		this.requiredInput = true
-		    	}
-	    		if (this.car.owner_type == 'owner') {
-		    		await this.actionGaiVehicle(this.car)
-		    		console.log(this.getGaiVehicle)
-	    		}else if(this.car.owner_type == 'rent'){
-		    		await this.actionAdliya(this.car)
-		    		console.log(this.getAdliya)
-	    		}
 		    	if (
 	    			this.car.auto_number != '' && 
 	    			this.car.bustype_id != '' && 

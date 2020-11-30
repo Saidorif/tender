@@ -43,6 +43,9 @@ const ApplicationService = {
 	adliyaApi(data){
 		return ApiService.post(`/api/adliya`,data)
 	},
+	activate(id){
+		return ApiService.get(`/api/application/activate/${id}`)
+	},
 };
 
 export { ApplicationService };
