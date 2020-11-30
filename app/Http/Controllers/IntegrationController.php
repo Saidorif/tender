@@ -18,9 +18,9 @@ class IntegrationController extends Controller
             'pPinfl' => 'nullable|string',
             'pType' => ['required',Rule::in([0,1]),],
             'cars' => 'required|array',
-            'cars.*.pDateNatarius' => 'required|date',
-            'cars.*.pKuzov' => 'required|string',
-            'cars.*.pNumberNatarius' => 'required|string',
+            'cars.pDateNatarius' => 'required|date',
+            'cars.pKuzov' => 'required|string',
+            'cars.pNumberNatarius' => 'required|string',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
@@ -34,10 +34,17 @@ class IntegrationController extends Controller
         }
         $inputs['pID'] = Str::uuid();
         $inputs['pResource'] = 1;
-        $inputs['cars'][0]['pDateNatarius'] = Carbon::parse($inputs['cars'][0]['pDateNatarius'])->format('d.m.Y');
+        $inputs['cars']['pDateNatarius'] = Carbon::parse($inputs['cars']['pDateNatarius'])->format('d.m.Y');
+        $body = [];
+        $body['pINN'] = $inputs['pINN'];
+        !empty($inputs['pPinfl']) ? $body['pPinfl'] = $inputs['pPinfl'] : $body['pPinfl'] = '';
+        $body['pType'] = $inputs['pType'];
+        $body['pID'] = $inputs['pID'];
+        $body['pResource'] = $inputs['pResource'];
+        $body['cars'][] = $inputs['cars'];
         try {
             //Send query
-            $query = json_encode($inputs);
+            $query = json_encode($body);
             $client = new \GuzzleHttp\Client();
             $response = $client->post('10.190.0.162:8085/notary_mintrans_service/search', [
                 'auth' => [

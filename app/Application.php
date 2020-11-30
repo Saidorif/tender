@@ -19,6 +19,7 @@ class Application extends Model
         'hours_rule',
         'videoregistrator',
         'gps',
+        'qr_code'
     ];
 
     protected $casts = ['direction_ids' => 'array'];
