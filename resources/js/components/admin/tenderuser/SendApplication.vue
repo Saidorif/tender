@@ -4,7 +4,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Отправить Заявку
+				    Отправить заявку
 				</h4>
 				<div class="d-flex">
 					<span class="qr_code" @click.prevent="openQrcode" v-if="makeDisabled">
