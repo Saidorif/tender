@@ -17,7 +17,7 @@
         "laravel/tinker": "^2.0",
         "lcobucci/jwt": "3.3.3",
         "nesbot/carbon": "^2.39",
-        "simplesoftwareio/simple-qrcode": "^4.1",
+        "simplesoftwareio/simple-qrcode": "^2.0",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

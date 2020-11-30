@@ -51,7 +51,7 @@ const actions = {
 	async actionActivate({commit},id){
 		try {
 			const applications =  await ApplicationService.activate(id);
-			await commit('setActivate',applications.data)
+			await commit('setActivate',applications.data.result)
 			return true
 		} catch (error) {
 			return false
