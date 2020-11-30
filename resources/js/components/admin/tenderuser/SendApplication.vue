@@ -4,9 +4,17 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Отправить Заявку
+				    Отправить заявку
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/application"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+				<div class="d-flex">
+					<span class="qr_code" @click.prevent="openQrcode" v-if="makeDisabled">
+						<i class="fas fa-qrcode"></i>
+					</span>
+					<router-link class="btn btn-primary back_btn" to="/crm/application">
+						<span class="peIcon pe-7s-back"></span> 
+						Назад
+					</router-link>
+				</div>
 		  	</div>
 		  	<div class="card-body">
 		  		<form enctype="multipart/form-data">
@@ -33,6 +41,7 @@
 						    	placeholder="Тариф"
 						    	v-model="form.tarif"
 						    	:class="isRequired(form.tarif) ? 'isRequired' : ''"
+						    	:disabled="makeDisabled"
 					    	></div>
 				  	  	</div>
 				  	  	<div class="form-group col-md-3">
@@ -44,9 +53,10 @@
 						    	placeholder="Количество рейсов"
 						    	v-model="form.qty_reys"
 						    	:class="isRequired(form.qty_reys) ? 'isRequired' : ''"
+						    	:disabled="makeDisabled"
 					    	>
 					  	</div>
-				  	  	<div class="form-group col-md-2 btn_save d-flex justify-content-end">
+				  	  	<div class="form-group col-md-2 btn_save d-flex justify-content-end" v-if="!makeDisabled">
 					  	  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal">
 						  		<i class="fas fa-plus"></i>
 							  	Добавить авто
@@ -142,6 +152,7 @@
 						  						true-value="1"
 												false-value="0"
 						  						v-model="form.daily_technical_job"
+						  						:disabled="makeDisabled"
 					  						>
 						  				</th>
 						  			</tr>
@@ -158,6 +169,7 @@
 						  						true-value="1"
 												false-value="0"
 						  						v-model="form.daily_medical_job"
+						  						:disabled="makeDisabled"
 					  						>
 						  				</th>
 						  			</tr>
@@ -174,6 +186,7 @@
 						  						true-value="1"
 												false-value="0"
 						  						v-model="form.hours_rule"
+						  						:disabled="makeDisabled"
 					  						>
 						  				</th>
 						  			</tr>
@@ -190,6 +203,7 @@
 						  						true-value="1"
 												false-value="0"
 						  						v-model="form.videoregistrator"
+						  						:disabled="makeDisabled"
 					  						>
 						  				</th>
 						  			</tr>
@@ -206,6 +220,7 @@
 						  						true-value="1"
 												false-value="0"
 						  						v-model="form.gps"
+						  						:disabled="makeDisabled"
 					  						>
 						  				</th>
 						  			</tr>
@@ -386,7 +401,7 @@
 								</tbody>
 							</table>
 						</div>
-					  	<div class="form-group col-lg-12 d-flex justify-content-end">
+					  	<div class="form-group col-lg-12 d-flex justify-content-end" v-if="!makeDisabled">
 						  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
 						  		<i class="fas fa-save"></i>
 							  	Сохранить
@@ -766,7 +781,36 @@
 		    </div>
 		  </div>
 		</div>
-		<!-- Modal -->
+		<!-- QRCODE Modal -->
+		<div class="modal fade" id="qrcodeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  	<div class="modal-dialog modal-dialog-centered">
+			    <div class="modal-content">
+		      		<div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+		      		</div>
+		      		<div class="modal-body d-flex justify-content-center">
+		      		 	<div class="qr_code_modal">
+			      		 	<h4><b>Ваша заявка принята!</b></h4>
+			      		 	<div>
+			      		 		<b>Номер заявки №</b> {{form.id}}
+			      		 	</div>
+			      		 	<div>
+			      		 		<b>Дата тендера:</b> {{form.tender ? $g.getDate(form.tender.time) : ''}}
+			      		 	</div>
+			      		 	<div>
+			      		 		<b>Адрес:</b> {{form.tender ? form.tender.address : ''}}
+			      		 	</div>
+			      		 	<div>
+			      		 		<b>Время тендера:</b> {{form.tender ? $g.getTime(form.tender.time) : ''}}
+			      		 	</div>
+			      		 	<img :src="'/'+form.qr_code" alt="">
+	      		 		</div>
+	      	  		</div>
+	      	  	</div>
+	  	  	</div>
+  	  	</div>
 	</div>
 </template>
 <script>
@@ -832,6 +876,7 @@
 				isLoading:false,
 				newItems:[],
 				showDirections:false,
+				makeDisabled:false
 			}
 		},
 		computed:{
@@ -863,6 +908,15 @@
 					if (this.getApplication) {
 			    		this.cars_with = this.getApplication.cars_with
 						this.files = this.getApplication.attachment
+						this.form = this.getApplication
+						this.direction_ids = this.getApplication.tender.direction_ids
+						this.lots = this.getApplication.tender.tenderlots
+						if (this.getApplication.qr_code){
+				          this.makeDisabled = true
+						}else{
+				          this.makeDisabled = false
+						}
+						console.log(this.form)
 					}
 				}
 			},
@@ -923,9 +977,15 @@
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
 			...mapActions("busbrand",["actionBusBrandList"]),
+			openQrcode(){
+				$('#qrcodeModal').modal('show')
+			},
 			async activate(){
 				await this.actionActivate(this.$route.params.userapplicationId)
-				console.log(this.getActivate)
+				if (this.getActivate.success) {
+					await this.actionEditApplication(this.$route.params.userapplicationId)
+					await this.openQrcode()
+				}
 			},
 			activeEditClass(item){
 		    	if (item.status == 'active') {
@@ -1112,7 +1172,7 @@
 		    },
 		    async saveData(){
 		    	let check = true
-		    	if (this.form.hours_rule == 1) {
+		    	if (this.form.hours_rule == 1){
 		    		if (this.files.length > 0) {
 		    			check = true
 		    		}else{
@@ -1170,5 +1230,19 @@
 	.app_title{
 		width:75%;
 		text-align: center;
+	}
+	.qr_code{
+		font-size: 25px;
+	    color: black;
+	    border: 1px solid black;
+	    margin-right: 30px;
+	    padding: 0px 9px;
+	    cursor: pointer;
+	}
+	.qr_code_modal{
+		border: 1px solid black;
+	    width: 100%;
+	    padding: 20px;
+	    text-align:center;
 	}
 </style>

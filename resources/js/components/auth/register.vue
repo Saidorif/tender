@@ -195,7 +195,6 @@
               v-model="signUp.license_number"
               :class="
                 isRequired(signUp.license_number) ? 'isRequired' : ''"
-              v-mask="'99999'"
             />
             <label  for="license_number">Litsenziya nomeri</label>
           </div>
