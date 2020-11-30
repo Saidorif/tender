@@ -168,6 +168,6 @@ class ApplicationController extends Controller
         $application->qr_code = 'qrcodes/'.$the_file.'.png';
         $application->status = 'accepted';
         $application->save();
-        return response()->json(['success' => true, 'message' => 'Application accepted']);
+        return response()->json(['success' => true, 'message' => 'Application accepted','result' => $application->qr_code]);
     }
 }
