@@ -1,128 +1,124 @@
 <template>
-  <div class="add_area">
-    <Loader v-if="laoding"/>
-    <div class="card card_with_tabs">
-      <div class="card-header tabCard">
+    <div class="add_area">
+        <Loader v-if="laoding"/>
         <PassportTab/>
-      </div>
-      <div class="card-body">
-          <h1 v-if="titulData.type">Avtobus qatnov yoli tasviri {{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
-          <div class="map_scheme" v-if="schemeData.length">
-            <div class="mid_line"></div>
-            <template v-for="(p_item,p_index) in schemeData">
-              <div class="stationItem start_point cicle_item" v-if="p_index == 0" :key="p_index">
-                <h6>{{p_item.whereForm ? p_item.whereForm.name : ""}}</h6>
-              </div>
+        <div class="card-body container">
+            <h1 v-if="titulData.type">Avtobus qatnov yoli tasviri {{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
+            <div class="map_scheme" v-if="schemeData.length">
+                <div class="mid_line"></div>
+                <template v-for="(p_item,p_index) in schemeData">
+                <div class="stationItem start_point cicle_item" v-if="p_index == 0" :key="p_index">
+                    <h6>{{p_item.whereForm ? p_item.whereForm.name : ""}}</h6>
+                </div>
 
-              <div class="sm_cicle_item stationItem" v-if="p_index > 0" :key="p_index">
-                <h6>{{p_item.whereForm ? p_item.whereForm.name : ""}}</h6>
-              </div>
+                <div class="sm_cicle_item stationItem" v-if="p_index > 0" :key="p_index">
+                    <h6>{{p_item.whereForm ? p_item.whereForm.name : ""}}</h6>
+                </div>
 
-              <template v-for="(ch_item, ch_index) in p_item.details">
-                <template>
-                  <div class="icon_item">
-                    <img
-                      v-if="ch_item.name == 'railway'"
-                      src="/img/tr_tracks.jpg"
-                      :key="'icon'+p_index+ch_index"
-                      width="30"
-                    />
-                    <img
-                      v-if="ch_item.name == 'bridge'"
-                      src="/img/bridge.png"
-                      :key="'icon'+p_index+ch_index"
-                      width="30"
-                    />
-                    <img
-                      v-if="ch_item.name == 'food'"
-                      src="/img/eat.png"
-                      :key="'icon'+p_index+ch_index"
-                      width="30"
-                    />
-                    <img
-                      v-if="ch_item.name == 'rest'"
-                      src="/img/hotel.png"
-                      :key="'icon'+p_index+ch_index"
-                      width="30"
-                    />
-                    <img
-                      v-if="ch_item.name == 'danger'"
-                      src="/img/danger.png"
-                      :key="'icon'+p_index+ch_index"
-                      width="30"
-                    />
-                    <sup>{{ch_item.count}}</sup>
-                  </div>
+                <template v-for="(ch_item, ch_index) in p_item.details">
+                    <template>
+                    <div class="icon_item">
+                        <img
+                        v-if="ch_item.name == 'railway'"
+                        src="/img/tr_tracks.jpg"
+                        :key="'icon'+p_index+ch_index"
+                        width="30"
+                        />
+                        <img
+                        v-if="ch_item.name == 'bridge'"
+                        src="/img/bridge.png"
+                        :key="'icon'+p_index+ch_index"
+                        width="30"
+                        />
+                        <img
+                        v-if="ch_item.name == 'food'"
+                        src="/img/eat.png"
+                        :key="'icon'+p_index+ch_index"
+                        width="30"
+                        />
+                        <img
+                        v-if="ch_item.name == 'rest'"
+                        src="/img/hotel.png"
+                        :key="'icon'+p_index+ch_index"
+                        width="30"
+                        />
+                        <img
+                        v-if="ch_item.name == 'danger'"
+                        src="/img/danger.png"
+                        :key="'icon'+p_index+ch_index"
+                        width="30"
+                        />
+                        <sup>{{ch_item.count}}</sup>
+                    </div>
+                    </template>
                 </template>
-              </template>
 
-              <div
-                class="end_point cicle_item stationItem"
-                v-if="schemeData.length  == p_index + 1"
-                :key="'last'+p_index"
-              >
-                <h6>{{p_item.whereTo ? p_item.whereTo.name : ""}}</h6>
-              </div>
-            </template>
-          </div>
-          <div class="road_signs col-md-6">
-            <h6>Shatrli belgilar</h6>
-            <ul>
-              <li>
-                  <div class="icon_item bdn">
-                      <div class="cicle_item"></div>
-                  </div>
-                  <span>Avtostansiya</span>
-              </li>
-              <li>
-                  <div class="icon_item bdn">
-                      <div class="sm_cicle_item"></div>
-                  </div>
-                  <span>To'xtash joylari</span>
-              </li>
-              <li>
-                <div class="icon_item">
-                  <img src="/img/tr_tracks.jpg" width="30" />
+                <div
+                    class="end_point cicle_item stationItem"
+                    v-if="schemeData.length  == p_index + 1"
+                    :key="'last'+p_index"
+                >
+                    <h6>{{p_item.whereTo ? p_item.whereTo.name : ""}}</h6>
                 </div>
-                <span>Temir yo'lni kesib o'tish joylari</span>
-              </li>
-              <li>
-                <div class="icon_item">
-                  <img src="/img/bridge.png" width="30" />
-                </div>
-                <span>Kesishgan yol ustidan otkazilgan kondalang yollar</span>
-              </li>
-              <li>
-                <div class="icon_item">
-                  <img src="/img/eat.png" width="30" />
-                </div>
-                <span>Ovqatlanish joylari</span>
-              </li>
-              <li>
-                <div class="icon_item">
-                  <img src="/img/hotel.png" width="30" />
-                </div>
-                <span>Dam olish joylari</span>
-              </li>
-              <li>
-                <div class="icon_item">
-                  <img src="/img/danger.png" width="30" />
-                </div>
-                <span> Harkatlanish uchun xafli bo'lgan yo'l uchastkalari</span>
-              </li>
-            </ul>
-          </div>
-          <div class="row col-md-12"  v-if="agreedData.length">
-            <div class="form-group col-md-3 agree_item" v-for="(p_item,p_index) in agreedData">
-              <h6>"Kelishilgan"</h6>
-              <p>{{p_item.organ }} {{ p_item.job}}:</p>
-              <p><span></span>{{p_item.fio }}. {{ p_item.date}}</p>
-              <p></p>
+                </template>
             </div>
-          </div>
-      </div>
+            <div class="road_signs col-md-6">
+                <h6>Shatrli belgilar</h6>
+                <ul>
+                <li>
+                    <div class="icon_item bdn">
+                        <div class="cicle_item"></div>
+                    </div>
+                    <span>Avtostansiya</span>
+                </li>
+                <li>
+                    <div class="icon_item bdn">
+                        <div class="sm_cicle_item"></div>
+                    </div>
+                    <span>To'xtash joylari</span>
+                </li>
+                <li>
+                    <div class="icon_item">
+                    <img src="/img/tr_tracks.jpg" width="30" />
+                    </div>
+                    <span>Temir yo'lni kesib o'tish joylari</span>
+                </li>
+                <li>
+                    <div class="icon_item">
+                    <img src="/img/bridge.png" width="30" />
+                    </div>
+                    <span>Kesishgan yol ustidan otkazilgan kondalang yollar</span>
+                </li>
+                <li>
+                    <div class="icon_item">
+                    <img src="/img/eat.png" width="30" />
+                    </div>
+                    <span>Ovqatlanish joylari</span>
+                </li>
+                <li>
+                    <div class="icon_item">
+                    <img src="/img/hotel.png" width="30" />
+                    </div>
+                    <span>Dam olish joylari</span>
+                </li>
+                <li>
+                    <div class="icon_item">
+                    <img src="/img/danger.png" width="30" />
+                    </div>
+                    <span> Harkatlanish uchun xafli bo'lgan yo'l uchastkalari</span>
+                </li>
+                </ul>
+            </div>
+            <div class="row col-md-12"  v-if="agreedData.length">
+                <div class="form-group col-md-3 agree_item" v-for="(p_item,p_index) in agreedData">
+                <h6>"Kelishilgan"</h6>
+                <p>{{p_item.organ }} {{ p_item.job}}:</p>
+                <p><span></span>{{p_item.fio }}. {{ p_item.date}}</p>
+                <p></p>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 <script>
 import DatePicker from "vue2-datepicker";

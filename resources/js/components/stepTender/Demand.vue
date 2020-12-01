@@ -1,205 +1,201 @@
 <template>
   <div class="add_area">
-    <Loader v-if="laoding"/>
-    <div class="card card_with_tabs">
-      <div class="card-header tabCard">
+        <Loader v-if="laoding"/>
         <PassportTab/>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td width="50%"><b>Автотранспорт воситаси категорияси</b></td>
-                <td>{{form.auto_type_name}}</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td width="50%"><b>Автотранспорт воситаси моделининг класси</b></td>
-                <td>
-                  <div v-for="(item,index) in form.auto_model_class">
-                    {{item.model.name}}
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td rowspan="3">3</td>
-                <td width="50%"><b>Автотранспорт воситалари сони (саройдан фойдаланиш коэффициенти 0,8 хисобга олинганда)</b></td>
-                <td>{{form.auto_trans_count}}</td>
-              </tr>
-              <tr>
-                <td>Ишкунлари</td>
-                <td>
-                  {{form.auto_trans_working_days}}
-                </td>
-              </tr>
-              <tr>
-                <td>Дам олиш кунлари</td>
-                <td>
-                  {{form.auto_trans_weekends}}
-                </td>
-              </tr>
-               <!-- 3 end -->
-              <tr>
-                <td>4</td>
-                <td width="50%"><b>Автотранспорт воситалари ҳолати</b></td>
-                <td>14 йилдан</td>
-              </tr>
-              <!-- 3 s -->
-              <tr>
-                <td rowspan="3">5</td>
-                <td width="50%"><b>Йуналишнинг умумий узунлиги</b></td>
-                <td><b>{{form.direction_total_length}}</b></td>
-              </tr>
-              <tr>
-                <td>{{form.direction_from_name}}-{{form.direction_to_name}}</td>
-                <td>{{form.direction_from_value}}</td>
-              </tr>
-              <tr>
-                <td>{{form.direction_to_name}}-{{form.direction_from_name}}</td>
-                <td>{{form.direction_to_value}}</td>
-              </tr>
-              <!-- 3 end -->
-              <!-- 3 s -->
-              <tr>
-                <td rowspan="3">6</td>
-                <td width="50%"><b>Бекатлар сони</b></td>
-                <td><b>{{form.stations_count}}</b></td>
-              </tr>
-              <tr>
-                <td>{{form.stations_from_name}}-{{form.stations_to_name}}</td>
-                <td>{{form.stations_from_value}}</td>
-              </tr>
-              <tr>
-                <td>{{form.stations_to_name}}-{{form.stations_from_name}}</td>
-                <td>{{form.stations_to_value}}</td>
-              </tr>
-              <!-- 3 end -->
-              <tr>
-                <td>7</td>
-                <td width="50%"><b>Мавсумийлиги</b></td>
-                <td>{{getSeasonalName(form.seasonal)}}</td>
-              </tr>
-              <!-- 3 s -->
-              <tr>
-                <td rowspan="3">8</td>
-                <td width="50%"><b>Рейслар (қатновлар) сони</b></td>
-                <td><b>{{form.reyses_count}}</b></td>
-              </tr>
-              <tr>
-                <td>{{form.reyses_from_name}}-{{form.reyses_to_name}}</td>
-                <td>{{form.reyses_from_value}}</td>
-              </tr>
-              <tr>
-                <td>{{form.reyses_to_name}}-{{form.reyses_from_name}}</td>
-                <td>{{form.reyses_to_value}}</td>
-              </tr>
-              <!-- 3 end -->
-              <!-- 3 s -->
-              <tr>
-                <td rowspan="3">9</td>
-                <td width="50%"><b>Дастлабки рейс (ишни бошлаш) вақти</b></td>
-                <td><b>{{form.schedule_begin_time}}</b></td>
-              </tr>
-              <tr>
-                <td>{{form.reyses_from_name}} томондан</td>
-                <td>{{form.schedule_begin_from}}</td>
-              </tr>
-              <tr>
-                <td>{{form.reyses_to_name}} томондан</td>
-                <td>{{form.schedule_begin_to}}</td>
-              </tr>
-              <!-- 3 end -->
-              <!-- 3 s -->
-              <tr>
-                <td rowspan="3">10</td>
-                <td width="50%"><b>Сўнги рейс (ишни тугалланиш) вақти</b></td>
-                <td><b>{{form.schedule_end_time}}</b></td>
-              </tr>
-              <tr>
-                <td>{{form.reyses_from_name}} томондан</td>
-                <td>{{form.schedule_end_from}}</td>
-              </tr>
-              <tr>
-                <td>{{form.reyses_to_name}} томондан</td>
-                <td>{{form.schedule_end_to}}</td>
-              </tr>
-              <!-- 3 end -->
-              <!-- 3 s -->
-              <tr>
-                <td>11</td>
-                <td width="50%"><b>Бекатлар оралиқ интерваллари</b></td>
-                <td><b>{{form.station_intervals}}</b></td>
-              </tr>
-              <!-- 3 end -->
-              <!-- 3 s -->
-              <tr>
-                <td rowspan="3">12</td>
-                <td width="50%"><b>Рейс вақти</b></td>
-                <td><b>{{(form.reys_time)}}</b></td>
-              </tr>
-              <tr>
-                <td>{{form.reyses_from_name}}-{{form.reyses_to_name}}</td>
-                <td>{{form.reys_from_value}}</td>
-              </tr>
-              <tr>
-                <td>{{form.reyses_to_name}}-{{form.reyses_from_name}}</td>
-                <td>{{form.reys_to_value}}</td>
-              </tr>
-              <!-- 3 end -->
-              <tr>
-                <td>13</td>
-                <td width="50%"><b>Харакатланиш жадваллари</b></td>
-                <td>{{form.schedules}}</td>
-              </tr>
-              <!-- 3 s -->
-              <tr>
-                <td rowspan="3">14</td>
-                <td width="50%"><b>Тариф</b></td>
-                <td><b>{{form.tarif}}</b></td>
-              </tr>
-              <tr>
-                <td>1 км. учун йўл тариф (шаҳар атрофи, шаҳарлараро йўналишлар учун)</td>
-                <td>1 км. учун ({{form.tarif_one_km}} сум). Йўл кира ҳаққи (00 сум)</td>
-              </tr>
-              <tr>
-                <td>Йўл кира ҳаққи (шаҳар йўналишлар учун)</td>
-                <td>{{form.tarif_city}} сум</td>
-              </tr>
-              <!-- 3 end -->
-              <!-- 3 s -->
-              <tr>
-                <td rowspan="2">15</td>
-                <td width="50%"><b>Автотранспорт воситаларини умумий сиғими</b></td>
-                <td>{{form.transports_capacity}}</td>
-              </tr>
-              <tr>
-                <td>ўриндиқлар сони</td>
-                <td>{{form.transports_seats}}</td>
-              </tr>
-              <!-- 3 end -->
-              <tr>
-                <td>16</td>
-                <td width="50%"><b>Минимал балл</b></td>
-                <td>{{form.minimum_bal}}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="text_place">
-            <label for="text">Текст</label>
-            <textarea id="text" class="form-control" v-model="form.holiday_days" disabled></textarea>
-          </div>
-       <!--    <div class="btn_send d-flex justify-content-end">
-            <button type="button" class="btn btn-primary" @click.prevent="saveData">
-              <i class="fas fa-save"></i>
-              Сохранить
-            </button>
-          </div> -->
+        <div class="card-body container">
+            <div class="table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td width="50%"><b>Автотранспорт воситаси категорияси</b></td>
+                    <td>{{form.auto_type_name}}</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td width="50%"><b>Автотранспорт воситаси моделининг класси</b></td>
+                    <td>
+                    <div v-for="(item,index) in form.auto_model_class">
+                        {{item.model.name}}
+                    </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3">3</td>
+                    <td width="50%"><b>Автотранспорт воситалари сони (саройдан фойдаланиш коэффициенти 0,8 хисобга олинганда)</b></td>
+                    <td>{{form.auto_trans_count}}</td>
+                </tr>
+                <tr>
+                    <td>Ишкунлари</td>
+                    <td>
+                    {{form.auto_trans_working_days}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Дам олиш кунлари</td>
+                    <td>
+                    {{form.auto_trans_weekends}}
+                    </td>
+                </tr>
+                <!-- 3 end -->
+                <tr>
+                    <td>4</td>
+                    <td width="50%"><b>Автотранспорт воситалари ҳолати</b></td>
+                    <td>14 йилдан</td>
+                </tr>
+                <!-- 3 s -->
+                <tr>
+                    <td rowspan="3">5</td>
+                    <td width="50%"><b>Йуналишнинг умумий узунлиги</b></td>
+                    <td><b>{{form.direction_total_length}}</b></td>
+                </tr>
+                <tr>
+                    <td>{{form.direction_from_name}}-{{form.direction_to_name}}</td>
+                    <td>{{form.direction_from_value}}</td>
+                </tr>
+                <tr>
+                    <td>{{form.direction_to_name}}-{{form.direction_from_name}}</td>
+                    <td>{{form.direction_to_value}}</td>
+                </tr>
+                <!-- 3 end -->
+                <!-- 3 s -->
+                <tr>
+                    <td rowspan="3">6</td>
+                    <td width="50%"><b>Бекатлар сони</b></td>
+                    <td><b>{{form.stations_count}}</b></td>
+                </tr>
+                <tr>
+                    <td>{{form.stations_from_name}}-{{form.stations_to_name}}</td>
+                    <td>{{form.stations_from_value}}</td>
+                </tr>
+                <tr>
+                    <td>{{form.stations_to_name}}-{{form.stations_from_name}}</td>
+                    <td>{{form.stations_to_value}}</td>
+                </tr>
+                <!-- 3 end -->
+                <tr>
+                    <td>7</td>
+                    <td width="50%"><b>Мавсумийлиги</b></td>
+                    <td>{{getSeasonalName(form.seasonal)}}</td>
+                </tr>
+                <!-- 3 s -->
+                <tr>
+                    <td rowspan="3">8</td>
+                    <td width="50%"><b>Рейслар (қатновлар) сони</b></td>
+                    <td><b>{{form.reyses_count}}</b></td>
+                </tr>
+                <tr>
+                    <td>{{form.reyses_from_name}}-{{form.reyses_to_name}}</td>
+                    <td>{{form.reyses_from_value}}</td>
+                </tr>
+                <tr>
+                    <td>{{form.reyses_to_name}}-{{form.reyses_from_name}}</td>
+                    <td>{{form.reyses_to_value}}</td>
+                </tr>
+                <!-- 3 end -->
+                <!-- 3 s -->
+                <tr>
+                    <td rowspan="3">9</td>
+                    <td width="50%"><b>Дастлабки рейс (ишни бошлаш) вақти</b></td>
+                    <td><b>{{form.schedule_begin_time}}</b></td>
+                </tr>
+                <tr>
+                    <td>{{form.reyses_from_name}} томондан</td>
+                    <td>{{form.schedule_begin_from}}</td>
+                </tr>
+                <tr>
+                    <td>{{form.reyses_to_name}} томондан</td>
+                    <td>{{form.schedule_begin_to}}</td>
+                </tr>
+                <!-- 3 end -->
+                <!-- 3 s -->
+                <tr>
+                    <td rowspan="3">10</td>
+                    <td width="50%"><b>Сўнги рейс (ишни тугалланиш) вақти</b></td>
+                    <td><b>{{form.schedule_end_time}}</b></td>
+                </tr>
+                <tr>
+                    <td>{{form.reyses_from_name}} томондан</td>
+                    <td>{{form.schedule_end_from}}</td>
+                </tr>
+                <tr>
+                    <td>{{form.reyses_to_name}} томондан</td>
+                    <td>{{form.schedule_end_to}}</td>
+                </tr>
+                <!-- 3 end -->
+                <!-- 3 s -->
+                <tr>
+                    <td>11</td>
+                    <td width="50%"><b>Бекатлар оралиқ интерваллари</b></td>
+                    <td><b>{{form.station_intervals}}</b></td>
+                </tr>
+                <!-- 3 end -->
+                <!-- 3 s -->
+                <tr>
+                    <td rowspan="3">12</td>
+                    <td width="50%"><b>Рейс вақти</b></td>
+                    <td><b>{{(form.reys_time)}}</b></td>
+                </tr>
+                <tr>
+                    <td>{{form.reyses_from_name}}-{{form.reyses_to_name}}</td>
+                    <td>{{form.reys_from_value}}</td>
+                </tr>
+                <tr>
+                    <td>{{form.reyses_to_name}}-{{form.reyses_from_name}}</td>
+                    <td>{{form.reys_to_value}}</td>
+                </tr>
+                <!-- 3 end -->
+                <tr>
+                    <td>13</td>
+                    <td width="50%"><b>Харакатланиш жадваллари</b></td>
+                    <td>{{form.schedules}}</td>
+                </tr>
+                <!-- 3 s -->
+                <tr>
+                    <td rowspan="3">14</td>
+                    <td width="50%"><b>Тариф</b></td>
+                    <td><b>{{form.tarif}}</b></td>
+                </tr>
+                <tr>
+                    <td>1 км. учун йўл тариф (шаҳар атрофи, шаҳарлараро йўналишлар учун)</td>
+                    <td>1 км. учун ({{form.tarif_one_km}} сум). Йўл кира ҳаққи (00 сум)</td>
+                </tr>
+                <tr>
+                    <td>Йўл кира ҳаққи (шаҳар йўналишлар учун)</td>
+                    <td>{{form.tarif_city}} сум</td>
+                </tr>
+                <!-- 3 end -->
+                <!-- 3 s -->
+                <tr>
+                    <td rowspan="2">15</td>
+                    <td width="50%"><b>Автотранспорт воситаларини умумий сиғими</b></td>
+                    <td>{{form.transports_capacity}}</td>
+                </tr>
+                <tr>
+                    <td>ўриндиқлар сони</td>
+                    <td>{{form.transports_seats}}</td>
+                </tr>
+                <!-- 3 end -->
+                <tr>
+                    <td>16</td>
+                    <td width="50%"><b>Минимал балл</b></td>
+                    <td>{{form.minimum_bal}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text_place">
+                <label for="text">Текст</label>
+                <textarea id="text" class="form-control" v-model="form.holiday_days" disabled></textarea>
+            </div>
+        <!--    <div class="btn_send d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" @click.prevent="saveData">
+                <i class="fas fa-save"></i>
+                Сохранить
+                </button>
+            </div> -->
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </template>
 <script>
 
@@ -239,7 +235,7 @@ export default {
       return this.requiredInput && input === "";
     },
     getSeasonalName(name){
-      if (name == 'always') {
+      if(name == 'always') {
         return 'Doimiy';
       }
       else if (name == 'seasonal') {
@@ -247,7 +243,7 @@ export default {
       }
     },
     saveData(){
-        
+
     }
   },
 };

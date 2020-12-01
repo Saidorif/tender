@@ -1,82 +1,78 @@
 <template>
-  <div class="add_area">
-    <Loader v-if="laoding"/>
-    <div class="card card_with_tabs">
-      <div class="card-header tabCard">
+    <div class="add_area">
+        <Loader v-if="laoding"/>
         <PassportTab/>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive" v-if="tableData.length">
-            <table class="table table-bordered text-center table-hover table-striped">
-              <thead>
-                <tr>
-                  <th scope="col" rowspan="2">№</th>
-                  <th scope="col" rowspan="2">Oraliq toxtash bekatlari</th>
-                  <th scope="col" colspan="2">Masofa ulagich ko'rsatkichlari</th>
-                  <th scope="col" colspan="3">Masofa (km)</th>
-                  <th scope="col" colspan="3">Sariflanadigon vaqt (minut)</th>
-                  <th scope="col" colspan="2">Ortacha texnik tezlik (km/soat)</th>
-                  <th rowspan="2">Qatnov yol xaqidagi malumotlar</th>
-                </tr>
-                <tr>
-                  <th>Jonash vaqtida</th>
-                  <th>Kelgan vaqtida</th>
-                  <th>Boshlangich bekatdan</th>
-                  <th>Bekatlar oraligida</th>
-                  <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
-                  <th>Bekatlar oralig'idagi xarakat</th>
-                  <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
-                  <th>Oraliq bekatda toxtash uchun</th>
-                  <th>Bekatlar oralig'idagi xarakat</th>
-                  <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(table,index) in tableData">
-                  <td scope="row">{{index+1}}</td>
-                  <td>{{ table.whereForm ? table.whereForm.name  : '' }} {{ table.whereTo ? table.whereTo.name  : '' }}</td>
-                  <td>{{ table.start_speedometer }}</td>
-                  <td>{{ table.end_speedometer }}</td>
-                  <td>{{ table.distance_from_start_station }} </td>
-                  <td>{{ table.distance_between_station }}</td>
-                  <td>{{ table.distance_in_limited_speed }}</td>
-                  <td>{{ table.spendtime_between_station }} </td>
-                  <td>{{ table.spendtime_between_limited_space }}</td>
-                  <td>{{ table.spendtime_to_stay_station }} </td>
-                  <td>{{ table.speed_between_station }}</td>
-                  <td>{{ table.speed_between_limited_space }}</td>
-                  <td class="detail_td">
-                    <span v-for="(detail) in table.details">
-                      {{detail.name }} {{ detail.count}}
-                      <b>,</b>
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="8" scope="row">Ortacha tezlik = {{technic_speed}} km/soat</td>
-                  <td colspan="8" scope="row">Qatnov tezlik = {{traffic_speed}} km/soat</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="table_footer">
-              <div class="col-md-6">
-                <p>Qatnov yoli xarakat xafsizligiga:  {{timingDetails.conclusion}}</p>
-                <p>Olchov otkazilgan kun:  {{timingDetails.date}} yil</p>
-                <p>Xronametraj otkazilgan avtomobil rusumi va davlat raqami:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
-              </div>
-              <div class="col-md-4 right_item">
-                <div>
-                  <p>Olchov <br> qatnashchilari <br>  imzolari:</p>
+        <div class="card-body container">
+            <div class="table-responsive" v-if="tableData.length">
+                <table class="table table-bordered text-center table-hover table-striped">
+                <thead>
+                    <tr>
+                    <th scope="col" rowspan="2">№</th>
+                    <th scope="col" rowspan="2">Oraliq toxtash bekatlari</th>
+                    <th scope="col" colspan="2">Masofa ulagich ko'rsatkichlari</th>
+                    <th scope="col" colspan="3">Masofa (km)</th>
+                    <th scope="col" colspan="3">Sariflanadigon vaqt (minut)</th>
+                    <th scope="col" colspan="2">Ortacha texnik tezlik (km/soat)</th>
+                    <th rowspan="2">Qatnov yol xaqidagi malumotlar</th>
+                    </tr>
+                    <tr>
+                    <th>Jonash vaqtida</th>
+                    <th>Kelgan vaqtida</th>
+                    <th>Boshlangich bekatdan</th>
+                    <th>Bekatlar oraligida</th>
+                    <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
+                    <th>Bekatlar oralig'idagi xarakat</th>
+                    <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
+                    <th>Oraliq bekatda toxtash uchun</th>
+                    <th>Bekatlar oralig'idagi xarakat</th>
+                    <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(table,index) in tableData">
+                    <td scope="row">{{index+1}}</td>
+                    <td>{{ table.whereForm ? table.whereForm.name  : '' }} {{ table.whereTo ? table.whereTo.name  : '' }}</td>
+                    <td>{{ table.start_speedometer }}</td>
+                    <td>{{ table.end_speedometer }}</td>
+                    <td>{{ table.distance_from_start_station }} </td>
+                    <td>{{ table.distance_between_station }}</td>
+                    <td>{{ table.distance_in_limited_speed }}</td>
+                    <td>{{ table.spendtime_between_station }} </td>
+                    <td>{{ table.spendtime_between_limited_space }}</td>
+                    <td>{{ table.spendtime_to_stay_station }} </td>
+                    <td>{{ table.speed_between_station }}</td>
+                    <td>{{ table.speed_between_limited_space }}</td>
+                    <td class="detail_td">
+                        <span v-for="(detail) in table.details">
+                        {{detail.name }} {{ detail.count}}
+                        <b>,</b>
+                        </span>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td colspan="8" scope="row">Ortacha tezlik = {{technic_speed}} km/soat</td>
+                    <td colspan="8" scope="row">Qatnov tezlik = {{traffic_speed}} km/soat</td>
+                    </tr>
+                </tbody>
+                </table>
+                <div class="table_footer">
+                <div class="col-md-6">
+                    <p>Qatnov yoli xarakat xafsizligiga:  {{timingDetails.conclusion}}</p>
+                    <p>Olchov otkazilgan kun:  {{timingDetails.date}} yil</p>
+                    <p>Xronametraj otkazilgan avtomobil rusumi va davlat raqami:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
                 </div>
-                <div>
-                  <p  v-for="(person,index) in timingDetails.persons">{{person.name.charAt(0)}}.{{person.surname}}</p>
+                <div class="col-md-4 right_item">
+                    <div>
+                    <p>Olchov <br> qatnashchilari <br>  imzolari:</p>
+                    </div>
+                    <div>
+                    <p  v-for="(person,index) in timingDetails.persons">{{person.name.charAt(0)}}.{{person.surname}}</p>
+                    </div>
                 </div>
-              </div>
+                </div>
             </div>
-          </div>
-      </div>
+        </div>
     </div>
-  </div>
 </template>
 <script>
 import DatePicker from "vue2-datepicker";
@@ -150,7 +146,7 @@ export default {
     };
   },
   async mounted() {
-    await this.actionEditDirection(this.$route.params.directionId); 
+    await this.actionEditDirection(this.$route.params.directionId);
     await this.actionRegionList();
     this.laoding = false
     this.titulData = this.getDirection
@@ -210,8 +206,8 @@ export default {
       let calc_technic_speed = 0
       let calc_traffic_speed = 0
       this.tableData.forEach((item)=>{
-        calc_technic_speed += parseFloat(item.spendtime_between_station) 
-        calc_traffic_speed += parseFloat(item.spendtime_to_stay_station) 
+        calc_technic_speed += parseFloat(item.spendtime_between_station)
+        calc_traffic_speed += parseFloat(item.spendtime_to_stay_station)
       })
       this.technic_speed =  (this.tableData[this.tableData.length - 1].distance_from_start_station * 60) /  calc_technic_speed
       this.traffic_speed =  (this.tableData[this.tableData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
@@ -229,7 +225,7 @@ export default {
         this.form.distance_in_limited_speed != "" &&
         this.form.spendtime_between_limited_space != "" &&
         this.form.region_to_id != "" &&
-        this.form.whereTo  != "" 
+        this.form.whereTo  != ""
       ) {
         let thisData = {};
         if (this.tableData.length == 0) {

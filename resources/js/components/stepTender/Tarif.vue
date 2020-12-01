@@ -1,11 +1,8 @@
 <template>
 	<div class="add_area">
 		<Loader v-if="laoding"/>
-	    <div class="card card_with_tabs">
-	  		<div class="card-header tabCard">
-	    		<PassportTab/>
-	  		</div>
-	  		<div class="card-body">
+	    <PassportTab/>
+	  	<div class="card-body container">
 				<div class="tarif_column">
 			  		<h1>Yo'l kira haqi jadvali {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
 			  		<div class="table-responsive">
@@ -46,7 +43,6 @@
 				  		</table>
 			  		</div>
 				</div>
-		  	</div>
 		</div>
    </div>
 </template>

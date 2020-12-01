@@ -25,7 +25,7 @@
       </ul>
     </div>
     <!-- <router-link class="btn btn-primary back_btn" to="/crm/direction">
-      <span class="peIcon pe-7s-back"></span> 
+      <span class="peIcon pe-7s-back"></span>
       Назад
     </router-link> -->
   </div>
@@ -55,5 +55,27 @@
 	}
 </script>
 <style scoped>
+    .nav.nav-tabs{
+        padding-top: 40px;
+        justify-content: center;
+    }
+    .nav-item a.active{
+        border: 2px solid;
+        color: #292666;
+    }
+    .nav-item a{
+         display: flex;
+        align-items: center;
+        font-weight: bold;
+        padding: 6px 30px;
+        border-radius: 30px;
+        font-family: "Poppins-Medium";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: #9CA1AB;
+        text-decoration: none !important;
+    }
 
 </style>

@@ -1,159 +1,155 @@
 <template>
-  <div class="add_area">
-    <Loader v-if="laoding"/>
-    <div class="card card_with_tabs">
-      <div class="card-header tabCard">
+    <div class="add_area">
+        <Loader v-if="laoding"/>
         <PassportTab />
-      </div>
-      <div class="card-body">
-        <div class="row col-md-12">
-          <div class="form-group col-md-3">
-            <label for="reys_to_count" v-if="this.titulData">
-              Reyslar soni {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan
-            </label>
-            <div class="form-control input_style">
-              {{form.reys_to_count}}
+        <div class="card-body container">
+            <div class="row col-md-12">
+            <div class="form-group col-md-3">
+                <label for="reys_to_count" v-if="this.titulData">
+                Reyslar soni {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan
+                </label>
+                <div class="form-control input_style">
+                {{form.reys_to_count}}
+                </div>
             </div>
-          </div>
-          <div class="form-group col-md-3" v-if="this.titulData">
-            <label for="reys_from_count">
-              Reyslar soni  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan
-            </label>
-            <div class="form-control input_style">
-              {{form.reys_from_count}}
+            <div class="form-group col-md-3" v-if="this.titulData">
+                <label for="reys_from_count">
+                Reyslar soni  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan
+                </label>
+                <div class="form-control input_style">
+                {{form.reys_from_count}}
+                </div>
             </div>
-          </div>
-          <div class="form-group col-md-3">
-            <label for="count_bus">Qatnovchi avtomobillar soni </label>
-            <div class="form-control input_style">
-              {{form.count_bus}}
+            <div class="form-group col-md-3">
+                <label for="count_bus">Qatnovchi avtomobillar soni </label>
+                <div class="form-control input_style">
+                {{form.count_bus}}
+                </div>
             </div>
-          </div>
-        </div>
-        <h2 v-if="titulData.type">
-          {{ titulData.type.type }} - {{ titulData.pass_number }} - sonli "{{
-            titulData.name
-          }}"Avtobus yo'nalishi qatnov yo'li masofasini va xarakat vaqtini
-          olchash qaydnomasi
-        </h2>
-        <div class="col-md-4">
-          <p>
-            Qatnov yo'l masofasi
-            <b v-if="titulData.timing_with"
-              >{{
-                titulData.timing_with[titulData.timing_with.length - 1]
-                  .end_speedometer
-              }}
-              km</b
-            >
-          </p>
-        </div>
-        <div class="col-md-4">
-          <p>Qatnovchi avtomobillar soni {{ form.count_bus }}</p>
-        </div>
-        <div class="col-md-4">
-          <p>Yolkira xaqqi so'm</p>
-        </div>
-        <div class="table-responsive" v-if="form.whereTo">
-          <table
-            class="table table-bordered text-center table-hover table-striped"
-          >
-            <thead>
-              <tr>
-                <th scope="col" rowspan="5">Qatnovlar</th>
-                <th scope="col" :colspan="form.whereTo.stations.length * 2">
-                  {{form.whereTo.where.name}}
-                </th>
-                <th scope="col" rowspan="3">Reys ischinligi</th>
-              </tr>
-              <tr>
-                <th
-                  colspan="2"
-                  v-for="(item, index) in form.whereTo.stations"
+            </div>
+            <h2 v-if="titulData.type">
+            {{ titulData.type.type }} - {{ titulData.pass_number }} - sonli "{{
+                titulData.name
+            }}"Avtobus yo'nalishi qatnov yo'li masofasini va xarakat vaqtini
+            olchash qaydnomasi
+            </h2>
+            <div class="col-md-4">
+            <p>
+                Qatnov yo'l masofasi
+                <b v-if="titulData.timing_with"
+                >{{
+                    titulData.timing_with[titulData.timing_with.length - 1]
+                    .end_speedometer
+                }}
+                km</b
                 >
-                  {{ item.name }}
-                </th>
-              </tr>
-              <tr>
-                <template v-for="(item, index) in form.whereTo.stations">
-                  <th>Прибытие</th>
-                  <th>Отправление</th>
-                </template>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(p_item, p_index) in form.whereTo.reyses">
-                <td>{{ p_index + 1 }}</td>
-                <template v-for="(ch_item, ch_index) in p_item">
-                  <td class="reys1" colspan="1">
+            </p>
+            </div>
+            <div class="col-md-4">
+            <p>Qatnovchi avtomobillar soni {{ form.count_bus }}</p>
+            </div>
+            <div class="col-md-4">
+            <p>Yolkira xaqqi so'm</p>
+            </div>
+            <div class="table-responsive" v-if="form.whereTo">
+            <table
+                class="table table-bordered text-center table-hover table-striped"
+            >
+                <thead>
+                <tr>
+                    <th scope="col" rowspan="5">Qatnovlar</th>
+                    <th scope="col" :colspan="form.whereTo.stations.length * 2">
+                    {{form.whereTo.where.name}}
+                    </th>
+                    <th scope="col" rowspan="3">Reys ischinligi</th>
+                </tr>
+                <tr>
+                    <th
+                    colspan="2"
+                    v-for="(item, index) in form.whereTo.stations"
+                    >
+                    {{ item.name }}
+                    </th>
+                </tr>
+                <tr>
+                    <template v-for="(item, index) in form.whereTo.stations">
+                    <th>Прибытие</th>
+                    <th>Отправление</th>
+                    </template>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(p_item, p_index) in form.whereTo.reyses">
+                    <td>{{ p_index + 1 }}</td>
+                    <template v-for="(ch_item, ch_index) in p_item">
+                    <td class="reys1" colspan="1">
+                        <div class="table_input">
+                        {{ch_item.end}}
+                        </div>
+                    </td>
+                    <td class="reys1" colspan="1">
+                        <div class="table_input">
+                        {{ch_item.start}}
+                        </div>
+                    </td>
+                    </template>
+                    <td class="reys1" colspan="1">
                     <div class="table_input">
-                      {{ch_item.end}}
+                        {{p_item.bus_number}}
                     </div>
-                  </td>
-                  <td class="reys1" colspan="1">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+            <div class="table-responsive" v-if="form.whereFrom">
+            <table  class="table table-bordered text-center table-hover table-striped">
+                <thead>
+                <tr>
+                    <th scope="col" rowspan="5">Qatnovlar</th>
+                    <th scope="col" :colspan="form.whereFrom.stations.length * 2">
+                    {{form.whereFrom.where.name}}
+                    </th>
+                    <th scope="col" rowspan="3">Reys ischinligi</th>
+                </tr>
+                <tr>
+                    <th colspan="2" v-for="(item, index) in form.whereFrom.stations" >
+                    {{ item.name }}
+                    </th>
+                </tr>
+                <tr>
+                    <template v-for="(item, index) in form.whereFrom.stations">
+                    <th>Прибытие</th>
+                    <th>Отправление</th>
+                    </template>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(p_item, p_index) in form.whereFrom.reyses">
+                    <td>{{ p_index + 1 }}</td>
+                    <template v-for="(ch_item, ch_index) in p_item">
+                    <td class="reys1" colspan="1">
+                        <div class="table_input">
+                        {{ch_item.end}}
+                        </div>
+                    </td>
+                    <td class="reys1" colspan="1">
+                        <div class="table_input">
+                        {{ch_item.start}}
+                        </div>
+                    </td>
+                    </template>
+                    <td class="reys1" colspan="1">
                     <div class="table_input">
-                      {{ch_item.start}}
+                        {{p_item.bus_number}}
                     </div>
-                  </td>
-                </template>
-                <td class="reys1" colspan="1">
-                  <div class="table_input">
-                    {{p_item.bus_number}}
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
         </div>
-        <div class="table-responsive" v-if="form.whereFrom">
-          <table  class="table table-bordered text-center table-hover table-striped">
-            <thead>
-              <tr>
-                <th scope="col" rowspan="5">Qatnovlar</th>
-                <th scope="col" :colspan="form.whereFrom.stations.length * 2">
-                   {{form.whereFrom.where.name}}
-                </th>
-                <th scope="col" rowspan="3">Reys ischinligi</th>
-              </tr>
-              <tr>
-                <th colspan="2" v-for="(item, index) in form.whereFrom.stations" >
-                  {{ item.name }}
-                </th>
-              </tr>
-              <tr>
-                <template v-for="(item, index) in form.whereFrom.stations">
-                  <th>Прибытие</th>
-                  <th>Отправление</th>
-                </template>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(p_item, p_index) in form.whereFrom.reyses">
-                <td>{{ p_index + 1 }}</td>
-                <template v-for="(ch_item, ch_index) in p_item">
-                  <td class="reys1" colspan="1">
-                    <div class="table_input">
-                      {{ch_item.end}}
-                    </div>
-                  </td>
-                  <td class="reys1" colspan="1">
-                    <div class="table_input">
-                      {{ch_item.start}}
-                    </div>
-                  </td>
-                </template>
-                <td class="reys1" colspan="1">
-                  <div class="table_input">
-                    {{p_item.bus_number}}
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
-  </div>
 </template>
 <script>
 import DatePicker from "vue2-datepicker";
