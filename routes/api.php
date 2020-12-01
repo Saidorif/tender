@@ -67,6 +67,10 @@ Route::group([
             Route::get('tender/edit/{id}', 'TenderController@edit')->where('id', '[0-9]+');
             Route::delete('tender/destroy/{id}', 'TenderController@destroy')->where('id', '[0-9]+');
 
+            //
+            Route::get('tender/completed-tenders','TenderController@completedTenders');
+            Route::get('tender/completed-tenders/{id}','TenderController@completedTendersBall');
+
             // Complaint
             Route::post('complaint', 'ComplaintController@index');
             Route::get('complaint/count', 'ComplaintController@count');            

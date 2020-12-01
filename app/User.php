@@ -102,4 +102,9 @@ class User extends Authenticatable implements JWTSubject
     public function position(){
         return $this->belongsTo(\App\Position::class,'position_id');
     }
+
+    public function getFio()
+    {
+        return $this->name .' '. $this->middlename .' '. $this->surname;
+    }
 }

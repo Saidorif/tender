@@ -150,10 +150,9 @@ class DirectionController extends Controller
         }
         $region_ids = Region::pluck('id');
         $area_ids = Area::pluck('id');
-        // $all_reg_ids = array_merge($region_ids,$area_ids);
         $validator = Validator::make($request->all(), [            
             'pass_number'  => 'required|string',
-            'tarif'  => 'required|integer',
+            'tarif'  => 'required',
             'year'  => 'required|string',
             'distance'  => 'required|string',
             'profitability'  => ['required',Rule::in(['unprofitable','profitable','middle']),],
@@ -181,7 +180,7 @@ class DirectionController extends Controller
         $inputs = $request->all();
         $direction->update([
             'pass_number' => $inputs['pass_number'],
-            'tarif' => $inputs['tarif'],
+            'tarif' => (int)$inputs['tarif'],
             'year' => $inputs['year'],
             'distance' => $inputs['distance'],
             'profitability' => $inputs['profitability'],
