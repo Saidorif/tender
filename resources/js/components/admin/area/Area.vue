@@ -51,7 +51,7 @@
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionAreas()
+			await this.actionAreas(page)
 		},
 		computed:{
 			...mapGetters('area',['getAreas','getMassage'])

@@ -35,7 +35,7 @@ const actions = {
 	},
 	async actionRegions({commit},page){
 		try {
-			const regions =  await RegionService.regions(page);
+			const regions =  await RegionService.allregions(page);
 			await commit('setRegions',regions.data.result)
 			return true
 		} catch (error) {

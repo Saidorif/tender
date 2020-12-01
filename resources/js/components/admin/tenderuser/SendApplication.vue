@@ -982,13 +982,13 @@
 			},
 			async activate(){
 				await this.actionActivate(this.$route.params.userapplicationId)
-				if (this.getActivate.success) {
+				if (this.getActivate.success){
 					await this.actionEditApplication(this.$route.params.userapplicationId)
 					await this.openQrcode()
 				}
 			},
 			activeEditClass(item){
-		    	if (item.status == 'active') {
+		    	if (item.status == 'active'){
 	    			return 'edit-active'
 		    	}else{
 		    		return 'edit-pending'

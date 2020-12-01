@@ -54,7 +54,7 @@
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionRegions()
+			await this.actionRegions(page)
 			this.laoding = false
 		},
 		computed:{

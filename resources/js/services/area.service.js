@@ -1,8 +1,8 @@
 import ApiService from './api.service'
 
 const AreaService = {
-	areas(){
-		return ApiService.post(`/api/area`)
+	areas(page){
+		return ApiService.post(`/api/area?page=${page}`)
 	},
 	getAreaByRegion(id){
 		return ApiService.post(`/api/area/regionby`, id)

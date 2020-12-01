@@ -8,7 +8,7 @@
 				    Добавить объявление тендера
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/tenderannounce">
-					<span class="peIcon pe-7s-back"></span> 
+					<span class="peIcon pe-7s-back"></span>
 					Назад
 				</router-link>
 		  	</div>
@@ -17,27 +17,27 @@
 					<div class="row">
 					  <div class="form-group col-md-4">
 					    <label for="name">Дата тердера</label>
-					    <date-picker 
+					    <date-picker
 		                  id="time"
-		                  lang="ru" 
+		                  lang="ru"
 		                  type="datetime"
 		                  placeholder="Дата тердера"
-		                  v-model="form.time" 
-		                  valueType="format" 
+		                  v-model="form.time"
+		                  valueType="format"
 		                  class="input_style"
 		                  :class="isRequired(form.time) ? 'isRequired' : ''"
 		                ></date-picker>
 					  </div>
 					  <div class="form-group col-md-4">
 					    <label for="address">Адрес</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	v-model="form.address" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	v-model="form.address"
 					    	id="address"
-					    	placeholder="Адрес..." 
+					    	placeholder="Адрес..."
 					    	:class="isRequired(form.address) ? 'isRequired' : ''"
-				    	>	
+				    	>
 					  </div>
 					  <div class="form-group col-lg-4 form_btn d-flex justify-content-end">
 <!-- 						<button v-if="checked" type="button" class="btn btn-secondary mr-3" @click="addToAllItems">
@@ -51,7 +51,7 @@
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
-						</button>	
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -60,7 +60,7 @@
 			  		<div class="d-flex justify-content-center">
 			  			<h4>Лоты</h4>
 			  		</div>
-				  	<div class="choosenItemsTable" v-for="(lots,lot_key) in allLotes">
+				  	<!-- <div class="choosenItemsTable" v-for="(lots,lot_key) in allLotes">
 				  		<div class="d-flex">
 					  		<h4 class="lot_n"><em>Лот №</em> {{lot_key+1}}</h4>
 					  		<i class="fas fa-trash text-danger lot_remove" @click.prevent="removeLot(lot_key)"></i>
@@ -71,7 +71,7 @@
 					  		    	<h4>{{index+1}})</h4>
 					  		    	<button class="btn btn-outline-success mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
 					  		    		<template v-if="item.reyses.length > 0">
-										    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span> 
+										    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span>
 										    <span>({{item.reyses.length}} рейсы)</span>
 					  		    		</template>
 					  		    		<template v-else>
@@ -103,8 +103,95 @@
 				  			</li>
 				  		</ul>
 				  		<hr>
-				  	</div>
-			  	</div>
+				  	</div> -->
+                                <div class="card cardtender" v-for="(t_lots,t_index) in tenderlots">
+                <div class="card-header" >
+                        <h4 class="lot_n"><em>Лот №</em> {{t_index+1}}</h4>
+                        <div>
+                        <a href="#" class="btn btn-outline-danger">
+                            <i class="fas fa-trash text-danger lot_remove" @click.prevent="removeEditLot(t_lots.id)"></i>
+                        </a>
+                    <button
+                        type="button"
+                        class="btn btn-info btn_save_category"
+                        @click.prevent="getEditId(t_lots.id)"
+                    >
+                        <i class="far fa-share-square text-light"></i>
+                        <span class="text-light">Отправить заявку</span>
+                    </button>
+                        </div>
+
+                </div>
+                <div class="card-body">
+                    <template v-for="(items,index) in t_lots.direction_id">
+                        <div class="mb-2">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h4>{{index+1}}) {{items.name}} ({{getLengthReys(items)}} рейс)</h4>
+
+                            <router-link
+                                :to='`/crm/stepuser/demand-tab/${items.id}`'
+                                class="btn btn-outline-info"
+                            >
+                                <i class="fas fa-eye"></i>
+                            </router-link>
+                        </div>
+                        <div >
+                            <h3>
+                            <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span>
+                            </h3>
+                            <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                <th>№</th>
+                                <th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
+                                    {{item.where.name}}
+                                </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                v-for="(reys,key) in items.reysesFrom"
+                                :class="activeEditClass(reys)"
+                                >
+                                <td>{{key+1}}</td>
+                                <template v-for="(val,key) in reys.reys_times">
+                                    <td>{{val.start}}</td>
+                                    <td>{{val.end}}</td>
+                                </template>
+                                </tr>
+                            </tbody>
+                            </table>
+                            <h3>
+                            <span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span>
+                            </h3>
+                            <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                <th>№</th>
+                                <th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
+                                    {{item.where.name}}
+                                </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                v-for="(reys,key) in items.reysesTo"
+                                :class="activeEditClass(reys)"
+                                >
+                                <td>{{key+1}}</td>
+                                <template v-for="(val,key) in reys.reys_times">
+                                    <td>{{val.start}}</td>
+                                    <td>{{val.end}}</td>
+                                </template>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+                </div>
 		  	</div>
 	  	</div>
 	  	<!-- Modal -->
@@ -121,21 +208,21 @@
 	        	<div class="row">
 	        		<div class="form-group col-md-2 check_box_with_label">
 					    <label for="checked">Пакет</label>
-					    <input 
-					    	type="checkbox" 
-					    	class="input_style" 
-					    	v-model="checked" 
+					    <input
+					    	type="checkbox"
+					    	class="input_style"
+					    	v-model="checked"
 					    	id="checked"
-				    	>	
+				    	>
 
 				  	</div>
 				  	<div class="form-group col-md-5">
 					    <label for="marshrut">Маршрут</label>
-					    <multiselect 
+					    <multiselect
 							:value="direction_ids"
 							:options="findList"
 							@search-change="value => findDirection(value)"
-							v-model="direction_ids" 
+							v-model="direction_ids"
 	                        placeholder="Выберите маршрут"
 	                        :searchable="true"
 	                        track-by="id"
@@ -150,16 +237,16 @@
 							>
 							<span slot="noResult">По вашему запросу ничего не найдено</span>
 							<span slot="noOptions">Cписок пустой</span>
-						</multiselect>	
+						</multiselect>
 				  	</div>
 				  	<div class="form-group col-md-2 check_box_with_label" v-if="Object.keys(direction_ids).length > 0">
 					    <label for="checkedGrafik">График</label>
-					    <input 
-					    	type="checkbox" 
-					    	class="input_style" 
-					    	v-model="checkedGrafik" 
+					    <input
+					    	type="checkbox"
+					    	class="input_style"
+					    	v-model="checkedGrafik"
 					    	id="checkedGrafik"
-				    	>	
+				    	>
 				  	</div>
 				  	<div class="form-group col-md-3 d-flex align-items-center mt-4">
 			    	 	<button type="button" class="btn btn-outline-success" @click.prevent="addToAllItems">
@@ -182,8 +269,8 @@
 					  			</tr>
 					  		</thead>
 					  		<tbody>
-					  			<tr 
-					  				v-for="(items,index) in fromItems" 
+					  			<tr
+					  				v-for="(items,index) in fromItems"
 					  				@click.prevent="chooseFromItem(items,index)"
 					  				:class="activeFromClass(items)"
 				  				>
@@ -213,7 +300,7 @@
 					  			</tr>
 					  		</thead>
 					  		<tbody>
-					  			<tr 
+					  			<tr
 					  				v-for="(items,index) in  toItems"
 					  				@click.prevent="chooseToItem(items,index)"
 					  				:class="activeToClass(items)"
@@ -244,7 +331,7 @@
 					  		    	<h4>{{index+1}})</h4>
 					  		    	<button class="btn btn-outline-success mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
 					  		    		<template v-if="item.reyses.length > 0">
-										    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span> 
+										    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span>
 										    <span>({{item.reyses.length}} рейсы)</span>
 					  		    		</template>
 					  		    		<template v-else>
@@ -573,7 +660,7 @@
 						this.allLotes.forEach((lots,l)=>{
 							lotItem = lots.map((item,index)=>{
 								let direction_id = item.directions.id
-								let reysItems = [] 
+								let reysItems = []
 								if (item.reyses.length > 0){
 									reysItems = item.reyses.map((i,k)=>{
 										return i.id
@@ -582,7 +669,7 @@
 								return{
 									'direction_id':direction_id,
 									'reys_id':reysItems,
-				    				'status':reysItems.length > 0 ? 'custom' : 'all', 
+				    				'status':reysItems.length > 0 ? 'custom' : 'all',
 								}
 							})
 							data.push(lotItem)
@@ -595,7 +682,7 @@
 					// 	data = [{
 			  //   			direction_id:this.direction_ids.id,
 			  //   			reys_id:newItems,
-			  //   			status:'custom', 
+			  //   			status:'custom',
 			  //   			time:this.form.time,
 					// 		address:this.form.address,
 			  //   		}]
@@ -615,14 +702,14 @@
 		  //   		},{
 		  //   			direction_id:this.direction_ids.id,
 		  //   			reys_id:newToItems,
-		  //   			status:'custom', 
+		  //   			status:'custom',
 		  //   		}]
 				// }
 				// else if(!this.checkedGrafik && !this.checked){
 				// 	data = [{
 		  //   			direction_id:this.direction_ids.id,
 		  //   			reys_id:[],
-		  //   			status:'all', 
+		  //   			status:'all',
 		  //   		}]
 				// }
 
@@ -715,7 +802,7 @@
 		min-height:500px;
 	}
 	.lot_n{
-		
+
 	}
 	.lot_remove{
 	    margin-top: 2px;
