@@ -98,8 +98,8 @@ export default {
     ...mapGetters("area", ["getAreaList"]),
   },
   async mounted() {
-    await this.actionRegionList();
-       this.laoding = false
+    // await this.actionRegionList();
+    this.laoding = false
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
