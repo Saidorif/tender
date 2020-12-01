@@ -27,7 +27,7 @@
                         <td>20.12.2022</td>
                         <td>
                             <router-link 
-                                to='/stepuser/demand-tab/1' 
+                                to='/u/demand-tab/1' 
                                 class="btn btn-outline-info"
                             >
                                 <i class="fas fa-eye"></i>
@@ -42,7 +42,7 @@
                         <td>31.03.2021</td>
                         <td>
                             <router-link 
-                                to='/stepuser/demand-tab/1' 
+                                to='/u/demand-tab/1' 
                                 class="btn btn-outline-info"
                             >
                                 <i class="fas fa-eye"></i>
@@ -57,7 +57,7 @@
                         <td>15.05.2025</td>
                         <td>
                             <router-link 
-                                to='/stepuser/demand-tab/1' 
+                                to='/u/demand-tab/1' 
                                 class="btn btn-outline-info"
                             >
                                 <i class="fas fa-eye"></i>
