@@ -1,99 +1,98 @@
 <template>
-	<div class="add_area">
-    <Loader v-if="laoding"/>
-	    <div class="card card_with_tabs">
-	  		<div class="card-header tabCard">
-	        	<PassportTab/>
-	  		</div>
-	  		<div class="card-body">
-				<form>
-          <div class="row">
-            <div class="form-group col-md-3">
-              <label for="type_id">Yo'nalish klasifikatsiyasi</label>
-              <div class="form-control input_style">
-                {{item.type ? item.type.name : ''}}
-                {{item.type ? item.type.type : ''}}
-              </div>
+  <div class="add_area">
+        <Loader v-if="laoding" />
+        <PassportTab />
+        <div class="card-body container">
+            <form>
+            <div class="row">
+                <div class="form-group col-md-3">
+                <label for="type_id">Yo'nalish klasifikatsiyasi</label>
+                <div class="form-control input_style">
+                    {{ item.type ? item.type.name : "" }}
+                    {{ item.type ? item.type.type : "" }}
+                </div>
+                </div>
+                <div class="form-group col-md-3">
+                <label for="seria">Passport raqami</label>
+                <div class="form-control input_style">
+                    {{ form.pass_number }}
+                </div>
+                </div>
+                <div class="form-group col-md-3">
+                <label for="region_id">Shaxardan, viloyatdan</label>
+                <div class="form-control input_style">
+                    {{ item.region_from_with ? item.region_from_with.name : "" }}
+                </div>
+                </div>
+                <div class="form-group col-md-3">
+                <label for="region_id">Tumandan, qishloqdan, shaxridan</label>
+                <div class="form-control input_style">
+                    {{ item.area_from_with ? item.area_from_with.name : "" }}
+                </div>
+                </div>
+                <div class="form-group col-md-3">
+                <label for="region_id">Bekatdan</label>
+                <div class="form-control input_style">
+                    {{ item.station_from ? item.station_from.name : "" }}
+                </div>
+                </div>
+                <div class="form-group col-md-3">
+                <label for="region_id">Shaxarga, viloyatga</label>
+                <div class="form-control input_style">
+                    {{ item.region_to_with ? item.region_to_with.name : "" }}
+                </div>
+                </div>
+                <div class="form-group col-md-3">
+                <label for="region_id">Tumanga, qishloqga, shaxriga,</label>
+                <div class="form-control input_style">
+                    {{ item.area_to_with ? item.area_to_with.name : "" }}
+                </div>
+                </div>
+                <div class="form-group col-md-3">
+                <label for="region_id">Bakatga</label>
+                <div class="form-control input_style">
+                    {{ item.station_to ? item.station_to.name : "" }}
+                </div>
+                </div>
+                <div class="form-group col-md-3">
+                <label for="seasonal">Ishlash mavsumi</label>
+                <div class="form-control input_style">
+                    {{ getSeasonal(form.seasonal) }}
+                </div>
+                </div>
+                <div class="col-md-3 input_radios_block">
+                <p>Qaysi tarafdan</p>
+                <div
+                    class="form-group input_radio_with_label"
+                    v-for="(item, index) in destinations"
+                >
+                    <input
+                    type="radio"
+                    v-model="form.from_where"
+                    name="from_where"
+                    :id="'from_where' + index"
+                    :value="item"
+                    disabled
+                    />
+                    <label :for="'from_where' + index">{{ item.name }}</label>
+                </div>
+                </div>
+                <div class="form-group col-md-3">
+                <label for="seria">Yo'nalish ochilish sanasi</label>
+                <div class="form-control input_style">
+                    {{ form.year }}
+                </div>
+                </div>
+                <div class="form-group col-md-3">
+                <label for="seria">Yonalish masofasi</label>
+                <div class="form-control input_style">
+                    {{ form.distance }}
+                </div>
+                </div>
             </div>
-            <div class="form-group col-md-3">
-              <label for="seria">Passport raqami</label>
-              <div class="form-control input_style">
-                {{form.pass_number}}
-              </div>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="region_id">Shaxardan, viloyatdan</label>
-              <div class="form-control input_style">
-                {{item.region_from_with ? item.region_from_with.name : ''}}
-              </div>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="region_id">Tumandan, qishloqdan, shaxridan</label>
-              <div class="form-control input_style">
-                {{item.area_from_with ? item.area_from_with.name : ''}}
-              </div>     
-            </div>
-            <div class="form-group col-md-3">
-              <label for="region_id">Bekatdan</label>
-              <div class="form-control input_style">
-                {{item.station_from ? item.station_from.name : ''}}
-              </div>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="region_id">Shaxarga, viloyatga</label>
-              <div class="form-control input_style">
-                {{item.region_to_with ? item.region_to_with.name : ''}}
-              </div>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="region_id">Tumanga, qishloqga, shaxriga,</label>
-              <div class="form-control input_style">
-                {{item.area_to_with ? item.area_to_with.name : ''}}
-              </div>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="region_id">Bakatga</label>
-              <div class="form-control input_style">
-                {{item.station_to ? item.station_to.name : ''}}
-              </div>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="seasonal">Ishlash mavsumi</label>
-              <div class="form-control input_style">
-                {{getSeasonal(form.seasonal)}}
-              </div>
-            </div>
-            <div class="col-md-3 input_radios_block">
-              <p>Qaysi tarafdan</p>
-              <div class="form-group input_radio_with_label" v-for="(item,index) in destinations">
-                <input
-                  type="radio"
-                  v-model="form.from_where"
-                  name="from_where"
-                  :id="'from_where'+index"
-                  :value="item"
-                  disabled
-                />
-                <label :for="'from_where'+index">{{item.name}}</label>
-              </div>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="seria">Yo'nalish ochilish sanasi</label>
-              <div class="form-control input_style">
-                {{form.year}}
-              </div>
-            </div>
-            <div class="form-group col-md-3">
-              <label for="seria">Yonalish masofasi</label>
-              <div class="form-control input_style">
-                {{form.distance}}
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-		</div>
-	</div>
+            </form>
+        </div>
+  </div>
 </template>
 <script>
 import DatePicker from "vue2-datepicker";
@@ -104,7 +103,7 @@ import PassportTab from "./PassportTab";
 import Tarif from "./Tarif";
 import { mapGetters, mapActions } from "vuex";
 import "vue2-datepicker/index.css";
-import Loader from '../Loader'
+import Loader from "../Loader";
 export default {
   components: {
     DatePicker,
@@ -113,7 +112,7 @@ export default {
     Tarif,
     PassportTab,
     Schedule,
-    Loader
+    Loader,
   },
   data() {
     return {
@@ -135,22 +134,22 @@ export default {
         distance: "",
         type_id: "",
       },
-      item:{},
+      item: {},
       areaFrom: [],
       areaTo: [],
       stationFrom: [],
       stationTo: [],
       requiredInput: false,
       loaded: false,
-      laoding: true
+      laoding: true,
     };
   },
   async mounted() {
     await this.actionRegionList();
     await this.actionTypeofdirectionList();
     await this.actionEditDirection(this.$route.params.directionId);
-    this.item = this.getDirection
-    this.laoding = false
+    this.item = this.getDirection;
+    this.laoding = false;
     this.form.pass_number = this.getDirection.pass_number;
     this.form.region_from.region_id = this.getDirection.region_from_id;
     this.form.region_from.area_id = this.getDirection.area_from_id;
@@ -164,9 +163,13 @@ export default {
     this.form.distance = this.getDirection.distance;
     this.areaFrom = this.getDirection.region_from_with.area;
     this.areaTo = this.getDirection.region_to_with.area;
-    this.stationFrom =  this.getDirection.area_from_with ? this.getDirection.area_from_with.station : '';
-    this.stationTo = this.getDirection.area_to_with ? this.getDirection.area_to_with.station : '';
-    this.loaded = true
+    this.stationFrom = this.getDirection.area_from_with
+      ? this.getDirection.area_from_with.station
+      : "";
+    this.stationTo = this.getDirection.area_to_with
+      ? this.getDirection.area_to_with.station
+      : "";
+    this.loaded = true;
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
@@ -178,7 +181,7 @@ export default {
     isRequired(input) {
       return this.requiredInput && input === "";
     },
-    async sendDirection(){
+    async sendDirection() {
       await this.actionEditDirection(this.$route.params.directionId);
     },
     async saveDirection() {
@@ -239,11 +242,11 @@ export default {
         this.form.station_to_id = "";
       }
     },
-    getSeasonal(item){
-      if (item == 'always') {
-        return 'Doimiy'
-      }else{
-        return 'Mavsumiy'
+    getSeasonal(item) {
+      if (item == "always") {
+        return "Doimiy";
+      } else {
+        return "Mavsumiy";
       }
     },
   },
@@ -347,5 +350,4 @@ export default {
 };
 </script>
 <style scoped>
-
 </style>
