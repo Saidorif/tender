@@ -120,13 +120,22 @@ import Tarif from './components/admin/steppassport/Tarif'
 import Scheme from './components/admin/steppassport/Scheme'
 import Demand from './components/admin/steppassport/Demand'
 
-// PassportTab
+// UserTab
 import UserSchedule from './components/admin/stepuser/Schedule'
 import UserTitul from './components/admin/stepuser/Titul'
 import UserTiming from './components/admin/stepuser/Timing'
 import UserTarif from './components/admin/stepuser/Tarif'
 import UserScheme from './components/admin/stepuser/Scheme'
 import UserDemand from './components/admin/stepuser/Demand'
+
+
+// stepTender
+import USchedule from './components/stepTender/Schedule'
+import UTitul from './components/stepTender/Titul'
+import UTiming from './components/stepTender/Timing'
+import UTarif from './components/stepTender/Tarif'
+import UScheme from './components/stepTender/Scheme'
+import UDemand from './components/stepTender/Demand'
 
 // ConfirmTender
 import ConfirmTender from './components/admin/confirmtender/ConfirmTender'
@@ -561,6 +570,30 @@ const router = new Router({
 					components:{
 						default:TenderList,
 					},
+				},
+				{
+					path:'u/titul-tab/:directionId',
+					component:UTitul,
+				},
+				{
+					path:'u/schedule-tab/:directionId',
+					component:USchedule,
+				},
+				{
+					path:'u/timing-tab/:directionId',
+					component:UTiming,
+				},
+				{
+					path:'u/tarif-tab/:directionId',
+					component:UTarif,
+				},
+				{
+					path:'u/scheme-tab/:directionId',
+					component:UScheme,
+				},
+				{
+					path:'u/demand-tab/:directionId',
+					component:UDemand,
 				},
 			]
 		},

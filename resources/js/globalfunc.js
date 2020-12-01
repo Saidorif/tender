@@ -11,5 +11,12 @@ export const g = {
 	    var hour = new_date.getHours();
 	    var minute = new_date.getMinutes();
 	    return hour+'-'+minute;
+  	},
+  	checkPrefix(url){
+  		if (url.includes("crm")) {
+  			return false
+  		}else{
+  			return true
+  		}
   	}
 }

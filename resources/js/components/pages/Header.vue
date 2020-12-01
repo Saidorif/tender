@@ -1,7 +1,7 @@
 <template>
 	<header class="main_header">
         <div class="container">
-            <router-link to="/" class="logo"><img src="img/logoUz.png" alt=""></router-link>
+            <router-link to="/" class="logo"><img src="/img/logoUz.png" alt=""></router-link>
             <ul class="menu_list">
                 <li >
                     <router-link to="/" exact> {{ $t('menu.home') }} </router-link>

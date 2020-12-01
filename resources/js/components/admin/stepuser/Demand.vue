@@ -190,12 +190,12 @@
             <label for="text">Текст</label>
             <textarea id="text" class="form-control" v-model="form.holiday_days" disabled></textarea>
           </div>
-          <div class="btn_send d-flex justify-content-end">
+       <!--    <div class="btn_send d-flex justify-content-end">
             <button type="button" class="btn btn-primary" @click.prevent="saveData">
               <i class="fas fa-save"></i>
               Сохранить
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
