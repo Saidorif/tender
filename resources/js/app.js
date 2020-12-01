@@ -23,6 +23,9 @@ import {ability} from "./store/store";
 Vue.use(abilitiesPlugin, ability);
 /* FOR MANAGING USER PERMISSIONS */
 
+// Global function
+import {g} from './globalfunc.js'
+Vue.prototype.$g = g
 
 // Vuesax
 import Vuesax from 'vuesax'

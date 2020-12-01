@@ -15,6 +15,7 @@
                         <th>{{$t('conducted_tenders.table.directional_distance')}}</th>
                         <th>{{$t('conducted_tenders.table.company_name')}}</th>
                         <th>{{$t('conducted_tenders.table.date')}}</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,6 +25,14 @@
                         <td>1051</td>
                         <td>OOO 'Test'</td>
                         <td>20.12.2022</td>
+                        <td>
+                            <router-link 
+                                to='/stepuser/demand-tab/1' 
+                                class="btn btn-outline-info"
+                            >
+                                <i class="fas fa-eye"></i>
+                            </router-link>
+                        </td>
                     </tr>
                     <tr>
                         <td>2</td>
@@ -31,6 +40,14 @@
                         <td>757</td>
                         <td>OOO 'MirTrans'</td>
                         <td>31.03.2021</td>
+                        <td>
+                            <router-link 
+                                to='/stepuser/demand-tab/1' 
+                                class="btn btn-outline-info"
+                            >
+                                <i class="fas fa-eye"></i>
+                            </router-link>
+                        </td>
                     </tr>
                     <tr>
                         <td>3</td>
@@ -38,6 +55,14 @@
                         <td>595</td>
                         <td>OOO 'TestTrans'</td>
                         <td>15.05.2025</td>
+                        <td>
+                            <router-link 
+                                to='/stepuser/demand-tab/1' 
+                                class="btn btn-outline-info"
+                            >
+                                <i class="fas fa-eye"></i>
+                            </router-link>
+                        </td>
                     </tr>
                 </tbody>
             </table>

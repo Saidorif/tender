@@ -39,8 +39,8 @@
 								</ul>
 							</td>
 							<td>
-								<div class="badge badge-warning">
-									{{reg.status}}
+								<div class="badge " :class="getStatusClass(reg.status)">
+									{{getStatusName(reg.status)}}
 								</div>
 							</td>
 							<td width="15%">{{reg.cars_with.length}}</td>
@@ -95,7 +95,20 @@
 				await this.actionAddApplication()
 				if (this.getAddMessage.success) {
 					this.$router.push("/crm/application/edit/"+this.getAddMessage.result.id);
-					console.log(this.getAddMessage.result)
+				}
+			},
+			getStatusName(status){
+				if(status == 'active'){
+					return 'Активный!'
+				}else if(status == 'accepted'){
+					return 'Завершен!'
+				}
+			},
+			getStatusClass(status){
+				if(status == 'active'){
+					return 'badge-success'
+				}else if(status == 'accepted'){
+					return 'badge-primary'
 				}
 			},
 			async deleteRegion(id){
