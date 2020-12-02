@@ -142,6 +142,11 @@ import ConfirmTender from './components/admin/confirmtender/ConfirmTender'
 import AddConfirmTender from './components/admin/confirmtender/AddConfirmTender'
 import EditConfirmTender from './components/admin/confirmtender/EditConfirmTender'
 
+// CompletedTenders
+import CompletedTenders from './components/admin/completedtenders/CompletedTenders'
+import AddCompletedTenders from './components/admin/completedtenders/AddCompletedTenders'
+import EditCompletedTenders from './components/admin/completedtenders/EditCompletedTenders'
+
 // Home
 import Home from './components/pages/Home'
 import Contact from './components/pages/Contact'
@@ -476,6 +481,10 @@ const router = new Router({
 				{
 					path:'tenderannounce/edit/:tenderannounceId',
 					component:EditTenderAnnounce,
+				},
+				{
+					path:'completed-tenders',
+					component:CompletedTenders,
 				},
 				{
 					path:'confirm-tender',

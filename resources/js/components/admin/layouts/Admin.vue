@@ -87,6 +87,14 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/crm/completed-tenders">
+              <i class="peIcon fas fa-file"></i>
+              <p>
+                Завершенные тендеры
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/crm/confirm-tender">
               <i class="peIcon fas fa-clipboard-check"></i>
               <p>
