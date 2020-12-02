@@ -22,7 +22,7 @@
 					<tbody>
 						<tr v-for="(role,index) in getRoles.data">
 							<td scope="row">
-								{{index+1}}
+								{{role.id}}
 							</td>
 							<td>
 								<router-link tag="a" :to='`/crm/role/${role.id}`'>

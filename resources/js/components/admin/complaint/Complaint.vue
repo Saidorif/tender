@@ -20,7 +20,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(compl,index) in getComplaints.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{compl.id}}</td>
 							<td>{{compl.name}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/complaint/edit/${compl.id}`'>

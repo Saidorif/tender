@@ -24,7 +24,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(direct,index) in getDirections.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{direct.id}}</td>
 							<td>{{direct.name}}</td>
 							<td>{{direct.pass_number}}</td>
 							<td>{{direct.distance}}</td>

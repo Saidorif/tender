@@ -21,7 +21,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(reg,index) in getRegions.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{reg.id}}</td>
 							<td>{{reg.name}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/region/edit/${reg.id}`'>

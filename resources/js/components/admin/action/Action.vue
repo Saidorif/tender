@@ -22,7 +22,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(cont,index) in getActions.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{cont.id}}</td>
 							<td>{{cont.name}}</td>
 							<td>controller</td>
 							<td>{{cont.code}}</td>

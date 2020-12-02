@@ -21,7 +21,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(area,index) in getAreas.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{area.id}}</td>
 							<td>{{area.name}}</td>
 							<td>{{area.region.name}}</td>
 							<td>

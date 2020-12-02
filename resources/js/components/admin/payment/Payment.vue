@@ -25,7 +25,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(reg,index) in getPayments.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{reg.id}}</td>
 							<td>{{reg.user.company_name}}</td>
 							<td>
 								<div class="badge" :class="getStatusClass(reg.status)">

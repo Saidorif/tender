@@ -24,7 +24,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(station,index) in getStations.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{station.id}}</td>
 							<td>{{station.name}}</td>
 							<td>{{station.region ? station.region.name : ''}}</td>
 							<td>{{station.area ? station.area.name : ''}}</td>

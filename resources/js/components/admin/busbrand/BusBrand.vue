@@ -22,7 +22,7 @@
 						</thead>
 						<tbody>
 							<tr v-for="(model,index) in getBusBrands.data">
-								<td scope="row">{{index+1}}</td>
+								<td scope="row">{{model.id}}</td>
 								<td>{{model.name}}</td>
 								<td>
 									<router-link tag="button" class="btn_transparent" :to='`/crm/busbrand/edit/${model.id}`'>

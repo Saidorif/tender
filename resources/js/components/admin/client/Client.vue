@@ -122,7 +122,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(item,index) in getClients.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{item.id}}</td>
 							<td>{{item.surname}} {{item.name}} {{item.middlename}}</td>
 							<td>{{item.company_name}}</td>
 							<td>{{item.inn}}</td>

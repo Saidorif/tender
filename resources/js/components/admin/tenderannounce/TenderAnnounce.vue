@@ -26,7 +26,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(item,index) in getTenderAnnounces.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{item.id}}</td>
 							<td>
 								<em>
 							    	{{item.tenderlots.length}}
