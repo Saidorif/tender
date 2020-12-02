@@ -28,7 +28,7 @@
 							<td>{{station.name}}</td>
 							<td>{{station.region ? station.region.name : ''}}</td>
 							<td>{{station.area ? station.area.name : ''}}</td>
-							<td>{{station.station_type}}</td>
+							<td>{{$g.findStation(station.station_type)}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/station/edit/${station.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>

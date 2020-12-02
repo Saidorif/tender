@@ -318,7 +318,7 @@ export default {
           toast.fire({
             type: "success",
             icon: "success",
-            title: "Ползователь добавлено!"
+            title:this.getMassage.message
           });
         }
       } else {

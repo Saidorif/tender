@@ -63,7 +63,7 @@ const actions = {
 	async actionUpdateStation({commit},payload){
 		try {
 			const stations =  await StationService.updatestation(payload);
-			await commit('setEditStation',stations.data.result)
+			await commit('setMessage',stations.data)
 			return true
 		} catch (error) {
 			return false

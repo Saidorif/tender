@@ -63,7 +63,7 @@ const actions = {
 	async actionUpdateRegion({commit},payload){
 		try {
 			const region =  await RegionService.updateregion(payload);
-			await commit('setEditRegion',region.data.result)
+			await commit('setMessage',region.data)
 			return true
 		} catch (error) {
 			return false
