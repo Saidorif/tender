@@ -55,9 +55,7 @@
 					    	:class="isRequired(form.station_type) ? 'isRequired' : ''"  
 				    	>
 					    	<option value="" selected disabled>choose option</option>
-					    	<option value="1">Avtovokzal</option>
-					    	<option value="2">Avto bekat</option>
-					    	<option value="3">Type 3</option>
+					    	<option :value="station.id" v-for="(station,index) in $g.stations()">{{station.name}}</option>
 					    </select>
 					  </div>
 					  <div class="form-group col-lg-3 form_btn">
@@ -114,6 +112,11 @@
 					await this.actionAddStation(this.form)
 					this.laoding = false
 					if(this.getMassage.success){
+						toast.fire({
+				            type: "success",
+				            icon: "success",
+				            title: this.getMassage.message
+			          	});
 						this.$router.push("/crm/station");
 					}
 					this.requiredInput = false

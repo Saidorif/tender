@@ -339,7 +339,7 @@ export default {
           toast.fire({
             type: "success",
             icon: "success",
-            title: "Ползователь изменено!"
+            title: this.getMassage.message
           });
         }
       } else {

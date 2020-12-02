@@ -63,7 +63,7 @@ const actions = {
 	async actionUpdateRole({commit},payload){
 		try {
 			const roles =  await RoleService.updateRole(payload);
-			await commit('setEditRole',roles.data.result)
+			await commit('setMessage',roles.data)
 			return true
 		} catch (error) {
 			return false

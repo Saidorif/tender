@@ -72,8 +72,15 @@
 		    async saveRole(){
 		    	if (this.form.name != '' && this.form.name != null){
 					await this.actionUpdateRole(this.form)
-					this.$router.push("/crm/role");
-					this.requiredInput =false
+					if (this.getMassage.success) {
+						toast.fire({
+					    	type: 'success',
+					    	icon: 'success',
+							title: this.getMassage.message,
+					    })
+						this.$router.push("/crm/role");
+						this.requiredInput = false
+					}
 				}else{
 					this.requiredInput =true
 				}

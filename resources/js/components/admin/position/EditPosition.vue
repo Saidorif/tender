@@ -68,9 +68,16 @@
 		    	if (this.form.name != '' && this.form.name != null){
 					this.laoding = true
 					await this.actionUpdatePosition(this.form)
+					if (this.getMassage.success) {
+						toast.fire({
+					    	type: 'success',
+					    	icon: 'success',
+							title: this.getMassage.message,
+					    })
+						this.$router.push("/crm/position");
+						this.requiredInput = false
+					}
 					this.laoding = false
-					this.$router.push("/crm/position");
-					this.requiredInput =false
 				}else{
 					this.requiredInput =true
 				}

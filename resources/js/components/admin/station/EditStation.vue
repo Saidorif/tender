@@ -53,9 +53,7 @@
 					    	:class="isRequired(form.station_type) ? 'isRequired' : ''"  
 				    	>
 					    	<option value="" selected disabled>choose option</option>
-					    	<option value="1">Avtovokzal</option>
-					    	<option value="2">Avto bekat</option>
-					    	<option value="3">Type 3</option>
+					    	<option :value="station.id" v-for="(station,index) in $g.stations()">{{station.name}}</option>
 					    </select>
 					  </div>
 					  <div class="form-group col-lg-3 form_btn">
@@ -90,7 +88,7 @@
 			}
 		},
 		computed:{
-			...mapGetters('region',['getMassage','getRegionList']),
+			...mapGetters('region',['getRegionList']),
 			...mapGetters('station',['getMassage','getStation']),
 			...mapGetters('area',['getAreaList']),
 		},
@@ -112,9 +110,16 @@
 		    	if (this.form.name != '' && this.form.region_id != '' && this.form.area_id != '' && this.form.station_type != ''){
 					this.laoding = true
 					await this.actionUpdateStation(this.form)
+					if(this.getMassage.success){
+						toast.fire({
+				            type: "success",
+				            icon: "success",
+				            title: this.getMassage.message
+			          	});
+						this.$router.push("/crm/station");
+						this.requiredInput = false
+					}
 					this.laoding = false
-					this.$router.push("/crm/station");
-					this.requiredInput = false
 				}else{
 					this.requiredInput = true
 				}

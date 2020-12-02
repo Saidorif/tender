@@ -63,7 +63,7 @@ const actions = {
 	async actionUpdatePosition({commit},payload){
 		try {
 			const positions =  await PositionService.updatePosition(payload);
-			await commit('setEditPosition',positions.data.result)
+			await commit('setMessage',positions.data)
 			return true
 		} catch (error) {
 			return false
