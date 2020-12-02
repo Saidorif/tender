@@ -63,7 +63,7 @@ const actions = {
 	async actionUpdateArea({commit},payload){
 		try {
 			const area =  await AreaService.updatearea(payload);
-			await commit('setEditArea',area.data.result)
+			await commit('setMessage',area.data)
 			return true
 		} catch (error) {
 			return false

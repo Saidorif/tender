@@ -28,7 +28,7 @@
 						</thead>
 						<tbody>
 							<tr v-for="(bus,index) in getBusclasses.data">
-								<td scope="row">{{index+1}}</td>
+								<td scope="row">{{bus.id}}</td>
 								<td>{{bus.name}}</td>
 								<td>{{bus.bustype ? bus.bustype.name : ''}}</td>
 								<td>{{bus.model ? bus.model.name : ''}}</td>

@@ -30,7 +30,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(reg,index) in getApplications.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{reg.id}}</td>
 							<td>
 								<ul class="list-inline" v-if="reg.lots.direction_id.length > 0">
 								    <li v-for="(val,key) in reg.lots.direction_id">

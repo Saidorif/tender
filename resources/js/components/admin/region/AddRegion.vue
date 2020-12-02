@@ -66,9 +66,16 @@
 		    	if (this.form.name != ''){
 					this.laoding = true
 					await this.actionAddRegion(this.form)
+					if (this.getMassage.success) {
+						toast.fire({
+					    	type: 'success',
+					    	icon: 'success',
+							title: this.getMassage.message,
+					    })
+						this.$router.push("/crm/region");
+						this.requiredInput = false
+					}
 					this.laoding = false
-					this.$router.push("/crm/region");
-					this.requiredInput = false
 				}else{
 					this.requiredInput = true
 				}

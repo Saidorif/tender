@@ -75,8 +75,15 @@
 			async saveArea(){
 		    	if (this.form.name != '' && this.form.region_id != ''){
 					await this.actionUpdateArea(this.form)
-					this.$router.push("/crm/area");
-					this.requiredInput = false
+					if(this.getMassage.success){
+						toast.fire({
+				            type: "success",
+				            icon: "success",
+				            title: this.getMassage.message
+			          	});
+						this.$router.push("/crm/area");
+						this.requiredInput = false
+					}
 				}else{
 					this.requiredInput = true
 				}

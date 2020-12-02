@@ -18,5 +18,26 @@ export const g = {
   		}else{
   			return true
   		}
-  	}
+  	},
+    stations(){
+      return [
+        {id:1,name:'Avtovokzal'},
+        {id:2,name:'Avto bekat'},
+        {id:3,name:'Type3'},
+      ];
+    },
+    findStation(id){
+      let result = ''
+      let stations = [
+        {id:1,name:'Avtovokzal'},
+        {id:2,name:'Avto bekat'},
+        {id:3,name:'Type3'},
+      ]
+      stations.forEach((station,index)=>{
+        if (station.id == id) {
+          result = station.name
+        }
+      })
+      return result
+    }
 }

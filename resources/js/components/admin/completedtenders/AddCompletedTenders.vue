@@ -104,7 +104,7 @@
 						toast.fire({
 					    	type: 'success',
 					    	icon: 'success',
-							title: 'Action добавлен!',
+							title: this.getMassage.message,
 					    })
 						this.$router.push("/crm/action");
 						this.requiredInput =false

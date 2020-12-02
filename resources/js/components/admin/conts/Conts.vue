@@ -22,7 +22,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(cont,index) in getConts.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{cont.id}}</td>
 							<td>{{cont.name}}</td>
 							<td>{{cont.label}}</td>
 							<td>

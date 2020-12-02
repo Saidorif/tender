@@ -20,7 +20,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(sign,index) in getConditionalSigns.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{sign.id}}</td>
 							<td>{{sign.name}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/conditionalsign/edit/${sign.id}`'>

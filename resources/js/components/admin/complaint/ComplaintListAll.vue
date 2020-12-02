@@ -24,7 +24,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(compl,index) in getComplaintListAll.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{compl.id}}</td>
 							<td>
 								<div class="badge " :class="getStatusClass(compl.status)">
 									{{getStatusText(compl.status)}}

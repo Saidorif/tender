@@ -81,14 +81,22 @@
 		    	if (this.form.name != '' && this.form.label != ''){
 					this.laoding = true
 					await this.actionUpdateCont(this.form)
+					if (this.getMassage.success) {
+						toast.fire({
+					    	type: 'success',
+					    	icon: 'success',
+							title: 'Controller добавлен!',
+					    })
+						this.$router.push("/crm/conts");
+						this.requiredInput =false
+					}else{
+						toast.fire({
+					    	type: 'error',
+					    	icon: 'error',
+							title: 'Такой сontroller уже существует!',
+					    })
+					}
 					this.laoding = false
-					this.$router.push("/crm/conts");
-					this.requiredInput =false
-					toast.fire({
-				    	type: 'success',
-				    	icon: 'success',
-						title: 'Controller изменен!',
-				    })
 				}else{
 					this.requiredInput =true
 				}

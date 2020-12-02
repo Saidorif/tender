@@ -23,7 +23,7 @@
 						</thead>
 						<tbody>
 							<tr v-for="(type,index) in getTypeofbuss.data">
-								<td scope="row">{{index+1}}</td>
+								<td scope="row">{{type.id}}</td>
 								<td>{{type.name}}</td>
 								<td>
 									<router-link tag="button" class="btn_transparent" :to='`/crm/typeofbus/edit/${type.id}`'>

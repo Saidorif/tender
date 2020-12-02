@@ -21,7 +21,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(position,index) in getPositions.data">
-							<td scope="row">{{index+1}}</td>
+							<td scope="row">{{position.id}}</td>
 							<td>{{position.name}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/position/edit/${position.id}`'>
