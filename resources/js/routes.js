@@ -485,6 +485,10 @@ const router = new Router({
 				{
 					path:'completed-tenders',
 					component:CompletedTenders,
+                },
+                {
+					path:'completed-tenders/show/:tenderId',
+					component:EditCompletedTenders,
 				},
 				{
 					path:'confirm-tender',

@@ -1,12 +1,12 @@
 import ApiService from './api.service'
 
-const ConfirmtenderSerivce = {
-	rejectTender(data){
-		return ApiService.post(`/api/tender/reject/${data.id}`, data)
+const CompletedTendersSerivce = {
+	completedTendersList(){
+		return ApiService.get(`/api/tender/completed-tenders/`)
 	},
-	completedTender(id){
-		return ApiService.get(`/api/tender/complete/${id}`)
+	completedTendersShow(id){
+		return ApiService.get(`/api/tender/completed-tenders/${id}`)
 	},
 };
 
-export { ConfirmtenderSerivce };
+export { CompletedTendersSerivce };

@@ -13,7 +13,6 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Лоты</th>
 							<th scope="col">Адрес</th>
 							<th scope="col">Дата тендера</th>
 							<th scope="col">Статус</th>
@@ -21,14 +20,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(item,index) in getTenderAnnounces.data">
+						<tr v-for="(item,index) in getTendersList.data">
 							<td scope="row">{{index+1}}</td>
-							<td>
-								<em>
-							    	{{item.tenderlots.length}}
-							    	<span>{{item.tenderlots.length > 1 ? 'лоты' :'лот'}}</span>
-							    </em>
-							</td>
 							<td>{{item.address}}</td>
 							<td>{{item.time}}</td>
 							<td>
@@ -37,13 +30,13 @@
 								</div>
 							</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/confirm-tender/edit/${item.id}`'>
+								<router-link tag="button" class="btn_transparent" :to='`/crm/completed-tenders/show/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
 							</td>
 						</tr>
 					</tbody>
-					<pagination :limit="4" :data="getTenderAnnounces" @pagination-change-page="getResults"></pagination>
+					<!-- <pagination :limit="4" :data="getTendersList" @pagination-change-page="getResults"></pagination> -->
 				</table>
 			  </div>
 		  </div>
@@ -60,15 +53,16 @@
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionTenderAnnounces(page)
+            await this.actionCompletedTendersList(page)
+            console.log(this.getTendersList)
 		},
 		computed:{
-			...mapGetters('tenderannounce',['getTenderAnnounces','getMassage'])
+			...mapGetters('completedtender',['getTendersList','getMassage'])
 		},
 		methods:{
-			...mapActions('tenderannounce',['actionTenderAnnounces','actionDeleteTenderAnnounce']),
+			...mapActions('completedtender',['actionCompletedTendersList']),
 			async getResults(page = 1){
-				await this.actionTenderAnnounces(page)
+				await this.actionCompletedTendersList(page)
 			},
 			getStatusName(status){
 				if(status == 'pending'){
