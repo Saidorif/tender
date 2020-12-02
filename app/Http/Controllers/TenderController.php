@@ -444,6 +444,16 @@ class TenderController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
     
+    public function completedTendersLots(Request $request, $id)
+    {
+        $tender = Tender::where(['status' => 'completed'])->find($id);
+        if(!$tender){
+            return response()->json(['error' => true, 'message' => 'Tender not found']);
+        }
+        $result = TenderLot::withCount(['apps'])->where(['tender_id' => $tender->id])->paginate(12);
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+    
     public function completedTendersBall(Request $request,$id)
     {
         $tender = Tender::find($id);
