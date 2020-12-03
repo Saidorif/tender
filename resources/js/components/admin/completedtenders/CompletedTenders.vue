@@ -20,19 +20,8 @@
 						</tr>
 					</thead>
 					<tbody>
-<<<<<<< HEAD
 						<tr v-for="(item,index) in getTendersList.data">
 							<td scope="row">{{index+1}}</td>
-=======
-						<tr v-for="(item,index) in getTenderAnnounces.data">
-							<td scope="row">{{item.id}}</td>
-							<td>
-								<em>
-							    	{{item.tenderlots.length}}
-							    	<span>{{item.tenderlots.length > 1 ? 'лоты' :'лот'}}</span>
-							    </em>
-							</td>
->>>>>>> 9ebfbda1e90ca5b428e218b4edf9c542ad5d51e1
 							<td>{{item.address}}</td>
 							<td>{{item.time}}</td>
 							<td>
@@ -65,7 +54,6 @@
 		async mounted(){
 			let page = 1;
             await this.actionCompletedTendersList(page)
-            console.log(this.getTendersList)
 		},
 		computed:{
 			...mapGetters('completedtender',['getTendersList','getMassage'])
