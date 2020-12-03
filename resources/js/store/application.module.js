@@ -60,7 +60,7 @@ const actions = {
 	async actionAdliya({commit},payload){
 		try {
 			const applications =  await ApplicationService.adliyaApi(payload);
-			await commit('setAdliya',applications.data)
+			await commit('setMessage',applications.data)
 			return true
 		} catch (error) {
 			return false
@@ -69,7 +69,7 @@ const actions = {
 	async actionGaiVehicle({commit},payload){
 		try {
 			const applications =  await ApplicationService.gaiApi(payload);
-			await commit('setGaiVehicle',applications.data)
+			await commit('setMessage',applications.data)
 			return true
 		} catch (error) {
 			return false
