@@ -1179,7 +1179,18 @@
 				    	await this.actionAddCar(this.car)
 				    	if(this.getMassage.success){
 					    	await this.actionEditApplication(this.$route.params.userapplicationId)
+				    		toast.fire({
+					            type: "success",
+					            icon: "success",
+					            title: this.getMassage.message
+				          	});
 					    	$('#myModal').modal('hide')
+				    	}else{
+				    		toast.fire({
+					            type: "success",
+					            icon: "success",
+					            title: this.getMassage.message
+				          	});
 				    	}
 			    		this.requiredInput = false
 		    		}else{
