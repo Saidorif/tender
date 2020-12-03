@@ -1141,34 +1141,58 @@
 		    	})
 		    },
 		    async addCar(){
-	    		if (this.car.owner_type == 'owner'){
-		    		await this.actionGaiVehicle(this.car)
-		    		console.log(this.getMassage)
-	    		}else if(this.car.owner_type == 'rent'){
-		    		await this.actionAdliya(this.car)
-		    		console.log(this.getMassage)
-	    		}
-		   //  	if (
-	    // 			this.car.auto_number != '' && 
-	    // 			this.car.bustype_id != '' && 
-	    // 			this.car.tclass_id != '' && 
-	    // 			this.car.busmarka_id != '' && 
-	    // 			this.car.busmodel_id != '' && 
-	    // 			this.car.date != '' &&
-	    // 			this.car.capacity != '' && 
-	    // 			this.car.seat_qty != ''
-    	// 		)
-		   //  	{
-					// this.car['app_id'] = this.$route.params.userapplicationId
-			  //   	await this.actionAddCar(this.car)
-			  //   	if(this.getMassage.success){
-				 //    	await this.actionEditApplication(this.$route.params.userapplicationId)
-				 //    	$('#myModal').modal('hide')
-			  //   	}
-		   //  		this.requiredInput = false
-		   //  	}else{
-		   //  		this.requiredInput = true
-		   //  	}
+		    	if (
+	    			this.car.auto_number != '' && 
+	    			this.car.bustype_id != '' && 
+	    			this.car.tclass_id != '' && 
+	    			this.car.busmarka_id != '' && 
+	    			this.car.busmodel_id != '' && 
+	    			this.car.date != '' &&
+	    			this.car.capacity != '' && 
+	    			this.car.seat_qty != ''
+    			)
+		    	{
+		    		if (this.car.owner_type == 'owner'){
+			    		await this.actionGaiVehicle(this.car)
+			    		console.log(this.getMassage)
+		    		}else if(this.car.owner_type == 'rent'){
+		    			if (this.car.pDateNatarius != '' && this.car.pKuzov != '' && this.car.pNumberNatarius != '') {
+			    			let car = {
+			    				'pDateNatarius':this.car.pDateNatarius,
+			    				'pKuzov':this.car.pKuzov,
+			    				'pNumberNatarius':this.car.pNumberNatarius,
+			    			}
+			    			let data = {
+			    				'pType':this.car.pType,
+			    				'cars':car,
+			    				'pINN':this.car.pINN,
+			    			}
+				    		await this.actionAdliya(data)
+				    		console.log(this.getMassage)
+				    		this.requiredInput = false
+		    			}else{
+		    				this.requiredInput = true
+		    			}
+		    		}
+		    		if (this.getMassage.success){
+						this.car['app_id'] = this.$route.params.userapplicationId
+				    	await this.actionAddCar(this.car)
+				    	if(this.getMassage.success){
+					    	await this.actionEditApplication(this.$route.params.userapplicationId)
+					    	$('#myModal').modal('hide')
+				    	}
+			    		this.requiredInput = false
+		    		}else{
+		    			toast.fire({
+				            type: "error",
+				            icon: "error",
+				            title: this.getMassage.message
+			          	});
+			          	this.requiredInput = true
+		    		}
+		    	}else{
+		    		this.requiredInput = true
+		    	}
 		    },
 		    async saveData(){
 		    	let check = true
