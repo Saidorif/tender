@@ -28,6 +28,11 @@ class TenderLot extends Model
         return $result;
     }
 
+    public function apps()
+    {
+        return $this->hasMany(\App\Application::class, 'lot_id');
+    }
+
     public function getDirectionIdAttribute($value)
     {
         $d_ids = json_decode($value,true);

@@ -4,7 +4,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-clipboard-check"></i>
-          Подтвердить тендер
+          Тендер
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/confirm-tender">
           <span class="peIcon pe-7s-back"></span>
@@ -12,276 +12,39 @@
         </router-link>
       </div>
       <div class="card-body">
-        <div class="row">
-          <div class="form-group in col-md-2">
-            <label for="name">Дата тердера</label>
-            <p class="form-control input_style disabled">{{ form.time }}</p>
+          <div class="table-responsive" v-for="(item,index) in getTender.data">
+                  <h5>Лот {{index + 1}}</h5>
+              <table class="table table-bordered" >
+                  <thead>
+                      <tr>
+                          <th>№</th>
+                          <th>Zayafkalani soni</th>
+                          <th>Yonalish nomi</th>
+                          <th>Mavsumiyiligi</th>
+                          <th>Rentabellik</th>
+                          <th>Yonalish yili</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr  v-for="(ch_item, ch_index) in item.direction_id">
+                          <td>{{index+1}}</td>
+                          <td>{{item.apps_count}}</td>
+                          <td>
+                            {{ch_item.name}}
+                          </td>
+                          <td>
+                            {{ch_item.seasonal}}
+                          </td>
+                          <td>
+                            {{ch_item.profitability}}
+                          </td>
+                          <td>
+                            {{ch_item.year}}
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
           </div>
-          <div class="form-group col-md-3">
-            <label for="address">Адрес</label>
-            <p class="form-control input_style disabled">{{ form.address }}</p>
-          </div>
-          <div class="col-md-2 ml_auto">
-            <button
-              type="button"
-              class="btn btn-danger"
-              data-toggle="modal"
-              data-target="#exampleModal"
-            >
-              <i class="fas fa-ban"></i> Отказ
-            </button>
-            <button type="button" class="btn btn-success" @click="completedTender()">
-              <i class="far fa-check-circle"></i>Подтвердить
-            </button>
-          </div>
-        </div>
-        <!-- All edit choosen tables -->
-				<!-- All edit choosen tables -->
-			  	<div class="table-responsive" v-if="tenderlots.length > 0">
-			  		<div class="d-flex justify-content-center">
-			  			<h4>Лоты</h4>
-			  		</div>
-				  	<!-- <div class="choosenItemsTable" v-for="(t_lots,t_index) in tenderlots">
-		  		    	<div class="d-flex">
-					  		<h4 class="lot_n"><em>Лот №</em> {{t_index+1}}</h4>
-				  		</div>
-		  		    	<template v-for="(items,index) in t_lots.direction_id">
-				  		    <div class="mb-2">
-				  		    	<div class="d-flex align-items-center">
-						  			<h4>{{index+1}})</h4>
-					  		    	<button class="btn btn-outline-secondary mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index+t_index+'from'" aria-expanded="false" :aria-controls="'collapseExample'+index+t_index+'from'">
-					  		    		<template>
-										    <span>{{items.name}}</span>
-									    	<span>
-									    		({{getLengthReys(items)}} рейс)
-									    		<i class="pe-7s-angle-down-circle"></i>
-									    	</span>
-					  		    		</template>
-								  	</button>
-								  	<router-link
-								  		:to='`/crm/stepuser/demand-tab/${items.id}`'
-								  		class="btn btn-outline-info"
-							  		>
-									  	<i class="fas fa-eye"></i>
-								  	</router-link>
-				  		    	</div>
-							  	<div class="collapse" :id="'collapseExample'+index+t_index+'from'" v-if="items.reysesFrom.length > 0">
-						  			<h3>
-						  				<span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span>
-						  			</h3>
-								  	<table class="table table-bordered">
-							  			<thead>
-								  			<tr>
-								  				<th>№</th>
-								  				<th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
-									  				{{item.where.name}}
-									  			</th>
-								  			</tr>
-								  		</thead>
-								  		<tbody>
-								  			<tr
-								  				v-for="(reys,key) in items.reysesFrom"
-								  				:class="activeEditClass(reys)"
-							  				>
-								  				<td>{{key+1}}</td>
-								  				<template v-for="(val,key) in reys.reys_times">
-									  				<td>{{val.start}}</td>
-									  				<td>{{val.end}}</td>
-								  				</template>
-								  			</tr>
-								  		</tbody>
-								  	</table>
-								  	<h3>
-						  				<span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span>
-						  			</h3>
-								  	<table class="table table-bordered">
-							  			<thead>
-								  			<tr>
-								  				<th>№</th>
-								  				<th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
-									  				{{item.where.name}}
-									  			</th>
-								  			</tr>
-								  		</thead>
-								  		<tbody>
-								  			<tr
-								  				v-for="(reys,key) in items.reysesTo"
-								  				:class="activeEditClass(reys)"
-							  				>
-								  				<td>{{key+1}}</td>
-								  				<template v-for="(val,key) in reys.reys_times">
-									  				<td>{{val.start}}</td>
-									  				<td>{{val.end}}</td>
-								  				</template>
-								  			</tr>
-								  		</tbody>
-								  	</table>
-								</div>
-				  			</div>
-		  		    	</template>
-				  	</div> -->
-                                <div class="card cardtender" v-for="(t_lots,t_index) in tenderlots">
-                <div class="card-header" >
-                        <h4 class="lot_n"><em>Лот №</em> {{t_index+1}}</h4>
-                        <div>
-                        <a href="#" class="btn btn-outline-danger">
-                            <i class="fas fa-trash text-danger lot_remove" @click.prevent="removeEditLot(t_lots.id)"></i>
-                        </a>
-                    <button
-                        type="button"
-                        class="btn btn-info btn_save_category"
-                        @click.prevent="getEditId(t_lots.id)"
-                    >
-                        <i class="far fa-share-square text-light"></i>
-                        <span class="text-light">Отправить заявку</span>
-                    </button>
-                        </div>
-
-                </div>
-                <div class="card-body">
-                    <template v-for="(items,index) in t_lots.direction_id">
-                        <div class="mb-2">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <h4>{{index+1}}) {{items.name}} ({{getLengthReys(items)}} рейс)</h4>
-
-                            <router-link
-                                :to='`/crm/stepuser/demand-tab/${items.id}`'
-                                class="btn btn-outline-info"
-                            >
-                                <i class="fas fa-eye"></i>
-                            </router-link>
-                        </div>
-                        <div >
-                            <h3>
-                            <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span>
-                            </h3>
-                            <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                <th>№</th>
-                                <th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
-                                    {{item.where.name}}
-                                </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                v-for="(reys,key) in items.reysesFrom"
-                                :class="activeEditClass(reys)"
-                                >
-                                <td>{{key+1}}</td>
-                                <template v-for="(val,key) in reys.reys_times">
-                                    <td>{{val.start}}</td>
-                                    <td>{{val.end}}</td>
-                                </template>
-                                </tr>
-                            </tbody>
-                            </table>
-                            <h3>
-                            <span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span>
-                            </h3>
-                            <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                <th>№</th>
-                                <th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
-                                    {{item.where.name}}
-                                </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                v-for="(reys,key) in items.reysesTo"
-                                :class="activeEditClass(reys)"
-                                >
-                                <td>{{key+1}}</td>
-                                <template v-for="(val,key) in reys.reys_times">
-                                    <td>{{val.start}}</td>
-                                    <td>{{val.end}}</td>
-                                </template>
-                                </tr>
-                            </tbody>
-                            </table>
-                        </div>
-                        </div>
-                    </template>
-                </div>
-            </div>
-                </div>
-			  	<!-- all choosen lots -->
-		  		<div class="table-responsive" v-if="allLotes.length > 0">
-			  		<div class="d-flex justify-content-center">
-			  			<h4>Добавленные лоты</h4>
-			  		</div>
-				  	<div class="choosenItemsTable" v-for="(lots,lot_key) in allLotes">
-				  		<div class="d-flex">
-					  		<h4 class="lot_n"><em>№</em> {{lot_key+1}}</h4>
-					  		<i class="fas fa-trash text-danger lot_remove" @click.prevent="removeLot(lot_key)"></i>
-				  		</div>
-				  		<ul v-for="(item,index) in lots">
-				  		    <li>
-				  		    	<div class="d-flex align-items-center">
-					  		    	<h4>{{index+1}})</h4>
-					  		    	<button class="btn btn-outline-success mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
-					  		    		<template v-if="item.reyses.length > 0">
-										    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span>
-										    <span>({{item.reyses.length}} рейсы)</span>
-					  		    		</template>
-					  		    		<template v-else>
-					  		    			<span>{{item.directions.name}}</span>
-					  		    		</template>
-								  	</button>
-				  		    	</div>
-							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
-								  <table class="table table-bordered table-hover">
-							  			<thead>
-								  			<tr>
-								  				<th>№</th>
-								  				<th v-for="(item,index) in item.reyses[0].reys_times" colspan="2">
-									  				{{item.where.name}}
-									  			</th>
-								  			</tr>
-								  		</thead>
-								  		<tbody>
-								  			<tr v-for="(reys,key) in item.reyses">
-								  				<td>{{key+1}}</td>
-								  				<template v-for="(val,key) in reys.reys_times">
-									  				<td>{{val.start}}</td>
-									  				<td>{{val.end}}</td>
-								  				</template>
-								  			</tr>
-								  		</tbody>
-								  	</table>
-								</div>
-				  			</li>
-				  		</ul>
-				  		<hr>
-				  	</div>
-			  	</div>
-
-
-
-        <!-- cancel modal -->
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Причина отказа</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <textarea class="form-control" v-model="rejectmsg" name="" id="" cols="30" rows="10" placeholder="Техт отказа" :class="isRequired(rejectmsg) ? 'isRequired' : ''"  ></textarea>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary" @click="rejectTender()">Отправить</button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -327,127 +90,21 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("tenderannounce", ["getMassage", "getTenderAnnounce"]),
-    ...mapGetters("direction", ["getDirectionFindList"]),
-    ...mapGetters("passportTab", ["getSchedule"]),
-    ...mapGetters("confirmtender", ["getRejMassage"]),
+    ...mapGetters("completedtender", ["getTender"]),
   },
   async mounted() {
-    await this.actionEditTenderAnnounce(this.$route.params.tenderannounceId);
-    this.form.time = this.getTenderAnnounce.time;
-    this.form.address = this.getTenderAnnounce.address;
-    this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
-    this.lots = this.getTenderAnnounce.tenderlots;
-	this.tenderlots = this.getTenderAnnounce.tenderlots
+    await this.actionCompletedTendersShow(this.$route.params.tenderId);
+    console.log(this.getTender.data)
+    // this.form.time = this.getTenderAnnounce.time;
+    // this.form.address = this.getTenderAnnounce.address;
+    // this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
+    // this.lots = this.getTenderAnnounce.tenderlots;
+	// this.tenderlots = this.getTenderAnnounce.tenderlots
   },
   methods: {
-    ...mapActions("confirmtender", [
-      "actionRejectTender",
-      "actionCompletedTender"
+    ...mapActions("completedtender", [
+      "actionCompletedTendersShow",
     ]),
-    ...mapActions("tenderannounce", [
-      "actionAddTenderAnnounce",
-      "actionEditTenderAnnounce",
-      "actionUpdateTenderAnnounce",
-      "actionDeleteTenderAnnounceItem",
-    ]),
-    ...mapActions("direction", ["actionDirectionFind"]),
-    ...mapActions("passportTab", ["actionGetScheduleTable"]),
-    async removeFromEditItems(lots, reys, directions) {
-      let reys_id = [];
-      if (lots && reys) {
-        let lot_list = lots.reys_id;
-        reys.forEach((item, index) => {
-          if (lot_list.includes(item.id)) {
-            reys_id.push(item.id);
-          }
-        });
-      }
-      let data = {
-        id: this.$route.params.tenderannounceId,
-        direction_id: directions.id,
-        reys_id,
-      };
-      await this.actionDeleteTenderAnnounceItem(data);
-      if (this.getMassage.success) {
-        await this.actionEditTenderAnnounce(
-          this.$route.params.tenderannounceId
-        );
-        toast.fire({
-          type: "success",
-          icon: "success",
-          title: this.getMassage.message,
-        });
-      }
-    },
-	activeEditClass(item){
-		if (item.status == 'active') {
-			return 'edit-active'
-		}else{
-			return 'edit-pending'
-		}
-		// let lot_list = lots.reys_id
-		// if (lot_list.length > 0) {
-		// 	if (lot_list.includes(id)) {
-		// 		return true
-		// 	}
-		// }
-	},
-    // getLengthReys(lots, reys) {
-    //   let lot_list = lots.reys_id;
-    //   let count = 0;
-    //   reys.forEach((item, index) => {
-    //     if (lot_list.includes(item.id)) {
-    //       count++;
-    //     }
-    //   });
-    //   return count;
-    // },
-    getLengthReys(reys){
-		let count = 0;
-			reys.reysesFrom.forEach((item,index)=>{
-				if(item.status == 'pending'){
-					count++
-				}
-			})
-			reys.reysesTo.forEach((item,index)=>{
-				if(item.status == 'pending'){
-					count++
-				}
-			})
-		return count;
-	},
-    isRequired(input) {
-      return this.requiredInput && input === "";
-    },
-    async completedTender(){
-      await this.actionCompletedTender(this.$route.params.tenderannounceId);
-      if(this.getRejMassage.success){
-        toast.fire({
-				  type: "success",
-				  icon: "success",
-				  title: this.getRejMassage.message
-				});
-        this.$router.push("/crm/confirm-tender");
-      }
-    },
-    async rejectTender(){
-      if (this.rejectmsg != '' && this.rejectmsg != null){
-        await this.actionRejectTender({id:this.$route.params.tenderannounceId, message: this.rejectmsg })
-        $('#exampleModal').modal('hide')
-        if(this.getRejMassage.success){
-          toast.fire({
-				    type: "success",
-				    icon: "success",
-				    title: this.getRejMassage.message
-				  });
-          this.$router.push("/crm/confirm-tender");
-        }
-        this.requiredInput = false
-      }else{
-        this.requiredInput = true
-      }
-    }
   },
 };
 </script>

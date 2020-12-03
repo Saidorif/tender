@@ -1,30 +1,34 @@
-import {ConfirmtenderSerivce} from "../services/confirmtender.service";
+import {CompletedTendersSerivce} from "../services/completedtender.service";
 
 const state = {
-	message: [],
+    tender: [],
+    tendersList: [],
 };
 
 const getters = {
-	getRejMassage(state){
-		return state.message
-	},
+	getTender(state){
+		return state.tender
+    },
+	getTendersList(state){
+		return state.tendersList
+    },
 };
 
 
 const actions = {
-	async actionRejectTender({commit},payload){
+	async actionCompletedTendersList({commit}){
 		try {
-			const types =  await ConfirmtenderSerivce.rejectTender(payload);
-			await commit('setMessage',types.data)
+			const types =  await CompletedTendersSerivce.completedTendersList();
+			await commit('setTendersList',types.data.result)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionCompletedTender({commit},id){
+	async actionCompletedTendersShow({commit},id){
 		try {
-			const types =  await ConfirmtenderSerivce.completedTender(id);
-			await commit('setMessage',types.data)
+			const types =  await CompletedTendersSerivce.completedTendersShow(id);
+			await commit('setTender',types.data.result)
 			return true
 		} catch (error) {
 			return false
@@ -33,12 +37,15 @@ const actions = {
 };
 
 const mutations = {
-	setMessage(state, message){
-		state.message = message
+	setTender(state, tender){
+		state.tender = tender
+	},
+	setTendersList(state, tendersList){
+		state.tendersList = tendersList
 	},
 };
 
-export const confirmtender = {
+export const completedtender = {
 	namespaced: true,
 	state,
 	getters,
