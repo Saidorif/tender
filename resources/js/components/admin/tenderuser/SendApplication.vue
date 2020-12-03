@@ -1166,6 +1166,7 @@
 			    				'pType':this.car.pType,
 			    				'cars':car,
 			    				'pINN':this.car.pINN,
+			    				'app_id':this.$route.params.userapplicationId,
 			    			}
 				    		await this.actionAdliya(data)
 				    		console.log(this.getMassage)
