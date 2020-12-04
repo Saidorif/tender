@@ -695,42 +695,7 @@
 			    	</div>
 				    <div class="col-md-12" v-if="car.owner_type == 'rent'">
 				    	<div class="row">
-				    		<div class="form-group col-md-3">
-				    			<label for="pType">Тип заявителя</label>
-							    <select
-								    class="form-control input_style"
-							    	id="pType"
-							    	placeholder="Номер Авто"
-							    	v-model="car.pType"
-							    	:class="isRequired(car.pType) ? 'isRequired' : ''"
-							    >
-							    	<option value="0">Физическое лицо</option>}
-							    	<option value="1">Юридическое лицо</option>}
-							    </select>
-				    		</div>
-				    		<div class="form-group col-md-3" v-if="car.pType == 1">
-							    <label for="pINN">ИНН</label>
-							    <input
-							    	type="number"
-							    	class="form-control input_style"
-							    	id="pINN"
-							    	placeholder="ИНН"
-							    	v-model="car.pINN"
-							    	:class="isRequired(car.pINN) ? 'isRequired' : ''"
-						    	>
-						  	</div>
-				    		<div class="form-group col-md-3" v-if="car.pType == 0">
-							    <label for="pPinfl">ПИНФЛ</label>
-							    <input
-							    	type="text"
-							    	class="form-control input_style"
-							    	id="pPinfl"
-							    	placeholder="ПИНФЛ"
-							    	v-model="car.pPinfl"
-							    	:class="isRequired(car.pPinfl) ? 'isRequired' : ''"
-						    	>
-						  	</div>
-				    		<div class="form-group col-md-6">
+				    		<div class="form-group col-md-4">
 							    <label for="pKuzov">Номер кузова</label>
 							    <input
 							    	type="text"
@@ -741,7 +706,7 @@
 							    	:class="isRequired(car.pKuzov) ? 'isRequired' : ''"
 						    	>
 						  	</div>
-				    		<div class="form-group col-md-6">
+				    		<div class="form-group col-md-4">
 							    <label for="pNumberNatarius">Номер реестра нотариального действия</label>
 							    <input
 							    	type="text"
@@ -752,7 +717,7 @@
 							    	:class="isRequired(car.pNumberNatarius) ? 'isRequired' : ''"
 						    	>
 						  	</div>
-				    		<div class="form-group col-md-6">
+				    		<div class="form-group col-md-4">
 							    <label for="pDateNatarius">Дата нотариального действия</label>
 							    <date-picker 
 				                  lang="ru" 
@@ -852,9 +817,6 @@
 					monitor:0,
 					station_announce:0,
 					owner_type:'owner',
-					pType:0,
-					pINN:'',
-					pPinfl:'',
 					pKuzov:'',
 					pNumberNatarius:'',
 					pDateNatarius:'',
@@ -928,9 +890,6 @@
 			'car.owner_type':{
 				handler(){
 					if (this.car.owner_type == 'owner') {
-						this.car.pType=0
-						this.car.pINN=''
-						this.car.pPinfl=''
 						this.car.pKuzov=''
 						this.car.pNumberNatarius=''
 						this.car.pDateNatarius=''
@@ -1075,9 +1034,6 @@
 		    	this.car.monitor = 0
 		    	this.car.station_announce = 0
 		    	this.car.owner_type='owner'
-				this.car.pType=0
-				this.car.pINN=''
-				this.car.pPinfl=''
 				this.car.pKuzov=''
 				this.car.pNumberNatarius=''
 				this.car.pDateNatarius=''
@@ -1163,9 +1119,7 @@
 			    				'pNumberNatarius':this.car.pNumberNatarius,
 			    			}
 			    			let data = {
-			    				'pType':this.car.pType,
 			    				'cars':car,
-			    				'pINN':this.car.pINN,
 			    				'app_id':this.$route.params.userapplicationId,
 			    			}
 				    		await this.actionAdliya(data)
