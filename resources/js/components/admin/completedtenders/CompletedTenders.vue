@@ -13,22 +13,24 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Адрес</th>
-							<th scope="col">Дата тендера</th>
 							<th scope="col">Статус</th>
+							<th scope="col">Дата тендера</th>
+							<th scope="col">Обшее количество поступивших предложений</th>
+							<th scope="col">Обшее количество выставленных лотов</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="(item,index) in getTendersList.data">
 							<td scope="row">{{index+1}}</td>
-							<td>{{item.address}}</td>
-							<td>{{item.time}}</td>
 							<td>
 								<div class="badge" :class="getStatusClass(item.status)">
 									{{getStatusName(item.status)}}
 								</div>
 							</td>
+							<td>{{item.time}}</td>
+							<td width="20%">{{item.tenderapps_count}}</td>
+							<td width="20%">{{item.tenderlots_count}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/completed-tenders/show/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -36,7 +38,7 @@
 							</td>
 						</tr>
 					</tbody>
-					<!-- <pagination :limit="4" :data="getTendersList" @pagination-change-page="getResults"></pagination> -->
+					<pagination :limit="4" :data="getTendersList" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
 		  </div>

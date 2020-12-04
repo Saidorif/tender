@@ -1,8 +1,8 @@
 import ApiService from './api.service'
 
 const CompletedTendersSerivce = {
-	completedTendersList(){
-		return ApiService.get(`/api/tender/completed-tenders/`)
+	completedTendersList(page){
+		return ApiService.get(`/api/tender/completed-tenders?page=${page}`)
 	},
 	completedTendersShow(id){
 		return ApiService.get(`/api/tender/completed-tenders/${id}`)
