@@ -69,7 +69,7 @@ Route::group([
 
             //
             Route::get('tender/completed-tenders','TenderController@completedTenders');
-            Route::get('tender/completed-tenders/{id}','TenderController@completedTendersLots');
+            Route::get('tender/completed-tenders/{id}','TenderController@completedTendersBall');
             Route::get('tender/completed-lots/{id}','TenderController@completedTendersBall');
 
             // Complaint
