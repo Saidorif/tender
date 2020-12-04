@@ -450,8 +450,182 @@ class TenderController extends Controller
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Tender not found']);
         }
-        $result = TenderLot::withCount(['apps'])->where(['tender_id' => $tender->id])->paginate(12);
-        return response()->json(['success' => true, 'result' => $result]);
+        $tender_lots = TenderLot::where(['tender_id' => $tender->id])->get();
+        $items = [];
+        foreach($tender_lots as $key => $lot){
+            $result = [];
+            $applications = $lot->apps;
+            $direction_ids = $lot->getDirection();
+            foreach($applications as $k => $app){
+                foreach($direction_ids as $value){
+                    $direction = Direction::find($value);
+                    $result[$key][$k]['name'] = $direction->name;
+                    $result[$key][$k]['company_name'] = $app->user->company_name;
+                    $result[$key][$k]['fio'] = $app->user->getFio();
+                    //2.Tarif
+                    $app_tarif = (int)$app->tarif;//Taklif
+                    $tender_tarif = $direction->tarif; //Talab
+                    $tender_avto_capacity = $direction->requirement->transports_seats;//(transports_seats)Tender avto transport orindiqlar sigimi
+                    $yonalish = $direction->type->type;
+                    $tarif_foizda = round(100 - (100*$app_tarif/$tender_tarif));
+                    $app_tarif_ball = 0;
+                    //Agar taklif talabdan 21% dan yuqori bolsa
+                    if($tarif_foizda <= -21){
+                        $app_tarif_ball = 0;
+                    }
+                    //Agar taklif talabdan 11 - 20% dan yuqori bolsa
+                    if($tarif_foizda >= -20 && $tarif_foizda <= -11){
+                        $app_tarif_ball = 1;
+                    }
+                    //Agar taklif talabdan 5 - 10% dan yuqori bolsa
+                    if($tarif_foizda < -5 && $tarif_foizda >= -10){
+                        $app_tarif_ball = 2;
+                    }
+                    //Agar taklif talabga mos bolsa
+                    if($tarif_foizda == 0){
+                        $app_tarif_ball = 3;
+                    }
+                    //Agar taklif talabdan 10 - 20% dan past bolsa
+                    if($tarif_foizda >= 10 && $tarif_foizda <= 20){
+                        $app_tarif_ball = 4;
+                    }
+                    //Agar taklif talabdan 21%  va undan past bolsa
+                    if($tarif_foizda >= 21){
+                        $app_tarif_ball = 5;
+                    }
+                    //3.Avto year
+                    $app_avto_years = 0;
+                    $app_avto_capacity = 0;
+                    foreach($app->cars as $cars){
+                        $app_avto_years += date('Y') - $cars->date;
+                        $app_avto_capacity += $cars->seat_qty;
+                    }
+                    $app_avto_total = $app_avto_years / count($app->cars);
+            
+                    $app_avto_ball = 0;
+                    //Avto ishlab chiqarilgan yildan boshlab necha yil otgani
+                    if($app_avto_total >= 0 && $app_avto_total <= 2){
+                        $app_avto_ball = 10;
+                    }
+                    if($app_avto_total >= 3 && $app_avto_total <= 5){
+                        $app_avto_ball = 7;
+                    }
+                    if($app_avto_total >= 6 && $app_avto_total <= 8){
+                        $app_avto_ball = 6;
+                    }
+                    if($app_avto_total >= 9 && $app_avto_total <= 11){
+                        $app_avto_ball = 5;
+                    }
+                    if($app_avto_total >= 12 && $app_avto_total <= 14){
+                        $app_avto_ball = 3;
+                    }
+            
+                    //4.Yolovchilar sigimi
+                    $app_avto_capacity_ball = 0;
+                    $app_avto_capacity_foiz = round(100 - (100 * $app_avto_capacity / $tender_avto_capacity));
+                    //Taklif etilgan korsatkich talabdan 11% va undan yuqori
+                    if($app_avto_capacity_foiz <= -11){
+                        $app_avto_capacity_ball = 5;
+                    }
+                    //Taklif etilgan korsatkich talabdan 5% - 10% oraliqda yuqori
+                    if($app_avto_capacity_foiz <= -5 && $app_avto_capacity_foiz >= -10){
+                        $app_avto_capacity_ball = 4;
+                    }
+                    //Taklif etilgan korsatkich talabga mos kelsa
+                    if($app_avto_capacity_foiz == 0){
+                        $app_avto_capacity_ball = 3;
+                    }
+                    //Taklif etilgan korsatkich talabdan 5% - 10% oraliqda past
+                    if($app_avto_capacity_foiz >= 5 && $app_avto_capacity_foiz <= 10){
+                        $app_avto_capacity_ball = 2;
+                    }
+                    //Taklif etilgan korsatkich talabdan 11% oraliqda past
+                    if($app_avto_capacity_foiz >= 11){
+                        $app_avto_capacity_ball = 1;
+                    }
+                    //5.Qatnovlar soni
+                    $app_qatnovlar_ball = 0;
+                    //Agar taklif etilgan qatnovlar soni talabga teng yoki yuqori bolsa 3 ball bomasa 0 
+                    $tender_qatnovlar_soni = count($direction->schedule);
+                    if((int)$app->qty_reys >= $tender_qatnovlar_soni){
+                        $app_qatnovlar_ball = 3;
+                    }
+                    //6.Transport kategoriyasiga mosligi
+                    //7.Transport modelining mosligi
+                    $tender_cars = $direction->cars;
+                    $app_categoriya = 0;
+                    $app_model = 0;
+                    foreach ($tender_cars as $t_car) {
+                        foreach ($app->cars as $a_car) {
+                            //6.Transport kategoriyasiga mosligi
+                            if($t_car->bustype_id == $a_car->bustype_id){
+                                $app_categoriya ++;
+                            }
+                            //7.Transport modelining mosligi
+                            if($t_car->busmodel_id == $a_car->busmodel_id){
+                                $app_model ++;
+                            }
+                        }
+                    }
+                    //8.Qoshimcha qulayliklar mavjudligi
+                    $avto_qulayliklar_ball = 0;
+                    foreach($app->cars as $car){
+                        if((int)$car->conditioner == 1){
+                            $avto_qulayliklar_ball += 1.20;
+                        }
+                        if((int)$car->internet == 1){
+                            $avto_qulayliklar_ball += 1.15;
+                        }
+                        if((int)$car->bio_toilet == 1){
+                            $avto_qulayliklar_ball += 1.10;
+                        }
+                        if((int)$car->bus_adapted == 1){
+                            $avto_qulayliklar_ball += 1.20;
+                        }
+                        if((int)$car->telephone_power == 1){
+                            $avto_qulayliklar_ball += 1.05;
+                        }
+                        if((int)$car->monitor == 1){
+                            $avto_qulayliklar_ball += 1.05;
+                        }
+                        if($car->station_announce){
+                            $avto_qulayliklar_ball += 1.05;
+                        }
+                    }
+                    $avto_qulayliklar_ball = $avto_qulayliklar_ball / count($app->cars);
+                    //9.Tadbirlar rejasi
+                    $tadbirlar_rejasi_ball = 0;
+                    if((int)$app->daily_technical_job == 1){
+                        $tadbirlar_rejasi_ball += 1;
+                    }
+                    if((int)$app->daily_medical_job == 1){
+                        $tadbirlar_rejasi_ball += 1;
+                    }
+                    if((int)$app->hours_rule == 1){
+                        $tadbirlar_rejasi_ball += 1;
+                    }
+                    if((int)$app->videoregistrator == 1){
+                        $tadbirlar_rejasi_ball += 1;
+                    }
+                    if((int)$app->gps == 1){
+                        $tadbirlar_rejasi_ball += 1;
+                    }
+                    //10.Ustuvor mezonlar
+            
+                    $result[$key][$k]['app_tarif_ball'] = $app_tarif_ball;
+                    $result[$key][$k]['app_avto_ball'] = $app_avto_ball;
+                    $result[$key][$k]['app_avto_capacity_ball'] = $app_avto_capacity_ball;
+                    $result[$key][$k]['app_qatnovlar_ball'] = $app_qatnovlar_ball;
+                    $result[$key][$k]['app_categoriya'] = $app_categoriya;
+                    $result[$key][$k]['app_model'] = $app_model;
+                    $result[$key][$k]['avto_qulayliklar_ball'] = round($avto_qulayliklar_ball,3);
+                    $result[$key][$k]['tadbirlar_rejasi_ball'] = $tadbirlar_rejasi_ball;
+                    $result[$key][$k]['total'] = $app_tarif_ball + $app_avto_ball + $app_avto_capacity_ball + $app_qatnovlar_ball + $app_categoriya + $app_model + round($avto_qulayliklar_ball,3) + $tadbirlar_rejasi_ball;
+                }
+            }
+            $items[] = $result;
+        }
+        return response()->json(['success' => true, 'result' => $items]);
     }
     
     public function completedTendersBall(Request $request,$id)
@@ -468,7 +642,7 @@ class TenderController extends Controller
         $items = [];
         foreach($applications as $key => $app){
             $result = [];
-            foreach($app->direction_ids as $key => $value){
+            foreach($app->direction_ids as $k => $value){
                 $direction = Direction::find($value);
                 $result[$key]['name'] = $direction->name;
                 $result[$key]['company_name'] = $app->user->company_name;
