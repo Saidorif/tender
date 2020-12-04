@@ -86,13 +86,44 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/completed-tenders">
-              <i class="peIcon fas fa-file"></i>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <span class="peIcon fas fa-file" style="font-size: 20px;"></span>
               <p>
-                Завершенные тендеры
+                Итоги тендеров
+                <i class="right fas fa-angle-left"></i>
               </p>
-            </router-link>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/completed-tenders">
+                  <p>
+                    Завершенные тендеры
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/check-control">
+                  <p>
+                    Проверка тендеры
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/protocol">
+                  <p>
+                    Протокол 
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/contract">
+                  <p>
+                    Договора 
+                  </p>
+                </router-link>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/crm/confirm-tender">
