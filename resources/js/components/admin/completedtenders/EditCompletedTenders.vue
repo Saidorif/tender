@@ -3,10 +3,10 @@
     <div class="card">
       <div class="card-header">
         <h4 class="title_user">
-          <i class="peIcon fas fa-clipboard-check"></i>
-          Тендер
+          <i class="peIcon fas fa-file"></i>
+          Лоты
         </h4>
-        <router-link class="btn btn-primary back_btn" to="/crm/confirm-tender">
+        <router-link class="btn btn-primary back_btn" to="/crm/completed-tenders">
           <span class="peIcon pe-7s-back"></span>
           Назад
         </router-link>
