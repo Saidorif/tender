@@ -440,7 +440,7 @@ class TenderController extends Controller
 
     public function completedTenders()
     {
-        $result = Tender::where(['status' => 'completed'])->paginate(12);
+        $result = Tender::withCount(['tenderlots','tenderapps'])->where(['status' => 'completed'])->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
     
