@@ -8,12 +8,15 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\GaiToken;
+use App\GaiCar;
+use App\AdliyaCar;
 
 class IntegrationController extends Controller
 {
     public function adliya(Request $request)
     {
         $validator = Validator::make($request->all(),[
+            'app_id' => 'required',
             'pINN' => 'nullable|integer',
             'pPinfl' => 'nullable|string',
             'pType' => ['required',Rule::in([0,1]),],
@@ -32,6 +35,7 @@ class IntegrationController extends Controller
         if($inputs['pType'] == 1 && empty($inputs['pINN'])){
             return response()->json(['error' => true, 'message' => 'Идентификационный номер налогоплательщика не обнаружена']);
         }
+        $user = $request->user();
         $inputs['pID'] = Str::uuid();
         $inputs['pResource'] = 1;
         $inputs['cars']['pDateNatarius'] = Carbon::parse($inputs['cars']['pDateNatarius'])->format('d.m.Y');
@@ -56,18 +60,34 @@ class IntegrationController extends Controller
             ]);
             $data_resp = json_decode($response->getBody()->getContents(),true);
             if($data_resp['resultCode'] == 1){
+                $adliya_car = AdliyaCar::create([
+                    "user_id" => $user->id,
+                    "app_id" => $inputs['app_id'],
+                    "pINN" => $inputs['app_id'],
+                    "pPinfl" => !empty($inputs['pPinfl']) ? $inputs['pPinfl'] : null ,
+                    "nameOwner" => $data_resp['nameOwner'],
+                    "pKuzov" => $data_resp['results'][0]['pKuzov'],
+                    "pNumberNatarius" => $data_resp['results'][0]['pNumberNatarius'],
+                    "pDateNatarius" => $data_resp['results'][0]['pDateNatarius'],
+                    "startDate" => $data_resp['results'][0]['startDate'],
+                    "expirationDate" => $data_resp['results'][0]['expirationDate'],
+                    "resultCode" => $data_resp['resultCode'],
+                    "resultNote" => $data_resp['resultNote'],
+                ]);
                 return response()->json(['success' => true, 'result' => $data_resp]);
             }else{
-                return response()->json(['error' => true, 'result' => $data_resp['resultNote']]);
+                return response()->json(['error' => true, 'message' => $data_resp['resultNote']]);
             }
         } catch (\Throwable $th) {
-            return response()->json(['error' => true, 'result' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
+            throw $th;
+            return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
         }
     }
 
     public function getVehicleInfo(Request $request)
     {
         $validator = Validator::make($request->all(),[
+            'app_id' => 'required',
             'pTexpassportSery' => 'required|string',
             'pTexpassportNumber' => 'required|string',
             'pPlateNumber' => 'required|string',
@@ -76,6 +96,7 @@ class IntegrationController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        $user = $request->user();
         $inputs = array_map('strtoupper', $inputs);
         $gai = $this->getGaiToken();
         if($gai){
@@ -93,15 +114,33 @@ class IntegrationController extends Controller
                 ]);
                 $data_resp = json_decode($response->getBody()->getContents(),true);
                 if($data_resp['pAnswereId'] == 1){
+                    $gai_car = GaiCar::create([
+                        'user_id' => $user->id,
+                        'app_id' => $inputs['app_id'],
+                        'pTexpassportSery' => $inputs['pTexpassportSery'],
+                        'pTexpassportNumber' => $inputs['pTexpassportNumber'],
+                        'pPlateNumber' => $inputs['pPlateNumber'],
+                        "pVehicleId" => $data_resp['VehicleInfo']['pVehicleId'],
+                        "pMarka" => $data_resp['VehicleInfo']['pMarka'],
+                        "pMadeofYear" => $data_resp['VehicleInfo']['pMadeofYear'],
+                        "pNumberofplace" => $data_resp['VehicleInfo']['pNumberofplace'],
+                        "pWeightAuto" => $data_resp['VehicleInfo']['pWeightAuto'],
+                        "pNameOfClient" => $data_resp['VehicleInfo']['pNameOfClient'],
+                        "pTypeOfAuto" => $data_resp['VehicleInfo']['pTypeOfAuto'],
+                        "pTechnicalStatus" => $data_resp['VehicleInfo']['pTechnicalStatus'],
+                        "pAdressOfClient" => $data_resp['VehicleInfo']['pAdressOfClient'],
+                        "status" => 'pending',
+                    ]);
                     return response()->json(['success' => true, 'result' => $data_resp]);
                 }else{
-                    return response()->json(['error' => true, 'result' => $data_resp['pAnswereMessage']]);
+                    return response()->json(['error' => true, 'message' => $data_resp['pAnswereMessage']]);
                 }
             } catch (\Throwable $th) {
-                return response()->json(['error' => true, 'result' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
+                throw $th;
+                return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
             }
         }
-        return response()->json(['error' => true, 'result' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
+        return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
     }
 
     //GAI get token (authentication)

@@ -25,11 +25,11 @@ class Tender extends Model
     {
         return $this->hasMany(\App\TenderLot::class,'tender_id');
     }
-
-    // public function tenderlotsWith()
-    // {
-    //     return $this->tenderlots()->with('directions');
-    // }
+    
+    public function tenderapps()
+    {
+        return $this->hasMany(\App\Application::class,'tender_id');
+    }
 
 
     public function createdBy()
