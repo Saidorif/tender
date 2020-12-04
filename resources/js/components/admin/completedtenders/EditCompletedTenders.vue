@@ -12,34 +12,58 @@
         </router-link>
       </div>
       <div class="card-body">
-          <div class="table-responsive" v-for="(item,index) in getTender.data">
-                  <h5>Лот {{index + 1}}</h5>
+          <div class="table-responsive" v-for="(lots,lot_index) in getTender">
+              <h5>Лот <em>№</em> {{lot_index + 1}}</h5>
               <table class="table table-bordered" >
                   <thead>
                       <tr>
                           <th>№</th>
-                          <th>Zayafkalani soni</th>
-                          <th>Yonalish nomi</th>
-                          <th>Mavsumiyiligi</th>
-                          <th>Rentabellik</th>
-                          <th>Yonalish yili</th>
+                          <th>Направления</th>
+                          <th>Перевозчики отправившие предложении</th>
+                          <th>Набранные баллы</th>
+                          <th>Результаты изучения тендерных предложений</th>
+                          <th>Статус лицензии</th>
+                          <th>Контракт</th>
                       </tr>
                   </thead>
                   <tbody>
-                      <tr  v-for="(ch_item, ch_index) in item.direction_id">
-                          <td>{{index+1}}</td>
-                          <td>{{item.apps_count}}</td>
-                          <td>
-                            {{ch_item.name}}
+                      <tr v-for="(directions, d_index) in lots">
+                          <td>{{d_index+1}}</td>
+                          <td>{{directions[0].name}}</td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                {{item.name}}
+                              </li>
+                            </ul>
                           </td>
-                          <td>
-                            {{ch_item.seasonal}}
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                {{item.total}}
+                              </li>
+                            </ul>
                           </td>
-                          <td>
-                            {{ch_item.profitability}}
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                status
+                              </li>
+                            </ul>
                           </td>
-                          <td>
-                            {{ch_item.year}}
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                status
+                              </li>
+                            </ul>
+                          </td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                contract
+                              </li>
+                            </ul>
                           </td>
                       </tr>
                   </tbody>
@@ -60,33 +84,6 @@ export default {
   },
   data() {
     return {
-        form: {
-            direction_ids: [],
-            time: "",
-            address: "",
-            type: "simple",
-        },
-        requiredInput: false,
-        direction_ids: {},
-        checked: false,
-        checkedGrafik: false,
-        isLoading: false,
-        allLotes:[],
-      	allItems: [],
-      	fromName: "",
-      	fromItems: [],
-      	fromFirstItems: [],
-      	choosenFromItems: [],
-      	toName: "",
-      	toFirstItems: [],
-      	toItems: [],
-      	choosenToItems: [],
-      	findList: [],
-      	tableItems: [],
-      	edit_direction_ids: [],
-        tenderlots:[],
-        lots: [],
-        rejectmsg: '',
     };
   },
   computed: {
@@ -94,12 +91,7 @@ export default {
   },
   async mounted() {
     await this.actionCompletedTendersShow(this.$route.params.tenderId);
-    console.log(this.getTender.data)
-    // this.form.time = this.getTenderAnnounce.time;
-    // this.form.address = this.getTenderAnnounce.address;
-    // this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
-    // this.lots = this.getTenderAnnounce.tenderlots;
-	// this.tenderlots = this.getTenderAnnounce.tenderlots
+    console.log(this.getTender)
   },
   methods: {
     ...mapActions("completedtender", [
@@ -198,5 +190,14 @@ input.disabled {
 }
 .cardtender .card-header{
     background: #f3f3f4;
+}
+.without_padding{
+  padding: 0px !important;
+}
+.without_padding ul{
+  margin-bottom: 0px;
+}
+.without_padding li{
+  text-align: center;
 }
 </style>
