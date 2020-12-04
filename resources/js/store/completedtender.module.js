@@ -2,7 +2,7 @@ import {CompletedTendersSerivce} from "../services/completedtender.service";
 
 const state = {
     tender: [],
-    tendersList: [],
+    tendersList: {},
 };
 
 const getters = {
@@ -16,9 +16,9 @@ const getters = {
 
 
 const actions = {
-	async actionCompletedTendersList({commit}){
+	async actionCompletedTendersList({commit},page){
 		try {
-			const types =  await CompletedTendersSerivce.completedTendersList();
+			const types =  await CompletedTendersSerivce.completedTendersList(page);
 			await commit('setTendersList',types.data.result)
 			return true
 		} catch (error) {
