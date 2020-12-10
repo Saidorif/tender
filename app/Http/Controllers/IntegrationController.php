@@ -17,9 +17,6 @@ class IntegrationController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'app_id' => 'required',
-            'pINN' => 'nullable|integer',
-            'pPinfl' => 'nullable|string',
-            'pType' => ['required',Rule::in([0,1]),],
             'cars' => 'required|array',
             'cars.pDateNatarius' => 'required|date',
             'cars.pKuzov' => 'required|string',
@@ -29,18 +26,13 @@ class IntegrationController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
-        if($inputs['pType'] == 0 && empty($inputs['pPinfl'])){
-            return response()->json(['error' => true, 'message' => 'Персональный идентификационный номер физического лица не обнаружена']);
-        }
-        if($inputs['pType'] == 1 && empty($inputs['pINN'])){
-            return response()->json(['error' => true, 'message' => 'Идентификационный номер налогоплательщика не обнаружена']);
-        }
         $user = $request->user();
         $inputs['pID'] = Str::uuid();
         $inputs['pResource'] = 1;
+        $inputs['pType'] = 1;
         $inputs['cars']['pDateNatarius'] = Carbon::parse($inputs['cars']['pDateNatarius'])->format('d.m.Y');
         $body = [];
-        $body['pINN'] = $inputs['pINN'];
+        $body['pINN'] = $user->inn;
         !empty($inputs['pPinfl']) ? $body['pPinfl'] = $inputs['pPinfl'] : $body['pPinfl'] = '';
         $body['pType'] = $inputs['pType'];
         $body['pID'] = $inputs['pID'];
@@ -50,7 +42,7 @@ class IntegrationController extends Controller
             //Send query
             $query = json_encode($body);
             $client = new \GuzzleHttp\Client();
-            $response = $client->post('10.190.0.162:8085/notary_mintrans_service/search', [
+            $response = $client->post('0.190.0.162:8085/notary_1mintrans_service/search', [
                 'auth' => [
                     'mintrans', 
                     'qP7N1_gEc6'
