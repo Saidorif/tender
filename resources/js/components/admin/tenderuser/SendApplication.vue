@@ -1020,6 +1020,7 @@
                 }
 			},
 			defaultValuesOfCar(){
+				this.car.app_id = this.$route.params.userapplicationId
 				this.car.auto_number = ''
 		    	this.car.bustype_id = ''
 		    	this.car.tclass_id = ''
@@ -1111,8 +1112,8 @@
     			)
 		    	{
 		    		if (this.car.owner_type == 'owner'){
+                        this.car.app_id = this.$route.params.userapplicationId
 			    		await this.actionGaiVehicle(this.car)
-			    		console.log(this.getMassage)
 		    		}else if(this.car.owner_type == 'rent'){
 		    			if (this.car.pDateNatarius != '' && this.car.pKuzov != '' && this.car.pNumberNatarius != '') {
 			    			let car = {
