@@ -33,7 +33,7 @@
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.name}}
+                                {{item.company_name != null ? item.company_name : 'noname'}}
                               </li>
                             </ul>
                           </td>
@@ -199,5 +199,11 @@ input.disabled {
 }
 .without_padding li{
   text-align: center;
+}
+.list-inline li{
+  border-bottom: 1px solid #000;
+}
+.list-inline li:last-child{
+  border: none;
 }
 </style>
