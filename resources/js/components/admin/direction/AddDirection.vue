@@ -8,7 +8,7 @@
           Добавить направление
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/direction">
-          <span class="peIcon pe-7s-back"></span> 
+          <span class="peIcon pe-7s-back"></span>
           Назад
         </router-link>
       </div>
@@ -136,14 +136,12 @@
             </div>
             <div class="form-group col-md-3">
               <label for="seria">Yo'nalish ochilish sanasi</label>
-              <date-picker 
-                lang="ru" 
-                type="year"
-                v-model="form.year" 
-                valueType="format" 
+              <date-picker
+                lang="ru"
+                type="date" format="DD-MM-YYYY" valueType="format"
+                v-model="form.year"
                 class="input_style"
                 :class="isRequired(form.year) ? 'isRequired' : ''"
-                format="YYYY"
               ></date-picker>
             </div>
             <div class="form-group col-md-3">
@@ -194,8 +192,8 @@
                     @change="selectClass(car)"
                   >
                     <option value="" selected disabled>Выберите категорию авто!</option>
-                    <option 
-                      :value="busType.id" 
+                    <option
+                      :value="busType.id"
                       v-for="(busType,index) in getTypeofbusList"
                     >{{busType.name}}</option>
                   </select>
@@ -251,7 +249,7 @@
             <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
               <button type="button" class="btn btn-info btn_save_category mr-3" @click.prevent="addCar">
                 <i class="fas fa-plus"></i>
-                Добавить авто 
+                Добавить авто
               </button>
               <button type="submit" class="btn btn-primary btn_save_category">
                 <i class="fas fa-save"></i>
@@ -376,7 +374,7 @@ export default {
         this.form.region_from.region_id != ""  &&
         this.form.region_to.region_id != ""  &&
         this.form.from_where != "" &&
-        this.form.seasonal != "" 
+        this.form.seasonal != ""
       ) {
         if (this.checkCars) {
           this.form['cars'] = this.cars
@@ -413,10 +411,10 @@ export default {
       await this.actionAreaByRegion({ region_id: this.form[input].region_id });
       if(input == 'region_from'){
         this.areaFrom = this.getAreaList
-        this.form.region_from.area_id = '' 
+        this.form.region_from.area_id = ''
       }else if(input == 'region_to'){
         this.areaTo = this.getAreaList
-        this.form.region_to.area_id = '' 
+        this.form.region_to.area_id = ''
       }
     },
     async selectArea(input) {
@@ -426,10 +424,10 @@ export default {
       });
       if(input == 'region_from'){
         this.stationFrom = this.getStationsList
-        this.form.region_from.station_id = '' 
+        this.form.region_from.station_id = ''
       }else if(input == 'region_to'){
         this.stationTo = this.getStationsList
-        this.form.region_to.station_id = '' 
+        this.form.region_to.station_id = ''
       }
     },
   },
@@ -536,3 +534,4 @@ export default {
     margin-left: 15px;
   }
 </style>
+

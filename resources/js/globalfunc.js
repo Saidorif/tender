@@ -22,16 +22,18 @@ export const g = {
     stations(){
       return [
         {id:1,name:'Avtovokzal'},
-        {id:2,name:'Avto bekat'},
-        {id:3,name:'Type3'},
+        {id:2,name:'Avtostansiya'},
+        {id:3,name:'Oraliq bekat'},
+        {id:4,name:'Shox bekat'},
       ];
     },
     findStation(id){
       let result = ''
       let stations = [
         {id:1,name:'Avtovokzal'},
-        {id:2,name:'Avto bekat'},
-        {id:3,name:'Type3'},
+        {id:2,name:'Avtostansiya'},
+        {id:3,name:'Oraliq bekat'},
+        {id:4,name:'Shox bekat'},
       ]
       stations.forEach((station,index)=>{
         if (station.id == id) {

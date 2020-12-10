@@ -128,19 +128,17 @@
                         :id="'from_where'+index"
                         :value="item"
                       />
-                      <label :for="'from_where'+index">{{item.name}}</label>
+                      <label :for="'from_where'+index">{{item ? item.name : ''}}</label>
                     </div>
                   </div>
                   <div class="form-group col-md-3">
                     <label for="seria">Yo'nalish ochilish sanasi</label>
                     <date-picker
-                      lang="ru" 
-                      type="year"
-                      v-model="form.year" 
-                      valueType="format" 
+                      lang="ru"
+                      type="date" format="DD-MM-YYYY" valueType="format"
+                      v-model="form.year"
                       class="input_style"
                       :class="isRequired(form.year) ? 'isRequired' : ''"
-                      format="YYYY"
                     ></date-picker>
                   </div>
                   <div class="form-group col-md-3">
@@ -218,8 +216,8 @@
                           @change="selectClass(car)"
                         >
                           <option value="" selected disabled>Выберите категорию авто!</option>
-                          <option 
-                            :value="busType.id" 
+                          <option
+                            :value="busType.id"
                             v-for="(busType,index) in getTypeofbusList"
                           >{{busType.name}}</option>
                         </select>

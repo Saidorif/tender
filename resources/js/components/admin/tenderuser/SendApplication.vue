@@ -11,7 +11,7 @@
 						<i class="fas fa-qrcode"></i>
 					</span>
 					<router-link class="btn btn-primary back_btn" to="/crm/application">
-						<span class="peIcon pe-7s-back"></span> 
+						<span class="peIcon pe-7s-back"></span>
 						Назад
 					</router-link>
 				</div>
@@ -449,8 +449,8 @@
 					    	@change="selectClass(car.bustype_id)"
 					    >
 					    	<option value="" selected disabled>Выберите категорию авто!</option>
-					    	<option 
-					    		:value="busType.id" 
+					    	<option
+					    		:value="busType.id"
 					    		v-for="(busType,index) in getTypeofbusList"
 					    		data-toggle="tooltip" data-placement="right" title="Tooltip on right"
 				    		>{{busType.name}}</option>
@@ -499,12 +499,12 @@
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="date">Дата выпуска</label>
-					    <date-picker 
-		                  lang="ru" 
+					    <date-picker
+		                  lang="ru"
 		                  type="year"
 		                  placeholder="Дата выпуска"
-		                  v-model="car.date" 
-		                  valueType="format" 
+		                  v-model="car.date"
+		                  valueType="format"
 		                  class="input_style"
 		                  :class="isRequired(car.date) ? 'isRequired' : ''"
 		                ></date-picker>
@@ -667,7 +667,7 @@
 							    	v-model="car.pTexpassportSery"
 							    	:class="isRequired(car.pTexpassportSery) ? 'isRequired' : ''"
 						    	>
-						  	</div> 
+						  	</div>
 				    		<div class="form-group col-md-4">
 							    <label for="pTexpassportNumber">Номер техпаспорта</label>
 							    <input
@@ -719,17 +719,17 @@
 						  	</div>
 				    		<div class="form-group col-md-4">
 							    <label for="pDateNatarius">Дата нотариального действия</label>
-							    <date-picker 
-				                  lang="ru" 
+							    <date-picker
+				                  lang="ru"
 				                  type="date"
 				                  placeholder="Дата выпуска"
-				                  v-model="car.pDateNatarius" 
-				                  valueType="format" 
+				                  v-model="car.pDateNatarius"
+				                  valueType="format"
 				                  class="input_style"
 				                  :class="isRequired(car.pDateNatarius) ? 'isRequired' : ''"
 				                ></date-picker>
 						  	</div>
-				    	</div>	
+				    	</div>
 				    </div>
 		        </div>
 		      </div>
@@ -801,6 +801,7 @@
 					hours_rule:0,
 				},
 				car:{
+                    app_id: null,
 					auto_number:'',
 					bustype_id:'',
 					busmarka_id:'',
@@ -917,7 +918,8 @@
 			this.cars_with = this.getApplication.cars_with
 			this.files = this.getApplication.attachment
 			this.direction_ids = this.getApplication.tender.direction_ids
-			this.lots = this.getApplication.tender.tenderlots
+            this.lots = this.getApplication.tender.tenderlots
+            this.car.app_id = this.$route.params.userapplicationId;
 		},
 		methods:{
 			...mapActions('application',[
@@ -1098,13 +1100,13 @@
 		    },
 		    async addCar(){
 		    	if (
-	    			this.car.auto_number != '' && 
-	    			this.car.bustype_id != '' && 
-	    			this.car.tclass_id != '' && 
-	    			this.car.busmarka_id != '' && 
-	    			this.car.busmodel_id != '' && 
+	    			this.car.auto_number != '' &&
+	    			this.car.bustype_id != '' &&
+	    			this.car.tclass_id != '' &&
+	    			this.car.busmarka_id != '' &&
+	    			this.car.busmodel_id != '' &&
 	    			this.car.date != '' &&
-	    			this.car.capacity != '' && 
+	    			this.car.capacity != '' &&
 	    			this.car.seat_qty != ''
     			)
 		    	{

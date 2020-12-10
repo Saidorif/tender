@@ -14,10 +14,10 @@
 					<div class="row">
 					  <div class="form-group col-md-9">
 					    <label for="region_id">Regions</label>
-					    <select 
-					    	class="form-control input_style" 
-					    	v-model="form.region_id" 
-					    	:class="isRequired(form.region_id) ? 'isRequired' : ''"  
+					    <select
+					    	class="form-control input_style"
+					    	v-model="form.region_id"
+					    	:class="isRequired(form.region_id) ? 'isRequired' : ''"
 							@change="selectRegion()"
 				    	>
 					    	<option value="" selected disabled>choose option</option>
@@ -26,10 +26,10 @@
 					  </div>
 					  <div class="form-group col-md-9">
 					    <label for="region_id">Area</label>
-					    <select 
-					    	class="form-control input_style" 
-					    	v-model="form.area_id" 
-					    	:class="isRequired(form.area_id) ? 'isRequired' : ''"  
+					    <select
+					    	class="form-control input_style"
+					    	v-model="form.area_id"
+					    	:class="isRequired(form.area_id) ? 'isRequired' : ''"
 							placeholder="Area"
 				    	>
 					    	<option value="" selected disabled>choose option</option>
@@ -38,21 +38,21 @@
 					  </div>
 					  <div class="form-group col-md-9">
 					    <label for="name">Station name</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="name" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="name"
 					    	placeholder="Station name"
 					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-md-9">
 					    <label for="station_type">Station Type</label>
-					    <select 
-					    	class="form-control input_style" 
-					    	v-model="form.station_type" 
-					    	:class="isRequired(form.station_type) ? 'isRequired' : ''"  
+					    <select
+					    	class="form-control input_style"
+					    	v-model="form.station_type"
+					    	:class="isRequired(form.station_type) ? 'isRequired' : ''"
 				    	>
 					    	<option value="" selected disabled>choose option</option>
 					    	<option :value="station.id" v-for="(station,index) in $g.stations()">{{station.name}}</option>
@@ -62,7 +62,7 @@
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
-						</button>	
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -97,7 +97,7 @@
 		async mounted(){
 			await this.actionRegionList()
 			this.laoding = false
-			
+
 		},
 		methods:{
 			...mapActions('region',['actionRegionList']),
@@ -131,5 +131,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>
