@@ -33,16 +33,17 @@ class IntegrationController extends Controller
         $inputs['cars']['pDateNatarius'] = Carbon::parse($inputs['cars']['pDateNatarius'])->format('d.m.Y');
         $body = [];
         $body['pINN'] = $user->inn;
-        !empty($inputs['pPinfl']) ? $body['pPinfl'] = $inputs['pPinfl'] : $body['pPinfl'] = '';
+        // !empty($inputs['pPinfl']) ? $body['pPinfl'] = $inputs['pPinfl'] : $body['pPinfl'] = '';
         $body['pType'] = $inputs['pType'];
         $body['pID'] = $inputs['pID'];
         $body['pResource'] = $inputs['pResource'];
         $body['cars'][] = $inputs['cars'];
+        // return $body;
         try {
             //Send query
             $query = json_encode($body);
             $client = new \GuzzleHttp\Client();
-            $response = $client->post('0.190.0.162:8085/notary_1mintrans_service/search', [
+            $response = $client->post('10.190.0.162:8085/notary_mintrans_service/search', [
                 'auth' => [
                     'mintrans', 
                     'qP7N1_gEc6'
