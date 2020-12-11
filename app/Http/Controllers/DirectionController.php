@@ -168,7 +168,7 @@ class DirectionController extends Controller
         $validator = Validator::make($request->all(), [            
             'pass_number'  => 'required|string',
             'tarif'  => 'required',
-            'year'  => 'required|string',
+            'year' => Carbon::parse($inputs['year'])->format('Y-m-d'),
             'distance'  => 'required|string',
             'profitability'  => ['required',Rule::in(['unprofitable','profitable','middle']),],
             'type_id'  => 'required|integer',
