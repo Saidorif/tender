@@ -16,6 +16,7 @@
 						<thead>
 							<tr>
 								<th scope="col">№</th>
+								<th scope="col">Марка</th>
 								<th scope="col">Название</th>
 								<th scope="col">Действия</th>
 							</tr>
@@ -23,6 +24,7 @@
 						<tbody>
 							<tr v-for="(model,index) in getBusmodels.data">
 								<td scope="row">{{model.id}}</td>
+								<td>{{model.marka.name}}</td>
 								<td>{{model.name}}</td>
 								<td>
 									<router-link tag="button" class="btn_transparent" :to='`/crm/busmodel/edit/${model.id}`'>
@@ -58,7 +60,7 @@
 		},
 		methods:{
 			...mapActions('busmodel',['actionBusmodels','actionDeleteBusmodel']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionBusmodels(page)
 			},
 			async deleteType(id){
@@ -81,5 +83,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>
