@@ -36,7 +36,7 @@ class Application extends Model
 
     public function carsWith()
     {
-        return $this->cars()->with(['bustype','busmodel','tclass','busmarka']);
+        return $this->cars()->with(['bustype','busmodel','tclass','busmarka','gai']);
     }
 
     public function tender()

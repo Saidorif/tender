@@ -71,6 +71,7 @@ Route::group([
             Route::get('tender/completed-tenders/{id}','TenderController@completedTendersLots');
             Route::get('tender/completed-lots/{id}','TenderController@completedTendersBall');
             Route::get('tender/check-tenders','TenderController@checkTenders');
+            Route::get('tender/app-cars/{id}','TenderController@appCars');
 
             // Complaint
             Route::post('complaint', 'ComplaintController@index');

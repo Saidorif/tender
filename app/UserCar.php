@@ -52,4 +52,14 @@ class UserCar extends Model
     {
         return $this->belongsTo(\App\TClass::class,'tclass_id');
     }
+
+    public function gai()
+    {
+        return $this->hasMany(\App\GaiCar::class,'pPlateNumber','auto_number');
+    }
+    
+    public function adliya()
+    {
+        return $this->hasMany(\App\AdliyaCar::class,'pPlateNumber','auto_number');
+    }
 }

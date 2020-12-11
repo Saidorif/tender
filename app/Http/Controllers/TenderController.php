@@ -817,4 +817,13 @@ class TenderController extends Controller
         $result = Application::with(['user'])->withCount(['cars'])->where(['status' => 'accepted'])->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
+    
+    public function appCars(Request $request,$id)
+    {
+        $result = Application::with(['carsWith','user'])->where(['status' => 'accepted'])->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Application not found']);
+        }
+        return response()->json(['success' => true, 'result' => $result]);
+    }
 }
