@@ -120,6 +120,7 @@ Route::group([
             Route::post('busmodel/store', 'BusModelController@store');
             Route::get('busmodel/list', 'BusModelController@list');
             Route::post('busmodel/find', 'BusModelController@find');
+            Route::post('busmodel/get-by-marka', 'BusModelController@getByMarkaId');
             Route::get('busmodel/edit/{id}', 'BusModelController@edit');
             Route::post('busmodel/update/{id}', 'BusModelController@update');
             Route::delete('busmodel/destroy/{id}', 'BusModelController@destroy');

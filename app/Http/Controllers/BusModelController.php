@@ -11,13 +11,27 @@ class BusModelController extends Controller
 {
     public function index(Request $request)
     {
-        $result = BusModel::orderByDesc('id')->paginate(12);
+        $result = BusModel::with(['marka'])->orderByDesc('id')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
     public function list(Request $request)
     {
-        $result = BusModel::all();
+        $result = BusModel::with(['marka'])->get();
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+    
+    public function getByMarkaId(Request $request)
+    {
+        $validator = Validator::make($request->all(), [            
+            'busbrand_id'  => 'required|integer',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inputs = $request->only('busbrand_id');
+        $result = BusModel::with(['marka'])->find($inputs['busbrand_id']);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -32,13 +46,13 @@ class BusModelController extends Controller
         }
         $builder = BusModel::query();
         $builder->where('name','LIKE', '%'.$request->input('name').'%');
-        $result = $builder->get();
+        $result = $builder->with(['marka'])->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
 
     public function edit($id)
     {
-        $result = BusModel::find($id);
+        $result = BusModel::with(['marka'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Модель автобуса не найден']);
         }
@@ -48,13 +62,18 @@ class BusModelController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [            
+            'busbrand_id'  => 'required|integer',
             'name'  => 'required|string',
         ]);
 
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
-        $inputs = $request->only('name');
+        $inputs = $request->only('name','busbrand_id');
+        $BusMarka = BusMarka::find($inputs['busbrand_id']);
+        if(!$BusMarka){
+            return response()->json(['error' => true, 'message' => 'BusMarka not found']);
+        }
         $result = BusModel::create($inputs);
 
         return response()->json(['success' => true, 'message' => 'Модель автобуса успешно создан']);
