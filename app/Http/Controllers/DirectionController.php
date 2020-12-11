@@ -126,7 +126,21 @@ class DirectionController extends Controller
             'region_to_id' => $inputs['region_to']['region_id'],
             'area_to_id' => $inputs['region_to']['area_id'],
         ]);
-        $direction->name = $direction->regionFrom->name.'-'.$direction->regionTo->name;
+        $from_name = '';
+        $to_name = '';
+        if(!empty($inputs['region_from']['region_id']) && !empty($inputs['region_to']['region_id'])){
+            $from_name = $direction->regionFrom->name;
+            $to_name = $direction->regionTo->name;
+        }
+        if(!empty($inputs['region_from']['area_id']) && !empty($inputs['region_to']['area_id'])){
+            $from_name = $direction->areaFrom->name;
+            $to_name = $direction->areaTo->name;
+        }
+        if(!empty($inputs['region_from']['station_id']) && !empty($inputs['region_to']['station_id'])){
+            $from_name = $direction->stationFrom->name;
+            $to_name = $direction->stationTo->name;
+        }
+        $direction->name = $from_name.'-'.$to_name;
         $direction->save();
 
         foreach ($inputs['cars'] as $key => $car) {
