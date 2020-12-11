@@ -147,6 +147,11 @@ import CompletedTenders from './components/admin/completedtenders/CompletedTende
 import AddCompletedTenders from './components/admin/completedtenders/AddCompletedTenders'
 import EditCompletedTenders from './components/admin/completedtenders/EditCompletedTenders'
 
+// CheckControl
+import CheckControl from './components/admin/checkcontrol/CheckControl'
+import AddCheckControl from './components/admin/checkcontrol/AddCheckControl'
+import EditCheckControl from './components/admin/checkcontrol/EditCheckControl'
+
 // Home
 import Home from './components/pages/Home'
 import Contact from './components/pages/Contact'
@@ -485,6 +490,10 @@ const router = new Router({
 				{
 					path:'completed-tenders',
 					component:CompletedTenders,
+                },
+				{
+					path:'check-control',
+					component:CheckControl,
                 },
                 {
 					path:'completed-tenders/show/:tenderId',

@@ -1119,6 +1119,7 @@
 			    				'pDateNatarius':this.car.pDateNatarius,
 			    				'pKuzov':this.car.pKuzov,
 			    				'pNumberNatarius':this.car.pNumberNatarius,
+			    				'auto_number':this.car.auto_number,
 			    			}
 			    			let data = {
 			    				'cars':car,
