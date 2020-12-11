@@ -879,7 +879,6 @@
 						}else{
 				          this.makeDisabled = false
 						}
-						console.log(this.form)
 					}
 				}
 			},
@@ -1126,7 +1125,6 @@
 			    				'app_id':this.$route.params.userapplicationId,
 			    			}
 				    		await this.actionAdliya(data)
-				    		console.log(this.getMassage)
 				    		this.requiredInput = false
 		    			}else{
 		    				this.requiredInput = true
