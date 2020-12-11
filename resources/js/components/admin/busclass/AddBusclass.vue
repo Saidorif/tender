@@ -215,7 +215,6 @@ export default {
     },
     async selectBrandBus(){
         await this.actionBusmodelListByBrand({busbrand_id:this.form.busbrand_id});
-        console.log(this.getBusmodelList)
     }
   },
 };
