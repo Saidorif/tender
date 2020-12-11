@@ -168,7 +168,7 @@ class DirectionController extends Controller
         $validator = Validator::make($request->all(), [            
             'pass_number'  => 'required|string',
             'tarif'  => 'required',
-            'year' => Carbon::parse($inputs['year'])->format('Y-m-d'),
+            'year'  => 'required|string',
             'distance'  => 'required|string',
             'profitability'  => ['required',Rule::in(['unprofitable','profitable','middle']),],
             'type_id'  => 'required|integer',
@@ -196,7 +196,7 @@ class DirectionController extends Controller
         $direction->update([
             'pass_number' => $inputs['pass_number'],
             'tarif' => (int)$inputs['tarif'],
-            'year' => $inputs['year'],
+            'year' => Carbon::parse($inputs['year'])->format('Y-m-d'),
             'distance' => $inputs['distance'],
             'profitability' => $inputs['profitability'],
             'type_id' => $inputs['type_id'],
