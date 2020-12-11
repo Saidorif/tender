@@ -10,6 +10,9 @@ const BusModelService = {
 	addbusmodel(data){
 		return ApiService.post(`/api/busmodel/store`,data)
 	},
+	addbybrandbusmodel(data){
+		return ApiService.post(`/api/busmodel/get-by-marka`,data)
+	},
 	editbusmodel(id){
 		return ApiService.get(`/api/busmodel/edit/${id}`)
 	},

@@ -33,6 +33,15 @@ const actions = {
 			return false
 		}
 	},
+	async actionBusmodelListByBrand({commit},payload){
+		try {
+			const types =  await BusModelService.addbybrandbusmodel(payload);
+			await commit('setBusmodelList',types.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionBusmodels({commit},page){
 		try {
 			const types =  await BusModelService.busmodels(page);

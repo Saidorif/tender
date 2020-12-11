@@ -75,7 +75,7 @@
 	    		return this.requiredInput && input === '';
 		    },
 			async saveType(){
-		    	if (this.form.name != ''){
+		    	if (this.form.name != '' && this.form.busbrand_id != ''){
 					await this.actionUpdateBusmodel(this.form)
 		    		if (this.getMassage.success) {
 						toast.fire({

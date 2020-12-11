@@ -176,7 +176,6 @@ export default {
   },
   async mounted() {
     await this.actionTypeofbusList();
-    await this.actionBusmodelList();
     await this.actionBusBrandList();
   },
   methods: {
@@ -185,7 +184,7 @@ export default {
       "actionDeleteTypeofbus",
     ]),
     ...mapActions("busclass", ["actionAddBusclass"]),
-    ...mapActions("busmodel", ["actionBusmodelList"]),
+    ...mapActions("busmodel", ["actionBusmodelListByBrand"]),
     ...mapActions("busbrand", ["actionBusBrandList"]),
     isRequired(input) {
       return this.requiredInput && input === "";
@@ -215,7 +214,8 @@ export default {
       }
     },
     async selectBrandBus(){
-
+        await this.actionBusmodelListByBrand({busbrand_id:this.form.busbrand_id});
+        console.log(this.getBusmodelList)
     }
   },
 };
