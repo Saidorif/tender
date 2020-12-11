@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-route"></i>
-				    Направления 
+				    Направления
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/direction/add"><i class="fas fa-plus"></i> Добавить</router-link>
 		  	</div>
@@ -61,14 +61,15 @@
 		async mounted(){
 			let page = 1;
 			await this.actionDirections()
-			this.laoding = false
+            this.laoding = false
+            console.log(this.getDirections)
 		},
 		computed:{
 			...mapGetters('direction',['getDirections','getMassage'])
 		},
 		methods:{
 			...mapActions('direction',['actionDirections','actionDeleteDirection']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionDirections(page)
 			},
 			async deletePassport(id){
@@ -89,5 +90,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>
