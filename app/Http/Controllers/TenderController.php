@@ -811,4 +811,10 @@ class TenderController extends Controller
         }
         return response()->json(['success' => true, 'result' => $items]);
     }
+
+    public function checkTenders(Request $request)
+    {
+        $result = Application::with(['user'])->withCount(['cars'])->where(['status' => 'accepted'])->get();
+        return response()->json(['success' => true, 'result' => $result]);
+    }
 }

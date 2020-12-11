@@ -66,11 +66,11 @@ Route::group([
             Route::get('tender/complete/{id}', 'TenderController@complete')->where('id', '[0-9]+');
             Route::get('tender/edit/{id}', 'TenderController@edit')->where('id', '[0-9]+');
             Route::delete('tender/destroy/{id}', 'TenderController@destroy')->where('id', '[0-9]+');
-
             //
             Route::get('tender/completed-tenders','TenderController@completedTenders');
             Route::get('tender/completed-tenders/{id}','TenderController@completedTendersLots');
             Route::get('tender/completed-lots/{id}','TenderController@completedTendersBall');
+            Route::get('tender/check-tenders','TenderController@checkTenders');
 
             // Complaint
             Route::post('complaint', 'ComplaintController@index');
