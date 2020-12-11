@@ -16,7 +16,8 @@ class IntegrationController extends Controller
     public function adliya(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'app_id' => 'required',
+            'app_id' => 'required|integer',
+            'auto_number' => 'required|string',
             'cars' => 'required|array',
             'cars.pDateNatarius' => 'required|date',
             'cars.pKuzov' => 'required|string',
@@ -38,6 +39,7 @@ class IntegrationController extends Controller
         $body['pID'] = $inputs['pID'];
         $body['pResource'] = $inputs['pResource'];
         $body['cars'][] = $inputs['cars'];
+        return $body;
         // return $body;
         try {
             //Send query
@@ -56,6 +58,7 @@ class IntegrationController extends Controller
                 $adliya_car = AdliyaCar::create([
                     "user_id" => $user->id,
                     "app_id" => $inputs['app_id'],
+                    "auto_number" => $inputs['auto_number'],
                     "pINN" => $inputs['app_id'],
                     "pPinfl" => !empty($inputs['pPinfl']) ? $inputs['pPinfl'] : null ,
                     "nameOwner" => $data_resp['nameOwner'],

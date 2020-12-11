@@ -9,6 +9,7 @@ class AdliyaCar extends Model
     protected $fillable = [
         "user_id",
         "app_id",
+        "auto_number",
         "pINN",
         "pPinfl",
         "nameOwner",

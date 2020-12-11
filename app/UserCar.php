@@ -60,6 +60,6 @@ class UserCar extends Model
     
     public function adliya()
     {
-        return $this->hasMany(\App\AdliyaCar::class,'pPlateNumber','auto_number');
+        return $this->hasMany(\App\AdliyaCar::class,'auto_number','auto_number');
     }
 }

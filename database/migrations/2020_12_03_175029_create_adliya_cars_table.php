@@ -17,6 +17,7 @@ class CreateAdliyaCarsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger("user_id");
             $table->bigInteger("app_id");
+            $table->string("auto_number");
             $table->string("pPinfl")->nullable();
             $table->string("pINN")->nullable();
             $table->string("nameOwner");
