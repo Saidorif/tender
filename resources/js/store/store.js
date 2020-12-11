@@ -35,6 +35,7 @@ import {conditionalsign} from "./conditionalsign.module"
 import {tenderannounce} from "./tenderannounce.module"
 import {confirmtender} from "./confirmtender.module"
 import {completedtender} from "./completedtender.module"
+import {checkcontrol} from "./checkcontrol.module"
 import {payment} from "./payment.module"
 import {find} from "./find.module"
 
@@ -81,6 +82,7 @@ const store = new Vuex.Store(
 			find,
             confirmtender,
             completedtender,
+            checkcontrol,
 		},
 		state:{
 			rules:[],
