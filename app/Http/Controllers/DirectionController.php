@@ -14,6 +14,7 @@ use App\DirectionReq;
 use App\Area;
 use Validator;
 use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 
 class DirectionController extends Controller
 {
@@ -113,7 +114,7 @@ class DirectionController extends Controller
         $direction = Direction::create([
             'pass_number' => $inputs['pass_number'],
             'tarif' => $inputs['tarif'],
-            'year' => $inputs['year'],
+            'year' => Carbon::parse($inputs['year'])->format('Y-m-d'),
             'distance' => $inputs['distance'],
             'profitability' => $inputs['profitability'],
             'type_id' => $inputs['type_id'],
