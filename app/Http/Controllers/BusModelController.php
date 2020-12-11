@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\BusModel;
+use App\BusMarka;
 use Validator;
 use Illuminate\Validation\Rule;
 
