@@ -24,7 +24,7 @@ class BusModelController extends Controller
     
     public function getByMarkaId(Request $request)
     {
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'busbrand_id'  => 'required|integer',
         ]);
 
@@ -32,7 +32,7 @@ class BusModelController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->only('busbrand_id');
-        $result = BusModel::with(['marka'])->find($inputs['busbrand_id']);
+        $result = BusModel::with(['marka'])->where(['busbrand_id' => $inputs['busbrand_id']])->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
 
