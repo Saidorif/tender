@@ -112,14 +112,14 @@
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/protocol">
                   <p>
-                    Протокол 
+                    Протокол
                   </p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/contract">
                   <p>
-                    Договора 
+                    Договора
                   </p>
                 </router-link>
               </li>
@@ -232,39 +232,44 @@
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
-                <router-link class="nav-link" to="/crm/typeofbus">
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link" >
                   <i class="peIcon fas fa-bus"></i>
                   <p>
-                    Тип автобуса
+                    Автобуса
                   </p>
-                </router-link>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/crm/typeofbus">
+                            <p>
+                                Тип автобуса
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/crm/busclass">
+                            <p>
+                                Класс автобуса
+                            </p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/crm/busbrand">
+                        <p>
+                            Марка автобуса
+                        </p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/crm/busmodel">
+                        <p>
+                            Модель автобуса
+                        </p>
+                        </router-link>
+                    </li>
+                </ul>
               </li>
-                <li class="nav-item">
-                <router-link class="nav-link" to="/crm/busclass">
-                  <i class="peIcon fas fa-bus-alt"></i>
-                  <p>
-                    Класс автобуса
-                  </p>
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link class="nav-link" to="/crm/busbrand">
-                  <i class="peIcon fas fa-bus"></i>
-                  <p>
-                    Марка автобуса
-                  </p>
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link class="nav-link" to="/crm/busmodel">
-                  <i class="peIcon fas fa-bus"></i>
-                  <p>
-                    Модель автобуса
-                  </p>
-                </router-link>
-              </li>
-
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/conditionalsign">
                   <i class="peIcon fas fa-sign"></i>

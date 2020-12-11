@@ -49,6 +49,7 @@
                 class="form-control input_style"
                 v-model="form.busbrand_id"
                 :class="isRequired(form.busbrand_id) ? 'isRequired' : ''"
+                @change="selectBrandBus()"
               >
                 <option value="" selected disabled>
                   Выберите тип автобус!
@@ -213,6 +214,9 @@ export default {
         this.requiredInput = true;
       }
     },
+    async selectBrandBus(){
+
+    }
   },
 };
 </script>

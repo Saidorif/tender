@@ -11,22 +11,35 @@
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveType" >
 					<div class="row">
-					  <div class="form-group col-md-9">
-					    <label for="name">Название</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="name" 
+                        <div class="form-group col-md-3">
+                            <label for="busmodel_id">Марка автобуса</label>
+                            <select
+                                class="form-control input_style"
+                                v-model="form.busbrand_id"
+                                :class="isRequired(form.busbrand_id) ? 'isRequired' : ''"
+                            >
+                                <option value="" selected disabled>  Выберите тип автобус!  </option>
+                                <option  :value="item.id" v-for="(item, index) in getBusBrandList">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+					  <div class="form-group col-md-3">
+					    <label for="name">Модель автобуса</label>
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="name"
 					    	placeholder="Название"
 					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-lg-3 d-flex justify-content-end saveBtn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
-						</button>	
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -40,19 +53,22 @@
 		data(){
 			return{
 				form:{
-					name:'',
+                    name:'',
+                    busbrand_id: ''
 				},
 				requiredInput:false
 			}
 		},
 		computed:{
-			...mapGetters('busmodel',['getMassage'])
+            ...mapGetters('busmodel',['getMassage']),
+            ...mapGetters("busbrand", ["getBusBrandList"]),
 		},
-		mounted(){
-
+		async mounted(){
+            await this.actionBusBrandList();
 		},
 		methods:{
-			...mapActions('busmodel',['actionAddBusmodel']),
+            ...mapActions('busmodel',['actionAddBusmodel']),
+            ...mapActions("busbrand", ["actionBusBrandList"]),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
@@ -71,7 +87,8 @@
 				}else{
 					this.requiredInput = true
 				}
-		    }
+            },
+
 		}
 	}
 </script>
