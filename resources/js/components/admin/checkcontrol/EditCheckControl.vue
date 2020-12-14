@@ -12,7 +12,7 @@
         </router-link>
       </div>
       <div class="card-body">
-        <div class="accordion" id="accordionExample">
+        <div class="accordion" id="accordionExample" v-if="cars.length > 0">
 
           <div class="card" v-for="(car_items,car_index) in cars">
             <div class="card-header" :id="'headingOne'+car_index">
@@ -101,6 +101,32 @@
                     </tbody>
                   </table>
                 </div>
+                <hr>
+                <template v-if="car_items.gai.length > 0">
+                  <h3>ГАИ данные</h3>
+                  <div class=" table-responsive table">
+                    <table class="table table-hover table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Номер Авто</th>
+                          <th>Марка</th>
+                          <th>Адрес</th>
+                          <th>Дата выпуска</th>
+                          <th>Хозяин</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(gai,gai_index) in car_items.gai">
+                          <td>{{gai.pPlateNumber}}</td>
+                          <td>{{gai.pMarka}}</td>
+                          <td>{{gai.pAdressOfClient}}</td>
+                          <td>{{gai.pMadeofYear}}</td>
+                          <td>{{gai.pNameOfClient}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </template>
               </div>
             </div>
           </div>

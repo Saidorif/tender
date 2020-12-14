@@ -292,8 +292,8 @@
 								<tbody>
 									<template v-for="(car,index) in cars_with">
 										<tr>
-											<td>{{index+1}}</td>
-											<td>{{car.auto_number}}</td>
+											<td>{{index+1}}</td>	    		
+											<td>{{car.pPlateNumber}}</td>
 											<td>{{car.bustype.name}}</td>
 											<td>{{car.tclass.name}}</td>
 											<td>{{car.busmarka ? car.busmarka.name : ''}}</td>
@@ -428,14 +428,15 @@
 		      <div class="modal-body">
 		        <div class="row">
 		        	<div class="form-group col-md-3">
-					    <label for="auto_number">Номер Авто</label>
+					    <label for="pPlateNumber">Номер Авто</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
-					    	id="auto_number"
+					    	id="pPlateNumber"
+					    	v-mask="'********'"
 					    	placeholder="Номер Авто"
-					    	v-model="car.auto_number"
-					    	:class="isRequired(car.auto_number) ? 'isRequired' : ''"
+					    	v-model="car.pPlateNumber"
+					    	:class="isRequired(car.pPlateNumber) ? 'isRequired' : ''"
 				    	>
 				  	</div>
 				  	<div class="form-group col-md-3">
@@ -657,7 +658,7 @@
 				    </div>
 				    <div class="col-md-12" v-if="car.owner_type == 'owner'">
 				    	<div class="row">
-				    		<div class="form-group col-md-4">
+				    		<div class="form-group col-md-6">
 							    <label for="pTexpassportSery">Серия техпаспорта</label>
 							    <input
 							    	type="text"
@@ -668,7 +669,7 @@
 							    	:class="isRequired(car.pTexpassportSery) ? 'isRequired' : ''"
 						    	>
 						  	</div>
-				    		<div class="form-group col-md-4">
+				    		<div class="form-group col-md-6">
 							    <label for="pTexpassportNumber">Номер техпаспорта</label>
 							    <input
 							    	type="number"
@@ -677,18 +678,6 @@
 							    	placeholder="Номер техпаспорта"
 							    	v-model="car.pTexpassportNumber"
 							    	:class="isRequired(car.pTexpassportNumber) ? 'isRequired' : ''"
-						    	>
-						  	</div>
-				    		<div class="form-group col-md-4">
-							    <label for="pPlateNumber">Номер машины</label>
-							    <input
-							    	type="text"
-							    	class="form-control input_style"
-							    	id="pPlateNumber"
-							    	v-mask="'********'"
-							    	placeholder="Номер машины"
-							    	v-model="car.pPlateNumber"
-							    	:class="isRequired(car.pPlateNumber) ? 'isRequired' : ''"
 						    	>
 						  	</div>
 					  	</div>
@@ -802,7 +791,6 @@
 				},
 				car:{
                     app_id: null,
-					auto_number:'',
 					bustype_id:'',
 					busmarka_id:'',
 					busmodel_id:'',
@@ -857,7 +845,7 @@
     		...mapGetters("busbrand", ["getBusBrandList"]),
 		    checkCars(){
 		    	this.form.cars.forEach((item,index)=>{
-	    			if (item.auto_number != '' && item.bustype_id != '' && item.busmodel_id != '' && item.tclass_id != '') {
+	    			if (item.pPlateNumber != '' && item.bustype_id != '' && item.busmodel_id != '' && item.tclass_id != '') {
 	    				return true
 	    			}else{
 	    				return false
@@ -1020,7 +1008,6 @@
 			},
 			defaultValuesOfCar(){
 				this.car.app_id = this.$route.params.userapplicationId
-				this.car.auto_number = ''
 		    	this.car.bustype_id = ''
 		    	this.car.tclass_id = ''
 		    	this.car.busmarka_id = ''
@@ -1100,7 +1087,6 @@
 		    },
 		    async addCar(){
 		    	if (
-	    			this.car.auto_number != '' &&
 	    			this.car.bustype_id != '' &&
 	    			this.car.tclass_id != '' &&
 	    			this.car.busmarka_id != '' &&
@@ -1119,7 +1105,7 @@
 			    				'pDateNatarius':this.car.pDateNatarius,
 			    				'pKuzov':this.car.pKuzov,
 			    				'pNumberNatarius':this.car.pNumberNatarius,
-			    				'auto_number':this.car.auto_number,
+			    				'auto_number':this.car.pPlateNumber,
 			    			}
 			    			let data = {
 			    				'cars':car,
