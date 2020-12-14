@@ -150,6 +150,7 @@
                 type="number"
                 v-model="form.distance"
                 class="form-control input_style"
+                step="0.01"
               />
             </div>
             <div class="form-group col-md-3">

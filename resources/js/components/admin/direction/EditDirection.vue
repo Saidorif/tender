@@ -159,7 +159,7 @@
                       type="number"
                       v-model="form.distance"
                       class="form-control input_style"
-                      :class="isRequired(form.distance) ? 'isRequired' : ''"
+                      step="0.01"
                     />
                   </div>
                   <div class="form-group col-md-3">
@@ -168,7 +168,6 @@
                       type="number"
                       v-model="form.tarif"
                       class="form-control input_style"
-                      :class="isRequired(form.tarif) ? 'isRequired' : ''"
                     />
                   </div>
                   <div class="col-lg-12" v-if="cars_with.length > 0">
@@ -468,9 +467,7 @@ export default {
     async saveDirection() {
       if (
         this.form.pass_number != "" &&
-        this.form.tarif != "" &&
         this.form.year != "" &&
-        this.form.distance != "" &&
         this.form.type_id != ""  &&
         this.form.region_from.region_id != ""  &&
         this.form.region_to.region_id != ""  &&
