@@ -15,17 +15,18 @@
         <div class="accordion" id="accordionExample" v-if="cars.length > 0">
 
           <div class="card" v-for="(car_items,car_index) in cars">
-            <div class="card-header" :id="'headingOne'+car_index">
+            <div class="card-header btn btn-link btn-block " :id="'headingOne'+car_index"   
+              data-toggle="collapse"
+              data-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
               <h2 class="mb-0">
                 <button
-                  class="btn btn-link btn-block text-left"
+                  class="text-left"
                   type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
                 >
-                  Номер Авто: {{car_items.auto_number}}
+                  <b>{{car_items.auto_number}}</b>
                 </button>
               </h2>
             </div>
@@ -58,7 +59,7 @@
                         <th>Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган мослашганлиги</th>
                         <th>Телефон қувватлагичлари</th>
                         <th>Хар бир ўриндиқда монитор (планшет)</th>
-                        <!-- <th>Бекатларни эълон қилиш аудио тизими</th> -->
+                        <th>Бекатларни эълон қилиш аудио тизими</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -94,9 +95,9 @@
                         <td>
                           <span v-html="checkBox(car_items.monitor)"></span>
                         </td>
-              <!--           <td>
+                        <td>
                           <span v-html="checkBox(car_items.station_announce)"></span>
-                        </td> -->
+                        </td>
                       </tr>
                     </tbody>
                   </table>
