@@ -14,7 +14,7 @@ class CreateTarifColumnToDirections extends Migration
     public function up()
     {
         Schema::table('directions', function (Blueprint $table) {
-            $table->integer('tarif')->default(0)->nullable();
+            $table->double('tarif',15,2)->default(0)->nullable();
         });
     }
 

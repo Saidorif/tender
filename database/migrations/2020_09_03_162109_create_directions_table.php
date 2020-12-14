@@ -19,7 +19,6 @@ class CreateDirectionsTable extends Migration
             $table->string('pass_number');
             $table->date('year');
             $table->string('distance');
-            $table->double('tarif',15,2);
             $table->bigInteger('type_id');
             $table->text('from_where');
             $table->string('seasonal');
