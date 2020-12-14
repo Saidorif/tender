@@ -13,8 +13,9 @@
       </div>
       <div class="card-body">
         <div class="accordion" id="accordionExample">
-          <div class="card">
-            <div class="card-header" id="headingOne">
+
+          <div class="card" v-for="(car_items,car_index) in cars">
+            <div class="card-header" :id="'headingOne'+car_index">
               <h2 class="mb-0">
                 <button
                   class="btn btn-link btn-block text-left"
@@ -24,101 +25,86 @@
                   aria-expanded="true"
                   aria-controls="collapseOne"
                 >
-                  Collapsible Group Item #1
+                  Номер Авто: {{car_items.auto_number}}
                 </button>
               </h2>
             </div>
 
             <div
               id="collapseOne"
-              class="collapse show"
-              aria-labelledby="headingOne"
-              data-parent="#accordionExample"
-            >
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                non cupidatat skateboard dolor brunch. Food truck quinoa
-                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
-                put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably
-                haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h2 class="mb-0">
-                <button
-                  class="btn btn-link btn-block text-left collapsed"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseTwo"
-                  aria-expanded="false"
-                  aria-controls="collapseTwo"
-                >
-                  Collapsible Group Item #2
-                </button>
-              </h2>
-            </div>
-            <div
-              id="collapseTwo"
               class="collapse"
-              aria-labelledby="headingTwo"
+              :class="car_index == 0 ? 'show' : ''"
+              :aria-labelledby="'headingOne'+car_index"
               data-parent="#accordionExample"
             >
               <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                non cupidatat skateboard dolor brunch. Food truck quinoa
-                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
-                put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably
-                haven't heard of them accusamus labore sustainable VHS.
+                <h3>Вводные данные</h3>
+                <div class=" table-responsive table">
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Статус</th>
+                        <th>Категория Авто</th>
+                        <th>Класс Авто</th>
+                        <th>Марка Авто</th>
+                        <th>Модель Авто</th>
+                        <th>Дата выпуска</th>
+                        <th>Количество рейсов</th>
+                        <th>Вместимость</th>
+                        <th>Количество сидящих</th>
+                        <th>Кондиционер (климат-назорати тизими)</th>
+                        <th>Интернет</th>
+                        <th>Биохожатхона</th>
+                        <th>Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган мослашганлиги</th>
+                        <th>Телефон қувватлагичлари</th>
+                        <th>Хар бир ўриндиқда монитор (планшет)</th>
+                        <th>Бекатларни эълон қилиш аудио тизими</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="badge" :class="getStatusClass(car_items.status)">
+                            {{getStatusName(car_items.status)}}
+                          </div> 
+                        </td>
+                        <td>{{car_items.bustype ? car_items.bustype.name : ''}}</td>
+                        <td width="5%">{{car_items.tclass ? car_items.tclass.name : ''}}</td>
+                        <td>{{car_items.busmarka ? car_items.busmarka.name : ''}}</td>
+                        <td>{{car_items.busmodel ? car_items.busmodel.name : ''}}</td>
+                        <td>{{car_items.date}}</td>
+                        <td>{{car_items.qty_reys}}</td>
+                        <td>{{car_items.capacity}}</td>
+                        <td>{{car_items.seat_qty}}</td>
+                        <td>
+                          <span v-html="checkBox(car_items.conditioner)"></span>
+                        </td>
+                        <td>
+                          <span v-html="checkBox(car_items.internet)"></span>
+                        </td>
+                        <td>
+                          <span v-html="checkBox(car_items.bio_toilet)"></span>
+                        </td>
+                        <td>
+                          <span v-html="checkBox(car_items.bus_adapted)"></span>
+                        </td>
+                        <td>
+                          <span v-html="checkBox(car_items.telephone_power)"></span>
+                        </td>
+                        <td>
+                          <span v-html="checkBox(car_items.monitor)"></span>
+                        </td>
+                        <td>
+                          <span v-html="checkBox(car_items.station_announce)"></span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h2 class="mb-0">
-                <button
-                  class="btn btn-link btn-block text-left collapsed"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#collapseThree"
-                  aria-expanded="false"
-                  aria-controls="collapseThree"
-                >
-                  Collapsible Group Item #3
-                </button>
-              </h2>
-            </div>
-            <div
-              id="collapseThree"
-              class="collapse"
-              aria-labelledby="headingThree"
-              data-parent="#accordionExample"
-            >
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                non cupidatat skateboard dolor brunch. Food truck quinoa
-                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
-                put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably
-                haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>
@@ -134,17 +120,41 @@ export default {
     Multiselect,
   },
   data() {
-    return {};
+    return {
+      cars:[]
+    };
   },
   computed: {
     ...mapGetters("checkcontrol", ["getAppCars"]),
   },
   async mounted() {
     await this.actionAppCars(this.$route.params.appId);
-    console.log(this.getAppCars);
+    this.cars = this.getAppCars.cars_with;
+    console.log(this.cars)
   },
   methods: {
     ...mapActions("checkcontrol", ["actionAppCars"]),
+    checkBox(check){
+      if (check == 0) {
+        return '<i class="fas fa-times-circle text-danger"></i>';
+      }else if(check == 1){
+        return '<i class="fas fa-check-circle text-success"></i>';
+      }
+    },
+    getStatusClass(name){
+      if (name == 'active') {
+        return 'badge-success'
+      }else{
+        return 'badge-danger'
+      }
+    },
+    getStatusName(name){
+      if (name == 'active') {
+        return 'Активный'
+      }else{
+        return 'Неактивный'
+      }
+    },
   },
 };
 </script>

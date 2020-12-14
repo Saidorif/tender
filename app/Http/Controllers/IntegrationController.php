@@ -169,4 +169,52 @@ class IntegrationController extends Controller
         }
         return false;
     }
+
+    public function getLicenseList(Request $request,$inn)
+    {
+        try {
+            //Send query
+            $client = new \GuzzleHttp\Client();
+            $response = $client->get('http://10.10.10.118/services/api/tender/get-org-data/'.$inn, [
+                'auth' => [
+                    'dazvoluser', 
+                    'd5ad29a96dc169eb2b01722d6493cd151510dc0b001801a1864bc31a24bdf07a'
+                ]
+            ]);
+            $data_resp = json_decode($response->getBody()->getContents(),true);
+            return $data_resp;
+            if($data_resp['resultCode'] == 1){
+                return response()->json(['success' => true, 'result' => $data_resp]);
+            }else{
+                return response()->json(['error' => true, 'message' => $data_resp['resultNote']]);
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+            return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
+        }
+    }
+
+    public function checkLicense(Request $request,$auto_number)
+    {
+        try {
+            //Send query
+            $client = new \GuzzleHttp\Client();
+            $response = $client->get('http://10.10.10.118/services/api/tender/get-auto-data/'.$auto_number, [
+                'auth' => [
+                    'dazvoluser', 
+                    'd5ad29a96dc169eb2b01722d6493cd151510dc0b001801a1864bc31a24bdf07a'
+                ]
+            ]);
+            $data_resp = json_decode($response->getBody()->getContents(),true);
+            return $data_resp;
+            if($data_resp['resultCode'] == 1){
+                return response()->json(['success' => true, 'result' => $data_resp]);
+            }else{
+                return response()->json(['error' => true, 'message' => $data_resp['resultNote']]);
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+            return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
+        }
+    }
 }

@@ -194,6 +194,8 @@ Route::group([
             //Integration
             Route::post('adliya','IntegrationController@adliya');
             Route::post('gai/vehicle','IntegrationController@getVehicleInfo');
+            Route::get('get-license-list/{inn}','IntegrationController@getLicenseList');
+            Route::get('check-license/{auto_number}','IntegrationController@checkLicense');
 
             //Region CRUD
             Route::post('region', 'RegionController@index');
