@@ -7,7 +7,7 @@
       </div>
       <div class="card-body">
         <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
-          <h2>Boshlangich ma'lumot</h2>
+          <h2>{{getDirection.name}} bo'yicha boshlang'ich ma'lumot  </h2>
           <div class="col-md-12 tabs_block">
             <div class="form-group col-md-3">
               <label for="timingDetails_date">O'chov otkazilgan kun</label>
@@ -31,13 +31,6 @@
                 class="form-control input_style"
               />
             </div>
-            <div class="form-group col-md-3">
-              <label for="conclusion">Xulosa</label>
-              <select name="conclusion" id="conclusion" v-model="timingDetails.conclusion" class="form-control input_style">
-                <option value="Talablarga javob beradi">Talablarga javob beradi</option>
-                <option value="Talablarga javob bermaydi">Talablarga javob bermaydi</option>
-              </select>
-            </div>
             <h4 class="col-md-12">Xronametraj otkazgan shaxslar</h4>
             <template v-for="(person,p_index) in timingDetails.persons">
               <div class="form-group col-md-2">
@@ -48,11 +41,7 @@
                 <label for="surname">Familyasi</label>
                 <input type="text" v-model="person.surname"  class="form-control input_style" />
               </div>
-              <div class="form-group col-md-2">
-                <label for="middlename">Sharifi</label>
-                <input type="text" v-model="person.middlename"  class="form-control input_style" />
-              </div>
-              <div class="form-group col-md-2">
+              <div class="form-group col-md-3">
                 <label for="person_job">Ish joyi</label>
                 <input type="text" v-model="person.job" id="person_job" class="form-control input_style" />
               </div>
@@ -77,23 +66,35 @@
           </div>
           <h2>Asosiy ma'lumotlar</h2>
           <div class="col-md-12 tabs_block">
-            <div class="form-group col-md-6" v-if="tableData.length == 0">
-              <label for="start_speedometer">Jonash vaqtida (km)</label>
+            <div class="form-group col-md-6" >
+              <label for="start_speedometer">Бошланғич манзил номи </label>
               <input
                 type="text"
+                v-model="form.whereForm.name"
+                id="start_speedometer"
+                class="form-control input_style"
+                disabled
+              />
+            </div>
+            <div class="form-group col-md-6" >
+              <label for="start_speedometer">Jonash vaqtida (km) 	Бошланғич спидометр кўрсаткичи </label>
+              <input
+                type="number"
                 v-model="form.start_speedometer"
                 id="start_speedometer"
                 class="form-control input_style"
                 :class="isRequired(form.start_speedometer) ? 'isRequired' : ''"
+                step="0.01"
+                :disabled="tableData.length > 0"
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="start_time">Boshlash vaqti</label>
+              <label for="start_time">Boshlash vaqti Бошлаш вақти </label>
               <date-picker
                 lang="ru"
                 class="input_style"
                 v-model="form.start_time"
-                type="datetime"
+                :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
                 placeholder="Select datetime"
                 :class="isRequired(form.start_time) ? 'isRequired' : ''"
               ></date-picker>
@@ -101,21 +102,23 @@
             <div class="form-group col-md-6">
               <label for="speed_between_station">Bekatlar oraligidagi xarakat (km/soat)</label>
               <input
-                type="text"
+                type="number"
                 v-model="form.speed_between_station"
                 id="speed_between_station"
                 class="form-control input_style"
                 :class="isRequired(form.speed_between_station) ? 'isRequired' : ''"
+                step="0.01"
               />
             </div>
             <div class="form-group col-md-6">
               <label for="speed_between_limited_space">Shundan xarakat tezligi chegaralangan oraliqda (km/soat)</label>
               <input
-                type="text"
+                type="number"
                 v-model="form.speed_between_limited_space"
                 id="speed_between_limited_space"
                 class="form-control input_style"
                 :class="isRequired(form.speed_between_limited_space) ? 'isRequired' : ''"
+                step="0.01"
               />
             </div>
             <div class="form-group col-md-6 triple_input" v-for="(detail,p_index) in form.details">
@@ -168,7 +171,7 @@
                 >{{s_item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" v-if="form.region_to_id">
               <label for="whereToarea_to_id" :class="isRequired(form.whereTo) ? 'isRequired' : ''">Oraliq toxtash tuman nomi</label>
               <input v-model="form.whereTo" type="radio" name="where_to" :value="form.area_to_id"  id="whereToarea_to_id"                 />
               <select
@@ -185,7 +188,7 @@
                 >{{s_item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" v-if="form.area_to_id">
               <input v-model="form.whereTo" type="radio" name="where_to" :value="form.station_to_id"     id="wherestation_to_id"            />
               <label for="wherestation_to_id" :class="isRequired(form.whereTo) ? 'isRequired' : ''">Oraliq toxtash bekat nomi</label>
               <select class="form-control input_style" v-model="form.station_to_id">
@@ -200,20 +203,21 @@
             <div class="form-group col-md-6">
               <label for="end_speedometer">Kelgan vaqtida (km)</label>
               <input
-                type="text"
+                type="number"
                 v-model="form.end_speedometer"
                 id="end_speedometer"
                 class="form-control input_style"
                 :class="isRequired(form.end_speedometer) ? 'isRequired' : ''"
+                step="0.01"
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="seria">end_time</label>
+              <label for="seria">	Тўхтаганда вақт кўрсаткичи </label>
               <date-picker
                 lang="ru"
                 class="input_style"
                 v-model="form.end_time"
-                type="datetime"
+                :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
                 placeholder="Select end_time"
                 :class="isRequired(form.end_time) ? 'isRequired' : ''"
               ></date-picker>
@@ -221,11 +225,12 @@
             <div class="form-group col-md-6">
               <label for="distance_in_limited_speed">Shundan xarakat tezligi chegaralangan oraliqda (km)</label>
               <input
-                type="text"
+                type="number"
                 v-model="form.distance_in_limited_speed"
                 id="distance_in_limited_speed"
                 class="form-control input_style"
                 :class="isRequired(form.distance_in_limited_speed) ? 'isRequired' : ''"
+                step="0.01"
               />
             </div>
             <div class="form-group col-md-6">
@@ -240,6 +245,13 @@
             </div>
           </div>
           <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
+            <div class="form-group col-md-3 mb-0">
+                <label for="conclusion">Xulosa</label>
+                <select name="conclusion" id="conclusion" v-model="timingDetails.conclusion" class="form-control input_style">
+                    <option value="Talablarga javob beradi">Talablarga javob beradi</option>
+                    <option value="Talablarga javob bermaydi">Talablarga javob bermaydi</option>
+                </select>
+            </div>
             <button type="button" @click="clearTable()" class="btn btn-danger mr-2" v-if="tableData.length">
               <i class="fas fa-trash"></i>
               Очистить таблисту
@@ -385,9 +397,9 @@ export default {
         avto_model: "",
         conclusion: "",
         persons: [
-          { name: "", surname: '', middlename: '', job: "", position: "" },
-          { name: "", surname: '', middlename: '', job: "", position: "" },
-          { name: "", surname: '', middlename: '', job: "", position: "" }
+          { name: "", surname: '',  job: "", position: "" },
+          { name: "", surname: '',  job: "", position: "" },
+          { name: "", surname: '',  job: "", position: "" }
         ],
       },
       tableData: [],
@@ -420,8 +432,7 @@ export default {
     this.form.area_from_id = this.titulData.area_from_with;
     this.form.station_from_id = this.titulData.station_from_id;
     this.form.whereForm = this.titulData.from_where;
-    console.log(this.form)
-
+    console.log(this.getDirection)
   },
   computed: {
     ...mapGetters("region", ["getRegionList"]),
@@ -614,7 +625,7 @@ export default {
       }
     },
     addPerson(){
-      let thisDate = { name: "", surname: '', middlename: '', job: "", position: "" }
+      let thisDate = { name: "", surname: '',  job: "", position: "" }
       this.timingDetails.persons.push(thisDate)
     },
     removePerson(index) {
