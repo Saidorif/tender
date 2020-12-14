@@ -79,7 +79,7 @@ class PassportTimingController extends Controller
             'timingDetails.persons' => 'required|array',
             'timingDetails.persons.*.name' => 'required|string',
             'timingDetails.persons.*.surname' => 'required|string',
-            'timingDetails.persons.*.middlename' => 'required|string',
+            'timingDetails.persons.*.middlename' => 'nullable|string',
             'timingDetails.persons.*.job' => 'required|string',
             'timingDetails.persons.*.position' => 'required|string',
         ]);
