@@ -39,7 +39,7 @@
               data-parent="#accordionExample"
             >
               <div class="card-body">
-                <h3>Вводные данные</h3>
+                <h3><strong>Вводные данные</strong></h3>
                 <div class=" table-responsive table">
                   <table class="table table-hover table-bordered">
                     <thead>
@@ -104,7 +104,7 @@
                 </div>
                 <hr>
                 <template v-if="car_items.gai.length > 0">
-                  <h3>ГАИ данные</h3>
+                  <h3><strong>ГАИ данные</strong></h3>
                   <div class=" table-responsive table">
                     <table class="table table-hover table-bordered">
                       <thead>
