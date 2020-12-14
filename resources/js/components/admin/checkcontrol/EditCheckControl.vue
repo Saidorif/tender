@@ -6,69 +6,120 @@
           <i class="peIcon fas fa-file"></i>
           Лоты
         </h4>
-        <router-link class="btn btn-primary back_btn" to="/crm/completed-tenders">
+        <router-link class="btn btn-primary back_btn" to="/crm/check-control">
           <span class="peIcon pe-7s-back"></span>
           Назад
         </router-link>
       </div>
       <div class="card-body">
-          <div class="table-responsive" v-for="(lots,lot_index) in getTender">
-              <h5>Лот <em>№</em> {{lot_index + 1}}</h5>
-              <table class="table table-bordered" >
-                  <thead>
-                      <tr>
-                          <th>№</th>
-                          <th>Направления</th>
-                          <th>Перевозчики отправившие предложении</th>
-                          <th>Набранные баллы</th>
-                          <th>Результаты изучения тендерных предложений</th>
-                          <th>Статус лицензии</th>
-                          <th>Контракт</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr v-for="(directions, d_index) in lots">
-                          <td>{{d_index+1}}</td>
-                          <td>{{directions[0].name}}</td>
-                          <td class="without_padding">
-                            <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                {{item.company_name != null ? item.company_name : 'noname'}}
-                              </li>
-                            </ul>
-                          </td>
-                          <td class="without_padding">
-                            <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                {{item.total}}
-                              </li>
-                            </ul>
-                          </td>
-                          <td class="without_padding">
-                            <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                status
-                              </li>
-                            </ul>
-                          </td>
-                          <td class="without_padding">
-                            <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                status
-                              </li>
-                            </ul>
-                          </td>
-                          <td class="without_padding">
-                            <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                contract
-                              </li>
-                            </ul>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h2 class="mb-0">
+                <button
+                  class="btn btn-link btn-block text-left"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
+                >
+                  Collapsible Group Item #1
+                </button>
+              </h2>
+            </div>
+
+            <div
+              id="collapseOne"
+              class="collapse show"
+              aria-labelledby="headingOne"
+              data-parent="#accordionExample"
+            >
+              <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life
+                accusamus terry richardson ad squid. 3 wolf moon officia aute,
+                non cupidatat skateboard dolor brunch. Food truck quinoa
+                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
+                put a bird on it squid single-origin coffee nulla assumenda
+                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
+                wes anderson cred nesciunt sapiente ea proident. Ad vegan
+                excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably
+                haven't heard of them accusamus labore sustainable VHS.
+              </div>
+            </div>
           </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h2 class="mb-0">
+                <button
+                  class="btn btn-link btn-block text-left collapsed"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseTwo"
+                  aria-expanded="false"
+                  aria-controls="collapseTwo"
+                >
+                  Collapsible Group Item #2
+                </button>
+              </h2>
+            </div>
+            <div
+              id="collapseTwo"
+              class="collapse"
+              aria-labelledby="headingTwo"
+              data-parent="#accordionExample"
+            >
+              <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life
+                accusamus terry richardson ad squid. 3 wolf moon officia aute,
+                non cupidatat skateboard dolor brunch. Food truck quinoa
+                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
+                put a bird on it squid single-origin coffee nulla assumenda
+                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
+                wes anderson cred nesciunt sapiente ea proident. Ad vegan
+                excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably
+                haven't heard of them accusamus labore sustainable VHS.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h2 class="mb-0">
+                <button
+                  class="btn btn-link btn-block text-left collapsed"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseThree"
+                  aria-expanded="false"
+                  aria-controls="collapseThree"
+                >
+                  Collapsible Group Item #3
+                </button>
+              </h2>
+            </div>
+            <div
+              id="collapseThree"
+              class="collapse"
+              aria-labelledby="headingThree"
+              data-parent="#accordionExample"
+            >
+              <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life
+                accusamus terry richardson ad squid. 3 wolf moon officia aute,
+                non cupidatat skateboard dolor brunch. Food truck quinoa
+                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
+                put a bird on it squid single-origin coffee nulla assumenda
+                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
+                wes anderson cred nesciunt sapiente ea proident. Ad vegan
+                excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably
+                haven't heard of them accusamus labore sustainable VHS.
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -83,20 +134,17 @@ export default {
     Multiselect,
   },
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
-    ...mapGetters("completedtender", ["getTender"]),
+    ...mapGetters("checkcontrol", ["getAppCars"]),
   },
   async mounted() {
-    await this.actionCompletedTendersShow(this.$route.params.tenderId);
-    console.log(this.getTender)
+    await this.actionAppCars(this.$route.params.appId);
+    console.log(this.getAppCars);
   },
   methods: {
-    ...mapActions("completedtender", [
-      "actionCompletedTendersShow",
-    ]),
+    ...mapActions("checkcontrol", ["actionAppCars"]),
   },
 };
 </script>
@@ -174,36 +222,36 @@ tr.active {
 input.disabled {
   cursor: not-allowed;
 }
-.cardtender{
-    padding: 0;
-    box-shadow: none;
-    background-color: rgba(0,0,0,.03);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
+.cardtender {
+  padding: 0;
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.03);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
 }
-.cardtender .card-header{
-    background: #f3f3f4;
+.cardtender .card-header {
+  background: #f3f3f4;
 }
-.without_padding{
+.without_padding {
   padding: 0px !important;
 }
-.without_padding ul{
+.without_padding ul {
   margin-bottom: 0px;
 }
-.without_padding li{
+.without_padding li {
   text-align: center;
 }
-.list-inline li{
+.list-inline li {
   border-bottom: 1px solid #000;
 }
-.list-inline li:last-child{
+.list-inline li:last-child {
   border: none;
 }
 </style>

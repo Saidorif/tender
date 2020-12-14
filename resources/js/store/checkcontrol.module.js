@@ -2,11 +2,15 @@ import {CheckControlSerivce} from "../services/checkcontrol.service";
 
 const state = {
     controlCompanyList: [],
+    appcars: [],
 };
 
 const getters = {
 	getCheckContolsList(state){
 		return state.controlCompanyList
+    },
+	getAppCars(state){
+		return state.appcars
     },
 };
 
@@ -21,11 +25,23 @@ const actions = {
 			return false
 		}
 	},
+	async actionAppCars({commit},page){
+		try {
+			const types =  await CheckControlSerivce.getappcars(page);
+			await commit('setAppCars',types.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 };
 
 const mutations = {
-	setCheckContolsList(state, tendersList){
-		state.controlCompanyList = tendersList
+	setCheckContolsList(state, controlCompanyList){
+		state.controlCompanyList = controlCompanyList
+	},
+	setAppCars(state, appcars){
+		state.appcars = appcars
 	},
 };
 

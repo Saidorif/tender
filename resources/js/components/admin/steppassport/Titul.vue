@@ -134,10 +134,10 @@
                   <div class="form-group col-md-3">
                     <label for="seria">Yo'nalish ochilish sanasi</label>
                     <date-picker
-                      lang="ru" 
+                      lang="ru"
                       type="year"
-                      v-model="form.year" 
-                      valueType="format" 
+                      v-model="form.year"
+                      valueType="format"
                       class="input_style"
                       :class="isRequired(form.year) ? 'isRequired' : ''"
                       format="YYYY"
@@ -218,8 +218,8 @@
                           @change="selectClass(car)"
                         >
                           <option value="" selected disabled>Выберите категорию авто!</option>
-                          <option 
-                            :value="busType.id" 
+                          <option
+                            :value="busType.id"
                             v-for="(busType,index) in getTypeofbusList"
                           >{{busType.name}}</option>
                         </select>

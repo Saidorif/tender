@@ -495,6 +495,10 @@ const router = new Router({
 					path:'check-control',
 					component:CheckControl,
                 },
+				{
+					path:'check-control/show/:appId',
+					component:EditCheckControl,
+                },
                 {
 					path:'completed-tenders/show/:tenderId',
 					component:EditCompletedTenders,
