@@ -21,7 +21,7 @@ class CreateTClassesTable extends Migration
             $table->bigInteger('busmodel_id');
             $table->integer('seat_from');
             $table->integer('seat_to')->nullable();
-            $table->string('desc')->nullable();
+            $table->text('desc')->nullable();
             $table->integer('stay_from');
             $table->integer('stay_to')->nullable();
             $table->timestamps();
