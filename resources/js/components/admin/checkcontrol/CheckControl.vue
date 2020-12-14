@@ -13,26 +13,22 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Company name</th>
-							<th scope="col">status</th>
-							<th scope="col">tarif</th>
-							<th scope="col">gps</th>
-							<th scope="col">videoregistrator</th>
+							<th scope="col">Название компании</th>
+							<th scope="col">Статус</th>
+							<th scope="col">Количество авто</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="(item,index) in getCheckContolsList">
 							<td scope="row">{{index+1}}</td>
-							<td>{{item.user.company_name}}</td>
+							<td>{{item.user.company_name ? item.user.company_name : 'Без название'}}</td>
 							<td>
                                 <div class="badge" :class="getStatusClass(item.status)">
 									{{getStatusName(item.status)}}
 								</div>
                             </td>
-							<td>{{item.tarif}}</td>
-							<td>{{item.gps}}</td>
-							<td>{{item.videoregistrator}}</td>
+							<td>{{item.cars_count}} шт</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/check-control/show/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
