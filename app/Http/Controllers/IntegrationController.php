@@ -177,8 +177,8 @@ class IntegrationController extends Controller
             $client = new \GuzzleHttp\Client();
             $response = $client->get('http://10.10.10.118/services/api/tender/get-org-data/'.$inn, [
                 'auth' => [
-                    'dazvoluser', 
-                    'd5ad29a96dc169eb2b01722d6493cd151510dc0b001801a1864bc31a24bdf07a'
+                    'tenderuser', 
+                    'b2d672d1127974cdb3f5e7890cd5dafc2657bcb125c2212a5e9fd7a890c42724'
                 ]
             ]);
             $data_resp = json_decode($response->getBody()->getContents(),true);
@@ -201,8 +201,8 @@ class IntegrationController extends Controller
             $client = new \GuzzleHttp\Client();
             $response = $client->get('http://10.10.10.118/services/api/tender/get-auto-data/'.$auto_number, [
                 'auth' => [
-                    'dazvoluser', 
-                    'd5ad29a96dc169eb2b01722d6493cd151510dc0b001801a1864bc31a24bdf07a'
+                    'tenderuser', 
+                    'b2d672d1127974cdb3f5e7890cd5dafc2657bcb125c2212a5e9fd7a890c42724'
                 ]
             ]);
             $data_resp = json_decode($response->getBody()->getContents(),true);
