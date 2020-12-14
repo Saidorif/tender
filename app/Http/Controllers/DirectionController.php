@@ -85,9 +85,9 @@ class DirectionController extends Controller
         $area_ids = Area::pluck('id');
         $validator = Validator::make($request->all(), [            
             'pass_number'  => 'required|string',
-            'tarif'  => 'required|integer',
+            'tarif'  => 'nullable|integer',
             'year'  => 'required|string',
-            'distance'  => 'required|string',
+            'distance'  => 'nullable|string',
             'profitability'  => ['required',Rule::in(['unprofitable','profitable','middle']),],
             'type_id'  => 'required|integer',
             'region_from' => 'required|array',
@@ -167,9 +167,9 @@ class DirectionController extends Controller
         $area_ids = Area::pluck('id');
         $validator = Validator::make($request->all(), [            
             'pass_number'  => 'required|string',
-            'tarif'  => 'required',
+            'tarif'  => 'nullable|integer',
             'year'  => 'required|string',
-            'distance'  => 'required|string',
+            'distance'  => 'nullable|integer',
             'profitability'  => ['required',Rule::in(['unprofitable','profitable','middle']),],
             'type_id'  => 'required|integer',
             'region_from' => 'required|array',
