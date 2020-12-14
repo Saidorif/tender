@@ -61,10 +61,10 @@
             console.log(this.getCheckContolsList)
 		},
 		computed:{
-			...mapGetters('checkcontrol',['getCheckContolsList'])
+			...mapGetters('checkcontrol', ['getCheckContolsList'])
 		},
 		methods:{
-			...mapActions('checkcontrol',['actionCheckContolsList']),
+			...mapActions('checkcontrol', ['actionCheckContolsList']),
 			async getResults(page = 1){
 				await this.actionCheckContolsList(page)
             },
