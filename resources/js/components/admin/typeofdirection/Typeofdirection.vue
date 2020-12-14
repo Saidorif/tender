@@ -29,9 +29,9 @@
 								<router-link tag="button" class="btn_transparent" :to='`/crm/typeofdirection/edit/${type.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteType(type.id)">
+								<!-- <button class="btn_transparent" @click="deleteType(type.id)">
 									<i class="pe_icon pe-7s-trash trashColor"></i>
-								</button>
+								</button> -->
 							</td>
 						</tr>
 					</tbody>
@@ -64,7 +64,7 @@
 		},
 		methods:{
 			...mapActions('typeofdirection',['actionTypeofdirections','actionDeleteTypeofdirection']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionTypeofdirections(page)
 			},
 			async deleteType(id){
@@ -89,5 +89,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>
