@@ -87,6 +87,7 @@ class ApplicationController extends Controller
             'bus_adapted' => 'required|boolean',
             'telephone_power' => 'required|boolean',
             'monitor' => 'required|boolean',
+            'station_announce' => 'nullable|boolean',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
