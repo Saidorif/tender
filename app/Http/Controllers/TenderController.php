@@ -153,7 +153,7 @@ class TenderController extends Controller
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
         }
         $validator = Validator::make($request->all(),[
-            'data' => 'required|array',
+            'data' => 'nullable|array',
             'data.*.*.direction_id' => 'required|integer',
             'data.*.*.reys_id' => 'nullable|array',
             'data.*.*.reys_id.*' => 'required|integer',
