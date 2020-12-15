@@ -26,6 +26,10 @@ class UserCar extends Model
         'telephone_power',
         'monitor',
         'station_announce',
+        'license_status',
+        'license_start_date',
+        'license_exp_date',
+        'license_number',
     ];
 
     public function user()

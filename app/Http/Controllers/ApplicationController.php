@@ -174,4 +174,27 @@ class ApplicationController extends Controller
         $application->save();
         return response()->json(['success' => true, 'message' => 'Application accepted','result' => $application->qr_code]);
     }
+
+    public function setStatus(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'car_id' => 'required|integer',
+            'app_id' => 'required|integer',
+            'status' => ['required',Rule::in(['rejected','accepted']),],
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inputs = $request->all();
+        $car = UserCar::where(['id' => $inputs['car_id'],'app_id' => $inputs['app_id']])->first();
+        if(!$car){
+            return response()->json(['error' => true, 'message' => 'Автотранспорт не найдено']);
+        }
+        if($car->status == 'rejected' || $car->status == 'accepted'){
+            return response()->json(['error' => true, 'message' => 'Статус автотранспорта уже изменен']);
+        }
+        $car->status = $inputs['status'];
+        $car->save();
+        return response()->json(['success' => true, 'message' => 'Статус автотранспорта изменен']);
+    }
 }
