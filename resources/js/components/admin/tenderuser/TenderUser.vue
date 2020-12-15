@@ -33,10 +33,7 @@
 							    </em>
 							</td>
 							<td>{{item.address}}</td>
-							<td>
-								 {{item.time}}
-								<flip-countdown :deadline="item.time"></flip-countdown>
-							</td>
+							<td :id="item.id">{{$g.dateCounter(item.time,item.id)}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/tenderuser/edit/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -55,10 +52,8 @@
 	</div>
 </template>
 <script>
-	import FlipCountdown from 'vue2-flip-countdown'
 	import { mapGetters , mapActions } from 'vuex'
 	export default{
-		components: { FlipCountdown },
 		data(){
 			return{
 				
