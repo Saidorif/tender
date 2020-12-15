@@ -162,7 +162,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("checkcontrol", ["getAppCars"]),
+    ...mapGetters("checkcontrol", ["getAppCars",'getDenyCar','getActiveCar']),
   },
   async mounted() {
     await this.actionAppCars(this.$route.params.appId);
@@ -170,7 +170,7 @@ export default {
     console.log(this.cars)
   },
   methods: {
-    ...mapActions("checkcontrol", ["actionAppCars"]),
+    ...mapActions("checkcontrol", ["actionAppCars",'actionActiveCar','actionDenyCar']),
     denyCar(id){
       if(confirm("Вы действительно хотите отказаться?")){
         console.log(id)

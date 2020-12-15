@@ -7,6 +7,12 @@ const CheckControlSerivce = {
 	getappcars(id){
 		return ApiService.get(`/api/tender/app-cars/${id}`)
 	},
+	activeCar(data){
+		// return ApiService.post(`/api/tender/app-cars/${data.id}`,data)
+	},
+	denyCar(data){
+		// return ApiService.post(`/api/tender/app-cars/${data.id}`,data)
+	}
 };
 
 export { CheckControlSerivce };
