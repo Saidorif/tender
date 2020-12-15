@@ -15,19 +15,30 @@
         <div class="accordion" id="accordionExample" v-if="cars.length > 0">
 
           <div class="card" v-for="(car_items,car_index) in cars">
-            <div class="card-header" :id="'headingOne'+car_index">
+            <div class="card-header btn-block d-flex justify-content-between">
               <h2 class="mb-0">
                 <button
-                  class="btn btn-link btn-block text-left"
-                  type="button"
+                  :id="'headingOne'+car_index"   
                   data-toggle="collapse"
                   data-target="#collapseOne"
                   aria-expanded="true"
                   aria-controls="collapseOne"
+                  class="text-left"
+                  type="button"
                 >
-                  Номер Авто: {{car_items.auto_number}}
+                  <b>{{car_items.auto_number}}</b>
                 </button>
               </h2>
+              <div class="">
+                <button type="button" class="btn btn-danger" @click.prevent="denyCar(car_items.id)">
+                  <i class="fas fa-minus-circle"></i>
+                  Отказ
+                </button>
+                <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)"> 
+                  <i class="fas fa-check-circle"></i>
+                  Подтвердить
+                </button>
+              </div>
             </div>
 
             <div
@@ -38,7 +49,7 @@
               data-parent="#accordionExample"
             >
               <div class="card-body">
-                <h3>Вводные данные</h3>
+                <h3><strong>Вводные данные</strong></h3>
                 <div class=" table-responsive table">
                   <table class="table table-hover table-bordered">
                     <thead>
@@ -103,7 +114,7 @@
                 </div>
                 <hr>
                 <template v-if="car_items.gai.length > 0">
-                  <h3>ГАИ данные</h3>
+                  <h3><strong>ГАИ данные</strong></h3>
                   <div class=" table-responsive table">
                     <table class="table table-hover table-bordered">
                       <thead>
@@ -151,7 +162,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("checkcontrol", ["getAppCars"]),
+    ...mapGetters("checkcontrol", ["getAppCars",'getDenyCar','getActiveCar']),
   },
   async mounted() {
     await this.actionAppCars(this.$route.params.appId);
@@ -159,7 +170,17 @@ export default {
     console.log(this.cars)
   },
   methods: {
-    ...mapActions("checkcontrol", ["actionAppCars"]),
+    ...mapActions("checkcontrol", ["actionAppCars",'actionActiveCar','actionDenyCar']),
+    denyCar(id){
+      if(confirm("Вы действительно хотите отказаться?")){
+        console.log(id)
+      }
+    },
+    activeCar(id){
+      if(confirm("Вы действительно хотите подтвердить?")){
+        console.log(id)
+      }
+    },
     checkBox(check){
       if (check == 0) {
         return '<i class="fas fa-times-circle text-danger"></i>';
