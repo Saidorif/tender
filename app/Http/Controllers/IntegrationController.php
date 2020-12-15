@@ -57,7 +57,7 @@ class IntegrationController extends Controller
                     "user_id" => $user->id,
                     "app_id" => $inputs['app_id'],
                     "auto_number" => $data_resp['results'][0]['pAutoNumber'],
-                    "pINN" => $inputs['app_id'],
+                    "pINN" => $user->inn,
                     "pPinfl" => !empty($inputs['pPinfl']) ? $inputs['pPinfl'] : null ,
                     "nameOwner" => $data_resp['nameOwner'],
                     // "pKuzov" => $data_resp['results'][0]['pKuzov'],
