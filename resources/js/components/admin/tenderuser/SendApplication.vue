@@ -871,6 +871,7 @@
 					}else if(this.car.owner_type == 'rent'){
 						this.car.pTexpassportSery=''
 						this.car.pTexpassportNumber=''
+						this.car.pPlateNumber=''
 					}
 				}
 			},deep:true,
@@ -1085,11 +1086,11 @@
                         this.car.app_id = this.$route.params.userapplicationId
 			    		await this.actionGaiVehicle(this.car)
 		    		}else if(this.car.owner_type == 'rent'){
-		    			if (this.car.pDateNatarius != '' && this.car.pPlateNumber != '' && this.car.pNumberNatarius != '') {
+		    			if (this.car.pDateNatarius != '' && this.car.pNumberNatarius != '') {
 			    			let car = {
 			    				'pDateNatarius':this.car.pDateNatarius,
-			    				'pAutoNumber':this.car.pPlateNumber,
 			    				'pNumberNatarius':this.car.pNumberNatarius,
+			    				'auto_number':this.car.pPlateNumber,
 			    			}
 			    			let data = {
 			    				'cars':car,
