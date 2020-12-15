@@ -717,7 +717,7 @@
 		    removeFromAllItems(index){
 		    	Vue.delete(this.allItems,index)
 		    },
-						async saveTender(){
+			async saveTender(){
 				let data = [];
 				let lotItem = [];
 				// if(this.checked){
@@ -790,11 +790,20 @@
 				// 		checkLengthDataExists = false
 				// 	}
 				// })
-				let newData = {
-					id:this.$route.params.tenderannounceId,
-					data:data,
-					time:this.form.time,
-					address:this.form.address,
+				let newData = {}
+				if (data.length > 0) {
+					newData = {
+						id:this.$route.params.tenderannounceId,
+						data:data,
+						time:this.form.time,
+						address:this.form.address,
+					}
+				}else{
+					newData = {
+						id:this.$route.params.tenderannounceId,
+						time:this.form.time,
+						address:this.form.address,
+					}
 				}
 		    	if (this.form.time != '' && this.form.address != ''){
 		    		this.laoding = true
