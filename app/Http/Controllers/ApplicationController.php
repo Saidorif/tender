@@ -190,9 +190,9 @@ class ApplicationController extends Controller
         if(!$car){
             return response()->json(['error' => true, 'message' => 'Автотранспорт не найдено']);
         }
-        if($car->status == 'rejected' || $car->status == 'accepted'){
-            return response()->json(['error' => true, 'message' => 'Статус автотранспорта уже изменен']);
-        }
+        // if($car->status == 'rejected' || $car->status == 'accepted'){
+        //     return response()->json(['error' => true, 'message' => 'Статус автотранспорта уже изменен']);
+        // }
         $car->status = $inputs['status'];
         $car->save();
         return response()->json(['success' => true, 'message' => 'Статус автотранспорта изменен']);
