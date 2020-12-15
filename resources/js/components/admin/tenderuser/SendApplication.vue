@@ -684,18 +684,7 @@
 			    	</div>
 				    <div class="col-md-12" v-if="car.owner_type == 'rent'">
 				    	<div class="row">
-				    		<div class="form-group col-md-4">
-							    <label for="pKuzov">Номер кузова</label>
-							    <input
-							    	type="text"
-							    	class="form-control input_style"
-							    	id="pKuzov"
-							    	placeholder="Номер кузова"
-							    	v-model="car.pKuzov"
-							    	:class="isRequired(car.pKuzov) ? 'isRequired' : ''"
-						    	>
-						  	</div>
-				    		<div class="form-group col-md-4">
+				    		<div class="form-group col-md-6">
 							    <label for="pNumberNatarius">Номер реестра нотариального действия</label>
 							    <input
 							    	type="text"
@@ -706,7 +695,7 @@
 							    	:class="isRequired(car.pNumberNatarius) ? 'isRequired' : ''"
 						    	>
 						  	</div>
-				    		<div class="form-group col-md-4">
+				    		<div class="form-group col-md-6">
 							    <label for="pDateNatarius">Дата нотариального действия</label>
 							    <date-picker
 				                  lang="ru"
@@ -806,7 +795,6 @@
 					monitor:0,
 					station_announce:0,
 					owner_type:'owner',
-					pKuzov:'',
 					pNumberNatarius:'',
 					pDateNatarius:'',
 					pTexpassportSery:'',
@@ -878,13 +866,11 @@
 			'car.owner_type':{
 				handler(){
 					if (this.car.owner_type == 'owner') {
-						this.car.pKuzov=''
 						this.car.pNumberNatarius=''
 						this.car.pDateNatarius=''
 					}else if(this.car.owner_type == 'rent'){
 						this.car.pTexpassportSery=''
 						this.car.pTexpassportNumber=''
-						this.car.pPlateNumber=''
 					}
 				}
 			},deep:true,
@@ -1023,7 +1009,6 @@
 		    	this.car.monitor = 0
 		    	this.car.station_announce = 0
 		    	this.car.owner_type='owner'
-				this.car.pKuzov=''
 				this.car.pNumberNatarius=''
 				this.car.pDateNatarius=''
 				this.car.pTexpassportSery=''
@@ -1100,12 +1085,11 @@
                         this.car.app_id = this.$route.params.userapplicationId
 			    		await this.actionGaiVehicle(this.car)
 		    		}else if(this.car.owner_type == 'rent'){
-		    			if (this.car.pDateNatarius != '' && this.car.pKuzov != '' && this.car.pNumberNatarius != '') {
+		    			if (this.car.pDateNatarius != '' && this.car.pPlateNumber != '' && this.car.pNumberNatarius != '') {
 			    			let car = {
 			    				'pDateNatarius':this.car.pDateNatarius,
-			    				'pKuzov':this.car.pKuzov,
+			    				'pAutoNumber':this.car.pPlateNumber,
 			    				'pNumberNatarius':this.car.pNumberNatarius,
-			    				'auto_number':this.car.pPlateNumber,
 			    			}
 			    			let data = {
 			    				'cars':car,
