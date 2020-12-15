@@ -6,6 +6,9 @@
           <i class="peIcon fas fa-file"></i>
           Лоты
         </h4>
+        <h3 class="ml-5">
+          <b>{{getCompanyName}}</b>
+        </h3>
         <router-link class="btn btn-primary back_btn" to="/crm/check-control">
           <span class="peIcon pe-7s-back"></span>
           Назад
@@ -15,7 +18,8 @@
         <div class="accordion" id="accordionExample" v-if="cars.length > 0">
 
           <div class="card" v-for="(car_items,car_index) in cars">
-            <div class="card-header btn btn-link btn-block " :id="'headingOne'+car_index"   
+            <div class="card-header btn-block d-flex justify-content-center"
+              :id="'headingOne'+car_index"   
               data-toggle="collapse"
               data-target="#collapseOne"
               aria-expanded="true"
@@ -128,6 +132,18 @@
                     </table>
                   </div>
                 </template>
+                <div class="row">
+                  <div class="col-lg-12 d-flex justify-content-end">
+                    <button type="button" class="btn btn-danger mr-2" @click.prevent="denyCar(car_items.id)">
+                      <i class="fas fa-minus-circle"></i>
+                      Отказ
+                    </button>
+                    <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)"> 
+                      <i class="fas fa-check-circle"></i>
+                      Подтвердить
+                    </button>
+                  </div>
+                </div>  
               </div>
             </div>
           </div>
@@ -148,19 +164,34 @@ export default {
   },
   data() {
     return {
-      cars:[]
+      cars:[],
+      company_name:''
     };
   },
   computed: {
-    ...mapGetters("checkcontrol", ["getAppCars"]),
+    ...mapGetters("checkcontrol", ["getAppCars",'getDenyCar','getActiveCar']),
+    getCompanyName(){
+      return this.company_name  ? this.company_name : 'Без название'
+    },
   },
   async mounted() {
     await this.actionAppCars(this.$route.params.appId);
     this.cars = this.getAppCars.cars_with;
-    console.log(this.cars)
+    this.company_name = this.getAppCars.user.company_name;
+    console.log(this.getAppCars)
   },
   methods: {
-    ...mapActions("checkcontrol", ["actionAppCars"]),
+    ...mapActions("checkcontrol", ["actionAppCars",'actionActiveCar','actionDenyCar']),
+    denyCar(id){
+      if(confirm("Вы действительно хотите отказаться?")){
+        console.log(id)
+      }
+    },
+    activeCar(id){
+      if(confirm("Вы действительно хотите подтвердить?")){
+        console.log(id)
+      }
+    },
     checkBox(check){
       if (check == 0) {
         return '<i class="fas fa-times-circle text-danger"></i>';
