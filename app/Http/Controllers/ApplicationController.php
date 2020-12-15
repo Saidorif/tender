@@ -112,6 +112,9 @@ class ApplicationController extends Controller
         if($user->id != $car->user_id){
             return response()->json(['error' => true, 'message' => 'Автотранспорт не найдено']);
         }
+        if($car->application->status == 'accepted'){
+            return response()->json(['error' => true, 'message' => 'Автотранспорт не может быт удалено']);
+        }
         $car->delete();
         return response()->json(['success' => true, 'message' => 'Автотранспорт удалено']);
     }

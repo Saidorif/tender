@@ -33,6 +33,11 @@ class UserCar extends Model
         return $this->belongsTo(\App\User::class,'user_id');
     }
 
+    public function application()
+    {
+        return $this->belongsTo(\App\Application::class,'app_id');
+    }
+
     public function bustype()
     {
         return $this->belongsTo(\App\BusType::class,'bustype_id');
