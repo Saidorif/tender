@@ -293,7 +293,7 @@
 									<template v-for="(car,index) in cars_with">
 										<tr>
 											<td>{{index+1}}</td>	    		
-											<td>{{car.pPlateNumber}}</td>
+											<td>{{car.auto_number}}</td>
 											<td>{{car.bustype.name}}</td>
 											<td>{{car.tclass.name}}</td>
 											<td>{{car.busmarka ? car.busmarka.name : ''}}</td>
@@ -428,15 +428,15 @@
 		      <div class="modal-body">
 		        <div class="row">
 		        	<div class="form-group col-md-3">
-					    <label for="pPlateNumber">Номер Авто</label>
+					    <label for="auto_number">Номер Авто</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
-					    	id="pPlateNumber"
+					    	id="auto_number"
 					    	v-mask="'********'"
 					    	placeholder="Номер Авто"
-					    	v-model="car.pPlateNumber"
-					    	:class="isRequired(car.pPlateNumber) ? 'isRequired' : ''"
+					    	v-model="car.auto_number"
+					    	:class="isRequired(car.auto_number) ? 'isRequired' : ''"
 				    	>
 				  	</div>
 				  	<div class="form-group col-md-3">
@@ -799,7 +799,7 @@
 					pDateNatarius:'',
 					pTexpassportSery:'',
 				  	pTexpassportNumber:'',
-				   	pPlateNumber:'',
+				   	auto_number:'',
 				},
 				tclasses:[],
 				bus_marks:[],
@@ -833,7 +833,7 @@
     		...mapGetters("busbrand", ["getBusBrandList"]),
 		    checkCars(){
 		    	this.form.cars.forEach((item,index)=>{
-	    			if (item.pPlateNumber != '' && item.bustype_id != '' && item.busmodel_id != '' && item.tclass_id != '') {
+	    			if (item.auto_number != '' && item.bustype_id != '' && item.busmodel_id != '' && item.tclass_id != '') {
 	    				return true
 	    			}else{
 	    				return false
@@ -871,14 +871,14 @@
 					}else if(this.car.owner_type == 'rent'){
 						this.car.pTexpassportSery=''
 						this.car.pTexpassportNumber=''
-						this.car.pPlateNumber=''
+						this.car.auto_number=''
 					}
 				}
 			},deep:true,
-			'car.pPlateNumber':{
+			'car.auto_number':{
 				handler(){
-					if (this.car.pPlateNumber.length > 8) {
-			          this.car.pPlateNumber = this.car.pPlateNumber.slice(0,8)
+					if (this.car.auto_number.length > 8) {
+			          this.car.auto_number = this.car.auto_number.slice(0,8)
 			        }
 				}
 			},deep:true,
@@ -1014,7 +1014,7 @@
 				this.car.pDateNatarius=''
 				this.car.pTexpassportSery=''
 				this.car.pTexpassportNumber=''
-				this.car.pPlateNumber=''
+				this.car.auto_number=''
 		    	this.requiredInput = false
 		    },
 			isRequired(input){
@@ -1090,7 +1090,7 @@
 			    			let car = {
 			    				'pDateNatarius':this.car.pDateNatarius,
 			    				'pNumberNatarius':this.car.pNumberNatarius,
-			    				'auto_number':this.car.pPlateNumber,
+			    				'auto_number':this.car.auto_number,
 			    			}
 			    			let data = {
 			    				'cars':car,
