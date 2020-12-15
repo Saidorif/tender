@@ -21,7 +21,7 @@ class CreateAdliyaCarsTable extends Migration
             $table->string("pPinfl")->nullable();
             $table->string("pINN")->nullable();
             $table->string("nameOwner");
-            $table->string("pKuzov");
+            $table->string("pKuzov")->nullable();
             $table->string("pNumberNatarius");
             $table->string("pDateNatarius");
             $table->string("startDate");

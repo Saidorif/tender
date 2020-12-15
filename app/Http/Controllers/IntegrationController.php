@@ -19,7 +19,6 @@ class IntegrationController extends Controller
             'app_id' => 'required|integer',
             'cars' => 'required|array',
             'cars.pDateNatarius' => 'required|date',
-            'cars.pKuzov' => 'required|string',
             'cars.pNumberNatarius' => 'required|string',
             'cars.auto_number' => 'required|string',
         ]);
@@ -32,6 +31,7 @@ class IntegrationController extends Controller
         $inputs['pResource'] = 1;
         $inputs['pType'] = 1;
         $inputs['cars']['pDateNatarius'] = Carbon::parse($inputs['cars']['pDateNatarius'])->format('d.m.Y');
+        $inputs['cars']['pAutoNumber'] = $inputs['cars']['auto_number'];
         $body = [];
         $body['pINN'] = $user->inn;
         // !empty($inputs['pPinfl']) ? $body['pPinfl'] = $inputs['pPinfl'] : $body['pPinfl'] = '';
@@ -56,11 +56,11 @@ class IntegrationController extends Controller
                 $adliya_car = AdliyaCar::create([
                     "user_id" => $user->id,
                     "app_id" => $inputs['app_id'],
-                    "auto_number" => $inputs['cars']['auto_number'],
+                    "auto_number" => $data_resp['results'][0]['pAutoNumber'],
                     "pINN" => $inputs['app_id'],
                     "pPinfl" => !empty($inputs['pPinfl']) ? $inputs['pPinfl'] : null ,
                     "nameOwner" => $data_resp['nameOwner'],
-                    "pKuzov" => $data_resp['results'][0]['pKuzov'],
+                    // "pKuzov" => $data_resp['results'][0]['pKuzov'],
                     "pNumberNatarius" => $data_resp['results'][0]['pNumberNatarius'],
                     "pDateNatarius" => $data_resp['results'][0]['pDateNatarius'],
                     "startDate" => $data_resp['results'][0]['startDate'],
@@ -84,12 +84,13 @@ class IntegrationController extends Controller
             'app_id' => 'required',
             'pTexpassportSery' => 'required|string',
             'pTexpassportNumber' => 'required|string',
-            'pPlateNumber' => 'required|string',
+            'auto_number' => 'required|string',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        $inputs['pPlateNumber'] = $inputs['auto_number'];
         $user = $request->user();
         $inputs = array_map('strtoupper', $inputs);
         $gai = $this->getGaiToken();
