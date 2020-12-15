@@ -720,76 +720,25 @@
 			async saveTender(){
 				let data = [];
 				let lotItem = [];
-				// if(this.checked){
-					if (this.allLotes.length > 0){
-						this.allLotes.forEach((lots,l)=>{
-							lotItem = lots.map((item,index)=>{
-								let direction_id = item.directions.id
-								let reysItems = []
-								if (item.reyses.length > 0){
-									reysItems = item.reyses.map((i,k)=>{
-										return i.id
-									})
-								}
-								return{
-									'direction_id':direction_id,
-									'reys_id':reysItems,
-				    				'status':reysItems.length > 0 ? 'custom' : 'all',
-								}
-							})
-							data.push(lotItem)
+				if (this.allLotes.length > 0){
+					this.allLotes.forEach((lots,l)=>{
+						lotItem = lots.map((item,index)=>{
+							let direction_id = item.directions.id
+							let reysItems = []
+							if (item.reyses.length > 0){
+								reysItems = item.reyses.map((i,k)=>{
+									return i.id
+								})
+							}
+							return{
+								'direction_id':direction_id,
+								'reys_id':reysItems,
+			    				'status':reysItems.length > 0 ? 'custom' : 'all',
+							}
 						})
-					}
-					// else{
-					// 	let newItems = this.choosenFromItems.map((item,index)=>{
-					// 		return item.id
-					// 	})
-					// 	data = [{
-			  //   			direction_id:this.direction_ids.id,
-			  //   			reys_id:newItems,
-			  //   			status:'custom',
-			  //   			time:this.form.time,
-					// 		address:this.form.address,
-			  //   		}]
-					// }
-				// }
-				// else if(this.checkedGrafik && !this.checked){
-				// 	let newFromItems = this.choosenFromItems.map((item,index)=>{
-				// 		return item.id
-				// 	})
-				// 	let newToItems = this.choosenToItems.map((item,index)=>{
-				// 		return item.id
-				// 	})
-				// 	data = [{
-		  //   			direction_id:this.direction_ids.id,
-		  //   			reys_id:newFromItems,
-		  //   			status:'custom',
-		  //   		},{
-		  //   			direction_id:this.direction_ids.id,
-		  //   			reys_id:newToItems,
-		  //   			status:'custom',
-		  //   		}]
-				// }
-				// else if(!this.checkedGrafik && !this.checked){
-				// 	data = [{
-		  //   			direction_id:this.direction_ids.id,
-		  //   			reys_id:[],
-		  //   			status:'all',
-		  //   		}]
-				// }
-
-				// let checkLengthData = true
-				// if (this.checked && this.allItems.length < 2) {
-				// 	checkLengthData = false
-				// }
-				// let checkLengthDataExists = true
-				// data.forEach((data,index)=>{
-				// 	if (data.direction_id) {
-				// 		checkLengthDataExists = true
-				// 	}else{
-				// 		checkLengthDataExists = false
-				// 	}
-				// })
+						data.push(lotItem)
+					})
+				}
 				let newData = {}
 				if (data.length > 0) {
 					newData = {
@@ -819,36 +768,6 @@
 						this.requiredInput = false
 						this.$router.push("/crm/tenderannounce");
 					}
-		    	// 	if (checkLengthDataExists) {
-			    // 		if (checkLengthData) {
-							// this.laoding = true
-							// await this.actionAddTenderAnnounce(newData)
-							// this.laoding = false
-							// if (this.getMassage.success) {
-							// 	console.log(this.getMassage)
-							// 	toast.fire({
-							// 		type: "success",
-							// 		icon: "success",
-							// 		title: this.getMassage.message
-							//  	});
-							// 	this.requiredInput = false
-							// 	this.$router.push("/crm/tenderannounce");
-							// }
-			    // 		}else{
-			    // 			toast.fire({
-							// 	type: "error",
-							// 	icon: "error",
-							// 	title: 'В пакете должны быть минимум 2 маршрута!'
-						 // 	});
-			    // 		}
-		    	// 	}
-		    	// 	else{
-		    	// 		toast.fire({
-							// type: "error",
-							// icon: "error",
-							// title: 'Маршрут выберите!'
-					 	// });
-		    	// 	}
 				}else{
 					this.requiredInput = true
 				}
