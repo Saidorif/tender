@@ -116,8 +116,9 @@
                           <th>Номер Авто</th>
                           <th>Хозяин</th>
                           <th>ИНН</th>
-                          <th>Номер реестра нотариального действия</th>
                           <th>Дата нотариального действия</th>
+                          <th>Номер реестра нотариального действия</th>
+                          <th>Срок нотариального действия</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -125,8 +126,9 @@
                           <td>{{adliya.auto_number}}</td>
                           <td>{{adliya.nameOwner}}</td>
                           <td>{{adliya.pINN}}</td>
-                          <td>{{adliya.pNumberNatarius}}</td>
                           <td>{{adliya.pDateNatarius}}</td>
+                          <td>{{adliya.pNumberNatarius}}</td>
+                          <td>{{adliya.expirationDate}}</td>
                         </tr>
                       </tbody>
                     </table>
