@@ -18,21 +18,26 @@
         <div class="accordion" id="accordionExample" v-if="cars.length > 0">
 
           <div class="card" v-for="(car_items,car_index) in cars">
-            <div class="card-header btn-block d-flex justify-content-center"
-              :id="'headingOne'+car_index"   
-              data-toggle="collapse"
-              data-target="#collapseOne"
-              aria-expanded="true"
-              aria-controls="collapseOne"
-            >
-              <h2 class="mb-0">
+            <div class="card-header btn-block d-flex justify-content-between">
                 <button
                   class="text-left"
                   type="button"
+                  :id="'headingOne'+car_index"   
+                  data-toggle="collapse"
+                  data-target="#collapseOne"
+                  aria-expanded="true"
+                  aria-controls="collapseOne"
                 >
                   <b>{{car_items.auto_number}}</b>
                 </button>
-              </h2>
+                <div>
+                  <div class="badge" :class="getCarStatusClass(car_items.status)">
+                    {{getCarStatusName(car_items.status)}}
+                  </div>
+                  <div class="badge" :class="getLicenseStatusClass(car_items.license_status)">
+                    {{getLicenseStatusName(car_items.license_status)}}
+                  </div>
+                </div>
             </div>
 
             <div
@@ -107,6 +112,7 @@
                   </table>
                 </div>
                 <hr>
+                <!-- adliya -->
                 <template v-if="car_items.adliya.length > 0">
                   <h3><strong>Минюст данные</strong></h3>
                   <div class=" table-responsive table">
@@ -135,6 +141,7 @@
                   </div>
                 </template>
                 <hr>
+                <!-- gai -->
                 <template v-if="car_items.gai.length > 0">
                   <h3><strong>ГАИ данные</strong></h3>
                   <div class=" table-responsive table">
@@ -196,28 +203,59 @@ export default {
       company_name:''
     };
   },
+  watch:{
+    getAppCars:{
+      handler(){
+        this.cars = this.getAppCars.cars_with;
+        this.company_name = this.getAppCars.user.company_name;
+      }
+    }
+  },
   computed: {
-    ...mapGetters("checkcontrol", ["getAppCars",'getDenyCar','getActiveCar']),
+    ...mapGetters("checkcontrol", ["getAppCars",'getStatusMessage']),
     getCompanyName(){
       return this.company_name  ? this.company_name : 'Без название'
     },
   },
   async mounted() {
     await this.actionAppCars(this.$route.params.appId);
-    this.cars = this.getAppCars.cars_with;
-    this.company_name = this.getAppCars.user.company_name;
-    console.log(this.getAppCars)
   },
   methods: {
-    ...mapActions("checkcontrol", ["actionAppCars",'actionActiveCar','actionDenyCar']),
-    denyCar(id){
+    ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage']),
+    async denyCar(id){
       if(confirm("Вы действительно хотите отказаться?")){
-        console.log(id)
+        let data = {
+          app_id:this.$route.params.appId,
+          car_id:id,
+          status:'rejected',
+        }
+        await this.actionStatusMessage(data)
+        if (this.getStatusMessage.success) {
+          await this.actionAppCars(this.$route.params.appId);
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getStatusMessage.message
+          });
+        }
       }
     },
-    activeCar(id){
+    async activeCar(id){
       if(confirm("Вы действительно хотите подтвердить?")){
-        console.log(id)
+        let data = {
+          app_id:this.$route.params.appId,
+          car_id:id,
+          status:'accepted',
+        }
+        await this.actionStatusMessage(data)
+        if (this.getStatusMessage.success) {
+          await this.actionAppCars(this.$route.params.appId);
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getStatusMessage.message
+          });
+        }
       }
     },
     checkBox(check){
@@ -235,10 +273,42 @@ export default {
       }
     },
     getStatusName(name){
-      if (name == 'active') {
+      if (name == 'active'){
         return 'Активный'
       }else{
         return 'Неактивный'
+      }
+    },
+    getCarStatusName(status){
+      if (status == 'active'){
+        return 'Неподтверждено'
+      }else if(status == 'accepted'){
+        return 'Подтверждено'
+      }else if(status == 'rejected'){
+        return 'Отказано'
+      }
+    },
+    getCarStatusClass(status){
+      if (status == 'active'){
+        return 'badge-primary'
+      }else if(status == 'accepted'){
+        return 'badge-success'
+      }else if(status == 'rejected'){
+        return 'badge-danger'
+      }
+    },
+    getLicenseStatusName(status){
+      if(status == 0){
+        return 'Нелицензирован'
+      }else if(status == 1){
+        return 'Лицензирован'
+      }
+    },
+    getLicenseStatusClass(status){
+      if(status == 0){
+        return 'badge-warning'
+      }else if(status == 1){
+        return 'badge-success'
       }
     },
   },

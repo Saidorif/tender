@@ -80,7 +80,7 @@
 				            type: "success",
 				            icon: "success",
 				            title: this.getMassage.message
-				          });
+			          	});
 						this.$router.push("/crm/busmodel");
 						this.requiredInput = false
 					}
