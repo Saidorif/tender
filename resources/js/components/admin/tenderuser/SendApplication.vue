@@ -871,7 +871,6 @@
 					}else if(this.car.owner_type == 'rent'){
 						this.car.pTexpassportSery=''
 						this.car.pTexpassportNumber=''
-						this.car.auto_number=''
 					}
 				}
 			},deep:true,
