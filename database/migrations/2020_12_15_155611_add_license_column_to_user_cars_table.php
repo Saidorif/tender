@@ -14,7 +14,7 @@ class AddLicenseColumnToUserCarsTable extends Migration
     public function up()
     {
         Schema::table('user_cars', function (Blueprint $table) {
-            $table->string('license_status')->nullable();
+            $table->integer('license_status')->default(0)->nullable();
             $table->string('license_start_date')->nullable();
             $table->string('license_exp_date')->nullable();
             $table->string('license_number')->nullable();
