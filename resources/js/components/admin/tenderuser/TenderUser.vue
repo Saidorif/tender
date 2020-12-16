@@ -20,6 +20,7 @@
 							<th scope="col">Лоты</th>
 							<th scope="col">Адрес</th>
 							<th scope="col">Дата тендера</th>
+							<th scope="col">Осталось</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
@@ -33,6 +34,7 @@
 							    </em>
 							</td>
 							<td>{{item.address}}</td>
+							<td>{{item.time}}</td>
 							<td :id="item.id">{{$g.dateCounter(item.time,item.id)}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/tenderuser/edit/${item.id}`'>

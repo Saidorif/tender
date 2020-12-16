@@ -25,6 +25,7 @@
 							<th scope="col">Статус</th>
 							<th scope="col">Количество автотранспорта</th>
 							<th scope="col">Дата</th>
+							<th scope="col">Осталось</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
@@ -45,6 +46,7 @@
 							</td>
 							<td width="15%">{{reg.cars_with.length}}</td>
 							<td>{{reg.lots.time}}</td>
+							<td :id="reg.id">{{$g.dateCounter(reg.lots.time,reg.id)}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/application/user/${reg.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
