@@ -6,6 +6,9 @@
           <i class="peIcon fas fa-file"></i>
           Лоты
         </h4>
+        <h3 class="ml-5">
+          <b>{{getCompanyName}}</b>
+        </h3>
         <router-link class="btn btn-primary back_btn" to="/crm/check-control">
           <span class="peIcon pe-7s-back"></span>
           Назад
@@ -16,29 +19,25 @@
 
           <div class="card" v-for="(car_items,car_index) in cars">
             <div class="card-header btn-block d-flex justify-content-between">
-              <h2 class="mb-0">
                 <button
+                  class="text-left"
+                  type="button"
                   :id="'headingOne'+car_index"   
                   data-toggle="collapse"
                   data-target="#collapseOne"
                   aria-expanded="true"
                   aria-controls="collapseOne"
-                  class="text-left"
-                  type="button"
                 >
                   <b>{{car_items.auto_number}}</b>
                 </button>
-              </h2>
-              <div class="">
-                <button type="button" class="btn btn-danger" @click.prevent="denyCar(car_items.id)">
-                  <i class="fas fa-minus-circle"></i>
-                  Отказ
-                </button>
-                <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)"> 
-                  <i class="fas fa-check-circle"></i>
-                  Подтвердить
-                </button>
-              </div>
+                <div>
+                  <div class="badge" :class="getCarStatusClass(car_items.status)">
+                    {{getCarStatusName(car_items.status)}}
+                  </div>
+                  <div class="badge" :class="getLicenseStatusClass(car_items.license_status)">
+                    {{getLicenseStatusName(car_items.license_status)}}
+                  </div>
+                </div>
             </div>
 
             <div
@@ -113,6 +112,36 @@
                   </table>
                 </div>
                 <hr>
+                <!-- adliya -->
+                <template v-if="car_items.adliya.length > 0">
+                  <h3><strong>Минюст данные</strong></h3>
+                  <div class=" table-responsive table">
+                    <table class="table table-hover table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Номер Авто</th>
+                          <th>Хозяин</th>
+                          <th>ИНН</th>
+                          <th>Дата нотариального действия</th>
+                          <th>Номер реестра нотариального действия</th>
+                          <th>Срок нотариального действия</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(adliya,adliya_index) in car_items.adliya">
+                          <td>{{adliya.auto_number}}</td>
+                          <td>{{adliya.nameOwner}}</td>
+                          <td>{{adliya.pINN}}</td>
+                          <td>{{adliya.pDateNatarius}}</td>
+                          <td>{{adliya.pNumberNatarius}}</td>
+                          <td>{{adliya.expirationDate}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </template>
+                <hr>
+                <!-- gai -->
                 <template v-if="car_items.gai.length > 0">
                   <h3><strong>ГАИ данные</strong></h3>
                   <div class=" table-responsive table">
@@ -120,24 +149,36 @@
                       <thead>
                         <tr>
                           <th>Номер Авто</th>
+                          <th>Хозяин</th>
                           <th>Марка</th>
                           <th>Адрес</th>
                           <th>Дата выпуска</th>
-                          <th>Хозяин</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="(gai,gai_index) in car_items.gai">
                           <td>{{gai.pPlateNumber}}</td>
+                          <td>{{gai.pNameOfClient}}</td>
                           <td>{{gai.pMarka}}</td>
                           <td>{{gai.pAdressOfClient}}</td>
                           <td>{{gai.pMadeofYear}}</td>
-                          <td>{{gai.pNameOfClient}}</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </template>
+                <div class="row">
+                  <div class="col-lg-12 d-flex justify-content-end">
+                    <button type="button" class="btn btn-danger mr-2" @click.prevent="denyCar(car_items.id)">
+                      <i class="fas fa-minus-circle"></i>
+                      Отказ
+                    </button>
+                    <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)"> 
+                      <i class="fas fa-check-circle"></i>
+                      Подтвердить
+                    </button>
+                  </div>
+                </div>  
               </div>
             </div>
           </div>
@@ -158,27 +199,63 @@ export default {
   },
   data() {
     return {
-      cars:[]
+      cars:[],
+      company_name:''
     };
   },
+  watch:{
+    getAppCars:{
+      handler(){
+        this.cars = this.getAppCars.cars_with;
+        this.company_name = this.getAppCars.user.company_name;
+      }
+    }
+  },
   computed: {
-    ...mapGetters("checkcontrol", ["getAppCars",'getDenyCar','getActiveCar']),
+    ...mapGetters("checkcontrol", ["getAppCars",'getStatusMessage']),
+    getCompanyName(){
+      return this.company_name  ? this.company_name : 'Без название'
+    },
   },
   async mounted() {
     await this.actionAppCars(this.$route.params.appId);
-    this.cars = this.getAppCars.cars_with;
-    console.log(this.cars)
   },
   methods: {
-    ...mapActions("checkcontrol", ["actionAppCars",'actionActiveCar','actionDenyCar']),
-    denyCar(id){
+    ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage']),
+    async denyCar(id){
       if(confirm("Вы действительно хотите отказаться?")){
-        console.log(id)
+        let data = {
+          app_id:this.$route.params.appId,
+          car_id:id,
+          status:'rejected',
+        }
+        await this.actionStatusMessage(data)
+        if (this.getStatusMessage.success) {
+          await this.actionAppCars(this.$route.params.appId);
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getStatusMessage.message
+          });
+        }
       }
     },
-    activeCar(id){
+    async activeCar(id){
       if(confirm("Вы действительно хотите подтвердить?")){
-        console.log(id)
+        let data = {
+          app_id:this.$route.params.appId,
+          car_id:id,
+          status:'accepted',
+        }
+        await this.actionStatusMessage(data)
+        if (this.getStatusMessage.success) {
+          await this.actionAppCars(this.$route.params.appId);
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getStatusMessage.message
+          });
+        }
       }
     },
     checkBox(check){
@@ -196,10 +273,42 @@ export default {
       }
     },
     getStatusName(name){
-      if (name == 'active') {
+      if (name == 'active'){
         return 'Активный'
       }else{
         return 'Неактивный'
+      }
+    },
+    getCarStatusName(status){
+      if (status == 'active'){
+        return 'Неподтверждено'
+      }else if(status == 'accepted'){
+        return 'Подтверждено'
+      }else if(status == 'rejected'){
+        return 'Отказано'
+      }
+    },
+    getCarStatusClass(status){
+      if (status == 'active'){
+        return 'badge-primary'
+      }else if(status == 'accepted'){
+        return 'badge-success'
+      }else if(status == 'rejected'){
+        return 'badge-danger'
+      }
+    },
+    getLicenseStatusName(status){
+      if(status == 0){
+        return 'Нелицензирован'
+      }else if(status == 1){
+        return 'Лицензирован'
+      }
+    },
+    getLicenseStatusClass(status){
+      if(status == 0){
+        return 'badge-warning'
+      }else if(status == 1){
+        return 'badge-success'
       }
     },
   },

@@ -106,7 +106,7 @@ class PassportTimingController extends Controller
                 'end_time' => Carbon::parse($value['end_time'])->format('Y-m-d H:i:s'),
                 'region_from_id' => $value['region_from_id']['id'],
                 'region_to_id' => $value['region_to_id']['id'],
-                // 'detailsOptions' => $value['detailsOptions'],
+                'vars' => $value['vars'],
                 'area_from_id' => $value['area_from_id']['id'],
                 'area_to_id' => $value['area_to_id']['id'],
                 'station_to_id' => $value['station_to_id']['id'],

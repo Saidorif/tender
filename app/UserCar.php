@@ -25,12 +25,21 @@ class UserCar extends Model
         'bus_adapted',
         'telephone_power',
         'monitor',
-        // 'station_announce',
+        'station_announce',
+        'license_status',
+        'license_start_date',
+        'license_exp_date',
+        'license_number',
     ];
 
     public function user()
     {
         return $this->belongsTo(\App\User::class,'user_id');
+    }
+
+    public function application()
+    {
+        return $this->belongsTo(\App\Application::class,'app_id');
     }
 
     public function bustype()

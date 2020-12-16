@@ -101,6 +101,7 @@ Route::group([
             Route::post('application', 'ApplicationController@index');
             Route::post('application/car/store', 'ApplicationController@carStore');
             Route::delete('application/car/destroy/{id}', 'ApplicationController@carDestroy');
+            Route::post('application/car/setstatus', 'ApplicationController@setStatus');
             Route::post('application/store', 'ApplicationController@store');
             Route::post('application/tender/store', 'ApplicationController@storeFromTenders');
             Route::get('application/list', 'ApplicationController@list');
