@@ -85,7 +85,7 @@
                 class="form-control input_style"
                 :class="isRequired(form.start_speedometer) ? 'isRequired' : ''"
                 step="0.01"
-                :disabled="tableData.length > 0"
+                :disabled="tableTwoData.length > 0"
               />
             </div>
             <div class="form-group col-md-6">
@@ -265,7 +265,7 @@
               Сохранить
             </button>
           </div>
-          <div class="table-responsive" v-if="tableData.length">
+          <div class="table-responsive" v-if="tableTwoData.length">
             <table class="table table-bordered text-center table-hover table-striped">
               <thead>
                 <tr>
@@ -276,6 +276,7 @@
                   <th scope="col" colspan="3">Sariflanadigon vaqt (minut)</th>
                   <th scope="col" colspan="2">Ortacha texnik tezlik (km/soat)</th>
                   <th rowspan="2">Qatnov yol xaqidagi malumotlar</th>
+                  <th rowspan="2">Taxrirlash</th>
                 </tr>
                 <tr>
                   <th>Jonash vaqtida</th>
@@ -291,7 +292,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(table,index) in tableData">
+                <tr v-for="(table,index) in tableTwoData">
                   <td scope="row">{{index+1}}</td>
                   <td>{{ table.whereForm ? table.whereForm.name  : '' }} {{ table.whereTo ? table.whereTo.name  : '' }}</td>
                   <td>{{ table.start_speedometer }}</td>
@@ -309,6 +310,11 @@
                       {{detail.name }} {{ detail.count}}
                       <b>,</b>
                     </span>
+                  </td>
+                  <td >
+                    <button v-if="index == tableTwoData.length -1" class="btn_transparent" type="button" @click="deletTableItem(index)">
+					    <i class="pe_icon pe-7s-trash trashColor"></i>
+					</button>
                   </td>
                 </tr>
                 <tr>
@@ -403,10 +409,12 @@ export default {
         ],
       },
       tableData: [],
+      tableTwoData: [],
       requiredInput: false,
       technic_speed: 0,
       traffic_speed: 0,
-      laoding: true
+      laoding: true,
+      fullTableInfo: [],
     };
   },
   async mounted() {
@@ -474,12 +482,12 @@ export default {
     calctechnic_speed(){
       let calc_technic_speed = 0
       let calc_traffic_speed = 0
-      this.tableData.forEach((item)=>{
+      this.tableTwoData.forEach((item)=>{
         calc_technic_speed += parseFloat(item.spendtime_between_station)
         calc_traffic_speed += parseFloat(item.spendtime_to_stay_station)
       })
-      this.technic_speed =  (this.tableData[this.tableData.length - 1].distance_from_start_station * 60) /  calc_technic_speed
-      this.traffic_speed =  (this.tableData[this.tableData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
+      this.technic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  calc_technic_speed
+      this.traffic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
       this.technic_speed = parseFloat(this.technic_speed).toFixed(1)
       this.traffic_speed = parseFloat(this.traffic_speed).toFixed(1)
       // traffic_speed
@@ -497,113 +505,73 @@ export default {
         this.form.whereTo  != ""
       ) {
         let thisData = {};
-        if (this.tableData.length == 0) {
-          thisData = {
-            direction_id: this.$route.params.directionId,
-            region_from_id: this.form.region_to_id,
-            region_to_id: "",
-            area_from_id: this.form.area_to_id,
-            area_to_id: "",
-            station_from_id: this.form.station_to_id,
-            station_to_id: "",
-            start_time: "",
-            end_time: "",
-            start_speedometer: this.form.end_speedometer,
-            end_speedometer: "",
-            distance_from_start_station: "",
-            distance_between_station: "",
-            distance_in_limited_speed: "",
-            spendtime_between_station: "",
-            spendtime_between_limited_space: "",
-            spendtime_to_stay_station: 0,
-            speed_between_station: "",
-            speed_between_limited_space: "",
-            details: [{ name: "", count: "" }],
-            areaFrom: [],
-            stationFrom: [],
-            stationTo: [],
-            areaTo: [],
-            whereForm: this.form.whereTo,
-            whereTo: "",
-            detailsOptions: [
-              { title: "ASF", code: 'road'},
-              { title: "Koprik", code: 'bridge'},
-              { title: "Temir yol", code: 'railway' },
-            ],
-          };
-          this.form.distance_from_start_station = parseFloat(
-            this.form.end_speedometer - this.form.start_speedometer
-          ).toFixed(1);
-        } else {
-          thisData = {
-            direction_id: this.$route.params.directionId,
-            region_from_id: this.form.region_to_id,
-            region_to_id: "",
-            area_from_id: this.form.area_to_id,
-            area_to_id: "",
-            station_from_id: this.form.station_to_id,
-            station_to_id: "",
-            start_time: "",
-            end_time: "",
-            start_speedometer: this.form.end_speedometer,
-            end_speedometer: "",
-            distance_from_start_station: "",
-            distance_between_station: this.form.end_speedometer - this.form.start_speedometer,
-            distance_in_limited_speed: "",
-            spendtime_between_station: "",
-            spendtime_between_limited_space: "",
-            spendtime_to_stay_station: 0,
-            speed_between_station: "",
-            speed_between_limited_space: "",
-            details: [{ name: "", count: "" }],
-            areaFrom: [],
-            stationFrom: [],
-            stationTo: [],
-            areaTo: [],
-            whereForm: this.form.whereTo,
-            whereTo: "",
-            detailsOptions: [
-              { title: "ASF", code: 'road'},
-              { title: "Koprik", code: 'bridge'},
-              { title: "Temir yol", code: 'railway' },
-            ],
-          };
-          this.form.distance_from_start_station = parseFloat(
-            this.form.end_speedometer - this.tableData[0].start_speedometer
-          ).toFixed(1);
-          let result_spendtime_to_stay_station =
-            (this.toTimestamp(this.form.start_time) -
-              this.toTimestamp(
-                this.tableData[this.tableData.length - 1].end_time
-              )) /
-            60;
-          this.form.spendtime_between_station = parseFloat(
-            result_spendtime_to_stay_station
-          ).toFixed(0);
-          this.tableData[
-            this.tableData.length - 1
-          ].spendtime_to_stay_station = result_spendtime_to_stay_station;
-        }
-        this.form.distance_between_station = parseFloat(
-          this.form.end_speedometer - this.form.start_speedometer
-        ).toFixed(1);
-        let result_spendtime_between_station =
-          (this.toTimestamp(this.form.end_time) -
-            this.toTimestamp(this.form.start_time)) /
-          60;
-        this.form.spendtime_between_station = parseFloat(
-          result_spendtime_between_station
-        ).toFixed(0);
-        this.tableData.push(this.form);
+        this.fullTableInfo.push(this.form)
+        this.calcTableData();
         this.calctechnic_speed()
-        this.form = thisData;
         this.requiredInput = false;
       } else {
         this.requiredInput = true;
       }
     },
+    calcTableData(){
+        let dataTable = this.fullTableInfo
+        this.tableTwoData = [];
+        dataTable.forEach((element, index)=>{
+            element.distance_from_start_station = parseFloat(element.end_speedometer - dataTable[0].start_speedometer).toFixed(1);
+            element.distance_between_station = parseFloat(element.end_speedometer - element.start_speedometer).toFixed(1);
+            let result_spendtime_between_station = (this.toTimestamp(element.end_time) - this.toTimestamp(element.start_time)) / 60;
+            element.spendtime_between_station = parseFloat(result_spendtime_between_station).toFixed(0);
+            if(index != 0){
+                let result_spendtime_to_stay_station = (this.toTimestamp(element.start_time) - this.toTimestamp(this.tableTwoData[this.tableTwoData.length - 1].end_time)) / 60;
+                element.spendtime_between_station = parseFloat(result_spendtime_to_stay_station).toFixed(0);
+                this.tableTwoData[this.tableTwoData.length - 1].spendtime_to_stay_station = result_spendtime_to_stay_station;
+            }
+            this.tableTwoData.push(element);
+        })
+
+         let thisData;
+        thisData = {
+            direction_id: this.$route.params.directionId,
+            region_from_id: this.fullTableInfo[this.fullTableInfo.length - 1].region_to_id,
+            region_to_id: "",
+            area_from_id: this.fullTableInfo[this.fullTableInfo.length - 1].area_to_id,
+            area_to_id: "",
+            station_from_id: this.fullTableInfo[this.fullTableInfo.length - 1].station_to_id,
+            station_to_id: "",
+            start_time: "",
+            end_time: "",
+            start_speedometer: this.fullTableInfo[this.fullTableInfo.length - 1].end_speedometer,
+            end_speedometer: "",
+            distance_from_start_station: this.fullTableInfo.length == 1 ? parseFloat(this.fullTableInfo[this.fullTableInfo.length - 1].end_speedometer - this.fullTableInfo[this.fullTableInfo.length - 1].start_speedometer).toFixed(1) : parseFloat(this.form.end_speedometer - this.tableTwoData[0].start_speedometer).toFixed(1),
+            distance_between_station: this.fullTableInfo.length > 1 ? this.form.end_speedometer - this.form.start_speedometer : '', //d
+            distance_in_limited_speed: "",
+            spendtime_between_station: "",
+            spendtime_between_limited_space: "",
+            spendtime_to_stay_station: 0,
+            speed_between_station: "",
+            speed_between_limited_space: "",
+            details: [{ name: "", count: "" }],
+            areaFrom: [],
+            stationFrom: [],
+            stationTo: [],
+            areaTo: [],
+            whereForm: this.fullTableInfo[this.fullTableInfo.length - 1].whereTo,
+            whereTo: "",
+            detailsOptions: [
+            { title: "ASF", code: 'road'},
+            { title: "Koprik", code: 'bridge'},
+            { title: "Temir yol", code: 'railway' },
+            ],
+        };
+        this.form = thisData;
+    },
     addDetail() {
       this.form.details.push({ name: "", count: "" });
+    },
+    deletTableItem(inx){
+        this.fullTableInfo.splice(inx, 1);
+        this.calcTableData()
+        this.calctechnic_speed();
     },
     removeDetail(index) {
       this.form.details.splice(index, 1);
