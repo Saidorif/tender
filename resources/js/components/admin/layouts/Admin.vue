@@ -110,7 +110,7 @@
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" to="/crm/protocol">
+                <router-link class="nav-link" to="/crm/protocol-list">
                   <p>
                     Протокол
                   </p>

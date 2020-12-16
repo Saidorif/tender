@@ -147,6 +147,10 @@ import CompletedTenders from './components/admin/completedtenders/CompletedTende
 import AddCompletedTenders from './components/admin/completedtenders/AddCompletedTenders'
 import EditCompletedTenders from './components/admin/completedtenders/EditCompletedTenders'
 
+// Protocol
+import Protocol from './components/admin/protocol/Protocol'
+import ProtocolList from './components/admin/protocol/ProtocolList'
+
 // CheckControl
 import CheckControl from './components/admin/checkcontrol/CheckControl'
 import AddCheckControl from './components/admin/checkcontrol/AddCheckControl'
@@ -538,6 +542,14 @@ const router = new Router({
 				{
 					path:'application/user/:userapplicationId',
 					component:SendApplication,
+				},
+				{
+					path:'protocol/:tenderId',
+					component:Protocol,
+				},
+				{
+					path:'protocol-list',
+					component:ProtocolList,
 				},
 			]
 		},

@@ -293,7 +293,6 @@ export default {
     this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
     this.lots = this.getTenderAnnounce.tenderlots;
     this.tenderlots= this.getTenderAnnounce.tenderlots
-    console.log(this.getTenderAnnounce)
   },
   methods: {
     ...mapActions("application", [
