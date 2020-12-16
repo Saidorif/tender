@@ -37,6 +37,7 @@ class CreatePassportTimingsTable extends Migration
             $table->text('details');//Qatnov yoli xaqidagi malumotlar
             $table->text('whereForm')->nullable();
             $table->text('whereTo')->nullable();
+            $table->text('vars')->nullable();
             // $table->text('timingDetails')->nullable();
             $table->timestamps();
         });

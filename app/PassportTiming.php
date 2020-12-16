@@ -29,6 +29,7 @@ class PassportTiming extends Model
         'details',
         'whereForm',
         'whereTo',
+        'vars',
         // 'timingDetails',
     ];
 
