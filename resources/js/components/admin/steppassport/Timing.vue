@@ -11,7 +11,7 @@
           <div class="col-md-12 tabs_block">
             <div class="form-group col-md-3">
               <label for="timingDetails_date">O'chov otkazilgan kun</label>
-              <date-picker lang="ru" class="input_style" v-model="timingDetails.date" type="date" format="DD-MM-YYYY" valueType="format" ></date-picker>
+              <date-picker lang="ru" class="input_style" v-model="timingDetails.date" type="date" format="DD-MM-YYYY" valueType="format" :class="isRequired(timingDetails.date) ? 'isRequired' : ''" ></date-picker>
             </div>
             <div class="form-group col-md-3">
               <label for="avto_model">Xronametraj otqizilgan avtomabil rusumi</label>
@@ -20,6 +20,7 @@
                 v-model="timingDetails.avto_model"
                 id="avto_model"
                 class="form-control input_style"
+                :class="isRequired(timingDetails.avto_model) ? 'isRequired' : ''"
               />
             </div>
             <div class="form-group col-md-3">
@@ -29,21 +30,22 @@
                 v-model="timingDetails.avto_number"
                 id="avto_number"
                 class="form-control input_style"
+                :class="isRequired(timingDetails.avto_number) ? 'isRequired' : ''"
               />
             </div>
             <h4 class="col-md-12">Xronametraj otkazgan shaxslar</h4>
             <template v-for="(person,p_index) in timingDetails.persons">
               <div class="form-group col-md-2">
                 <label for="person_name">Ism</label>
-                <input type="text" v-model="person.name"  class="form-control input_style" />
+                <input type="text" v-model="person.name"  class="form-control input_style" :class="isRequired(person.name) ? 'isRequired' : ''" />
               </div>
               <div class="form-group col-md-2">
                 <label for="surname">Familyasi</label>
-                <input type="text" v-model="person.surname"  class="form-control input_style" />
+                <input type="text" v-model="person.surname"  class="form-control input_style" :class="isRequired(person.surname) ? 'isRequired' : ''" />
               </div>
               <div class="form-group col-md-3">
                 <label for="person_job">Ish joyi</label>
-                <input type="text" v-model="person.job" id="person_job" class="form-control input_style" />
+                <input type="text" v-model="person.job" id="person_job" class="form-control input_style" :class="isRequired(person.job) ? 'isRequired' : ''" />
               </div>
               <div class="form-group col-md-3">
                 <label for="person_position">Lavozimi</label>
@@ -52,6 +54,7 @@
                   v-model="person.position"
                   id="person_position"
                   class="form-control input_style"
+                  :class="isRequired(person.position) ? 'isRequired' : ''"
                 />
               </div>
               <div class="form-group col-md-1">
@@ -123,7 +126,7 @@
             </div>
             <div class="form-group col-md-6 triple_input" v-for="(detail,p_index) in form.details">
               <label>Qatnov yoli xaqidagi malumotlar</label>
-              <select class="form-control input_style" v-model="detail.name">
+              <select class="form-control input_style" v-model="detail.name" >
                 <option
                   v-for="(s_item,s_index) in form.detailsOptions"
                   :value="s_item.code"
@@ -252,7 +255,7 @@
                     <option value="Talablarga javob bermaydi">Talablarga javob bermaydi</option>
                 </select>
             </div>
-            <button type="button" @click="clearTable()" class="btn btn-danger mr-2" v-if="tableData.length">
+            <button type="button" @click="clearTable()" class="btn btn-danger mr-2" v-if="tableTwoData.length">
               <i class="fas fa-trash"></i>
               Очистить таблисту
             </button>
@@ -357,64 +360,60 @@ export default {
   },
   data() {
     return {
-      titulData:[],
-      form: {
-        direction_id: this.$route.params.directionId,
-        // region_from_id: this.titulData ? this.titulData.region_from_with : '',
-        region_from_id: '',
-        region_to_id: "",
-        // area_from_id:  this.titulData ? this.titulData.area_from_with : '',
-        area_from_id:  '',
-        area_to_id: "",
-        // station_from_id: this.titulData ? this.titulData.station_from_id : '',
-        station_from_id: '',
-        station_to_id: "",
-        start_time: "",
-        end_time: "",
-        start_speedometer: "", //Jonash vaqtida
-        end_speedometer: "", //Kelgan vaqtida
-        distance_from_start_station: "", //Boshlangich bekatdan
-        distance_between_station: "", //Bekatlar oraligida
-        distance_in_limited_speed: "", //Shundan xarakat tezligi chegaralangan oraliqda
-        spendtime_between_station: "", //Bekatlar oraligidagi xarakat
-        spendtime_between_limited_space: "", //Shundan xarakat tezligi chegaralangan oraliqda
-        spendtime_to_stay_station: 0, //Oraliq bekatdan toxtash uchun
-        speed_between_station: "", //Bekatlar oraligidagi xarakat
-        speed_between_limited_space: "", //Shundan xarakat tezligi chegaralangan oraliqda
-        details: [{ name: "", count: "" }], //Qatnov yoli xaqidagi malumotlar
-        areaFrom: [],
-        stationFrom: [],
-        stationTo: [],
-        areaTo: [],
-        // whereForm:  this.titulData ? this.titulData.from_where : '',
-        whereForm: '',
-        whereTo: '',
-        detailsOptions: [
-          { title: "Xafli yo'l uchastkalari", code: 'danger'},
-          { title: "Temir yol", code: 'railway' },
-          { title: "kesishgan yol ustidan otkazilgan kondalang yollar", code: 'bridge'},
-          { title: "dam olish joylari", code: 'rest'},
-          { title: "ovqatlanish joylari", code: 'food'},
-        ],
-      },
-      timingDetails: {
-        date: "",
-        avto_number: "",
-        avto_model: "",
-        conclusion: "",
-        persons: [
-          { name: "", surname: '',  job: "", position: "" },
-          { name: "", surname: '',  job: "", position: "" },
-          { name: "", surname: '',  job: "", position: "" }
-        ],
-      },
-      tableData: [],
-      tableTwoData: [],
-      requiredInput: false,
-      technic_speed: 0,
-      traffic_speed: 0,
-      laoding: true,
-      fullTableInfo: [],
+        titulData:[],
+        form: {
+            direction_id: this.$route.params.directionId,
+            region_from_id: '',
+            region_to_id: "",
+            area_from_id:  '',
+            area_to_id: "",
+            station_from_id: '',
+            station_to_id: "",
+            start_time: "",
+            end_time: "",
+            start_speedometer: "", //Jonash vaqtida
+            end_speedometer: "", //Kelgan vaqtida
+            distance_from_start_station: "", //Boshlangich bekatdan
+            distance_between_station: "", //Bekatlar oraligida
+            distance_in_limited_speed: "", //Shundan xarakat tezligi chegaralangan oraliqda
+            spendtime_between_station: "", //Bekatlar oraligidagi xarakat
+            spendtime_between_limited_space: "", //Shundan xarakat tezligi chegaralangan oraliqda
+            spendtime_to_stay_station: 0, //Oraliq bekatdan toxtash uchun
+            speed_between_station: "", //Bekatlar oraligidagi xarakat
+            speed_between_limited_space: "", //Shundan xarakat tezligi chegaralangan oraliqda
+            details: [{ name: "", count: "" }], //Qatnov yoli xaqidagi malumotlar
+            areaFrom: [],
+            stationFrom: [],
+            stationTo: [],
+            areaTo: [],
+            whereForm: '',
+            whereTo: '',
+            detailsOptions: [
+            { title: "Xafli yo'l uchastkalari", code: 'danger'},
+            { title: "Temir yol", code: 'railway' },
+            { title: "kesishgan yol ustidan otkazilgan kondalang yollar", code: 'bridge'},
+            { title: "dam olish joylari", code: 'rest'},
+            { title: "ovqatlanish joylari", code: 'food'},
+            ],
+        },
+        timingDetails: {
+            date: "",
+            avto_number: "",
+            avto_model: "",
+            conclusion: "",
+            persons: [
+            { name: "", surname: '',  job: "", position: "" },
+            { name: "", surname: '',  job: "", position: "" },
+            { name: "", surname: '',  job: "", position: "" }
+            ],
+        },
+        tableTwoData: [],
+        requiredInput: false,
+        technic_speed: 0,
+        traffic_speed: 0,
+        laoding: true,
+        fullTableInfo: [],
+        errorInput: true,
     };
   },
   async mounted() {
@@ -423,24 +422,16 @@ export default {
     this.laoding = false
     this.titulData = this.getDirection
     this.timingDetails = this.titulData.timing_details.length ? this.titulData.timing_details[0] : this.timingDetails
-    this.tableData = this.titulData.timing_with.length ? this.titulData.timing_with : this.tableData
-    if(this.tableData.length){
-      this.tableData.forEach(item => {
-        item.region_to_id = item.region_to
-        item.region_from_id = item.region_from
-        item.area_from_id = item.area_from
-        item.area_to_id = item.area_to
-        item.station_from_id = item.station_from
-        item.station_to_id = item.station_to
-      })
-      this.form.start_speedometer = this.tableData[this.tableData.length - 1].end_speedometer
-      this.calctechnic_speed()
+    if(this.titulData.timing_with.length){
+        this.fullTableInfo = JSON.parse(this.titulData.timing_with[0].vars)
+        this.calcTableData();
+        this.calctechnic_speed();
+    }else{
+        this.form.region_from_id = this.titulData.region_from_with;
+        this.form.area_from_id = this.titulData.area_from_with;
+        this.form.station_from_id = this.titulData.station_from_id;
+        this.form.whereForm = this.titulData.from_where;
     }
-    this.form.region_from_id = this.titulData.region_from_with;
-    this.form.area_from_id = this.titulData.area_from_with;
-    this.form.station_from_id = this.titulData.station_from_id;
-    this.form.whereForm = this.titulData.from_where;
-    console.log(this.getDirection)
   },
   computed: {
     ...mapGetters("region", ["getRegionList"]),
@@ -490,7 +481,6 @@ export default {
       this.traffic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
       this.technic_speed = parseFloat(this.technic_speed).toFixed(1)
       this.traffic_speed = parseFloat(this.traffic_speed).toFixed(1)
-      // traffic_speed
     },
     addItem() {
       if (
@@ -528,8 +518,7 @@ export default {
             }
             this.tableTwoData.push(element);
         })
-
-         let thisData;
+        let thisData;
         thisData = {
             direction_id: this.$route.params.directionId,
             region_from_id: this.fullTableInfo[this.fullTableInfo.length - 1].region_to_id,
@@ -581,16 +570,52 @@ export default {
       return datum / 1000;
     },
     async saveData() {
-      this.laoding = true
-      await this.actionAddTiming({ timing: this.tableData, timingDetails: this.timingDetails, technic_speed: this.technic_speed, traffic_speed: this.traffic_speed, });
-      this.laoding = false
-      if(this.getTimingMassage.success){
-          toast.fire({
-            type: "success",
-            icon: "success",
-            title: this.getTimingMassage.message
-          });
+    //   this.timingDetails.every();
+      if(
+          this.timingDetails.date != "" &&
+          this.timingDetails.avto_number != "" &&
+          this.timingDetails.avto_model != "" &&
+          this.timingDetails.conclusion != "" &&
+          this.timingDetails.persons[0].name != "" &&
+          this.timingDetails.persons[0].surname != "" &&
+          this.timingDetails.persons[0].position != "" &&
+          this.timingDetails.persons[1].name != "" &&
+          this.timingDetails.persons[1].surname != "" &&
+          this.timingDetails.persons[1].position != "" &&
+          this.timingDetails.persons[2].name != "" &&
+          this.timingDetails.persons[2].surname != "" &&
+          this.timingDetails.persons[2].position != "" &&
+          this.tableTwoData.length
+        ){
+        this.requiredInput = false;
+        this.tableTwoData.forEach((item)=>{
+            item.vars = JSON.stringify(this.fullTableInfo)
+        })
+        this.laoding = true
+        await this.actionAddTiming({timing: this.tableTwoData, timingDetails: this.timingDetails, technic_speed: this.technic_speed, traffic_speed: this.traffic_speed, });
+        this.laoding = false
+        if(this.getTimingMassage.success){
+            toast.fire({
+                type: "success",
+                icon: "success",
+                title: this.getTimingMassage.message
+            });
+        }else{
+            toast.fire({
+                type: "error",
+                icon: "error",
+                title: this.getTimingMassage.message
+            });
+        }
+      }else{
+        this.requiredInput = true;
+        toast.fire({
+            type: "error",
+            icon: "error",
+            title: 'Qizil bilan belgilangan polyalarini  toldiring!!!'
+        });
       }
+
     },
     addPerson(){
       let thisDate = { name: "", surname: '',  job: "", position: "" }
@@ -613,7 +638,7 @@ export default {
         if (result.value) {
           await this.clearTimingTable(this.$route.params.directionId);
           if(this.getTimingMassage.success){
-            this.tableData = []
+            this.tableTwoData = []
             window.swal.fire(
               "O'chirildi!",
               "Ma'lumotlaringiz o'chirildi."
