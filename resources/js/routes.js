@@ -148,6 +148,7 @@ import AddCompletedTenders from './components/admin/completedtenders/AddComplete
 import EditCompletedTenders from './components/admin/completedtenders/EditCompletedTenders'
 
 // Protocol
+
 import Protocol from './components/admin/protocol/Protocol'
 import ProtocolList from './components/admin/protocol/ProtocolList'
 
@@ -166,11 +167,14 @@ import TenderList from './components/pages/TenderList'
 import TenderUser from './components/admin/tenderuser/TenderUser'
 import EditTenderUser from './components/admin/tenderuser/EditTenderUser'
 import SendApplication from './components/admin/tenderuser/SendApplication'
+import Contract from './components/admin/tenderuser/Contract'
+
 
 // Payment
 import Payment from './components/admin/payment/Payment'
 import EditPayment from './components/admin/payment/EditPayment'
 import AddPayment from './components/admin/payment/AddPayment'
+
 
 // NotFound
 import NotFound from './components/NotFound/NotFound'
@@ -546,6 +550,10 @@ const router = new Router({
 				{
 					path:'protocol/:tenderId',
 					component:Protocol,
+				},
+				{
+					path:'contract/:conId',
+					component:Contract,
 				},
 				{
 					path:'protocol-list',

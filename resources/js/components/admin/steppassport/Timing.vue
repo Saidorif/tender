@@ -302,8 +302,8 @@
                   <td>{{ table.end_speedometer }}</td>
                   <td>{{ table.distance_from_start_station }} </td>
                   <td>{{ table.distance_between_station }}</td>
-                  <td>{{ table.distance_in_limited_speed }}</td>
-                  <td>{{ table.spendtime_between_station }} </td>
+                  <td>{{ table.distance_in_limited_speed }} </td>
+                  <td>{{ table.spendtime_between_station }}</td>
                   <td>{{ table.spendtime_between_limited_space }}</td>
                   <td>{{ table.spendtime_to_stay_station }} </td>
                   <td>{{ table.speed_between_station }}</td>
@@ -507,15 +507,37 @@ export default {
         let dataTable = this.fullTableInfo
         this.tableTwoData = [];
         dataTable.forEach((element, index)=>{
-            element.distance_from_start_station = parseFloat(element.end_speedometer - dataTable[0].start_speedometer).toFixed(1);
-            element.distance_between_station = parseFloat(element.end_speedometer - element.start_speedometer).toFixed(1);
-            let result_spendtime_between_station = (this.toTimestamp(element.end_time) - this.toTimestamp(element.start_time)) / 60;
-            element.spendtime_between_station = parseFloat(result_spendtime_between_station).toFixed(0);
-            if(index != 0){
-                let result_spendtime_to_stay_station = (this.toTimestamp(element.start_time) - this.toTimestamp(this.tableTwoData[this.tableTwoData.length - 1].end_time)) / 60;
-                element.spendtime_between_station = parseFloat(result_spendtime_to_stay_station).toFixed(0);
-                this.tableTwoData[this.tableTwoData.length - 1].spendtime_to_stay_station = result_spendtime_to_stay_station;
-            }
+            if(index == 0){
+                element.distance_from_start_station = parseFloat(
+                    element.end_speedometer - element.start_speedometer
+                ).toFixed(1);
+            }else{
+                element.distance_from_start_station = parseFloat(
+                    element.end_speedometer - this.tableTwoData[0].start_speedometer
+                ).toFixed(1);
+                let result_spendtime_to_stay_station =
+                    (this.toTimestamp(element.start_time) -
+                    this.toTimestamp(
+                        this.tableTwoData[this.tableTwoData.length - 1].end_time
+                    )) /
+                    60;
+                element.spendtime_between_station = parseFloat(
+                    result_spendtime_to_stay_station
+                ).toFixed(0);
+                this.tableTwoData[
+                    this.tableTwoData.length - 1
+                ].spendtime_to_stay_station = result_spendtime_to_stay_station;
+            } //else
+            element.distance_between_station = parseFloat(
+            element.end_speedometer - element.start_speedometer
+            ).toFixed(1);
+            let result_spendtime_between_station =
+            (this.toTimestamp(element.end_time) -
+                this.toTimestamp(element.start_time)) /
+            60;
+            element.spendtime_between_station = parseFloat(
+            result_spendtime_between_station
+            ).toFixed(0);
             this.tableTwoData.push(element);
         })
         let thisData;
