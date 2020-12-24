@@ -10,6 +10,7 @@
         <link href="{{ asset('fonts/peicon/css/peicon.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/fonts.css?version=1.1.1') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css?version=1.1.1') }}">
+        <link rel="stylesheet" href="{{ asset('css/fancybox.css?version=1.1.1') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css?version=1.1.1') }}">
 
     </head>
@@ -18,6 +19,7 @@
             <Master/>
         </div>
         <script src="{{ asset('js/app.js?version=0.0.1') }}"></script>
+        <script src="{{ asset('js/fancybox.js') }}"></script>
         <script src="{{ asset('js/print.js') }}"></script>
     </body>
 </html>

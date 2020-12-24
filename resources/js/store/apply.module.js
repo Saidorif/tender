@@ -4,6 +4,7 @@ const state = {
 	applies: {},
 	message: [],
 	inn: [],
+	email: [],
 };
 
 const getters = {
@@ -15,6 +16,9 @@ const getters = {
 	},
 	getCheckInn(state){
 		return state.inn
+	},
+	getCheckEmail(state){
+		return state.email
 	},
 };
 
@@ -47,6 +51,24 @@ const actions = {
 			return false
 		}
 	},
+	async actionCheckEmail({commit},payload){
+		try {
+			const applies =  await ApplyService.checkEmail(payload);
+			await commit('setCheckEmail',applies.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionSendApplyActive({commit},payload){
+		try {
+			const applies =  await ApplyService.activateAll(payload);
+			await commit('setCheckEmail',applies.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 };
 
 const mutations = {
@@ -58,6 +80,9 @@ const mutations = {
 	},
 	setCheckInn(state, inn){
 		state.inn = inn
+	},
+	setCheckEmail(state, email){
+		state.email = email
 	},
 };
 
