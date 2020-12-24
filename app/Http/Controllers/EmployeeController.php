@@ -66,7 +66,7 @@ class EmployeeController extends Controller
             'email' => 'required|email|unique:users,email',
         ]);
         if($validator->fails()){
-            return response()->json(['error' => true, 'message' => $validator->messages()]);
+            return response()->json(['error' => true, 'message' => 'The email has already been taken']);
         }
         return response()->json(['success' => true, 'message' => 'Электронная почта свободно для использования']);
     }
