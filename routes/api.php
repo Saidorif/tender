@@ -21,10 +21,17 @@ Route::group([
     Route::get('region/list', 'RegionController@list');
     Route::post('area/regionby', 'AreaController@regionby');
     Route::post('complaint/store', 'ComplaintController@store');
+    Route::post('getaccess', 'ClientAccessController@store');
+    Route::post('checkuser', 'UserController@checkuser');
     // Route::post('create-user', 'UserController@createUser');
     Route::get('complaintcategory/list', 'ComplaintCategoryController@list');
     Route::group(['middleware' => 'jwt.auth'], function(){
         // Route::group(['middleware' => 'permit'], function(){
+
+            //Client accesses
+            Route::post('getaccess/index', 'ClientAccessController@index');
+            Route::post('getaccess/activate', 'ClientAccessController@activate');
+            Route::post('getaccess/delete', 'ClientAccessController@destroy');
 
             //Dashboard
             Route::get('dashboard', 'DashboardController@index');

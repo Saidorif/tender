@@ -111,6 +111,26 @@ class UserController extends Controller
         return response()->json(['success' => true, 'result' => $user]);
     }
 
+    public function checkuser(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'inn' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inn = $request->input('inn');
+        $user = User::where(['inn' => $inn])->first();
+        $info = [];
+        if($user && $user->role_id == 9){
+            $info['name'] = $user->name;
+            $info['company_name'] = $user->company_name ;
+            return response()->json(['success' => true,'result'=>$info]);
+        }
+        return response()->json(['error' => true,'message' => 'No result']);
+    }
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
