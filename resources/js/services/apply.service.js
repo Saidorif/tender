@@ -5,7 +5,10 @@ const ApplyService = {
 		// return ApiService.post(`/api/apply?page=${page}`)
 	},
 	applySend(data){
-		// return ApiService.post(`/api/apply?page=${page}`,data)
+		return ApiService.post(`/api/getaccess`,data)
+	},
+	checkInn(data){
+		return ApiService.post(`/api/checkuser`,data)
 	},
 };
 

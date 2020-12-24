@@ -100,7 +100,7 @@ export default {
         await this.actionCheckInn({inn:this.form.inn});
         if(this.getCheckInn.success){
           this.showBtn = true
-          console.log(this.getCheckInn.result)
+          this.info = this.getCheckInn.result
         }else{
           toast.fire({
             type: 'error',
@@ -134,8 +134,15 @@ export default {
       this.$router.go(-1)
     },
     async send() {
-      if (this.form.inn) {
-        this.showBtn = true
+      if (this.form.inn.length == 9 && this.getCheckInn.success && this.form.file != '') {
+        await this.actionSendApply(this.form);
+        if (this.getApplyMessage.success) {
+          swal.fire({
+            type: 'success',
+            title: 'Спасибо ваша заявка принята!'
+          })
+          this.$router.push("/login");
+        }
       }
     },
   },
