@@ -55,6 +55,14 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/crm/apply">
+              <i class="peIcon fas fa-vote-yea"></i>
+              <p>
+                Доступ
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/crm/client">
               <i class="peIcon pe-7s-users"></i>
               <p>

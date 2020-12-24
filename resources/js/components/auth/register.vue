@@ -96,7 +96,7 @@
             />
             <label  for="trusted_person">Vakolatli shaxs</label>
           </div>
-          <div  class="input-group input_group_with_label">
+<!--           <div  class="input-group input_group_with_label">
             <input
               type="email"
               class="form-control"
@@ -105,7 +105,7 @@
               :class="isRequired(signUp.email) ? 'isRequired' : ''"
             />
             <label  for="userEmail">Email</label>
-          </div>
+          </div> -->
           <div  class="input-group input_group_with_label">
             <input
               type="text"
@@ -117,7 +117,7 @@
             />
             <label  for="phone">Telefon</label>
           </div>
-          <div  class="input-group input_group_with_label">
+<!--           <div  class="input-group input_group_with_label">
             <input
               type="password"
               class="form-control"
@@ -141,7 +141,7 @@
               @input="confirmPassword()"
             />
             <label  for="license_number">Parolni tasdiqlang</label>
-          </div>
+          </div> -->
           <div  class="input-group input_group_with_label">
             <input
               type="text"
@@ -224,7 +224,7 @@
           </div>
             <div class="btns_block">
               <div class="btn_register_block">
-                <a href="/login" class="btn_bd_blue">Tizimga kirish</a>
+                <router-link to="/login" class="btn_bd_blue">Tizimga kirish</router-link>
               </div>
               <button type="submit" class="btn_login">
                 Ro'yxatdan o'tish
@@ -282,6 +282,17 @@ export default {
       checkPassword: false,
       laoding: true
     };
+  },
+  watch:{
+    'signUp.inn':{
+      handler(){
+        if (this.signUp.inn != '') {
+          this.signUp.email = `${this.signUp.inn}@mail.ru`
+          this.signUp.password = this.signUp.inn
+          this.signUp.confirm_password = this.signUp.inn
+        }
+      },deep: true
+    }
   },
   computed: {
     ...mapGetters([

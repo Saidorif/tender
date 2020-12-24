@@ -10,6 +10,7 @@ import Dashboard from './components/admin/Dashboard'
 import Admin from './components/admin/layouts/Admin'
 import Master from './components/layouts/Master'
 import Login from './components/auth/login'
+import sendApply from './components/auth/sendApply'
 import Register from './components/auth/register'
 import Forgot from './components/auth/forgot'
 import Profile from './components/admin/user/Profile'
@@ -148,9 +149,11 @@ import AddCompletedTenders from './components/admin/completedtenders/AddComplete
 import EditCompletedTenders from './components/admin/completedtenders/EditCompletedTenders'
 
 // Protocol
-
 import Protocol from './components/admin/protocol/Protocol'
 import ProtocolList from './components/admin/protocol/ProtocolList'
+
+// apply
+import Apply from './components/admin/apply/Apply'
 
 // CheckControl
 import CheckControl from './components/admin/checkcontrol/CheckControl'
@@ -161,6 +164,7 @@ import EditCheckControl from './components/admin/checkcontrol/EditCheckControl'
 import Home from './components/pages/Home'
 import Contact from './components/pages/Contact'
 import About from './components/pages/About'
+import CheckContract from './components/pages/CheckContract'
 import TenderList from './components/pages/TenderList'
 
 // TenderUser
@@ -559,6 +563,10 @@ const router = new Router({
 					path:'protocol-list',
 					component:ProtocolList,
 				},
+				{
+					path:'apply',
+					component:Apply,
+				},
 			]
 		},
 		{
@@ -580,6 +588,13 @@ const router = new Router({
 					name:'login',
 					components:{
 						default:Login,
+					},
+				},
+				{
+					path:'/send-apply',
+					name:'sendApply',
+					components:{
+						default:sendApply,
 					},
 				},
 				{
@@ -608,6 +623,13 @@ const router = new Router({
 					name:'about',
 					components:{
 						default:About,
+					},
+				},
+				{
+					path:'/checkcontract',
+					name:'checkcontract',
+					components:{
+						default:CheckContract,
 					},
 				},
 				{

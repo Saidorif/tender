@@ -26,8 +26,8 @@
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn_register_block">
-                <a href="/forgot" class="btn_forgot">Parolingizni  unutdingizmi?</a>
-                <a href="/register" class="btn_bd_blue">Ro'yxatdan o'tish</a>
+                <router-link to="/send-apply" tag="a" class="btn_forgot text-success">Получить доступ!</router-link>
+                <router-link to="/register" class="btn_bd_blue">Ro'yxatdan o'tish</router-link>
               </div>
                 <button type="submit" class="btn_login">
                   Kirish

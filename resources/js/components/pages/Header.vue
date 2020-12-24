@@ -10,6 +10,9 @@
                     <router-link to="/about">{{ $t('menu.about_tender') }}</router-link>
                 </li>
                 <li>
+                    <router-link to="/checkcontract">{{ $t('menu.check_contract') }}</router-link>
+                </li>
+                <li>
                     <router-link to="/list-tender"> {{ $t('menu.conducted_tenders') }}</router-link>
                 </li>
                 <li>
