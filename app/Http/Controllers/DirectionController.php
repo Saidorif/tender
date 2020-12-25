@@ -254,7 +254,7 @@ class DirectionController extends Controller
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
         $ptimings = $direction->timing->toArray();
-        $total_result;
+        $total_result = [];
         $test = [];
         foreach($direction->passport_tarif as $index => $passportTarif){
             // return $passportTarif;
