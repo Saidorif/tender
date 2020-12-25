@@ -68,4 +68,18 @@ class PassportTiming extends Model
     {
         return $this->belongsTo(\App\Station::class,'station_to_id');
     }
+
+    public function getDetailsAttribute($value)
+    {
+        $details = json_decode($value);
+        foreach($details as $k => $value){
+            if(is_integer($value->name)){
+                $c_sign = ConditionalSign::find($value->name);
+                if($c_sign){
+                    $value->sign = $c_sign;
+                }
+            }
+        }
+        return $details;
+    }
 }

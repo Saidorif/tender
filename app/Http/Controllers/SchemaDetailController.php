@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\SchemaDetail;
 use App\Direction;
+use Carbon\Carbon;
 
 class SchemaDetailController extends Controller
 {
@@ -54,6 +55,7 @@ class SchemaDetailController extends Controller
         }
         $inputs = $request->input('data');
         foreach ($inputs as $key => $value) {
+            $value['date'] = Carbon::parse($value['date'])->format('Y-m-d');
             $value['direction_id'] = $direction->id;
             $result = SchemaDetail::create($value);
         }

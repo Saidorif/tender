@@ -55,7 +55,7 @@
               <b v-if="titulData.timing_with"
                 >{{
                   titulData.timing_with[titulData.timing_with.length - 1]
-                    .end_speedometer
+                    .distance_from_start_station
                 }}
                 km</b
               >

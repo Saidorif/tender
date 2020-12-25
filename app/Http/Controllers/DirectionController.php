@@ -12,6 +12,7 @@ use App\DirectionCar;
 use App\ReysTime;
 use App\DirectionReq;
 use App\Area;
+use App\PassportTarif;
 use Validator;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
@@ -288,6 +289,25 @@ class DirectionController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    //Store direction tarifs
+    public function storeTarif(Request $request,$id)
+    {
+        $validator = Validator::make($request->all(), [            
+            'summa'  => 'required|integer',
+            'summa_bagaj'  => 'required|integer',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+
+        $inputs = $request->all();
+        $inputs['direction_id'] = $id;
+        $inputs['status'] = 'pending';
+        $passport_tarif = PassportTarif::create($inputs);
+        return response()->json(['success' => true, 'message' => 'Passport tarif created successfully']);
+    }
+
     public function schedule(Request $request,$id)
     {
         $validator = Validator::make($request->all(), [            
@@ -332,6 +352,7 @@ class DirectionController extends Controller
         $from = $direction->regionFrom->name;
         $to = $direction->regionTo->name;
         //Get data and store
+        // return $inputs;
 
         foreach ($inputs['whereFrom']['reyses'] as $key => $reyses_from) {
             $where_type = 'region';
@@ -365,7 +386,7 @@ class DirectionController extends Controller
                 ]);
             }
         }
-        foreach ($inputs['whereTo']['reyses'] as $key => $reyses_from) {
+        foreach ($inputs['whereTo']['reyses'] as $key => $reyses_to) {
             $where_type = 'region';
             if (array_key_exists('region_id', $inputs['whereTo']['where'])) {
                 $where_type = 'area';
@@ -386,11 +407,11 @@ class DirectionController extends Controller
                 'reys_from_count'=> $inputs['reys_from_count'],
                 'reys_to_count'  => $inputs['reys_to_count'],
             ]);
-            foreach ($reyses_from as $key => $item) {
+            foreach ($reyses_to as $key => $to_item) {
                 $reysTime = ReysTime::create([
-                    'start' => $item['start'],
-                    'end' => $item['end'],
-                    'where' => $item['where'],
+                    'start' => $to_item['start'],
+                    'end' => $to_item['end'],
+                    'where' => $to_item['where'],
                     'status' => 'active',
                     'direction_id' => $direction->id,
                     'reys_id' => $reys->id,
@@ -427,7 +448,7 @@ class DirectionController extends Controller
             $reys_times = $reys_from->reysTimes;
             $result['whereFrom'][] = $reys_from;
         }
-        foreach ($reysesTo as $key => $reys_to) {
+        foreach ($reysesTo as $reys_to) {
             $reys_times = $reys_to->reysTimes;
             $result['whereTo'][] = $reys_to;
         }
