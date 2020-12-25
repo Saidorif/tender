@@ -246,6 +246,8 @@ import Loader from '../../Loader'
 				            title: this.getMsg.message
 			          	});
 					}
+					this.confirm.summa = ''
+					this.confirm.summa_bagaj = ''
 					this.requiredInput = false
 				}else{
 					this.requiredInput = true
