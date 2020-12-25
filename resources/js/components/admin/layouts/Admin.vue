@@ -134,6 +134,14 @@
             </ul>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/crm/confirm-tarif">
+              <i class="peIcon fas fa-clipboard-check"></i>
+              <p>
+                Подтвердить тариф
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/crm/confirm-tender">
               <i class="peIcon fas fa-clipboard-check"></i>
               <p>
