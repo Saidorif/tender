@@ -10,11 +10,17 @@ class PassportTarif extends Model
         'direction_id',
         'status',
         'summa',
-        'summa_bagaj'
+        'summa_bagaj',
+        'approved_id',
     ];
 
     public function direction()
     {
         return $this->belongsTo(\App\Direction::class,'direction_id');
+    }
+    
+    public function approved()
+    {
+        return $this->belongsTo(\App\User::class,'approved_id');
     }
 }

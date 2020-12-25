@@ -107,6 +107,10 @@ class Direction extends Model
     {
         return $this->hasOne(\App\DirectionReq::class,'direction_id')->with(['type']);
     }
-
-
+    
+    public function passport_tarif()
+    {
+        return $this->hasMany(\App\PassportTarif::class,'direction_id');
+    }
+    
 }

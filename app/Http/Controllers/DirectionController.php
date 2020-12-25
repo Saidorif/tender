@@ -254,39 +254,46 @@ class DirectionController extends Controller
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
         $ptimings = $direction->timing->toArray();
-        $result = [];
+        $total_result;
         $test = [];
-        for ($i=0; $i < count($ptimings); $i++) {
-            foreach ($ptimings as $key => $timing) {
-                $result[$key]['ddd'][] = (int)$timing['distance_from_start_station'];
-                if($key != 0){
-                    $distance_test = array_sum($result[$key]['ddd']);
-                }else{
-                    $distance_test = (int)$timing['distance_from_start_station'];
-                }
-                if($ptimings[$i]['whereForm']['name'] == $timing['whereTo']['name'] || $i > $key){
-                    $distance_test += (int)$timing['distance_from_start_station'];
-                    $result[$i][$key]['from_name'] = '';
-                    $result[$i][$key]['to_name'] = '';
-                    $result[$i][$key]['distance'] = '';
-                    $result[$i][$key]['distance_test'] = '';
-                    $result[$i][$key]['summa'] = 65;
-                    $result[$i][$key]['summa_bagaj'] = 35;
-                    $result[$i][$key]['tarif'] = '';
-                    $result[$i][$key]['tarif_bagaj'] = '';
-                }else{
-                    $result[$i][$key]['from_name'] = $ptimings[$i]['whereForm']['name'];
-                    $result[$i][$key]['to_name'] = $timing['whereTo']['name'];
-                    $result[$i][$key]['distance'] = (int)$timing['distance_from_start_station'];
-                    $result[$i][$key]['distance_test'] = $distance_test;
-                    $result[$i][$key]['summa'] = 65;
-                    $result[$i][$key]['summa_bagaj'] = 35;
-                    $result[$i][$key]['tarif'] = $result[$i][$key]['summa'] * $result[$i][$key]['distance_test'];
-                    $result[$i][$key]['tarif_bagaj'] = $result[$i][$key]['summa_bagaj'] * $result[$i][$key]['distance_test'];
+        foreach($direction->passport_tarif as $index => $passportTarif){
+            // return $passportTarif;
+            $summa = $passportTarif->summa;
+            $summa_bagaj = $passportTarif->summa_bagaj;
+            $result = [];
+            for ($i=0; $i < count($ptimings); $i++) {
+                foreach ($ptimings as $key => $timing) {
+                    $result[$key]['ddd'][] = (int)$timing['distance_from_start_station'];
+                    if($key != 0){
+                        $distance_test = array_sum($result[$key]['ddd']);
+                    }else{
+                        $distance_test = (int)$timing['distance_from_start_station'];
+                    }
+                    if($ptimings[$i]['whereForm']['name'] == $timing['whereTo']['name'] || $i > $key){
+                        $distance_test += (int)$timing['distance_from_start_station'];
+                        $result[$i][$key]['from_name'] = '';
+                        $result[$i][$key]['to_name'] = '';
+                        $result[$i][$key]['distance'] = '';
+                        $result[$i][$key]['distance_test'] = '';
+                        $result[$i][$key]['summa'] = $summa;
+                        $result[$i][$key]['summa_bagaj'] = $summa_bagaj;
+                        $result[$i][$key]['tarif'] = '';
+                        $result[$i][$key]['tarif_bagaj'] = '';
+                    }else{
+                        $result[$i][$key]['from_name'] = $ptimings[$i]['whereForm']['name'];
+                        $result[$i][$key]['to_name'] = $timing['whereTo']['name'];
+                        $result[$i][$key]['distance'] = (int)$timing['distance_from_start_station'];
+                        $result[$i][$key]['distance_test'] = $distance_test;
+                        $result[$i][$key]['summa'] = $summa;
+                        $result[$i][$key]['summa_bagaj'] = $summa_bagaj;
+                        $result[$i][$key]['tarif'] = $result[$i][$key]['summa'] * $result[$i][$key]['distance_test'];
+                        $result[$i][$key]['tarif_bagaj'] = $result[$i][$key]['summa_bagaj'] * $result[$i][$key]['distance_test'];
+                    }
                 }
             }
+            $total_result[] = $result;
         }
-        return response()->json(['success' => true, 'result' => $result]);
+        return response()->json(['success' => true, 'result' => $total_result]);
     }
 
     //Store direction tarifs
