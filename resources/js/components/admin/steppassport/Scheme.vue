@@ -156,6 +156,7 @@ export default {
     this.laoding = false
     this.titulData = this.getDirection
     this.schemeData = this.titulData ? this.titulData.timing_with : [];
+    this.agreedData = this.titulData.schema_details;
   },
   computed: {
     ...mapGetters("direction", ["getDirection"]),

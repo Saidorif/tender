@@ -280,6 +280,7 @@ export default {
     await this.actionGetScheduleTable(this.$route.params.directionId);
     this.laoding = false
       this.titulData = this.getDirection;
+      console.log(this.getSchedule)
 
     if(this.getSchedule.whereFrom.length && this.getSchedule.whereTo.length){
       this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
@@ -296,7 +297,8 @@ export default {
       this.form.count_bus = this.getSchedule.whereFrom[0].count_bus
       this.form.reys_from_count = this.getSchedule.whereFrom[0].reys_from_count
       this.form.reys_to_count = this.getSchedule.whereFrom[0].reys_to_count
-
+      this.form.whereFrom.from = this.titulData.timing_with[0].whereForm;
+      this.form.whereTo.from =  this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
     }else{
       this.form.whereFrom.where = this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
       this.form.whereTo.where = this.titulData.timing_with[0].whereForm;
