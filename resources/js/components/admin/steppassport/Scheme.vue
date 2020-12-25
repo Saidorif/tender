@@ -23,32 +23,8 @@
                 <template>
                   <div class="icon_item" v-if="ch_item.count.length < 3">
                     <img
-                      v-if="ch_item.name == 'railway'"
-                      src="/img/tr_tracks.jpg"
-                      :key="'icon'+p_index+ch_index"
-                      width="30"
-                    />
-                    <img
-                      v-if="ch_item.name == 'bridge'"
-                      src="/img/bridge.png"
-                      :key="'icon'+p_index+ch_index"
-                      width="30"
-                    />
-                    <img
-                      v-if="ch_item.name == 'food'"
-                      src="/img/eat.png"
-                      :key="'icon'+p_index+ch_index"
-                      width="30"
-                    />
-                    <img
-                      v-if="ch_item.name == 'rest'"
-                      src="/img/hotel.png"
-                      :key="'icon'+p_index+ch_index"
-                      width="30"
-                    />
-                    <img
-                      v-if="ch_item.name == 'danger'"
-                      src="/img/danger.png"
+                        v-if="ch_item.photo"
+                      :src="'/signs/'+ch_item.photo"
                       :key="'icon'+p_index+ch_index"
                       width="30"
                     />
