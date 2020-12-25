@@ -8,7 +8,7 @@
 	  		<div class="card-body">
 				<div class="tarif_column">
 					<div class="add_to_table">
-						<div class="table-responsive">
+			<!-- 			<div class="table-responsive">
 					  		<table class="table table-bordered">
 				  				<thead>
 					  				<tr>
@@ -35,6 +35,36 @@
 					  				Сохранить
 					  			</button>
 				  			</div>
+			  			</div> -->
+					</div>
+					<div class="confirm_tarif_default">
+						<div class="form-group">
+							<label for="summa" class="form-control-label">Тариф</label>
+							<input 
+								type="number" 
+								id="summa" 
+								class="form-control" 
+								v-model="confirm.summa" 
+								placeholder="тариф" 
+								:class="isRequired(confirm.summa) ? 'isRequired' : ''"
+							/>
+						</div>
+						<div class="form-group">
+							<label for="summa_bagaj" class="form-control-label">Сумма багажа</label>
+							<input 
+								type="number" 
+								id="summa_bagaj" 
+								class="form-control ml-2" 
+								v-model="confirm.summa_bagaj" 
+								placeholder="Сумма багажа" 
+								:class="isRequired(confirm.summa_bagaj) ? 'isRequired' : ''"
+							/>
+						</div>
+						<div class="btn_send">
+				  			<button type="button" class="btn btn-info" @click.prevent="sendTarif">
+				  				<i class="far fa-paper-plane"></i>
+				  				Отправить
+				  			</button>
 			  			</div>
 					</div>
 				  	<form class="row tabRow">
@@ -100,7 +130,12 @@ import Loader from '../../Loader'
 					user_id:1,
 					summa:''
 				},
-				laoding: true
+				confirm:{
+					summa:'',
+					summa_bagaj:'',
+				},
+				requiredInput: false,
+				laoding: true,
 			}
 		},
 		watch:{
@@ -187,11 +222,35 @@ import Loader from '../../Loader'
 		},
 		computed:{
 			...mapGetters("direction", ["getDirection"]),
-			...mapGetters("passportTab", ["getTarif"]),
+			...mapGetters("passportTab", ["getTarif",'getMsg']),
 		},
 		methods:{
-			...mapActions("passportTab", ["actionTarif"]),
+			...mapActions("passportTab", ["actionTarif",'actionTarifConfirm']),
 			...mapActions("direction", ["actionEditDirection"]),
+			isRequired(input) {
+		      return this.requiredInput && input === "";
+		    },
+			async sendTarif(){
+				if (this.confirm.summa != '' && this.confirm.summa_bagaj != ''){
+					let data = {
+						id:this.$route.params.directionId,
+						summa:this.confirm.summa,
+						summa_bagaj:this.confirm.summa_bagaj,
+					}
+					await this.actionTarifConfirm(data)
+					if (this.getMsg.success){
+			          	await this.actionTarif(this.$route.params.directionId);
+						toast.fire({
+				            type: "success",
+				            icon: "success",
+				            title: this.getMsg.message
+			          	});
+					}
+					this.requiredInput = false
+				}else{
+					this.requiredInput = true
+				}
+			},
 			addToTable(){
 				if(this.form.user_id != '' && this.form.summa != ''){
 
@@ -234,5 +293,14 @@ import Loader from '../../Loader'
 	}
 	.add_to_table{
 	    margin-bottom:40px;
+	}
+	.confirm_tarif_default{
+	    display: flex;
+	    justify-content: flex-end;
+	    align-items: center;
+	}
+	.confirm_tarif_default .btn{
+		margin-left:20px;
+		margin-top:10px;
 	}
 </style>
