@@ -332,6 +332,7 @@ class DirectionController extends Controller
         $from = $direction->regionFrom->name;
         $to = $direction->regionTo->name;
         //Get data and store
+        // return $inputs;
 
         foreach ($inputs['whereFrom']['reyses'] as $key => $reyses_from) {
             $where_type = 'region';
@@ -365,7 +366,7 @@ class DirectionController extends Controller
                 ]);
             }
         }
-        foreach ($inputs['whereTo']['reyses'] as $key => $reyses_from) {
+        foreach ($inputs['whereTo']['reyses'] as $key => $reyses_to) {
             $where_type = 'region';
             if (array_key_exists('region_id', $inputs['whereTo']['where'])) {
                 $where_type = 'area';
@@ -386,11 +387,11 @@ class DirectionController extends Controller
                 'reys_from_count'=> $inputs['reys_from_count'],
                 'reys_to_count'  => $inputs['reys_to_count'],
             ]);
-            foreach ($reyses_from as $key => $item) {
+            foreach ($reyses_to as $key => $to_item) {
                 $reysTime = ReysTime::create([
-                    'start' => $item['start'],
-                    'end' => $item['end'],
-                    'where' => $item['where'],
+                    'start' => $to_item['start'],
+                    'end' => $to_item['end'],
+                    'where' => $to_item['where'],
                     'status' => 'active',
                     'direction_id' => $direction->id,
                     'reys_id' => $reys->id,

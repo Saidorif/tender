@@ -17,9 +17,9 @@ class CreateReysTimesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('reys_id');
             $table->bigInteger('direction_id')->nullable();
-            $table->string('start');
+            $table->string('start')->nullable();
             $table->string('where')->nullable();
-            $table->string('end');
+            $table->string('end')->nullable();
             $table->string('status')->default('active');
             $table->timestamps();
         });
