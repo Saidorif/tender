@@ -23,8 +23,8 @@
                 <template>
                   <div class="icon_item" v-if="ch_item.count.length < 3">
                     <img
-                        v-if="ch_item.photo"
-                      :src="'/signs/'+ch_item.photo"
+                        v-if="ch_item.sign"
+                      :src="'/signs/'+ch_item.sign.photo"
                       :key="'icon'+p_index+ch_index"
                       width="30"
                     />
@@ -57,35 +57,11 @@
                   </div>
                   <span>To'xtash joylari</span>
               </li>
-              <li>
+              <li v-for="(sign) in getConditionalSignList">
                 <div class="icon_item">
-                  <img src="/img/tr_tracks.jpg" width="30" />
+                  <img :src="'/signs/'+sign.photo" width="30" />
                 </div>
-                <span>Temir yo'lni kesib o'tish joylari</span>
-              </li>
-              <li>
-                <div class="icon_item">
-                  <img src="/img/bridge.png" width="30" />
-                </div>
-                <span>Kesishgan yol ustidan otkazilgan kondalang yollar</span>
-              </li>
-              <li>
-                <div class="icon_item">
-                  <img src="/img/eat.png" width="30" />
-                </div>
-                <span>Ovqatlanish joylari</span>
-              </li>
-              <li>
-                <div class="icon_item">
-                  <img src="/img/hotel.png" width="30" />
-                </div>
-                <span>Dam olish joylari</span>
-              </li>
-              <li>
-                <div class="icon_item">
-                  <img src="/img/danger.png" width="30" />
-                </div>
-                <span> Harkatlanish uchun xafli bo'lgan yo'l uchastkalari</span>
+                <span>{{sign.name}}</span>
               </li>
             </ul>
           </div>
@@ -176,18 +152,20 @@ export default {
   },
   async mounted() {
     await this.actionEditDirection(this.$route.params.directionId);
+    await this.actionConditionalSignList();
     this.laoding = false
     this.titulData = this.getDirection
     this.schemeData = this.titulData ? this.titulData.timing_with : [];
-    console.log(this.schemeData)
   },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
     ...mapGetters("passportTab", ["getMsg"]),
+    ...mapGetters("conditionalsign", ["getConditionalSignList"]),
   },
   methods: {
     ...mapActions("passportTab", ["actionAddTiming", "actionAddSchemadetail"]),
     ...mapActions("direction", ["actionEditDirection"]),
+    ...mapActions("conditionalsign", ["actionConditionalSignList"]),
     async saveData() {
       if(this.agreedData.length){
         this.laoding = true

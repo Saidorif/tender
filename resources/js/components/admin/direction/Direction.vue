@@ -17,7 +17,6 @@
 							<th scope="col">№</th>
 							<th scope="col">Название направления</th>
 							<th scope="col">Номер направления</th>
-							<th scope="col">Расстояние направления (м)</th>
 							<th scope="col">Год создания</th>
 							<th scope="col">Действия</th>
 						</tr>
@@ -27,7 +26,6 @@
 							<td scope="row">{{direct.id}}</td>
 							<td>{{direct.name}}</td>
 							<td>{{direct.pass_number}}</td>
-							<td>{{direct.distance}}</td>
 							<td>{{direct.year}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/direction/edit/${direct.id}`'>
