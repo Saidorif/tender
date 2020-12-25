@@ -19,7 +19,7 @@ class CreatePassportTarifsTable extends Migration
             $table->string('status')->default('pending');
             $table->double('summa',15,2);
             $table->double('summa_bagaj',15,2);
-            $table->bigInteger('approved')->nullable();
+            $table->bigInteger('approved_id')->nullable();
             $table->timestamps();
         });
     }
