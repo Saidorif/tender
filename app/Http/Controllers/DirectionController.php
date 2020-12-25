@@ -427,7 +427,7 @@ class DirectionController extends Controller
             $reys_times = $reys_from->reysTimes;
             $result['whereFrom'][] = $reys_from;
         }
-        foreach ($reysesTo as $key => $reys_to) {
+        foreach ($reysesTo as $reys_to) {
             $reys_times = $reys_to->reysTimes;
             $result['whereTo'][] = $reys_to;
         }
