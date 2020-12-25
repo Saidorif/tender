@@ -21,7 +21,7 @@
 
               <template v-for="(ch_item, ch_index) in p_item.details">
                 <template>
-                  <div class="icon_item">
+                  <div class="icon_item" v-if="ch_item.count.length < 3">
                     <img
                       v-if="ch_item.name == 'railway'"
                       src="/img/tr_tracks.jpg"
@@ -52,7 +52,7 @@
                       :key="'icon'+p_index+ch_index"
                       width="30"
                     />
-                    <sup>{{ch_item.count}}</sup>
+                    <sup>{{ch_item.count}} </sup>
                   </div>
                 </template>
               </template>
@@ -203,6 +203,7 @@ export default {
     this.laoding = false
     this.titulData = this.getDirection
     this.schemeData = this.titulData ? this.titulData.timing_with : [];
+    console.log(this.schemeData)
   },
   computed: {
     ...mapGetters("direction", ["getDirection"]),

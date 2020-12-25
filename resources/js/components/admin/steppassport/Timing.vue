@@ -129,9 +129,9 @@
               <select class="form-control input_style" v-model="detail.name" >
                 <option
                   v-for="(s_item,s_index) in form.detailsOptions"
-                  :value="s_item.code"
+                  :value="s_item.id"
                   :key="s_index"
-                >{{s_item.title}}</option>
+                >{{s_item.name}}</option>
               </select>
               <input type="text" v-model="detail.count"  class="form-control input_style"  />
               <button
@@ -300,7 +300,7 @@
                   <td>{{ table.whereForm ? table.whereForm.name  : '' }} {{ table.whereTo ? table.whereTo.name  : '' }}</td>
                   <td>{{ table.start_speedometer }}</td>
                   <td>{{ table.end_speedometer }}</td>
-                  <td>{{ table.distance_from_start_station }} </td>
+                  <td>{{ table.distance_from_start_station }}</td>
                   <td>{{ table.distance_between_station }}</td>
                   <td>{{ table.distance_in_limited_speed }} </td>
                   <td>{{ table.spendtime_between_station }}</td>
@@ -388,13 +388,7 @@ export default {
             areaTo: [],
             whereForm: '',
             whereTo: '',
-            detailsOptions: [
-            { title: "Xafli yo'l uchastkalari", code: 'danger'},
-            { title: "Temir yol", code: 'railway' },
-            { title: "kesishgan yol ustidan otkazilgan kondalang yollar", code: 'bridge'},
-            { title: "dam olish joylari", code: 'rest'},
-            { title: "ovqatlanish joylari", code: 'food'},
-            ],
+            detailsOptions: [],
         },
         timingDetails: {
             date: "",
@@ -419,6 +413,8 @@ export default {
   async mounted() {
     await this.actionEditDirection(this.$route.params.directionId);
     await this.actionRegionList();
+    await this.actionConditionalSignList();
+    this.form.detailsOptions = this.getConditionalSignList;
     this.laoding = false
     this.titulData = this.getDirection
     this.timingDetails = this.titulData.timing_details.length ? this.titulData.timing_details[0] : this.timingDetails
@@ -435,6 +431,7 @@ export default {
   },
   computed: {
     ...mapGetters("region", ["getRegionList"]),
+    ...mapGetters("conditionalsign", ["getConditionalSignList"]),
     ...mapGetters("area", ["getAreaList"]),
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("passportTab", ["getTimingMassage"]),
@@ -442,6 +439,7 @@ export default {
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
+    ...mapActions("conditionalsign", ["actionConditionalSignList"]),
     ...mapActions("station", ["actionStationByRegion"]),
     ...mapActions("area", ["actionAreaByRegion"]),
     ...mapActions("direction", ["actionEditDirection"]),
@@ -568,11 +566,7 @@ export default {
             areaTo: [],
             whereForm: this.fullTableInfo[this.fullTableInfo.length - 1].whereTo,
             whereTo: "",
-            detailsOptions: [
-            { title: "ASF", code: 'road'},
-            { title: "Koprik", code: 'bridge'},
-            { title: "Temir yol", code: 'railway' },
-            ],
+            detailsOptions: this.getConditionalSignList,
         };
         this.form = thisData;
     },

@@ -27,7 +27,7 @@ const actions = {
 	async actionConditionalSignList({commit}){
 		try {
 			const conditionalsigns =  await ConditionalSignService.conditionalsignList();
-			await commit('setRegionList',conditionalsigns.data.result)
+			await commit('setConditionalSignList',conditionalsigns.data.result)
 			return true
 		} catch (error) {
 			return false
@@ -81,7 +81,7 @@ const actions = {
 };
 
 const mutations = {
-	actionConditionalSignList(state, conditionalsignlist){
+	setConditionalSignList(state, conditionalsignlist){
 		state.conditionalsignlist = conditionalsignlist
 	},
 	setConditionalSigns(state, conditionalsigns){
