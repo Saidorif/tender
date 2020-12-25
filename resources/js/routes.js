@@ -143,6 +143,11 @@ import ConfirmTender from './components/admin/confirmtender/ConfirmTender'
 import AddConfirmTender from './components/admin/confirmtender/AddConfirmTender'
 import EditConfirmTender from './components/admin/confirmtender/EditConfirmTender'
 
+// ConfirmTarif
+import ConfirmTarif from './components/admin/confirmtarif/ConfirmTarif'
+import AddConfirmTarif from './components/admin/confirmtarif/AddConfirmTarif'
+import EditConfirmTarif from './components/admin/confirmtarif/EditConfirmTarif'
+
 // CompletedTenders
 import CompletedTenders from './components/admin/completedtenders/CompletedTenders'
 import AddCompletedTenders from './components/admin/completedtenders/AddCompletedTenders'
@@ -526,6 +531,18 @@ const router = new Router({
 				{
 					path:'confirm-tender/edit/:tenderannounceId',
 					component:EditConfirmTender,
+				},
+				{
+					path:'confirm-tarif',
+					component:ConfirmTarif,
+				},
+				{
+					path:'confirm-tarif/add',
+					component:AddConfirmTarif,
+				},
+				{
+					path:'confirm-tarif/edit/:tarifannounceId',
+					component:EditConfirmTarif,
 				},
 				{
 					path:'payment',

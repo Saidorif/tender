@@ -6,7 +6,7 @@
 			    	<i class="peIcon fas fa-clipboard-check"></i>
 				    Подтвердить тендер
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/action"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/confirm-tender"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveAction" >
