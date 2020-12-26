@@ -126,10 +126,10 @@
             </div>
             <div class="form-group col-md-6 triple_input" v-for="(detail,p_index) in form.details">
               <label>Qatnov yoli xaqidagi malumotlar</label>
-              <select class="form-control input_style" v-model="detail.name" >
+              <select class="form-control input_style" v-model="detail.sign" @change="signSelect(detail)" >
                 <option
                   v-for="(s_item,s_index) in form.detailsOptions"
-                  :value="s_item.id"
+                  :value="s_item"
                   :key="s_index"
                 >{{s_item.name}}</option>
               </select>
@@ -310,7 +310,7 @@
                   <td>{{ table.speed_between_limited_space }}</td>
                   <td class="detail_td">
                     <span v-for="(detail) in table.details">
-                      {{detail.name }} {{ detail.count}}
+                      {{detail.sign ? detail.sign.name : '' }} {{detail.count}}
                       <b>,</b>
                     </span>
                   </td>
@@ -480,6 +480,9 @@ export default {
       this.technic_speed = parseFloat(this.technic_speed).toFixed(1)
       this.traffic_speed = parseFloat(this.traffic_speed).toFixed(1)
     },
+    signSelect(detail){
+        detail.name = detail.sign.id
+    },
     addItem() {
       if (
         this.form.start_time != "" &&
@@ -538,6 +541,7 @@ export default {
             ).toFixed(0);
             this.tableTwoData.push(element);
         })
+        console.log(this.fullTableInfo)
         let thisData;
         thisData = {
             direction_id: this.$route.params.directionId,

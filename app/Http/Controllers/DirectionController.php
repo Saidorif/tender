@@ -291,7 +291,10 @@ class DirectionController extends Controller
                     }
                 }
             }
-            $total_result[] = $result;
+            $total_result[] = [
+                'items' => $result,
+                'tarif' => $passportTarif
+            ];
         }
         return response()->json(['success' => true, 'result' => $total_result]);
     }
