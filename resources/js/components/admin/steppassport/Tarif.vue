@@ -8,34 +8,6 @@
 	  		<div class="card-body">
 				<div class="tarif_column">
 					<div class="add_to_table">
-			<!-- 			<div class="table-responsive">
-					  		<table class="table table-bordered">
-				  				<thead>
-					  				<tr>
-					  					<th>№ т/р</th>
-					  					<th>Ф.И.О</th>
-					  					<th>Таклиф</th>
-					  					<th>Сумма</th>
-					  				</tr>
-					  			</thead>
-					  			<tbody>
-					  				<tr>
-					  					<td>1</td>
-					  					<td>Familiya Ism Sharif</td>
-					  					<td>550</td>
-					  					<td width="25%">
-					  						<input type="number" v-model="form.summa" class="form-control">
-					  					</td>
-					  				</tr>
-			  					</tbody>
-				  			</table>
-				  			<div class="btn_send d-flex justify-content-end">
-					  			<button type="button" class="btn btn-primary" @click.prevent="saveData">
-					  				<i class="fas fa-save"></i>
-					  				Сохранить
-					  			</button>
-				  			</div>
-			  			</div> -->
 					</div>
 					<div class="confirm_tarif_default">
 						<div class="form-group">
@@ -69,7 +41,8 @@
 					</div>
 				  	<form class="row tabRow">
 				  		<h1>Yo'l kira haqi jadvali {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
-				  		<div class="table-responsive">
+				  		<div class="table-responsive" v-for="(t_item,t_index) in getTarif">
+				  			<h4>{{t_index+1}})</h4>
 					  		<table class="table table-bordered ">
 					  			<thead>
 					  				<tr>
@@ -83,7 +56,7 @@
 					  				</tr>
 					  			</thead>
 					  			<tbody>
-					  				<tr v-for="(items,index) in getTarif">
+					  				<tr v-for="(items,index) in t_item">
 					  					<td>{{index+1}}</td>
 					  					<td>{{items[index].from_name}}</td>
 					  					<template v-for="(item,key) in items">
