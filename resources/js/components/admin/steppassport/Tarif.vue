@@ -42,7 +42,21 @@
 				  	<form class="row tabRow">
 				  		<h1>Yo'l kira haqi jadvali {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
 				  		<div class="table-responsive" v-for="(t_item,t_index) in getTarif">
-				  			<h4>{{t_index+1}})</h4>
+				  			<div class="d-flex align-items-center w-50 justify-content-between">
+				  				<h4>{{t_index+1}})</h4>
+				  				<div class="alert " :class="getStatusClass(t_item.tarif.status)">
+				  					{{getStatusName(t_item.tarif.status)}}
+				  				</div>
+				  				<div class="">
+				  					Сумма: <b>{{t_item.tarif.summa}}</b>
+				  				</div>
+				  				<div class="">
+				  					Сумма багажа: <b>{{t_item.tarif.summa_bagaj}}</b>
+				  				</div>
+				  				<div class="">
+				  					Дата тарифа: <b>{{t_item.tarif.created_at}}</b>
+				  				</div>
+				  			</div>
 					  		<table class="table table-bordered ">
 					  			<thead>
 					  				<tr>
@@ -56,9 +70,9 @@
 					  				</tr>
 					  			</thead>
 					  			<tbody>
-					  				<tr v-for="(items,index) in t_item">
+					  				<tr v-for="(items,index) in t_item.items">
 					  					<td>{{index+1}}</td>
-					  					<td>{{items[index].from_name}}</td>
+					  					<td>{{items[index].from_name ? items[index].from_name : ''}}</td>
 					  					<template v-for="(item,key) in items">
 					  						<td v-if="item.tarif">
 					  							<div class="tarifs tarif">
@@ -202,6 +216,20 @@ import Loader from '../../Loader'
 			...mapActions("direction", ["actionEditDirection"]),
 			isRequired(input) {
 		      return this.requiredInput && input === "";
+		    },
+		    getStatusClass(status){
+		    	if (status == 'pending') {
+		    		return 'alert-warning'
+		    	}else{
+		    		return 'alert-primary'
+		    	}
+		    },
+		    getStatusName(status){
+		    	if (status == 'pending') {
+		    		return 'В ожидании'
+		    	}else{
+		    		return status
+		    	}
 		    },
 			async sendTarif(){
 				if (this.confirm.summa != '' && this.confirm.summa_bagaj != ''){
