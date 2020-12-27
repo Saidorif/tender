@@ -66,11 +66,10 @@
                             </router-link>
                           </td>
                           <td class="without_padding">
-                            <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                contract
-                              </li>
-                            </ul>
+                            <router-link class="" tag="a" :to="`/crm/contract/${$route.params.tenderId}`">
+                              <i class="fas fa-edit"></i>
+                              Контракт
+                            </router-link>
                           </td>
                       </tr>
                   </tbody>
