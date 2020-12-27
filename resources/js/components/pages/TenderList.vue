@@ -26,8 +26,8 @@
                         <td>OOO 'Test'</td>
                         <td>20.12.2022</td>
                         <td>
-                            <router-link 
-                                to='/u/demand-tab/1' 
+                            <router-link
+                                to='/u/demand-tab/1'
                                 class="btn btn-outline-info"
                             >
                                 <i class="fas fa-eye"></i>
@@ -41,8 +41,8 @@
                         <td>OOO 'MirTrans'</td>
                         <td>31.03.2021</td>
                         <td>
-                            <router-link 
-                                to='/u/demand-tab/1' 
+                            <router-link
+                                to='/u/demand-tab/1'
                                 class="btn btn-outline-info"
                             >
                                 <i class="fas fa-eye"></i>
@@ -56,8 +56,8 @@
                         <td>OOO 'TestTrans'</td>
                         <td>15.05.2025</td>
                         <td>
-                            <router-link 
-                                to='/u/demand-tab/1' 
+                            <router-link
+                                to='/u/demand-tab/1'
                                 class="btn btn-outline-info"
                             >
                                 <i class="fas fa-eye"></i>

@@ -4,7 +4,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-bus-alt"></i>
-          Добавить тип автобуса
+          Добавить категория автобуса
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/busclass">
           <span class="peIcon pe-7s-back"></span>
@@ -15,14 +15,14 @@
         <form @submit.prevent.enter="saveType">
           <div class="row">
             <div class="form-group col-md-4">
-              <label for="bustype_id">Тип автобуса</label>
+              <label for="bustype_id">Категория автобуса</label>
               <select
                 class="form-control input_style"
                 v-model="form.bustype_id"
                 :class="isRequired(form.bustype_id) ? 'isRequired' : ''"
               >
                 <option value="" selected disabled>
-                  Выберите тип автобус!
+                  Выберите категория автобус!
                 </option>
                 <option
                   :value="item.id"
@@ -43,7 +43,7 @@
                 :class="isRequired(form.name) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-4">
+            <!-- <div class="form-group col-md-4">
               <label for="busmodel_id">Марка автобуса</label>
               <select
                 class="form-control input_style"
@@ -61,8 +61,8 @@
                   {{ item.name }}
                 </option>
               </select>
-            </div>
-            <div class="form-group col-md-4">
+            </div> -->
+            <!-- <div class="form-group col-md-4">
               <label for="busmodel_id">Модель автобуса</label>
               <select
                 class="form-control input_style"
@@ -79,8 +79,8 @@
                   {{ item.name }}
                 </option>
               </select>
-            </div>
-            <div class="form-group col-md-4">
+            </div> -->
+            <!-- <div class="form-group col-md-4">
               <label for="seat_from">Количество сидящих</label>
               <input
                 type="number"
@@ -90,7 +90,7 @@
                 v-model="form.seat_from"
                 :class="isRequired(form.seat_from) ? 'isRequired' : ''"
               />
-            </div>
+            </div> -->
             <!-- 			  <div class="form-group col-md-4">
 					    <label for="seat_to">Количество сидящих (по)</label>
 					    <input
@@ -102,7 +102,7 @@
 					    	:class="isRequired(form.seat_to) ? 'isRequired' : ''"
 				    	>
 					  </div> -->
-            <div class="form-group col-md-4">
+            <!-- <div class="form-group col-md-4">
               <label for="stay_from">Пассажировместимость </label>
               <input
                 type="number"
@@ -112,7 +112,7 @@
                 v-model="form.stay_from"
                 :class="isRequired(form.stay_from) ? 'isRequired' : ''"
               />
-            </div>
+            </div> -->
             <!-- 		  <div class="form-group col-md-4">
 					    <label for="stay_to">Пассажировместимость (по)</label>
 					    <input
@@ -135,9 +135,7 @@
                 :class="isRequired(form.desc) ? 'isRequired' : ''"
               ></textarea>
             </div>
-            <div
-              class="form-group col-lg-2 form_btn d-flex justify-content-end"
-            >
+            <div class="form-group col-lg-2 form_btn d-flex justify-content-end" >
               <button type="submit" class="btn btn-primary btn_save_category">
                 <i class="fas fa-save"></i>
                 Сохранить
