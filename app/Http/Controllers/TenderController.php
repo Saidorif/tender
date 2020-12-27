@@ -887,7 +887,7 @@ class TenderController extends Controller
         }
         $lots = $this->completedTendersBall($request, $id,true);
         foreach($lots as $lot){
-            $result['lots'][$lot[0]['name']] = $lot;
+            $result['lots'][] = ['title' => $lot[0]['name'],'items' => $lot];
         }
         $result['tender'] = $tender->withCount('tenderlots')->get();
         return response()->json(['success' => true, 'result' => $result]);
