@@ -72,7 +72,7 @@ class Direction extends Model
 
     public function schedule()
     {
-        return $this->hasMany(\App\Reys::class,'direction_id');
+        return $this->hasMany(\App\Reys::class,'direction_id')->where(['status' => 'active']);
     }
 
     public function schemaDetails()
