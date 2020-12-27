@@ -163,13 +163,13 @@ export default {
     return {};
   },
   async mounted() {
-    // await this.actionEditEmployee({ id: this.$route.params.workerId });
+    await this.actionProtocol();
   },
   computed: {
-    // ...mapGetters("worker", ["getEmployee"]),
+    ...mapGetters("protocol", ["getProtocol"]),
   },
   methods: {
-    // ...mapActions("worker", ["actionEditEmployee"]),
+    ...mapActions("protocol", ["actionProtocol"]),
   },
 };
 </script>
