@@ -163,7 +163,7 @@ export default {
     return {};
   },
   async mounted() {
-    await this.actionProtocol();
+    await this.actionProtocol(this.$route.params.tenderId);
   },
   computed: {
     ...mapGetters("protocol", ["getProtocol"]),

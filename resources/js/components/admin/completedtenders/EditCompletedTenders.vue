@@ -23,7 +23,8 @@
                           <th>Набранные баллы</th>
                           <th>Результаты изучения тендерных предложений</th>
                           <th>Статус лицензии</th>
-                          <th>Контракт</th>
+                          <th>Протоколы</th>
+                          <th>Контракты</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -58,6 +59,11 @@
                               </li>
                             </ul>
                           </td>
+                 <!--          <td class="without_padding">
+                            <router-link class="" tag="a" :to="`/crm/control-list/${}`">
+                              Протокол
+                            </router-link>
+                          </td> -->
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
