@@ -885,7 +885,10 @@ class TenderController extends Controller
         if($tender->status != 'approved'){
             return response()->json(['error' => true, 'message' => 'Tender not approved']);
         }
-        $result['lots'] = $this->completedTendersBall($request, $id,true);
+        $lots = $this->completedTendersBall($request, $id,true);
+        foreach($lots as $lot){
+            $result['lots'][$lot[0]['name']] = $lot;
+        }
         $result['tender'] = $tender->withCount('tenderlots')->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
