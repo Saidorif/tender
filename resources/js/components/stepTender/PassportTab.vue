@@ -24,10 +24,7 @@
         </li>
       </ul>
     </div>
-    <!-- <router-link class="btn btn-primary back_btn" to="/crm/direction">
-      <span class="peIcon pe-7s-back"></span>
-      Назад
-    </router-link> -->
+
   </div>
 </template>
 <script>

@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-bus"></i>
-				    Тип автобуса
+				    Категория  автобуса
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/typeofbus/add">
 					<i class="fas fa-plus"></i> Добавить
@@ -64,7 +64,7 @@
 		},
 		methods:{
 			...mapActions('typeofbus',['actionTypeofbuss','actionDeleteTypeofbus']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionTypeofbuss(page)
 			},
 			async deleteType(id){
@@ -89,5 +89,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

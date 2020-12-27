@@ -86,7 +86,7 @@
                 v-model="form.start_speedometer"
                 id="start_speedometer"
                 class="form-control input_style"
-                :class="isRequired(form.start_speedometer) ? 'isRequired' : ''"
+                :class="isRequiredTwo(form.start_speedometer) ? 'isRequired' : ''"
                 step="0.01"
                 :disabled="tableTwoData.length > 0"
               />
@@ -99,7 +99,7 @@
                 v-model="form.start_time"
                 :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
                 placeholder="Select datetime"
-                :class="isRequired(form.start_time) ? 'isRequired' : ''"
+                :class="isRequiredTwo(form.start_time) ? 'isRequired' : ''"
               ></date-picker>
             </div>
             <div class="form-group col-md-6">
@@ -109,7 +109,7 @@
                 v-model="form.speed_between_station"
                 id="speed_between_station"
                 class="form-control input_style"
-                :class="isRequired(form.speed_between_station) ? 'isRequired' : ''"
+                :class="isRequiredTwo(form.speed_between_station) ? 'isRequired' : ''"
                 step="0.01"
               />
             </div>
@@ -120,7 +120,7 @@
                 v-model="form.speed_between_limited_space"
                 id="speed_between_limited_space"
                 class="form-control input_style"
-                :class="isRequired(form.speed_between_limited_space) ? 'isRequired' : ''"
+                :class="isRequiredTwo(form.speed_between_limited_space) ? 'isRequired' : ''"
                 step="0.01"
               />
             </div>
@@ -152,7 +152,7 @@
               </button>
             </div>
             <div class="form-group col-md-6">
-              <label for="whereToregion_to_id" :class="isRequired(form.whereTo) ? 'isRequired' : ''">Oraliq toxtash viloyat nomi</label>
+              <label for="whereToregion_to_id" :class="isRequiredTwo(form.whereTo) ? 'isRequired' : ''">Oraliq toxtash viloyat nomi</label>
               <input
                 v-model="form.whereTo"
                 type="radio"
@@ -164,7 +164,7 @@
                 class="form-control input_style"
                 v-model="form.region_to_id"
                 @change="selectRegion('region_to_id')"
-                :class="isRequired(form.region_to_id) ? 'isRequired' : ''"
+                :class="isRequiredTwo(form.region_to_id) ? 'isRequired' : ''"
               >
                 <option value selected disabled>choose option</option>
                 <option
@@ -175,7 +175,7 @@
               </select>
             </div>
             <div class="form-group col-md-6" v-if="form.region_to_id">
-              <label for="whereToarea_to_id" :class="isRequired(form.whereTo) ? 'isRequired' : ''">Oraliq toxtash tuman nomi</label>
+              <label for="whereToarea_to_id" :class="isRequiredTwo(form.whereTo) ? 'isRequired' : ''">Oraliq toxtash tuman nomi</label>
               <input v-model="form.whereTo" type="radio" name="where_to" :value="form.area_to_id"  id="whereToarea_to_id"                 />
               <select
                 class="form-control input_style"
@@ -210,7 +210,7 @@
                 v-model="form.end_speedometer"
                 id="end_speedometer"
                 class="form-control input_style"
-                :class="isRequired(form.end_speedometer) ? 'isRequired' : ''"
+                :class="isRequiredTwo(form.end_speedometer) ? 'isRequired' : ''"
                 step="0.01"
               />
             </div>
@@ -222,7 +222,7 @@
                 v-model="form.end_time"
                 :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
                 placeholder="Select end_time"
-                :class="isRequired(form.end_time) ? 'isRequired' : ''"
+                :class="isRequiredTwo(form.end_time) ? 'isRequired' : ''"
               ></date-picker>
             </div>
             <div class="form-group col-md-6">
@@ -232,7 +232,7 @@
                 v-model="form.distance_in_limited_speed"
                 id="distance_in_limited_speed"
                 class="form-control input_style"
-                :class="isRequired(form.distance_in_limited_speed) ? 'isRequired' : ''"
+                :class="isRequiredTwo(form.distance_in_limited_speed) ? 'isRequired' : ''"
                 step="0.01"
               />
             </div>
@@ -243,14 +243,14 @@
                 v-model="form.spendtime_between_limited_space"
                 id="spendtime_between_limited_space"
                 class="form-control input_style"
-                :class="isRequired(form.spendtime_between_limited_space) ? 'isRequired' : ''"
+                :class="isRequiredTwo(form.spendtime_between_limited_space) ? 'isRequired' : ''"
               />
             </div>
           </div>
           <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
             <div class="form-group col-md-3 mb-0">
                 <label for="conclusion">Xulosa</label>
-                <select name="conclusion" id="conclusion" v-model="timingDetails.conclusion" class="form-control input_style">
+                <select name="conclusion" id="conclusion" v-model="timingDetails.conclusion" :class="isRequired(timingDetails.conclusion) ? 'isRequired' : ''" class="form-control input_style">
                     <option value="Talablarga javob beradi">Talablarga javob beradi</option>
                     <option value="Talablarga javob bermaydi">Talablarga javob bermaydi</option>
                 </select>
@@ -403,6 +403,7 @@ export default {
         },
         tableTwoData: [],
         requiredInput: false,
+        requiredInputTwo: false,
         technic_speed: 0,
         traffic_speed: 0,
         laoding: true,
@@ -446,6 +447,9 @@ export default {
     ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
     isRequired(input) {
       return this.requiredInput && input === "";
+    },
+    isRequiredTwo(input) {
+      return this.requiredInputTwo && input === "";
     },
     async selectArea(this_select, parent_select) {
       this.laoding = true
@@ -499,9 +503,9 @@ export default {
         this.fullTableInfo.push(this.form)
         this.calcTableData();
         this.calctechnic_speed()
-        this.requiredInput = false;
+        this.requiredInputTwo = false;
       } else {
-        this.requiredInput = true;
+        this.requiredInputTwo = true;
       }
     },
     calcTableData(){
@@ -541,7 +545,6 @@ export default {
             ).toFixed(0);
             this.tableTwoData.push(element);
         })
-        console.log(this.fullTableInfo)
         let thisData;
         thisData = {
             direction_id: this.$route.params.directionId,
@@ -590,12 +593,11 @@ export default {
       return datum / 1000;
     },
     async saveData() {
-    //   this.timingDetails.every();
       if(
           this.timingDetails.date != "" &&
           this.timingDetails.avto_number != "" &&
-          this.timingDetails.avto_model != "" &&
           this.timingDetails.conclusion != "" &&
+          this.timingDetails.avto_model != "" &&
           this.timingDetails.persons[0].name != "" &&
           this.timingDetails.persons[0].surname != "" &&
           this.timingDetails.persons[0].position != "" &&
@@ -604,29 +606,39 @@ export default {
           this.timingDetails.persons[1].position != "" &&
           this.timingDetails.persons[2].name != "" &&
           this.timingDetails.persons[2].surname != "" &&
-          this.timingDetails.persons[2].position != "" &&
-          this.tableTwoData.length
+          this.timingDetails.persons[2].position != ""
+
         ){
+
         this.requiredInput = false;
-        this.tableTwoData.forEach((item)=>{
-            item.vars = JSON.stringify(this.fullTableInfo)
-        })
-        this.laoding = true
-        await this.actionAddTiming({timing: this.tableTwoData, timingDetails: this.timingDetails, technic_speed: this.technic_speed, traffic_speed: this.traffic_speed, });
-        this.laoding = false
-        if(this.getTimingMassage.success){
-            toast.fire({
-                type: "success",
-                icon: "success",
-                title: this.getTimingMassage.message
-            });
+        if(this.tableTwoData.length){
+            this.tableTwoData.forEach((item)=>{
+                item.vars = JSON.stringify(this.fullTableInfo)
+            })
+            this.laoding = true
+            await this.actionAddTiming({timing: this.tableTwoData, timingDetails: this.timingDetails, technic_speed: this.technic_speed, traffic_speed: this.traffic_speed, });
+            this.laoding = false
+            if(this.getTimingMassage.success){
+                toast.fire({
+                    type: "success",
+                    icon: "success",
+                    title: this.getTimingMassage.message
+                });
+            }else{
+                toast.fire({
+                    type: "error",
+                    icon: "error",
+                    title: this.getTimingMassage.message
+                });
+            }
         }else{
             toast.fire({
                 type: "error",
                 icon: "error",
-                title: this.getTimingMassage.message
+                title: 'Jadval bosh bolmasligi kerak!'
             });
         }
+
       }else{
         this.requiredInput = true;
         toast.fire({
