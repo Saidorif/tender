@@ -164,6 +164,7 @@ export default {
   },
   async mounted() {
     await this.actionProtocol(this.$route.params.tenderId);
+    console.log(this.getProtocol)
   },
   computed: {
     ...mapGetters("protocol", ["getProtocol"]),

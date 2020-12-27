@@ -59,11 +59,11 @@
                               </li>
                             </ul>
                           </td>
-                 <!--          <td class="without_padding">
-                            <router-link class="" tag="a" :to="`/crm/control-list/${}`">
+                          <td class="without_padding">
+                            <router-link class="" tag="a" :to="`/crm/protocol/${$route.params.tenderId}`">
                               Протокол
                             </router-link>
-                          </td> -->
+                          </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
