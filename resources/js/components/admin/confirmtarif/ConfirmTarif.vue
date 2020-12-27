@@ -61,46 +61,46 @@
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionTarifAnnounces(page)
+			// await this.actionTarifAnnounces(page)
 		},
 		computed:{
-			...mapGetters('tarifannounce',['getTarifAnnounces','getMassage'])
+			// ...mapGetters('tarifannounce',['getTarifAnnounces','getMassage'])
 		},
 		methods:{
-			...mapActions('tarifannounce',['actionTarifAnnounces','actionDeleteTarifAnnounce']),
-			async getResults(page = 1){
-				await this.actionTarifAnnounces(page)
-			},
-			getStatusName(status){
-				if(status == 'pending'){
-					return 'В ожидании'
-				}else if(status == 'rejected'){
-					return 'Отказано'
-				}else if(status == 'completed'){
-					return 'Завершен'
-				}
-			},
-			getStatusClass(status){
-				if(status == 'pending'){
-					return 'badge-secondary'
-				}else if(status == 'rejected'){
-					return 'badge-danger'
-				}else if(status == 'completed'){
-					return 'badge-success'
-				}
-			},
-			async deleteTarif(id){
-				if(confirm("Вы действительно хотите удалить?")){
-					let page = 1
-					await this.actionDeleteTarifAnnounce(id)
-					await this.actionTarifAnnounces(page)
-					toast.fire({
-				    	type: 'success',
-				    	icon: 'success',
-						title: 'Тендер удален!',
-				    })
-				}
-			}
+			// ...mapActions('tarifannounce',['actionTarifAnnounces','actionDeleteTarifAnnounce']),
+			// async getResults(page = 1){
+			// 	await this.actionTarifAnnounces(page)
+			// },
+			// getStatusName(status){
+			// 	if(status == 'pending'){
+			// 		return 'В ожидании'
+			// 	}else if(status == 'rejected'){
+			// 		return 'Отказано'
+			// 	}else if(status == 'completed'){
+			// 		return 'Завершен'
+			// 	}
+			// },
+			// getStatusClass(status){
+			// 	if(status == 'pending'){
+			// 		return 'badge-secondary'
+			// 	}else if(status == 'rejected'){
+			// 		return 'badge-danger'
+			// 	}else if(status == 'completed'){
+			// 		return 'badge-success'
+			// 	}
+			// },
+			// async deleteTarif(id){
+			// 	if(confirm("Вы действительно хотите удалить?")){
+			// 		let page = 1
+			// 		await this.actionDeleteTarifAnnounce(id)
+			// 		await this.actionTarifAnnounces(page)
+			// 		toast.fire({
+			// 	    	type: 'success',
+			// 	    	icon: 'success',
+			// 			title: 'Тендер удален!',
+			// 	    })
+			// 	}
+			// }
 		}
 	}
 </script>

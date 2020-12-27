@@ -54,7 +54,7 @@
 					</div>
 				</form>
 				<!-- All edit choosen tables -->
-			  	<div class="table-responsive" v-if="tenderlots.length > 0">
+	  			<div class="table-responsive" v-if="tenderlots.length > 0">
 			  		<div class="d-flex justify-content-center">
 			  			<h4>Лоты</h4>
 			  		</div>
@@ -62,85 +62,85 @@
                 <div class="card-header" >
                         <h4 class="lot_n"><em>Лот №</em> {{t_index+1}}</h4>
                         <div>
-                        <a href="#" class="btn btn-outline-danger">
-                            <i class="fas fa-trash text-danger lot_remove" @click.prevent="removeEditLot(t_lots.id)"></i>
+                        <a href="#" class="btn btn-outline-danger"  @click.prevent="removeEditLot(t_lots.id)">
+                            <i class="fas fa-trash text-danger lot_remove"></i>
                         </a>
-                    <button
-                        type="button"
-                        class="btn btn-info btn_save_category"
-                        @click.prevent="getEditId(t_lots.id)"
-                    >
-                        <i class="far fa-share-square text-light"></i>
-                        <span class="text-light">Отправить заявку</span>
-                    </button>
+	            <!--         <button
+	                        type="button"
+	                        class="btn btn-info btn_save_category"
+	                        @click.prevent="getEditId(t_lots.id)"
+	                    >
+	                        <i class="far fa-share-square text-light"></i>
+	                        <span class="text-light">Отправить заявку</span>
+	                    </button> -->
                         </div>
 
                 </div>
                 <div class="card-body">
                     <template v-for="(items,index) in t_lots.direction_id">
                         <div class="mb-2">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <h4>{{index+1}}) {{items.name}} ({{getLengthReys(items)}} рейс)</h4>
+	                        <div class="d-flex align-items-center justify-content-between">
+	                            <h4>{{index+1}}) {{items.name}} ({{getLengthReys(items)}} рейс)</h4>
 
-                            <router-link
-                                :to='`/crm/stepuser/demand-tab/${items.id}`'
-                                class="btn btn-outline-info"
-                            >
-                                <i class="fas fa-eye"></i>
-                            </router-link>
-                        </div>
-                        <div >
-                            <h3>
-                            <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span>
-                            </h3>
-                            <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                <th>№</th>
-                                <th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
-                                    {{item.where.name}}
-                                </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                v-for="(reys,key) in items.reysesFrom"
-                                :class="activeEditClass(reys)"
-                                >
-                                <td>{{key+1}}</td>
-                                <template v-for="(val,key) in reys.reys_times">
-                                    <td>{{val.start}}</td>
-                                    <td>{{val.end}}</td>
-                                </template>
-                                </tr>
-                            </tbody>
-                            </table>
-                            <h3>
-                            <span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span>
-                            </h3>
-                            <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                <th>№</th>
-                                <th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
-                                    {{item.where.name}}
-                                </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                v-for="(reys,key) in items.reysesTo"
-                                :class="activeEditClass(reys)"
-                                >
-                                <td>{{key+1}}</td>
-                                <template v-for="(val,key) in reys.reys_times">
-                                    <td>{{val.start}}</td>
-                                    <td>{{val.end}}</td>
-                                </template>
-                                </tr>
-                            </tbody>
-                            </table>
-                        </div>
+	                            <router-link
+	                                :to='`/crm/stepuser/demand-tab/${items.id}`'
+	                                class="btn btn-outline-info"
+	                            >
+	                                <i class="fas fa-eye"></i>
+	                            </router-link>
+	                        </div>
+	                        <div>
+	                            <h3>
+	                            <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span>
+	                            </h3>
+	                            <table class="table table-bordered">
+		                            <thead>
+		                                <tr>
+		                                <th>№</th>
+		                                <th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
+		                                    {{item.where.name}}
+		                                </th>
+		                                </tr>
+		                            </thead>
+		                            <tbody>
+		                                <tr
+		                                v-for="(reys,key) in items.reysesFrom"
+		                                :class="activeEditClass(reys)"
+		                                >
+		                                <td>{{key+1}}</td>
+		                                <template v-for="(val,key) in reys.reys_times">
+		                                    <td>{{val.start}}</td>
+		                                    <td>{{val.end}}</td>
+		                                </template>
+		                                </tr>
+		                            </tbody>
+	                            </table>
+	                            <h3>
+	                            	<span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span>
+	                            </h3>
+	                            <table class="table table-bordered">
+		                            <thead>
+		                                <tr>
+		                                <th>№</th>
+		                                <th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
+		                                    {{item.where.name}}
+		                                </th>
+		                                </tr>
+		                            </thead>
+		                            <tbody>
+		                                <tr
+		                                v-for="(reys,key) in items.reysesTo"
+		                                :class="activeEditClass(reys)"
+		                                >
+		                                <td>{{key+1}}</td>
+		                                <template v-for="(val,key) in reys.reys_times">
+		                                    <td>{{val.start}}</td>
+		                                    <td>{{val.end}}</td>
+		                                </template>
+		                                </tr>
+		                            </tbody>
+	                            </table>
+	                        </div>
                         </div>
                     </template>
                 </div>
@@ -438,6 +438,7 @@
 					this.edit_direction_ids= this.getTenderAnnounce.direction_ids
 					this.lots= this.getTenderAnnounce.tenderlots
 					this.tenderlots= this.getTenderAnnounce.tenderlots
+					console.log(this.tenderlots)
 				}
 			},
 			checked:{

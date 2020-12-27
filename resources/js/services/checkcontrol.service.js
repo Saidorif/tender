@@ -10,6 +10,9 @@ const CheckControlSerivce = {
 	statusCar(data){
 		return ApiService.post(`/api/application/car/setstatus`,data)
 	},
+	closeLot(id){
+		return ApiService.post(`/api/tender/approve/${id}`)
+	},
 };
 
 export { CheckControlSerivce };
