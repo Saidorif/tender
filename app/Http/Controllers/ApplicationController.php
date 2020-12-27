@@ -95,6 +95,7 @@ class ApplicationController extends Controller
         $user = $request->user();
         $inputs = $request->all();
         $inputs['user_id'] = $user->id;
+        $inputs['auto_number'] = strtoupper($inputs['auto_number']);
         $result = UserCar::create($inputs);
         return response()->json([
             'success' => true,
