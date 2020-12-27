@@ -458,13 +458,13 @@ class TenderController extends Controller
 
     public function completedTenders()
     {
-        $result = Tender::withCount(['tenderlots','tenderapps'])->where(['status' => 'completed'])->paginate(12);
+        $result = Tender::withCount(['tenderlots','tenderapps'])->where(['status' => 'completed','status' => 'approved'])->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
     
     public function completedTendersLots(Request $request, $id)
     {
-        $tender = Tender::where(['status' => 'completed'])->find($id);
+        $tender = Tender::where(['status' => 'completed','status' => 'approved'])->find($id);
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Tender not found']);
         }
@@ -885,7 +885,10 @@ class TenderController extends Controller
         if($tender->status != 'approved'){
             return response()->json(['error' => true, 'message' => 'Tender not approved']);
         }
-        $result['lots'] = $this->completedTendersBall($request, $id,true);
+        $lots = $this->completedTendersBall($request, $id,true);
+        foreach($lots as $lot){
+            $result['lots'][] = ['title' => $lot[0]['name'],'items' => $lot];
+        }
         $result['tender'] = $tender->withCount('tenderlots')->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
