@@ -161,7 +161,7 @@ class IntegrationController extends Controller
                     ]);
                 }
             } catch (\Throwable $th) {
-                //throw $th;
+                // throw $th;
                 return false;
             }
         }
