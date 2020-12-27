@@ -440,8 +440,8 @@ class DirectionController extends Controller
             'whereFrom' => [],
             'whereTo' => [],
         ];
-        $reysesFrom = Reys::where(['direction_id' => $id,'type' => 'from'])->get();
-        $reysesTo   = Reys::where(['direction_id' => $id,'type' => 'to'])->get();
+        $reysesFrom = Reys::where(['direction_id' => $id,'type' => 'from','status' => 'active'])->get();
+        $reysesTo   = Reys::where(['direction_id' => $id,'type' => 'to','status' => 'active'])->get();
 
         foreach ($reysesFrom as $key => $reys_from) {
             // if($reys->where_type == 'region'){
