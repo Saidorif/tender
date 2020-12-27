@@ -558,7 +558,7 @@
 									title: 'В списке лота существует!',
 							    })
 				    		}else{
-					    		if (checkItem) {
+					    		if (checkItem){
 				    				this.allItems.push(value)
 					    		}else{
 					    			toast.fire({
