@@ -179,7 +179,10 @@ import TenderList from './components/pages/TenderList'
 import TenderUser from './components/admin/tenderuser/TenderUser'
 import EditTenderUser from './components/admin/tenderuser/EditTenderUser'
 import SendApplication from './components/admin/tenderuser/SendApplication'
-import Contract from './components/admin/tenderuser/Contract'
+// import Contract from './components/admin/tenderuser/Contract'
+
+import Contract from './components/admin/contract/Contract'
+import ContractList from './components/admin/contract/ContractList'
 
 
 // Payment
@@ -578,6 +581,10 @@ const router = new Router({
 				{
 					path:'contract/:conId',
 					component:Contract,
+				},
+				{
+					path:'contract-list',
+					component:ContractList,
 				},
 				{
 					path:'protocol-list',
