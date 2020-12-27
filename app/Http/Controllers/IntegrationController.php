@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\GaiToken;
 use App\GaiCar;
+use App\UserCar;
+use App\User;
 use App\AdliyaCar;
 
 class IntegrationController extends Controller
@@ -183,11 +185,26 @@ class IntegrationController extends Controller
                 ]
             ]);
             $data_resp = json_decode($response->getBody()->getContents(),true);
-            return $data_resp;
-            if($data_resp['resultCode'] == 1){
-                return response()->json(['success' => true, 'result' => $data_resp]);
+            // return $data_resp;
+            if(!empty($data_resp['result']['code'])){
+                return response()->json(['error' => true, 'message' => $data_resp['result']['message']]);
             }else{
-                return response()->json(['error' => true, 'message' => $data_resp['resultNote']]);
+                $the_user = User::where(['inn' => $inn])->first();
+                if($the_user){
+                    $user_cars = UserCar::where(['user_id' => $the_user->id])->get();
+                    foreach($data_resp['result']['automobiles'] as $auto ){
+                        foreach($user_cars as $u_car){
+                            if($u_car->auto_number == $auto['automobile_number']){
+                                $u_car->license_start_date = Carbon::createFromTimestamp($auto['card_start_date'])->format('Y-m-d');
+                                $u_car->license_exp_date = Carbon::createFromTimestamp($auto['card_end_date'])->format('Y-m-d');
+                                $u_car->license_number = $auto['card_number'];
+                                $u_car->license_status = 1;
+                                $u_car->save();
+                            }
+                        }
+                    }
+                }
+                return response()->json(['success' => true, 'result' => $data_resp]);
             }
         } catch (\Throwable $th) {
             throw $th;
