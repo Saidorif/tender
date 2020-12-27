@@ -3,7 +3,7 @@
     "menu":{
         "home": "Bosh sahifa",
         "about_tender": "Tender haqida",
-        "conducted_tenders": "O'tqazilgan tenderlar",
+        "conducted_tenders": "Tenderlar ro'yxati",
         "contacts": "Biz bilan aloqa",
         "check_contract": "Shartnomani tekshirish",
         "login":"Tizimga kirish"
@@ -32,8 +32,8 @@
         "sub_title": "Endi siz uyingizda o'tirgan holda tenderda qatnashish imkonyatiga ega bo'ldingiz."
     },
     "conducted_tenders":{
-        "title": "O'tkazilgan  <span>tenderlar</span> ro'yxati ",
-        "sub_title": "Bu bo'limda siz bo'lib o'tkan tenderlar royxati bilan tanishasiz",
+        "title": "<span>Tenderlar</span> ro'yxati ",
+        "sub_title": "Bu bo'limda siz bo'lib o'tadigan  va bo'lib o'tgan tenderlar royxati bilan tanishasiz",
         "table": {
             "direction_name": "Yo'nalish nomi",
             "directional_distance": "Yo'nalish masofasi (km)",

@@ -8,6 +8,10 @@
   margin-right: 3px;
 }
 
+.tender_card_header .time_counter {
+  background: transparent !important;
+}
+
 .content-wrapper {
   background: #fefbff;
 }
