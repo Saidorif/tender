@@ -259,7 +259,7 @@
                     <li class="nav-item">
                         <router-link class="nav-link" to="/crm/typeofbus">
                             <p>
-                                Тип автобуса
+                                Категория  автобуса
                             </p>
                         </router-link>
                     </li>

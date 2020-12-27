@@ -9,7 +9,7 @@
           <i class="fas fa-download"></i>
           Юклаш
         </button>
-        <router-link class="btn btn-primary back_btn" to="/crm/protocol">
+        <router-link class="btn btn-primary back_btn" to="/crm/protocol-list">
           <span class="peIcon pe-7s-back"></span> Назад
         </router-link>
       </div>

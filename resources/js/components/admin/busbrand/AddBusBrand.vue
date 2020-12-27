@@ -11,8 +11,26 @@
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveType" >
 					<div class="row">
-					  <div class="form-group col-md-9">
-					    <label for="name">Название</label>
+                        <div class="form-group col-md-3">
+                            <label for="bustype_id">Категория автобуса</label>
+                            <select  class="form-control input_style" v-model="form.bustype_id" :class="isRequired(form.bustype_id) ? 'isRequired' : ''" >
+                                <option value="" selected disabled> Выберите категория автобус! </option>
+                                <option :value="item.id" v-for="(item, index) in getTypeofbusList"  >
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="bustype_id">Класса автобуса</label>
+                            <select  class="form-control input_style" v-model="form.bustype_id" :class="isRequired(form.bustype_id) ? 'isRequired' : ''" >
+                                <option value="" selected disabled> Выберите класса автобус! </option>
+                                <option :value="item.id" v-for="(item, index) in getTypeofbusList"  >
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                        </div>
+					  <div class="form-group col-md-3">
+					    <label for="name">Название марка</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
@@ -46,13 +64,15 @@
 			}
 		},
 		computed:{
-			...mapGetters('busbrand',['getMassage'])
+            ...mapGetters("typeofbus", ["getMassage", "getTypeofbusList"]),
+            ...mapGetters('busbrand',['getMassage'])
 		},
-		mounted(){
-
+		async mounted(){
+            await this.actionTypeofbusList();
 		},
 		methods:{
-			...mapActions('busbrand',['actionAddBusBrand']),
+            ...mapActions('busbrand',['actionAddBusBrand']),
+            ...mapActions("typeofbus", ["actionTypeofbusList", "actionDeleteTypeofbus"]),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },

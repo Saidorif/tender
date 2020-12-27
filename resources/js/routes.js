@@ -138,6 +138,9 @@ import UTarif from './components/stepTender/Tarif'
 import UScheme from './components/stepTender/Scheme'
 import UDemand from './components/stepTender/Demand'
 
+// ShowTenderDetails
+import ShowTenderDetails from './components/pages/ShowTenderDetails'
+
 // ConfirmTender
 import ConfirmTender from './components/admin/confirmtender/ConfirmTender'
 import AddConfirmTender from './components/admin/confirmtender/AddConfirmTender'
@@ -655,6 +658,10 @@ const router = new Router({
 					components:{
 						default:TenderList,
 					},
+				},
+				{
+					path:'u/show-tender-details/:tenderId',
+					component:ShowTenderDetails,
 				},
 				{
 					path:'u/titul-tab/:directionId',
