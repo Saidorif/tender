@@ -21,7 +21,7 @@
 
               <template v-for="(ch_item, ch_index) in p_item.details">
                 <template>
-                  <div class="icon_item" v-if="ch_item.count.length < 3">
+                  <div class="icon_item" v-if="String(ch_item.count).length < 3">
                     <img
                         v-if="ch_item.sign"
                       :src="'/signs/'+ch_item.sign.photo"
