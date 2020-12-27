@@ -275,6 +275,8 @@ export default {
     getStatusName(name){
       if (name == 'active'){
         return 'Активный'
+      }else if(status == 'accepted'){
+        return 'Подтверждено'
       }else{
         return 'Неактивный'
       }
