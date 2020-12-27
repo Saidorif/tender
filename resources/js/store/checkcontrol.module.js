@@ -20,6 +20,15 @@ const getters = {
 
 
 const actions = {
+	async actionCloseLot({commit},id){
+		try {
+			const types =  await CheckControlSerivce.closeLot(id);
+			await commit('setStatusMessage',types.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionStatusMessage({commit},payload){
 		try {
 			const types =  await CheckControlSerivce.statusCar(payload);

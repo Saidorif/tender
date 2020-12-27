@@ -9,10 +9,16 @@
         <h3 class="ml-5">
           <b>{{getCompanyName}}</b>
         </h3>
-        <router-link class="btn btn-primary back_btn" to="/crm/check-control">
-          <span class="peIcon pe-7s-back"></span>
-          Назад
-        </router-link>
+        <div class="d-flex align-items-center">
+          <button type="button" class="btn btn-info mr-3" @click.prevent="completeLot">
+            <i class="fas fa-check"></i>
+            Закрыть лот
+          </button>
+          <router-link class="btn btn-primary back_btn" to="/crm/check-control">
+            <span class="peIcon pe-7s-back"></span>
+            Назад
+          </router-link>
+        </div>
       </div>
       <div class="card-body">
         <div class="accordion" id="accordionExample" v-if="cars.length > 0">
@@ -152,6 +158,7 @@
                           <th>Хозяин</th>
                           <th>Марка</th>
                           <th>Адрес</th>
+                          <th>Тип машины</th>
                           <th>Дата выпуска</th>
                         </tr>
                       </thead>
@@ -161,6 +168,7 @@
                           <td>{{gai.pNameOfClient}}</td>
                           <td>{{gai.pMarka}}</td>
                           <td>{{gai.pAdressOfClient}}</td>
+                          <td>{{gai.pTypeOfAuto}}</td>
                           <td>{{gai.pMadeofYear}}</td>
                         </tr>
                       </tbody>
@@ -221,7 +229,18 @@ export default {
     await this.actionAppCars(this.$route.params.appId);
   },
   methods: {
-    ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage']),
+    ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage','actionCloseLot']),
+    async completeLot(){
+      await this.actionCloseLot(this.$route.params.appId)
+      if (this.getStatusMessage.success) {
+        await this.actionAppCars(this.$route.params.appId);
+        toast.fire({
+          type: "success",
+          icon: "success",
+          title: this.getStatusMessage.message
+        });
+      }
+    },
     async denyCar(id){
       if(confirm("Вы действительно хотите отказаться?")){
         let data = {
@@ -267,15 +286,19 @@ export default {
     },
     getStatusClass(name){
       if (name == 'active') {
+        return 'badge-primary'
+      }
+      else if(name == 'accepted'){
         return 'badge-success'
-      }else{
+      }
+      else{
         return 'badge-danger'
       }
     },
     getStatusName(name){
       if (name == 'active'){
         return 'Активный'
-      }else if(status == 'accepted'){
+      }else if(name == 'accepted'){
         return 'Подтверждено'
       }else{
         return 'Неактивный'
