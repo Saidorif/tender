@@ -62,17 +62,17 @@
                 <div class="card-header" >
                         <h4 class="lot_n"><em>Лот №</em> {{t_index+1}}</h4>
                         <div>
-                        <a href="#" class="btn btn-outline-danger">
-                            <i class="fas fa-trash text-danger lot_remove" @click.prevent="removeEditLot(t_lots.id)"></i>
+                        <a href="#" class="btn btn-outline-danger"  @click.prevent="removeEditLot(t_lots.id)">
+                            <i class="fas fa-trash text-danger lot_remove"></i>
                         </a>
-                    <button
-                        type="button"
-                        class="btn btn-info btn_save_category"
-                        @click.prevent="getEditId(t_lots.id)"
-                    >
-                        <i class="far fa-share-square text-light"></i>
-                        <span class="text-light">Отправить заявку</span>
-                    </button>
+	            <!--         <button
+	                        type="button"
+	                        class="btn btn-info btn_save_category"
+	                        @click.prevent="getEditId(t_lots.id)"
+	                    >
+	                        <i class="far fa-share-square text-light"></i>
+	                        <span class="text-light">Отправить заявку</span>
+	                    </button> -->
                         </div>
 
                 </div>

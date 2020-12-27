@@ -152,6 +152,7 @@
                           <th>Хозяин</th>
                           <th>Марка</th>
                           <th>Адрес</th>
+                          <th>Тип машины</th>
                           <th>Дата выпуска</th>
                         </tr>
                       </thead>
@@ -161,6 +162,7 @@
                           <td>{{gai.pNameOfClient}}</td>
                           <td>{{gai.pMarka}}</td>
                           <td>{{gai.pAdressOfClient}}</td>
+                          <td>{{gai.pTypeOfAuto}}</td>
                           <td>{{gai.pMadeofYear}}</td>
                         </tr>
                       </tbody>
@@ -267,15 +269,19 @@ export default {
     },
     getStatusClass(name){
       if (name == 'active') {
+        return 'badge-primary'
+      }
+      else if(name == 'accepted'){
         return 'badge-success'
-      }else{
+      }
+      else{
         return 'badge-danger'
       }
     },
     getStatusName(name){
       if (name == 'active'){
         return 'Активный'
-      }else if(status == 'accepted'){
+      }else if(name == 'accepted'){
         return 'Подтверждено'
       }else{
         return 'Неактивный'
