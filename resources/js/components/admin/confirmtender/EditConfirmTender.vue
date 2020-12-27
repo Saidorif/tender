@@ -120,7 +120,7 @@
 				  			</div>
 		  		    	</template>
 				  	</div> -->
-                                <div class="card cardtender" v-for="(t_lots,t_index) in tenderlots">
+            <div class="card cardtender" v-for="(t_lots,t_index) in tenderlots">
                 <div class="card-header" >
                         <h4 class="lot_n"><em>Лот №</em> {{t_index+1}}</h4>
                         <div>
@@ -338,7 +338,7 @@ export default {
     this.form.address = this.getTenderAnnounce.address;
     this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
     this.lots = this.getTenderAnnounce.tenderlots;
-	this.tenderlots = this.getTenderAnnounce.tenderlots
+    this.tenderlots = this.getTenderAnnounce.tenderlots
   },
   methods: {
     ...mapActions("confirmtender", [
