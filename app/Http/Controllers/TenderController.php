@@ -464,7 +464,7 @@ class TenderController extends Controller
     
     public function completedTendersLots(Request $request, $id)
     {
-        $tender = Tender::where(['status' => 'completed'])->find($id);
+        $tender = Tender::where(['status' => 'completed','status' => 'approved'])->find($id);
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Tender not found']);
         }
