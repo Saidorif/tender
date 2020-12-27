@@ -61,6 +61,7 @@
                           </td>
                           <td class="without_padding">
                             <router-link class="" tag="a" :to="`/crm/protocol/${$route.params.tenderId}`">
+                              <i class="fas fa-edit"></i>
                               Протокол
                             </router-link>
                           </td>

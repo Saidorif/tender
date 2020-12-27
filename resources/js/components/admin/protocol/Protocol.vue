@@ -9,7 +9,7 @@
           <i class="fas fa-download"></i>
           Юклаш
         </button>
-        <router-link class="btn btn-primary back_btn" to="/crm/protocol-list">
+        <router-link class="btn btn-primary back_btn" :to="`/crm/completed-tenders/show/${$route.params.tenderId}`">
           <span class="peIcon pe-7s-back"></span> Назад
         </router-link>
       </div>
@@ -78,32 +78,10 @@
                     Шаҳарлараро - вилоятлараро автобус ва йўналишли такси йўналишларида ишлаш ҳуқуқини олиш учун жорий йилнинг 26 декабрь куни ўтказилиши режалаштирилган очиқ тендерга 28 та йўналиш қўйилиб, тендерда иштирок этиш учун йўналишларга талабгорлардан жами 20 та аризалар келиб тушган.
                 </p>
                 <h6 style="font-size: 18.5px;margin:0;font-weight:bold;margin-bottom:10px;">Келиб тушган тендер таклифларини баҳолаш натижалари қуйидагича: </h6>
-                <div style="margin-bottom: 30px;">
-                    <h6 style="font-size: 18.5px;margin:0;margin-bottom:0px;font-weight:normal;"><b>1) ВШ-701-сонли «Тошкент - Бухоро»</b>	 автобус йўналиши бўйича:</h6>
+                <div style="margin-bottom: 30px;" v-for="(items,index) in getProtocol.lots">
+                    <h6 style="font-size: 18.5px;margin:0;margin-bottom:0px;font-weight:normal;"><b>{{index+1}}) {{items.title}}</b>	 автобус йўналиши бўйича:</h6>
                     <h6 style="font-size: 18.5px;margin:0;font-weight:normal;">кутилаётган энг кам балл 25 балл</h6>
-                    <p style="font-size: 18.5px;margin:0px;">1)	“Файз” МЧЖ   - тўплаган бали 35,0 балл </p>
-                    <p style="font-size: 18.5px;margin:0px;">2)	“Авто” МЧЖ   - тўплаган бали 45,0 балл </p>
-                    <p style="font-size: 18.5px;margin:0px;">3)	“Транс” МЧЖ   - тўплаган бали 55,0 балл</p>
-                    <p style="font-size: 18.5px;margin:0px;">Энг баланд балл тўплаган иштирокчи -  “Транс” МЧЖ    </p>
-                </div>
-                <div style="margin-bottom: 30px;">
-                    <h6 style="font-size: 18.5px;margin:0;margin-bottom:0px;font-weight:normal;"><b>2) ВШ-701-сонли «Тошкент - Бухоро»</b>	 автобус йўналиши бўйича:</h6>
-                    <h6 style="font-size: 18.5px;margin:0;font-weight:normal;">кутилаётган энг кам балл ........  </h6>
-                    <p style="font-size: 18.5px;margin:0px;">  1)	Ташувчи номи  “Файз” МЧЖ   - тўплаган бали 35.0 балл</p>
-                    <p style="font-size: 18.5px;margin:0px;"> Тендер ғолиби “Файз” МЧЖ  - рад этилди  Изох .... ручной</p>
-                    <p style="font-size: 18.5px;margin:0px;">Энг баланд балл тўплаган иштирокчи - Файз” МЧЖ</p>
-                </div>
-                <div style="margin-bottom: 30px;">
-                    <h6 style="font-size: 18.5px;margin:0;margin-bottom:0px;font-weight:normal;"><b>3) ВШ-701-сонли «Тошкент - Бухоро»</b>	 автобус йўналиши бўйича:</h6>
-                    <h6 style="font-size: 18.5px;margin:0;font-weight:normal;">кутилаётган энг кам балл 25 балл  </h6>
-                    <p style="font-size: 18.5px;margin:0px;">1)	Ташувчи номи  “Файз” МЧЖ   - тўплаган бали 5.0 балл талабларга мувофиқ эмас.  </p>
-                    <p style="font-size: 18.5px;margin:0px;"> Изох .... ручной  </p>
-                </div>
-                <div style="margin-bottom: 30px;">
-                    <h6 style="font-size: 18.5px;margin:0;margin-bottom:0px;font-weight:normal;"><b>4) ВШ-701-сонли «Тошкент - Бухоро»</b>	 автобус йўналиши бўйича:</h6>
-                    <h6 style="font-size: 18.5px;margin:0;font-weight:normal;">кутилаётган энг кам балл 25 балл  </h6>
-                    <p style="font-size: 18.5px;margin:0px;">1)	Ташувчи номи  “Файз” МЧЖ   - тўплаган бали 25.0 балл  </p>
-                    <p style="font-size: 18.5px;margin:0px;"> Энг баланд балл тўплаган иштирокчи “Файз” МЧЖ  </p>
+                    <p style="font-size: 18.5px;margin:0px;" v-for="(val,k) in items.items">1)	«{{val.company_name}}»   - тўплаган бали {{val.total}} балл </p>
                 </div>
                 <h6 style="font-size: 18.5px;margin:0;font-weight:bold;margin-bottom:10px;text-decoration: underline;font-style: italic;text-align:center;">Идоралараро Комиссия бир овоздан қуйидагиларни қарор қилди:</h6>
                 <p style="font-size: 18.5px;margin:0;">- юқори балл тўплаган талабгорни эълон қилиш;</p>
