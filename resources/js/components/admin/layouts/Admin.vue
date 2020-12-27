@@ -125,7 +125,7 @@
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link class="nav-link" to="/crm/contract">
+                <router-link class="nav-link" to="/crm/contract-list">
                   <p>
                     Договора
                   </p>
