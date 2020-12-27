@@ -40,6 +40,11 @@ class Reys extends Model
     {
         return $this->hasMany(\App\ReysTime::class,'reys_id')->where(['status' => 'active']);
     }
+    
+    public function reysPendingTimes()
+    {
+        return $this->hasMany(\App\ReysTime::class,'reys_id')->where(['status' => 'pending']);
+    }
 
     public function scopeGoogle($query)
     {   
