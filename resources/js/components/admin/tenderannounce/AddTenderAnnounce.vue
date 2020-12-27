@@ -60,7 +60,7 @@
 			  		<div class="d-flex justify-content-center">
 			  			<h4>Лоты</h4>
 			  		</div>
-				  	<!-- <div class="choosenItemsTable" v-for="(lots,lot_key) in allLotes">
+				  	<div class="choosenItemsTable" v-for="(lots,lot_key) in allLotes">
 				  		<div class="d-flex">
 					  		<h4 class="lot_n"><em>Лот №</em> {{lot_key+1}}</h4>
 					  		<i class="fas fa-trash text-danger lot_remove" @click.prevent="removeLot(lot_key)"></i>
@@ -103,8 +103,8 @@
 				  			</li>
 				  		</ul>
 				  		<hr>
-				  	</div> -->
-                                <div class="card cardtender" v-for="(t_lots,t_index) in tenderlots">
+				  	</div>
+      <!--       <div class="card cardtender" v-for="(t_lots,t_index) in tenderlots">
                 <div class="card-header" >
                         <h4 class="lot_n"><em>Лот №</em> {{t_index+1}}</h4>
                         <div>
@@ -190,7 +190,7 @@
                         </div>
                     </template>
                 </div>
-            </div>
+            </div> -->
                 </div>
 		  	</div>
 	  	</div>
