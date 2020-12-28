@@ -49,7 +49,7 @@ class UserCar extends Model
 
     public function busmodel()
     {
-        return $this->belongsTo(\App\BUsModel::class,'busmodel_id');
+        return $this->belongsTo(\App\BusModel::class,'busmodel_id');
     }
 
     public function busmarka()
