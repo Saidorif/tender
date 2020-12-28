@@ -296,7 +296,6 @@ export default {
       this.getSchedule.whereFrom.forEach(element => {
         this.form.whereFrom.reyses.push(element.reys_times)
       });
-
       this.form.whereTo.where = this.getSchedule.whereTo[0].where;
       this.form.whereTo.stations =  this.getSchedule.whereTo[0].stations
       this.getSchedule.whereTo.forEach(element => {
@@ -307,6 +306,12 @@ export default {
       this.form.reys_to_count = this.getSchedule.whereFrom[0].reys_to_count
       this.form.whereFrom.from = this.titulData.timing_with[0].whereForm;
       this.form.whereTo.from =  this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
+      this.form.whereFrom.reyses.forEach((p_item)=>{
+          p_item['bus_order'] = p_item[0].bus_order
+      })
+      this.form.whereTo.reyses.forEach((p_item)=>{
+          p_item['bus_order'] = p_item[0].bus_order
+      })
     }else{
       this.form.whereFrom.where = this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
       this.form.whereTo.where = this.titulData.timing_with[0].whereForm;
