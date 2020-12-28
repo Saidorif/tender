@@ -514,11 +514,14 @@ class TenderController extends Controller
                     //3.Avto year
                     $app_avto_years = 0;
                     $app_avto_capacity = 0;
+                    $app_avto_total = 0;
                     foreach($app->cars as $cars){
                         $app_avto_years += date('Y') - $cars->date;
                         $app_avto_capacity += $cars->seat_qty;
                     }
-                    $app_avto_total = $app_avto_years / count($app->cars);
+                    if($app_avto_years){
+                        $app_avto_total = $app_avto_years / count($app->cars);
+                    }
             
                     $app_avto_ball = 0;
                     //Avto ishlab chiqarilgan yildan boshlab necha yil otgani
@@ -610,7 +613,9 @@ class TenderController extends Controller
                             $avto_qulayliklar_ball += 1.05;
                         }
                     }
-                    $avto_qulayliklar_ball = $avto_qulayliklar_ball / count($app->cars);
+                    if($avto_qulayliklar_ball){
+                        $avto_qulayliklar_ball = $avto_qulayliklar_ball / count($app->cars);
+                    }
                     //9.Tadbirlar rejasi
                     $tadbirlar_rejasi_ball = 0;
                     if((int)$app->daily_technical_job == 1){
