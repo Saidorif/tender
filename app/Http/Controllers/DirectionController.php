@@ -329,6 +329,37 @@ class DirectionController extends Controller
         }
         return response()->json(['success' => true, 'result' => $result]);
     }
+    
+    //Direction tarifs approve
+    public function listTarifApprove(Request $request)
+    {
+        $validator = Validator::make($request->all(), [            
+            'tarif_id'  => 'required|integer',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $passportTarif = PassportTarif::find($request->input('tarif_id'));
+        if(!$passportTarif){
+            return response()->json(['error' => true, 'message' => 'Passport tarif not found']);
+        }
+        //Update direction tarif
+        $direction = $passportTarif->direction;
+        $direction->tarif = $passportTarif->summa;
+        $direction->save();
+        //Update all tarifs status
+        foreach($direction->passport_tarif as $tarif){
+            $tarif->status = 'pending';
+            $tarif->save();
+        }
+        //Update the tarif status
+        $passportTarif->status = 'approved';
+        $passportTarif->approved_id = $request->user()->id;
+        $passportTarif->save();
+
+        return response()->json(['success' => true, 'message' => 'Passport tarif approved']);
+    }
 
     public function schedule(Request $request,$id)
     {
