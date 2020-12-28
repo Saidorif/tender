@@ -1,118 +1,143 @@
 <template>
   <div class="tender_page">
-    <Header/>
+    <Header />
     <div class="container tender_block">
       <div class="col-md-12">
-        <h2 class="title" align="center" v-html="$t('conducted_tenders.title')"></h2>
-        <p class="sub_title">{{$t('conducted_tenders.sub_title')}}</p>
+        <h2
+          class="title"
+          align="center"
+          v-html="$t('conducted_tenders.title')"
+        ></h2>
+        <p class="sub_title">{{ $t("conducted_tenders.sub_title") }}</p>
         <div class="add_region">
-            <div class="card">
-                <div class="card-body">
-                    <form>
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                            <label for="name">Дата тердера</label>
-                            <div class="form-control input_style">
-                                {{ form.time }}
-                            </div>
-                            </div>
-                            <div class="form-group col-md-3">
-                            <label for="address">Адрес</label>
-                            <div class="form-control input_style">
-                                {{ form.address }}
-                            </div>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- All edit choosen tables -->
-                    <div class="table-responsive" v-if="tenderlots.length > 0">
-                        <div class="d-flex justify-content-center">
-                            <h4>Лоты</h4>
-                        </div>
-                        <div class="card cardtender" v-for="(t_lots,t_index) in tenderlots">
-                            <div class="card-header" >
-                                <h4 class="lot_n"><em>Лот №</em> {{t_index+1}}</h4>
-                                <button
-                                    type="button"
-                                    class="btn btn-info btn_save_category"
-                                    @click.prevent="getEditId(t_lots.id)"
-                                >
-                                    <i class="far fa-share-square text-light"></i>
-                                    <span class="text-light">Отправить заявку</span>
-                                </button>
-                            </div>
-                            <div class="card-body">
-                                <template v-for="(items,index) in t_lots.direction_id">
-                                    <div class="mb-2">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <h4>{{index+1}}) {{items.name}} ({{getLengthReys(items)}} рейс)</h4>
-
-                                        <router-link
-                                            :to='`/crm/stepuser/demand-tab/${items.id}`'
-                                            class="btn btn-outline-info"
-                                        >
-                                            <i class="fas fa-eye"></i>
-                                        </router-link>
-                                    </div>
-                                    <div >
-                                        <h3>
-                                        <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span>
-                                        </h3>
-                                        <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                            <th>№</th>
-                                            <th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
-                                                {{item.where.name}}
-                                            </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr
-                                            v-for="(reys,key) in items.reysesFrom"
-                                            :class="activeEditClass(reys)"
-                                            >
-                                            <td>{{key+1}}</td>
-                                            <template v-for="(val,key) in reys.reys_times">
-                                                <td>{{val.start}}</td>
-                                                <td>{{val.end}}</td>
-                                            </template>
-                                            </tr>
-                                        </tbody>
-                                        </table>
-                                        <h3>
-                                        <span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span>
-                                        </h3>
-                                        <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                            <th>№</th>
-                                            <th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
-                                                {{item.where.name}}
-                                            </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr
-                                            v-for="(reys,key) in items.reysesTo"
-                                            :class="activeEditClass(reys)"
-                                            >
-                                            <td>{{key+1}}</td>
-                                            <template v-for="(val,key) in reys.reys_times">
-                                                <td>{{val.start}}</td>
-                                                <td>{{val.end}}</td>
-                                            </template>
-                                            </tr>
-                                        </tbody>
-                                        </table>
-                                    </div>
-                                    </div>
-                                </template>
-                            </div>
-                        </div>
+          <div class="card">
+            <div class="card-body">
+              <form data-v-2411b0aa="">
+                <div class="row">
+                  <div class="form-group col-md-2">
+                    <label for="name">Дата тердера</label>
+                    <div class="form-control input_style">
+                      2021-12-27 14:00:00
                     </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="address">Адрес</label>
+                    <div class="form-control input_style">
+                      Uzbekistan Tashkent
+                    </div>
+                  </div>
                 </div>
+              </form>
+              <div class="table-responsive">
+                <div class="d-flex justify-content-center">
+                  <h4 data-v-2411b0aa="">Лоты</h4>
+                </div>
+                <div class="card cardtender">
+                  <div class="card-header">
+                    <h4 class="lot_n"><em data-v-2411b0aa="">Лот №</em> 1</h4>
+                    <button
+                      type="button"
+                      class="btn btn-info btn_save_category"
+                      @click="sendRequset()"
+                    >
+                      <i class="far fa-share-square text-light"></i>
+                      <span class="text-light">Отправить заявку</span>
+                    </button>
+                  </div>
+                  <div class="card-body">
+                    <div class="mb-2">
+                      <div
+                        class="d-flex align-items-center justify-content-between"
+                      >
+                        <h4 data-v-2411b0aa="">
+                          1) Қашқадарё вилояти-Самарқанд вилояти (0 рейс)
+                        </h4>
+                        <a
+                          href="/crm/stepuser/demand-tab/4"
+                          class="btn btn-outline-info"
+                          ><i class="fas fa-eye"></i
+                        ></a>
+                      </div>
+                      <div data-v-2411b0aa="">
+                        <h3 data-v-2411b0aa="">
+                          <span data-v-2411b0aa="">Бектемир - Қарши ш.</span>
+                        </h3>
+                        <table class="table table-bordered">
+                          <thead data-v-2411b0aa="">
+                            <tr data-v-2411b0aa="">
+                              <th data-v-2411b0aa="">№</th>
+                              <th colspan="2">Бектемир</th>
+                              <th colspan="2">Ургут автостанцияси</th>
+                              <th colspan="2">Дехконобод бозори</th>
+                              <th colspan="2">Навоий</th>
+                              <th colspan="2">Самарқанд ш.</th>
+                              <th colspan="2">Жом қ.</th>
+                              <th colspan="2">Қарши ш.</th>
+                            </tr>
+                          </thead>
+                          <tbody data-v-2411b0aa="">
+                            <tr class="edit-active">
+                              <td data-v-2411b0aa="">1</td>
+                              <td data-v-2411b0aa="">12</td>
+                              <td data-v-2411b0aa=""></td>
+                              <td data-v-2411b0aa="">12</td>
+                              <td data-v-2411b0aa="">12</td>
+                              <td data-v-2411b0aa="">21</td>
+                              <td data-v-2411b0aa="">1</td>
+                              <td data-v-2411b0aa="">21</td>
+                              <td data-v-2411b0aa="">21</td>
+                              <td data-v-2411b0aa="">2</td>
+                              <td data-v-2411b0aa="">1</td>
+                              <td data-v-2411b0aa="">121</td>
+                              <td data-v-2411b0aa="">12</td>
+                              <td data-v-2411b0aa=""></td>
+                              <td data-v-2411b0aa="">21</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <h3 data-v-2411b0aa="">
+                          <span data-v-2411b0aa="">Қарши ш. - Бектемир</span>
+                        </h3>
+                        <table class="table table-bordered">
+                          <thead data-v-2411b0aa="">
+                            <tr data-v-2411b0aa="">
+                              <th data-v-2411b0aa="">№</th>
+                              <th colspan="2">Қарши ш.</th>
+                              <th colspan="2">Жом қ.</th>
+                              <th colspan="2">Самарқанд ш.</th>
+                              <th colspan="2">Навоий</th>
+                              <th colspan="2">Дехконобод бозори</th>
+                              <th colspan="2">Ургут автостанцияси</th>
+                              <th colspan="2">Бектемир</th>
+                            </tr>
+                          </thead>
+                          <tbody data-v-2411b0aa="">
+                            <tr class="edit-active">
+                              <td data-v-2411b0aa="">1</td>
+                              <td data-v-2411b0aa="">121</td>
+                              <td data-v-2411b0aa=""></td>
+                              <td data-v-2411b0aa="">2</td>
+                              <td data-v-2411b0aa="">21</td>
+                              <td data-v-2411b0aa="">1</td>
+                              <td data-v-2411b0aa="">12</td>
+                              <td data-v-2411b0aa="">21</td>
+                              <td data-v-2411b0aa="">21</td>
+                              <td data-v-2411b0aa="">21</td>
+                              <td data-v-2411b0aa="">21</td>
+                              <td data-v-2411b0aa="">1</td>
+                              <td data-v-2411b0aa="">12</td>
+                              <td data-v-2411b0aa=""></td>
+                              <td data-v-2411b0aa="">21</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -122,14 +147,14 @@
 import DatePicker from "vue2-datepicker";
 import Multiselect from "vue-multiselect";
 import { mapGetters, mapActions } from "vuex";
-import Header from './Header'
-import Loader from '../Loader'
+import Header from "./Header";
+import Loader from "../Loader";
 export default {
   components: {
     Header,
     DatePicker,
     Multiselect,
-    Loader
+    Loader,
   },
   data() {
     return {
@@ -231,6 +256,9 @@ export default {
     },
     isRequired(input) {
       return this.requiredInput && input === "";
+    },
+    sendRequset(){
+        this.$router.push("/login");
     },
   },
 };
