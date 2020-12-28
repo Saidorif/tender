@@ -317,6 +317,18 @@ class DirectionController extends Controller
         $passport_tarif = PassportTarif::create($inputs);
         return response()->json(['success' => true, 'message' => 'Passport tarif created successfully']);
     }
+    
+    //List direction tarifs
+    public function listTarif(Request $request)
+    {
+        $directions = Direction::all();
+        $result = [];
+        foreach($directions as $key => $dir){
+            $passport_tarifs = $dir->passport_tarif;
+            $result[$key] = ['name' => $dir->name,'tarifs' => $passport_tarifs];
+        }
+        return response()->json(['success' => true, 'result' => $result]);
+    }
 
     public function schedule(Request $request,$id)
     {
