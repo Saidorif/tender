@@ -1001,6 +1001,16 @@ hr{
     background: #FFFFFF !important;
     border: 1px solid #D4E2F5 !important;
 }
+.table_input .mx-icon-calendar{
+    display: none;
+}
+.table_input .mx-input{
+    padding: 0 !important;
+    text-align: center !important;
+    background: transparent !important;
+    border: 0px !important;
+    box-shadow: none;
+}
 .input-group.register_date .mx-datepicker .mx-input-wrapper .mx-icon-calendar, .mx-icon-clear {
     color: #acf1c1 !important;
 }

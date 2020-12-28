@@ -15,34 +15,46 @@
 							<th scope="col">№</th>
 							<th scope="col">Направления</th>
 							<th scope="col">Тариф</th>
-							<th scope="col">Дата создания</th>
+							<th scope="col">Сумма багажа</th>
 							<th scope="col">Статус</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
 					<tbody>
-						<!-- <tr v-for="(item,index) in getTarifAnnounces.data">
+						<tr v-for="(item,index) in getPassportList">
 							<td scope="row">{{item.id}}</td>
-							<td>
-								<em>
-							    	{{item.tenderlots.length}}
-							    	<span>{{item.tenderlots.length > 1 ? 'лоты' :'лот'}}</span>
-							    </em>
+							<td scope="row">{{item.name}}</td>
+                            <td style="padding:0;">
+                                <ul class="table_item_list">
+                                    <li v-for="(ch_item,ch_index) in item.tarifs" >
+                                        {{ch_item.summa}}
+                                    </li>
+                                </ul>
+                            </td>
+                            <td style="padding:0;">
+                                <ul class="table_item_list">
+                                    <li v-for="(ch_item,ch_index) in item.tarifs" >
+                                        {{ch_item.summa_bagaj}}
+                                    </li>
+                                </ul>
+                            </td>
+                            <td style="padding:0;">
+                                <ul class="table_item_list">
+                                    <li v-for="(ch_item,ch_index) in item.tarifs" >
+                                        {{ch_item.status == 'pending' ? 'не подтвержден' : 'подтвержден'}}
+                                    </li>
+                                </ul>
+                            </td>
+							<td style="padding:0;">
+                                <ul class="table_item_list">
+                                    <li v-for="(ch_item,ch_index) in item.tarifs" >
+                                        <button type="button" class="btn btn-success" style="padding: 2px 9px;" @click="completedTender(ch_item.id)">
+                                            <i class="far fa-check-circle"></i>
+                                        </button>
+                                    </li>
+                                </ul>
 							</td>
-							<td>{{item.address}}</td>
-							<td>{{item.time}}</td>
-							<td :id="item.id">{{$g.dateCounter(item.time,item.id)}}</td>
-							<td>
-								<div class="badge" :class="getStatusClass(item.status)">
-									{{getStatusName(item.status)}}
-								</div>
-							</td>
-							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/confirm-tender/edit/${item.id}`'>
-									<i class="pe_icon pe-7s-edit editColor"></i>
-								</router-link>
-							</td>
-						</tr> -->
+						</tr>
 					</tbody>
 					<!-- <pagination :limit="4" :data="getTarifAnnounces" @pagination-change-page="getResults"></pagination> -->
 				</table>
@@ -60,14 +72,26 @@
 			}
 		},
 		async mounted(){
-			let page = 1;
-			// await this.actionTarifAnnounces(page)
+            let page = 1;
+            await this.actionPortTarifList();
+            console.log(this.getPassportList)
 		},
 		computed:{
-			// ...mapGetters('tarifannounce',['getTarifAnnounces','getMassage'])
+			...mapGetters('tarifannounce',['getPassportList', 'getMassage'])
 		},
 		methods:{
-			// ...mapActions('tarifannounce',['actionTarifAnnounces','actionDeleteTarifAnnounce']),
+            ...mapActions('tarifannounce',['actionPortTarifList', 'actionApprovePassportTarifList']),
+            async completedTender(id){
+                await this.actionApprovePassportTarifList({tarif_id: id})
+                if(this.getMassage.success){
+                    await this.actionPortTarifList();
+                    toast.fire({
+				    	type: 'success',
+				    	icon: 'success',
+						title: 'Тендер тариф подтверждена!',
+				    })
+                }
+            },
 			// async getResults(page = 1){
 			// 	await this.actionTarifAnnounces(page)
 			// },
@@ -104,3 +128,15 @@
 		}
 	}
 </script>
+<style  scoped>
+    .table_item_list{
+        margin-bottom: 0;
+    }
+    .table_item_list li{
+        list-style: none;
+        border-bottom: 1px solid #000;
+    }
+        .table_item_list li:last-child{
+            border: 0px;
+        }
+</style>

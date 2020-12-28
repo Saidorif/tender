@@ -100,17 +100,21 @@
                   <td>{{ p_index + 1 }}</td>
                   <template v-for="(ch_item, ch_index) in p_item">
                     <td class="reys1" colspan="1">
-                      <input
+                      <DatePicker
                         v-model="ch_item.end"
-                        type="text"
+                        type="time"
                         class="table_input"
+                        valueType="format"
+                        format="HH:mm"
                       />
                     </td>
                     <td class="reys1" colspan="1">
-                      <input
+                      <DatePicker
                         v-model="ch_item.start"
-                        type="text"
+                        type="time"
                         class="table_input"
+                        valueType="format"
+                        format="HH:mm"
                       />
                     </td>
                   </template>
@@ -149,17 +153,21 @@
                   <td>{{ p_index + 1 }}</td>
                   <template v-for="(ch_item, ch_index) in p_item">
                     <td class="reys1" colspan="1">
-                      <input
+                      <DatePicker
                         v-model="ch_item.end"
-                        type="text"
+                        type="time"
                         class="table_input"
+                        valueType="format"
+                        format="HH:mm"
                       />
                     </td>
                     <td class="reys1" colspan="1">
-                      <input
+                      <DatePicker
                         v-model="ch_item.start"
-                        type="text"
+                        type="time"
                         class="table_input"
+                        valueType="format"
+                        format="HH:mm"
                       />
                     </td>
                   </template>
@@ -399,7 +407,7 @@ export default {
 }
 .table_input {
   width: 70px;
-  padding: 0.25rem;
+  padding: 0px;
   border: none;
   background: transparent;
 }
@@ -447,4 +455,5 @@ th{
 th:hover .trashTable{
   opacity: 1;
 }
+
 </style>
