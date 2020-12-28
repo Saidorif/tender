@@ -192,8 +192,9 @@ Route::group([
             Route::post('direction/find', 'DirectionController@find');
             Route::get('direction/timingdetails', 'DirectionController@timingdetails');
             Route::get('direction/timingtarif/{id}', 'DirectionController@timingtarif');
-            Route::post('direction/passporttarif/{id}', 'DirectionController@storeTarif');
+            Route::post('direction/passporttarif/approve', 'DirectionController@listTarifApprove');
             Route::get('direction/passporttarif/list', 'DirectionController@listTarif');
+            Route::post('direction/passporttarif/{id}', 'DirectionController@storeTarif');
             Route::post('direction/schedule/{id}', 'DirectionController@schedule');
             Route::get('direction/getschedule/{id}', 'DirectionController@getSchedule');
             Route::get('direction/requirement/{id}', 'DirectionController@requirement');
