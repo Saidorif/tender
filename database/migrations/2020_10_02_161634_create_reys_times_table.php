@@ -20,6 +20,7 @@ class CreateReysTimesTable extends Migration
             $table->string('start')->nullable();
             $table->string('where')->nullable();
             $table->string('end')->nullable();
+            $table->string('bus_order')->nullable();
             $table->string('status')->default('active');
             $table->timestamps();
         });

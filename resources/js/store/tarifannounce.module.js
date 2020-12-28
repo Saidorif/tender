@@ -28,7 +28,7 @@ const actions = {
 	async actionApprovePassportTarifList({commit},payload){
 		try {
 			const passportList =  await TarifannounceService.approvePassportTarifList(payload);
-			await commit('setMassage',passportList.data.result)
+			await commit('setMassage',passportList.data)
 			return true
 		} catch (error) {
 			return false

@@ -379,6 +379,7 @@ class DirectionController extends Controller
             'data.whereTo.reyses.*'  => 'required|array',
             'data.whereTo.reyses.*.*.start'  => 'nullable|string',
             'data.whereTo.reyses.*.*.end'  => 'nullable|string',
+            'data.whereTo.reyses.*.*.bus_order'  => 'nullable|string',
             'data.whereTo.reyses.*.*.where'  => 'required|array',
         ]);
 
@@ -432,6 +433,7 @@ class DirectionController extends Controller
                 $reysTime = ReysTime::create([
                     'start' => $item['start'],
                     'end' => $item['end'],
+                    'bus_order' => $item['bus_order'],
                     'where' => $item['where'],
                     'status' => 'active',
                     'direction_id' => $direction->id,
@@ -464,6 +466,7 @@ class DirectionController extends Controller
                 $reysTime = ReysTime::create([
                     'start' => $to_item['start'],
                     'end' => $to_item['end'],
+                    'bus_order' => $to_item['bus_order'],
                     'where' => $to_item['where'],
                     'status' => 'active',
                     'direction_id' => $direction->id,

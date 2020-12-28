@@ -41,15 +41,19 @@
                             <td style="padding:0;">
                                 <ul class="table_item_list">
                                     <li v-for="(ch_item,ch_index) in item.tarifs" >
-                                        {{ch_item.status == 'pending' ? 'не подтвержден' : 'подтвержден'}}
+                                    	<div class="badge" :class="getStatusClass(ch_item.status)">
+	                                        {{ch_item.status == 'pending' ? 'не подтвержден' : 'подтвержден'}}
+                                    	</div>
                                     </li>
                                 </ul>
                             </td>
 							<td style="padding:0;">
                                 <ul class="table_item_list">
                                     <li v-for="(ch_item,ch_index) in item.tarifs" >
-                                        <button type="button" class="btn btn-success" style="padding: 2px 9px;" @click="completedTender(ch_item.id)">
-                                            <i class="far fa-check-circle"></i>
+                                        <button type="button" class="btn" :class="ch_item.status == 'approved' ? 'btn-success' : 'fas btn-warning'" style="padding: 2px 9px;" 
+                                        	@click="completedTender(ch_item.id)"
+                                    	>
+                                            <i :class="ch_item.status == 'approved' ? 'far fa-check-circle' : 'fas fa-times'"></i>
                                         </button>
                                     </li>
                                 </ul>
@@ -104,15 +108,13 @@
 			// 		return 'Завершен'
 			// 	}
 			// },
-			// getStatusClass(status){
-			// 	if(status == 'pending'){
-			// 		return 'badge-secondary'
-			// 	}else if(status == 'rejected'){
-			// 		return 'badge-danger'
-			// 	}else if(status == 'completed'){
-			// 		return 'badge-success'
-			// 	}
-			// },
+			getStatusClass(status){
+				if(status == 'pending'){
+					return 'badge-warning'
+				}else if(status == 'approved'){
+					return 'badge-success'
+				}
+			},
 			// async deleteTarif(id){
 			// 	if(confirm("Вы действительно хотите удалить?")){
 			// 		let page = 1

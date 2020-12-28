@@ -12,7 +12,8 @@ class ReysTime extends Model
         'start',
         'where',
         'status',
-        'end'
+        'end',
+        'bus_order',
     ];
 
     protected $casts = [
