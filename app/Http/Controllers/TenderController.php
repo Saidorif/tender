@@ -840,7 +840,7 @@ class TenderController extends Controller
 
     public function checkTenders(Request $request)
     {
-        $result = Application::with(['user'])->withCount(['cars'])->where(['status' => 'accepted'])->get();
+        $result = Application::with(['user'])->withCount(['cars'])->where(['status' => 'accepted','status' => 'approved'])->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
     
