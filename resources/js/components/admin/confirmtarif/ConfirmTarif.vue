@@ -48,8 +48,10 @@
 							<td style="padding:0;">
                                 <ul class="table_item_list">
                                     <li v-for="(ch_item,ch_index) in item.tarifs" >
-                                        <button type="button" class="btn btn-success" style="padding: 2px 9px;" @click="completedTender(ch_item.id)">
-                                            <i class="far fa-check-circle"></i>
+                                        <button type="button" class="btn" :class="ch_item.status == 'approved' ? 'btn-success' : 'fas btn-danger'" style="padding: 2px 9px;" 
+                                        	@click="completedTender(ch_item.id)"
+                                    	>
+                                            <i :class="ch_item.status == 'approved' ? 'far fa-check-circle' : 'fas fa-times'"></i>
                                         </button>
                                     </li>
                                 </ul>
