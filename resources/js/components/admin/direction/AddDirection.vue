@@ -172,6 +172,7 @@
                 type="number"
                 v-model="form.tarif"
                 class="form-control input_style"
+                disabled
               />
             </div>
             <div class="col-lg-12" v-if="cars.length > 0">
