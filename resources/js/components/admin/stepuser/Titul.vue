@@ -208,7 +208,7 @@ export default {
           toast.fire({
             type: "error",
             icon: "error",
-            title: "error whoops",
+            title: this.getMassage.message,
           });
         }
         this.requiredInput = false;
