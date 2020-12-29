@@ -117,9 +117,10 @@
                         format="HH:mm"
                       />
                     </td>
+                    <input type="hidden" v-model="p_item.bus_order" class="table_input" />
                   </template>
                   <td class="reys1" colspan="1">
-                    <input type="text" v-model="p_item.bus_number" class="table_input" />
+                    <input type="text" v-model="p_item.bus_order" class="table_input" />
                   </td>
                 </tr>
               </tbody>
@@ -170,9 +171,10 @@
                         format="HH:mm"
                       />
                     </td>
+                    <input type="hidden" v-model="p_item.bus_order" class="table_input" />
                   </template>
                   <td class="reys1" colspan="1">
-                    <input type="text" v-model="p_item.bus_number" class="table_input" />
+                    <input type="text" v-model="p_item.bus_order" class="table_input" />
                   </td>
                 </tr>
               </tbody>
@@ -233,7 +235,7 @@ export default {
                 let forEachNumber = this.form.reys_to_count - this.form.whereTo.reyses.length
                 for (let index = 0; index < forEachNumber; index++) {
                     let dataArray = this.form.whereTo.stations.map((item) => {
-                      return { end: "", start: "", where: item };
+                      return { end: "", start: "", where: item, bus_order: '',};
                     });
                     this.form.whereTo.reyses.push(dataArray);
                 }
@@ -245,7 +247,7 @@ export default {
               this.form.whereTo.reyses = [];
               for (let i = 1; i <= this.form.reys_to_count; i++) {
                 let dataArray = this.form.whereTo.stations.map((item) => {
-                  return { end: "", start: "", where: item };
+                  return { end: "", start: "", where: item, bus_order: '', };
                 });
                 this.form.whereTo.reyses.push(dataArray);
               }
@@ -288,15 +290,12 @@ export default {
     await this.actionGetScheduleTable(this.$route.params.directionId);
     this.laoding = false
       this.titulData = this.getDirection;
-      console.log(this.getSchedule)
-
     if(this.getSchedule.whereFrom.length && this.getSchedule.whereTo.length){
       this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
       this.form.whereFrom.stations =  this.getSchedule.whereFrom[0].stations
       this.getSchedule.whereFrom.forEach(element => {
         this.form.whereFrom.reyses.push(element.reys_times)
       });
-
       this.form.whereTo.where = this.getSchedule.whereTo[0].where;
       this.form.whereTo.stations =  this.getSchedule.whereTo[0].stations
       this.getSchedule.whereTo.forEach(element => {
@@ -307,6 +306,12 @@ export default {
       this.form.reys_to_count = this.getSchedule.whereFrom[0].reys_to_count
       this.form.whereFrom.from = this.titulData.timing_with[0].whereForm;
       this.form.whereTo.from =  this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
+      this.form.whereFrom.reyses.forEach((p_item)=>{
+          p_item['bus_order'] = p_item[0].bus_order
+      })
+      this.form.whereTo.reyses.forEach((p_item)=>{
+          p_item['bus_order'] = p_item[0].bus_order
+      })
     }else{
       this.form.whereFrom.where = this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
       this.form.whereTo.where = this.titulData.timing_with[0].whereForm;
@@ -337,6 +342,16 @@ export default {
       "actionGetScheduleTable",
     ]),
     async saveData() {
+        this.form.whereTo.reyses.forEach((p_item) => {
+            p_item.forEach((ch_item)=>{
+                ch_item.bus_order = p_item.bus_order
+            })
+        })
+        this.form.whereFrom.reyses.forEach((p_item) => {
+            p_item.forEach((ch_item)=>{
+                ch_item.bus_order = p_item.bus_order
+            })
+        })
       if (
         this.form.count_bus != "" &&
         this.form.reys_to_count != "" &&

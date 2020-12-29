@@ -303,7 +303,7 @@
                   <td>{{ table.distance_from_start_station }}</td>
                   <td>{{ table.distance_between_station }}</td>
                   <td>{{ table.distance_in_limited_speed }} </td>
-                  <td>{{ table.spendtime_between_station }}</td>
+                  <td>{{ table.spendtime_between_station }} </td>
                   <td>{{ table.spendtime_between_limited_space }}</td>
                   <td>{{ table.spendtime_to_stay_station }} </td>
                   <td>{{ table.speed_between_station }}</td>
@@ -321,8 +321,11 @@
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="8" scope="row">Ortacha tezlik = {{technic_speed}} km/soat</td>
-                  <td colspan="8" scope="row">Qatnov tezlik = {{traffic_speed}} km/soat</td>
+                  <td colspan="7" scope="row">Ortacha tezlik = {{technic_speed}} km/soat</td>
+                  <td colspan="1" scope="row">{{total_spendtime_between_station}}</td>
+                  <td colspan="1" scope="row"></td>
+                  <td colspan="1" scope="row">{{total_spendtime_to_stay_station}}</td>
+                  <td colspan="5" scope="row">Qatnov tezlik = {{traffic_speed}} km/soat</td>
                 </tr>
               </tbody>
             </table>
@@ -406,6 +409,8 @@ export default {
         requiredInputTwo: false,
         technic_speed: 0,
         traffic_speed: 0,
+        total_spendtime_between_station: 0,
+        total_spendtime_to_stay_station: 0,
         laoding: true,
         fullTableInfo: [],
         errorInput: true,
@@ -473,16 +478,22 @@ export default {
       }
     },
     calctechnic_speed(){
-      let calc_technic_speed = 0
-      let calc_traffic_speed = 0
-      this.tableTwoData.forEach((item)=>{
-        calc_technic_speed += parseFloat(item.spendtime_between_station)
-        calc_traffic_speed += parseFloat(item.spendtime_to_stay_station)
-      })
-      this.technic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  calc_technic_speed
-      this.traffic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
-      this.technic_speed = parseFloat(this.technic_speed).toFixed(1)
-      this.traffic_speed = parseFloat(this.traffic_speed).toFixed(1)
+        let calc_technic_speed = 0
+        let calc_traffic_speed = 0
+        let calc_spendtime_between_station = 0
+        let calc_spendtime_to_stay_station = 0
+        this.tableTwoData.forEach((item)=>{
+            calc_technic_speed += parseFloat(item.spendtime_between_station)
+            calc_traffic_speed += parseFloat(item.spendtime_to_stay_station)
+            calc_spendtime_between_station += parseFloat(item.spendtime_between_station)
+            calc_spendtime_to_stay_station += parseFloat(item.spendtime_to_stay_station)
+        })
+        this.technic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  calc_technic_speed
+        this.traffic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
+        this.technic_speed = parseFloat(this.technic_speed).toFixed(1)
+        this.traffic_speed = parseFloat(this.traffic_speed).toFixed(1)
+        this.total_spendtime_between_station = calc_spendtime_between_station
+        this.total_spendtime_to_stay_station = calc_spendtime_to_stay_station
     },
     signSelect(detail){
         detail.name = detail.sign.id

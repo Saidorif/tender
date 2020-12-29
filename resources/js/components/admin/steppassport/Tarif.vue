@@ -226,7 +226,9 @@ import Loader from '../../Loader'
 		    },
 		    getStatusName(status){
 		    	if (status == 'pending') {
-		    		return 'В ожидании'
+		    		return 'В ожидании!'
+		    	}else if(status == 'approved'){
+		    		return 'Подвержден!'
 		    	}else{
 		    		return status
 		    	}
