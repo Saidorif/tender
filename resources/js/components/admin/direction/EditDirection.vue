@@ -407,6 +407,8 @@ export default {
         this.form.region_to.area_id = this.getDirection.area_to_id;
         this.form.region_to.station_id = this.getDirection.station_to_id;
         this.form.year = this.getDirection.year.toString();
+        this.form.from_type = this.getDirection.from_type;
+        this.form.to_type = this.getDirection.to_type;
         this.form.from_where = this.getDirection.from_where;
         this.form.seasonal = this.getDirection.seasonal;
         this.form.distance = this.getDirection.distance;
@@ -435,6 +437,8 @@ export default {
     this.form.region_to.area_id = this.getDirection.area_to_id;
     this.form.region_to.station_id = this.getDirection.station_to_id;
     this.form.year = this.getDirection.year.toString();
+    this.form.from_type = this.getDirection.from_type;
+    this.form.to_type = this.getDirection.to_type;
     this.form.from_where = this.getDirection.from_where;
     this.form.seasonal = this.getDirection.seasonal;
     this.form.distance = this.getDirection.distance;
