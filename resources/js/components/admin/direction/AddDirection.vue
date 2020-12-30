@@ -39,7 +39,16 @@
               />
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Shaxardan, viloyatdan</label>
+              <label for="region_id">
+                Shaxardan, viloyatdan
+                <input
+                  type="radio"
+                  name="name_from"
+                  value="region"
+                  v-model="form.from_type"
+                  id="from_type_region"
+                />
+              </label>
               <select
                 class="form-control input_style"
                 v-model="form.region_from.region_id"
@@ -51,7 +60,16 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Tumandan, qishloqdan, shaxridan</label>
+              <label for="region_id">
+                Tumandan, qishloqdan, shaxridan
+                <input
+                  v-model="form.from_type"
+                  type="radio"
+                  name="name_from"
+                  value="area"
+                  id="from_type_area"
+                />
+              </label>
               <select
                 class="form-control input_style"
                 v-model="form.region_from.area_id"
@@ -63,7 +81,16 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Bekatdan</label>
+              <label for="region_id">
+                Bekatdan
+                <input
+                  v-model="form.from_type"
+                  type="radio"
+                  name="name_from"
+                  value="station"
+                  id="from_type_station"
+                />
+              </label>
               <select
                 class="form-control input_style"
                 v-model="form.region_from.station_id"
@@ -74,7 +101,16 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Shaxarga, viloyatga</label>
+              <label for="region_id">
+                Shaxarga, viloyatga
+                <input
+                  v-model="form.to_type"
+                  type="radio"
+                  name="name_to"
+                  value="region"
+                  id="to_type_region"
+                />
+              </label>
               <select
                 class="form-control input_style"
                 v-model="form.region_to.region_id"
@@ -86,7 +122,16 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Tumanga, qishloqga, shaxriga,</label>
+              <label for="region_id">
+                Tumanga, qishloqga, shaxriga
+                <input
+                  v-model="form.to_type"
+                  type="radio"
+                  name="name_to"
+                  value="area"
+                  id="to_type_area"
+                />
+              </label>
               <select
                 class="form-control input_style"
                 v-model="form.region_to.area_id"
@@ -98,7 +143,16 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="region_id">Bakatga</label>
+              <label for="region_id">
+                Bekatga
+                <input
+                  v-model="form.to_type"
+                  type="radio"
+                  name="name_to"
+                  value="station"
+                  id="to_type_station"
+                />
+              </label>
               <select
                 class="form-control input_style"
                 v-model="form.region_to.station_id"
