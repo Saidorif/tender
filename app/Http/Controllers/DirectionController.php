@@ -86,6 +86,8 @@ class DirectionController extends Controller
         $area_ids = Area::pluck('id');
         $validator = Validator::make($request->all(), [            
             'pass_number'  => 'required|string',
+            'from_type'  => 'required|string',
+            'to_type'  => 'required|string',
             'tarif'  => 'nullable|integer',
             'year'  => 'required|string',
             'distance'  => 'nullable|numeric|min:0,99|max:999999999,99',
@@ -114,6 +116,8 @@ class DirectionController extends Controller
         $inputs = $request->all();
         $direction = Direction::create([
             'pass_number' => $inputs['pass_number'],
+            'from_type' => $inputs['from_type'],
+            'to_type' => $inputs['to_type'],
             'tarif' => $inputs['tarif'],
             'year' => Carbon::parse($inputs['year'])->format('Y-m-d'),
             'distance' => $inputs['distance'],
@@ -130,16 +134,22 @@ class DirectionController extends Controller
         ]);
         $from_name = '';
         $to_name = '';
-        if(!empty($inputs['region_from']['region_id']) && !empty($inputs['region_to']['region_id'])){
+        if($inputs['from_type'] == 'region'){
             $from_name = $direction->regionFrom->name;
+        }
+        if($inputs['from_type'] == 'area'){
+            $from_name = $direction->areaFrom->name;
+        }
+        if($inputs['from_type'] == 'station'){
+            $from_name = $direction->stationFrom->name;
+        }
+        if($inputs['to_type'] == 'region'){
             $to_name = $direction->regionTo->name;
         }
-        if(!empty($inputs['region_from']['area_id']) && !empty($inputs['region_to']['area_id'])){
-            $from_name = $direction->areaFrom->name;
+        if($inputs['to_type'] == 'area'){
             $to_name = $direction->areaTo->name;
         }
-        if(!empty($inputs['region_from']['station_id']) && !empty($inputs['region_to']['station_id'])){
-            $from_name = $direction->stationFrom->name;
+        if($inputs['to_type'] == 'station'){
             $to_name = $direction->stationTo->name;
         }
         $direction->name = $from_name.'-'.$to_name;
@@ -168,6 +178,8 @@ class DirectionController extends Controller
         $area_ids = Area::pluck('id');
         $validator = Validator::make($request->all(), [            
             'pass_number'  => 'required|string',
+            'from_type'  => 'required|string',
+            'to_type'  => 'required|string',
             'tarif'  => 'nullable|integer',
             'year'  => 'required|string',
             'distance'  => 'nullable|numeric|min:0,99|max:999999999,99',
@@ -194,13 +206,36 @@ class DirectionController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        $from_name = '';
+        $to_name = '';
+        if($inputs['from_type'] == 'region'){
+            $from_name = $direction->regionFrom->name;
+        }
+        if($inputs['from_type'] == 'area'){
+            $from_name = $direction->areaFrom->name;
+        }
+        if($inputs['from_type'] == 'station'){
+            $from_name = $direction->stationFrom->name;
+        }
+        if($inputs['to_type'] == 'region'){
+            $to_name = $direction->regionTo->name;
+        }
+        if($inputs['to_type'] == 'area'){
+            $to_name = $direction->areaTo->name;
+        }
+        if($inputs['to_type'] == 'station'){
+            $to_name = $direction->stationTo->name;
+        }
         $direction->update([
             'pass_number' => $inputs['pass_number'],
+            'from_type' => $inputs['from_type'],
+            'to_type' => $inputs['to_type'],
             'tarif' => (int)$inputs['tarif'],
             'year' => Carbon::parse($inputs['year'])->format('Y-m-d'),
             'distance' => $inputs['distance'],
             'profitability' => $inputs['profitability'],
             'type_id' => $inputs['type_id'],
+            'name' => $from_name.'-'.$to_name,
             'from_where' => $inputs['from_where'],
             'seasonal' => $inputs['seasonal'],
             'station_from_id' => $inputs['region_from']['station_id'],
@@ -210,8 +245,6 @@ class DirectionController extends Controller
             'region_to_id' => $inputs['region_to']['region_id'],
             'area_to_id' => $inputs['region_to']['area_id'],
         ]);
-        $direction->name = $direction->regionFrom->name.'-'.$direction->regionTo->name;
-        $direction->save();
 
         foreach ($inputs['cars'] as $key => $car) {
             $direction_car = DirectionCar::create([
