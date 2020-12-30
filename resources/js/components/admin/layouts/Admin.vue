@@ -78,6 +78,45 @@
               </p>
             </router-link>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link" >
+              <i class="peIcon fas fa-clipboard-check"></i>
+              <p>
+                Подтверждения
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/confirm-titul">
+                  <p>
+                    Титуль
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/confirm-timing">
+                  <p>
+                    Хронометраж
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/confirm-tarif">
+                  <p>
+                    Тариф
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/confirm-tender">
+                  <p>
+                    Тендер
+                  </p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/crm/tenderannounce">
               <i class="peIcon fas fa-bullhorn"></i>
@@ -132,22 +171,6 @@
                 </router-link>
               </li>
             </ul>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/confirm-tarif">
-              <i class="peIcon fas fa-clipboard-check"></i>
-              <p>
-                Подтвердить тариф
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/confirm-tender">
-              <i class="peIcon fas fa-clipboard-check"></i>
-              <p>
-                Подтвердить тендер
-              </p>
-            </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/crm/position">
