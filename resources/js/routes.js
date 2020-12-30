@@ -146,10 +146,20 @@ import ConfirmTender from './components/admin/confirmtender/ConfirmTender'
 import AddConfirmTender from './components/admin/confirmtender/AddConfirmTender'
 import EditConfirmTender from './components/admin/confirmtender/EditConfirmTender'
 
+// ConfirmTiming
+import ConfirmTiming from './components/admin/confirmtiming/ConfirmTiming'
+import AddConfirmTiming from './components/admin/confirmtiming/AddConfirmTiming'
+import EditConfirmTiming from './components/admin/confirmtiming/EditConfirmTiming'
+
 // ConfirmTarif
 import ConfirmTarif from './components/admin/confirmtarif/ConfirmTarif'
 import AddConfirmTarif from './components/admin/confirmtarif/AddConfirmTarif'
 import EditConfirmTarif from './components/admin/confirmtarif/EditConfirmTarif'
+
+// ConfirmTitul
+import ConfirmTitul from './components/admin/confirmtitul/ConfirmTitul'
+import AddConfirmTitul from './components/admin/confirmtitul/AddConfirmTitul'
+import EditConfirmTitul from './components/admin/confirmtitul/EditConfirmTitul'
 
 // CompletedTenders
 import CompletedTenders from './components/admin/completedtenders/CompletedTenders'
@@ -539,6 +549,18 @@ const router = new Router({
 					component:EditConfirmTender,
 				},
 				{
+					path:'confirm-timing',
+					component:ConfirmTiming,
+				},
+				{
+					path:'confirm-timing/add',
+					component:AddConfirmTiming,
+				},
+				{
+					path:'confirm-timing/edit/:timingannounceId',
+					component:EditConfirmTiming,
+				},
+				{
 					path:'confirm-tarif',
 					component:ConfirmTarif,
 				},
@@ -549,6 +571,18 @@ const router = new Router({
 				{
 					path:'confirm-tarif/edit/:tarifannounceId',
 					component:EditConfirmTarif,
+				},
+				{
+					path:'confirm-titul',
+					component:ConfirmTitul,
+				},
+				{
+					path:'confirm-titul/add',
+					component:AddConfirmTitul,
+				},
+				{
+					path:'confirm-titul/edit/:titulannounceId',
+					component:EditConfirmTitul,
 				},
 				{
 					path:'payment',
