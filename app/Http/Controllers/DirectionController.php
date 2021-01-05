@@ -296,31 +296,31 @@ class DirectionController extends Controller
             $result = [];
             for ($i=0; $i < count($ptimings); $i++) {
                 foreach ($ptimings as $key => $timing) {
-                    $result[$key]['ddd'][] = (int)$timing['distance_from_start_station'];
-                    if($key != 0){
-                        $distance_test = array_sum($result[$key]['ddd']);
+                    $result[$key]['ddd'][] = round($timing['distance_between_station'],2);
+                    if($i != 0){
+                        $distance_test = $timing['distance_from_start_station'];// + $result[$key]['ddd'][0];
                     }else{
-                        $distance_test = (int)$timing['distance_from_start_station'];
+                        $distance_test = round($timing['distance_between_station'],2);
                     }
                     if($ptimings[$i]['whereForm']['name'] == $timing['whereTo']['name'] || $i > $key){
-                        $distance_test += (int)$timing['distance_from_start_station'];
+                        $distance_test = $distance_test + round($timing['distance_between_station'],2);
                         $result[$i][$key]['from_name'] = '';
                         $result[$i][$key]['to_name'] = '';
                         $result[$i][$key]['distance'] = '';
                         $result[$i][$key]['distance_test'] = '';
-                        $result[$i][$key]['summa'] = $summa;
-                        $result[$i][$key]['summa_bagaj'] = $summa_bagaj;
+                        $result[$i][$key]['summa'] = round($summa,2);
+                        $result[$i][$key]['summa_bagaj'] = round($summa_bagaj,2);
                         $result[$i][$key]['tarif'] = '';
                         $result[$i][$key]['tarif_bagaj'] = '';
                     }else{
                         $result[$i][$key]['from_name'] = $ptimings[$i]['whereForm']['name'];
                         $result[$i][$key]['to_name'] = $timing['whereTo']['name'];
-                        $result[$i][$key]['distance'] = (int)$timing['distance_from_start_station'];
-                        $result[$i][$key]['distance_test'] = $distance_test;
-                        $result[$i][$key]['summa'] = $summa;
-                        $result[$i][$key]['summa_bagaj'] = $summa_bagaj;
-                        $result[$i][$key]['tarif'] = $result[$i][$key]['summa'] * $result[$i][$key]['distance_test'];
-                        $result[$i][$key]['tarif_bagaj'] = $result[$i][$key]['summa_bagaj'] * $result[$i][$key]['distance_test'];
+                        $result[$i][$key]['distance_test'] = round($distance_test,2);//round($timing['distance_between_station'],2);
+                        $result[$i][$key]['distance'] = round($distance_test,2);
+                        $result[$i][$key]['summa'] = round($summa,2);
+                        $result[$i][$key]['summa_bagaj'] = round($summa_bagaj,2);
+                        $result[$i][$key]['tarif'] = round($result[$i][$key]['summa'] * $result[$i][$key]['distance_test'],2);
+                        $result[$i][$key]['tarif_bagaj'] = round($result[$i][$key]['summa_bagaj'] * $result[$i][$key]['distance_test'],2);
                     }
                 }
             }
