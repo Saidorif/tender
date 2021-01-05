@@ -24,16 +24,16 @@ class CreatePassportTimingsTable extends Migration
             $table->bigInteger('station_to_id')->nullable();
             $table->dateTime('start_time');//Jonash vaqti
             $table->dateTime('end_time');//Kelgan vaqti
-            $table->bigInteger('start_speedometer');//Jonash vaqtida
-            $table->bigInteger('end_speedometer');//Kelgan vaqtida
-            $table->bigInteger('distance_from_start_station');//Boshlangich bekatdan
-            $table->bigInteger('distance_between_station');//Bekatlar oraligida
-            $table->bigInteger('distance_in_limited_speed');//Shundan xarakat tezligi chegaralangan oraliqda
-            $table->bigInteger('spendtime_between_station');//Bekatlar oraligidagi xarakat
-            $table->bigInteger('spendtime_between_limited_space');//Shundan xarakat tezligi chegaralangan oraliqda
-            $table->bigInteger('spendtime_to_stay_station');//Oraliq bekatdan toxtash uchun
-            $table->bigInteger('speed_between_station');//Bekatlar oraligidagi xarakat
-            $table->bigInteger('speed_between_limited_space');//Shundan xarakat tezligi chegaralangan oraliqda
+            $table->double('start_speedometer',15,2);//Jonash vaqtida
+            $table->double('end_speedometer',15,2);//Kelgan vaqtida
+            $table->double('distance_from_start_station',15,2);//Boshlangich bekatdan
+            $table->double('distance_between_station',15,2);//Bekatlar oraligida
+            $table->double('distance_in_limited_speed',15,2);//Shundan xarakat tezligi chegaralangan oraliqda
+            $table->double('spendtime_between_station',15,2);//Bekatlar oraligidagi xarakat
+            $table->double('spendtime_between_limited_space',15,2);//Shundan xarakat tezligi chegaralangan oraliqda
+            $table->double('spendtime_to_stay_station',15,2);//Oraliq bekatdan toxtash uchun
+            $table->double('speed_between_station',15,2);//Bekatlar oraligidagi xarakat
+            $table->double('speed_between_limited_space',15,2);//Shundan xarakat tezligi chegaralangan oraliqda
             $table->text('details');//Qatnov yoli xaqidagi malumotlar
             $table->text('whereForm')->nullable();
             $table->text('whereTo')->nullable();
