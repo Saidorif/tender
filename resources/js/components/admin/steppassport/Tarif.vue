@@ -12,23 +12,23 @@
 					<div class="confirm_tarif_default">
 						<div class="form-group">
 							<label for="summa" class="form-control-label">Тариф</label>
-							<input 
-								type="number" 
-								id="summa" 
-								class="form-control" 
-								v-model="confirm.summa" 
-								placeholder="тариф" 
+							<input
+								type="number"
+								id="summa"
+								class="form-control"
+								v-model="confirm.summa"
+								placeholder="тариф"
 								:class="isRequired(confirm.summa) ? 'isRequired' : ''"
 							/>
 						</div>
 						<div class="form-group">
 							<label for="summa_bagaj" class="form-control-label">Сумма багажа</label>
-							<input 
-								type="number" 
-								id="summa_bagaj" 
-								class="form-control ml-2" 
-								v-model="confirm.summa_bagaj" 
-								placeholder="Сумма багажа" 
+							<input
+								type="number"
+								id="summa_bagaj"
+								class="form-control ml-2"
+								v-model="confirm.summa_bagaj"
+								placeholder="Сумма багажа"
 								:class="isRequired(confirm.summa_bagaj) ? 'isRequired' : ''"
 							/>
 						</div>
@@ -74,7 +74,7 @@
 					  					<td>{{index+1}}</td>
 					  					<td>{{items[index].from_name ? items[index].from_name : ''}}</td>
 					  					<template v-for="(item,key) in items">
-					  						<td v-if="item.tarif">
+					  						<td v-if="item.tarif" :class="key == items.length - 1 && index == 0 ? 'alert-danger' : ''">
 					  							<div class="tarifs tarif">
 					  								<b>{{item.tarif}}</b>
 					  							</div>
@@ -144,7 +144,7 @@ import Loader from '../../Loader'
 
 					// let newItems = []
 					// let tarif = 65
-					
+
 					// let counts = this.titulData.timing_with
 					// let summ = 0
 					// let summar = 0
@@ -187,7 +187,7 @@ import Loader from '../../Loader'
 					// 			let myNum = 0
 					// 		newItems.forEach((s_item, s_index)=>{
 					// 			if (s_index>0) {
-					// 				myNum += Number(newItems[index-s_index - 1].distance_between_station) 
+					// 				myNum += Number(newItems[index-s_index - 1].distance_between_station)
 					// 				arrItem["count"].push(myNum)
 					// 				// console.log(myNum)
 					// 			}
