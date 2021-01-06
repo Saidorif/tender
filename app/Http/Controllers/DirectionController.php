@@ -21,7 +21,7 @@ class DirectionController extends Controller
 {
     public function index(Request $request)
     {
-        $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo'])->orderByDesc('id')->paginate(12);
+        $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo'])->orderByDesc('id')->paginate(20);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
