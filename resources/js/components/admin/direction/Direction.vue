@@ -7,6 +7,7 @@
 			    	<i class="peIcon fas fa-route"></i>
 				    Направления
 				</h4>
+                <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">Количество направления <b>{{ getDirections.total }} шт.</b> </span>
 				<router-link class="btn btn-primary" to="/crm/direction/add"><i class="fas fa-plus"></i> Добавить</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -23,7 +24,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(direct,index) in getDirections.data">
-							<td scope="row">{{direct.id}}</td>
+							<td scope="row">{{index + 1}}</td>
 							<td>{{direct.name}}</td>
 							<td>{{direct.pass_number}}</td>
 							<td>{{direct.year}}</td>
