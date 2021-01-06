@@ -290,20 +290,24 @@ class DirectionController extends Controller
         $total_result = [];
         $test = [];
         foreach($direction->passport_tarif as $index => $passportTarif){
-            // return $passportTarif;
             $summa = $passportTarif->summa;
             $summa_bagaj = $passportTarif->summa_bagaj;
             $result = [];
             for ($i=0; $i < count($ptimings); $i++) {
                 foreach ($ptimings as $key => $timing) {
-                    $result[$key]['ddd'][] = round($timing['distance_between_station'],2);
-                    if($i != 0){
-                        $distance_test = $timing['distance_from_start_station'];// + $result[$key]['ddd'][0];
-                    }else{
-                        $distance_test = round($timing['distance_between_station'],2);
+                    $result[$i][$key]['ddd'] = 0;
+                    if($key != 0 && $i != 0){
+                        $result[$i][$key]['ddd'] += round($timing['distance_between_station'],2);
+                        if($key == 1 ){
+                            $distance_test = $timing['distance_between_station'];
+                        }else{
+                            $distance_test = floatval($result[$i][$key - 1]['distance_test']) + $result[$i][$key]['ddd'];
+                        }
+                    }
+                    else{
+                        $distance_test = round($timing['distance_from_start_station'],2);
                     }
                     if($ptimings[$i]['whereForm']['name'] == $timing['whereTo']['name'] || $i > $key){
-                        $distance_test = $distance_test + round($timing['distance_between_station'],2);
                         $result[$i][$key]['from_name'] = '';
                         $result[$i][$key]['to_name'] = '';
                         $result[$i][$key]['distance'] = '';
@@ -315,7 +319,7 @@ class DirectionController extends Controller
                     }else{
                         $result[$i][$key]['from_name'] = $ptimings[$i]['whereForm']['name'];
                         $result[$i][$key]['to_name'] = $timing['whereTo']['name'];
-                        $result[$i][$key]['distance_test'] = round($distance_test,2);//round($timing['distance_between_station'],2);
+                        $result[$i][$key]['distance_test'] = round($distance_test,2);
                         $result[$i][$key]['distance'] = round($distance_test,2);
                         $result[$i][$key]['summa'] = round($summa,2);
                         $result[$i][$key]['summa_bagaj'] = round($summa_bagaj,2);
