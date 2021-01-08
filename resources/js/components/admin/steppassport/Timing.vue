@@ -625,11 +625,12 @@ export default {
 
         this.requiredInput = false;
         if(this.tableTwoData.length){
-            this.tableTwoData.forEach((item)=>{
-                item.vars = JSON.stringify(this.fullTableInfo)
-            })
+            // this.tableTwoData.forEach((item)=>{
+            //     item.vars = JSON.stringify(this.fullTableInfo)
+            // })
+
             this.laoding = true
-            await this.actionAddTiming({timing: this.tableTwoData, timingDetails: this.timingDetails, technic_speed: this.technic_speed, traffic_speed: this.traffic_speed, });
+            await this.actionAddTiming({vars: JSON.stringify(this.fullTableInfo), timing: this.tableTwoData, timingDetails: this.timingDetails, technic_speed: this.technic_speed, traffic_speed: this.traffic_speed, });
             this.laoding = false
             if(this.getTimingMassage.success){
                 toast.fire({
