@@ -37,6 +37,7 @@ class PassportTiming extends Model
         'whereForm' => 'array',
         'whereTo' => 'array',
         'details' => 'array',
+        'vars' => 'array',
     ];
 
     public function regionFrom()
