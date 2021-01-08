@@ -100,6 +100,7 @@
                 :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
                 placeholder="Select datetime"
                 :class="isRequiredTwo(form.start_time) ? 'isRequired' : ''"
+                format="HH:mm"
               ></date-picker>
             </div>
             <div class="form-group col-md-6">
@@ -223,6 +224,7 @@
                 :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
                 placeholder="Select end_time"
                 :class="isRequiredTwo(form.end_time) ? 'isRequired' : ''"
+                format="HH:mm"
               ></date-picker>
             </div>
             <div class="form-group col-md-6">
@@ -722,7 +724,7 @@ export default {
   margin-right: 15px;
 }
 .triple_input input {
-  width: 60%;
+  width: 58%;
   margin-right: 15px;
 }
 .tabs_block {
