@@ -33,7 +33,7 @@
                   </div>
                   <div class="form-group col-md-3">
                     <label for="region_id">
-                      Shaxardan, viloyatdan   
+                      Shaxardan, viloyatdan
                       <input
                         type="radio"
                         name="name_from"
@@ -216,15 +216,16 @@
                       v-model="form.distance"
                       class="form-control input_style"
                       step="0.01"
+                      disabled
                     />
                   </div>
                   <div class="form-group col-md-3">
                     <label for="tarif">Tarif</label>
                     <input
-                      type="number"
-                      v-model="form.tarif"
-                      class="form-control input_style"
-                      disabled
+                        type="number"
+                        v-model="form.tarif"
+                        class="form-control input_style"
+                        disabled
                     />
                   </div>
                   <div class="col-lg-12" v-if="cars_with.length > 0">
@@ -299,7 +300,6 @@
                           id="busmarka_id"
                           placeholder="Номер Авто"
                           v-model="car.busmarka_id"
-                          :class="isRequired(car.busmarka_id) ? 'isRequired' : ''"
                           @change="selectModel(car)"
                         >
                           <option value="" selected disabled>Выберите марку авто!</option>
@@ -313,7 +313,6 @@
                           id="busmodel_id"
                           placeholder="Номер Авто"
                           v-model="car.busmodel_id"
-                          :class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
                         >
                           <option value="" selected disabled>Выберите модель авто!</option>
                           <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option>
@@ -609,7 +608,7 @@ export default {
       if(this.cars.length > 0){
         let result = true
         this.cars.forEach((item,index)=>{
-          if (item.bustype_id != '' && item.tclass_id != '' && item.busmarka_id != '' && item.busmodel_id != '') {
+          if (item.bustype_id != '' && item.tclass_id != '') {
             result = true
           }else{
             result = false
