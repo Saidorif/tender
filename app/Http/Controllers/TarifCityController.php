@@ -49,7 +49,7 @@ class TarifCityController extends Controller
             $file = $request->file('file');
             $fileName = Str::random(20).'.'.$file->getClientOriginalExtension();
             $file->move($path, $fileName);
-            $inputs['file'] = '/audio/'.$fileName;
+            $inputs['file'] = '/tarif/'.$fileName;
         }
         $result = TarifCity::create($inputs);
 
