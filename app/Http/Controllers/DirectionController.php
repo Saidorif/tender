@@ -527,17 +527,6 @@ class DirectionController extends Controller
         $reysesTo   = Reys::where(['direction_id' => $id,'type' => 'to','status' => 'active'])->get();
 
         foreach ($reysesFrom as $key => $reys_from) {
-            // if($reys->where_type == 'region'){
-            //     $station = $reys->region;
-            // }
-            // if($reys->where_type == 'area'){
-            //     $station = $reys->area;
-            // }
-            // if($reys->where_type == 'station'){
-            //     $station = $reys->station;
-            // }
-            // $item = $reys->toArray();
-            // $item[] = $station;
             $reys_times = $reys_from->reysTimes;
             $result['whereFrom'][] = $reys_from;
         }
@@ -545,11 +534,11 @@ class DirectionController extends Controller
             $reys_times = $reys_to->reysTimes;
             $result['whereTo'][] = $reys_to;
         }
-        // $result = array_values($result);
         return response()->json([
             'success' => true,
-            'count' => count($reysesFrom),
-            'count' => count($reysesTo),
+            'count' => count($reysesFrom) + count($reysesTo),
+            'reysesTo' => count($reysesTo),
+            'reysesFrom' => count($reysesFrom),
             'result' => $result,
         ]);
     }
@@ -573,7 +562,7 @@ class DirectionController extends Controller
             'direction_id'                  => $direction->id,
             'auto_type'                     => $direction->type->id,
             'auto_type_name'                => $direction->type->name,
-            'auto_model_class'              => $direction->cars->pluck('id'),
+            'auto_model_class'              => $direction->carsWith,//->pluck('id'),
             'auto_trans_count'              => 10,
             'auto_trans_working_days'       => '',
             'auto_trans_weekends'           => '',
@@ -612,9 +601,9 @@ class DirectionController extends Controller
             'transports_seats'              => '',
             'minimum_bal'                   => '?',
         ];
-        $direction_req = DirectionReq::create($data);
-        $res = DirectionReq::find($direction_req->id);
-        return response()->json(['success' => true, 'result' => $res]);
+        // $direction_req = DirectionReq::create($data);
+        // $res = DirectionReq::find($direction_req->id);
+        return response()->json(['success' => true, 'result' => $data]);
     }
 
     public function storeRequirement(Request $request,$id)
