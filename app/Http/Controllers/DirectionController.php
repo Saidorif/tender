@@ -591,19 +591,18 @@ class DirectionController extends Controller
             'schedule_end_time'             => '-',//Сўнги рейс (ишни тугалланиш) вақти
             'schedule_end_from'             => $reysesTo->last()->reysTimes->first()->start,//Toshkent томондан
             'schedule_end_to'               => $reysesFrom->last()->reysTimes->first()->start,//Nukus томондан 
-            'station_intervals'             => '?',
+            'station_intervals'             => '',
             'reys_time'                     => array_sum(array_column($ptimings, 'spendtime_between_station')) + array_sum(array_column($ptimings, 'spendtime_to_stay_station')),
             'reys_from_value'               => '00:00',
             'reys_to_value'                 => '00:00',
             'schedules'                     => '-',
             'tarif'                         => $direction->tarif,
             'tarif_one_km'                  => $direction->tarif,
-            'tarif_city'                    => '?',
+            'tarif_city'                    => $direction->regionFrom->tarifcity->first()->tarif,
             'transports_capacity'           => '',
             'transports_seats'              => '',
-            'minimum_bal'                   => '?',
+            'minimum_bal'                   => '',
         ];
-        // $direction_req = DirectionReq::create($data);
         // $res = DirectionReq::find($direction_req->id);
         return response()->json(['success' => true, 'result' => $data]);
     }
@@ -620,24 +619,24 @@ class DirectionController extends Controller
             'auto_type_name' => 'nullable|string',
             // 'auto_model_class' => 'nullable|string',
             'auto_trans_count' => 'nullable|integer',
-            'auto_trans_working_days' => 'nullable|string',
-            'auto_trans_weekends' => 'nullable|string',
+            'auto_trans_working_days' => 'nullable|integer',
+            'auto_trans_weekends' => 'nullable|integer',
             'auto_trans_status' => 'nullable|string',
-            'direction_total_length' => 'nullable|string',
+            'direction_total_length' => 'nullable|numeric',
             'direction_from_value' => 'nullable|integer',
             'direction_from_name' => 'nullable|string',
-            'direction_to_value' => 'nullable|string',
+            'direction_to_value' => 'nullable|integer',
             'direction_to_name' => 'nullable|string',
-            'stations_count' => 'nullable|string',
+            'stations_count' => 'nullable|integer',
             'stations_from_name' => 'nullable|string',
             'stations_to_name' => 'nullable|string',
-            'stations_from_value' => 'nullable|string',
-            'stations_to_value' =>  'nullable|string',
+            'stations_from_value' => 'nullable|integer',
+            'stations_to_value' =>  'nullable|integer',
             'seasonal' => 'nullable|string',
-            'reyses_count' => 'nullable|string',
-            'reyses_from_value' => 'nullable|string',
+            'reyses_count' => 'nullable|integer',
+            'reyses_from_value' => 'nullable|integer',
             'reyses_from_name' => 'nullable|string',
-            'reyses_to_value' => 'nullable|string',
+            'reyses_to_value' => 'nullable|integer',
             'reyses_to_name' => 'nullable|string',
             'schedule_begin_time' => 'nullable|string',
             'schedule_begin_from' => 'nullable|string',
@@ -646,16 +645,16 @@ class DirectionController extends Controller
             'schedule_end_from' => 'nullable|string',
             'schedule_end_to' => 'nullable|string',
             'station_intervals' => 'nullable|string',
-            'reys_time' => 'nullable|string',
+            'reys_time' => 'nullable|integer',
             'reys_from_value' => 'nullable|string',
             'reys_to_value' => 'nullable|string',
-            'schedules' => 'nullable|string',
-            'tarif' => 'nullable|string',
-            'tarif_one_km' => 'nullable|string',
-            'tarif_city' => 'nullable|string',
-            'transports_capacity' => 'nullable|string',
-            'transports_seats' => 'nullable|string',
-            'minimum_bal' => 'nullable|string',
+            'schedules' => 'nullable|integer',
+            // 'tarif' => 'nullable|string',
+            // 'tarif_one_km' => 'nullable|string',
+            // 'tarif_city' => 'nullable|string',
+            'transports_capacity' => 'nullable|integer',
+            'transports_seats' => 'nullable|integer',
+            'minimum_bal' => 'nullable|integer',
         ]);
 
         if($validator->fails()){
@@ -666,7 +665,11 @@ class DirectionController extends Controller
         unset($inputs['auto_model_class']);
         $inputs['direction_id'] = $direction->id;
 
-        $direction->requirement->update($inputs);
+        if(!$direction->requirement){
+            $direction_req = DirectionReq::create($inputs);
+        }else{
+            $direction->requirement->update($inputs);
+        }
         return response()->json(['success' => true, 'message' => 'Требование обновлен']);
     }
 }

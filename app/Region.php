@@ -12,4 +12,9 @@ class Region extends Model
     {
         return $this->hasMany(\App\Area::class,'region_id');
     }
+    
+    public function tarifcity()
+    {
+        return $this->hasMany(\App\TarifCity::class,'region_id');
+    }
 }
