@@ -66,7 +66,7 @@ class TarifCityController extends Controller
             'region_id'  => 'required|integer',
             'tarif'  => 'required|numeric|between:1,9999999.99',
             'tarif_bagaj'  => 'nullable|numeric|between:1,9999999.99',
-            'file'  => 'required|file',
+            'file'  => 'nullable|file',
         ]);
 
         if($validator->fails()){
