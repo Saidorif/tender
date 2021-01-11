@@ -140,6 +140,9 @@ class PassportTimingController extends Controller
             'traffic_speed' => $request->input('traffic_speed'),
         ]);
 
+        $direction->distance = $direction->timing->last()->distance_from_start_station;
+        $direction->save();
+
         return response()->json(['success' => true, 'message' => 'Хронометраж успешно создан']);
     }
 
