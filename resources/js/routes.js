@@ -356,7 +356,7 @@ const router = new Router({
 					component:AddTarifcity,
 				},
 				{
-					path:'tarifcity/edit/:areaId',
+					path:'tarifcity/edit/:tarifcityId',
 					component:EditTarifcity,
 				},
 				{

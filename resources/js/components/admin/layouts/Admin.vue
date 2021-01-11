@@ -271,6 +271,14 @@
                   </p>
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/tarifcity">
+                  <i class="peIcon fas fa-border-style"></i>
+                  <p>
+                    Тариф ШЙ
+                  </p>
+                </router-link>
+              </li>
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link" >
                   <i class="peIcon fas fa-bus"></i>

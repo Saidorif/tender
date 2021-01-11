@@ -9,7 +9,7 @@
 				<router-link class="btn btn-primary back_btn" to="/crm/tarifcity"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
 		  	<div class="card-body">
-		  		<form @submit.prevent.enter="saveArea" >
+		  		<form @submit.prevent.enter="saveTarifcity" >
 					<div class="row">
 					  <div class="form-group col-md-3">
 					    <label for="region_id">Region</label>
@@ -25,7 +25,7 @@
 					  <div class="form-group col-md-3">
 					    <label for="name">Tarif</label>
 					    <input
-					    	type="text"
+					    	type="number"
 					    	class="form-control input_style"
 					    	id="name"
 					    	v-model="form.tarif"
@@ -35,7 +35,7 @@
 					  <div class="form-group col-md-3">
 					    <label for="name">Tarif bagaj</label>
 					    <input
-					    	type="text"
+					    	type="number"
 					    	class="form-control input_style"
 					    	id="name"
 					    	v-model="form.tarif_bagaj"
@@ -47,6 +47,9 @@
 					    	type="file"
 					    	class="form-control input_style"
 					    	id="file"
+                            accept="application/pdf"
+                            :class="isRequired(form.file) ? 'isRequired' : ''"
+                            @change="changeFile($event)"
 				    	>
 					  </div>
 					  <div class="form-group col-lg-3 form_btn">
@@ -77,27 +80,36 @@
 		},
 		computed:{
 			...mapGetters('region',['getMassage','getRegionList']),
-			...mapGetters('area',['getMassage']),
+			...mapGetters('tarifcity',['getMassage']),
 		},
 		async mounted(){
 			await this.actionRegionList()
 		},
 		methods:{
 			...mapActions('region',['actionRegionList']),
-			...mapActions('area',['actionAddArea']),
+			...mapActions('tarifcity',['actionAddTarifcity']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
-		    },
-			async saveArea(){
-		    	if (this.form.name != '' && this.form.region_id != ''){
-					await this.actionAddArea(this.form)
+            },
+            changeFile(event) {
+                let file = event.target.files[0];
+                this.form.file = file
+            },
+			async saveTarifcity(){
+		    	if (this.form.tarif != '' && this.form.region_id != '' && this.form.file != ''){
+                    let formData = new FormData();
+                    formData.append('file', this.form.file);
+                    formData.append('region_id', this.form.region_id);
+                    formData.append('tarif', this.form.tarif);
+                    formData.append('tarif_bagaj', this.form.tarif_bagaj);
+					await this.actionAddTarifcity(formData)
 					if(this.getMassage.success){
 						toast.fire({
 				            type: "success",
 				            icon: "success",
 				            title: this.getMassage.message
 			          	});
-						this.$router.push("/crm/area");
+						this.$router.push("/crm/tarifcity");
 						this.requiredInput = false
 					}
 				}else{
