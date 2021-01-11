@@ -97,6 +97,14 @@ Route::group([
             Route::get('employee/edit/{id}', 'EmployeeController@edit');
             Route::post('employee/update/{id}', 'EmployeeController@update');
             Route::delete('employee/destroy/{id}', 'EmployeeController@destroy');
+            
+            //TarifCity CRUD
+            Route::get('tarifcity', 'TarifCityController@index');
+            Route::post('tarifcity/store', 'TarifCityController@store');
+            Route::get('tarifcity/list', 'TarifCityController@list');
+            Route::get('tarifcity/edit/{id}', 'TarifCityController@edit');
+            Route::post('tarifcity/update/{id}', 'TarifCityController@update');
+            Route::delete('tarifcity/destroy/{id}', 'TarifCityController@destroy');
 
             //Direction Type CRUD
             Route::post('directiontype', 'DirectionTypeController@index');

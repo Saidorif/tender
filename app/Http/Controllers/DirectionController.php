@@ -558,6 +558,8 @@ class DirectionController extends Controller
         $to_name   = $direction->timing->last()->whereTo['name'];
         $to_id     = $direction->timing->last()->whereTo['id'];
         $ptimings  = $direction->timing->toArray();
+        $reysesFrom = Reys::where(['direction_id' => $id,'type' => 'from','status' => 'active'])->get();
+        $reysesTo   = Reys::where(['direction_id' => $id,'type' => 'to','status' => 'active'])->get();
         $data = [
             'direction_id'                  => $direction->id,
             'auto_type'                     => $direction->cars->first()->bustype->id,
@@ -579,18 +581,18 @@ class DirectionController extends Controller
             'stations_to_value'             => 0,
             'seasonal'                      => $direction->seasonal,
             'reyses_count'                  => count($direction->schedule),
-            'reyses_from_value'             => 'asdf',
+            'reyses_from_value'             => '',
             'reyses_from_name'              => $from_name,
-            'reyses_to_value'               => 'assa',
+            'reyses_to_value'               => '',
             'reyses_to_name'                => $to_name,
             'schedule_begin_time'           => '-',//Дастлабки рейс (ишни бошлаш) вақти
-            'schedule_begin_from'           => '00:00',//Toshkent томондан
-            'schedule_begin_to'             => '00:00',//Nukus томондан
+            'schedule_begin_from'           => $reysesTo->first()->reysTimes->first()->start,//Toshkent томондан
+            'schedule_begin_to'             => $reysesFrom->first()->reysTimes->first()->start,//Nukus томондан
             'schedule_end_time'             => '-',//Сўнги рейс (ишни тугалланиш) вақти
-            'schedule_end_from'             => '00:00',//Toshkent томондан
-            'schedule_end_to'               => '00:00',//Nukus томондан 
+            'schedule_end_from'             => $reysesTo->last()->reysTimes->first()->start,//Toshkent томондан
+            'schedule_end_to'               => $reysesFrom->last()->reysTimes->first()->start,//Nukus томондан 
             'station_intervals'             => '?',
-            'reys_time'                     => array_sum(array_column($ptimings, 'spendtime_between_station')),
+            'reys_time'                     => array_sum(array_column($ptimings, 'spendtime_between_station')) + array_sum(array_column($ptimings, 'spendtime_to_stay_station')),
             'reys_from_value'               => '00:00',
             'reys_to_value'                 => '00:00',
             'schedules'                     => '-',
