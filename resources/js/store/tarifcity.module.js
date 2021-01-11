@@ -24,7 +24,7 @@ const getters = {
 
 
 const actions = {
-	async actionAreas({commit},page){
+	async actionTarifcitys({commit},page){
 		try {
 			const areas =  await TarifCityService.tarifcitys(page);
 			await commit('setTarifcitys',areas.data.result)
@@ -33,7 +33,7 @@ const actions = {
 			return false
 		}
 	},
-	async actionAreaByRegion({commit},id){
+	async actionTarifcityByRegion({commit},id){
 		try {
 			const areas =  await TarifCityService.getTarifcityByRegion(id);
 			await commit('setTarifcityList',areas.data.result)
@@ -42,7 +42,7 @@ const actions = {
 			return false
 		}
 	},
-	async actionAddArea({commit},payload){
+	async actionAddTarifcity({commit},payload){
 		try {
 			const areas =  await TarifCityService.addtarifcity(payload);
 			await commit('setMessage',areas.data)
@@ -51,7 +51,7 @@ const actions = {
 			return false
 		}
 	},
-	async actionEditArea({commit},id){
+	async actionEditTarifcity({commit},id){
 		try {
 			const areas =  await TarifCityService.edittarifcity(id);
 			await commit('setEditTarifcity',areas.data.result)
@@ -60,7 +60,7 @@ const actions = {
 			return false
 		}
 	},
-	async actionUpdateArea({commit},payload){
+	async actionUpdateTarifcity({commit},payload){
 		try {
 			const area =  await TarifCityService.updatetarifcity(payload);
 			await commit('setMessage',area.data)
@@ -69,7 +69,7 @@ const actions = {
 			return false
 		}
 	},
-	async actionDeleteArea({commit},id){
+	async actionDeleteTarifcity({commit},id){
 		try {
 			const area =  await TarifCityService.deletetarifcity(id);
 			await commit('setMessage',area.data)

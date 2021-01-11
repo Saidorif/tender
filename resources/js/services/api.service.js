@@ -31,7 +31,9 @@ const ApiService = {
 	delete(resource){
 		return axios.delete(resource);
 	},
-
+	postWithfile(resource, data) {
+		return axios.post(resource, data,  {headers: {'Content-Type': 'multipart/form-data'}});
+	},
 	/**
 	 * Perform a custom Axios request.
 	 *

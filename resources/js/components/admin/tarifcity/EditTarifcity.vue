@@ -9,7 +9,7 @@
 				<router-link class="btn btn-primary back_btn" to="/crm/tarifcity"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
 		  	<div class="card-body">
-		  		<form @submit.prevent.enter="saveArea" >
+		  		<form @submit.prevent.enter="saveTarifcity" >
 					<div class="row">
 					  <div class="form-group col-md-3">
 					    <label for="region_id">Region</label>
@@ -22,7 +22,7 @@
 					    	<option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 					    </select>
 					  </div>
-					  <div class="form-group col-md-3">
+					  <div class="form-group col-md-2">
 					    <label for="name">Tarif</label>
 					    <input
 					    	type="text"
@@ -32,7 +32,7 @@
 					    	:class="isRequired(form.tarif) ? 'isRequired' : ''"
 				    	>
 					  </div>
-					  <div class="form-group col-md-3">
+					  <div class="form-group col-md-2">
 					    <label for="name">Tarif bagaj</label>
 					    <input
 					    	type="text"
@@ -47,7 +47,12 @@
 					    	type="file"
 					    	class="form-control input_style"
 					    	id="file"
+                            @change="changeFile($event)"
 				    	>
+					  </div>
+					  <div class="form-group col-md-2">
+                          <label for="file">file</label>
+                        <a :href="file" download="" class="btn_download"><i class="fas fa-download"></i>download file</a>
 					  </div>
 					  <div class="form-group col-lg-3 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
@@ -77,20 +82,38 @@
 		},
 		computed:{
 			...mapGetters('region',['getMassage','getRegionList']),
-			...mapGetters('tarifcity',['getMassage','getArea']),
+			...mapGetters('tarifcity',['getMassage','getTarifcity']),
 		},
 		async mounted(){
 			await this.actionRegionList()
+            await this.actionEditTarifcity(this.$route.params.tarifcityId)
+            this.form = this.getTarifcity
+            this.file = this.form.file
 		},
 		methods:{
 			...mapActions('region',['actionRegionList']),
-			...mapActions('tarifcity',['actionUpdateArea','actionEditArea']),
+			...mapActions('tarifcity',['actionUpdateTarifcity','actionEditTarifcity']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
-		    },
-			async saveArea(){
-		    	if (this.form.name != '' && this.form.region_id != ''){
-					await this.actionUpdateArea(this.form)
+            },
+            changeFile(event) {
+                let file = event.target.files[0];
+                this.form.file = file
+            },
+			async saveTarifcity(){
+		    	if (this.form.tarif != '' && this.form.region_id != '' && this.form.file != ''){
+                    let formData = new FormData();
+                    formData.append('id', this.form.id);
+                    if(this.form.file == this.file){
+                        formData.append('file', '');
+                    }else{
+                        formData.append('file', this.form.file);
+                    }
+                    formData.append('region_id', this.form.region_id);
+                    formData.append('tarif', this.form.tarif);
+                    formData.append('tarif_bagaj', this.form.tarif_bagaj);
+                    let data = {id: this.form.id, data: formData}
+					await this.actionUpdateTarifcity(data)
 					if(this.getMassage.success){
 						toast.fire({
 				            type: "success",
@@ -108,5 +131,16 @@
 	}
 </script>
 <style scoped>
-
+    .btn_download{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 10px;
+        background: #000000;
+        color: #fff;
+        font-weight: bold;
+    }
+    .btn_download i{
+        margin-right: 10px;
+    }
 </style>
