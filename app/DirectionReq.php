@@ -44,6 +44,7 @@ class DirectionReq extends Model
         'schedules',
         'tarif',
         'tarif_one_km',
+        'tarif_full_km',
         'tarif_city',
         'transports_capacity',
         'transports_seats',

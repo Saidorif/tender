@@ -598,12 +598,12 @@ class DirectionController extends Controller
             'schedules'                     => '-',
             'tarif'                         => $direction->tarif,
             'tarif_one_km'                  => $direction->tarif,
+            'tarif_full_km'                  => $direction->getPTarifFull(),
             'tarif_city'                    => $direction->regionFrom->tarifcity->first()->tarif,
             'transports_capacity'           => '',
             'transports_seats'              => '',
             'minimum_bal'                   => '',
         ];
-        // $res = DirectionReq::find($direction_req->id);
         return response()->json(['success' => true, 'result' => $data]);
     }
 

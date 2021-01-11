@@ -113,4 +113,9 @@ class Direction extends Model
         return $this->hasMany(\App\PassportTarif::class,'direction_id');
     }
     
+    public function getPTarifFull()
+    {
+        return \App\PassportTiming::where(['direction_id' => $this->id])->get()->last()->distance_from_start_station * $this->tarif;
+    }
+    
 }
