@@ -71,6 +71,11 @@ import Area from './components/admin/area/Area'
 import AddArea from './components/admin/area/AddArea'
 import EditArea from './components/admin/area/EditArea'
 
+// Tarifcity
+import Tarifcity from './components/admin/tarifcity/Tarifcity'
+import AddTarifcity from './components/admin/tarifcity/AddTarifcity'
+import EditTarifcity from './components/admin/tarifcity/EditTarifcity'
+
 // Busclass
 import Busclass from './components/admin/busclass/Busclass'
 import AddBusclass from './components/admin/busclass/AddBusclass'
@@ -341,6 +346,18 @@ const router = new Router({
 				{
 					path:'area/edit/:areaId',
 					component:EditArea,
+				},
+				{
+					path:'tarifcity',
+					component:Tarifcity,
+				},
+				{
+					path:'tarifcity/add',
+					component:AddTarifcity,
+				},
+				{
+					path:'tarifcity/edit/:areaId',
+					component:EditTarifcity,
 				},
 				{
 					path:'station',
