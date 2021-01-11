@@ -47,6 +47,7 @@
 					    	type="file"
 					    	class="form-control input_style"
 					    	id="file"
+                            accept="application/pdf"
                             @change="changeFile($event)"
 				    	>
 					  </div>
