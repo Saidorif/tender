@@ -16,8 +16,8 @@ class CreateDirectionCarsTable extends Migration
         Schema::create('direction_cars', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('direction_id');
-            $table->bigInteger('busmarka_id');
-            $table->bigInteger('busmodel_id');
+            $table->bigInteger('busmarka_id')->nullable();
+            $table->bigInteger('busmodel_id')->nullable();
             $table->bigInteger('bustype_id');
             $table->bigInteger('tclass_id');
             $table->timestamps();

@@ -196,8 +196,8 @@ class DirectionController extends Controller
             'region_to.area_id'    => ['nullable',Rule::in($area_ids),],
             'region_to.station_id'    => 'nullable|integer',
             'cars' => 'nullable|array',
-            'cars.*.busmarka_id' => 'required|integer',
-            'cars.*.busmodel_id' => 'required|integer',
+            'cars.*.busmarka_id' => 'nullable|integer',
+            'cars.*.busmodel_id' => 'nullable|integer',
             'cars.*.bustype_id' => 'required|integer',
             'cars.*.tclass_id' => 'required|integer',
         ]);
