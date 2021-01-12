@@ -240,11 +240,11 @@
                       </div>
                       <div class="form-group col-md-3">
                         <label for="busmarka_id">Марка Авто</label>
-                        <input type="text" class="form-control input_style" :value="car.marka.name" disabled>
+                        <input type="text" class="form-control input_style" :value="car.marka ? car.marka.name : ''" disabled>
                       </div>
                       <div class="form-group col-md-3">
                         <label for="busmodel_id">Модель Авто</label>
-                        <input type="text" class="form-control input_style" :value="car.model.name" disabled>
+                        <input type="text" class="form-control input_style" :value="car.model ? car.model.name : ''" disabled>
                       </div>
                       <div class="form-group col-md-1 btn_remove_auto">
                         <button type="button" class="btn btn-dark" @click.prevent="removeEditCar(car.id)">
@@ -297,7 +297,6 @@
                           id="busmarka_id"
                           placeholder="Номер Авто"
                           v-model="car.busmarka_id"
-                          :class="isRequired(car.busmarka_id) ? 'isRequired' : ''"
                           @change="selectModel(car)"
                         >
                           <option value="" selected disabled>Выберите марку авто!</option>
@@ -311,7 +310,6 @@
                           id="busmodel_id"
                           placeholder="Номер Авто"
                           v-model="car.busmodel_id"
-                          :class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
                         >
                           <option value="" selected disabled>Выберите модель авто!</option>
                           <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option>
@@ -607,7 +605,7 @@ export default {
       if(this.cars.length > 0){
         let result = true
         this.cars.forEach((item,index)=>{
-          if (item.bustype_id != '' && item.tclass_id != '' && item.busmarka_id != '' && item.busmodel_id != '') {
+          if (item.bustype_id != '' && item.tclass_id != '') {
             result = true
           }else{
             result = false
