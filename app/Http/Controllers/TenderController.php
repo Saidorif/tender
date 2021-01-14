@@ -94,7 +94,6 @@ class TenderController extends Controller
         if(count($the_direction_err)){
             return response()->json(['error' => true, 'message' => $the_direction_err]);
         }
-        return $data;
         $tenderTime = Carbon::parse($request->input('time'))->format('Y-m-d H:i:s');
         //Get direction_ids in to one array
         foreach ($data as $key => $d) {
