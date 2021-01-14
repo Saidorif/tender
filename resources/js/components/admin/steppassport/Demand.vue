@@ -20,15 +20,17 @@
               <tr>
                 <td>1</td>
                 <td width="50%"><b>Автотранспорт воситаси категорияси</b></td>
-                <td>{{form.auto_type_name}}</td>
+                <td>{{form.auto_type_name ? form.auto_type_name : ''}}</td>
               </tr>
               <tr>
                 <td>2</td>
                 <td width="50%"><b>Автотранспорт воситаси моделининг класси</b></td>
                 <td>
-                  <div v-for="(item,index) in form.auto_model_class">
-                    {{item.model.name}}
-                  </div>
+                    <template v-if="form.auto_model_class">
+                        <div v-for="(item,index) in form.auto_model_class">
+                            {{item.model ? item.model.name : item.tclass.name}}
+                        </div>
+                    </template>
                 </td>
               </tr>
               <tr>

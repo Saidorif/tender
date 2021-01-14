@@ -243,11 +243,11 @@
                       </div>
                       <div class="form-group col-md-3">
                         <label for="busmarka_id">Марка Авто</label>
-                        <input type="text" class="form-control input_style" :value="car.marka.name" disabled>
+                        <input type="text" class="form-control input_style" :value="car.marka ? car.marka.name : ''" disabled>
                       </div>
                       <div class="form-group col-md-3">
                         <label for="busmodel_id">Модель Авто</label>
-                        <input type="text" class="form-control input_style" :value="car.model.name" disabled>
+                        <input type="text" class="form-control input_style" :value="car.model ? car.model.name : ''" disabled>
                       </div>
                       <div class="form-group col-md-1 btn_remove_auto">
                         <button type="button" class="btn btn-dark" @click.prevent="removeEditCar(car.id)">
