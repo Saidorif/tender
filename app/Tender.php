@@ -15,6 +15,7 @@ class Tender extends Model
         'message',
         'approved_by',
         'created_by',
+        'moderator'
     ];
 
     protected $casts = [
@@ -70,5 +71,10 @@ class Tender extends Model
             };            
         }
         return $result;
+    }
+
+    public function getModeratorAttribute()
+    {
+        return $this->createdBy->region->name;
     }
 }

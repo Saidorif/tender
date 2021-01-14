@@ -32,6 +32,8 @@ class CreateDirectionsTable extends Migration
             $table->bigInteger('area_to_id')->nullable();
             $table->bigInteger('station_from_id')->nullable();
             $table->bigInteger('station_to_id')->nullable();
+            $table->bigInteger('created_by')->default(1)->nullable();
+            $table->string('moderatory')->nullable();
             $table->timestamps();
         });
     }

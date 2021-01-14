@@ -19,6 +19,7 @@
 							<th scope="col">№</th>
 							<th scope="col">Лоты</th>
 							<th scope="col">Адрес</th>
+							<th scope="col">Регион</th>
 							<th scope="col">Дата тендера</th>
 							<th scope="col">Осталось</th>
 							<th scope="col">Статус</th>
@@ -35,6 +36,7 @@
 							    </em>
 							</td>
 							<td>{{item.address}}</td>
+							<td>{{item.moderator}}</td>
 							<td>{{item.time}}</td>
 							<td :id="item.id">{{$g.dateCounter(item.time,item.id)}}</td>
 							<td>
