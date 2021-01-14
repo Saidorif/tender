@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Direction extends Model
 {
-    protected $fillable = ['region_from_id','region_to_id','area_from_id','area_to_id','year','distance','type_id','pass_number','station_from_id','station_to_id','name','seasonal','from_where','profitability','tarif','from_type','to_type'];
+    protected $fillable = ['region_from_id','moderator','region_to_id','area_from_id','area_to_id','year','distance','type_id','pass_number','station_from_id','station_to_id','name','seasonal','from_where','profitability','tarif','from_type','to_type','created_by'];
 
     protected $casts = ['from_where' => 'array'];
 
@@ -116,6 +116,16 @@ class Direction extends Model
     public function getPTarifFull()
     {
         return \App\PassportTiming::where(['direction_id' => $this->id])->get()->last()->distance_from_start_station * $this->tarif;
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(\App\User::class,'created_by');
+    }
+    
+    public function getModeratorAttribute()
+    {
+        return $this->createdBy->region->name;
     }
     
 }
