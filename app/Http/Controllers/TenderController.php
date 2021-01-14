@@ -896,4 +896,20 @@ class TenderController extends Controller
         $result['tender'] = $tender->withCount('tenderlots')->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
+
+    public function destroy(Request $request, $id)
+    {
+        $tender = Tender::find($id);
+        if(!$tender){
+            return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
+        }
+        $tender_lots = TenderLot::where(['tender_id' => $tender->id])->get();
+        if($tender_lots){
+            foreach($tender_lots as $lot){
+                $lot->delete();
+            }
+        }
+        $tender->delete();
+        return response()->json(['success' => true, 'message' => 'Тендер удален']);
+    }
 }
