@@ -71,7 +71,7 @@ class DirectionController extends Controller
             'stationFrom',
             'stationTo',
             'carsWith',
-            'schemaDetails'
+            'schemaDetails',
         ])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
