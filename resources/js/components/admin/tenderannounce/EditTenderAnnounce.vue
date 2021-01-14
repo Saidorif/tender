@@ -77,19 +77,16 @@
 
 		                </div>
 		                <div class="card-body">
-		                    <template v-for="(items,index) in t_lots.direction_id">
+		                    <template v-for="(items,index) in t_lots.direction_id" >
 		                        <div class="mb-2">
 			                        <div class="d-flex align-items-center justify-content-between">
-			                            <h4>{{index+1}}) {{items.name}} ({{getLengthReys(items)}} рейс)</h4>
+			                            <h4>{{index+1}}) {{items.name}} ({{getLengthReys(items, t_lots)}} рейс)</h4>
 
-			                            <router-link
-			                                :to='`/crm/stepuser/demand-tab/${items.id}`'
-			                                class="btn btn-outline-info"
-			                            >
+			                            <router-link :to='`/crm/stepuser/demand-tab/${items.id}`'  class="btn btn-outline-info">
 			                                <i class="fas fa-eye"></i>
 			                            </router-link>
 			                        </div>
-			                        <div>
+			                        <div v-if="items.reys_status">
 			                            <h3>
 			                            <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span>
 			                            </h3>
@@ -566,27 +563,27 @@
 		    	// 	}
 		    	// }
             },
-            showWithOutReyses(item){
-                console.log(item)
-                if(item.byreys){
-                        return true
-                }else{
-                        return false
-                 }
-
-            },
-		    getLengthReys(reys){
-		    	let count = 0;
-		    		reys.reysesFrom.forEach((item,index)=>{
-		    			if(item.status == 'pending'){
-		    				count++
-		    			}
+		    getLengthReys(reys, elem){
+                let count = 0;
+                if(reys.reys_status){
+                    reys.reysesFrom.forEach((item,index)=>{
+                        if(elem.reys_id.includes(item.id)){
+                            count++
+                        }
 		    		})
 		    		reys.reysesTo.forEach((item,index)=>{
-		    			if(item.status == 'pending'){
-		    				count++
-		    			}
+                        if(elem.reys_id.includes(item.id)){
+                            count++
+                        }
 		    		})
+                }else{
+		    		reys.reysesFrom.forEach((item,index)=>{
+		    				count++
+		    		})
+		    		reys.reysesTo.forEach((item,index)=>{
+		    				count++
+		    		})
+                }
 		    	return count;
 		    },
 		    addToAllItems(){
