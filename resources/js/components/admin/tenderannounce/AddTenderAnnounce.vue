@@ -40,11 +40,7 @@
 				    	>
 					  </div>
 					  <div class="form-group col-lg-4 form_btn d-flex justify-content-end">
-<!-- 						<button v-if="checked" type="button" class="btn btn-secondary mr-3" @click="addToAllItems">
-							<i class="fas fa-plus"></i>
-							Добавить
-						</button>
- -->					<button type="button" class="btn btn-secondary mr-3" @click="openModal">
+ 						<button type="button" class="btn btn-secondary mr-3" @click="openModal">
 							<i class="fas fa-plus"></i>
 							Добавить лот
 						</button>
@@ -104,93 +100,6 @@
 				  		</ul>
 				  		<hr>
 				  	</div>
-      <!--       <div class="card cardtender" v-for="(t_lots,t_index) in tenderlots">
-                <div class="card-header" >
-                        <h4 class="lot_n"><em>Лот №</em> {{t_index+1}}</h4>
-                        <div>
-                        <a href="#" class="btn btn-outline-danger">
-                            <i class="fas fa-trash text-danger lot_remove" @click.prevent="removeEditLot(t_lots.id)"></i>
-                        </a>
-                    <button
-                        type="button"
-                        class="btn btn-info btn_save_category"
-                        @click.prevent="getEditId(t_lots.id)"
-                    >
-                        <i class="far fa-share-square text-light"></i>
-                        <span class="text-light">Отправить заявку</span>
-                    </button>
-                        </div>
-
-                </div>
-                <div class="card-body">
-                    <template v-for="(items,index) in t_lots.direction_id">
-                        <div class="mb-2">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <h4>{{index+1}}) {{items.name}} ({{getLengthReys(items)}} рейс)</h4>
-
-                            <router-link
-                                :to='`/crm/stepuser/demand-tab/${items.id}`'
-                                class="btn btn-outline-info"
-                            >
-                                <i class="fas fa-eye"></i>
-                            </router-link>
-                        </div>
-                        <div >
-                            <h3>
-                            <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span>
-                            </h3>
-                            <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                <th>№</th>
-                                <th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
-                                    {{item.where.name}}
-                                </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                v-for="(reys,key) in items.reysesFrom"
-                                :class="activeEditClass(reys)"
-                                >
-                                <td>{{key+1}}</td>
-                                <template v-for="(val,key) in reys.reys_times">
-                                    <td>{{val.start}}</td>
-                                    <td>{{val.end}}</td>
-                                </template>
-                                </tr>
-                            </tbody>
-                            </table>
-                            <h3>
-                            <span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span>
-                            </h3>
-                            <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                <th>№</th>
-                                <th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
-                                    {{item.where.name}}
-                                </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                v-for="(reys,key) in items.reysesTo"
-                                :class="activeEditClass(reys)"
-                                >
-                                <td>{{key+1}}</td>
-                                <template v-for="(val,key) in reys.reys_times">
-                                    <td>{{val.start}}</td>
-                                    <td>{{val.end}}</td>
-                                </template>
-                                </tr>
-                            </tbody>
-                            </table>
-                        </div>
-                        </div>
-                    </template>
-                </div>
-            </div> -->
                 </div>
 		  	</div>
 	  	</div>
@@ -478,7 +387,6 @@
 			    		this.allLotes.push(this.allItems)
 				    	$('#myModal').modal('hide')
 			    	}
-			    	console.log(this.allLotes)
 		    	}
 		    },
 		    defaultValuesOfCar(){
@@ -556,7 +464,7 @@
 				    			toast.fire({
 							    	type: 'error',
 							    	icon: 'error',
-									title: 'В списке лота существует!',
+									title: 'В списке лот существует!',
 							    })
 				    		}else{
 					    		if (checkItem){
@@ -591,7 +499,8 @@
 		    	if (item.status == 'active') {
 			    	if (this.choosenToItems.some(data => data.id === item.id)){
 		    			return 'active'
-			    	}else{
+			    	}
+			    	else{
 			    		return 'inactive'
 			    	}
 		    	}else{
@@ -603,7 +512,27 @@
 			    	if (this.choosenFromItems.some(data => data.id === value.id)){
 				    	Vue.delete(this.choosenFromItems, index)
 			    	}else{
-				    	this.choosenFromItems.push(value)
+				    	let new_arrays = [];
+				    	if(this.allLotes.length > 0){
+					    	this.allLotes.forEach((lots,lot_index)=>{
+					    		lots.forEach((reys,reys_item)=>{
+					    			reys.reyses.forEach((item,index)=>{
+					    				new_arrays.push(item)
+					    			})
+					    		})
+					    	})
+					    	if (new_arrays.some(data => data.id === value.id && data.direction_id === value.direction_id)){
+					    		toast.fire({
+							    	type: 'error',
+							    	icon: 'error',
+									title: 'В списке тариф существует!',
+							    })
+					    	}else{
+					    		this.choosenFromItems.push(value)
+					    	}
+				    	}else{
+					    	this.choosenFromItems.push(value)
+				    	}
 			    	}
 		    	}
 		    },
@@ -612,7 +541,27 @@
 			    	if (this.choosenToItems.some(data => data.id === value.id)){
 				    	Vue.delete(this.choosenToItems, index)
 			    	}else{
-				    	this.choosenToItems.push(value)
+				    	let new_arrays = [];
+				    	if(this.allLotes.length > 0){
+					    	this.allLotes.forEach((lots,lot_index)=>{
+					    		lots.forEach((reys,reys_item)=>{
+					    			reys.reyses.forEach((item,index)=>{
+					    				new_arrays.push(item)
+					    			})
+					    		})
+					    	})
+					    	if (new_arrays.some(data => data.id === value.id && data.direction_id === value.direction_id)){
+					    		toast.fire({
+							    	type: 'error',
+							    	icon: 'error',
+									title: 'В списке тариф существует!',
+							    })
+					    	}else{
+					    		this.choosenToItems.push(value)
+					    	}
+				    	}else{
+					    	this.choosenToItems.push(value)
+				    	}
 			    	}
 		    	}
 		    },
@@ -736,7 +685,6 @@
 					await this.actionAddTenderAnnounce(newData)
 					this.laoding = false
 					if (this.getMassage.success) {
-						console.log(this.getMassage)
 						toast.fire({
 							type: "success",
 							icon: "success",
@@ -751,7 +699,6 @@
 							// await this.actionAddTenderAnnounce(newData)
 							// this.laoding = false
 							// if (this.getMassage.success) {
-							// 	console.log(this.getMassage)
 							// 	toast.fire({
 							// 		type: "success",
 							// 		icon: "success",
