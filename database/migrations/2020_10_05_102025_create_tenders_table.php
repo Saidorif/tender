@@ -22,6 +22,7 @@ class CreateTendersTable extends Migration
             $table->string('status');
             $table->bigInteger('approved_by')->nullable();
             $table->bigInteger('created_by');
+            $table->string('moderator')->nullable();
             $table->timestamps();
         });
     }
