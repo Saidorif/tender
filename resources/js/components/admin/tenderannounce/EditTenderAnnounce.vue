@@ -105,7 +105,7 @@
 				                            <tbody>
 				                                <tr
 				                                v-for="(reys,key) in items.reysesFrom"
-				                                :class="activeEditClass(reys, t_lots)"
+				                                 v-if="showTabeleReys(reys, t_lots)"
 				                                >
 				                                <td>{{key+1}}</td>
 				                                <template v-for="(val,key) in reys.reys_times">
@@ -130,7 +130,7 @@
 				                            <tbody>
 				                                <tr
 				                                v-for="(reys,key) in items.reysesTo"
-				                                :class="activeEditClass(reys, t_lots)"
+                                                v-if="showTabeleReys(reys, t_lots)"
 				                                >
 				                                <td>{{key+1}}</td>
 				                                <template v-for="(val,key) in reys.reys_times">
@@ -545,12 +545,12 @@
 		    	this.direction_ids={}
 				this.findList = []
 		    },
-		    activeEditClass(item, elem){
+		    showTabeleReys(item, elem){
                 if(elem != undefined){
                     if(elem.reys_id.includes(item.id)){
-                        return 'show_reys'
+                        return true
                     }else{
-                        return 'hide_reys'
+                        return false
                     }
                 }
 		    	// if (item.status == 'active') {
