@@ -71,7 +71,7 @@
 					  		    	<h4>{{index+1}})</h4>
 					  		    	<button class="btn btn-outline-success mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
 					  		    		<template v-if="item.reyses.length > 0">
-										    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span>
+										    <span>{{item.reyses[0].where.name}}дан - {{item.reyses[0].from.name}}га</span>
 										    <span>({{item.reyses.length}} рейсы)</span>
 					  		    		</template>
 					  		    		<template v-else>
@@ -80,7 +80,7 @@
 								  	</button>
 				  		    	</div>
 							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
-								  <table class="table table-bordered table-hover">
+								  	<table class="table table-bordered table-hover">
 							  			<thead>
 								  			<tr>
 								  				<th>№</th>
@@ -478,6 +478,7 @@
 			    		this.allLotes.push(this.allItems)
 				    	$('#myModal').modal('hide')
 			    	}
+			    	console.log(this.allLotes)
 		    	}
 		    },
 		    defaultValuesOfCar(){
