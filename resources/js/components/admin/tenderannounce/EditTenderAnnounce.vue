@@ -105,7 +105,7 @@
 				                            <tbody>
 				                                <tr
 				                                v-for="(reys,key) in items.reysesFrom"
-				                                :class="activeEditClass(reys, t_lots)"
+				                                :class="activeEditClass(reys)"
 				                                >
 				                                <td>{{key+1}}</td>
 				                                <template v-for="(val,key) in reys.reys_times">
@@ -130,7 +130,7 @@
 				                            <tbody>
 				                                <tr
 				                                v-for="(reys,key) in items.reysesTo"
-				                                :class="activeEditClass(reys, t_lots)"
+				                                :class="activeEditClass(reys)"
 				                                >
 				                                <td>{{key+1}}</td>
 				                                <template v-for="(val,key) in reys.reys_times">
@@ -162,7 +162,7 @@
 					  		    	<h4>{{index+1}})</h4>
 					  		    	<button class="btn btn-outline-success mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
 					  		    		<template v-if="item.reyses.length > 0">
-										    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span>
+										    <span>{{item.reyses[0].where.name}}дан - {{item.reyses[0].from.name}}га</span>
 										    <span>({{item.reyses.length}} рейсы)</span>
 					  		    		</template>
 					  		    		<template v-else>
@@ -181,7 +181,7 @@
 								  			</tr>
 								  		</thead>
 								  		<tbody>
-								  			<tr v-for="(reys,key) in item.reyses" >
+								  			<tr v-for="(reys,key) in item.reyses">
 								  				<td>{{key+1}}</td>
 								  				<template v-for="(val,key) in reys.reys_times">
 									  				<td>{{val.start}}</td>
@@ -438,6 +438,7 @@
 					this.edit_direction_ids= this.getTenderAnnounce.direction_ids
 					this.lots= this.getTenderAnnounce.tenderlots
 					this.tenderlots= this.getTenderAnnounce.tenderlots
+					console.log(this.tenderlots)
 				}
 			},
 			checked:{
@@ -469,7 +470,7 @@
 			this.form.address = this.getTenderAnnounce.address
 			this.edit_direction_ids = this.getTenderAnnounce.direction_ids
 			this.lots = this.getTenderAnnounce.tenderlots
-            this.tenderlots = this.getTenderAnnounce.tenderlots
+			this.tenderlots = this.getTenderAnnounce.tenderlots
 		},
 		methods:{
 			...mapActions('tenderannounce',[
@@ -545,19 +546,12 @@
 		    	this.direction_ids={}
 				this.findList = []
 		    },
-		    activeEditClass(item, elem){
-                if(elem != undefined){
-                    if(elem.reys_id.includes(item.id)){
-                        return 'show_reys'
-                    }else{
-                        return 'hide_reys'
-                    }
-                }
-		    	// if (item.status == 'active') {
-	    		// 	return 'edit-active'
-		    	// }else{
-		    	// 	return 'edit-pending'
-		    	// }
+		    activeEditClass(item){
+		    	if (item.status == 'active') {
+	    			return 'edit-active'
+		    	}else{
+		    		return 'edit-pending'
+		    	}
 		    	// let lot_list = lots.reys_id
 		    	// if (lot_list.length > 0) {
 		    	// 	if (lot_list.includes(id)) {
@@ -668,7 +662,7 @@
 		    	}else{
 		    		return 'pending'
 		    	}
-            },
+		    },
 		    chooseFromItem(value,index){
 		    	if (value.status == 'active') {
 			    	if (this.choosenFromItems.some(data => data.id === value.id)){
@@ -766,6 +760,7 @@
 					await this.actionUpdateTenderAnnounce(newData)
 					this.laoding = false
 					if (this.getMassage.success) {
+						console.log(this.getMassage)
 						toast.fire({
 							type: "success",
 							icon: "success",
@@ -886,8 +881,5 @@
 }
 .cardtender .card-header{
     background: #f3f3f4;
-}
-.hide_reys{
-    display: none !important;
 }
 </style>
