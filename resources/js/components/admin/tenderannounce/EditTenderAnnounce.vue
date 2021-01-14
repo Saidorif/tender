@@ -674,7 +674,27 @@
 			    	if (this.choosenFromItems.some(data => data.id === value.id)){
 				    	Vue.delete(this.choosenFromItems, index)
 			    	}else{
-				    	this.choosenFromItems.push(value)
+				    	let new_arrays = [];
+				    	if(this.allLotes.length > 0){
+					    	this.allLotes.forEach((lots,lot_index)=>{
+					    		lots.forEach((reys,reys_item)=>{
+					    			reys.reyses.forEach((item,index)=>{
+					    				new_arrays.push(item)
+					    			})
+					    		})
+					    	})
+					    	if (new_arrays.some(data => data.id === value.id && data.direction_id === value.direction_id)){
+					    		toast.fire({
+							    	type: 'error',
+							    	icon: 'error',
+									title: 'В списке тариф существует!',
+							    })
+					    	}else{
+					    		this.choosenFromItems.push(value)
+					    	}
+				    	}else{
+					    	this.choosenFromItems.push(value)
+				    	}
 			    	}
 		    	}
 		    },
@@ -683,7 +703,27 @@
 			    	if (this.choosenToItems.some(data => data.id === value.id)){
 				    	Vue.delete(this.choosenToItems, index)
 			    	}else{
-				    	this.choosenToItems.push(value)
+				    	let new_arrays = [];
+				    	if(this.allLotes.length > 0){
+					    	this.allLotes.forEach((lots,lot_index)=>{
+					    		lots.forEach((reys,reys_item)=>{
+					    			reys.reyses.forEach((item,index)=>{
+					    				new_arrays.push(item)
+					    			})
+					    		})
+					    	})
+					    	if (new_arrays.some(data => data.id === value.id && data.direction_id === value.direction_id)){
+					    		toast.fire({
+							    	type: 'error',
+							    	icon: 'error',
+									title: 'В списке тариф существует!',
+							    })
+					    	}else{
+					    		this.choosenToItems.push(value)
+					    	}
+				    	}else{
+					    	this.choosenToItems.push(value)
+				    	}
 			    	}
 		    	}
 		    },
