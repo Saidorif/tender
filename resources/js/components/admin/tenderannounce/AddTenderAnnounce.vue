@@ -77,14 +77,31 @@
 				  		    	</div>
 							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
 								  	<table class="table table-bordered table-hover">
-							  			<thead>
+							  			<!-- <thead>
 								  			<tr>
 								  				<th>№</th>
 								  				<th v-for="(item,index) in item.reyses[0].reys_times" colspan="2">
 									  				{{item.where.name}}
 									  			</th>
 								  			</tr>
-								  		</thead>
+								  		</thead> -->
+                                        <thead>
+                                                <tr>
+                                                    <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+                                                    <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">{{item.reyses[0].where.name}} томондан </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="2" v-for="(item, index) in item.reyses[0].reys_times" style="text-align: center;">
+                                                        {{item.where.name}}
+                                                    </th>
+                                                </tr>
+                                                <tr >
+                                                    <template v-for="(item, index) in item.reyses[0].reys_times">
+                                                        <th style="text-align: center;" >Прибытие</th>
+                                                        <th style="text-align: center;">Отправление</th>
+                                                    </template>
+                                                </tr>
+                                        </thead>
 								  		<tbody>
 								  			<tr v-for="(reys,key) in item.reyses">
 								  				<td>{{key+1}}</td>
@@ -287,14 +304,31 @@
 				  		    	</div>
 							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
 								  <table class="table table-bordered table-hover">
-							  			<thead>
+                                        <thead>
+                                                <tr>
+                                                    <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+                                                    <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">{{item.reyses[0].where.name}} томондан </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="2" v-for="(item, index) in item.reyses[0].reys_times" style="text-align: center;">
+                                                        {{item.where.name}}
+                                                    </th>
+                                                </tr>
+                                                <tr >
+                                                    <template v-for="(item, index) in item.reyses[0].reys_times">
+                                                        <th style="text-align: center;" >Прибытие</th>
+                                                        <th style="text-align: center;">Отправление</th>
+                                                    </template>
+                                                </tr>
+                                        </thead>
+							  			<!-- <thead>
 								  			<tr>
 								  				<th>№</th>
 								  				<th v-for="(item,index) in item.reyses[0].reys_times" colspan="2">
 									  				{{item.where.name}}
 									  			</th>
 								  			</tr>
-								  		</thead>
+								  		</thead> -->
 								  		<tbody>
 								  			<tr v-for="(reys,key) in item.reyses">
 								  				<td>{{key+1}}</td>
