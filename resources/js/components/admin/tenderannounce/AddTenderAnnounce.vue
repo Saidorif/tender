@@ -452,8 +452,16 @@
 						 	});
 			    		}
 			    	}else{
-			    		this.allLotes.push(this.allItems)
-				    	$('#myModal').modal('hide')
+			    		if (this.allItems.length == 1) {
+				    		this.allLotes.push(this.allItems)
+					    	$('#myModal').modal('hide')
+			    		}else{
+			    			toast.fire({
+								type: "error",
+								icon: "error",
+								title: 'Чтобы добавить болшее маршрутов откликните пакет!'
+						 	});
+			    		}
 			    	}
 		    	}
 		    },
@@ -484,7 +492,7 @@
 		    	this.direction_ids={}
 				this.findList = []
 		    },
-		    addToAllItems(){
+		    readyItems(){
 		    	if (Object.keys(this.direction_ids).length > 0) {
 			    	// if (this.checked) {
 				    	if(this.checkedGrafik){
@@ -550,6 +558,21 @@
 				    		this.direction_ids = {}
 				    	}
 			    	// }
+		    	}
+		    },
+		    addToAllItems(){
+		    	if (this.checked) {
+			    	this.readyItems()
+		    	}else{
+		    		if(this.allItems.length == 0){
+		    			this.readyItems()
+		    		}else{
+		    			toast.fire({
+					    	type: 'error',
+					    	icon: 'error',
+							title: 'Чтобы добавить болшее маршрутов откликните пакет!',
+					    })
+		    		}
 		    	}
 		    },
 		    activeFromClass(item){
