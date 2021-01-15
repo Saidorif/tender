@@ -94,7 +94,7 @@
 											<thead>
 												<tr>
 													<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-													<th  scope="col"  :colspan="items.reysesFrom.length * 2" style="text-align: center;">{{items.reysesFrom[0].where.name}} томондан </th>
+													<th  scope="col"  :colspan="items.reysesFrom[0].reys_times.length * 2" style="text-align: center;">{{items.reysesFrom[0].where.name}} томондан  </th>
 												</tr>
                                                 <tr>
                                                     <th colspan="2" v-for="(item, index) in items.reysesFrom[0].stations" style="text-align: center;">
@@ -115,8 +115,8 @@
 				                                >
 				                                <td style="text-align: center;">{{key+1}}</td>
 				                                <template v-for="(val,key) in reys.reys_times">
-				                                    <td style="text-align: center;">{{val.start}}</td>
 				                                    <td style="text-align: center;">{{val.end}}</td>
+				                                    <td style="text-align: center;">{{val.start}}</td>
 				                                </template>
 				                                </tr>
 				                            </tbody>
@@ -128,7 +128,7 @@
                                             <thead>
 												<tr>
 													<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-													<th  scope="col"  :colspan="items.reysesTo.length * 2" style="text-align: center;">{{items.reysesTo[0].where.name}} томондан </th>
+													<th  scope="col"  :colspan="items.reysesTo[0].reys_times.length * 2" style="text-align: center;">{{items.reysesTo[0].where.name}} томондан </th>
 												</tr>
                                                 <tr>
                                                     <th colspan="2" v-for="(item, index) in items.reysesTo[0].stations" style="text-align: center;">
@@ -157,8 +157,8 @@
 				                                >
 				                                <td>{{key+1}}</td>
 				                                <template v-for="(val,key) in reys.reys_times">
-				                                    <td>{{val.start}}</td>
 				                                    <td>{{val.end}}</td>
+				                                    <td>{{val.start}}</td>
 				                                </template>
 				                                </tr>
 				                            </tbody>
@@ -224,8 +224,8 @@
 								  			<tr v-for="(reys,key) in item.reyses" >
 								  				<td>{{key+1}}</td>
 								  				<template v-for="(val,key) in reys.reys_times">
-									  				<td>{{val.start}}</td>
 									  				<td>{{val.end}}</td>
+									  				<td>{{val.start}}</td>
 								  				</template>
 								  			</tr>
 								  		</tbody>
@@ -450,8 +450,8 @@
 								  			<tr v-for="(reys,key) in item.reyses">
 								  				<td>{{key+1}}</td>
 								  				<template v-for="(val,key) in reys.reys_times">
-									  				<td>{{val.start}}</td>
 									  				<td>{{val.end}}</td>
+									  				<td>{{val.start}}</td>
 								  				</template>
 								  			</tr>
 								  		</tbody>
