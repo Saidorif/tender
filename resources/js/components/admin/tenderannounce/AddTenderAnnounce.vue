@@ -80,8 +80,8 @@
                                         <thead>
                                             <tr>
                                                 <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-                                                <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">	
-                                                	{{item.reyses[0].where.name}} томондан 
+                                                <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">
+                                                	{{item.reyses[0].where.name}} томондан
                                                 </th>
                                             </tr>
                                             <tr>
@@ -159,7 +159,7 @@
 							<span slot="noOptions">Cписок пустой</span>
 						</multiselect>
 				  	</div>
-				  	<div class="form-group col-md-2 check_box_with_label" v-if="Object.keys(direction_ids).length > 0">
+				  	<div class="form-group col-md-2 check_box_with_label" v-if="direction_ids && Object.keys(direction_ids).length > 0">
 					    <label for="checkedGrafik">График</label>
 					    <input
 					    	type="checkbox"
@@ -501,7 +501,7 @@
 				this.toName = this.getSchedule ? this.getSchedule.whereTo[0].where.name : ''
 		    },
 		    readyItems(){
-		    	if (Object.keys(this.direction_ids).length > 0) {
+		    	if (this.direction_ids && Object.keys(this.direction_ids).length > 0) {
 			    	// if (this.checked) {
 				    	if(this.checkedGrafik){
 				    		if (this.choosenFromItems.length > 0){
@@ -671,7 +671,7 @@
 		      if(value != ''){
 		        this.isLoading = true
 		        await setTimeout(async ()=>{
-					await this.actionDirectionFind({name: value})
+                    await this.actionDirectionFind({name: value})
 			        this.findList = this.getDirectionFindList
 		        this.isLoading = false
 		        },1000)

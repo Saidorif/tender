@@ -282,7 +282,7 @@
 							<span slot="noOptions">Cписок пустой</span>
 						</multiselect>
 				  	</div>
-				  	<div class="form-group col-md-2 check_box_with_label" v-if="Object.keys(direction_ids).length > 0">
+				  	<div class="form-group col-md-2 check_box_with_label" v-if="direction_ids && Object.keys(direction_ids).length > 0">
 					    <label for="checkedGrafik">График</label>
 					    <input
 					    	type="checkbox"
