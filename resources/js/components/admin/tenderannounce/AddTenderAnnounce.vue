@@ -486,6 +486,20 @@
 		    	this.direction_ids={}
 				this.findList = []
 		    },
+		    async dispatchAction(data){
+				this.form.direction_ids = data.id;
+				this.laoding = true
+				await this.actionGetScheduleTable(data.id)
+				this.laoding = false
+				// From Items
+				this.fromFirstItems = this.getSchedule ? this.getSchedule.whereFrom[0] : '';
+				this.fromItems = this.getSchedule ? this.getSchedule.whereFrom : ''
+				this.fromName = this.getSchedule ? this.getSchedule.whereFrom[0].where.name : ''
+				// To Items
+				this.toFirstItems = this.getSchedule ? this.getSchedule.whereTo[0] : ''
+				this.toItems = this.getSchedule ? this.getSchedule.whereTo : ''
+				this.toName = this.getSchedule ? this.getSchedule.whereTo[0].where.name : ''
+		    },
 		    readyItems(){
 		    	if (Object.keys(this.direction_ids).length > 0) {
 			    	// if (this.checked) {
@@ -662,20 +676,6 @@
 		        this.isLoading = false
 		        },1000)
 		      }
-		    },
-		    async dispatchAction(data){
-				  this.form.direction_ids.push(data.id);
-				  this.laoding = true
-				  await this.actionGetScheduleTable(data.id)
-				  this.laoding = false
-			      // From Items
-				this.fromFirstItems = this.getSchedule.whereFrom[0];
-				this.fromItems = this.getSchedule.whereFrom
-				this.fromName = this.getSchedule ? this.getSchedule.whereFrom[0].where.name : ''
-				// To Items
-				this.toFirstItems = this.getSchedule.whereTo[0]
-				this.toItems = this.getSchedule.whereTo
-				this.toName = this.getSchedule ? this.getSchedule.whereTo[0].where.name : ''
 		    },
 		    removeFromAllItems(index){
 		    	if(confirm("Вы действительно хотите удалить?")){
