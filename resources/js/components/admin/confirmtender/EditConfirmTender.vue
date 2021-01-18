@@ -190,8 +190,8 @@
                                     >
                                     <td style="text-align:center;">{{key+1}}</td>
                                     <template v-for="(val,key) in reys.reys_times">
-                                        <td style="text-align:center;">{{val.start}}</td>
                                         <td style="text-align:center;">{{val.end}}</td>
+                                        <td style="text-align:center;">{{val.start}}</td>
                                     </template>
                                     </tr>
                                 </tbody>
@@ -234,8 +234,8 @@
                                 >
                                 <td style="text-align:center;">{{key+1}}</td>
                                 <template v-for="(val,key) in reys.reys_times">
-                                    <td style="text-align:center;">{{val.start}}</td>
                                     <td style="text-align:center;">{{val.end}}</td>
+                                    <td style="text-align:center;">{{val.start}}</td>
                                 </template>
                                 </tr>
                             </tbody>
@@ -284,8 +284,8 @@
 								  			<tr v-for="(reys,key) in item.reyses">
 								  				<td>{{key+1}}</td>
 								  				<template v-for="(val,key) in reys.reys_times">
-									  				<td>{{val.start}}</td>
 									  				<td>{{val.end}}</td>
+									  				<td>{{val.start}}</td>
 								  				</template>
 								  			</tr>
 								  		</tbody>
