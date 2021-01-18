@@ -75,7 +75,7 @@
                 <tr>
                   <th scope="col" rowspan="5">Qatnovlar</th>
                   <th scope="col" :colspan="form.whereTo.stations.length * 2">
-                    {{form.whereTo.where.name}}
+                    {{form.whereTo.where.name}} томондан
                   </th>
                   <th scope="col" rowspan="3">Reys ischinligi</th>
                 </tr>
@@ -132,7 +132,7 @@
                 <tr>
                   <th scope="col" rowspan="5">Qatnovlar</th>
                   <th scope="col" :colspan="form.whereFrom.stations.length * 2">
-                     {{form.whereFrom.where.name}}
+                     {{form.whereFrom.where.name}} томондан
                   </th>
                   <th scope="col" rowspan="3">Reys ischinligi</th>
                 </tr>

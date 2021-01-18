@@ -77,20 +77,31 @@
 				  		    	</div>
 							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
 								  	<table class="table table-bordered table-hover">
-							  			<thead>
-								  			<tr>
-								  				<th>№</th>
-								  				<th v-for="(item,index) in item.reyses[0].reys_times" colspan="2">
-									  				{{item.where.name}}
-									  			</th>
-								  			</tr>
-								  		</thead>
+                                        <thead>
+                                            <tr>
+                                                <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+                                                <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">
+                                                	{{item.reyses[0].where.name}} томондан
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2" v-for="(item, index) in item.reyses[0].reys_times" style="text-align: center;">
+                                                    {{item.where.name}}
+                                                </th>
+                                            </tr>
+                                            <tr >
+                                                <template v-for="(item, index) in item.reyses[0].reys_times">
+                                                    <th style="text-align: center;" >Прибытие</th>
+                                                    <th style="text-align: center;">Отправление</th>
+                                                </template>
+                                            </tr>
+                                        </thead>
 								  		<tbody>
 								  			<tr v-for="(reys,key) in item.reyses">
 								  				<td>{{key+1}}</td>
 								  				<template v-for="(val,key) in reys.reys_times">
-									  				<td>{{val.start}}</td>
 									  				<td>{{val.end}}</td>
+									  				<td>{{val.start}}</td>
 								  				</template>
 								  			</tr>
 								  		</tbody>
@@ -148,7 +159,7 @@
 							<span slot="noOptions">Cписок пустой</span>
 						</multiselect>
 				  	</div>
-				  	<div class="form-group col-md-2 check_box_with_label" v-if="Object.keys(direction_ids).length > 0">
+				  	<div class="form-group col-md-2 check_box_with_label" v-if="direction_ids && Object.keys(direction_ids).length > 0">
 					    <label for="checkedGrafik">График</label>
 					    <input
 					    	type="checkbox"
@@ -167,16 +178,33 @@
 	        	<!-- From Name -->
 				<div v-if="checkedGrafik">
 				  	<div class="table-responsive" v-if="fromItems.length">
-				  		<div class="d-flex justify-content-center">
+				  		<!-- <div class="d-flex justify-content-center">
 				  			<h4>{{fromName}}</h4>
-				  		</div>
+				  		</div> -->
 					  	<table class="table table-bordered">
-					  		<thead>
+					  		<!-- <thead>
 					  			<tr>
 					  				<th>№</th>
 					  				<th v-for="(item,index) in fromFirstItems.reys_times" colspan="2">{{item.where.name}}</th>
 					  			</tr>
-					  		</thead>
+					  		</thead> -->
+                            <thead>
+								<tr>
+									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+									<th  scope="col"  :colspan="fromFirstItems.reys_times.length * 2" style="text-align: center;">{{fromName}} томондан </th>
+								</tr>
+                                <tr>
+                                    <th colspan="2" v-for="(item, index) in fromFirstItems.reys_times" style="text-align: center;">
+                                        {{item.where.name}}
+                                    </th>
+                                </tr>
+                                <tr >
+                                    <template v-for="(item, index) in fromFirstItems.reys_times">
+                                        <th style="text-align: center;" >Прибытие</th>
+                                        <th style="text-align: center;">Отправление</th>
+                                    </template>
+                                </tr>
+				  			</thead>
 					  		<tbody>
 					  			<tr
 					  				v-for="(items,index) in fromItems"
@@ -198,16 +226,33 @@
 				  	</div>
 				  	<!-- To Name -->
 				  	<div class="table-responsive" v-if="fromItems.length">
-				  		<div class="d-flex justify-content-center">
+				  		<!-- <div class="d-flex justify-content-center">
 				  			<h4>{{toName}}</h4>
-				  		</div>
+				  		</div> -->
 					  	<table class="table table-bordered">
-					  		<thead>
+					  		<!-- <thead>
 					  			<tr>
 					  				<th>№</th>
 					  				<th v-for="(item,index) in  toFirstItems.reys_times" colspan="2">{{item.where.name}}</th>
 					  			</tr>
-					  		</thead>
+					  		</thead> -->
+                          	<thead>
+								<tr>
+									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+									<th  scope="col"  :colspan="toFirstItems.reys_times.length * 2" style="text-align: center;">{{toName}} томондан </th>
+								</tr>
+                                <tr>
+                                    <th colspan="2" v-for="(item, index) in toFirstItems.reys_times" style="text-align: center;">
+                                        {{item.where.name}}
+                                    </th>
+                                </tr>
+                                <tr >
+                                    <template v-for="(item, index) in toFirstItems.reys_times">
+                                        <th style="text-align: center;" >Прибытие</th>
+                                        <th style="text-align: center;">Отправление</th>
+                                    </template>
+                                </tr>
+				  			</thead>
 					  		<tbody>
 					  			<tr
 					  				v-for="(items,index) in  toItems"
@@ -253,20 +298,37 @@
 				  		    	</div>
 							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
 								  <table class="table table-bordered table-hover">
-							  			<thead>
+                                        <thead>
+                                                <tr>
+                                                    <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+                                                    <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">{{item.reyses[0].where.name}} томондан </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="2" v-for="(item, index) in item.reyses[0].reys_times" style="text-align: center;">
+                                                        {{item.where.name}}
+                                                    </th>
+                                                </tr>
+                                                <tr >
+                                                    <template v-for="(item, index) in item.reyses[0].reys_times">
+                                                        <th style="text-align: center;" >Прибытие</th>
+                                                        <th style="text-align: center;">Отправление</th>
+                                                    </template>
+                                                </tr>
+                                        </thead>
+							  			<!-- <thead>
 								  			<tr>
 								  				<th>№</th>
 								  				<th v-for="(item,index) in item.reyses[0].reys_times" colspan="2">
 									  				{{item.where.name}}
 									  			</th>
 								  			</tr>
-								  		</thead>
+								  		</thead> -->
 								  		<tbody>
 								  			<tr v-for="(reys,key) in item.reyses">
 								  				<td>{{key+1}}</td>
 								  				<template v-for="(val,key) in reys.reys_times">
-									  				<td>{{val.start}}</td>
 									  				<td>{{val.end}}</td>
+									  				<td>{{val.start}}</td>
 								  				</template>
 								  			</tr>
 								  		</tbody>
@@ -384,8 +446,16 @@
 						 	});
 			    		}
 			    	}else{
-			    		this.allLotes.push(this.allItems)
-				    	$('#myModal').modal('hide')
+			    		if (this.allItems.length == 1) {
+				    		this.allLotes.push(this.allItems)
+					    	$('#myModal').modal('hide')
+			    		}else{
+			    			toast.fire({
+								type: "error",
+								icon: "error",
+								title: 'Чтобы добавить болшее маршрутов откликните пакет!'
+						 	});
+			    		}
 			    	}
 		    	}
 		    },
@@ -416,8 +486,22 @@
 		    	this.direction_ids={}
 				this.findList = []
 		    },
-		    addToAllItems(){
-		    	if (Object.keys(this.direction_ids).length > 0) {
+		    async dispatchAction(data){
+				this.form.direction_ids = data.id;
+				this.laoding = true
+				await this.actionGetScheduleTable(data.id)
+				this.laoding = false
+				// From Items
+				this.fromFirstItems = this.getSchedule ? this.getSchedule.whereFrom[0] : '';
+				this.fromItems = this.getSchedule ? this.getSchedule.whereFrom : ''
+				this.fromName = this.getSchedule ? this.getSchedule.whereFrom[0].where.name : ''
+				// To Items
+				this.toFirstItems = this.getSchedule ? this.getSchedule.whereTo[0] : ''
+				this.toItems = this.getSchedule ? this.getSchedule.whereTo : ''
+				this.toName = this.getSchedule ? this.getSchedule.whereTo[0].where.name : ''
+		    },
+		    readyItems(){
+		    	if (this.direction_ids && Object.keys(this.direction_ids).length > 0) {
 			    	// if (this.checked) {
 				    	if(this.checkedGrafik){
 				    		if (this.choosenFromItems.length > 0){
@@ -482,6 +566,21 @@
 				    		this.direction_ids = {}
 				    	}
 			    	// }
+		    	}
+		    },
+		    addToAllItems(){
+		    	if (this.checked) {
+			    	this.readyItems()
+		    	}else{
+		    		if(this.allItems.length == 0){
+		    			this.readyItems()
+		    		}else{
+		    			toast.fire({
+					    	type: 'error',
+					    	icon: 'error',
+							title: 'Чтобы добавить болшее маршрутов откликните пакет!',
+					    })
+		    		}
 		    	}
 		    },
 		    activeFromClass(item){
@@ -572,25 +671,11 @@
 		      if(value != ''){
 		        this.isLoading = true
 		        await setTimeout(async ()=>{
-					await this.actionDirectionFind({name: value})
+                    await this.actionDirectionFind({name: value})
 			        this.findList = this.getDirectionFindList
 		        this.isLoading = false
 		        },1000)
 		      }
-		    },
-		    async dispatchAction(data){
-				  this.form.direction_ids.push(data.id);
-				  this.laoding = true
-				  await this.actionGetScheduleTable(data.id)
-				  this.laoding = false
-			      // From Items
-				this.fromFirstItems = this.getSchedule.whereFrom[0];
-				this.fromItems = this.getSchedule.whereFrom
-				this.fromName = this.getSchedule ? this.getSchedule.whereFrom[0].where.name : ''
-				// To Items
-				this.toFirstItems = this.getSchedule.whereTo[0]
-				this.toItems = this.getSchedule.whereTo
-				this.toName = this.getSchedule ? this.getSchedule.whereTo[0].where.name : ''
 		    },
 		    removeFromAllItems(index){
 		    	if(confirm("Вы действительно хотите удалить?")){

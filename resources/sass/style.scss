@@ -69,6 +69,9 @@
     color: #9CA1AB;
     text-decoration: none !important;
 }
+.card-body{
+    overflow: auto;
+}
 .card_with_tabs .card-header .passport_tab .nav.nav-tabs  a.active{
     color: #292666;
 }

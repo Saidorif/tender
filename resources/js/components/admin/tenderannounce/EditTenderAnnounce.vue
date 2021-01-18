@@ -77,40 +77,46 @@
 
 		                </div>
 		                <div class="card-body">
-		                    <template v-for="(items,index) in t_lots.direction_id">
+		                    <template v-for="(items,index) in t_lots.direction_id" >
 		                        <div class="mb-2">
 			                        <div class="d-flex align-items-center justify-content-between">
-			                            <h4>{{index+1}}) {{items.name}} ({{getLengthReys(items)}} рейс)</h4>
+			                            <h4>{{index+1}}) {{items.name}} ({{getLengthReys(items, t_lots)}} рейс)</h4>
 
-			                            <router-link
-			                                :to='`/crm/stepuser/demand-tab/${items.id}`'
-			                                class="btn btn-outline-info"
-			                            >
+			                            <router-link :to='`/crm/stepuser/demand-tab/${items.id}`'  class="btn btn-outline-info">
 			                                <i class="fas fa-eye"></i>
 			                            </router-link>
 			                        </div>
-			                        <div>
+			                        <div v-if="items.reys_status">
 			                            <h3>
 			                            <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span>
 			                            </h3>
 			                            <table class="table table-bordered" >
-				                            <thead>
-				                                <tr>
-				                                <th>№</th>
-				                                <th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
-				                                    {{item.where.name}}
-				                                </th>
-				                                </tr>
-				                            </thead>
+											<thead>
+												<tr>
+													<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+													<th  scope="col"  :colspan="items.reysesFrom[0].reys_times.length * 2" style="text-align: center;">{{items.reysesFrom[0].where.name}} томондан  </th>
+												</tr>
+                                                <tr>
+                                                    <th colspan="2" v-for="(item, index) in items.reysesFrom[0].stations" style="text-align: center;">
+                                                        {{ item.name }}
+                                                    </th>
+                                                </tr>
+                                                <tr >
+                                                    <template v-for="(item, index) in items.reysesFrom[0].reys_times">
+                                                        <th style="text-align: center;" >Прибытие</th>
+                                                        <th style="text-align: center;">Отправление</th>
+                                                    </template>
+                                                </tr>
+				  							</thead>
 				                            <tbody>
 				                                <tr
 				                                v-for="(reys,key) in items.reysesFrom"
 				                                 v-if="showTabeleReys(reys, t_lots, items)"
 				                                >
-				                                <td>{{key+1}}</td>
+				                                <td style="text-align: center;">{{key+1}}</td>
 				                                <template v-for="(val,key) in reys.reys_times">
-				                                    <td>{{val.start}}</td>
-				                                    <td>{{val.end}}</td>
+				                                    <td style="text-align: center;">{{val.end}}</td>
+				                                    <td style="text-align: center;">{{val.start}}</td>
 				                                </template>
 				                                </tr>
 				                            </tbody>
@@ -119,14 +125,31 @@
 			                            	<span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span>
 			                            </h3>
 			                            <table class="table table-bordered" >
-				                            <thead>
+                                            <thead>
+												<tr>
+													<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+													<th  scope="col"  :colspan="items.reysesTo[0].reys_times.length * 2" style="text-align: center;">{{items.reysesTo[0].where.name}} томондан </th>
+												</tr>
+                                                <tr>
+                                                    <th colspan="2" v-for="(item, index) in items.reysesTo[0].stations" style="text-align: center;">
+                                                        {{ item.name }}
+                                                    </th>
+                                                </tr>
+                                                <tr >
+                                                    <template v-for="(item, index) in items.reysesTo[0].reys_times">
+                                                        <th style="text-align: center;" >Прибытие</th>
+                                                        <th style="text-align: center;">Отправление</th>
+                                                    </template>
+                                                </tr>
+				  							</thead>
+				                            <!-- <thead>
 				                                <tr>
 				                                <th>№</th>
 				                                <th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
 				                                    {{item.where.name}}
 				                                </th>
 				                                </tr>
-				                            </thead>
+				                            </thead> -->
 				                            <tbody>
 				                                <tr
 				                                v-for="(reys,key) in items.reysesTo"
@@ -134,8 +157,8 @@
 				                                >
 				                                <td>{{key+1}}</td>
 				                                <template v-for="(val,key) in reys.reys_times">
-				                                    <td>{{val.start}}</td>
 				                                    <td>{{val.end}}</td>
+				                                    <td>{{val.start}}</td>
 				                                </template>
 				                                </tr>
 				                            </tbody>
@@ -172,20 +195,37 @@
 				  		    	</div>
 							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
 								  <table class="table table-bordered table-hover">
-							  			<thead>
+                                        <thead>
+                                                <tr>
+                                                    <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+                                                    <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">{{item.reyses[0].where.name}} томондан </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="2" v-for="(item, index) in item.reyses[0].reys_times" style="text-align: center;">
+                                                        {{item.where.name}}
+                                                    </th>
+                                                </tr>
+                                                <tr >
+                                                    <template v-for="(item, index) in item.reyses[0].reys_times">
+                                                        <th style="text-align: center;" >Прибытие</th>
+                                                        <th style="text-align: center;">Отправление</th>
+                                                    </template>
+                                                </tr>
+                                        </thead>
+							  			<!-- <thead>
 								  			<tr>
 								  				<th>№</th>
 								  				<th v-for="(item,index) in item.reyses[0].reys_times" colspan="2">
 									  				{{item.where.name}}
 									  			</th>
 								  			</tr>
-								  		</thead>
+								  		</thead> -->
 								  		<tbody>
 								  			<tr v-for="(reys,key) in item.reyses" >
 								  				<td>{{key+1}}</td>
 								  				<template v-for="(val,key) in reys.reys_times">
-									  				<td>{{val.start}}</td>
 									  				<td>{{val.end}}</td>
+									  				<td>{{val.start}}</td>
 								  				</template>
 								  			</tr>
 								  		</tbody>
@@ -242,7 +282,7 @@
 							<span slot="noOptions">Cписок пустой</span>
 						</multiselect>
 				  	</div>
-				  	<div class="form-group col-md-2 check_box_with_label" v-if="Object.keys(direction_ids).length > 0">
+				  	<div class="form-group col-md-2 check_box_with_label" v-if="direction_ids && Object.keys(direction_ids).length > 0">
 					    <label for="checkedGrafik">График</label>
 					    <input
 					    	type="checkbox"
@@ -261,16 +301,33 @@
 	        	<!-- From Name -->
 				<div v-if="checkedGrafik">
 				  	<div class="table-responsive" v-if="fromItems.length">
-				  		<div class="d-flex justify-content-center">
+				  		<!-- <div class="d-flex justify-content-center">
 				  			<h4>{{fromName}}</h4>
-				  		</div>
+				  		</div> -->
 					  	<table class="table table-bordered">
-					  		<thead>
+                            <thead>
+								<tr>
+									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+									<th  scope="col"  :colspan="fromFirstItems.reys_times.length * 2" style="text-align: center;">{{fromName}} томондан </th>
+								</tr>
+                                <tr>
+                                    <th colspan="2" v-for="(item, index) in fromFirstItems.reys_times" style="text-align: center;">
+                                        {{item.where.name}}
+                                    </th>
+                                </tr>
+                                <tr >
+                                    <template v-for="(item, index) in fromFirstItems.reys_times">
+                                        <th style="text-align: center;" >Прибытие</th>
+                                        <th style="text-align: center;">Отправление</th>
+                                    </template>
+                                </tr>
+				  			</thead>
+					  		<!-- <thead>
 					  			<tr>
 					  				<th>№</th>
 					  				<th v-for="(item,index) in fromFirstItems.reys_times" colspan="2">{{item.where.name}}</th>
 					  			</tr>
-					  		</thead>
+					  		</thead> -->
 					  		<tbody>
 					  			<tr
 					  				v-for="(items,index) in fromItems"
@@ -292,16 +349,33 @@
 				  	</div>
 				  	<!-- To Name -->
 				  	<div class="table-responsive" v-if="fromItems.length">
-				  		<div class="d-flex justify-content-center">
+				  		<!-- <div class="d-flex justify-content-center">
 				  			<h4>{{toName}}</h4>
-				  		</div>
+				  		</div> -->
 					  	<table class="table table-bordered">
-					  		<thead>
+					  		<!-- <thead>
 					  			<tr>
 					  				<th>№</th>
 					  				<th v-for="(item,index) in  toFirstItems.reys_times" colspan="2">{{item.where.name}}</th>
 					  			</tr>
-					  		</thead>
+					  		</thead> -->
+                            <thead>
+								<tr>
+									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+									<th  scope="col"  :colspan="toFirstItems.reys_times.length * 2" style="text-align: center;">{{toName}} томондан </th>
+								</tr>
+                                <tr>
+                                    <th colspan="2" v-for="(item, index) in toFirstItems.reys_times" style="text-align: center;">
+                                        {{item.where.name}}
+                                    </th>
+                                </tr>
+                                <tr >
+                                    <template v-for="(item, index) in toFirstItems.reys_times">
+                                        <th style="text-align: center;" >Прибытие</th>
+                                        <th style="text-align: center;">Отправление</th>
+                                    </template>
+                                </tr>
+				  			</thead>
 					  		<tbody>
 					  			<tr
 					  				v-for="(items,index) in  toItems"
@@ -347,20 +421,37 @@
 				  		    	</div>
 							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
 								  <table class="table table-bordered table-hover">
-							  			<thead>
+							  			<!-- <thead>
 								  			<tr>
 								  				<th>№</th>
 								  				<th v-for="(item,index) in item.reyses[0].reys_times" colspan="2">
 									  				{{item.where.name}}
 									  			</th>
 								  			</tr>
-								  		</thead>
+								  		</thead> -->
+                                        <thead>
+                                                <tr>
+                                                    <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+                                                    <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">{{item.reyses[0].where.name}} томондан </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="2" v-for="(item, index) in item.reyses[0].reys_times" style="text-align: center;">
+                                                        {{item.where.name}}
+                                                    </th>
+                                                </tr>
+                                                <tr >
+                                                    <template v-for="(item, index) in item.reyses[0].reys_times">
+                                                        <th style="text-align: center;" >Прибытие</th>
+                                                        <th style="text-align: center;">Отправление</th>
+                                                    </template>
+                                                </tr>
+                                        </thead>
 								  		<tbody>
 								  			<tr v-for="(reys,key) in item.reyses">
 								  				<td>{{key+1}}</td>
 								  				<template v-for="(val,key) in reys.reys_times">
-									  				<td>{{val.start}}</td>
 									  				<td>{{val.end}}</td>
+									  				<td>{{val.start}}</td>
 								  				</template>
 								  			</tr>
 								  		</tbody>
@@ -496,8 +587,16 @@
 						 	});
 			    		}
 			    	}else{
-			    		this.allLotes.push(this.allItems)
-				    	$('#myModal').modal('hide')
+			    		if (this.allItems.length == 1) {
+				    		this.allLotes.push(this.allItems)
+					    	$('#myModal').modal('hide')
+			    		}else{
+			    			toast.fire({
+								type: "error",
+								icon: "error",
+								title: 'Чтобы добавить болшее маршрутов откликните пакет!'
+						 	});
+			    		}
 			    	}
 		    	}
 		    },
@@ -566,30 +665,30 @@
 		    	// 	}
 		    	// }
             },
-            showWithOutReyses(item){
-                console.log(item)
-                if(item.byreys){
-                        return true
-                }else{
-                        return false
-                 }
-
-            },
-		    getLengthReys(reys){
-		    	let count = 0;
-		    		reys.reysesFrom.forEach((item,index)=>{
-		    			if(item.status == 'pending'){
-		    				count++
-		    			}
+		    getLengthReys(reys, elem){
+                let count = 0;
+                if(reys.reys_status){
+                    reys.reysesFrom.forEach((item,index)=>{
+                        if(elem.reys_id.includes(item.id)){
+                            count++
+                        }
 		    		})
 		    		reys.reysesTo.forEach((item,index)=>{
-		    			if(item.status == 'pending'){
-		    				count++
-		    			}
+                        if(elem.reys_id.includes(item.id)){
+                            count++
+                        }
 		    		})
+                }else{
+		    		reys.reysesFrom.forEach((item,index)=>{
+		    				count++
+		    		})
+		    		reys.reysesTo.forEach((item,index)=>{
+		    				count++
+		    		})
+                }
 		    	return count;
 		    },
-		    addToAllItems(){
+		    readyItems(){
 		    	if (Object.keys(this.direction_ids).length > 0) {
 			    	// if (this.checked) {
 				    	if(this.checkedGrafik){
@@ -637,10 +736,10 @@
 				    			toast.fire({
 							    	type: 'error',
 							    	icon: 'error',
-									title: 'В списке лота существует!',
+									title: 'В списке лот существует!',
 							    })
 				    		}else{
-					    		if (checkItem) {
+					    		if (checkItem){
 				    				this.allItems.push(value)
 					    		}else{
 					    			toast.fire({
@@ -655,6 +754,21 @@
 				    		this.direction_ids = {}
 				    	}
 			    	// }
+		    	}
+		    },
+		    addToAllItems(){
+		    	if (this.checked) {
+			    	this.readyItems()
+		    	}else{
+		    		if(this.allItems.length == 0){
+		    			this.readyItems()
+		    		}else{
+		    			toast.fire({
+					    	type: 'error',
+					    	icon: 'error',
+							title: 'Чтобы добавить болшее маршрутов откликните пакет!',
+					    })
+		    		}
 		    	}
 		    },
 		    activeFromClass(item){
