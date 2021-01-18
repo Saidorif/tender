@@ -59,23 +59,16 @@
                             </router-link>
                         </div>
                         <div v-if="items.reys_status">
+                          <template v-if="items.reys_status.from">
                             <h3>
                             <span>{{items.reysesFrom[0].where.name}} - {{items.reysesFrom[0].from.name}}</span>
                             </h3>
                             <table class="table table-bordered">
-                            <!-- <thead>
-                                <tr>
-                                <th>№</th>
-                                <th v-for="(item,index) in items.reysesFrom[0].reys_times" colspan="2">
-                                    {{item.where.name}}
-                                </th>
-                                </tr>
-                            </thead> -->
-                            <thead>
-								<tr>
-									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-									<th  scope="col"  :colspan="items.reysesFrom[0].reys_times.length * 2" style="text-align: center;">{{items.reysesFrom[0].where.name}} томондан  </th>
-								</tr>
+                              <thead>
+                								<tr>
+                									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+                									<th  scope="col"  :colspan="items.reysesFrom[0].reys_times.length * 2" style="text-align: center;">{{items.reysesFrom[0].where.name}} томондан  </th>
+                								</tr>
                                 <tr>
                                     <th colspan="2" v-for="(item, index) in items.reysesFrom[0].stations" style="text-align: center;">
                                         {{ item.name }}
@@ -87,62 +80,57 @@
                                         <th style="text-align: center;">Отправление</th>
                                     </template>
                                 </tr>
-				  			</thead>
-                            <tbody>
-                                <tr
-                                v-for="(reys,key) in items.reysesFrom"
-                                v-if="showTabeleReys(reys, t_lots, items)"
-                                >
-                                <td>{{key+1}}</td>
-                                <template v-for="(val,key) in reys.reys_times">
-                                    <td>{{val.start}}</td>
-                                    <td>{{val.end}}</td>
-                                </template>
-                                </tr>
-                            </tbody>
+              				  			</thead>
+                              <tbody>
+                                  <tr
+                                  v-for="(reys,key) in items.reysesFrom"
+                                  v-if="showTabeleReys(reys, t_lots, items)"
+                                  >
+                                  <td>{{key+1}}</td>
+                                  <template v-for="(val,key) in reys.reys_times">
+                                      <td>{{val.start}}</td>
+                                      <td>{{val.end}}</td>
+                                  </template>
+                                  </tr>
+                              </tbody>
                             </table>
+                          </template>
+                          <template v-if="items.reys_status.to">
                             <h3>
                             <span>{{items.reysesTo[0].where.name}} - {{items.reysesTo[0].from.name}}</span>
                             </h3>
                             <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-                                        <th  scope="col"  :colspan="items.reysesTo[0].reys_times.length * 2" style="text-align: center;">{{items.reysesTo[0].where.name}} томондан </th>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2" v-for="(item, index) in items.reysesTo[0].stations" style="text-align: center;">
-                                            {{ item.name }}
-                                        </th>
-                                    </tr>
-                                    <tr >
-                                        <template v-for="(item, index) in items.reysesTo[0].reys_times">
-                                            <th style="text-align: center;" >Прибытие</th>
-                                            <th style="text-align: center;">Отправление</th>
-                                        </template>
-                                    </tr>
-                                </thead>
-                            <!-- <thead>
-                                <tr>
-                                <th>№</th>
-                                <th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
-                                    {{item.where.name}}
-                                </th>
-                                </tr>
-                            </thead> -->
-                            <tbody>
-                                <tr
-                                v-for="(reys,key) in items.reysesTo"
-                                v-if="showTabeleReys(reys, t_lots, items)"
-                                >
-                                <td>{{key+1}}</td>
-                                <template v-for="(val,key) in reys.reys_times">
-                                    <td>{{val.start}}</td>
-                                    <td>{{val.end}}</td>
-                                </template>
-                                </tr>
-                            </tbody>
+                              <thead>
+                                  <tr>
+                                      <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+                                      <th  scope="col"  :colspan="items.reysesTo[0].reys_times.length * 2" style="text-align: center;">{{items.reysesTo[0].where.name}} томондан </th>
+                                  </tr>
+                                  <tr>
+                                      <th colspan="2" v-for="(item, index) in items.reysesTo[0].stations" style="text-align: center;">
+                                          {{ item.name }}
+                                      </th>
+                                  </tr>
+                                  <tr >
+                                      <template v-for="(item, index) in items.reysesTo[0].reys_times">
+                                          <th style="text-align: center;" >Прибытие</th>
+                                          <th style="text-align: center;">Отправление</th>
+                                      </template>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr
+                                  v-for="(reys,key) in items.reysesTo"
+                                  v-if="showTabeleReys(reys, t_lots, items)"
+                                  >
+                                  <td>{{key+1}}</td>
+                                  <template v-for="(val,key) in reys.reys_times">
+                                      <td>{{val.start}}</td>
+                                      <td>{{val.end}}</td>
+                                  </template>
+                                  </tr>
+                              </tbody>
                             </table>
+                          </template>
                         </div>
                         </div>
                     </template>
