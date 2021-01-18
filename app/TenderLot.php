@@ -48,6 +48,8 @@ class TenderLot extends Model
             $value->reysesTo = $reysesTo;
             //Get all direction reyses as array
             $reys_ids = Reys::where(['direction_id' => $value->id,'status' => 'active'])->pluck('id')->toArray();
+            $reys_ids_from = $reysesFrom->pluck('id');
+            $reys_ids_to = $reysesTo->pluck('id');
             //Compare selected reys_id property with reys_ids array (if in array has selected reyses)
             $reyses_arr = array_intersect($this->reys_id,$reys_ids);
             //if reys ids selected set status true else false
