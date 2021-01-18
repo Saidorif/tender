@@ -47,13 +47,17 @@ class TenderLot extends Model
             $value->reysesFrom = $reysesFrom;
             $value->reysesTo = $reysesTo;
             //Get all direction reyses as array
-            $reys_ids = Reys::where(['direction_id' => $value->id,'status' => 'active'])->pluck('id')->toArray();
-            $reys_ids_from = $reysesFrom->pluck('id');
-            $reys_ids_to = $reysesTo->pluck('id');
+            // $reys_ids = Reys::where(['direction_id' => $value->id,'status' => 'active'])->pluck('id')->toArray();
+            $reys_ids_from = $reysesFrom->pluck('id')->toArray();
+            $reys_ids_to = $reysesTo->pluck('id')->toArray();
             //Compare selected reys_id property with reys_ids array (if in array has selected reyses)
-            $reyses_arr = array_intersect($this->reys_id,$reys_ids);
+            $reyses_arr_from = array_intersect($this->reys_id,$reys_ids_from);
+            $reyses_arr_to = array_intersect($this->reys_id,$reys_ids_to);
             //if reys ids selected set status true else false
-            $value->reys_status = count($reyses_arr) ? true : false;
+            $value->reys_status = [
+                'from' => count($reyses_arr_from) ? true : false,
+                'to' => count($reyses_arr_to) ? true : false,
+            ];
         };
         return $result;
     }
