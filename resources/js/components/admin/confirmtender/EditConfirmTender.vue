@@ -142,7 +142,7 @@
                     <template v-for="(items,index) in t_lots.direction_id">
                         <div class="mb-2">
                         <div class="d-flex align-items-center justify-content-between">
-                            <h4>{{index+1}}) {{items.name}} ({{getLengthReys(items, t_lots)}} рейс)</h4>
+                            <h4>{{index+1}}) {{items.name}} <span v-if="getLengthReys(items, t_lots) > 0">({{getLengthReys(items, t_lots)}} рейс)</span></h4>
 
                             <router-link
                                 :to='`/crm/stepuser/demand-tab/${items.id}`'
