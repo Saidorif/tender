@@ -55,7 +55,7 @@ const actions = {
 	async actionDemand({commit},id){
 		try {
 			const demand =  await PassportTabService.demands(id);
-			await commit('setDemand',demand.data.result)
+			await commit('setDemand',demand.data)
 			return true
 		} catch (error) {
 			return false

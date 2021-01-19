@@ -6,7 +6,7 @@
         <PassportTab/>
       </div>
       <div class="card-body">
-        <div class="table-responsive">
+        <div class="table-responsive" v-if="getDemand.success">
           <table class="table table-bordered">
 <!--             <thead>
               <tr>
@@ -230,10 +230,18 @@ export default {
   },
   async mounted(){
     // await this.actionEditDirection(this.$route.params.directionId);
-    await this.actionDemand(this.$route.params.directionId);
-    this.laoding = false
-    this.form = this.getDemand
-    },
+        await this.actionDemand(this.$route.params.directionId);
+        this.laoding = false
+        if(this.getDemand.success){
+            this.form = this.getDemand.result
+        }else{
+            toast.fire({
+                type: 'error',
+                icon: 'error',
+                title: this.getDemand.message,
+            })
+        }
+ },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
     ...mapGetters("passportTab", ['getDemand','getMsg']),
