@@ -147,7 +147,7 @@
               <tr>
                 <td rowspan="3">12</td>
                 <td width="50%"><b>Рейс вақти</b></td>
-                <td><b>{{(form.reys_time)}}</b></td>
+                <td><b><input type="string" v-model="form.reys_time" class="form-control"></b></td>
               </tr>
               <tr>
                 <td>{{form.reyses_from_name}}-{{form.reyses_to_name}}</td>
@@ -275,7 +275,7 @@ export default {
         toast.fire({
           type: 'error',
           icon: 'error',
-          title: 'Error',
+          title: "Ошибка проверте данные!",
         })
       }
     },
