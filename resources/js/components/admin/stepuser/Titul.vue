@@ -31,7 +31,7 @@
               <label for="region_id">Tumandan, qishloqdan, shaxridan</label>
               <div class="form-control input_style">
                 {{item.area_from_with ? item.area_from_with.name : ''}}
-              </div>     
+              </div>
             </div>
             <div class="form-group col-md-3">
               <label for="region_id">Bekatdan</label>

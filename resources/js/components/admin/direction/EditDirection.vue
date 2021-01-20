@@ -208,6 +208,17 @@
                     </select>
                   </div>
                   <div class="form-group col-md-3">
+                    <label for="profitability">Yonalish turi</label>
+                    <select
+                      class="form-control input_style"
+                      v-model="form.profitability"
+                      :class="isRequired(form.profitability) ? 'isRequired' : ''"
+                    >
+                      <option value="bus">Avtobus yonalishi</option>
+                      <option value="taxi">Taxi yonalishi</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
                     <label for="seria">Yonalish masofasi</label>
                     <input
                       type="number"
