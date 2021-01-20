@@ -223,7 +223,15 @@ export default {
     // await this.actionEditDirection(this.$route.params.directionId);
     await this.actionDemand(this.$route.params.directionId);
     this.laoding = false
-    this.form = this.getDemand
+        if(this.getDemand.success){
+            this.form = this.getDemand.result
+        }else{
+            toast.fire({
+                type: 'error',
+                icon: 'error',
+                title: this.getDemand.message,
+            })
+        }
     Vue.set(this.form,'stations_from_value','')
     Vue.set(this.form,'stations_to_value','')
     Vue.set(this.form,'station_intervals','')
@@ -247,7 +255,7 @@ export default {
       }
     },
     saveData(){
-        
+
     }
   },
 };
