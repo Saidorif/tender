@@ -552,6 +552,17 @@ class DirectionController extends Controller
         if($direction->requirement){
             return response()->json(['success' => true, 'result' => $direction->requirement]);
         }
+        if(count($direction->cars) < 1){
+            return response()->json(['error' => true,'message' => 'Пожалуйста, добавьте автомобили в список титулов']);
+        }
+        if(count($direction->schedule) < 1){
+            return response()->json(['error' => true,'message' => 'Пожалуйста, добавьте список расписания']);
+        }
+        if(count($direction->regionFrom->tarifcity) > 0){
+            $tarif_city = $direction->regionFrom->tarifcity->first()->tarif;
+        }else{
+            $tarif_city = 0;
+        }
         $result = [];
         $from_name = $direction->from_where['name'];
         $from_id   = $direction->from_where['id'];
@@ -599,7 +610,7 @@ class DirectionController extends Controller
             'tarif'                         => $direction->tarif,
             'tarif_one_km'                  => $direction->tarif,
             'tarif_full_km'                  => $direction->getPTarifFull(),
-            'tarif_city'                    => $direction->regionFrom->tarifcity->first()->tarif,
+            'tarif_city'                    => $tarif_city,
             'transports_capacity'           => '',
             'transports_seats'              => '',
             'minimum_bal'                   => '',
