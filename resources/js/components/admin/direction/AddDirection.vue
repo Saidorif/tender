@@ -222,14 +222,14 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-                    <label for="profitability">Yonalish turi</label>
+                    <label for="profitability">Йуналишнинг тури</label>
                     <select
                       class="form-control input_style"
                       v-model="form.dir_type"
                       :class="isRequired(form.dir_type) ? 'isRequired' : ''"
                     >
-                      <option value="bus">Avtobus yonalishi</option>
-                      <option value="taxi">Taxi yonalishi</option>
+                      <option value="bus">Автобус йуналиши</option>
+                      <option value="taxi">Йўналиши тахи йуналиши</option>
                     </select>
                   </div>
             <div class="form-group col-md-3">
