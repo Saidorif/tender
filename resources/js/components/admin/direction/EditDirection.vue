@@ -211,8 +211,8 @@
                     <label for="profitability">Yonalish turi</label>
                     <select
                       class="form-control input_style"
-                      v-model="form.profitability"
-                      :class="isRequired(form.profitability) ? 'isRequired' : ''"
+                      v-model="form.dir_type"
+                      :class="isRequired(form.dir_type) ? 'isRequired' : ''"
                     >
                       <option value="bus">Avtobus yonalishi</option>
                       <option value="taxi">Taxi yonalishi</option>
@@ -391,6 +391,7 @@ export default {
         seasonal: "",
         distance: "",
         type_id: "",
+        dir_type: 'bus',
         profitability: "profitable",
       },
       cars:[],

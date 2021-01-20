@@ -209,6 +209,17 @@
                       <option value="middle">Средный</option>
                     </select>
                   </div>
+                <div class="form-group col-md-3">
+                    <label for="profitability">Yonalish turi</label>
+                    <select
+                      class="form-control input_style"
+                      v-model="form.dir_type"
+                      :class="isRequired(form.dir_type) ? 'isRequired' : ''"
+                    >
+                      <option value="bus">Avtobus yonalishi</option>
+                      <option value="taxi">Taxi yonalishi</option>
+                    </select>
+                  </div>
                   <div class="form-group col-md-3">
                     <label for="seria">Yonalish masofasi</label>
                     <input
@@ -378,6 +389,7 @@ export default {
         },
         from_type: "",
         to_type: "",
+        dir_type: 'bus',
         year: "",
         from_where: "",
         seasonal: "",
