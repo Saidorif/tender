@@ -23,8 +23,9 @@ class TClassController extends Controller
     public function find(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            // 'busmodel_id' => 'required|integer',
-            'bustype_id' => 'required|integer',
+            'bustype_id' => 'nullable|integer',
+            'busmodel_id' => 'required|integer',
+            'busmarka_id' => 'nullable|integer',
         ]);
 
         if($validator->fails()){
@@ -38,6 +39,9 @@ class TClassController extends Controller
             }
             if(!empty($params['bustype_id'])){
                 $builder->where(['bustype_id' => $params['bustype_id']]);
+            }
+            if(!empty($params['busmarka_id'])){
+                $builder->where(['busmarka_id' => $params['busmarka_id']]);
             }
         }
         $result = $builder->with(['model','bustype','marka'])->get();

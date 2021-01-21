@@ -175,7 +175,11 @@ class UserController extends Controller
     public function carrier(Request $request)
     {
         $params = $request->all();
+        $user = $request->user();
         $builder = User::query()->where(['role_id' => 9]);
+        if($user->role->name != 'admin'){
+            $builder->where(['region_id' => $user->region_id]);
+        }
         if(count($params) > 0){
             if(!empty($params['company_name'])){
                 $builder->where('company_name','LIKE','%'.$params['company_name'].'%');
@@ -206,7 +210,12 @@ class UserController extends Controller
 
     public function carrierEdit(Request $request,$id)
     {
-        $result = User::where(['role_id' => 9])->with(['region','area'])->find($id);
+        $user = $request->user();
+        if($user->role->name == 'admin'){
+            $result = User::where(['role_id' => 9])->with(['region','area'])->find($id);
+        }else{
+            $result = User::where(['role_id' => 9])->where(['region_id' => $user->region_id])->with(['region','area'])->find($id);
+        }
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Перевозчик не найден']);
         }

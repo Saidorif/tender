@@ -21,18 +21,29 @@ class DirectionController extends Controller
 {
     public function index(Request $request)
     {
-        $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo'])->orderByDesc('id')->paginate(20);
+        $user = $request->user();
+        if($user->role->name == 'admin'){
+            $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo'])->orderByDesc('id')->paginate(20);
+        }else{
+            $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo'])
+                            ->orderByDesc('id')
+                            ->where(['region_from_id' => $user->region_id,'region_to_id' => $user->region_id])
+                            ->paginate(20);
+        }
         return response()->json(['success' => true, 'result' => $result]);
     }
 
     public function list(Request $request)
     {
-        $result = Direction::find($id);
+        $user = $request->user();
+        if($user->role->name == 'admin'){
+            $result = Direction::all();
+        }else{
+            $result = Direction::where(['region_from_id' => $user->region_id,'region_to_id' => $user->region_id])->get(20);
+        }
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
-
-        $result = Direction::all();
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -58,21 +69,39 @@ class DirectionController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $result = Direction::with([
-            'regionToWith',
-            'regionFromWith',
-            'areaFromWith',
-            'areaToWith',
-            'timingWith',
-            'timingDetails',
-            'type',
-            'stationFrom',
-            'stationTo',
-            'carsWith',
-            'schemaDetails',
-        ])->find($id);
+        $user = $request->user();
+        if($user->role->name == 'admin'){
+            $result = Direction::with([
+                'regionToWith',
+                'regionFromWith',
+                'areaFromWith',
+                'areaToWith',
+                'timingWith',
+                'timingDetails',
+                'type',
+                'stationFrom',
+                'stationTo',
+                'carsWith',
+                'schemaDetails',
+            ])->find($id);
+        }else{
+            $result = Direction::with([
+                'regionToWith',
+                'regionFromWith',
+                'areaFromWith',
+                'areaToWith',
+                'timingWith',
+                'timingDetails',
+                'type',
+                'stationFrom',
+                'stationTo',
+                'carsWith',
+                'schemaDetails',
+            ])->where(['region_from_id' => $user->region_id,'region_to_id' => $user->region_id])
+            ->find($id);
+        }
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
