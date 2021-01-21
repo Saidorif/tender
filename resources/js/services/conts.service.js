@@ -4,8 +4,8 @@ const ContsService = {
 	contFindUrl(data){
 		return ApiService.post(`/api/controller/find`, data)
 	},
-	conts(){
-		return ApiService.get(`/api/controller`)
+	conts(page){
+		return ApiService.get(`/api/controller?page=${page}`)
 	},
 	addCont(data){
 		return ApiService.post(`/api/controller/store`,data)

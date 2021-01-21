@@ -55,7 +55,8 @@
 			}
 		},
 		async mounted(){
-			await this.actionConts()
+			let page = 1
+			await this.actionConts(page)
 			this.laoding = false
 		},
 		computed:{
