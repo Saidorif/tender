@@ -221,7 +221,6 @@ Route::group([
             //Region CRUD
             Route::post('region', 'RegionController@index');
             Route::post('region/store', 'RegionController@store');
-            
             Route::get('region/edit/{id}', 'RegionController@edit');
             Route::post('region/update/{id}', 'RegionController@update');
             Route::delete('region/destroy/{id}', 'RegionController@destroy');
@@ -230,7 +229,6 @@ Route::group([
             Route::post('conditionalsign', 'ConditionalSignController@index');
             Route::get('conditionalsign/list', 'ConditionalSignController@list');
             Route::post('conditionalsign/store', 'ConditionalSignController@store');
-            
             Route::get('conditionalsign/edit/{id}', 'ConditionalSignController@edit');
             Route::post('conditionalsign/update/{id}', 'ConditionalSignController@update');
             Route::delete('conditionalsign/destroy/{id}', 'ConditionalSignController@destroy');
@@ -239,7 +237,6 @@ Route::group([
             Route::post('area', 'AreaController@index');
             Route::post('area/store', 'AreaController@store');
             Route::get('area/list', 'AreaController@list');
-            
             Route::get('area/edit/{id}', 'AreaController@edit');
             Route::post('area/update/{id}', 'AreaController@update');
             Route::delete('area/destroy/{id}', 'AreaController@destroy');

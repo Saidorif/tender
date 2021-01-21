@@ -575,6 +575,11 @@ class DirectionController extends Controller
         $ptimings  = $direction->timing->toArray();
         $reysesFrom = Reys::where(['direction_id' => $id,'type' => 'from','status' => 'active'])->get();
         $reysesTo   = Reys::where(['direction_id' => $id,'type' => 'to','status' => 'active'])->get();
+        //remove dublicate classess from direction cars
+        // $direction_cars_with = [];
+        // foreach($direction->carsWith as $the_car){
+        //     $direction_cars_with[$the_car->tclass_id] = $the_car;
+        // }
         $data = [
             'direction_id'                  => $direction->id,
             'dir_type'                      => $direction->dir_type,
