@@ -152,6 +152,7 @@ export default {
     this.item = this.getDirection
     this.laoding = false
     this.form.pass_number = this.getDirection.pass_number;
+    this.form.dir_type = this.getDirection.dir_type;
     this.form.region_from.region_id = this.getDirection.region_from_id;
     this.form.region_from.area_id = this.getDirection.area_from_id;
     this.form.region_from.station_id = this.getDirection.station_from_id;

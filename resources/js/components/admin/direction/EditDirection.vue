@@ -207,15 +207,15 @@
                       <option value="middle">Средный</option>
                     </select>
                   </div>
-                  <div class="form-group col-md-3">
-                    <label for="profitability">Yonalish turi</label>
+            <div class="form-group col-md-3">
+                    <label for="profitability">Йуналишнинг тури</label>
                     <select
                       class="form-control input_style"
-                      v-model="form.profitability"
-                      :class="isRequired(form.profitability) ? 'isRequired' : ''"
+                      v-model="form.dir_type"
+                      :class="isRequired(form.dir_type) ? 'isRequired' : ''"
                     >
-                      <option value="bus">Avtobus yonalishi</option>
-                      <option value="taxi">Taxi yonalishi</option>
+                      <option value="bus">Автобус йуналиши</option>
+                      <option value="taxi">Йўналиши тахи йуналиши</option>
                     </select>
                   </div>
                   <div class="form-group col-md-3">
@@ -391,6 +391,7 @@ export default {
         seasonal: "",
         distance: "",
         type_id: "",
+        dir_type: 'bus',
         profitability: "profitable",
       },
       cars:[],
@@ -407,6 +408,7 @@ export default {
     getDirection:{
       handler(){
         this.laoding = false
+        this.form.dir_type = this.getDirection.dir_type;
         this.form.pass_number = this.getDirection.pass_number;
         this.form.tarif = this.getDirection.tarif;
         this.form.region_from.region_id = this.getDirection.region_from_id;
@@ -438,6 +440,7 @@ export default {
     await this.actionEditDirection(this.$route.params.directionId);
     this.laoding = false
     this.form.pass_number = this.getDirection.pass_number;
+    this.form.dir_type = this.getDirection.dir_type;
     this.form.tarif = this.getDirection.tarif;
     this.form.region_from.region_id = this.getDirection.region_from_id;
     this.form.region_from.area_id = this.getDirection.area_from_id;

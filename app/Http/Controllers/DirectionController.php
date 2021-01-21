@@ -103,6 +103,7 @@ class DirectionController extends Controller
             'region_to.region_id'  => ['required',Rule::in($region_ids),],
             'region_to.area_id'    => ['nullable',Rule::in($area_ids),],
             'region_to.station_id'    => 'nullable|integer',
+            'dir_type' => ['required',Rule::in(['bus','taxi']),],
             'cars' => 'nullable|array',
             'cars.*.busmarka_id' => 'nullable|integer',
             'cars.*.busmodel_id' => 'nullable|integer',
@@ -119,6 +120,7 @@ class DirectionController extends Controller
             'from_type' => $inputs['from_type'],
             'to_type' => $inputs['to_type'],
             'tarif' => $inputs['tarif'],
+            'dir_type' => $inputs['dir_type'],
             'year' => Carbon::parse($inputs['year'])->format('Y-m-d'),
             'distance' => $inputs['distance'],
             'profitability' => $inputs['profitability'],
@@ -195,6 +197,7 @@ class DirectionController extends Controller
             'region_to.region_id'  => ['required',Rule::in($region_ids),],
             'region_to.area_id'    => ['nullable',Rule::in($area_ids),],
             'region_to.station_id'    => 'nullable|integer',
+            'dir_type' => ['required',Rule::in(['bus','taxi']),],
             'cars' => 'nullable|array',
             'cars.*.busmarka_id' => 'nullable|integer',
             'cars.*.busmodel_id' => 'nullable|integer',
@@ -231,6 +234,7 @@ class DirectionController extends Controller
             'from_type' => $inputs['from_type'],
             'to_type' => $inputs['to_type'],
             'tarif' => (int)$inputs['tarif'],
+            'dir_type' => $inputs['dir_type'],
             'year' => Carbon::parse($inputs['year'])->format('Y-m-d'),
             'distance' => $inputs['distance'],
             'profitability' => $inputs['profitability'],
@@ -571,8 +575,14 @@ class DirectionController extends Controller
         $ptimings  = $direction->timing->toArray();
         $reysesFrom = Reys::where(['direction_id' => $id,'type' => 'from','status' => 'active'])->get();
         $reysesTo   = Reys::where(['direction_id' => $id,'type' => 'to','status' => 'active'])->get();
+        //remove dublicate classess from direction cars
+        // $direction_cars_with = [];
+        // foreach($direction->carsWith as $the_car){
+        //     $direction_cars_with[$the_car->tclass_id] = $the_car;
+        // }
         $data = [
             'direction_id'                  => $direction->id,
+            'dir_type'                      => $direction->dir_type,
             'auto_type'                     => $direction->cars->first()->bustype->id,
             'auto_type_name'                => $direction->cars->first()->bustype->name,
             'auto_model_class'              => $direction->carsWith,//->pluck('id'),

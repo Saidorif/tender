@@ -209,6 +209,17 @@
                       <option value="middle">Средный</option>
                     </select>
                   </div>
+            <div class="form-group col-md-3">
+                    <label for="profitability">Йуналишнинг тури</label>
+                    <select
+                      class="form-control input_style"
+                      v-model="form.dir_type"
+                      :class="isRequired(form.dir_type) ? 'isRequired' : ''"
+                    >
+                      <option value="bus">Автобус йуналиши</option>
+                      <option value="taxi">Йўналиши тахи йуналиши</option>
+                    </select>
+                  </div>
                   <div class="form-group col-md-3">
                     <label for="seria">Yonalish masofasi</label>
                     <input
@@ -378,6 +389,7 @@ export default {
         },
         from_type: "",
         to_type: "",
+        dir_type: 'bus',
         year: "",
         from_where: "",
         seasonal: "",
@@ -400,6 +412,7 @@ export default {
       handler(){
         this.laoding = false
         this.form.pass_number = this.getDirection.pass_number;
+                this.form.dir_type = this.getDirection.dir_type;
         this.form.tarif = this.getDirection.tarif;
         this.form.region_from.region_id = this.getDirection.region_from_id;
         this.form.region_from.area_id = this.getDirection.area_from_id;
@@ -430,6 +443,7 @@ export default {
     await this.actionEditDirection(this.$route.params.directionId);
     this.laoding = false
     this.form.pass_number = this.getDirection.pass_number;
+    this.form.dir_type = this.getDirection.dir_type;
     this.form.tarif = this.getDirection.tarif;
     this.form.region_from.region_id = this.getDirection.region_from_id;
     this.form.region_from.area_id = this.getDirection.area_from_id;

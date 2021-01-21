@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminUserSeeder::class);
         $this->call(JavaSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(ControllerActionSeeder::class);
     }
 }

@@ -19,12 +19,19 @@
                 <td width="50%"><b>Автотранспорт воситаси моделининг класси</b></td>
                 <td>
                   <div v-for="(item,index) in form.auto_model_class">
-                    {{item.model.name}}
+                    {{ item.model ? item.model.name : item.tclass.name }}
                   </div>
                 </td>
               </tr>
               <tr>
-                <td rowspan="3">3</td>
+                <td>3</td>
+                <td width="50%"><b>Йуналишнинг тури</b></td>
+                <td v-if="form.dir_type">
+                    {{form.dir_type == 'bus' ? 'Автобус йуналиши' : "Йўналиши тахи йуналиши"}}
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="3">4</td>
                 <td width="50%"><b>Автотранспорт воситалари сони (саройдан фойдаланиш коэффициенти 0,8 хисобга олинганда)</b></td>
                 <td>{{form.auto_trans_count}}</td>
               </tr>
@@ -42,13 +49,13 @@
               </tr>
                <!-- 3 end -->
               <tr>
-                <td>4</td>
+                <td>5</td>
                 <td width="50%"><b>Автотранспорт воситалари ҳолати</b></td>
                 <td>14 йилдан</td>
               </tr>
               <!-- 3 s -->
               <tr>
-                <td rowspan="3">5</td>
+                <td rowspan="3">6</td>
                 <td width="50%"><b>Йуналишнинг умумий узунлиги</b></td>
                 <td><b>{{form.direction_total_length}}</b></td>
               </tr>
@@ -63,7 +70,7 @@
               <!-- 3 end -->
               <!-- 3 s -->
               <tr>
-                <td rowspan="3">6</td>
+                <td rowspan="3">7</td>
                 <td width="50%"><b>Бекатлар сони</b></td>
                 <td><b>{{form.stations_count}}</b></td>
               </tr>
@@ -77,13 +84,13 @@
               </tr>
               <!-- 3 end -->
               <tr>
-                <td>7</td>
+                <td>8</td>
                 <td width="50%"><b>Мавсумийлиги</b></td>
                 <td>{{getSeasonalName(form.seasonal)}}</td>
               </tr>
               <!-- 3 s -->
               <tr>
-                <td rowspan="3">8</td>
+                <td rowspan="3">9</td>
                 <td width="50%"><b>Рейслар (қатновлар) сони</b></td>
                 <td><b>{{form.reyses_count}}</b></td>
               </tr>
@@ -98,7 +105,7 @@
               <!-- 3 end -->
               <!-- 3 s -->
               <tr>
-                <td rowspan="3">9</td>
+                <td rowspan="3">10</td>
                 <td width="50%"><b>Дастлабки рейс (ишни бошлаш) вақти</b></td>
                 <td><b>{{form.schedule_begin_time}}</b></td>
               </tr>
@@ -113,7 +120,7 @@
               <!-- 3 end -->
               <!-- 3 s -->
               <tr>
-                <td rowspan="3">10</td>
+                <td rowspan="3">11</td>
                 <td width="50%"><b>Сўнги рейс (ишни тугалланиш) вақти</b></td>
                 <td><b>{{form.schedule_end_time}}</b></td>
               </tr>
@@ -128,14 +135,14 @@
               <!-- 3 end -->
               <!-- 3 s -->
               <tr>
-                <td>11</td>
+                <td>12</td>
                 <td width="50%"><b>Бекатлар оралиқ интерваллари</b></td>
                 <td><b>{{form.station_intervals}}</b></td>
               </tr>
               <!-- 3 end -->
               <!-- 3 s -->
               <tr>
-                <td rowspan="3">12</td>
+                <td rowspan="3">13</td>
                 <td width="50%"><b>Рейс вақти</b></td>
                 <td><b>{{(form.reys_time)}}</b></td>
               </tr>
@@ -149,13 +156,13 @@
               </tr>
               <!-- 3 end -->
               <tr>
-                <td>13</td>
+                <td>14</td>
                 <td width="50%"><b>Харакатланиш жадваллари</b></td>
                 <td>{{form.schedules}}</td>
               </tr>
               <!-- 3 s -->
               <tr>
-                <td rowspan="3">14</td>
+                <td rowspan="3">15</td>
                 <td width="50%"><b>Тариф</b></td>
                 <td><b>{{form.tarif}}</b></td>
               </tr>
@@ -170,7 +177,7 @@
               <!-- 3 end -->
               <!-- 3 s -->
               <tr>
-                <td rowspan="2">15</td>
+                <td rowspan="2">16</td>
                 <td width="50%"><b>Автотранспорт воситаларини умумий сиғими</b></td>
                 <td>{{form.transports_capacity}}</td>
               </tr>
@@ -180,7 +187,7 @@
               </tr>
               <!-- 3 end -->
               <tr>
-                <td>16</td>
+                <td>17</td>
                 <td width="50%"><b>Минимал балл</b></td>
                 <td>{{form.minimum_bal}}</td>
               </tr>

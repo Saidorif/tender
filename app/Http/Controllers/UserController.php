@@ -16,7 +16,6 @@ class UserController extends Controller
     public function profile(Request $request)
     {
         $user = $request->user();
-        $employee = User::with(['role'])->find($user->id);
         $pers = [];
         $permissions = Permission::where(['role_id' => $user->role->id])->with(['controller', 'action'])->get();
         foreach($permissions as $k => $permission){
@@ -26,7 +25,7 @@ class UserController extends Controller
         $pers = array_unique($pers, SORT_REGULAR);
         $pers = array_values($pers);
         $result['permissions'] = $pers;
-        $result['user'] = $employee;
+        $result['user'] = $user;
         return response()->json(['success' => true, 'result' => $result]);
     }
 
