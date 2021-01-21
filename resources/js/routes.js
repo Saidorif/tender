@@ -226,42 +226,74 @@ const router = new Router({
 				{
 					path:'dashboard',
 					component:Dashboard,
-					// meta:{
-					// 	action:'index',
-					// 	subject:'IndexController'
-					// }
+					meta:{
+						action:'index',
+						subject:'DashboardController'
+					}
 				},
 				{
 					path:'profile',
 					component:Profile,
+					meta:{
+						action:'profile',
+						subject:'UserController'
+					}
 				},
 				{
 					path:'application',
 					component:Application,
+					meta:{
+						action:'index',
+						subject:'ApplicationController'
+					}
 				},
 				{
 					path:'application/add',
 					component:AddApplication,
+					meta:{
+						action:'store',
+						subject:'ApplicationController'
+					}
 				},
 				{
 					path:'application/edit/:applicationId',
 					component:EditApplication,
+					meta:{
+						action:'edit',
+						subject:'ApplicationController'
+					}
 				},
 				{
 					path:'employee',
 					component:Employee,
+					meta:{
+						action:'index',
+						subject:'EmployeeController'
+					}
 				},
 				{
 					path:'employee/add',
 					component:AddEmployee,
+					meta:{
+						action:'store',
+						subject:'EmployeeController'
+					}
 				},
 				{
 					path:'employee/edit/:employeeId',
 					component:EditEmployee,
+					meta:{
+						action:'edit',
+						subject:'EmployeeController'
+					}
 				},
 				{
 					path:'client',
 					component:Client,
+					meta:{
+						action:'carrier',
+						subject:'UserController'
+					}
 				},
 				{
 					path:'client/add',
@@ -270,300 +302,596 @@ const router = new Router({
 				{
 					path:'client/edit/:clientId',
 					component:EditClient,
+					meta:{
+						action:'carrierEdit',
+						subject:'UserController'
+					}
 				},
 				{
 					path:'role',
 					component:Role,
+					meta:{
+						action:'index',
+						subject:'RoleController'
+					}
 				},
 				{
 					path:'role/add',
 					component:AddRole,
+					meta:{
+						action:'store',
+						subject:'RoleController'
+					}
 				},
 				{
 					path:'role/edit/:roleId',
 					component:EditRole,
+					meta:{
+						action:'edit',
+						subject:'RoleController'
+					}
 				},
 				{
 					path:'role/:roleId',
 					component:Permission,
+					meta:{
+						action:'index',
+						subject:'PermissionController'
+					}
 				},
 				{
 					path:'position',
 					component:Position,
+					meta:{
+						action:'index',
+						subject:'PositionController'
+					}
 				},
 				{
 					path:'position/add',
 					component:AddPosition,
+					meta:{
+						action:'store',
+						subject:'PositionController'
+					}
 				},
 				{
 					path:'position/edit/:positionId',
 					component:EditPosition,
+					meta:{
+						action:'edit',
+						subject:'PositionController'
+					}
 				},
 				{
 					path:'conts',
 					component:Conts,
+					meta:{
+						action:'index',
+						subject:'ContsController'
+					}
 				},
 				{
 					path:'conts/add',
 					component:AddConts,
+					meta:{
+						action:'store',
+						subject:'ContsController'
+					}
 				},
 				{
 					path:'conts/edit/:contId',
 					component:EditConts,
+					meta:{
+						action:'edit',
+						subject:'ContsController'
+					}
 				},
 				{
 					path:'action',
 					component:Action,
+					meta:{
+						action:'index',
+						subject:'ActionController'
+					}
 				},
 				{
 					path:'action/add',
 					component:AddAction,
+					meta:{
+						action:'store',
+						subject:'ActionController'
+					}
 				},
 				{
 					path:'action/edit/:actionId',
 					component:EditAction,
+					meta:{
+						action:'edit',
+						subject:'ActionController'
+					}
 				},
 				{
 					path:'region',
 					component:Region,
+					meta:{
+						action:'index',
+						subject:'RegionController'
+					}
 				},
 				{
 					path:'region/add',
 					component:AddRegion,
+					meta:{
+						action:'store',
+						subject:'RegionController'
+					}
 				},
 				{
 					path:'region/edit/:regionId',
 					component:EditRegion,
+					meta:{
+						action:'edit',
+						subject:'RegionController'
+					}
 				},
 				{
 					path:'area',
 					component:Area,
+					meta:{
+						action:'index',
+						subject:'AreaController'
+					}
 				},
 				{
 					path:'area/add',
 					component:AddArea,
+					meta:{
+						action:'store',
+						subject:'AreaController'
+					}
 				},
 				{
 					path:'area/edit/:areaId',
 					component:EditArea,
+					meta:{
+						action:'edit',
+						subject:'AreaController'
+					}
 				},
 				{
 					path:'tarifcity',
 					component:Tarifcity,
+					meta:{
+						action:'index',
+						subject:'TarifCityController'
+					}
 				},
 				{
 					path:'tarifcity/add',
 					component:AddTarifcity,
+					meta:{
+						action:'store',
+						subject:'TarifCityController'
+					}
 				},
 				{
 					path:'tarifcity/edit/:tarifcityId',
 					component:EditTarifcity,
+					meta:{
+						action:'edit',
+						subject:'TarifCityController'
+					}
 				},
 				{
 					path:'station',
 					component:Station,
+					meta:{
+						action:'index',
+						subject:'StationController'
+					}
 				},
 				{
 					path:'station/add',
 					component:AddStation,
+					meta:{
+						action:'store',
+						subject:'StationController'
+					}
 				},
 				{
 					path:'station/edit/:stationId',
 					component:EditStation,
+					meta:{
+						action:'edit',
+						subject:'StationController'
+					}
 				},
 				{
 					path:'complaint-list',
 					component:ComplaintListAll,
+					meta:{
+						action:'index',
+						subject:'ComplaintCategoryController'
+					}
 				},
 				{
 					path:'complaint-list/edit/:complaintListAllId',
 					component:EditComplaintListAll,
+					meta:{
+						action:'edit',
+						subject:'ComplaintCategoryController'
+					}
 				},
 				{
 					path:'complaint',
 					component:Complaint,
+					meta:{
+						action:'index',
+						subject:'ComplaintController'
+					}
 				},
 				{
 					path:'complaint/add',
 					component:AddComplaint,
+					meta:{
+						action:'store',
+						subject:'ComplaintController'
+					}
 				},
 				{
 					path:'complaint/edit/:complaintId',
 					component:EditComplaint,
+					meta:{
+						action:'edit',
+						subject:'ComplaintController'
+					}
 				},
 				{
 					path:'direction',
 					component:Direction,
+					meta:{
+						action:'index',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'direction/add',
 					component:AddDirection,
+					meta:{
+						action:'store',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'direction/edit/:directionId',
 					component:EditDirection,
+					meta:{
+						action:'edit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'direction/titul-tab/:directionId',
 					component:Titul,
+					meta:{
+						action:'edit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'direction/schedule-tab/:directionId',
 					component:Schedule,
+					meta:{
+						action:'edit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'direction/timing-tab/:directionId',
 					component:Timing,
+					meta:{
+						action:'edit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'direction/tarif-tab/:directionId',
 					component:Tarif,
+					meta:{
+						action:'edit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'direction/scheme-tab/:directionId',
 					component:Scheme,
+					meta:{
+						action:'edit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'direction/demand-tab/:directionId',
 					component:Demand,
+					meta:{
+						action:'requirement',
+						subject:'DirectionController'
+					}
 				},
 				// *****
 				{
 					path:'stepuser/titul-tab/:directionId',
 					component:UserTitul,
+					meta:{
+						action:'edit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'stepuser/schedule-tab/:directionId',
 					component:UserSchedule,
+					meta:{
+						action:'edit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'stepuser/timing-tab/:directionId',
 					component:UserTiming,
+					meta:{
+						action:'edit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'stepuser/tarif-tab/:directionId',
 					component:UserTarif,
+					meta:{
+						action:'edit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'stepuser/scheme-tab/:directionId',
 					component:UserScheme,
+					meta:{
+						action:'edit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'stepuser/demand-tab/:directionId',
 					component:UserDemand,
+					meta:{
+						action:'requirement',
+						subject:'DirectionController'
+					}
 				},
 				// *****
 				{
 					path:'typeofdirection',
 					component:Typeofdirection,
+					meta:{
+						action:'index',
+						subject:'DirectionTypeController'
+					}
 				},
 				{
 					path:'typeofdirection/add',
 					component:AddTypeofdirection,
+					meta:{
+						action:'store',
+						subject:'DirectionTypeController'
+					}
 				},
 				{
 					path:'typeofdirection/edit/:typeofdirectionId',
 					component:EditTypeofdirection,
+					meta:{
+						action:'edit',
+						subject:'DirectionTypeController'
+					}
 				},
 				{
 					path:'typeofbus',
 					component:Typeofbus,
+					meta:{
+						action:'index',
+						subject:'BusTypeController'
+					}
 				},
 				{
 					path:'typeofbus/add',
 					component:AddTypeofbus,
+					meta:{
+						action:'store',
+						subject:'BusTypeController'
+					}
 				},
 				{
 					path:'typeofbus/edit/:typeofbusId',
 					component:EditTypeofbus,
+					meta:{
+						action:'edit',
+						subject:'BusTypeController'
+					}
 				},
 				{
 					path:'busclass',
 					component:Busclass,
+					meta:{
+						action:'index',
+						subject:'TClassController'
+					}
 				},
 				{
 					path:'busclass/add',
 					component:AddBusclass,
+					meta:{
+						action:'store',
+						subject:'TClassController'
+					}
 				},
 				{
 					path:'busclass/edit/:busclassId',
 					component:EditBusclass,
+					meta:{
+						action:'edit',
+						subject:'TClassController'
+					}
 				},
 				{
 					path:'busmodel',
 					component:BusModel,
+					meta:{
+						action:'index',
+						subject:'BusModelController'
+					}
 				},
 				{
 					path:'busmodel/add',
 					component:AddBusModel,
+					meta:{
+						action:'store',
+						subject:'BusModelController'
+					}
 				},
 				{
 					path:'busmodel/edit/:busmodelId',
 					component:EditBusModel,
+					meta:{
+						action:'edit',
+						subject:'BusModelController'
+					}
                 },
                 {
 					path:'busbrand',
 					component:BusBrand,
+					meta:{
+						action:'index',
+						subject:'BusMarkaController'
+					}
                 },
                 {
 					path:'busbrand/add',
 					component:AddBusBrand,
+					meta:{
+						action:'store',
+						subject:'BusMarkaController'
+					}
 				},
 				{
 					path:'busbrand/edit/:busbrandId',
 					component:EditBusBrand,
+					meta:{
+						action:'edit',
+						subject:'BusMarkaController'
+					}
                 },
 				{
 					path:'conditionalsign',
 					component:ConditionalSign,
+					meta:{
+						action:'index',
+						subject:'ConditionalSignController'
+					}
 				},
 				{
 					path:'conditionalsign/add',
 					component:AddConditionalSign,
+					meta:{
+						action:'store',
+						subject:'ConditionalSignController'
+					}
 				},
 				{
 					path:'conditionalsign/edit/:conditionalsignId',
 					component:EditConditionalSign,
+					meta:{
+						action:'edit',
+						subject:'ConditionalSignController'
+					}
 				},
 				{
 					path:'tenderannounce',
 					component:TenderAnnounce,
+					meta:{
+						action:'index',
+						subject:'TenderController'
+					}
 				},
 				{
 					path:'tenderannounce/add',
 					component:AddTenderAnnounce,
+					meta:{
+						action:'store',
+						subject:'TenderController'
+					}
 				},
 				{
 					path:'tenderannounce/edit/:tenderannounceId',
 					component:EditTenderAnnounce,
+					meta:{
+						action:'edit',
+						subject:'TenderController'
+					}
 				},
 				{
 					path:'completed-tenders',
 					component:CompletedTenders,
+					meta:{
+						action:'completedTenders',
+						subject:'TenderController'
+					}
                 },
 				{
 					path:'check-control',
 					component:CheckControl,
+					meta:{
+						action:'checkTenders',
+						subject:'TenderController'
+					}
                 },
 				{
 					path:'check-control/show/:appId',
 					component:EditCheckControl,
+					meta:{
+						action:'appCars',
+						subject:'TenderController'
+					}
                 },
                 {
 					path:'completed-tenders/show/:tenderId',
 					component:EditCompletedTenders,
+					meta:{
+						action:'completedTendersLots',
+						subject:'TenderController'
+					}
 				},
 				{
 					path:'confirm-tender',
 					component:ConfirmTender,
+					meta:{
+						action:'index',
+						subject:'TenderController'
+					}
 				},
 				{
 					path:'confirm-tender/add',
 					component:AddConfirmTender,
+					meta:{
+						action:'tenderLotApprove',
+						subject:'TenderController'
+					}
 				},
 				{
 					path:'confirm-tender/edit/:tenderannounceId',
 					component:EditConfirmTender,
+					meta:{
+						action:'tenderLotApprove',
+						subject:'TenderController'
+					}
 				},
 				{
 					path:'confirm-timing',
@@ -580,6 +908,10 @@ const router = new Router({
 				{
 					path:'confirm-tarif',
 					component:ConfirmTarif,
+					meta:{
+						action:'listTarif',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'confirm-tarif/add',
@@ -604,26 +936,50 @@ const router = new Router({
 				{
 					path:'payment',
 					component:Payment,
+					meta:{
+						action:'index',
+						subject:'PaymentController'
+					}
 				},
 				{
 					path:'payment/add',
 					component:AddPayment,
+					meta:{
+						action:'store',
+						subject:'PaymentController'
+					}
 				},
 				{
 					path:'payment/edit/:paymentId',
 					component:EditPayment,
+					meta:{
+						action:'edit',
+						subject:'PaymentController'
+					}
 				},
 				{
 					path:'tenderuser',
 					component:TenderUser,
+					meta:{
+						action:'index',
+						subject:'TenderController'
+					}
 				},
 				{
 					path:'tenderuser/edit/:tenderuserId',
 					component:EditTenderUser,
+					meta:{
+						action:'edit',
+						subject:'TenderController'
+					}
 				},
 				{
 					path:'application/user/:userapplicationId',
 					component:SendApplication,
+					meta:{
+						action:'store',
+						subject:'ApplicationController'
+					}
 				},
 				{
 					path:'protocol/:tenderId',
@@ -644,6 +1000,10 @@ const router = new Router({
 				{
 					path:'apply',
 					component:Apply,
+					meta:{
+						action:'index',
+						subject:'ClientAccessController'
+					}
 				},
 			]
 		},
@@ -766,14 +1126,14 @@ router.beforeEach((to, from, next) => {
         query: { redirect: to.fullPath }
       })
     } else {
-    // 	if (TokenService.getCurrentUser().role.name != 'admin') {
-		 	// const checkPerm = to.matched.some(route => {
-			 //    return ability.can(route.meta.action, route.meta.subject)
-		  // 	})
-		  // 	if (!checkPerm) {
-			 //    return next('/notfound')
-		  // 	}
-    // 	}
+    	if (TokenService.getCurrentUser().role.name != 'admin') {
+		 	const checkPerm = to.matched.some(route => {
+			    return ability.can(route.meta.action, route.meta.subject)
+		  	})
+		  	if (!checkPerm) {
+			    return next('/notfound')
+		  	}
+    	}
       	next()
     }
   } else {

@@ -4,12 +4,18 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">Разрешения для <span class="roleName">{{rolName}}</span></h4>
 			    <router-link class="btn btn-primary back_btn" to="/crm/role">
-			    	<span class="peIcon pe-7s-back"></span> 
+			    	<span class="peIcon pe-7s-back"></span>
 				    Назад
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
 	  			<form>
+                    <div class="contActionFrame">
+                        <div class="checkAll">
+                            <input type="checkbox" v-model="selectedAll" id="checkAll" class="form-check-input" @click="checkAll">
+                            <label for="checkAll"><b>checkAll</b></label>
+                        </div>
+					</div>
 	  				<template v-for="(item,index) in getAllContsActions">
 			  			<div class="contActionFrame" v-for="(val,key) in item" v-if="val.length > 0">
 			  				<h4 class="heading"><span>{{key}}</span></h4>
@@ -25,22 +31,22 @@
 							  			{{action.name}}
 							  		</span>
 							  	</div>
-					  		</div>			
+					  		</div>
 			  			</div>
 	  				</template>
 		  			<div class="row">
 		  				<div class="col-lg-12 col-md-12 btnPermit">
-					  		<button type="submit" class="btn btn-outline-primary btnPermit" @click.prevent="save">	    
+					  		<button type="submit" class="btn btn-outline-primary btnPermit" @click.prevent="save">
 					  			Сохранить
 					  		</button>
 				  		</div>
 	  				</div>
 				</form>
 		  	</div>
-	  	</div>	
+	  	</div>
 	</div>
 </template>
-<script>	
+<script>
 	import {mapActions, mapGetters, mapState} from 'vuex'
 	export default{
 		components: {
@@ -59,7 +65,7 @@
 							conts_id:item.conts_id,
 							action_id:parseInt(item.action_id)
 						}
-					}) 
+					})
 					this.permissions = newArr
 					this.rolName = this.getPermissions.role.label
 				}
@@ -89,17 +95,31 @@
 					await this.actionPermission({role_id:this.$route.params.roleId})
 					toast.fire({
 				    	type: 'success',
+				    	icon: 'success',
 						title: 'Сохранено!',
 				    })
+				    location.reload();
 				}else{
 					swal.fire({
 					  type: 'error',
+					  icon: 'error',
 					  title: 'Ошибка',
 					  text: 'Выберите action!',
 					})
 				}
 			},
-			
+			checkAll(){
+				if(!this.selectedAll){
+					this.getAllContsActions.forEach(p_item => {
+						let thisPItem = Object.entries(p_item)[0][1];
+						thisPItem.forEach(item => {
+							this.permissions.push({conts_id:item.conts_id, action_id:parseInt(item.id)})
+						})
+					})
+				}else{
+					this.permissions = []
+				}
+			},
 		},
 		async mounted(){
 			await this.actionPermission({role_id:this.$route.params.roleId})

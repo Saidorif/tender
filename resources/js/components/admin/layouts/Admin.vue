@@ -37,8 +37,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column sidebar-menu treeview" data-widget="treeview" role="menu" data-accordion="false" >
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-             <!-- v-if="$can('profile', 'UserController')" -->
+          <li class="nav-item" v-if="$can('index', 'DashboardController')">
             <router-link to="/crm/dashboard" class="nav-link">
               <span class="peIcon pe-7s-rocket" style="font-size: 20px;"></span>
               <p>
@@ -46,7 +45,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('profile', 'UserController')">
             <router-link class="nav-link" to="/crm/profile">
               <i class="peIcon pe-7s-user"></i>
               <p>
@@ -54,7 +53,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('index', 'ClientAccessController')">
             <router-link class="nav-link" to="/crm/apply">
               <i class="peIcon fas fa-vote-yea"></i>
               <p>
@@ -62,7 +61,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('carrier', 'UserController')">
             <router-link class="nav-link" to="/crm/client">
               <i class="peIcon pe-7s-users"></i>
               <p>
@@ -70,7 +69,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('index', 'DirectionController')">
             <router-link class="nav-link" to="/crm/direction">
               <i class="peIcon fas fa-route"></i>
               <p>
@@ -101,14 +100,14 @@
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('listTarif', 'DirectionController')">
                 <router-link class="nav-link" to="/crm/confirm-tarif">
                   <p>
                     Тариф
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('index', 'TenderController')">
                 <router-link class="nav-link" to="/crm/confirm-tender">
                   <p>
                     Тендер
@@ -117,7 +116,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('index', 'TenderController')">
             <router-link class="nav-link" to="/crm/tenderannounce">
               <i class="peIcon fas fa-bullhorn"></i>
               <p>
@@ -125,7 +124,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('index', 'TenderController')">
             <router-link class="nav-link" to="/crm/tenderuser">
               <i class="peIcon fas fa-file"></i>
               <p>
@@ -142,28 +141,28 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('completedTenders', 'TenderController')">
                 <router-link class="nav-link" to="/crm/completed-tenders">
                   <p>
                     Завершенные тендеры
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('checkTenders', 'TenderController')">
                 <router-link class="nav-link" to="/crm/check-control">
                   <p>
                     Проверка тендеры
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('checkTenders', 'TenderController')">
                 <router-link class="nav-link" to="/crm/protocol-list">
                   <p>
                     Протокол
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('checkTenders', 'TenderController')">
                 <router-link class="nav-link" to="/crm/contract-list">
                   <p>
                     Договора
@@ -172,7 +171,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('index', 'PositionController')">
             <router-link class="nav-link" to="/crm/position">
               <i class="peIcon pe-7s-graph1"></i>
               <p>
@@ -180,7 +179,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('index', 'ApplicationController')">
             <router-link class="nav-link" to="/crm/application">
               <i class="peIcon fas fa-file"></i>
               <p>
@@ -188,7 +187,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('index', 'PaymentController')">
             <router-link class="nav-link" to="/crm/payment">
               <i class="peIcon fas fa-money-bill-alt"></i>
               <p>
@@ -196,7 +195,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('index', 'EmployeeController')">
             <router-link class="nav-link" to="/crm/employee">
               <i class="peIcon fas fa-users"></i>
               <p>
@@ -214,14 +213,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('index', 'ComplaintCategoryController')">
                 <router-link class="nav-link" to="/crm/complaint-list">
                   <p>
                     Список обращения
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('index', 'ComplaintController')">
                 <router-link class="nav-link" to="/crm/complaint">
                   <p>
                     Вариант обращения
@@ -239,7 +238,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('index', 'RegionController')">
                 <router-link class="nav-link" to="/crm/region">
                   <i class="peIcon fas fa-globe"></i>
                   <p>
@@ -247,7 +246,7 @@
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('index', 'AreaController')">
                 <router-link class="nav-link" to="/crm/area">
                   <i class="peIcon fas fa-globe-europe"></i>
                   <p>
@@ -255,7 +254,7 @@
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('index', 'StationController')">
                 <router-link class="nav-link" to="/crm/station">
                   <i class="peIcon fas fa-bus"></i>
                   <p>
@@ -263,7 +262,7 @@
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('index', 'DirectionTypeController')">
                 <router-link class="nav-link" to="/crm/typeofdirection">
                   <i class="peIcon fas fa-border-style"></i>
                   <p>
@@ -271,7 +270,7 @@
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('index', 'TarifCityController')">
                 <router-link class="nav-link" to="/crm/tarifcity">
                   <i class="peIcon fas fa-border-style"></i>
                   <p>
@@ -287,28 +286,28 @@
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="$can('index', 'BusTypeController')">
                         <router-link class="nav-link" to="/crm/typeofbus">
                             <p>
                                 Категория  автобуса
                             </p>
                         </router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="$can('index', 'TClassController')">
                         <router-link class="nav-link" to="/crm/busclass">
                             <p>
                                 Класс автобуса
                             </p>
                         </router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="$can('index', 'BusMarkaController')">
                         <router-link class="nav-link" to="/crm/busbrand">
                         <p>
                             Марка автобуса
                         </p>
                         </router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="$can('index', 'BusModelController')">
                         <router-link class="nav-link" to="/crm/busmodel">
                         <p>
                             Модель автобуса
@@ -317,7 +316,7 @@
                     </li>
                 </ul>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('index', 'ConditionalSignController')">
                 <router-link class="nav-link" to="/crm/conditionalsign">
                   <i class="peIcon fas fa-sign"></i>
                   <p>
@@ -327,7 +326,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview" v-if="$can('index', 'RoleController')">
             <a href="#" class="nav-link">
               <span class="peIcon pe-7s-settings" style="font-size: 20px;"></span>
               <p>
@@ -336,21 +335,21 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('index', 'RoleController')">
                 <router-link class="nav-link" to="/crm/role">
                   <p>
                     Role
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('index', 'ContsController')">
                 <router-link class="nav-link" to="/crm/conts">
                   <p>
                     Controller
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="$can('index', 'ActionController')">
                 <router-link class="nav-link" to="/crm/action">
                   <p>
                     Actions
@@ -409,8 +408,6 @@ export default {
   async mounted(){
     await this.profileUser()
     await this.actionComplaintLength()
-    // console.log(TokenService.getCurrentUser())
-    // console.log(this.getUser)
   },
   methods: {
     ...mapActions(['logout','profileUser']),
