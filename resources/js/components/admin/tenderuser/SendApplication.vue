@@ -6,6 +6,7 @@
 			    	<i class="peIcon fas fa-file"></i>
 				    Отправить заявку
 				</h4>
+                <h4 class="title_user">{{ form.tender ?  form.tender.direction_ids[0].name : '' }}</h4>
 				<div class="d-flex">
 					<span class="qr_code" @click.prevent="openQrcode" v-if="makeDisabled">
 						<i class="fas fa-qrcode"></i>
@@ -292,12 +293,12 @@
 								<tbody>
 									<template v-for="(car,index) in cars_with">
 										<tr>
-											<td>{{index+1}}</td>	    		
+											<td>{{index+1}}</td>
 											<td>{{car.auto_number}}</td>
 											<td>{{car.bustype.name}}</td>
 											<td>{{car.tclass.name}}</td>
 											<td>{{car.busmarka ? car.busmarka.name : ''}}</td>
-											<td>{{car.busmodel.name}}</td>
+											<td>{{car.busmodel ? car.busmodel.name : '' }}</td>
 											<td>{{car.date}}</td>
 											<td>{{car.capacity}}</td>
 											<td>{{car.seat_qty}}</td>
@@ -886,8 +887,9 @@
 			await this.actionEditApplication(this.$route.params.userapplicationId)
 			await this.actionTypeofbusList()
 			await this.actionBusmodelList()
-			await this.actionBusBrandList()
-			this.form = this.getApplication
+            await this.actionBusBrandList()
+            this.form = this.getApplication
+            console.log(this.form)
 			this.cars_with = this.getApplication.cars_with
 			this.files = this.getApplication.attachment
 			this.direction_ids = this.getApplication.tender.direction_ids

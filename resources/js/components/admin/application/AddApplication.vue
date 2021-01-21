@@ -13,16 +13,16 @@
 					<div class="row">
 						<div class="form-group col-md-7">
 							<div class="row">
-								<div 
-									class="form-group" 
+								<div
+									class="form-group"
 									:class="direction_ids && Object.keys(direction_ids).length > 0 ? ' col-md-10' : ' col-md-12'"
 								>
 								    <label for="marshrut">Маршрут</label>
-								    <multiselect 
+								    <multiselect
 										:value="direction_ids"
 										:options="findList"
 										@search-change="value => findDirection(value)"
-										v-model="direction_ids" 
+										v-model="direction_ids"
 				                        placeholder="Выберите маршрут"
 				                        :searchable="true"
 				                        track-by="id"
@@ -37,12 +37,12 @@
 										>
 										<span slot="noResult">По вашему запросу ничего не найдено</span>
 										<span slot="noOptions">Cписок пустой</span>
-									</multiselect>	
-								</div>	
+									</multiselect>
+								</div>
 							  	<div class="form-group col-md-2 btn_show" v-if="direction_ids && Object.keys(direction_ids).length > 0">
-								  	<button 
-								  		type="button" 
-								  		class="btn btn-outline-info" 
+								  	<button
+								  		type="button"
+								  		class="btn btn-outline-info"
 							  		>
 							  			<i class="fas fa-eye"></i>
 							  			Посмотреть
@@ -52,43 +52,43 @@
 					  	</div>
 					  	<div class="form-group col-md-3">
 						    <label for="tarif">Тариф</label>
-						    <input 
-						    	type="number" 
-						    	class="form-control input_style" 
-						    	id="tarif" 
+						    <input
+						    	type="number"
+						    	class="form-control input_style"
+						    	id="tarif"
 						    	placeholder="Тариф"
 						    	v-model="form.tarif"
-						    	:class="isRequired(form.tarif) ? 'isRequired' : ''"  
+						    	:class="isRequired(form.tarif) ? 'isRequired' : ''"
 					    	>
 				  	  	</div>
 				  	  	<div class="form-group col-md-2 btn_save d-flex justify-content-end">
 						  	  <button type="button" class="btn btn-secondary mr-3" @click.prevent="addCar">
 							  		<i class="fas fa-plus"></i>
-								  	Добавить авто 
-						      </button>	 
+								  	Добавить авто
+						      </button>
 				      	</div>
 					</div>
 					<div class="row">
-					<template v-for="(item,key) in form.cars">	 				
+					<template v-for="(item,key) in form.cars">
 					  <div class="form-group col-md-3">
 					    <label for="auto_number">Номер Авто</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="auto_number" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="auto_number"
 					    	placeholder="Номер Авто"
 					    	v-model="item.auto_number"
-					    	:class="isRequired(item.auto_number) ? 'isRequired' : ''"  
+					    	:class="isRequired(item.auto_number) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="bustype_id">Тип Авто</label> 
-					    <select 
-						    class="form-control input_style" 
-					    	id="bustype_id" 
+					    <label for="bustype_id">Тип Авто</label>
+					    <select
+						    class="form-control input_style"
+					    	id="bustype_id"
 					    	placeholder="Номер Авто"
 					    	v-model="item.bustype_id"
-					    	:class="isRequired(item.bustype_id) ? 'isRequired' : ''" 
+					    	:class="isRequired(item.bustype_id) ? 'isRequired' : ''"
 					    	@change="selectClass(item, key)"
 					    >
 					    	<option value="" selected disabled>Выберите тип авто!</option>
@@ -97,12 +97,12 @@
 					  </div>
 					  <div class="form-group col-md-3">
 					    <label for="busmodel_id">Модель Авто</label>
-					    <select 
-						    class="form-control input_style" 
-					    	id="busmodel_id" 
+					    <select
+						    class="form-control input_style"
+					    	id="busmodel_id"
 					    	placeholder="Номер Авто"
 					    	v-model="item.busmodel_id"
-					    	:class="isRequired(item.busmodel_id) ? 'isRequired' : ''" 
+					    	:class="isRequired(item.busmodel_id) ? 'isRequired' : ''"
 					    	@change="selectClass(item, key)"
 					    >
 					    	<option value="" selected disabled>Выберите модель авто!</option>
@@ -111,12 +111,12 @@
 					  </div>
 					  <div class="form-group col-md-3">
 					    <label for="tclass_id">Класс Авто</label>
-					    <select 
-						    class="form-control input_style" 
-					    	id="tclass_id" 
+					    <select
+						    class="form-control input_style"
+					    	id="tclass_id"
 					    	placeholder="Номер Авто"
 					    	v-model="item.tclass_id"
-					    	:class="isRequired(item.tclass_id) ? 'isRequired' : ''" 
+					    	:class="isRequired(item.tclass_id) ? 'isRequired' : ''"
 
 					    >
 					    	<option value="" selected disabled>Выберите класс авто!</option>
@@ -125,46 +125,46 @@
 					  </div>
 					  <div class="form-group col-md-3">
 					    <label for="date">Дата выпуска</label>
-					    <input 
-					    	type="date" 
-					    	class="form-control input_style" 
-					    	id="date" 
+					    <input
+					    	type="date"
+					    	class="form-control input_style"
+					    	id="date"
 					    	placeholder="Вместимость"
 					    	v-model="item.date"
-					    	:class="isRequired(item.date) ? 'isRequired' : ''"  
+					    	:class="isRequired(item.date) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
 					    <label for="capacity">Вместимость</label>
-					    <input 
-					    	type="number" 
-					    	class="form-control input_style" 
-					    	id="capacity" 
+					    <input
+					    	type="number"
+					    	class="form-control input_style"
+					    	id="capacity"
 					    	placeholder="Вместимость"
 					    	v-model="item.capacity"
-					    	:class="isRequired(item.capacity) ? 'isRequired' : ''"  
+					    	:class="isRequired(item.capacity) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
 					    <label for="seat_qty">Количество сидящих</label>
-					    <input 
-					    	type="number" 
-					    	class="form-control input_style" 
-					    	id="seat_qty" 
+					    <input
+					    	type="number"
+					    	class="form-control input_style"
+					    	id="seat_qty"
 					    	placeholder="Количество сидящих"
 					    	v-model="item.seat_qty"
-					    	:class="isRequired(item.seat_qty) ? 'isRequired' : ''"  
+					    	:class="isRequired(item.seat_qty) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
 					    <label for="qty_reys">Количество рейсов</label>
-					    <input 
-					    	type="number" 
-					    	class="form-control input_style" 
-					    	id="qty_reys" 
+					    <input
+					    	type="number"
+					    	class="form-control input_style"
+					    	id="qty_reys"
 					    	placeholder="Количество рейсов"
 					    	v-model="item.qty_reys"
-					    	:class="isRequired(item.qty_reys) ? 'isRequired' : ''"  
+					    	:class="isRequired(item.qty_reys) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-md-12 table table-responsive">
@@ -180,7 +180,7 @@
 					  			<tr>
 					  				<th>2</th>
 					  				<th width="50%">Интернет</th>
-					  				<th> 
+					  				<th>
 					  					<input type="checkbox" value="1" v-model="item.internet">
 					  				</th>
 					  			</tr>
@@ -232,7 +232,7 @@
 					  	</table>
 					  </div>
 					  <hr>
-					</template>	
+					</template>
 					  	<div class="form-group col-md-12 table table-responsive">
 						  	<h4>Тадбирлар режаси</h4>
 						  	<table class="table table-bordered">
@@ -240,7 +240,7 @@
 						  			<tr>
 						  				<th width="1%">1</th>
 						  				<th width="50%">
-						  					Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан 
+						  					Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан
 						  					ўтказиш учун барча шароитлар яратилган
 						  				</th>
 						  				<th>
@@ -260,7 +260,7 @@
 						  			<tr>
 						  				<th>3</th>
 						  				<th width="50%">
-						  					Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча 
+						  					Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча
 						  					ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
 						  				</th>
 						  				<th>
@@ -337,7 +337,7 @@
 						  	<button type="button" class="btn btn-primary btn_save_category">
 						  		<i class="far fa-share-square"></i>
 							  	Отправить
-							</button>	
+							</button>
 				  	  	</div>
 					</div>
 				</form>
