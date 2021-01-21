@@ -458,7 +458,6 @@
 					    	placeholder="Номер Авто"
 					    	v-model="car.bustype_id"
 					    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''"
-					    	@change="selectClass(car.bustype_id)"
 					    >
 					    	<option value="" selected disabled>Выберите категорию авто!</option>
 					    	<option
@@ -467,20 +466,7 @@
 					    		data-toggle="tooltip" data-placement="right" title="Tooltip on right"
 				    		>{{busType.name}}</option>
 					    </select>
-				  	</div>
-				  	<div class="form-group col-md-3">
-					    <label for="tclass_id">Класс Авто</label>
-					    <select
-						    class="form-control input_style"
-					    	id="tclass_id"
-					    	placeholder="Номер Авто"
-					    	v-model="car.tclass_id"
-					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
-					    	@change="selectMarka(car.tclass_id)"
-					    >
-					    	<option value="" selected disabled>Выберите класс авто!</option>
-					    	<option :value="busClass.id" v-for="(busClass,index) in tclasses">{{busClass.name}}</option>
-					    </select>
+					    <!-- @change="selectClass(car.bustype_id)" -->
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="busmarka_id">Марка Авто</label>
@@ -493,8 +479,9 @@
 					    	@change="selectModel(car.busmarka_id)"
 					    >
 					    	<option value="" selected disabled>Выберите марку авто!</option>
-					    	<option :value="item.marka.id" v-for="(item,index) in bus_marks">{{item.marka.name}}</option>
+					    	<option :value="item.marka.id" v-for="(item,index) in getBusBrandList">{{item.marka.name}}</option>
 					    </select>
+                        <!-- @change="selectModel(car.busmarka_id)" -->
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="busmodel_id">Модель Авто</label>
@@ -508,6 +495,20 @@
 					    	<option value="" selected disabled>Выберите модель авто!</option>
 					    	<option :value="item.model.id" v-for="(item,index) in bus_models">{{item.model.name}}</option>
 					    </select>
+				  	</div>
+                    <div class="form-group col-md-3">
+					    <label for="tclass_id">Класс Авто</label>
+					    <select
+						    class="form-control input_style"
+					    	id="tclass_id"
+					    	placeholder="Номер Авто"
+					    	v-model="car.tclass_id"
+					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
+					    >
+					    	<option value="" selected disabled>Выберите класс авто!</option>
+					    	<option :value="busClass.id" v-for="(busClass,index) in tclasses">{{busClass.name}}</option>
+					    </select>
+					    	<!-- @change="selectMarka(car.tclass_id)" -->
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="date">Дата выпуска</label>
@@ -900,7 +901,6 @@
 			await this.actionBusmodelList()
             await this.actionBusBrandList()
             this.form = this.getApplication
-            console.log(this.form)
 			this.cars_with = this.getApplication.cars_with
 			this.files = this.getApplication.attachment
 			this.direction_ids = this.getApplication.tender.direction_ids
@@ -1055,6 +1055,7 @@
 		      }
 		    },
 		    async selectClass(bustype_id){
+                console.log(bustype_id)
 		    	this.car.tclass_id = ''
 		    	this.car.busmarka_id = ''
 		    	this.car.busmodel_id = ''
