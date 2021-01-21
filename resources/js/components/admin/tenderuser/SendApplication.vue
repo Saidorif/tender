@@ -402,7 +402,17 @@
 								</tbody>
 							</table>
 						</div>
-					  	<div class="form-group col-lg-12 d-flex justify-content-end" v-if="!makeDisabled">
+					  	<div class="form-group col-lg-12 d-flex justify-content-end align-items-end" v-if="!makeDisabled">
+                            <div class="form-group col-md-3 mb-0">
+                                <label>Muddat</label>
+                                <select  class="form-control"  v-model="form.time" >
+                                    <option selected value="1">1 йил</option>
+                                    <option value="2">2 йил</option>
+                                    <option value="3">3 йил</option>
+                                    <option value="4">4 йил</option>
+                                    <option value="5">5 йил</option>
+                                </select>
+                            </div>
 						  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
 						  		<i class="fas fa-save"></i>
 							  	Сохранить
@@ -777,7 +787,8 @@
 					videoregistrator:0,
 					gps:0,
 					qty_reys:'',
-					hours_rule:0,
+                    hours_rule:0,
+                    time:'',
 				},
 				car:{
                     app_id: null,
