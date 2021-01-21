@@ -476,10 +476,11 @@
 					    	placeholder="Номер Авто"
 					    	v-model="car.busmarka_id"
 					    	:class="isRequired(car.busmarka_id) ? 'isRequired' : ''"
-					    	@change="selectModel(car.busmarka_id)"
+					    	@change="selectCarMarka()"
 					    >
 					    	<option value="" selected disabled>Выберите марку авто!</option>
-					    	<option :value="item.marka.id" v-for="(item,index) in getBusBrandList">{{item.marka.name}}</option>
+					    	<!-- <option :value="item.marka.id" v-for="(item,index) in getBusBrandList">{{item.marka.name}}</option> -->
+					    	<option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
 					    </select>
                         <!-- @change="selectModel(car.busmarka_id)" -->
 				  	</div>
@@ -493,7 +494,8 @@
 					    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
 					    >
 					    	<option value="" selected disabled>Выберите модель авто!</option>
-					    	<option :value="item.model.id" v-for="(item,index) in bus_models">{{item.model.name}}</option>
+					    	<!-- <option :value="item.model.id" v-for="(item,index) in bus_models">{{item.model.name}}</option> -->
+					    	<option :value="item.id" v-for="(item,index) in getBusmodelList">{{item.name}}</option>
 					    </select>
 				  	</div>
                     <div class="form-group col-md-3">
@@ -841,7 +843,7 @@
 				'getActivate',
 			]),
 			...mapGetters('typeofbus',['getTypeofbusList']),
-			...mapGetters('busmodel',['getBusmodelList']),
+            ...mapGetters('busmodel',['getBusmodelList']),
 			...mapGetters('busclass',['getBusclassFindList']),
     		...mapGetters("busbrand", ["getBusBrandList"]),
 		    checkCars(){
@@ -920,7 +922,7 @@
 				'actionActivate',
 			]),
 			...mapActions('typeofbus',['actionTypeofbusList']),
-			...mapActions('busmodel',['actionBusmodelList']),
+			...mapActions('busmodel',['actionBusmodelList', 'actionBusmodelListByBrand']),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
 			...mapActions("busbrand",["actionBusBrandList"]),
@@ -1055,7 +1057,6 @@
 		      }
 		    },
 		    async selectClass(bustype_id){
-                console.log(bustype_id)
 		    	this.car.tclass_id = ''
 		    	this.car.busmarka_id = ''
 		    	this.car.busmodel_id = ''
@@ -1186,6 +1187,9 @@
 					}
 		    	}
 		    },
+		    async selectCarMarka(){
+                await this.actionBusmodelListByBrand({busbrand_id: this.car.busmarka_id});
+            },
 		}
 	}
 </script>
