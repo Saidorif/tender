@@ -37,10 +37,19 @@
 								<td>{{bus.stay_from}}</td>
 								<!-- <td>{{bus.stay_to}}</td> -->
 								<td>
-									<router-link tag="button" class="btn_transparent" :to='`/crm/busclass/edit/${bus.id}`'>
+									<router-link 
+										tag="button" 
+										class="btn_transparent" 
+										:to='`/crm/busclass/edit/${bus.id}`'
+										v-if="$can('edit', 'TClassController')"
+									>
 										<i class="pe_icon pe-7s-edit editColor"></i>
 									</router-link>
-									<button class="btn_transparent" @click="deleteType(bus.id)">
+									<button 
+										class="btn_transparent" 
+										@click="deleteType(bus.id)"
+										v-if="$can('destroy', 'TClassController')"
+									>
 										<i class="pe_icon pe-7s-trash trashColor"></i>
 									</button>
 								</td>

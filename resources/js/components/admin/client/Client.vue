@@ -131,7 +131,12 @@
 							<td>{{item.email}}</td>
 							<td>{{item.phone}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/client/edit/${item.id}`'>
+								<router-link 
+									tag="button" 
+									class="btn_transparent" 
+									:to='`/crm/client/edit/${item.id}`'
+									 v-if="$can('carrierEdit', 'UserController')"
+								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
 								<!-- <button class="btn_transparent" @click="deleteEmployee(item.id)">

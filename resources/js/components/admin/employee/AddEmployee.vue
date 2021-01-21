@@ -20,22 +20,9 @@
                   class="form-control input_style"
                   :class="isRequired(form.region_id) ? 'isRequired' : ''"
                   v-model="form.region_id"
-                  @change="selectRegion()"
                 >
                   <option value="" selected disabled>Выберите область!</option>
                   <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
-                </select>
-              </div>
-              <div class="form-group col-lg-6">
-                <label for="area_id">Регион/Город!</label>
-                <select
-                  id="area_id"  
-                  class="form-control input_style"
-                  :class="isRequired(form.area_id) ? 'isRequired' : ''"
-                  v-model="form.area_id"
-                >
-                  <option value="" selected disabled>Выберите регин или город!</option>
-                  <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
                 </select>
               </div>
               <div class="form-group col-lg-6">
@@ -105,7 +92,7 @@
                   v-model="form.role_id"
                 >
                   <option value selected disabled>Выберите рол</option>
-                  <option :value="role.id" v-for="(role,index) in getRoleList">{{role.name}}</option>
+                  <option :value="role.id" v-for="(role,index) in getRoleList">{{role.label}}</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
@@ -213,7 +200,6 @@ export default {
         confirm_password: "",
         role_id: "",
         region_id: "",
-        area_id: "",
         position_date: "",
         position_id: "",
         phone: "",
@@ -243,10 +229,6 @@ export default {
     ...mapActions("role", ["actionRoleList"]),
     ...mapActions("employee", ["actionAddEmployee", "actionCheckEmail"]),
     ...mapActions("position", ["actionPositionList"]),
-    async selectRegion(){
-      await this.actionAreaByRegion({ region_id: this.form.region_id });
-      this.form.area_id = ''
-    },
     confirmPassword() {
       if (this.form.password && this.form.confirm_password) {
         if (this.form.password != this.form.confirm_password) {
@@ -298,17 +280,16 @@ export default {
     },
     async sendEmployee() {
       if (
-        this.form.middlename &&
-        this.form.surname &&
-        this.form.name &&
-        this.form.email &&
-        this.form.password &&
-        this.form.confirm_password &&
-        this.form.region_id &&
-        this.form.area_id &&
-        this.form.position_id &&
-        this.form.position_date &&
-        this.form.role_id &&
+        this.form.middlename !='' &&
+        this.form.surname !='' &&
+        this.form.name !='' &&
+        this.form.email !='' &&
+        this.form.password !='' &&
+        this.form.confirm_password !='' &&
+        this.form.region_id !='' &&
+        this.form.position_id !='' &&
+        this.form.position_date !='' &&
+        this.form.role_id !='' &&
         this.checkPassword == false
       ) {
         await this.actionAddEmployee(this.form);

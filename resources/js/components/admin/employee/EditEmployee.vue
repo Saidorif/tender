@@ -20,22 +20,9 @@
                   class="form-control input_style"
                   :class="isRequired(form.region_id) ? 'isRequired' : ''"
                   v-model="form.region_id"
-                  @change="selectRegion()"
                 >
                   <option value="" selected disabled>Выберите область!</option>
                   <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
-                </select>
-              </div>
-              <div class="form-group col-lg-6">
-                <label for="area_id">Регион/Город!</label>
-                <select
-                  id="area_id"  
-                  class="form-control input_style"
-                  :class="isRequired(form.area_id) ? 'isRequired' : ''"
-                  v-model="form.area_id"
-                >
-                  <option value="" selected disabled>Выберите регин или город!</option>
-                  <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
                 </select>
               </div>
               <div class="form-group col-lg-6">
@@ -105,7 +92,7 @@
                   v-model="form.role_id"
                 >
                   <option value selected disabled>Выберите рол</option>
-                  <option :value="role.id" v-for="(role,index) in getRoleList">{{role.name}}</option>
+                  <option :value="role.id" v-for="(role,index) in getRoleList">{{role.label}}</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
@@ -141,7 +128,6 @@
                   class="form-control input_style"
                   id="exampleInputPassword1"
                   placeholder="Пароль.."
-                  :class="isRequired(form.password) ? 'isRequired' : ''"
                   v-model="form.password"
                 />
               </div>
@@ -153,8 +139,6 @@
                   id="ConfirmPassword1"
                   placeholder="Подтвердите пароль.."
                   v-model="form.confirm_password"
-                  :class="isRequired(form.confirm_password) ? 'isRequired' : ''"
-                  @input="confirmPassword()"
                 />
                 <small class="redText" v-if="checkPassword">
                   <b>Пароль не совпадает</b>
@@ -222,10 +206,10 @@ export default {
         name: "",
         email: "",
         password: "",
+        position_date: "",
         confirm_password: "",
         role_id: "",
         region_id: "",
-        area_id: "",
         position_id: "",
         phone: "",
         image: "",
@@ -261,10 +245,6 @@ export default {
       "actionEditEmployee"
     ]),
     ...mapActions("position", ["actionPositionList"]),
-    async selectRegion(){
-      await this.actionAreaByRegion({ region_id: this.form.region_id });
-      this.form.area_id = ''
-    },
     confirmPassword() {
       if (this.form.password && this.form.passwordConfirm) {
         if (this.form.password != this.form.passwordConfirm) {
@@ -315,22 +295,28 @@ export default {
       }
     },
     isRequired(input) {
-      return this.requiredInput && input === "";
+      if (this.requiredInput) {
+        if (input === "" || input == null) {
+          return true
+        }else{
+          return false
+        }
+      }else{
+        return false
+      }
     },
     async sendEmployee(){
+      console.log(this.form)
       if (
         this.form.middlename &&
-        this.form.surname &&
-        this.form.name &&
-        this.form.email &&
-        this.form.password &&
-        this.form.confirm_password &&
-        this.form.phone &&
-        this.form.region_id &&
-        this.form.area_id &&
-        this.form.position_id &&
-        this.form.role_id &&
-        this.checkPassword == false
+        this.form.surname  &&
+        this.form.name  &&
+        this.form.email  &&
+        this.form.phone  &&
+        this.form.position_date  &&
+        this.form.region_id  &&
+        this.form.position_id  &&
+        this.form.role_id 
       ) {
         await this.actionUpdateEmployee(this.form);
         if (this.getMassage.success) {
@@ -341,10 +327,17 @@ export default {
             icon: "success",
             title: this.getMassage.message
           });
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: "Проверте данные!"
+          });
         }
       } else {
         this.requiredInput = true;
       }
+
     },
     async checkEmailInput() {
       await this.actionCheckEmail({ email: this.form.email });

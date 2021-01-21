@@ -403,14 +403,11 @@
 							</table>
 						</div>
 					  	<div class="form-group col-lg-12 d-flex justify-content-end align-items-end" v-if="!makeDisabled">
-                            <div class="form-group col-md-3 mb-0">
+                            <div class="form-group col-md-3 mb-0" >
                                 <label>Muddat</label>
-                                <select  class="form-control"  v-model="form.time" >
-                                    <option selected value="1">1 йил</option>
-                                    <option value="2">2 йил</option>
-                                    <option value="3">3 йил</option>
-                                    <option value="4">4 йил</option>
-                                    <option value="5">5 йил</option>
+                                <select  class="form-control"  v-model="contract_time" >
+                                    <option selected disabled>Muddatni tanlang!</option>
+                                    <option v-for="option in timeOptions" :value="option.val">{{ option.name }}</option>
                                 </select>
                             </div>
 						  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
@@ -492,10 +489,11 @@
 					    	placeholder="Номер Авто"
 					    	v-model="car.busmodel_id"
 					    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
+                            @change="selectFindClass()"
 					    >
 					    	<option value="" selected disabled>Выберите модель авто!</option>
 					    	<!-- <option :value="item.model.id" v-for="(item,index) in bus_models">{{item.model.name}}</option> -->
-					    	<option :value="item.id" v-for="(item,index) in getBusmodelList">{{item.name}}</option>
+					    	<option :value="item.id" v-for="(item,index) in bus_models">{{item.name}}</option>
 					    </select>
 				  	</div>
                     <div class="form-group col-md-3">
@@ -508,6 +506,7 @@
 					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
 					    >
 					    	<option value="" selected disabled>Выберите класс авто!</option>
+					    	<!-- <option :value="busClass.id" v-for="(busClass,index) in tclasses">{{busClass.name}}</option> -->
 					    	<option :value="busClass.id" v-for="(busClass,index) in tclasses">{{busClass.name}}</option>
 					    </select>
 					    	<!-- @change="selectMarka(car.tclass_id)" -->
@@ -522,6 +521,7 @@
 		                  valueType="format"
 		                  class="input_style"
 		                  :class="isRequired(car.date) ? 'isRequired' : ''"
+                          :disabled-date="notBeforeYear"
 		                ></date-picker>
 				  	</div>
 				  	<div class="form-group col-md-3">
@@ -791,7 +791,6 @@
 					gps:0,
 					qty_reys:'',
                     hours_rule:0,
-                    time:'',
 				},
 				car:{
                     app_id: null,
@@ -830,7 +829,15 @@
 				isLoading:false,
 				newItems:[],
 				showDirections:false,
-				makeDisabled:false
+                makeDisabled:false,
+                contract_time:'',
+                timeOptions: [
+                    {name: '1 yil', val: 1},
+                    {name: '2 yil', val: 2},
+                    {name: '3 yil', val: 3},
+                    {name: '4 yil', val: 4},
+                    {name: '5 yil', val: 5},
+                ]
 			}
 		},
 		computed:{
@@ -902,6 +909,7 @@
 			await this.actionTypeofbusList()
 			await this.actionBusmodelList()
             await this.actionBusBrandList()
+            this.calcTimeContract()
             this.form = this.getApplication
 			this.cars_with = this.getApplication.cars_with
 			this.files = this.getApplication.attachment
@@ -942,7 +950,36 @@
 		    	}else{
 		    		return 'edit-pending'
 		    	}
-		    },
+            },
+            notBeforeYear(date){
+                let beforeYear = new Date(new Date().getFullYear() - 14, 0, 1)
+                return  date > new Date() || date < beforeYear
+            },
+            calcTimeContract(){
+                if(this.cars_with.length){
+                    let date_time = []
+                    this.cars_with.forEach((item)=>{
+                        date_time.push(item.date)
+                    })
+                    let calcAvr = date_time.reduce((a,b) => a + b, 0) / date_time.length;
+                    let curYear = new Date().getFullYear()
+                    let res = curYear  - calcAvr
+                    if(res < 2){
+                        this.contract_time = 5
+                    }else if(res < 5){
+                        this.contract_time = 4
+                        console.log(this.contract_time)
+                    }else if(res < 8){
+                        this.contract_time = 3
+                    }else if(res < 11){
+                        this.contract_time = 2
+                    }else if(res < 14){
+                        this.contract_time = 2
+                    }else{
+                        this.contract_time = ''
+                    }
+                }
+            },
 		    changePhoto(event) {
 		      this.file = event.target.files[0];
 		      // let file = event.target.files[0];
@@ -1068,6 +1105,17 @@
 			    	this.tclasses = this.getBusclassFindList
 		    	}
 		    },
+		    async selectFindClass(bustype_id){
+                // console.log(this.car.bustype_id  )
+                // console.log(this.car.busmarka_id  )
+                // console.log(this.car.busmodel_id  )
+                this.car.tclass_id = ''
+                if(this.car.bustype_id && this.car.busmarka_id && this.car.busmodel_id){
+                    await this.actionBusclassFind(this.car)
+                    this.tclasses = this.getBusclassFindList
+                    console.log(this.getBusclassFindList)
+                }
+		    },
 		    async selectMarka(tclass_id){
 		    	this.car.busmarka_id = ''
 		    	this.car.busmodel_id = ''
@@ -1188,7 +1236,10 @@
 		    	}
 		    },
 		    async selectCarMarka(){
+                this.car.busmodel_id = ''
+                this.car.tclass_id = ''
                 await this.actionBusmodelListByBrand({busbrand_id: this.car.busmarka_id});
+                this.bus_models = this.getBusmodelList
             },
 		}
 	}

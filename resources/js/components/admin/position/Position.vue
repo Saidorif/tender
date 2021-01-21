@@ -7,7 +7,14 @@
 			    	<i  class="peIcon pe-7s-graph1"></i>
 				    Должность 
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/position/add"><i class="fas fa-plus"></i> Добавить</router-link>
+				<router-link 
+					class="btn btn-primary" 
+					to="/crm/position/add"
+					v-if="$can('store', 'PositionController')"
+				>
+					<i class="fas fa-plus"></i> 
+					Добавить
+				</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -24,10 +31,17 @@
 							<td scope="row">{{position.id}}</td>
 							<td>{{position.name}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/position/edit/${position.id}`'>
+								<router-link tag="button" class="btn_transparent" 
+									:to='`/crm/position/edit/${position.id}`' 
+									v-if="$can('edit', 'PositionController')"
+								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deletePosition(position.id)">
+								<button 
+									class="btn_transparent" 
+									@click="deletePosition(position.id)"
+									v-if="$can('destroy', 'PositionController')"
+								>
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>

@@ -48,10 +48,19 @@
 							<td>{{reg.lots.time}}</td>
 							<td :id="reg.id">{{$g.dateCounter(reg.lots.time,reg.id)}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/application/user/${reg.id}`'>
+								<router-link 
+									tag="button" 
+									class="btn_transparent" 
+									:to='`/crm/application/user/${reg.id}`'
+									v-if="$can('index', 'ApplicationController')"
+								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteRegion(reg.id)">
+								<button 
+									class="btn_transparent" 
+									@click="deleteRegion(reg.id)"
+									v-if="$can('destroy', 'ApplicationController')"
+								>
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>

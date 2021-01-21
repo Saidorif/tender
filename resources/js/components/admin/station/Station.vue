@@ -7,7 +7,7 @@
 			    	<i  class="peIcon pe-7s-box1"></i>
 				    Автостанция 
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/station/add"><i class="fas fa-plus"></i> Добавить</router-link>
+				<router-link v-if="$can('store', 'StationController')" class="btn btn-primary" to="/crm/station/add"><i class="fas fa-plus"></i> Добавить</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -30,10 +30,10 @@
 							<td>{{station.area ? station.area.name : ''}}</td>
 							<td>{{$g.findStation(station.station_type)}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/station/edit/${station.id}`'>
+								<router-link v-if="$can('edit', 'StationController')" tag="button" class="btn_transparent" :to='`/crm/station/edit/${station.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteStation(station.id)">
+								<button v-if="$can('destroy', 'StationController')" class="btn_transparent" @click="deleteStation(station.id)">
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>

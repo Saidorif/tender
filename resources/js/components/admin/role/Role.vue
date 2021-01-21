@@ -6,7 +6,7 @@
 			    	<i  class="peIcon pe-7s-id"></i>
 				    Role 
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/role/add"><i class="fas fa-plus"></i> Add</router-link>
+				<router-link v-if="$can('store', 'RoleController')" class="btn btn-primary" to="/crm/role/add"><i class="fas fa-plus"></i> Add</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -31,10 +31,10 @@
 							</td>
 							<td>{{role.label}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/role/edit/${role.id}`'>
+								<router-link v-if="$can('edit', 'RoleController')" tag="button" class="btn_transparent" :to='`/crm/role/edit/${role.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteRole(role.id)">
+								<button v-if="$can('destroy', 'RoleController')" class="btn_transparent" @click="deleteRole(role.id)">
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>
