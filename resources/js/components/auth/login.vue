@@ -101,6 +101,23 @@ export default {
     // await this.actionRegionList();
     this.laoding = false
   },
+  beforeRouteEnter(to, from, next){
+    if (TokenService.getToken()){
+      if (TokenService.getCurrentUser() && TokenService.getCurrentUser().role.name == 'admin') {
+        next(vm=>{
+          vm.$router.push('/crm/dashboard')
+        })
+      }else{
+        next(vm=>{
+          vm.$router.push('/crm/profile')
+        })
+      }
+        // next(vm=>{
+      //      vm.$router.push('/crm/dashboard')
+      //  })
+    }
+    next()
+  },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
     ...mapActions("area", ["actionAreaByRegion"]),
