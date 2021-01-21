@@ -55,6 +55,7 @@
 			return{
 				permissions: [],
 				rolName:null,
+				selectedAll:false,
 			}
 		},
 		watch:{

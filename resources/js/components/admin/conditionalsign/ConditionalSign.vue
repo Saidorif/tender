@@ -23,10 +23,19 @@
 							<td scope="row">{{sign.id}}</td>
 							<td>{{sign.name}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/conditionalsign/edit/${sign.id}`'>
+								<router-link 
+									tag="button" 
+									class="btn_transparent" 
+									:to='`/crm/conditionalsign/edit/${sign.id}`'
+									v-if="$can('edit', 'ConditionalSignController')"
+								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteSign(sign.id)">
+								<button 
+									class="btn_transparent" 
+									@click="deleteSign(sign.id)"
+									v-if="$can('destroy', 'ConditionalSignController')"
+								>
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>

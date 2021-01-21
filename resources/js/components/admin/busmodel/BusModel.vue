@@ -27,10 +27,19 @@
 								<td>{{model.marka.name}}</td>
 								<td>{{model.name}}</td>
 								<td>
-									<router-link tag="button" class="btn_transparent" :to='`/crm/busmodel/edit/${model.id}`'>
+									<router-link 
+										tag="button" 
+										class="btn_transparent" 
+										:to='`/crm/busmodel/edit/${model.id}`'
+										v-if="$can('edit', 'BusModelController')"
+									>
 										<i class="pe_icon pe-7s-edit editColor"></i>
 									</router-link>
-									<button class="btn_transparent" @click="deleteType(model.id)">
+									<button 
+										class="btn_transparent" 
+										@click="deleteType(model.id)"
+										v-if="$can('destroy', 'BusModelController')"
+									>
 										<i class="pe_icon pe-7s-trash trashColor"></i>
 									</button>
 								</td>

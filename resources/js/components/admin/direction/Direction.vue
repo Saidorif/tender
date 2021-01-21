@@ -29,10 +29,19 @@
 							<td>{{direct.pass_number}}</td>
 							<td>{{direct.year}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/direction/edit/${direct.id}`'>
+								<router-link 
+									tag="button" 
+									class="btn_transparent" 
+									:to='`/crm/direction/edit/${direct.id}`'
+									v-if="$can('edit', 'DirectionController')"
+								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deletePassport(direct.id)">
+								<button 
+									class="btn_transparent" 
+									@click="deletePassport(direct.id)"
+									v-if="$can('destroy', 'DirectionController')"
+								>
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>

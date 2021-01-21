@@ -25,10 +25,19 @@
 							<td>{{area.name}}</td>
 							<td>{{area.region.name}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/area/edit/${area.id}`'>
+								<router-link 
+									tag="button" 
+									class="btn_transparent" 
+									:to='`/crm/area/edit/${area.id}`'
+									v-if="$can('edit', 'AreaController')"
+								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteArea(area.id)">
+								<button 
+									class="btn_transparent" 
+									@click="deleteArea(area.id)"
+									v-if="$can('destroy', 'AreaController')"
+								>
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>

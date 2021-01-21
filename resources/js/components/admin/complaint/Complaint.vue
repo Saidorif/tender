@@ -23,7 +23,11 @@
 							<td scope="row">{{compl.id}}</td>
 							<td>{{compl.name}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/complaint/edit/${compl.id}`'>
+								<router-link 
+									tag="button" 
+									class="btn_transparent" 
+									:to='`/crm/complaint/edit/${compl.id}`'
+								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
 								<!-- <button class="btn_transparent" @click="deleteComplaint(compl.id)">
