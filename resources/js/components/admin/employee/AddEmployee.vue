@@ -92,7 +92,7 @@
                   v-model="form.role_id"
                 >
                   <option value selected disabled>Выберите рол</option>
-                  <option :value="role.id" v-for="(role,index) in getRoleList">{{role.name}}</option>
+                  <option :value="role.id" v-for="(role,index) in getRoleList">{{role.label}}</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
