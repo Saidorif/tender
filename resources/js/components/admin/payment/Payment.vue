@@ -7,7 +7,10 @@
 			    	<i class="peIcon fas fa-money-bill-alt"></i>
 				    Платежи 
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/payment/add"><i class="fas fa-plus"></i> Добавить</router-link>
+				<router-link class="btn btn-primary" to="/crm/payment/add" v-if="$can('store', 'PaymentController')">
+					<i class="fas fa-plus"></i> 
+					Добавить
+				</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -36,21 +39,25 @@
 							<td>{{reg.summ}}</td>
 							<td>{{reg.date}}</td>
 							<td>
-								<router-link 
-									tag="button" 
-									class="btn_transparent" 
-									:to='`/crm/payment/edit/${reg.id}`'
-									v-if="reg.status != 'active'"
-								>
-									<i class="pe_icon pe-7s-edit editColor"></i>
-								</router-link>
-								<button 
-									class="btn_transparent" 
-									@click="deleteRegion(reg.id)"
-									v-if="reg.status != 'active'"
-								>
-									<i class="pe_icon pe-7s-trash trashColor"></i>
-								</button>
+								<template v-if="$can('edit', 'PaymentController')">
+									<router-link 
+										tag="button" 
+										class="btn_transparent" 
+										:to='`/crm/payment/edit/${reg.id}`'
+										v-if="reg.status != 'active'"
+									>
+										<i class="pe_icon pe-7s-edit editColor"></i>
+									</router-link>
+								</template>
+								<template v-if="$can('destroy', 'PaymentController')">
+									<button 
+										class="btn_transparent" 
+										@click="deleteRegion(reg.id)"
+										v-if="reg.status != 'active'"
+									>
+										<i class="pe_icon pe-7s-trash trashColor"></i>
+									</button>
+								</template>
 							</td>
 						</tr>
 					</tbody>
