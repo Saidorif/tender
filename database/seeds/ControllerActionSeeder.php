@@ -180,7 +180,7 @@ class ControllerActionSeeder extends Seeder
                 'edit',
                 'destroy',
             ],
-            'SchemaDetailController' => [
+            'DirectionController' => [
                 'index',
                 'store',
                 'list',

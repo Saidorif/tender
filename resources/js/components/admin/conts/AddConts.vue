@@ -64,6 +64,9 @@
 				laoding: true
 			}
 		},
+		mounted(){
+			this.laoding = false
+		},
 		computed:{
 			...mapGetters('conts',['getMassage'])
 		},

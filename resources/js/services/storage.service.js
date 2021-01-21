@@ -10,12 +10,17 @@ const TokenService = {
 		localStorage.setItem(TOKEN_KEY, token);
 	},
 	saveCurrentUser(user){
-		let us = btoa(unescape(encodeURIComponent(JSON.stringify(user)))); 
-		localStorage.setItem(USER, JSON.stringify(us));
+		// let us = btoa(unescape(encodeURIComponent(JSON.stringify(user)))); 
+		// let data = JSON.parse(decodeURIComponent(escape(atob(us))));
+		// localStorage.setItem(USER, JSON.stringify(us));
+
+		localStorage.setItem(USER, JSON.stringify(user));
 	},
 
 	getCurrentUser(){
-		let data = JSON.parse(decodeURIComponent(escape(atob(localStorage.getItem(USER)))));
+		// let data = JSON.parse(decodeURIComponent(escape(atob(localStorage.getItem(USER)))));
+		// return data;
+		let data = JSON.parse(localStorage.getItem(USER));
 		return data;
 	},
 	saveGuestInfo(guest){

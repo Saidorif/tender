@@ -89,11 +89,14 @@
 					await this.actionPermission({role_id:this.$route.params.roleId})
 					toast.fire({
 				    	type: 'success',
+				    	icon: 'success',
 						title: 'Сохранено!',
 				    })
+				    location.reload();
 				}else{
 					swal.fire({
 					  type: 'error',
+					  icon: 'error',
 					  title: 'Ошибка',
 					  text: 'Выберите action!',
 					})
