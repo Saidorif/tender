@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('middlename')->nullable();
             $table->date('position_date')->nullable();
             $table->integer('region_id');
-            $table->integer('area_id');
+            $table->integer('area_id')->nullable();
             $table->integer('position_id')->nullable();
             $table->string('email')->unique();
             $table->string('password');
