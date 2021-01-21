@@ -409,6 +409,8 @@ export default {
   async mounted(){
     await this.profileUser()
     await this.actionComplaintLength()
+    // console.log(TokenService.getCurrentUser())
+    // console.log(this.getUser)
   },
   methods: {
     ...mapActions(['logout','profileUser']),

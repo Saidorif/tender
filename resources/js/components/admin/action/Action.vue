@@ -24,7 +24,7 @@
 						<tr v-for="(cont,index) in getActions.data">
 							<td scope="row">{{cont.id}}</td>
 							<td>{{cont.name}}</td>
-							<td>controller</td>
+							<td>{{cont.controller.name}}</td>
 							<td>{{cont.code}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/action/edit/${cont.id}`'>
