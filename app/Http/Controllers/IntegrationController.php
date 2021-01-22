@@ -133,7 +133,7 @@ class IntegrationController extends Controller
                     return response()->json(['error' => true, 'message' => $data_resp['pAnswereMessage']]);
                 }
             } catch (\Throwable $th) {
-                throw $th;
+                throw $th;die;
                 return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
             }
         }
