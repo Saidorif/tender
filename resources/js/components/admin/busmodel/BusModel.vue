@@ -1,5 +1,6 @@
 <template>
 	<div class="region">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -27,16 +28,16 @@
 								<td>{{model.marka.name}}</td>
 								<td>{{model.name}}</td>
 								<td>
-									<router-link 
-										tag="button" 
-										class="btn_transparent" 
+									<router-link
+										tag="button"
+										class="btn_transparent"
 										:to='`/crm/busmodel/edit/${model.id}`'
 										v-if="$can('edit', 'BusModelController')"
 									>
 										<i class="pe_icon pe-7s-edit editColor"></i>
 									</router-link>
-									<button 
-										class="btn_transparent" 
+									<button
+										class="btn_transparent"
 										@click="deleteType(model.id)"
 										v-if="$can('destroy', 'BusModelController')"
 									>
@@ -53,16 +54,21 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
-
+                laoding: true,
 			}
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionBusmodels()
+            await this.actionBusmodels()
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('busmodel',['getBusmodels','getMassage'])
@@ -74,9 +80,10 @@
 			},
 			async deleteType(id){
 				if(confirm("Вы действительно хотите удалить?")){
-					let page = 1
+                    let page = 1
+                    this.laoding = true
 					await this.actionDeleteBusmodel(id)
-					if (this.getMassage.error) {
+					if (this.getMassage.success) {
 						await this.actionBusmodels(page)
 						toast.fire({
 				            type: "success",
@@ -85,7 +92,8 @@
 				          });
 						this.$router.push("/crm/typeofbus");
 						this.requiredInput = false
-					}
+                    }
+                    this.laoding = false
 				}
 			}
 		}

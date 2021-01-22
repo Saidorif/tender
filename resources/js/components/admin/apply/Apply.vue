@@ -1,17 +1,18 @@
 <template>
 	<div class="area">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-vote-yea"></i>
-				    Доступ 
+				    Доступ
 				</h4>
 				<button class="btn btn-info" @click="applyActive" :disabled="getApplies.data && getApplies.data.length > 0 ? false : true">
 		    		<i class="fas fa-user-check"></i>
 		    		Активировать
 		    	</button>
 		  	</div>
-		  	<div class="card-body">	
+		  	<div class="card-body">
 		  		<div class="table-responsive">
 			  		<table class="table table-bordered text-center table-hover">
 			          	<thead>
@@ -29,7 +30,7 @@
 			          	</thead>
 			          	<tbody>
 			          		<tr v-for="(item, index) in getApplies.data" :key="item.id" v-if="getApplies.data.length > 0">
-			          			<td class="centerx">	
+			          			<td class="centerx">
 									<vs-checkbox v-model="allIds" :vs-value="item"  v-if="item.status != 'active'"></vs-checkbox>
 			          			</td>
 			          			<td>{{item.id}}</td>
@@ -56,15 +57,17 @@
 		          	</table>
 	          	</div>
 	          	<pagination :limit="4" :data="getApplies" @pagination-change-page="getResults"></pagination>
-          	</div>	
+          	</div>
 	  	</div>
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
 		data(){
 			return{
+                laoding: true,
 				allIds:[],
 				allChecked:false,
 				sendData: [],
@@ -76,17 +79,21 @@
 				},
 				page:null
 			}
-		},
+        },
+        components:{
+            Loader
+        },
 		async mounted(){
 			let page = 1;
-			await this.actionApplies(page)
+            await this.actionApplies(page)
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('apply',['getApplies','getMassage','getCheckEmail'])
 		},
 		methods:{
 			...mapActions('apply',['actionApplies','actionSendApplyActive','actionCheckEmail']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionApplies(page)
 			},
 			allCheckbox(){
@@ -111,7 +118,7 @@
 					let result = this.allIds.map((item)=>{
 						return {
 							id:item.id,
-							email:item.email ? item.email : '' 
+							email:item.email ? item.email : ''
 						}
 					})
 					await this.actionSendApplyActive({users:result});
@@ -156,5 +163,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>
