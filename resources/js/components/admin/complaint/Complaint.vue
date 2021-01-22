@@ -1,10 +1,11 @@
 <template>
 	<div class="complaint">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-comment"></i>
-				    Вариант обращения 
+				    Вариант обращения
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/complaint/add"><i class="fas fa-plus"></i> Добавить</router-link>
 		  	</div>
@@ -23,9 +24,9 @@
 							<td scope="row">{{compl.id}}</td>
 							<td>{{compl.name}}</td>
 							<td>
-								<router-link 
-									tag="button" 
-									class="btn_transparent" 
+								<router-link
+									tag="button"
+									class="btn_transparent"
 									:to='`/crm/complaint/edit/${compl.id}`'
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -44,29 +45,36 @@
 	</div>
 </template>
 <script>
-	import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
-
+                laoding: true,
 			}
 		},
 		async mounted(){
-			await this.actionComplaints()
+            await this.actionComplaints()
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('complaint',['getComplaints','getMassage'])
 		},
 		methods:{
 			...mapActions('complaint',['actionComplaints','actionDeleteComplaint']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionComplaints(page)
 			},
 			async deleteComplaint(id){
 				if(confirm("Вы действительно хотите удалить?")){
-					let page = 1
+                    let page = 1
+                    this.laoding = true
 					await this.actionDeleteComplaint(id)
-					await this.actionComplaints(page)
+                    await this.actionComplaints(page)
+                    this.laoding = false
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
@@ -78,5 +86,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

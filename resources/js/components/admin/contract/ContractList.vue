@@ -1,5 +1,6 @@
 <template>
 	<div class="role">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -40,8 +41,12 @@
 	</div>
 </template>
 <script>
-	import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
 				laoding: true

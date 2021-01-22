@@ -1,17 +1,18 @@
 <template>
   <div class="add_employee">
+      <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <h3 class="card-title title_user mb-0">
           <i  class="peIcon pe-7s-users"></i></i>Добавить перевозчик
         </h3>
-        <button 
-          type="button" 
-          @click="changeStatus()" 
+        <button
+          type="button"
+          @click="changeStatus()"
           class="btn"
           :class="statusClass"
         >
-          <i :class="statusFont" class="fas"></i> 
+          <i :class="statusFont" class="fas"></i>
           {{statusText}}
         </button>
         <router-link class="btn btn-primary back_btn" to="/crm/client">
@@ -198,7 +199,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="address">Адрес</label>
-              <textarea 
+              <textarea
                 class="form-control input_style"
                 id="address"
                 placeholder="Адрес.."
@@ -225,9 +226,11 @@
 <script>
 import DatePicker from "vue2-datepicker";
 import { mapActions, mapGetters } from "vuex";
+import Loader from '../../Loader'
 export default {
   components: {
-    DatePicker
+    DatePicker,
+    Loader
   },
   data() {
     return {
@@ -235,6 +238,7 @@ export default {
       requiredInput: false,
       checkPassword: false,
       emailError: false,
+      laoding: true,
       statusText:'Активировать',
       statusClass:' btn-success',
       statusFont:' fa-check',
@@ -243,6 +247,7 @@ export default {
   async mounted() {
     await this.actionClientEdit(this.$route.params.clientId);
     this.form = this.getClient
+    this.laoding = false
   },
   watch:{
     getClient:{
@@ -276,6 +281,7 @@ export default {
         id:this.$route.params.clientId,
         status:  status
       }
+      this.laoding = true
       await this.actionClientUpdate(data)
       if (this.getMassage.success){
         toast.fire({
@@ -285,6 +291,7 @@ export default {
         })
         await this.actionClientEdit(this.$route.params.clientId);
       }
+        this.laoding = false
     },
     // confirmPassword() {
     //   if (this.form.password && this.form.confirm_password) {

@@ -1,11 +1,12 @@
 <template>
 	<div class="employee">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header header_filter">
 		  		<div class="header_title">
 				    <h4 class="title_user">
 				    	<i  class="peIcon pe-7s-users"></i>
-					     Перевозчики 
+					     Перевозчики
 					</h4>
 					<div class="add_user_btn">
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
@@ -49,10 +50,10 @@
 			              	</div>
 			              	<div class="form-group col-lg-3">
 	  							<label for="inn">ИНН</label>
-	  							<input 
-	  								type="text" 
-	  								class="form-control" 
-	  								id="inn" 
+	  							<input
+	  								type="text"
+	  								class="form-control"
+	  								id="inn"
 	  								placeholder="ИНН..."
 	  								v-model="filter.inn"
   								>
@@ -72,7 +73,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="area_id">Регион/Город!</label>
 			                    <select
-			                      id="area_id"	
+			                      id="area_id"
 			                      class="form-control input_style"
 			                      v-model="filter.area_id"
 			                    >
@@ -82,10 +83,10 @@
               				</div>
   					  		<div class="form-group col-lg-3">
 	  							<label for="company_name">Название компании</label>
-	  							<input 
-	  								type="text" 
-	  								class="form-control" 
-	  								id="company_name" 
+	  							<input
+	  								type="text"
+	  								class="form-control"
+	  								id="company_name"
 	  								placeholder="Название компании..."
 	  								v-model="filter.company_name"
   								>
@@ -99,9 +100,9 @@
 							  		<i class="fas fa-times"></i>
 								  	сброс
 							  	</button>
-					  	  	</div>	
+					  	  	</div>
 				  		</div>
-				  	</div>	
+				  	</div>
 			  	</transition>
 		  	</div>
 		  	<div class="card-body">
@@ -131,9 +132,9 @@
 							<td>{{item.email}}</td>
 							<td>{{item.phone}}</td>
 							<td>
-								<router-link 
-									tag="button" 
-									class="btn_transparent" 
+								<router-link
+									tag="button"
+									class="btn_transparent"
 									:to='`/crm/client/edit/${item.id}`'
 									 v-if="$can('carrierEdit', 'UserController')"
 								>
@@ -153,8 +154,12 @@
 	</div>
 </template>
 <script>
-	import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
 				filter:{
@@ -166,13 +171,15 @@
 					inn:'',
 					company_name:'',
 				},
-				filterShow:false,
+                filterShow:false,
+                laoding: true,
 			}
 		},
 		async mounted(){
 			let page = 1;
 			await this.actionClients({page:page,items:this.filter})
-			await this.actionRegionList();
+            await this.actionRegionList();
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('client',['getClients']),
@@ -183,7 +190,7 @@
 			...mapActions("region", ["actionRegionList"]),
     		...mapActions("area", ["actionAreaByRegion"]),
 			...mapActions('client',['actionClients']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionClients({page:page,items:this.filter})
 			},
 			async selectRegion(){
@@ -227,5 +234,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

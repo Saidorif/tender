@@ -1,5 +1,6 @@
 <template>
 	<div class="add_cont">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -13,20 +14,20 @@
 					<div class="row">
 					  <div class="form-group col-md-9">
 					    <label for="name">Заголовок</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="name" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="name"
 					    	placeholder="Заголовок"
 					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-lg-3 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
-						</button>	
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -35,14 +36,19 @@
 	</div>
 </template>
 <script>
-	import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
 				form:{
 					name:'',
-				},
-				requiredInput:false
+                },
+                laoding: true,
+                requiredInput:false
 			}
 		},
 		computed:{
@@ -50,7 +56,8 @@
 		},
 		async mounted(){
 			await this.actionEditComplaint(this.$route.params.complaintId)
-			this.form = this.getComplaint
+            this.form = this.getComplaint
+            this.laoding = false
 		},
 		methods:{
 			...mapActions('complaint',['actionUpdateComplaint','actionEditComplaint']),
@@ -59,7 +66,9 @@
 		    },
 		    async saveComplt(){
 		    	if (this.form.name != ''){
-					await this.actionUpdateComplaint(this.form)
+                    this.laoding = true
+                    await this.actionUpdateComplaint(this.form)
+                    this.laoding = false
 					this.$router.push("/crm/complaint");
 					this.requiredInput =false
 					toast.fire({
@@ -75,5 +84,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

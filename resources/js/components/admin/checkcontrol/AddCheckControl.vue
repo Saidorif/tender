@@ -1,5 +1,6 @@
 <template>
 	<div class="add_action">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -71,12 +72,15 @@
 <script>
 	import Multiselect from 'vue-multiselect';
 	import {mapActions,mapGetters} from 'vuex'
+    import Loader from '../../Loader'
 	export default{
 		components: {
 	    	Multiselect,
+            Loader
 	  	},
 		data(){
 			return{
+                laoding: true,
 				form:{
 					name:'',
 					code:'',
@@ -134,7 +138,7 @@
 			},
 		},
 		async mounted(){
-
+            this.laoding = false
 		}
 	}
 </script>

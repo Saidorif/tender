@@ -1,10 +1,11 @@
 <template>
 	<div class="add_region">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-sign"></i>
-				    Добавить условный символ 
+				    Добавить условный символ
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/conditionalsign"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
@@ -13,13 +14,13 @@
 					<div class="row">
 					  <div class="form-group col-md-8">
 					    <label for="name">Название</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="name" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="name"
 					    	placeholder="Название"
 					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="col-md-4">
@@ -49,7 +50,7 @@
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
-						</button>	
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -58,22 +59,28 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
 		data(){
 			return{
 				form:{
 					name:'',
 					photo:''
-				},
+                },
+                laoding: true,
 				requiredInput:false
 			}
-		},
+        },
+        components:{
+            Loader
+        },
 		computed:{
 			...mapGetters('conditionalsign',['getMassage','getConditionalSign'])
 		},
 		async mounted(){
-			await this.actionEditConditionalSign(this.$route.params.conditionalsignId)
+            await this.actionEditConditionalSign(this.$route.params.conditionalsignId)
+            this.laoding = false
 			this.form = this.getConditionalSign
 		},
 		methods:{
@@ -123,8 +130,10 @@
 		    		let data ={
 		    			id:this.$route.params.conditionalsignId,
 		    			items:this.form
-		    		}
-					await this.actionUpdateConditionalSign(data)
+                    }
+                    this.laoding = true
+                    await this.actionUpdateConditionalSign(data)
+                    this.laoding = false
 					if (this.getMassage.success) {
 						toast.fire({
 					    	type: 'success',
@@ -142,5 +151,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

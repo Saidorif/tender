@@ -1,5 +1,6 @@
 <template>
   <div class="add_region">
+      <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <h4 class="title_user">
@@ -66,14 +67,17 @@
 <script>
 import DatePicker from "vue2-datepicker";
 import Multiselect from "vue-multiselect";
+import Loader from '../../Loader'
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     DatePicker,
     Multiselect,
+    Loader
   },
   data() {
     return {
+        laoding: true,
         form: {
             direction: "",
             price: "",
@@ -91,6 +95,7 @@ export default {
   },
   async mounted() {
     await this.actionEditTarifAnnounce(this.$route.params.tarifannounceId);
+    this.laoding = false
   },
   methods: {
     ...mapActions("confirmtarif", [
@@ -126,7 +131,9 @@ export default {
     },
     async rejectTarif(){
       if (this.rejectmsg != '' && this.rejectmsg != null){
+          this.laoding = true
         await this.actionRejectTarif({id:this.$route.params.tarifannounceId, message: this.rejectmsg })
+        this.laoding = false
         $('#exampleModal').modal('hide')
         if(this.getRejMassage.success){
           toast.fire({

@@ -1,10 +1,11 @@
 <template>
 	<div class="complaint">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-comment"></i>
-				    Список обращения 
+				    Список обращения
 				</h4>
 		  	</div>
 		  	<div class="card-body">
@@ -57,24 +58,28 @@
 	</div>
 </template>
 <script>
-	import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
-
+                laoding: true,
 			}
 		},
 		async mounted(){
 			let page = 1
 			await this.actionComplaintListAll({page:page})
-			console.log(this.getComplaintListAll)
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('complaint',['getComplaintListAll','getMassage'])
 		},
 		methods:{
 			...mapActions('complaint',['actionComplaintListAll']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionComplaintListAll(page)
 			},
 			getStatusText(text){
@@ -82,14 +87,14 @@
 					return 'Новая жалоба'
 				}else{
 					return 'Рассмотрено'
-				} 
+				}
 			},
 			getResultText(text){
 				if (text == 'active') {
 					return 'Не подтвержден'
 				}else if(text == 'completed'){
 					return 'Подтвержден'
-				} 
+				}
 			},
 			getResultClass(text){
 				if (text == 'active') {
@@ -123,5 +128,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

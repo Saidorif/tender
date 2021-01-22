@@ -1,5 +1,6 @@
 <template>
 	<div class="region">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -45,16 +46,20 @@
 </template>
 <script>
 	import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
-
+                laoding: true,
 			}
 		},
 		async mounted(){
 			let page = 1;
             await this.actionCheckContolsList(page)
-            console.log(this.getCheckContolsList)
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('checkcontrol', ['getCheckContolsList'])
