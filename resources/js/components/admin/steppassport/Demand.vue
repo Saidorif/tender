@@ -416,7 +416,9 @@ export default {
         id: this.$route.params.directionId,
         items: this.form,
       };
+      this.laoding = true
       await this.actionDemandSave(data);
+      this.laoding = false
       if (this.getMsg.success) {
         toast.fire({
           type: "success",

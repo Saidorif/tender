@@ -1,5 +1,6 @@
 <template>
 	<div class="employee">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header header_filter">
 		  		<div class="header_title">
@@ -132,16 +133,16 @@
 								</div>
 							</td>
 							<td>
-								<router-link 
-									tag="button" 
-									class="btn_transparent" 
+								<router-link
+									tag="button"
+									class="btn_transparent"
 									:to='`/crm/employee/edit/${item.id}`'
 									v-if="$can('edit', 'EmployeeController')"
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button 
-									class="btn_transparent" 
+								<button
+									class="btn_transparent"
 									@click="deleteEmployee(item.id)"
 									v-if="$can('destroy', 'EmployeeController')"
 								>
@@ -158,8 +159,12 @@
 	</div>
 </template>
 <script>
-	import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
 				filter:{
@@ -171,7 +176,8 @@
 					position_id:'',
 					role_id:'',
 				},
-				filterShow:false,
+                filterShow:false,
+                laoding: true,
 			}
 		},
 		async mounted(){
@@ -179,7 +185,8 @@
 			await this.actionEmployees({page:page,items:this.filter})
 			await this.actionRoleList();
 			await this.actionPositionList()
-			await this.actionRegionList();
+            await this.actionRegionList();
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('employee',['getEmployees']),
@@ -206,7 +213,9 @@
 			async search(){
 				let page = 1
 				if(this.filter.name || this.filter.region_id || this.filter.area_id || this.filter.position_id || this.filter.role_id){
-					await this.actionEmployees({page: page,items:this.filter})
+                    this.laoding = true
+                    await this.actionEmployees({page: page,items:this.filter})
+                    this.laoding = false
 				}
 			},
 			async clear(){
@@ -216,16 +225,20 @@
 					this.filter.area_id = ''
 					this.filter.position_id = ''
 					this.filter.role_id = ''
-					let page  = 1
-					await this.actionEmployees({page: page,items:this.filter})
+                    let page  = 1
+                    this.laoding = true
+                    await this.actionEmployees({page: page,items:this.filter})
+                    this.laoding = false
 				}
 
 			},
 			async deleteEmployee(id){
 				if(confirm("Вы действительно хотите удалить?")){
-					let page = 1
+                    let page = 1
+                    this.laoding = true
 					await this.actionDeleteEmployee(id)
-					await this.actionEmployees({page: page,items:this.filter})
+                    await this.actionEmployees({page: page,items:this.filter})
+                    this.laoding = false
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',

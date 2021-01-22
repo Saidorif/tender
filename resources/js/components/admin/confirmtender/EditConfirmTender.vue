@@ -325,6 +325,7 @@
 import DatePicker from "vue2-datepicker";
 import Multiselect from "vue-multiselect";
 import { mapGetters, mapActions } from "vuex";
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,

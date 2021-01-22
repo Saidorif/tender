@@ -1,10 +1,11 @@
 <template>
 	<div class="role">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon pe-7s-id"></i>
-				    Role 
+				    Role
 				</h4>
 				<router-link v-if="$can('store', 'RoleController')" class="btn btn-primary" to="/crm/role/add"><i class="fas fa-plus"></i> Add</router-link>
 		  	</div>
@@ -48,29 +49,36 @@
 	</div>
 </template>
 <script>
-	import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
-
+                laoding: true,
 			}
 		},
 		async mounted(){
-			await this.actionRoles()
+            await this.actionRoles()
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('role',['getRoles','getMassage'])
 		},
 		methods:{
 			...mapActions('role',['actionRoles','actionDeleteRole']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionRoles(page)
 			},
 			async deleteRole(id){
 				if(confirm("Вы действительно хотите удалить?")){
-					let page = 1
+                    let page = 1
+                    this.laoding = true
 					await this.actionDeleteRole(id)
-					await this.actionRoles(page)
+                    await this.actionRoles(page)
+                    this.laoding = false
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
@@ -82,5 +90,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>
