@@ -4,8 +4,8 @@ const DirectService = {
 	directFind(data){
 		return ApiService.post(`/api/direction/find`,data)
 	},
-	directs(){
-		return ApiService.post(`/api/direction`)
+	directs(data){
+		return ApiService.post(`/api/direction?page=${data.page}`,data.items)
 	},
 	addDirection(data){
 		return ApiService.post(`/api/direction/store`,data)

@@ -33,6 +33,7 @@
 			                      v-model="filter.region_id"
 			                    >
 			                      <option value="" selected disabled>Выберите регион!</option>
+			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
@@ -63,16 +64,23 @@
 			                      v-model="filter.type_id"
 			                    >
 			                      <option value="" selected disabled>Выберите тип авто!</option>
+			                      <option
+				                      :value="busType.id"
+				                      v-for="(busType,index) in getTypeofbusList"
+			                    	>{{busType.name}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="bustype_id">Сортировать по рентабельности!</label>
+				  				<label for="profitability">Сортировать по рентабельности!</label>
 			                    <select
-			                      id="bustype_id"	
+			                      id="profitability"	
 			                      class="form-control input_style"
-			                      v-model="filter.bustype_id"
+			                      v-model="filter.profitability"
 			                    >
 			                      <option value="" selected disabled>Выберите рентабельность!</option>
+			                      <option value="profitable">Рентабельный</option>
+					              <option value="unprofitable">Нерентабельный</option>
+					              <option value="middle">Средный</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
@@ -93,17 +101,19 @@
 			                      v-model="filter.dir_type"
 			                    >
 			                      <option value="" selected disabled>Выберите тип маршрута!</option>
+			                      <option value="bus">Автобус йуналиши</option>
+                      			  <option value="taxi">Йўналиши тахи йуналиши</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
 				  				<label for="year">Сортировать по дате открытия!</label>
-			                    <select
-			                      id="year"	
-			                      class="form-control input_style"
-			                      v-model="filter.year"
-			                    >
-			                      <option value="" selected disabled>Выберите дату!</option>
-			                    </select>
+				  				<date-picker
+					                lang="ru"
+					                type="year" format="YYYY" valueType="format"
+					                v-model="filter.year"
+					                placeholder="Выберите дату!"
+					                class="input_style"
+				              	></date-picker>
               				</div>
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
@@ -156,7 +166,7 @@
 							</td>
 						</tr>
 					</tbody>
-					<!-- <pagination :limit="4" :data="getDirections" @pagination-change-page="getResults"></pagination> -->
+					<pagination :limit="4" :data="getDirections" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
 		  </div>
@@ -164,11 +174,14 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+	import DatePicker from "vue2-datepicker";
+	import { mapGetters, mapActions } from "vuex";
+	import 'vue2-datepicker/index.css';
 	import Loader from '../../Loader'
 	export default{
 		components:{
-			Loader
+			Loader,
+			DatePicker,
 		},
 		data(){
 			return{
@@ -177,9 +190,7 @@
 					dir_type:'',
 					type_id:'',
 					profitability:'',
-					status:'',
 					year:'',
-					bustype_id:'',
 				},
 				filterShow:false,
 				laoding: true
@@ -187,14 +198,22 @@
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionDirections()
+			await this.actionDirections({page:page,items:this.filter})
+			await this.actionRegionList()
+			await this.actionTypeofbusList()
             this.laoding = false
 		},
 		computed:{
-			...mapGetters('direction',['getDirections','getMassage'])
+			...mapGetters('direction', ['getDirections','getMassage']),
+			...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
+			...mapGetters("region", ["getRegionList"]),
+			...mapGetters('typeofbus', ['getTypeofbusList']),
 		},
 		methods:{
 			...mapActions('direction',['actionDirections','actionDeleteDirection']),
+			...mapActions("region", ["actionRegionList"]),
+			...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
+			...mapActions('typeofbus',['actionTypeofbusList']),
 			async getResults(page = 1){
 				await this.actionDirections(page)
 			},
@@ -202,10 +221,29 @@
 				this.filterShow = !this.filterShow
 			},
 			async search(){
-				
+				let page = 1
+				if(this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != ''){
+					let data = {
+						page:page,
+						items:this.filter
+					}
+					this.laoding = true
+					await this.actionDirections(data)
+					this.laoding = false
+				}
 			},
 			async clear(){
-				
+				if(this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != ''){
+					this.filter.region_id = ''
+					this.filter.dir_type = ''
+					this.filter.type_id = ''
+					this.filter.year = ''
+					this.filter.profitability = ''
+                    let page  = 1
+                    this.laoding = true
+                    await this.actionDirections({page: page,items:this.filter})
+                    this.laoding = false
+				}
 
 			},
 			async deletePassport(id){
