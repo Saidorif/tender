@@ -25,7 +25,7 @@
 						<tbody>
 							<tr v-for="(model,index) in getBusmodels.data">
 								<td scope="row">{{model.id}}</td>
-								<td>{{model.marka.name}}</td>
+								<td>{{model.marka ? model.marka.name : ''}}</td>
 								<td>{{model.name}}</td>
 								<td>
 									<router-link
@@ -69,6 +69,7 @@
 			let page = 1;
             await this.actionBusmodels()
             this.laoding = false
+            console.log(this.getBusmodels)
 		},
 		computed:{
 			...mapGetters('busmodel',['getBusmodels','getMassage'])
