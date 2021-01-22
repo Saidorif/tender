@@ -1126,7 +1126,7 @@ router.beforeEach((to, from, next) => {
         query: { redirect: to.fullPath }
       })
     } else {
-    	if (TokenService.getCurrentUser().role.name != 'admin') {
+    	if (TokenService.getCurrentUser().role.name != 'admin'){
 		 	const checkPerm = to.matched.some(route => {
 			    return ability.can(route.meta.action, route.meta.subject)
 		  	})
