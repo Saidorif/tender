@@ -228,7 +228,7 @@
 			},
 			async search(){
 				let page = 1
-				if(this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != ''){
+				if(this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
 					let data = {
 						page:page,
 						items:this.filter
@@ -239,12 +239,13 @@
 				}
 			},
 			async clear(){
-				if(this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != ''){
+				if(this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
 					this.filter.region_id = ''
 					this.filter.dir_type = ''
 					this.filter.type_id = ''
 					this.filter.year = ''
 					this.filter.profitability = ''
+					this.filter.bustype_id = ''
                     let page  = 1
                     this.laoding = true
                     await this.actionDirections({page: page,items:this.filter})
