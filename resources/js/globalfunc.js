@@ -97,12 +97,13 @@ export const g = {
                 <div>секунд</div>
                 </div>
             </div>`;
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById(id).innerHTML = "<div class='btn btn-outline-info'>Завершено!</div>";
+            }
         }
-        // If the count down is finished, write some text
-        if (distance < 0) {
-          clearInterval(x);
-          document.getElementById(id).innerHTML = "<div class='btn btn-outline-info'>Завершено!</div>";
-        }
+
       }, 1000);
     }
 }

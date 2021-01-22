@@ -82,7 +82,7 @@
 	    		return this.requiredInput && input === '';
 		    },
 			async saveType(){
-		    	if (this.form.name != ''){
+		    	if (this.form.busbrand_id != '' && this.form.name != ''){
                     this.laoding = true
                     await this.actionAddBusmodel(this.form)
                     this.laoding = false

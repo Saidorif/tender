@@ -34,7 +34,7 @@
 						<tr v-for="(reg,index) in getApplications.data">
 							<td scope="row">{{reg.id}}</td>
 							<td>
-								<ul class="list-inline" v-if="reg.lots.direction_id.length > 0">
+								<ul class="list-inline" v-if="reg.lots && reg.lots.direction_id.length > 0">
 								    <li v-for="(val,key) in reg.lots.direction_id">
 								    	<b>{{val.name}}</b>
 								    </li>
@@ -46,8 +46,12 @@
 								</div>
 							</td>
 							<td width="15%">{{reg.cars_with.length}}</td>
-							<td>{{reg.lots.time}}</td>
-							<td :id="reg.id">{{$g.dateCounter(reg.lots.time,reg.id)}}</td>
+							<td>{{reg.lots ? reg.lots.time : ''}}</td>
+							<td :id="reg.id">
+                                <template  v-if="reg.lots" >
+                                    {{$g.dateCounter(reg.lots.time,reg.id)}}
+                                </template>
+                            </td>
 							<td>
 								<router-link
 									tag="button"
@@ -88,7 +92,7 @@
 		},
 		async mounted(){
 			let page = 1;
-            await this.actionApplications()
+            await this.actionApplications(page)
             this.laoding = false
 		},
 		computed:{
@@ -116,14 +120,14 @@
 			},
 			getStatusName(status){
 				if(status == 'active'){
-					return 'Активный!'
+					return 'Незавершен!'
 				}else if(status == 'accepted'){
 					return 'Завершен!'
 				}
 			},
 			getStatusClass(status){
 				if(status == 'active'){
-					return 'badge-success'
+					return 'badge-warning'
 				}else if(status == 'accepted'){
 					return 'badge-primary'
 				}
