@@ -22,7 +22,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(item,index) in getPassportList">
+						<!-- <tr v-for="(item,index) in getPassportList">
 							<td scope="row">{{item.id}}</td>
 							<td scope="row">{{item.name}}</td>
                             <td style="padding:0;">
@@ -59,7 +59,7 @@
                                     </li>
                                 </ul>
 							</td>
-						</tr>
+						</tr> -->
 					</tbody>
 					<!-- <pagination :limit="4" :data="getTitulAnnounces" @pagination-change-page="getResults"></pagination> -->
 				</table>
@@ -82,19 +82,19 @@
 		},
 		async mounted(){
             let page = 1;
-            await this.actionPortTitulList();
+            // await this.actionPortTitulList();
             this.laoding = false
 		},
 		computed:{
-			...mapGetters('titulannounce',['getPassportList', 'getMassage'])
+			// ...mapGetters('titulannounce',['getPassportList', 'getMassage'])
 		},
 		methods:{
-            ...mapActions('titulannounce',['actionPortTitulList', 'actionApprovePassportTitulList']),
+            // ...mapActions('titulannounce',['actionPortTitulList', 'actionApprovePassportTitulList']),
             async completedTender(id){
                 this.laoding = true
-                await this.actionApprovePassportTitulList({titul_id: id})
+                // await this.actionApprovePassportTitulList({titul_id: id})
                 if(this.getMassage.success){
-                    await this.actionPortTitulList();
+                    // await this.actionPortTitulList();
                     toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
