@@ -57,11 +57,11 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="type_id">Сортировать по типу авто!</label>
+				  				<label for="bustype_id">Сортировать по типу авто!</label>
 			                    <select
-			                      id="type_id"	
+			                      id="bustype_id"	
 			                      class="form-control input_style"
-			                      v-model="filter.type_id"
+			                      v-model="filter.bustype_id"
 			                    >
 			                      <option value="" selected disabled>Выберите тип авто!</option>
 			                      <option
@@ -84,13 +84,17 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="bustype_id">Сортировать по локацию маршрута!</label>
+				  				<label for="type_id">Сортировать по локацию маршрута!</label>
 			                    <select
-			                      id="bustype_id"	
+			                      id="type_id"	
 			                      class="form-control input_style"
-			                      v-model="filter.bustype_id"
+			                      v-model="filter.type_id"
 			                    >
 			                      <option value="" selected disabled>Выберите локацию маршрута!</option>
+			                      <option
+					                  :value="item.id"
+					                  v-for="(item,index) in getTypeofdirectionList"
+				                  >{{item.name }} {{item.type}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
@@ -188,6 +192,7 @@
 				filter:{
 					region_id:'',
 					dir_type:'',
+					bustype_id:'',
 					type_id:'',
 					profitability:'',
 					year:'',
@@ -201,6 +206,7 @@
 			await this.actionDirections({page:page,items:this.filter})
 			await this.actionRegionList()
 			await this.actionTypeofbusList()
+			await this.actionTypeofdirectionList()
             this.laoding = false
 		},
 		computed:{
