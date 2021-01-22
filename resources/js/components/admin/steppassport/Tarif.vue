@@ -239,8 +239,10 @@ import Loader from '../../Loader'
 						id:this.$route.params.directionId,
 						summa:this.confirm.summa,
 						summa_bagaj:this.confirm.summa_bagaj,
-					}
-					await this.actionTarifConfirm(data)
+                    }
+                    this.laoding = true
+                    await this.actionTarifConfirm(data)
+                    this.laoding = false
 					if (this.getMsg.success){
 			          	await this.actionTarif(this.$route.params.directionId);
 						toast.fire({

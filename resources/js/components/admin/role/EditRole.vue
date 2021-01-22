@@ -1,5 +1,6 @@
 <template>
 	<div class="edit_role">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -13,31 +14,31 @@
 					<div class="row">
 					  <div class="form-group col-md-9">
 					    <label for="roleName">Role Name</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="roleName" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="roleName"
 					    	placeholder="Role Name"
 					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					 <div class="form-group col-md-9">
 					    <label for="roleName">Label</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="roleName" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="roleName"
 					    	placeholder="Label"
 					    	v-model="form.label"
-					    	:class="isRequired(form.label) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.label) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-lg-3 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
-						</button>	
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -46,14 +47,19 @@
 	</div>
 </template>
 <script>
-	import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
 				form:{
 					name:'',
 					label:''
-				},
+                },
+                laoding: true,
 				requiredInput:false
 			}
 		},
@@ -62,7 +68,8 @@
 		},
 		async mounted(){
 			await this.actionEditRole({id:this.$route.params.roleId})
-			this.form = this.getRole
+            this.form = this.getRole
+            this.laoding = false
 		},
 		methods:{
 			...mapActions('role',['actionEditRole','actionUpdateRole']),
@@ -71,7 +78,9 @@
 		    },
 		    async saveRole(){
 		    	if (this.form.name != '' && this.form.name != null){
-					await this.actionUpdateRole(this.form)
+                    this.laoding = true
+                    await this.actionUpdateRole(this.form)
+                    this.laoding = false
 					if (this.getMassage.success) {
 						toast.fire({
 					    	type: 'success',
@@ -89,5 +98,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

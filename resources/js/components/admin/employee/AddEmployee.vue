@@ -1,5 +1,6 @@
 <template>
   <div class="add_employee">
+      <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <h3 class="card-title title_user mb-0">
@@ -172,9 +173,11 @@
 <script>
 import DatePicker from "vue2-datepicker";
 import { mapActions, mapGetters } from "vuex";
+import Loader from '../../Loader'
 export default {
   components: {
-    DatePicker
+    DatePicker,
+    Loader
   },
   data() {
     return {
@@ -194,6 +197,7 @@ export default {
       fileFormat: "нет-файла",
       requiredInput: false,
       checkPassword: false,
+      laoding: true,
       emailError: false
     };
   },
@@ -201,6 +205,7 @@ export default {
     await this.actionRoleList();
     await this.actionPositionList();
     await this.actionRegionList();
+    this.laoding = false
   },
   computed: {
     ...mapGetters("employee", ["getMassage"]),
@@ -277,7 +282,9 @@ export default {
         this.form.role_id !='' &&
         this.checkPassword == false
       ) {
+          this.laoding = true
         await this.actionAddEmployee(this.form);
+        this.laoding = false
         if (this.getMassage.success) {
           this.$router.push("/crm/employee");
           this.requiredInput = false;
@@ -292,7 +299,9 @@ export default {
       }
     },
     async checkEmailInput() {
+        this.laoding = true
       await this.actionCheckEmail({ email: this.form.email });
+      this.laoding = false
       if (
         this.getMassage.error &&
         this.getMassage.message.email == "Почта уже занята."

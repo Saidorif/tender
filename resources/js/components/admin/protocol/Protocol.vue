@@ -1,5 +1,6 @@
 <template>
   <div class="cv_block">
+      <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <button
@@ -133,16 +134,18 @@
 <script>
 import DatePicker from "vue2-datepicker";
 import { mapActions, mapGetters } from "vuex";
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
+    Loader
   },
   data() {
-    return {};
+    return {laoding: true,};
   },
   async mounted() {
     await this.actionProtocol(this.$route.params.tenderId);
-    console.log(this.getProtocol)
+    this.laoding = false
   },
   computed: {
     ...mapGetters("protocol", ["getProtocol"]),
