@@ -1,5 +1,6 @@
 <template>
 	<div class="add_cont">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -12,11 +13,11 @@
 	  			<div class="row">
 			  		<div class="form-group col-md-4">
 					    <label for="name">Направление</label>
-					    <multiselect 
+					    <multiselect
 			                :value="filter.name"
 			                :options="getDirectionFindList"
 			                @search-change="value => filterVariantList(value)"
-			                v-model="filter.name" 
+			                v-model="filter.name"
 			                placeholder="Найдите направление!"
 			                :searchable="true"
 			                track-by="id"
@@ -35,10 +36,10 @@
 				  	</div>
 				  	<div class="form-group col-md-4">
 					    <label for="status">Резултат</label>
-					    <select 
-					    	class="form-control input_style" 
-					    	v-model="form.status" 
-					    	:class="isRequired(form.status) ? 'isRequired' : ''"  
+					    <select
+					    	class="form-control input_style"
+					    	v-model="form.status"
+					    	:class="isRequired(form.status) ? 'isRequired' : ''"
 				    	>
 					    	<option value="" selected disabled>Выберите резултат!</option>
 					    	<option value="active">Не подтвержден</option>
@@ -57,10 +58,10 @@
 			                />
 		              	</div>
 		              	<div class="d-flex justify-content-end">
-					     	<a 
-					     		:href="getComplaintEditListAll.comment_file" 
-					     		title="Скачать" 
-					     		class="donwload_text" 
+					     	<a
+					     		:href="getComplaintEditListAll.comment_file"
+					     		title="Скачать"
+					     		class="donwload_text"
 					     		download
 					     		v-if="getComplaintEditListAll.comment_file"
 				     		>
@@ -71,9 +72,9 @@
 			  		<div class="form-group col-md-12">
 			  			<label for="file">Комментарий</label>
 					    <div class="input-group">
-			                <textarea 
-			                    v-model="form.comment" 
-			                    class="form-control" 
+			                <textarea
+			                    v-model="form.comment"
+			                    class="form-control"
 			                    placeholder="Текст"
 			                    :disabled="btnShow"
 			                    :class="isRequired(form.comment) ? 'isRequired' : ''"
@@ -87,37 +88,37 @@
 					    <label for="fio">Ф.И.О</label>
 					    <div class="input_style input_text form-control">
 					     	{{getComplaintEditListAll.surname}}{{getComplaintEditListAll.name}}{{getComplaintEditListAll.middlename}}
-				     	</div> 
+				     	</div>
 					  </div>
 					  <div class="form-group col-md-6">
 					    <label for="phone">Телефон</label>
 					    <div class="input_style input_text form-control">
 					     	{{getComplaintEditListAll.phone}}
-				     	</div> 
+				     	</div>
 					  </div>
 					  <div class="form-group col-md-6">
 					    <label for="text">Сообщение</label>
 					    <div class="input_style input_text form-control">
 					     	{{getComplaintEditListAll.text}}
-				     	</div> 
+				     	</div>
 					  </div>
 					  <div class="form-group col-md-6">
 					    <label for="file">Файл</label>
 				     	<a :href="getComplaintEditListAll.file" title="Скачать" class="donwload_text" download>
 						    <div class="input_style input_text form-control">
 						     	Посмотреть <i class="fas fa-eye"></i>
-					     	</div> 
+					     	</div>
 				     	</a>
 					  </div>
 					  <div class="form-group col-lg-12 d-flex justify-content-end">
 					  	<button type="submit" class="btn btn-primary btn_save_category" @click.prevent="connectComplt" v-if="btnShow">
 					  		<i class="far fa-plus-square"></i>
-						  	Прикрепить 
-						</button>	
+						  	Прикрепить
+						</button>
 					  	<button type="submit" class="btn btn-primary btn_save_category" @click.prevent="saveComplt" v-else>
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
-						</button>	
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -127,10 +128,12 @@
 </template>
 <script>
 	import Multiselect from 'vue-multiselect';
-	import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import Loader from '../../Loader'
 	export default{
 		components: {
-		    Multiselect,
+            Multiselect,
+            Loader
 	  	},
 		data(){
 			return{
@@ -145,7 +148,8 @@
 					name:'',
 				},
 				requiredInput:false,
-				isLoading:false,
+                isLoading:false,
+                laoding: true,
 				btnShow:true
 			}
 		},
@@ -154,7 +158,8 @@
 			...mapGetters('complaint',['getMassage','getComplaintEditListAll'])
 		},
 		async mounted(){
-			await this.actionComplaintEditListAll(this.$route.params.complaintListAllId)
+            await this.actionComplaintEditListAll(this.$route.params.complaintListAllId)
+            this.laoding = false
 			if(this.getComplaintEditListAll.status == 'active'){
 				this.form = this.getComplaintEditListAll
 				this.filter.name = this.getComplaintEditListAll.direction
@@ -204,8 +209,10 @@
 			        let data = {
 			        	items:formData,
 			        	id:this.$route.params.complaintListAllId
-			        }
-					await this.actionComplaintUpdateListAll(data)
+                    }
+                    this.laoding = true
+                    await this.actionComplaintUpdateListAll(data)
+                    this.laoding = false
 					this.$router.push("/crm/complaint-list");
 					this.requiredInput =false
 					toast.fire({

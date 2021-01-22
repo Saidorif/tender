@@ -1,5 +1,6 @@
 <template>
 	<div class="application">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -7,11 +8,11 @@
 				    Заявки
 				</h4>
 	<!-- 			<button type="button" class="btn btn-primary" @click.prevent="getEditId">
-					<i class="fas fa-plus"></i> 
+					<i class="fas fa-plus"></i>
 					Добавить
 				</button> -->
 		<!-- 		<router-link class="btn btn-primary" to="/crm/application/add">
-					<i class="fas fa-plus"></i> 
+					<i class="fas fa-plus"></i>
 					Добавить
 				</router-link> -->
 		  	</div>
@@ -48,16 +49,16 @@
 							<td>{{reg.lots.time}}</td>
 							<td :id="reg.id">{{$g.dateCounter(reg.lots.time,reg.id)}}</td>
 							<td>
-								<router-link 
-									tag="button" 
-									class="btn_transparent" 
+								<router-link
+									tag="button"
+									class="btn_transparent"
 									:to='`/crm/application/user/${reg.id}`'
 									v-if="$can('index', 'ApplicationController')"
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button 
-									class="btn_transparent" 
+								<button
+									class="btn_transparent"
 									@click="deleteRegion(reg.id)"
 									v-if="$can('destroy', 'ApplicationController')"
 								>
@@ -74,16 +75,21 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
-
+                laoding: true
 			}
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionApplications()
+            await this.actionApplications()
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('application',[
@@ -99,7 +105,7 @@
 				'actionDeleteApplication',
 				'actionAddApplication',
 			]),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionApplications(page)
 			},
 			async getEditId(){
@@ -138,5 +144,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

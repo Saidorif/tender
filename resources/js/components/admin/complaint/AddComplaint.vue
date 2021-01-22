@@ -1,5 +1,6 @@
 <template>
 	<div class="add_cont">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -13,20 +14,20 @@
 					<div class="row">
 					  <div class="form-group col-md-9">
 					    <label for="name">Заголовок</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="name" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="name"
 					    	placeholder="Заголовок"
 					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-lg-3 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
-						</button>	
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -35,10 +36,15 @@
 	</div>
 </template>
 <script>
-	import {mapActions, mapGetters} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
+                laoding: true,
 				form:{
 					name:'',
 				},
@@ -47,6 +53,9 @@
 		},
 		computed:{
 			...mapGetters('complaint',['getMassage'])
+        },
+        async mounted(){
+			this.laoding = false
 		},
 		methods:{
 			...mapActions('complaint',['actionAddComplaint']),
@@ -55,7 +64,9 @@
 		    },
 		    async saveComplt(){
 		    	if (this.form.name != ''){
-					await this.actionAddComplaint(this.form)
+                    this.laoding = true
+                    await this.actionAddComplaint(this.form)
+                    this.laoding = false
 					if (this.getMassage.success) {
 						toast.fire({
 					    	type: 'success',
@@ -79,5 +90,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

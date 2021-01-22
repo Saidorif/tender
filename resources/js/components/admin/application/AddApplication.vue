@@ -1,5 +1,6 @@
 <template>
 	<div class="add_region">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -346,14 +347,17 @@
 	</div>
 </template>
 <script>
+	import Loader from '../../Loader'
 	import { mapGetters , mapActions } from 'vuex'
 	import Multiselect from 'vue-multiselect';
 	export default{
 		components:{
-			Multiselect
+            Multiselect,
+            Loader
 		},
 		data(){
 			return{
+                laoding: true,
 				form:{
 					cars:[
 						{
@@ -402,7 +406,8 @@
 		},
 		async mounted(){
 			await this.actionTypeofbusList()
-			await this.actionBusmodelList()
+            await this.actionBusmodelList()
+            this.laoding = false
 		},
 		methods:{
 			...mapActions('application',['actionAddApplication']),

@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-sign"></i>
-				    Добавить условный символ 
+				    Добавить условный символ
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/conditionalsign"><span class="peIcon pe-7s-back"></span> Назад</router-link>
 		  	</div>
@@ -14,13 +14,13 @@
 					<div class="row">
 					  <div class="form-group col-md-8">
 					    <label for="name">Название</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="name" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="name"
 					    	placeholder="Название"
 					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="col-md-4">
@@ -50,7 +50,7 @@
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
-						</button>	
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -125,7 +125,9 @@
 		    },
 			async saveSign(){
 		    	if (this.form.name != ''){
-					await this.actionAddConditionalSign(this.form)
+                    this.laoding = true
+                    await this.actionAddConditionalSign(this.form)
+                    this.laoding = false
 					if (this.getMassage.success) {
 						toast.fire({
 					    	type: 'success',
@@ -143,5 +145,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

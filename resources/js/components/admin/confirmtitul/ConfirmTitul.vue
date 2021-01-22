@@ -1,5 +1,6 @@
 <template>
 	<div class="region">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -50,7 +51,7 @@
 							<td style="padding:0;">
                                 <ul class="table_item_list">
                                     <li v-for="(ch_item,ch_index) in item.tituls" >
-                                        <button type="button" class="btn" :class="ch_item.status == 'approved' ? 'btn-success' : 'fas btn-warning'" style="padding: 2px 9px;" 
+                                        <button type="button" class="btn" :class="ch_item.status == 'approved' ? 'btn-success' : 'fas btn-warning'" style="padding: 2px 9px;"
                                         	@click="completedTender(ch_item.id)"
                                     	>
                                             <i :class="ch_item.status == 'approved' ? 'far fa-check-circle' : 'fas fa-times'"></i>
@@ -68,17 +69,21 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
-
+                laoding: true,
 			}
 		},
 		async mounted(){
             let page = 1;
             await this.actionPortTitulList();
-            console.log(this.getPassportList)
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('titulannounce',['getPassportList', 'getMassage'])
@@ -86,6 +91,7 @@
 		methods:{
             ...mapActions('titulannounce',['actionPortTitulList', 'actionApprovePassportTitulList']),
             async completedTender(id){
+                this.laoding = true
                 await this.actionApprovePassportTitulList({titul_id: id})
                 if(this.getMassage.success){
                     await this.actionPortTitulList();
@@ -95,6 +101,7 @@
 						title: 'Тендер тариф подтверждена!',
 				    })
                 }
+                this.laoding = false
             },
 			// async getResults(page = 1){
 			// 	await this.actionTitulAnnounces(page)

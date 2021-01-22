@@ -109,19 +109,6 @@
                 <small class="redText" v-if="emailError">Email почта занят!</small>
               </div>
               <div class="form-group col-md-6">
-                <label for="position_date">Дата приказа</label>
-                <date-picker 
-                  id="position_date"
-                  lang="ru" 
-                  type="date"
-                  placeholder="Дата приказа"
-                  v-model="form.position_date" 
-                  valueType="format" 
-                  class="input_style"
-                  :class="isRequired(form.position_date) ? 'isRequired' : ''"
-                ></date-picker>
-              </div>
-              <div class="form-group col-md-6">
                 <label for="exampleInputPassword1">Пароль</label>
                 <input
                   type="password"
@@ -200,7 +187,6 @@ export default {
         confirm_password: "",
         role_id: "",
         region_id: "",
-        position_date: "",
         position_id: "",
         phone: "",
         image: "",
@@ -288,7 +274,6 @@ export default {
         this.form.confirm_password !='' &&
         this.form.region_id !='' &&
         this.form.position_id !='' &&
-        this.form.position_date !='' &&
         this.form.role_id !='' &&
         this.checkPassword == false
       ) {

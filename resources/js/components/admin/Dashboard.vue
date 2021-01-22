@@ -53,3 +53,13 @@
 		}
 	}
 </script>
+
+
+<Loader v-if="laoding"/>
+import Loader from '../../Loader'
+components:{
+	Loader
+},
+laoding: true,
+this.laoding = false
+

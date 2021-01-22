@@ -1,5 +1,6 @@
 <template>
   <div class="add_region">
+      <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <h4 class="title_user">
@@ -67,10 +68,12 @@
 import DatePicker from "vue2-datepicker";
 import Multiselect from "vue-multiselect";
 import { mapGetters, mapActions } from "vuex";
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
     Multiselect,
+    Loader
   },
   data() {
     return {
@@ -83,6 +86,7 @@ export default {
       	fromName: "",
       	toName: "",
         rejectmsg: '',
+        laoding: true,
     };
   },
   computed: {
@@ -91,6 +95,7 @@ export default {
   },
   async mounted() {
     await this.actionEditTarifAnnounce(this.$route.params.tarifannounceId);
+    this.laoding = false
   },
   methods: {
     ...mapActions("confirmtarif", [
@@ -114,7 +119,9 @@ export default {
       return this.requiredInput && input === "";
     },
     async completedTender(){
+        this.laoding = true
       await this.actionCompletedTarif(this.$route.params.tarifannounceId);
+      this.laoding = false
       if(this.getRejMassage.success){
         toast.fire({
 				  type: "success",
@@ -126,7 +133,9 @@ export default {
     },
     async rejectTarif(){
       if (this.rejectmsg != '' && this.rejectmsg != null){
+          this.laoding = true
         await this.actionRejectTarif({id:this.$route.params.tarifannounceId, message: this.rejectmsg })
+        this.laoding = false
         $('#exampleModal').modal('hide')
         if(this.getRejMassage.success){
           toast.fire({

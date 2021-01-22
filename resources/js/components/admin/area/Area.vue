@@ -1,10 +1,11 @@
 <template>
 	<div class="area">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon pe-7s-box1"></i>
-				    Area 
+				    Area
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/area/add"><i class="fas fa-plus"></i> Добавить</router-link>
 		  	</div>
@@ -25,16 +26,16 @@
 							<td>{{area.name}}</td>
 							<td>{{area.region.name}}</td>
 							<td>
-								<router-link 
-									tag="button" 
-									class="btn_transparent" 
+								<router-link
+									tag="button"
+									class="btn_transparent"
 									:to='`/crm/area/edit/${area.id}`'
 									v-if="$can('edit', 'AreaController')"
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button 
-									class="btn_transparent" 
+								<button
+									class="btn_transparent"
 									@click="deleteArea(area.id)"
 									v-if="$can('destroy', 'AreaController')"
 								>
@@ -51,23 +52,28 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
-
+                laoding: true,
 			}
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionAreas(page)
+            await this.actionAreas(page)
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('area',['getAreas','getMassage'])
 		},
 		methods:{
 			...mapActions('area',['actionAreas','actionDeleteArea']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionAreas(page)
 			},
 			async deleteArea(id){
@@ -86,5 +92,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

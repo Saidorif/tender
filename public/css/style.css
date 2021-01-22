@@ -1818,3 +1818,57 @@ hr {
   margin-left: auto;
 }
 
+@media (max-width: 1400px) {
+  .main_header .menu_list li a {
+    margin-right: 20px;
+  }
+
+  .header_banner .right_item img {
+    width: 100%;
+  }
+
+  .header_banner .left_item {
+    width: 50%;
+  }
+}
+
+@media (max-width: 1250px) {
+  .main_header .logo {
+    width: 260px;
+  }
+
+  .btn_login {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .main_header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header_banner .right_item,
+  .main_header .menu_list {
+    display: none;
+  }
+
+  .header_banner .left_item {
+    width: 100%;
+    text-align: center;
+  }
+
+  .header_banner .container {
+    flex-direction: column;
+  }
+
+  .header_banner {
+    background-color: #fafafa;
+    padding: 140px 0px 140px 0px;
+    background-size: contain;
+    height: auto;
+  }
+}
+

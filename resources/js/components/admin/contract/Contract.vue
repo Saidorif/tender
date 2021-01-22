@@ -1,5 +1,6 @@
 <template>
   <div class="cv_block">
+      <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <button
@@ -316,16 +317,19 @@
 </template>
 <script>
 import DatePicker from "vue2-datepicker";
+import Loader from '../../Loader'
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
     DatePicker,
+    Loader
   },
   data() {
-    return {};
+    return {laoding: true,};
   },
   async mounted() {
     // await this.actionEditEmployee({ id: this.$route.params.workerId });
+    this.laoding = false
   },
   computed: {
     // ...mapGetters("worker", ["getEmployee"]),

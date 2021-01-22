@@ -1,5 +1,6 @@
 <template>
   <div class="add_region">
+      <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <h4 class="title_user">
@@ -28,7 +29,7 @@
                 <button
                   class="text-left"
                   type="button"
-                  :id="'headingOne'+car_index"   
+                  :id="'headingOne'+car_index"
                   data-toggle="collapse"
                   data-target="#collapseOne"
                   aria-expanded="true"
@@ -82,7 +83,7 @@
                         <td>
                           <div class="badge" :class="getStatusClass(car_items.status)">
                             {{getStatusName(car_items.status)}}
-                          </div> 
+                          </div>
                         </td>
                         <td>{{car_items.bustype ? car_items.bustype.name : ''}}</td>
                         <td width="5%">{{car_items.tclass ? car_items.tclass.name : ''}}</td>
@@ -181,12 +182,12 @@
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)"> 
+                    <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
                   </div>
-                </div>  
+                </div>
               </div>
             </div>
           </div>
@@ -200,14 +201,17 @@
 import DatePicker from "vue2-datepicker";
 import Multiselect from "vue-multiselect";
 import { mapGetters, mapActions } from "vuex";
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
     Multiselect,
+    Loader
   },
   data() {
     return {
       cars:[],
+      laoding: true,
       company_name:''
     };
   },
@@ -227,10 +231,12 @@ export default {
   },
   async mounted() {
     await this.actionAppCars(this.$route.params.appId);
+    this.laoding = false
   },
   methods: {
     ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage','actionCloseLot']),
     async completeLot(){
+        this.laoding = true
       await this.actionCloseLot(this.$route.params.appId)
       if (this.getStatusMessage.success) {
         await this.actionAppCars(this.$route.params.appId);
@@ -240,6 +246,7 @@ export default {
           title: this.getStatusMessage.message
         });
       }
+      this.laoding = false
     },
     async denyCar(id){
       if(confirm("Вы действительно хотите отказаться?")){
@@ -248,6 +255,7 @@ export default {
           car_id:id,
           status:'rejected',
         }
+        this.laoding = true
         await this.actionStatusMessage(data)
         if (this.getStatusMessage.success) {
           await this.actionAppCars(this.$route.params.appId);
@@ -257,6 +265,7 @@ export default {
             title: this.getStatusMessage.message
           });
         }
+        this.laoding = false
       }
     },
     async activeCar(id){
@@ -266,6 +275,7 @@ export default {
           car_id:id,
           status:'accepted',
         }
+        this.laoding = true
         await this.actionStatusMessage(data)
         if (this.getStatusMessage.success) {
           await this.actionAppCars(this.$route.params.appId);
@@ -275,6 +285,7 @@ export default {
             title: this.getStatusMessage.message
           });
         }
+        this.laoding = false
       }
     },
     checkBox(check){

@@ -1,5 +1,6 @@
 <template>
   <div class="add_region">
+      <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <h4 class="title_user">
@@ -328,6 +329,7 @@ export default {
   components: {
     DatePicker,
     Multiselect,
+    Loader
   },
   data() {
     return {
@@ -358,6 +360,7 @@ export default {
         tenderlots:[],
         lots: [],
         rejectmsg: '',
+        laoding: true,
     };
   },
   computed: {
@@ -368,6 +371,7 @@ export default {
   },
   async mounted() {
     await this.actionEditTenderAnnounce(this.$route.params.tenderannounceId);
+    this.laoding = false
     this.form.time = this.getTenderAnnounce.time;
     this.form.address = this.getTenderAnnounce.address;
     this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
@@ -402,6 +406,7 @@ export default {
         direction_id: directions.id,
         reys_id,
       };
+      this.laoding = true
       await this.actionDeleteTenderAnnounceItem(data);
       if (this.getMassage.success) {
         await this.actionEditTenderAnnounce(
@@ -413,6 +418,8 @@ export default {
           title: this.getMassage.message,
         });
       }
+      this.laoding = false
+
     },
 	activeEditClass(item){
 		if (item.status == 'active') {
@@ -485,7 +492,9 @@ export default {
       return this.requiredInput && input === "";
     },
     async completedTender(){
+      this.laoding = true
       await this.actionCompletedTender(this.$route.params.tenderannounceId);
+            this.laoding = false
       if(this.getRejMassage.success){
         toast.fire({
 				  type: "success",
@@ -497,7 +506,9 @@ export default {
     },
     async rejectTender(){
       if (this.rejectmsg != '' && this.rejectmsg != null){
+                this.laoding = true
         await this.actionRejectTender({id:this.$route.params.tenderannounceId, message: this.rejectmsg })
+              this.laoding = false
         $('#exampleModal').modal('hide')
         if(this.getRejMassage.success){
           toast.fire({

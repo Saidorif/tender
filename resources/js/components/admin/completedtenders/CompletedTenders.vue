@@ -1,5 +1,6 @@
 <template>
 	<div class="region">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -32,9 +33,9 @@
 								<td width="20%">{{item.tenderapps_count}}</td>
 								<td width="20%">{{item.tenderlots_count}}</td>
 								<td>
-									<router-link 
-										tag="button" 
-										class="btn_transparent" 
+									<router-link
+										tag="button"
+										class="btn_transparent"
 										:to='`/crm/completed-tenders/show/${item.id}`'
 										v-if="$can('completedTenders', 'TenderController')"
 									>
@@ -51,16 +52,21 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
-
+                laoding: true,
 			}
 		},
 		async mounted(){
 			let page = 1;
             await this.actionCompletedTendersList(page)
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('completedtender',['getTendersList','getMassage'])
@@ -90,9 +96,11 @@
 			},
 			async deleteRegion(id){
 				if(confirm("Вы действительно хотите удалить?")){
-					let page = 1
+                    let page = 1
+                    this.laoding = true
 					await this.actionDeleteTenderAnnounce(id)
-					await this.actionTenderAnnounces(page)
+                    await this.actionTenderAnnounces(page)
+                    this.laoding = false
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',

@@ -1,5 +1,6 @@
 <template>
   <div class="add_region">
+      <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <h4 class="title_user">
@@ -83,13 +84,16 @@
 import DatePicker from "vue2-datepicker";
 import Multiselect from "vue-multiselect";
 import { mapGetters, mapActions } from "vuex";
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
     Multiselect,
+    Loader
   },
   data() {
     return {
+        laoding: true,
     };
   },
   computed: {
@@ -97,7 +101,7 @@ export default {
   },
   async mounted() {
     await this.actionCompletedTendersShow(this.$route.params.tenderId);
-    console.log(this.getTender)
+    this.laoding = false
   },
   methods: {
     ...mapActions("completedtender", [
