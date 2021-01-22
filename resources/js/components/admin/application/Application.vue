@@ -120,14 +120,14 @@
 			},
 			getStatusName(status){
 				if(status == 'active'){
-					return 'Активный!'
+					return 'Незавершен!'
 				}else if(status == 'accepted'){
 					return 'Завершен!'
 				}
 			},
 			getStatusClass(status){
 				if(status == 'active'){
-					return 'badge-success'
+					return 'badge-warning'
 				}else if(status == 'accepted'){
 					return 'badge-primary'
 				}
