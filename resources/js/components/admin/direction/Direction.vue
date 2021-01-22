@@ -32,7 +32,7 @@
 			                      class="form-control input_style"
 			                      v-model="filter.region_id"
 			                    >
-			                      <option value="" selected disabled>Выберите регион!</option>
+			                      <option value="" selected >Выберите регион!</option>
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
@@ -43,7 +43,7 @@
 			                      class="form-control input_style"
 			                      v-model="filter.status"
 			                    >
-			                      <option value="" selected disabled>Выберите статус закрепления!</option>
+			                      <option value="" selected >Выберите статус закрепления!</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
@@ -53,17 +53,17 @@
 			                      class="form-control input_style"
 			                      v-model="filter.status"
 			                    >
-			                      <option value="" selected disabled>Выберите статус размещения!</option>
+			                      <option value="" selected >Выберите статус размещения!</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="type_id">Сортировать по типу авто!</label>
+				  				<label for="bustype_id">Сортировать по типу авто!</label>
 			                    <select
-			                      id="type_id"	
+			                      id="bustype_id"	
 			                      class="form-control input_style"
-			                      v-model="filter.type_id"
+			                      v-model="filter.bustype_id"
 			                    >
-			                      <option value="" selected disabled>Выберите тип авто!</option>
+			                      <option value="" selected >Выберите тип авто!</option>
 			                      <option
 				                      :value="busType.id"
 				                      v-for="(busType,index) in getTypeofbusList"
@@ -77,20 +77,24 @@
 			                      class="form-control input_style"
 			                      v-model="filter.profitability"
 			                    >
-			                      <option value="" selected disabled>Выберите рентабельность!</option>
+			                      <option value="" selected >Выберите рентабельность!</option>
 			                      <option value="profitable">Рентабельный</option>
 					              <option value="unprofitable">Нерентабельный</option>
 					              <option value="middle">Средный</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="bustype_id">Сортировать по локацию маршрута!</label>
+				  				<label for="type_id">Сортировать по локацию маршрута!</label>
 			                    <select
-			                      id="bustype_id"	
+			                      id="type_id"	
 			                      class="form-control input_style"
-			                      v-model="filter.bustype_id"
+			                      v-model="filter.type_id"
 			                    >
-			                      <option value="" selected disabled>Выберите локацию маршрута!</option>
+			                      <option value="" selected >Выберите локацию маршрута!</option>
+			                      <option
+					                  :value="item.id"
+					                  v-for="(item,index) in getTypeofdirectionList"
+				                  >{{item.name }} {{item.type}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
@@ -100,7 +104,7 @@
 			                      class="form-control input_style"
 			                      v-model="filter.dir_type"
 			                    >
-			                      <option value="" selected disabled>Выберите тип маршрута!</option>
+			                      <option value="" selected >Выберите тип маршрута!</option>
 			                      <option value="bus">Автобус йуналиши</option>
                       			  <option value="taxi">Йўналиши тахи йуналиши</option>
 			                    </select>
@@ -188,6 +192,7 @@
 				filter:{
 					region_id:'',
 					dir_type:'',
+					bustype_id:'',
 					type_id:'',
 					profitability:'',
 					year:'',
@@ -201,6 +206,7 @@
 			await this.actionDirections({page:page,items:this.filter})
 			await this.actionRegionList()
 			await this.actionTypeofbusList()
+			await this.actionTypeofdirectionList()
             this.laoding = false
 		},
 		computed:{
@@ -222,7 +228,7 @@
 			},
 			async search(){
 				let page = 1
-				if(this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != ''){
+				if(this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
 					let data = {
 						page:page,
 						items:this.filter
@@ -233,12 +239,13 @@
 				}
 			},
 			async clear(){
-				if(this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != ''){
+				if(this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
 					this.filter.region_id = ''
 					this.filter.dir_type = ''
 					this.filter.type_id = ''
 					this.filter.year = ''
 					this.filter.profitability = ''
+					this.filter.bustype_id = ''
                     let page  = 1
                     this.laoding = true
                     await this.actionDirections({page: page,items:this.filter})
