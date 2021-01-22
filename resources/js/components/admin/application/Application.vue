@@ -88,7 +88,7 @@
 		},
 		async mounted(){
 			let page = 1;
-            await this.actionApplications()
+            await this.actionApplications(page)
             this.laoding = false
 		},
 		computed:{
