@@ -292,7 +292,6 @@ export default {
       }
     },
     async sendEmployee(){
-      console.log(this.form)
       if (
         this.form.middlename &&
         this.form.surname  &&
