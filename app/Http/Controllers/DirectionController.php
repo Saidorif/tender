@@ -22,10 +22,34 @@ class DirectionController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        $inputs = $request->all();
+        $builder = Direction::query();
+        //по региону!
+        if(!empty($inputs['region_id'])){
+            $builder->where(['region_from_id' => $inputs['region_id'],'region_to_id' => $inputs['region_id']]);
+        }
+        //по типу маршрута! bus or taxi
+        if(!empty($inputs['dir_type'])){
+            $builder->where(['dir_type' => $inputs['dir_type']]);
+        }
+        //по типу авто
+        if(!empty($inputs['type_id'])){
+            $builder->where(['type_id' => $inputs['type_id']]);
+        }
+        //по рентабельности
+        if(!empty($inputs['profitability'])){
+            $builder->where(['profitability' => $inputs['profitability']]);
+        }
+        //по дата открытия
+        if(!empty($inputs['year'])){
+            $from_year = $inputs['year'].'-01-01';
+            $to_year = $inputs['year'].'-12-31';
+            $builder->whereBetween('year',[$from_year, $to_year]);
+        }
         if($user->role->name == 'admin'){
-            $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo'])->orderByDesc('id')->paginate(20);
+            $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo'])->orderByDesc('id')->paginate(20);
         }else{
-            $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo'])
+            $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo'])
                             ->orderByDesc('id')
                             ->where(['region_from_id' => $user->region_id,'region_to_id' => $user->region_id])
                             ->paginate(20);
