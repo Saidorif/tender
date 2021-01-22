@@ -1,5 +1,6 @@
 <template>
 	<div class="add_region">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -773,14 +774,17 @@
 <script>
 	import DatePicker from "vue2-datepicker";
 	import { mapGetters , mapActions } from 'vuex'
-	import Multiselect from 'vue-multiselect';
+    import Multiselect from 'vue-multiselect';
+    import Loader from '../../Loader'
 	export default{
 		components:{
 			Multiselect,
-			DatePicker,
+            DatePicker,
+            Loader
 		},
 		data(){
 			return{
+                laoding: true,
 				form:{
 					direction_ids:[],
 					tarif:'',
@@ -910,6 +914,7 @@
 			await this.actionBusmodelList()
             await this.actionBusBrandList()
             this.calcTimeContract()
+            this.laoding = false
             this.form = this.getApplication
 			this.cars_with = this.getApplication.cars_with
 			this.files = this.getApplication.attachment
@@ -938,11 +943,13 @@
 				$('#qrcodeModal').modal('show')
 			},
 			async activate(){
+                this.laoding = true
 				await this.actionActivate(this.$route.params.userapplicationId)
 				if (this.getActivate.success){
 					await this.actionEditApplication(this.$route.params.userapplicationId)
 					await this.openQrcode()
-				}
+                }
+                this.laoding = false
 			},
 			activeEditClass(item){
 		    	if (item.status == 'active'){
@@ -1012,7 +1019,8 @@
 		    async addFile(){
 		    	let formData = new FormData();
 				formData.append('file', this.file);
-				formData.append('app_id', this.$route.params.userapplicationId);
+                formData.append('app_id', this.$route.params.userapplicationId);
+                this.laoding = true
 				await this.actionAddFile(formData)
 				if(this.getMassage.success){
 					toast.fire({
@@ -1022,11 +1030,14 @@
 		          	});
 		          	this.file = ''
 					await this.actionEditApplication(this.$route.params.userapplicationId)
-				}
+                }
+                this.laoding = false
 		    },
 		    async removeFile(id){
 		    	if(confirm("Вы действительно хотите удалить?")){
-			    	await this.actionRemoveFile(id);
+                    this.laoding = true
+                    await this.actionRemoveFile(id);
+                    this.laoding = false
 			    	if(this.getMassage.success){
 						toast.fire({
 				            type: "success",
@@ -1100,8 +1111,10 @@
 		    	if (bustype_id) {
 		    		let data = {
 		    			'bustype_id':bustype_id,
-		    		}
-			    	await this.actionBusclassFind(data)
+                    }
+                    this.laoding = true
+                    await this.actionBusclassFind(data)
+                    this.laoding = false
 			    	this.tclasses = this.getBusclassFindList
 		    	}
 		    },
@@ -1146,7 +1159,9 @@
 		    	{
 		    		if (this.car.owner_type == 'owner'){
                         this.car.app_id = this.$route.params.userapplicationId
-			    		await this.actionGaiVehicle(this.car)
+                        this.laoding = true
+                        await this.actionGaiVehicle(this.car)
+                        this.laoding = false
 		    		}else if(this.car.owner_type == 'rent'){
 		    			if (this.car.pDateNatarius != '' && this.car.pNumberNatarius != '') {
 			    			let car = {
@@ -1165,7 +1180,8 @@
 		    			}
 		    		}
 		    		if (this.getMassage.success){
-						this.car['app_id'] = this.$route.params.userapplicationId
+                        this.car['app_id'] = this.$route.params.userapplicationId
+                        this.laoding = true
 				    	await this.actionAddCar(this.car)
 				    	if(this.getMassage.success){
 					    	await this.actionEditApplication(this.$route.params.userapplicationId)
@@ -1181,7 +1197,8 @@
 					            icon: "success",
 					            title: this.getMassage.message
 				          	});
-				    	}
+                        }
+                        this.laoding = false
 			    		this.requiredInput = false
 		    		}else{
 		    			toast.fire({
@@ -1205,6 +1222,7 @@
 		    		}
 		    	}
 		    	if (check) {
+                    this.laoding = true
 			    	await this.actionUpdateApplication(this.form)
 			    	if(this.getMassage.success){
 			    		toast.fire({
@@ -1213,7 +1231,8 @@
 				            title: this.getMassage.message
 			          	});
 			    		await this.actionEditApplication(this.$route.params.userapplicationId)
-			    	}
+                    }
+                    this.laoding = false
 		    	}else{
 		    		toast.fire({
 			            type: "error",
@@ -1224,6 +1243,7 @@
 		    },
 		    async deleteCar(id){
 		    	if(confirm("Вы действительно хотите удалить?")){
+                    this.laoding = true
 			    	await this.actionRemoveCar(id);
 			    	if(this.getMassage.success){
 						toast.fire({
@@ -1232,13 +1252,16 @@
 				            title: this.getMassage.message
 			          	});
 						await this.actionEditApplication(this.$route.params.userapplicationId)
-					}
+                    }
+                    this.laoding = false
 		    	}
 		    },
 		    async selectCarMarka(){
                 this.car.busmodel_id = ''
                 this.car.tclass_id = ''
+                this.laoding = true
                 await this.actionBusmodelListByBrand({busbrand_id: this.car.busmarka_id});
+                this.laoding = false
                 this.bus_models = this.getBusmodelList
             },
 		}

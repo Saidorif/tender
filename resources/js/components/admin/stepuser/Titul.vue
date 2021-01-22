@@ -197,7 +197,9 @@ export default {
         this.form.from_where != "" &&
         this.form.seasonal != ""
       ) {
+        this.laoding = true
         await this.actionAddDirection(this.form);
+        this.laoding = false
         if (this.getMassage.success) {
           toast.fire({
             type: "success",

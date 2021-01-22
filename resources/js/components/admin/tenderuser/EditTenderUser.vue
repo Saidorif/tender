@@ -1,5 +1,6 @@
 <template>
   <div class="add_region">
+      <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <h4 class="title_user">
@@ -262,10 +263,12 @@
 import DatePicker from "vue2-datepicker";
 import Multiselect from "vue-multiselect";
 import { mapGetters, mapActions } from "vuex";
+import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
     Multiselect,
+    Loader
   },
   data() {
     return {
@@ -281,6 +284,7 @@ export default {
       edit_direction_ids: [],
       lots: [],
       tenderlots: [],
+      laoding: true,
     };
   },
   computed: {
@@ -310,6 +314,7 @@ export default {
   },
   async mounted() {
     await this.actionEditTenderAnnounce(this.$route.params.tenderuserId);
+    this.laoding = false
     this.form.time = this.getTenderAnnounce.time;
     this.form.address = this.getTenderAnnounce.address;
     this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
@@ -337,7 +342,9 @@ export default {
         tender_id: this.$route.params.tenderuserId,
         lot_id: id,
       };
+      this.laoding = true
       await this.actionUserEditApplication(data);
+      this.laoding = false
       if (this.getUserEditApplication.success) {
         this.$router.push(
           "/crm/application/user/" + this.getUserEditApplication.result.id

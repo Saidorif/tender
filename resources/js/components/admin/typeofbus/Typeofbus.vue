@@ -72,7 +72,6 @@
 					let page = 1
 					this.laoding = true
 					await this.actionDeleteTypeofbus(id)
-					this.laoding = false
 					if (this.getMassage.error) {
 						await this.actionTypeofbuss(page)
 						toast.fire({
@@ -82,7 +81,8 @@
 				          });
 						this.$router.push("/crm/typeofbus");
 						this.requiredInput = false
-					}
+                    }
+					this.laoding = false
 				}
 			}
 		}
