@@ -26262,6 +26262,11 @@ tr.active {
   background: #d6d6d6;
 }
 
+.add_user_btn {
+  display: flex;
+  align-items: center;
+}
+
 .login_logo {
   display: flex;
   justify-content: center;

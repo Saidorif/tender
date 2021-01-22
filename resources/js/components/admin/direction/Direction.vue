@@ -2,13 +2,122 @@
 	<div class="area">
 		<Loader v-if="laoding"/>
 		<div class="card">
-		  	<div class="card-header">
-			    <h4 class="title_user">
-			    	<i class="peIcon fas fa-route"></i>
-				    Направления
-				</h4>
-                <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">Количество направления <b>{{ getDirections.total }} шт.</b> </span>
-				<router-link class="btn btn-primary" to="/crm/direction/add"><i class="fas fa-plus"></i> Добавить</router-link>
+		  	<div class="card-header header_filter">
+		  		<div class="header_title mb-2">
+				    <h4 class="title_user">
+				    	<i class="peIcon fas fa-route"></i>
+					    Направления
+					</h4>
+	            	<div class="add_user_btn">
+		                <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
+		            		Количество направления <b>{{ getDirections.total }} шт.</b> 
+		            	</span>
+			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
+						    <i class="fas fa-filter"></i>
+			            	Филтр
+						</button>
+						<router-link class="btn btn-primary" to="/crm/direction/add">
+							<i class="fas fa-plus"></i> 
+							Добавить
+						</router-link>
+		            </div>
+	            </div>
+	            <transition name="slide">
+				  	<div class="filters" v-if="filterShow">
+				  		<div class="row">
+				  			<div class="form-group col-lg-3">
+				  				<label for="region_id">Сортировать по региону!</label>
+			                    <select
+			                      id="region_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.region_id"
+			                    >
+			                      <option value="" selected disabled>Выберите регион!</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="status">Сортировать по статусу закрепления!</label>
+			                    <select
+			                      id="status"	
+			                      class="form-control input_style"
+			                      v-model="filter.status"
+			                    >
+			                      <option value="" selected disabled>Выберите статус закрепления!</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="status">Сортировать по статусу размещения!</label>
+			                    <select
+			                      id="status"	
+			                      class="form-control input_style"
+			                      v-model="filter.status"
+			                    >
+			                      <option value="" selected disabled>Выберите статус размещения!</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="bustype_id">Сортировать по типу авто!</label>
+			                    <select
+			                      id="bustype_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.bustype_id"
+			                    >
+			                      <option value="" selected disabled>Выберите тип авто!</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="bustype_id">Сортировать по рентабельности!</label>
+			                    <select
+			                      id="bustype_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.bustype_id"
+			                    >
+			                      <option value="" selected disabled>Выберите рентабельность!</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="bustype_id">Сортировать по локацию маршрута!</label>
+			                    <select
+			                      id="bustype_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.bustype_id"
+			                    >
+			                      <option value="" selected disabled>Выберите локацию маршрута!</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="direction_type_id">Сортировать по типу маршрута!</label>
+			                    <select
+			                      id="direction_type_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.direction_type_id"
+			                    >
+			                      <option value="" selected disabled>Выберите тип маршрута!</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="direction_type_id">Сортировать по дате открытия!</label>
+			                    <select
+			                      id="direction_type_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.direction_type_id"
+			                    >
+			                      <option value="" selected disabled>Выберите дату!</option>
+			                    </select>
+              				</div>
+						  	<div class="col-lg-12 form-group d-flex justify-content-end">
+							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
+							  		<i class="fas fa-times"></i>
+								  	сброс
+							  	</button>
+							  	<button type="button" class="btn btn-primary ml-2" @click.prevent="search">
+							  		<i class="fas fa-search"></i>
+								  	найти
+							  	</button>
+					  	  	</div>	
+				  		</div>
+				  	</div>	
+			  	</transition>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -63,6 +172,11 @@
 		},
 		data(){
 			return{
+				filter:{
+					status:'',
+					bustype_id:'',
+				},
+				filterShow:false,
 				laoding: true
 			}
 		},
@@ -79,6 +193,16 @@
 			...mapActions('direction',['actionDirections','actionDeleteDirection']),
 			async getResults(page = 1){
 				await this.actionDirections(page)
+			},
+			toggleFilter(){
+				this.filterShow = !this.filterShow
+			},
+			async search(){
+				
+			},
+			async clear(){
+				
+
 			},
 			async deletePassport(id){
 				if(confirm("Вы действительно хотите удалить?")){
@@ -98,5 +222,7 @@
 	}
 </script>
 <style scoped>
-
+	.toggleFilter{
+		margin-right:15px;
+	}
 </style>
