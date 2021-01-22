@@ -10,6 +10,7 @@ use App\TenderLot;
 use App\DirectionType;
 use App\Direction;
 use App\Reys;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 
@@ -17,7 +18,14 @@ class TenderController extends Controller
 {
     public function index(Request $request)
     {
-        $tenders = Tender::with(['tenderlots'])->paginate(12);
+        $user = $request->user();
+        //Grab user ids working in this region
+        $created_by_users = User::where(['region_id' => $user->region_id])->pluck('id')->toArray();
+        if($user->role->name == 'admin'){
+            $tenders = Tender::with(['tenderlots'])->paginate(12);
+        }else{
+            $tenders = Tender::whereIn('created_by', $created_by_users)->with(['tenderlots'])->paginate(12);
+        }
         return response()->json(['success' => true,'result' => $tenders]);
     }
 
@@ -88,6 +96,11 @@ class TenderController extends Controller
                 }
                 if($the_direction->status == 'approved'){
                     $the_direction_err[] = 'Can not add... Direction already in use';
+                }
+                if($user->role->name != 'admin'){
+                    if($the_direction->region_from_id != $user->region_id || $the_direction->region_to_id != $user->region_id ){
+                        $the_direction_err[] = 'Can not add... Direction in another region';
+                    }
                 }
             }
         }

@@ -23,6 +23,7 @@ class EmployeeController extends Controller
             $builder = User::query()
                 ->where('role_id', '!=', 1)
                 ->where('role_id','!=',9)
+                ->where('region_id','=',$user->region_id)
                 ->with(['role','position']);
         }
         $params = $request->all();
@@ -71,10 +72,14 @@ class EmployeeController extends Controller
         return response()->json(['success' => true, 'message' => 'Электронная почта свободно для использования']);
     }
 
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        // $user = User::where('role_id', '!=', 1)->where(['id' => $id])->first();
-        $user = User::with(['role','position','region','area'])->find($id);
+        $client = $request->user();
+        if($client->role->name == 'admin'){
+            $user = User::with(['role','position','region','area'])->find($id);
+        }else{
+            $user = User::where('role_id', '=', $client->role_id)->where(['id' => $id])->first();
+        }
         if(!$user){
             return response()->json(['error' => true, 'message' => 'Пользователь не найден']);
         }
@@ -91,7 +96,7 @@ class EmployeeController extends Controller
             'surname'         => 'required|string',
             'region_id'    => 'required|integer',
             'position_date'    => 'required|date',
-            'area_id'      => 'required|integer',
+            'area_id'      => 'nullable|integer',
             'role_id'      => ['required',Rule::in($role_ids),],
             'position_id'  => 'required|integer',
             'phone'        => 'nullable|min:12',
@@ -104,6 +109,11 @@ class EmployeeController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        if($user->role->name != 'admin'){
+            if($inputs['region_id'] != $user->region_id){
+                return response()->json(['error' => true, 'message' => 'Region is not match']);
+            }
+        }
         if($inputs['password'] !== $inputs['confirm_password']){
             return response()->json(['error' => true,'message' => 'Пароли не совпадают']);
         }
@@ -142,12 +152,12 @@ class EmployeeController extends Controller
             'surname'          => 'required|string',
             'region_id'        => 'required|integer',
             'position_date'    => 'required|date',
-            'area_id'          => 'required|integer',
+            'area_id'          => 'nullable|integer',
             'role_id'          => ['required',Rule::in($role_ids),],
             'position_id'      => 'required|integer',
             'phone'            => 'nullable|min:12',
-            'password'         => 'required|min:6',
-            'confirm_password' => 'required|min:6',
+            'password'         => 'nullable|min:6',
+            'confirm_password' => 'nullable|min:6',
             'email'            => 'required|email|unique:users,email,'.$employee->id,
         ]);
 
@@ -155,6 +165,11 @@ class EmployeeController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        if($user->role->name != 'admin'){
+            if($inputs['region_id'] != $user->region_id){
+                return response()->json(['error' => true, 'message' => 'Region is not match']);
+            }
+        }
         if($request->has('password') && $request->has('confirm_password')){
             if($inputs['password'] != '' || strlen($inputs['password']) >= 6){
                 if($inputs['password'] !== $inputs['confirm_password']){

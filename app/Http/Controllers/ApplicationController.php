@@ -8,13 +8,24 @@ use Illuminate\Validation\Rule;
 use App\Application;
 use App\Tender;
 use App\UserCar;
+use App\User;
 
 class ApplicationController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $result = Application::orderBy('id', 'DESC')->with(['user','carsWith','lots','attachment'])->paginate(12);
+        $user = $request->user();
+        if($user->role->name == 'admin'){
+            $result = Application::orderBy('id', 'DESC')->with(['user','carsWith','lots','attachment'])->paginate(12);
+        }else{
+            //grab the user ids in this region
+            $user_ids = User::where(['region_id' => $user->region_id,'role_id' => 9])->pluck('id')->toArray();
+            $result = Application::orderBy('id', 'DESC')
+                            ->with(['user','carsWith','lots','attachment'])
+                            ->whereIn('user_id', $user_ids)
+                            ->paginate(12);
+        }
         return response()->json(['success' => true, 'result' => $result]);
     }
 
