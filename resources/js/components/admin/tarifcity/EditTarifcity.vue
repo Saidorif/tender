@@ -1,5 +1,6 @@
 <template>
 	<div class="edit_area">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -68,8 +69,12 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
 				form:{
@@ -77,7 +82,8 @@
 					tarif:'',
 					tarif_bagaj:'',
 					file: null,
-				},
+                },
+                laoding: true,
 				requiredInput:false
 			}
 		},
@@ -90,6 +96,7 @@
             await this.actionEditTarifcity(this.$route.params.tarifcityId)
             this.form = this.getTarifcity
             this.file = this.form.file
+            this.laoding = false
 		},
 		methods:{
 			...mapActions('region',['actionRegionList']),
@@ -114,7 +121,9 @@
                     formData.append('tarif', this.form.tarif);
                     formData.append('tarif_bagaj', this.form.tarif_bagaj);
                     let data = {id: this.form.id, data: formData}
-					await this.actionUpdateTarifcity(data)
+                    this.laoding = true
+                    await this.actionUpdateTarifcity(data)
+                    this.laoding = false
 					if(this.getMassage.success){
 						toast.fire({
 				            type: "success",

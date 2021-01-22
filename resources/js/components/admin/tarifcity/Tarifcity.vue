@@ -1,5 +1,6 @@
 <template>
 	<div class="area">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -42,16 +43,21 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
-
+                laoding: true,
 			}
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionTarifcitys(page)
+            await this.actionTarifcitys(page)
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('tarifcity',['getTarifcitys','getMassage'])
@@ -64,9 +70,11 @@
 
 			async deleteTarifcity(id){
 				if(confirm("Вы действительно хотите удалить?")){
-					let page = 1
+                    let page = 1
+                    this.laoding = true
 					await this.actionDeleteTarifcity(id)
-					await this.actionTarifcitys(page)
+                    await this.actionTarifcitys(page)
+                    this.laoding = false
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',

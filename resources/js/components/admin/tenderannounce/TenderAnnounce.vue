@@ -1,5 +1,6 @@
 <template>
 	<div class="region">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -62,17 +63,22 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
 		data(){
 			return{
-
+                laoding: true,
 			}
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionTenderAnnounces(page)
-		},
+            await this.actionTenderAnnounces(page)
+            this.laoding = false
+        },
+        components:{
+            Loader
+        },
 		computed:{
 			...mapGetters('tenderannounce',['getTenderAnnounces','getMassage'])
 		},
@@ -101,9 +107,11 @@
 			},
 			async deleteRegion(id){
 				if(confirm("Вы действительно хотите удалить?")){
-					let page = 1
+                    let page = 1
+                    this.laoding = true
 					await this.actionDeleteTenderAnnounce(id)
-					await this.actionTenderAnnounces(page)
+                    await this.actionTenderAnnounces(page)
+                    this.laoding = false
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',

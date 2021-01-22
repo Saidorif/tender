@@ -1,5 +1,6 @@
 <template>
 	<div class="add_region">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -484,11 +485,13 @@
 <script>
 	import DatePicker from "vue2-datepicker";
 	import Multiselect from 'vue-multiselect';
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
 		components: {
 	    	DatePicker,
-	    	Multiselect,
+            Multiselect,
+            Loader
 	  	},
 		data(){
 			return{
@@ -517,7 +520,8 @@
 				tableItems:[],
 				edit_direction_ids:[],
 				tenderlots:[],
-				lots:[],
+                lots:[],
+                laoding: true,
 			}
 		},
 		computed:{
@@ -565,6 +569,7 @@
 			this.edit_direction_ids = this.getTenderAnnounce.direction_ids
 			this.lots = this.getTenderAnnounce.tenderlots
             this.tenderlots = this.getTenderAnnounce.tenderlots
+            this.laoding = false
 		},
 		methods:{
 			...mapActions('tenderannounce',[
@@ -609,8 +614,9 @@
 		    		let data ={
 		    			id :this.$route.params.tenderannounceId,
 		    			lot_id:id
-		    		}
-		    		await this.actionDeleteTenderAnnounceItem(data)
+                    }
+                    this.laoding = true
+                    await this.actionDeleteTenderAnnounceItem(data)
 		    		if(this.getMassage.success){
 						toast.fire({
 					    	type: 'success',
@@ -618,7 +624,8 @@
 							title: this.getMassage.message,
 					    })
 					    await this.actionEditTenderAnnounce(this.$route.params.tenderannounceId)
-		    		}
+                    }
+                    this.laoding = false
 				}
 		    },
 		    removeLot(index){
@@ -878,8 +885,10 @@
 		      }
 		    },
 		    async dispatchAction(data){
-	      		this.form.direction_ids.push(data.id);
-		      	await this.actionGetScheduleTable(data.id)
+                  this.form.direction_ids.push(data.id);
+                  this.laoding = true
+                  await this.actionGetScheduleTable(data.id)
+                  this.laoding = false
 			      // From Items
 				this.fromFirstItems = this.getSchedule.whereFrom[0];
 				this.fromItems = this.getSchedule.whereFrom
