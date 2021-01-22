@@ -1,5 +1,6 @@
 <template>
 	<div class="add_region">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -344,14 +345,17 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	import Multiselect from 'vue-multiselect';
 	export default{
 		components:{
-			Multiselect
+            Multiselect,
+            Loader
 		},
 		data(){
 			return{
+                laoding: true,
 				form:{
 					car:{
 						auto_number:'',
@@ -424,7 +428,8 @@
 		async mounted(){
 			await this.actionEditApplication(this.$route.params.applicationId)
 			await this.actionTypeofbusList()
-			await this.actionBusmodelList()
+            await this.actionBusmodelList()
+            this.laoding = false
 			this.form = this.getApplication
 			Vue.set(this.form,'direction_ids',[])
 			Vue.set(this.form,'car',
@@ -445,7 +450,6 @@
 					monitor:'',
 					tclasses:[]
 				})
-			console.log(this.form)
 		},
 		methods:{
 			...mapActions('application',['actionEditApplication','actionUpdateApplication']),

@@ -1,5 +1,6 @@
 <template>
   <div class="add_region">
+      <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <h4 class="title_user">
@@ -149,9 +150,14 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Loader from '../../Loader'
 export default {
+    components:{
+        Loader
+    },
   data() {
     return {
+        laoding: true,
       form: {
         name: "",
         seat_from: "",
@@ -175,6 +181,7 @@ export default {
   async mounted() {
     await this.actionTypeofbusList();
     await this.actionBusBrandList();
+    this.laoding = false
   },
   methods: {
     ...mapActions("typeofbus", [
@@ -197,7 +204,9 @@ export default {
         this.form.busbrand_id != "" &&
         this.form.busmodel_id != ""
       ) {
+        this.laoding = true
         await this.actionAddBusclass(this.form);
+        this.laoding = false
         if (this.getMassage.success) {
           toast.fire({
             type: "success",

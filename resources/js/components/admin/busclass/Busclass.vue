@@ -1,5 +1,6 @@
 <template>
 	<div class="region">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -37,16 +38,16 @@
 								<td>{{bus.stay_from}}</td>
 								<!-- <td>{{bus.stay_to}}</td> -->
 								<td>
-									<router-link 
-										tag="button" 
-										class="btn_transparent" 
+									<router-link
+										tag="button"
+										class="btn_transparent"
 										:to='`/crm/busclass/edit/${bus.id}`'
 										v-if="$can('edit', 'TClassController')"
 									>
 										<i class="pe_icon pe-7s-edit editColor"></i>
 									</router-link>
-									<button 
-										class="btn_transparent" 
+									<button
+										class="btn_transparent"
 										@click="deleteType(bus.id)"
 										v-if="$can('destroy', 'TClassController')"
 									>
@@ -63,29 +64,35 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
-
+                laoding: true,
 			}
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionBusclasses()
+            await this.actionBusclasses()
+            this.laoding = false
 		},
 		computed:{
 			...mapGetters('busclass',['getBusclasses','getMassage']),
 		},
 		methods:{
 			...mapActions('busclass',['actionBusclasses','actionDeleteBusclass']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionBusclasses(page)
 			},
 			async deleteType(id){
 				if(confirm("Вы действительно хотите удалить?")){
-					let page = 1
-					await this.actionDeleteBusclass(id)
+                    let page = 1
+                    this.laoding = true
+                    await this.actionDeleteBusclass(id)
 					if (this.getMassage.error) {
 						await this.actionBusclasses(page)
 						toast.fire({
@@ -95,12 +102,13 @@
 				          });
 						this.$router.push("/crm/busclass");
 						this.requiredInput = false
-					}
+                    }
+                    this.laoding = false
 				}
 			}
 		}
 	}
 </script>
 <style scoped>
-	
+
 </style>

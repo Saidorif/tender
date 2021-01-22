@@ -1,5 +1,6 @@
 <template>
 	<div class="edit_area">
+        <Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
@@ -13,10 +14,10 @@
 					<div class="row">
 					  <div class="form-group col-md-9">
 					    <label for="region_id">Regions</label>
-					    <select 
-					    	class="form-control input_style" 
-					    	v-model="form.region_id" 
-					    	:class="isRequired(form.region_id) ? 'isRequired' : ''"  
+					    <select
+					    	class="form-control input_style"
+					    	v-model="form.region_id"
+					    	:class="isRequired(form.region_id) ? 'isRequired' : ''"
 				    	>
 					    	<option value="" selected disabled>choose option</option>
 					    	<option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
@@ -24,20 +25,20 @@
 					  </div>
 					  <div class="form-group col-md-9">
 					    <label for="name">Area</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="name" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="name"
 					    	placeholder="Area"
 					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-lg-3 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
-						</button>	
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -46,10 +47,15 @@
 	</div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+    import { mapGetters , mapActions } from 'vuex'
+    import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader
+        },
 		data(){
 			return{
+                laoding: true,
 				form:{
 					region_id:'',
 					name:'',
@@ -63,7 +69,8 @@
 		},
 		async mounted(){
 			await this.actionRegionList()
-			await this.actionEditArea(this.$route.params.areaId)
+            await this.actionEditArea(this.$route.params.areaId)
+            this.laoding = false
 			this.form = this.getArea
 		},
 		methods:{
@@ -92,5 +99,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>
