@@ -56,11 +56,11 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="bustype_id">Сортировать по типу авто!</label>
+				  				<label for="type_id">Сортировать по типу авто!</label>
 			                    <select
-			                      id="bustype_id"	
+			                      id="type_id"	
 			                      class="form-control input_style"
-			                      v-model="filter.bustype_id"
+			                      v-model="filter.type_id"
 			                    >
 			                      <option value="" selected disabled>Выберите тип авто!</option>
 			                    </select>
@@ -86,21 +86,21 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="direction_type_id">Сортировать по типу маршрута!</label>
+				  				<label for="dir_type">Сортировать по типу маршрута!</label>
 			                    <select
-			                      id="direction_type_id"	
+			                      id="dir_type"	
 			                      class="form-control input_style"
-			                      v-model="filter.direction_type_id"
+			                      v-model="filter.dir_type"
 			                    >
 			                      <option value="" selected disabled>Выберите тип маршрута!</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="direction_type_id">Сортировать по дате открытия!</label>
+				  				<label for="year">Сортировать по дате открытия!</label>
 			                    <select
-			                      id="direction_type_id"	
+			                      id="year"	
 			                      class="form-control input_style"
-			                      v-model="filter.direction_type_id"
+			                      v-model="filter.year"
 			                    >
 			                      <option value="" selected disabled>Выберите дату!</option>
 			                    </select>
@@ -173,7 +173,12 @@
 		data(){
 			return{
 				filter:{
+					region_id:'',
+					dir_type:'',
+					type_id:'',
+					profitability:'',
 					status:'',
+					year:'',
 					bustype_id:'',
 				},
 				filterShow:false,
@@ -184,7 +189,6 @@
 			let page = 1;
 			await this.actionDirections()
             this.laoding = false
-            console.log(this.getDirections)
 		},
 		computed:{
 			...mapGetters('direction',['getDirections','getMassage'])
