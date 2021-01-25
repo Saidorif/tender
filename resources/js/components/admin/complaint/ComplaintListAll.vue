@@ -94,6 +94,8 @@
 					return 'Не подтвержден'
 				}else if(text == 'completed'){
 					return 'Подтвержден'
+				}else{
+					return 'Не подтвержден'
 				}
 			},
 			getResultClass(text){
