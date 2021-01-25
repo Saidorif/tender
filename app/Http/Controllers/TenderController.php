@@ -25,14 +25,16 @@ class TenderController extends Controller
         if($user->role->name == 'admin'){
             $builder = Tender::query();
             if(!empty($params['region_id'])){
-                $builder-whereIn('created_by', $created_by_users);
+                $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
+                return $users_region;
+                $builder->whereIn('created_by', $users_region);
             }
             if(!empty($params['time'])){
                 $from_time = $params['time'].' 00:00:00';
                 $to_time = $params['time'].' 23:59:59';
                 $builder->whereBetween('time', [$from_time,$to_time]);
             }
-            if(!empty($params['status'])){
+            if(!empty($params['status']) && $params['status'] == true){
                 $builder->where('status','=',$params['status']);
             }
             if(!empty($params['no_lots'])){
@@ -485,9 +487,40 @@ class TenderController extends Controller
         ]);
     }
 
-    public function completedTenders()
+    public function completedTenders(Request $request)
     {
-        $result = Tender::withCount(['tenderlots','tenderapps'])->where(['status' => 'completed','status' => 'approved'])->paginate(12);
+        $user = $request->user();
+        $params = $request->all();
+        //Grab user ids working in this region
+        $created_by_users = User::where(['region_id' => $user->region_id])->pluck('id')->toArray();
+        if($user->role->name == 'admin'){
+            $builder = Tender::query();
+            if(!empty($params['region_id'])){
+                $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
+                $builder->whereIn('created_by', $users_region);
+            }
+            if(!empty($params['time'])){
+                $from_time = $params['time'].' 00:00:00';
+                $to_time = $params['time'].' 23:59:59';
+                $builder->whereBetween('time', [$from_time,$to_time]);
+            }
+            if(!empty($params['status']) && $params['status'] == true){
+                $builder->where('status','=','completed');
+            }else{
+                $builder->where(['status' => 'completed'])->whereOr(['status' => 'approved']);
+            }
+            if(!empty($params['no_lots']) && $params['no_lots'] == true){
+                $tender_ids = Application::all()->pluck('tender_id')->toArray();
+                $builder->whereNotIn('id',$tender_ids);
+            }
+            $result = $builder->with(['tenderlots'])->withCount(['tenderlots','tenderapps'])->paginate(12);
+        }else{
+            $result = Tender::whereIn('created_by', $created_by_users)
+                            ->with(['tenderlots'])
+                            ->withCount(['tenderlots','tenderapps'])
+                            ->where(['status' => 'completed','status' => 'approved'])
+                            ->paginate(12);
+        }
         return response()->json(['success' => true, 'result' => $result]);
     }
     
