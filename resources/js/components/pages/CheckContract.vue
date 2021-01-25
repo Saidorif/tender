@@ -6,12 +6,8 @@
       <div class="col-md-12">
         <h2 class="title" align="center" v-html="$t('conducted_tenders.title')"></h2>
         <p class="sub_title">{{$t('conducted_tenders.sub_title')}}</p>
-        <div class="row">
-          <div class="col-md-8">
-          </div>
-          <div class="col-md-4">
-            <div class="row">
-              <div class="col-md-6">
+        <div class="row justify-content-end">
+              <div class="col-8 col-sm-3">
                 <input
                     type="text"
                     class="form-control input_style"
@@ -22,14 +18,10 @@
                     :class="isRequired(filter.number) ? 'isRequired' : ''"
                   >
               </div>
-              <div class="col-md-6">
                 <button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
                     <i class="fas fa-search"></i>
                     Найти
                 </button>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="table-responsive mt-5">
             <table class="table table-bordered table-hover table-striped">
@@ -45,7 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
-             
+
                     <tr>
                         <td>1</td>
                         <td>Jizzax-Buxoro</td>
