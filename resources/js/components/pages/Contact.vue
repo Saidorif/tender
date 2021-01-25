@@ -14,13 +14,13 @@
                 <div class="input-group input_group_with_label">
                   <select
                     class="form-control input_style"
-                    v-model="form.complaint_category_id"
-                    :class="isRequired(form.complaint_category_id) ? 'isRequired' : ''"
-                    id="complaint_category_id"
+                    v-model="form.category_id"
+                    :class="isRequired(form.category_id) ? 'isRequired' : ''"
+                    id="category_id"
                   >
                     <option :value="item.id" v-for="(item,index) in getComplaintList">{{item.name}}</option>
                   </select>
-                  <label for="complaint_category_id">{{$t('contacts_page.appeal_type')}}</label>
+                  <label for="category_id">{{$t('contacts_page.appeal_type')}}</label>
                 </div>
                 <div class="input-group input_group_with_label">
                   <input
@@ -117,7 +117,7 @@ export default {
         text: '',
         file: '',
         // direction_id: '',
-        complaint_category_id: '',
+        category_id: '',
       },
       requiredInput: false,
       isLoading:false,
@@ -172,7 +172,7 @@ export default {
         formData.append('phone', this.form.phone);
         formData.append('text', this.form.text);
         formData.append('file', this.form.file);
-        formData.append('complaint_category_id', this.form.complaint_category_id);
+        formData.append('category_id', this.form.category_id);
         await this.actionSendContact(formData)
         if (this.getMassage.success){
           this.form.name = ''
@@ -181,7 +181,7 @@ export default {
           this.form.phone = ''
           this.form.text = ''
           this.form.file = ''
-          this.form.complaint_category_id = ''
+          this.form.category_id = ''
           swal.fire({
             type: "success",
             icon: "success",
