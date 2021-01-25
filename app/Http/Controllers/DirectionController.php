@@ -415,12 +415,33 @@ class DirectionController extends Controller
     //List direction tarifs
     public function listTarif(Request $request)
     {
-        $directions = Direction::all();
-        $result = [];
-        foreach($directions as $key => $dir){
-            $passport_tarifs = $dir->passport_tarif;
-            $result[$key] = ['name' => $dir->name,'tarifs' => $passport_tarifs];
+        $builder = Direction::query()->with(['passport_tarif']);
+        $params = $request->all();
+        if(!empty($params['region_id'])){
+            $builder->where(['region_from_id' => $params['region_id']])->orWhere(['region_to_id' => $params['region_id']]);
         }
+        if(!empty($params['type_id'])){
+            $builder->where(['type_id' => $params['type_id']]);
+        }
+        if(!empty($params['dir_type'])){
+            $builder->where(['dir_type' => $params['dir_type']]);
+        }
+        if(!empty($params['max']) && $params['max'] == true){
+            $builder->whereHas('passport_tarif', function ($query) use ($region) {
+                return $query->orderBy('summa','DESC');
+            });
+        }
+        if(!empty($params['min']) && $params['min'] == true){
+            $builder->whereHas('passport_tarif', function ($query) use ($region) {
+                return $query->orderBy('summa','ASC');
+            });
+        }
+        $result = $builder->paginate(20);
+        // $result = [];
+        // foreach($directions as $key => $dir){
+        //     $passport_tarifs = $dir->passport_tarif;
+        //     $result[$key] = ['name' => $dir->name,'tarifs' => $passport_tarifs];
+        // }
         return response()->json(['success' => true, 'result' => $result]);
     }
     
