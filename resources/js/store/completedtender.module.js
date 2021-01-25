@@ -16,9 +16,9 @@ const getters = {
 
 
 const actions = {
-	async actionCompletedTendersList({commit},page){
+	async actionCompletedTendersList({commit},payload){
 		try {
-			const types =  await CompletedTendersSerivce.completedTendersList(page);
+			const types =  await CompletedTendersSerivce.completedTendersList(payload);
 			await commit('setTendersList',types.data.result)
 			return true
 		} catch (error) {
