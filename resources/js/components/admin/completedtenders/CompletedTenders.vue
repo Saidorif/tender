@@ -39,13 +39,19 @@
 					                lang="ru"
 					                type="date" 
 					                v-model="filter.time"
+					                format="YYYY-MM-DD" valueType="format"
 					                placeholder="Выберите дату!"
 					                class="input_style"
 				              	></date-picker>
+
               				</div>
               				<div class="form-group col-lg-3">
 				  				<label for="no_lots">Несостоявшиеся тендеры!</label>
 				  				<input type="checkbox" v-model="filter.no_lots" class="form-control input_style" id="no_lots">
+              				</div>
+              				<div class="form-group col-lg-3">
+				  				<label for="status">Неподтвержденные тендеры!</label>
+				  				<input type="checkbox" v-model="filter.status" class="form-control input_style" id="status">
               				</div>
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
@@ -118,7 +124,8 @@
 				filter:{
 					region_id:'',
 					time:'',
-					no_lots:false
+					no_lots:false,
+					status:false,
 				},
                 laoding: true,
                 filterShow: false,
@@ -145,7 +152,7 @@
 			},
 			async search(){
 				let page = 1
-				if(this.filter.region_id != '' || this.filter.time != '' || this.filter.no_lots){
+				if(this.filter.region_id != '' || this.filter.time != '' || this.filter.no_lots || this.filter.status){
 					let data = {
 						page:page,
 						items:this.filter
@@ -156,10 +163,11 @@
 				}
 			},
 			async clear(){
-				if(this.filter.region_id != '' || this.filter.time != '' || this.filter.no_lots){
+				if(this.filter.region_id != '' || this.filter.time != '' || this.filter.no_lots || this.filter.status){
 					this.filter.region_id = ''
 					this.filter.time = ''
 					this.filter.no_lots = false
+					this.filter.status = false
                     let page  = 1
                     this.laoding = true
                     await this.actionCompletedTendersList({page: page,items:this.filter})
