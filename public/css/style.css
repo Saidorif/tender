@@ -8,10 +8,6 @@
   margin-right: 3px;
 }
 
-.tender_card_header .time_counter {
-  background: transparent !important;
-}
-
 .content-wrapper {
   background: #fefbff;
 }
@@ -1902,10 +1898,6 @@ hr {
 
 .tender_card:hover .tender_card_footer {
   background: rgba(0, 0, 0, 0.5);
-}
-
-.time_counter {
-  background: transparent !important;
 }
 
 @media (max-width: 1400px) {
