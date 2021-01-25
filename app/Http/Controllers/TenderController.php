@@ -19,10 +19,27 @@ class TenderController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        $params = $request->all();
         //Grab user ids working in this region
         $created_by_users = User::where(['region_id' => $user->region_id])->pluck('id')->toArray();
         if($user->role->name == 'admin'){
-            $tenders = Tender::with(['tenderlots'])->paginate(12);
+            $builder = Tender::query();
+            if(!empty($params['region_id'])){
+                $builder-whereIn('created_by', $created_by_users);
+            }
+            if(!empty($params['time'])){
+                $from_time = $params['time'].' 00:00:00';
+                $to_time = $params['time'].' 23:59:59';
+                $builder->whereBetween('time', [$from_time,$to_time]);
+            }
+            if(!empty($params['status'])){
+                $builder->where('status','=',$params['status']);
+            }
+            if(!empty($params['no_lots'])){
+                $tender_ids = Application::all()->pluck('tender_id')->toArray();
+                $builder->whereNotIn('id',$tender_ids);
+            }
+            $tenders = $builder->with(['tenderlots'])->paginate(12);
         }else{
             $tenders = Tender::whereIn('created_by', $created_by_users)->with(['tenderlots'])->paginate(12);
         }
