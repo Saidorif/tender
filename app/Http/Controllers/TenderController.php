@@ -23,7 +23,7 @@ class TenderController extends Controller
         //Grab user ids working in this region
         $created_by_users = User::where(['region_id' => $user->region_id])->pluck('id')->toArray();
         if($user->role->name == 'admin'){
-            $builder = Tender::query();
+            $builder = Tender::query()->with(['tenderlots']);
             if(!empty($params['region_id'])){
                 $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
                 $builder->whereIn('created_by', $users_region);
@@ -36,11 +36,16 @@ class TenderController extends Controller
             if(!empty($params['status']) && $params['status'] == true){
                 $builder->where('status','=',$params['status']);
             }
-            if(!empty($params['no_lots'])){
-                $tender_ids = Application::all()->pluck('tender_id')->toArray();
-                $builder->whereNotIn('id',$tender_ids);
+            if(!empty($params['type_id'])){
+                $direction_ids = Direction::where(['type_id' => $params['type_id']])->pluck('id')->toArray();
+                if(empty($direction_ids)){
+                    $direction_ids = [0];
+                }
+                $builder->whereHas('tenderlots', function ($query) use ($direction_ids) {
+                    $query->whereJsonContains('direction_id', $direction_ids);
+                });
             }
-            $tenders = $builder->with(['tenderlots'])->paginate(12);
+            $tenders = $builder->paginate(12);
         }else{
             $tenders = Tender::whereIn('created_by', $created_by_users)->with(['tenderlots'])->paginate(12);
         }
