@@ -21,28 +21,6 @@
 	            <transition name="slide">
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
-				  			<div class="form-group col-md-3">
-							    <label for="name">Направление</label>
-							    <multiselect
-					                :value="values"
-					                :options="getDirectionFindList"
-					                @search-change="value => filterVariantList(value)"
-					                v-model="values"
-					                placeholder="Найдите направление!"
-					                :searchable="true"
-					                track-by="id"
-					                label="name"
-					                :max="3"
-					                :loading="isLoading"
-					                selectLabel="Нажмите Enter, чтобы выбрать"
-					                deselectLabel="Нажмите Enter, чтобы удалить"
-					                :option="[{name: '', id: 1}]"
-					                @select="dispatchAction"
-				                >
-				                <span slot="noResult">По вашему запросу ничего не найдено</span>
-				                <span slot="noOptions">Cписок пустой</span>
-				                </multiselect>
-						  	</div>
 				  			<div class="form-group col-lg-3">
 				  				<label for="region_id">Сортировать по региону!</label>
 			                    <select
@@ -52,6 +30,17 @@
 			                    >
 			                      <option value="" selected >Выберите регион!</option>
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="type_id">Сортировать по типу маршрута!</label>
+			                    <select
+			                      id="type_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.type_id"
+			                    >
+			                      <option value="" selected >Выберите регион!</option>
+			                      <option :value="item.id" v-for="(item,index) in getTypeofdirectionList">{{item.name}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
@@ -140,53 +129,37 @@
 				filter:{
 					region_id:'',
 					time:'',
-					direction_id:'',
-				},
-				values:{
-					id:'',
-					name:'',
+					type_id:'',
 				},
                 laoding: true,
-                isLoading: false,
                 filterShow: false,
 			}
 		},
 		async mounted(){
 			let page = 1;
             await this.actionTenderAnnounces({page:page,items:this.filter})
+            await this.actionTypeofdirectionList()
             await this.actionRegionList()
             this.laoding = false
 		},
 		computed:{
 			...mapGetters('tenderannounce',['getTenderAnnounces','getMassage']),
 			...mapGetters("region", ["getRegionList"]),
-			...mapGetters("direction", ["getMassage","getDirectionFindList"]),
+			...mapGetters('typeofdirection',['getTypeofdirectionList'])
 		},
 		methods:{
 			...mapActions('tenderannounce',['actionTenderAnnounces','actionDeleteTenderAnnounce']),
 			...mapActions("region", ["actionRegionList"]),
-			...mapActions("direction", ["actionDirectionFind"]),
+			...mapActions('typeofdirection',['actionTypeofdirectionList',]),
 			async getResults(page = 1){
 				await this.actionTenderAnnounces({page:page,items:this.filter})
 			},
-			async filterVariantList(value){
-		      if(value != ''){
-		        this.isLoading = true
-		        setTimeout(()=>{
-		          this.actionDirectionFind({name: value})
-		        this.isLoading = false
-		        },1000)
-		      }
-		    },
-		    dispatchAction(data){
-		      this.filter.direction_id =  data.id;
-		    },
 			toggleFilter(){
 				this.filterShow = !this.filterShow
 			},
 			async search(){
 				let page = 1
-				if(this.filter.region_id != '' || this.filter.time != '' || this.filter.direction_id != ''){
+				if(this.filter.region_id != '' || this.filter.time != '' || this.filter.type_id != ''){
 					let data = {
 						page:page,
 						items:this.filter
@@ -197,10 +170,10 @@
 				}
 			},
 			async clear(){
-				if(this.filter.region_id != '' || this.filter.time != '' || this.filter.direction_id != ''){
+				if(this.filter.region_id != '' || this.filter.time != '' || this.filter.type_id != ''){
 					this.filter.region_id = ''
 					this.filter.time = ''
-					this.filter.direction_id = ''
+					this.filter.type_id = ''
                     let page  = 1
                     this.laoding = true
                     await this.actionTenderAnnounces({page: page,items:this.filter})
