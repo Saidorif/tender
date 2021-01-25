@@ -1308,7 +1308,7 @@ hr{
 .jv_login_block{
     box-shadow: 0 1px 15px rgba(0,0,0,.04), 0 1px 6px rgba(0,0,0,.04);
     border-radius: .75rem;
-    width: 80%;
+    width: 1000px;
     padding: 0;
     display: flex;
     align-items: stretch;
@@ -1570,5 +1570,43 @@ hr{
         padding: 140px 0px 140px 0px;
         background-size: contain;
         height: auto;
+    }
+    .jv_login_block .flagbg{
+        display: none;
+    }
+    .jv_login_block{
+        width: auto;
+    }
+    .jv_form_block {
+        width: 100%;
+    }
+}
+@media (max-width: 540px){
+    .title,
+    .header_banner .left_item h1 {
+        font-size: 40px;
+        padding: 18px 0px 20px 0px;
+        font-weight: 700;
+        color: #010101;
+        font-family: "Poppins-Bold";
+    }
+    .title{
+        font-size: 20px;
+    }
+    .header_banner .left_item a{
+        margin-bottom: 15px;
+        margin-right: 0 !important;
+        display: block;
+    }
+    .main_header .logo{
+        width: 50%;
+    }
+    .jv_form_block{
+        padding: 30px;
+    }
+}
+@media (max-width: 400px){
+    .logo_login img{
+        max-width: 100%;
     }
 }
