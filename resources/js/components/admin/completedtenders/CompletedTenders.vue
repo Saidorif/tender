@@ -9,7 +9,7 @@
 					    Завершенные тендеры
 					</h4>
 	            	<div class="add_user_btn">
-			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
+			            <button type="button" class="btn btn-info toggleFilter mr-3" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
 			            	Филтр
 						</button>
@@ -138,6 +138,30 @@
 			},
 			toggleFilter(){
 				this.filterShow = !this.filterShow
+			},
+			async search(){
+				let page = 1
+				if(this.filter.region_id != '' || this.filter.time != '' || this.filter.no_lots){
+					let data = {
+						page:page,
+						items:this.filter
+					}
+					this.laoding = true
+					await this.actionCompletedTendersList(data)
+					this.laoding = false
+				}
+			},
+			async clear(){
+				if(this.filter.region_id != '' || this.filter.time != '' || this.filter.no_lots){
+					this.filter.region_id = ''
+					this.filter.time = ''
+					this.filter.no_lots = false
+                    let page  = 1
+                    this.laoding = true
+                    await this.actionCompletedTendersList({page: page,items:this.filter})
+                    this.laoding = false
+				}
+
 			},
 			getStatusName(status){
 				if(status == 'pending'){
