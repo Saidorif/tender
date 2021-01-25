@@ -4,11 +4,11 @@
     <Header/>
     <div class="container">
       <div class="contact_block">
-        <div class="col-md-6">
+        <div class="col-lg-6">
           <h2 class="title" v-html="$t('contacts_page.title')"></h2>
           <p class="sub_title" > {{$t('contacts_page.sub_title')}} </p>
         </div>
-        <div class="col-md-5">
+        <div class="col-lg-5">
           <form @submit.enter.prevent="send">
             <div class="col-md-12">
                 <div class="input-group input_group_with_label">
@@ -84,7 +84,7 @@
             </div>
             <div class="col-md-12">
                 <div class="input-group mt-4">
-                  <button type="submit" class="btn_blue_bd_0">Yuborish {{$t('contacts_page.send')}}</button>
+                  <button type="submit" class="btn_blue_bd_0"> {{$t('contacts_page.send')}}</button>
                 </div>
             </div>
           </form>

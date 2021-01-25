@@ -50,6 +50,7 @@
         "middlename":"Sharifi",
         "phone":"Telefon raqam",
         "file_upload":"Faylni yuklash",
-        "text":"Xabar matni"
+        "text":"Xabar matni",
+        "send": "Yuvorish"
     }
 }
