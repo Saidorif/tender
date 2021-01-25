@@ -33,9 +33,9 @@ const actions = {
 			return false
 		}
 	},
-	async actionTenderAnnounces({commit},page){
+	async actionTenderAnnounces({commit},payload){
 		try {
-			const tenderannounces =  await TenderAnnounceService.tenderannounceses(page);
+			const tenderannounces =  await TenderAnnounceService.tenderannounceses(payload);
 			await commit('setTenderAnnounces',tenderannounces.data.result)
 			return true
 		} catch (error) {
