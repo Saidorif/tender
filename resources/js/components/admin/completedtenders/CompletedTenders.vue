@@ -43,6 +43,10 @@
 					                class="input_style"
 				              	></date-picker>
               				</div>
+              				<div class="form-group col-lg-3">
+				  				<label for="no_lots">Несостоявшиеся тендеры!</label>
+				  				<input type="checkbox" v-model="filter.no_lots" class="form-control input_style" id="no_lots">
+              				</div>
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
