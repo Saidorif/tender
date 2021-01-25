@@ -79,10 +79,12 @@
                 <input
                   type="text"
                   class="form-control input_style"
-                  id="Телефон"
-                  placeholder="Телефон.."
+                  id="phone"
+                  v-mask="'99 999 99 99'"
+                  placeholder="Телефон"
                   v-model="form.phone"
-                />
+                  :class="isRequired(form.phone) ? 'isRequired' : ''"
+                >
               </div>
               <div class="form-group col-md-6">
                 <label for="role">Рол</label>
