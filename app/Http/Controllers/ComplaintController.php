@@ -5,15 +5,32 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Complaint;
+use App\Direction;
 use Str;
 use Illuminate\Validation\Rule;
 
 class ComplaintController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $result = Complaint::with(['direction'])->orderBy('id', 'DESC')->paginate(12);
+        $user = $request->user();
+        $params = $request->all();
+        $builder = Complaint::query();
+        if(!empty($params['category_id'])){
+            $builder->where(['category_id' => $params['category_id']]);
+        }
+        if(!empty($params['direction_id'])){
+            $builder->where(['direction_id' => $params['direction_id']]);
+        }
+        if(!empty($params['region_id'])){
+            $direction_ids = Direction::where(['region_from_id' => $params['region_id']])
+                                    ->orWhere(['region_to_id' => $params['region_id']])
+                                    ->pluck('id')
+                                    ->toArray();
+            $builder->whereIn('direction_id', $direction_ids);
+        }
+        $result = $builder->with(['direction'])->orderBy('id', 'DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -79,17 +96,9 @@ class ComplaintController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
-        $inputs = $request->only('direction_id','comment','category_id');
-        // $status = 'active';
-        // if(array_key_exists('status', $inputs)){
-        //     if($inputs['status'] == 'completed'){
-        //         $status = 'completed';
-        //     }
-        // }
-        // $inputs['status'] = $status;
-        // dd($inputs);
-        if(empty($inputs['status'])){
-            $inputs['status'] = 'active';
+        $inputs = $request->only('direction_id','comment','category_id','status');
+        if(!empty($inputs['status'])){
+            $inputs['status'] = $inputs['status'];
         }
         //Upload file and image
         if($request->hasFile('comment_file')){
@@ -102,11 +111,5 @@ class ComplaintController extends Controller
         }
         $result->update($inputs);
         return response()->json(['success' => true, 'message' => 'Жалоба обновлено']);
-    }
-
-
-    public function destroy(Request $request, $id)
-    {
-        //
     }
 }

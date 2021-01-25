@@ -507,7 +507,7 @@ class TenderController extends Controller
             if(!empty($params['status']) && $params['status'] == true){
                 $builder->where('status','=','completed');
             }else{
-                $builder->where(['status' => 'completed'])->whereOr(['status' => 'approved']);
+                $builder->where(['status' => 'completed'])->orWhere(['status' => 'approved']);
             }
             if(!empty($params['no_lots']) && $params['no_lots'] == true){
                 $tender_ids = Application::all()->pluck('tender_id')->toArray();
