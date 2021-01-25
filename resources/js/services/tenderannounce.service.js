@@ -4,8 +4,8 @@ const TenderAnnounceService = {
 	tenderannounceList(){
 		return ApiService.get(`/api/tender/list`)
 	},
-	tenderannounceses(page){
-		return ApiService.post(`/api/tender?page=${page}`)
+	tenderannounceses(data){
+		return ApiService.post(`/api/tender?page=${data.page}`,data.items)
 	},
 	addtenderannounce(data){
 		return ApiService.post(`/api/tender/store`,data)
