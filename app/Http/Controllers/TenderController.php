@@ -26,7 +26,6 @@ class TenderController extends Controller
             $builder = Tender::query();
             if(!empty($params['region_id'])){
                 $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
-                return $users_region;
                 $builder->whereIn('created_by', $users_region);
             }
             if(!empty($params['time'])){
