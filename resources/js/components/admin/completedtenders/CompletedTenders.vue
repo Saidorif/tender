@@ -2,11 +2,60 @@
 	<div class="region">
         <Loader v-if="laoding"/>
 		<div class="card">
-		  	<div class="card-header">
-			    <h4 class="title_user">
-			    	<i class="peIcon fas fa-file"></i>
-				    Завершенные тендеры
-				</h4>
+		  	<div class="card-header header_filter">
+		  		<div class="header_title mb-2">
+				    <h4 class="title_user">
+			    		<i class="peIcon fas fa-file"></i>
+					    Завершенные тендеры
+					</h4>
+	            	<div class="add_user_btn">
+			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
+						    <i class="fas fa-filter"></i>
+			            	Филтр
+						</button>
+						<router-link class="btn btn-primary" to="/crm/direction/add">
+							<i class="fas fa-plus"></i> 
+							Добавить
+						</router-link>
+		            </div>
+	            </div>
+	            <transition name="slide">
+				  	<div class="filters" v-if="filterShow">
+				  		<div class="row">
+				  			<div class="form-group col-lg-3">
+				  				<label for="region_id">Сортировать по региону!</label>
+			                    <select
+			                      id="region_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.region_id"
+			                    >
+			                      <option value="" selected >Выберите регион!</option>
+			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="time">Сортировать по дате открытия!</label>
+				  				<date-picker
+					                lang="ru"
+					                type="date" 
+					                v-model="filter.time"
+					                placeholder="Выберите дату!"
+					                class="input_style"
+				              	></date-picker>
+              				</div>
+						  	<div class="col-lg-12 form-group d-flex justify-content-end">
+							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
+							  		<i class="fas fa-times"></i>
+								  	сброс
+							  	</button>
+							  	<button type="button" class="btn btn-primary ml-2" @click.prevent="search">
+							  		<i class="fas fa-search"></i>
+								  	найти
+							  	</button>
+					  	  	</div>	
+				  		</div>
+				  	</div>	
+			  	</transition>
 		  	</div>
 		  	<div class="card-body">
 			  	<div class="table-responsive">
@@ -52,29 +101,43 @@
 	</div>
 </template>
 <script>
+	import DatePicker from "vue2-datepicker";
     import { mapGetters , mapActions } from 'vuex'
     import Loader from '../../Loader'
 	export default{
         components:{
-            Loader
+            Loader,
+            DatePicker,
         },
 		data(){
 			return{
+				filter:{
+					region_id:'',
+					time:'',
+					no_lots:false
+				},
                 laoding: true,
+                filterShow: false,
 			}
 		},
 		async mounted(){
 			let page = 1;
-            await this.actionCompletedTendersList(page)
+            await this.actionCompletedTendersList({page:page,items:this.filter})
+            await this.actionRegionList()
             this.laoding = false
 		},
 		computed:{
+			...mapGetters("region", ["getRegionList"]),
 			...mapGetters('completedtender',['getTendersList','getMassage'])
 		},
 		methods:{
 			...mapActions('completedtender',['actionCompletedTendersList']),
+			...mapActions("region", ["actionRegionList"]),
 			async getResults(page = 1){
-				await this.actionCompletedTendersList(page)
+				await this.actionCompletedTendersList({page:page,items:this.filter})
+			},
+			toggleFilter(){
+				this.filterShow = !this.filterShow
 			},
 			getStatusName(status){
 				if(status == 'pending'){
