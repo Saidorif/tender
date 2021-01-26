@@ -46,7 +46,7 @@ class BusModelController extends Controller
                 $builder->where(['busmarka_id' => $params['busmarka_id']]);
             }
         }
-        $result = $builder->with(['model','bustype','marka'])->get();
+        $result = $builder->with(['tclass','bustype','marka'])->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
 
