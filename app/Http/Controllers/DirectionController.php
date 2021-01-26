@@ -640,7 +640,7 @@ class DirectionController extends Controller
                 $direction->requirement->delete();
             }
         }
-        if($direction->requirement){
+        if($request->input('generate') == 0 && $direction->requirement){
             return response()->json(['success' => true, 'result' => $direction->requirement]);
         }
         if(count($direction->cars) < 1){
