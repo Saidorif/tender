@@ -12,7 +12,7 @@ class BusModelController extends Controller
 {
     public function index(Request $request)
     {
-        $result = BusModel::with(['bustype','model'])->paginate(12);
+        $result = BusModel::with(['bustype','marka','tclass'])->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -52,7 +52,7 @@ class BusModelController extends Controller
 
     public function edit($id)
     {
-        $result = BusModel::with(['bustype','model','marka'])->find($id);
+        $result = BusModel::with(['bustype','tclass','marka'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Класс транспорта не найдено']);
         }
