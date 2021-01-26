@@ -13,6 +13,9 @@
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
+		  		<div class="alert alert-danger" v-for="(error,index) in errors" v-if="errors.length > 0">
+		  			{{error}}
+		  		</div>
 		  		<form @submit.prevent.enter="saveTender" >
 					<div class="row">
 					  <div class="form-group col-md-4">
@@ -521,6 +524,7 @@
 				edit_direction_ids:[],
 				tenderlots:[],
                 lots:[],
+                errors:[],
                 laoding: true,
 			}
 		},
@@ -950,6 +954,8 @@
 					 	});
 						this.requiredInput = false
 						this.$router.push("/crm/tenderannounce");
+					}else{
+						this.errors = this.getMassage.message
 					}
 				}else{
 					this.requiredInput = true

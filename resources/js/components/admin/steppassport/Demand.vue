@@ -6,15 +6,15 @@
         <PassportTab />
       </div>
       <div class="card-body">
-        <div class="table-responsive" v-if="getDemand.success">
-          <div class="row">
-            <div class="col-md-12 d-flex justify-content-end">
-              <button type="button" class="btn btn-primary" @click.prevent="refreshDemand">
-
-                Обнавить 
-              </button>
-            </div>
+        <div class="row">
+          <div class="col-md-12 d-flex justify-content-end mb-2">
+            <button type="button" class="btn btn-info text-white" @click.prevent="refreshDemand">
+              <i class="fas fa-redo"></i>
+              Обнавить 
+            </button>
           </div>
+        </div>
+        <div class="table-responsive" v-if="getDemand.success">
           <table class="table table-bordered">
             <!--             <thead>
               <tr>

@@ -499,7 +499,10 @@
 				  	</div>
                     <div class="form-group col-md-3">
 					    <label for="tclass_id">Класс Авто</label>
-					    <select
+					    <div class="form-control input_style">
+					    	{{getTClassName(car.tclass_id)}}
+					    </div>
+			<!-- 		    <select
 						    class="form-control input_style"
 					    	id="tclass_id"
 					    	placeholder="Номер Авто"
@@ -507,10 +510,8 @@
 					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
 					    >
 					    	<option value="" selected disabled>Выберите класс авто!</option>
-					    	<!-- <option :value="busClass.id" v-for="(busClass,index) in tclasses">{{busClass.name}}</option> -->
 					    	<option :value="busClass.id" v-for="(busClass,index) in tclasses">{{busClass.name}}</option>
-					    </select>
-					    	<!-- @change="selectMarka(car.tclass_id)" -->
+					    </select> -->
 				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="date">Дата выпуска</label>
@@ -887,6 +888,7 @@
 			getBusclassFindList:{
 				handler(){
 					this.tclasses = this.getBusclassFindList
+					this.car.tclass_id = this.tclasses.length > 0 ? this.tclasses[0].id : ''
 				}
 			},
 			'car.owner_type':{
@@ -941,6 +943,19 @@
 			...mapActions("busbrand",["actionBusBrandList"]),
 			openQrcode(){
 				$('#qrcodeModal').modal('show')
+			},
+			getTClassName(id){
+				if(this.tclasses.length > 0){
+					let name = ''
+					this.tclasses.forEach((item,index)=>{
+						if(item.id == this.car.tclass_id){
+							name = item.name
+						}
+					})
+					return name
+				}else{
+					return 'Выберите класс авто'
+				}
 			},
 			async activate(){
                 this.laoding = true
