@@ -719,7 +719,7 @@ class DirectionController extends Controller
             'transports_seats'              => '',
             'minimum_bal'                   => '',
         ];
-        return response()->json(['success' => true, 'result' => $data]);
+        return response()->json(['success' => true, 'result' => $data,'type' => $direction->type]);
     }
 
     public function storeRequirement(Request $request,$id)
