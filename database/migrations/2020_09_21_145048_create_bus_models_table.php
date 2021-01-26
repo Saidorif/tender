@@ -14,9 +14,20 @@ class CreateBusModelsTable extends Migration
     public function up()
     {
         Schema::create('bus_models', function (Blueprint $table) {
+            // $table->bigIncrements('id');
+            // $table->bigInteger('busbrand_id');
+            // $table->string('name');
+            // $table->timestamps();
             $table->bigIncrements('id');
-            $table->bigInteger('busbrand_id');
             $table->string('name');
+            $table->bigInteger('bustype_id');
+            $table->bigInteger('busmarka_id');
+            $table->bigInteger('busmodel_id');
+            $table->integer('seat_from');
+            $table->integer('seat_to')->nullable();
+            $table->text('desc')->nullable();
+            $table->integer('stay_from');
+            $table->integer('stay_to')->nullable();
             $table->timestamps();
         });
     }

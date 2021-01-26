@@ -139,8 +139,12 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $user = $request->user();
-        $role_ids = Role::where('name','!=','admin')->pluck('id');
-        $employee = User::where('role_id', '!=', 1)->find($id);
+        $role_ids = Role::all()->pluck('id');
+        if($user->role_id == 1){
+            $employee = User::find($id);
+        }else{
+            $employee = User::where('role_id', '!=', 1)->find($id);
+        }
         if(!$employee){
             return response()->json(['error' => true, 'message' => 'Пользователь не найден']);
         }
