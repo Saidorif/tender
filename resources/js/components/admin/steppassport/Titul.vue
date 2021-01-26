@@ -314,7 +314,8 @@
                           @change="selectModel(car)"
                         >
                           <option value="" selected disabled>Выберите марку авто!</option>
-                          <option :value="item.marka.id" v-for="(item,index) in car.bus_marks">{{item.marka.name}}</option>
+                    <!-- <option :value="item.marka.id" v-for="(item,index) in car.bus_marks">{{item.marka.name}}</option> -->
+                    <option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
                         </select>
                       </div>
                       <div class="form-group col-md-3">
@@ -326,7 +327,8 @@
                           v-model="car.busmodel_id"
                         >
                           <option value="" selected disabled>Выберите модель авто!</option>
-                          <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option>
+                    <!-- <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option> -->
+                    <option :value="item.id" v-for="(item,index) in getBusmodelFindList">{{item.name}}</option>
                         </select>
                       </div>
                       <div class="form-group col-md-1 btn_remove_auto">
@@ -441,6 +443,7 @@ export default {
     await this.actionTypeofbusList();
     await this.actionTypeofdirectionList();
     await this.actionEditDirection(this.$route.params.directionId);
+    await this.actionBusBrandList();
     this.laoding = false
     this.form.pass_number = this.getDirection.pass_number;
     this.form.dir_type = this.getDirection.dir_type;
@@ -475,6 +478,8 @@ export default {
     ...mapActions("direction", ["actionEditDirection","actionCarDeleteDirection"]),
     ...mapActions("passportTab", ["actionTarif"]),
     ...mapActions("direction", ["actionUpdateDirection"]),
+    ...mapActions("busbrand", ["actionBusBrandList"]),
+    ...mapActions("busmodel", ["actionBusmodelFindList"]),
     async removeEditCar(id){
       if(confirm("Вы действительно хотите удалить?")){
         await this.actionCarDeleteDirection(id)
@@ -510,12 +515,14 @@ export default {
       })
     },
     async selectModel(car){
-      car.busmodel_id = ''
-      car.bus_models = car.bus_marks.filter((item,index)=>{
-        if (item.marka.id == car.busmarka_id){
-          return item
-        }
-      })
+    //   car.busmodel_id = ''
+    //   car.bus_models = car.bus_marks.filter((item,index)=>{
+    //     if (item.marka.id == car.busmarka_id){
+    //       return item
+    //     }
+    //   })
+            car.busmodel_id = ''
+        await this.actionBusmodelFindList(car)
     },
     removeCar(index){
       Vue.delete(this.cars,index)
@@ -618,6 +625,8 @@ export default {
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("direction", ["getDirection",'getMassage']),
     ...mapGetters("passportTab", ["getTarif"]),
+        ...mapGetters("busbrand", ["getBusBrandList"]),
+    ...mapGetters("busmodel", ["getBusmodelFindList"]),
     checkCars(){
       if(this.cars.length > 0){
         let result = true

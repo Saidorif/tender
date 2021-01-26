@@ -18,7 +18,11 @@
 							<tr>
 								<th scope="col">№</th>
 								<th scope="col">Марка</th>
-								<th scope="col">Название</th>
+								<th scope="col">Модель </th>
+								<th scope="col">Количество сидящих</th>
+								<th scope="col">Количество сидящих (по)</th>
+								<th scope="col">Пассажировместимость</th>
+								<th scope="col">Пассажировместимость (по)</th>
 								<th scope="col">Действия</th>
 							</tr>
 						</thead>
@@ -27,6 +31,10 @@
 								<td scope="row">{{model.id}}</td>
 								<td>{{model.marka ? model.marka.name : ''}}</td>
 								<td>{{model.name}}</td>
+								<td>{{model.seat_from}}</td>
+								<td>{{model.seat_to}}</td>
+								<td>{{model.stay_from}}</td>
+								<td>{{model.stay_to}}</td>
 								<td>
 									<router-link
 										tag="button"

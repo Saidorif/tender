@@ -288,7 +288,8 @@
                     @change="selectModel(car)"
                   >
                     <option value="" selected disabled>Выберите марку авто!</option>
-                    <option :value="item.marka.id" v-for="(item,index) in car.bus_marks">{{item.marka.name}}</option>
+                    <!-- <option :value="item.marka.id" v-for="(item,index) in car.bus_marks">{{item.marka.name}}</option> -->
+                    <option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
                   </select>
                 </div>
                 <div class="form-group col-md-3">
@@ -300,7 +301,8 @@
                     v-model="car.busmodel_id"
                   >
                     <option value="" selected disabled>Выберите модель авто!</option>
-                    <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option>
+                    <!-- <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option> -->
+                    <option :value="item.id" v-for="(item,index) in getBusmodelFindList">{{item.name}}</option>
                   </select>
                 </div>
                 <div class="form-group col-md-1 btn_remove_auto">
@@ -372,6 +374,7 @@ export default {
     await this.actionRegionList();
     await this.actionTypeofbusList();
     await this.actionTypeofdirectionList();
+    await this.actionBusBrandList();
     this.laoding = false
   },
   methods: {
@@ -382,6 +385,8 @@ export default {
     ...mapActions("area", ["actionAreaByRegion"]),
     ...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
     ...mapActions("direction", ["actionAddDirection"]),
+    ...mapActions("busbrand", ["actionBusBrandList"]),
+    ...mapActions("busmodel", ["actionBusmodelFindList"]),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
@@ -407,12 +412,14 @@ export default {
       })
     },
     async selectModel(car){
-      car.busmodel_id = ''
-      car.bus_models = car.bus_marks.filter((item,index)=>{
-        if (item.marka.id == car.busmarka_id){
-          return item
-        }
-      })
+    //   car.busmodel_id = ''
+    //   car.bus_models = car.bus_marks.filter((item,index)=>{
+    //     if (item.marka.id == car.busmarka_id){
+    //       return item
+    //     }
+    //   })
+        car.busmodel_id = ''
+        await this.actionBusmodelFindList(car)
     },
     removeCar(index){
       Vue.delete(this.cars,index)
@@ -502,6 +509,8 @@ export default {
     ...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("direction", ["getMassage"]),
+    ...mapGetters("busbrand", ["getBusBrandList"]),
+    ...mapGetters("busmodel", ["getBusmodelFindList"]),
     checkCars(){
       if(this.cars.length > 0){
         let result = true

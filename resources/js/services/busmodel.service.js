@@ -7,6 +7,10 @@ const BusModelService = {
 	busmodels(){
 		return ApiService.post(`/api/busmodel`)
 	},
+	busmodelfind(data){
+        console.log(data)
+		return ApiService.post(`/api/busmodel/find`, data)
+	},
 	addbusmodel(data){
 		return ApiService.post(`/api/busmodel/store`,data)
 	},

@@ -44,7 +44,7 @@
                 :class="isRequired(form.name) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-4">
+            <!-- <div class="form-group col-md-4">
               <label for="busmodel_id">Марка автобуса</label>
               <select
                 class="form-control input_style"
@@ -135,7 +135,7 @@
                 v-model="form.desc"
                 :class="isRequired(form.desc) ? 'isRequired' : ''"
               ></textarea>
-            </div>
+            </div> -->
             <div
               class="form-group col-lg-2 form_btn d-flex justify-content-end"
             >
@@ -161,14 +161,14 @@ export default {
     return {
       form: {
         name: "",
-        seat_from: "",
-        seat_to: "",
-        stay_from: "",
-        stay_to: "",
+        // seat_from: "",
+        // seat_to: "",
+        // stay_from: "",
+        // stay_to: "",
         bustype_id: "",
-        busmodel_id: "",
-        desc: "",
-        busmarka_id: "",
+        // busmodel_id: "",
+        // desc: "",
+        // busmarka_id: "",
       },
       requiredInput: false,
       laoding: true,
@@ -182,9 +182,9 @@ export default {
   },
   async mounted() {
     await this.actionTypeofbusList();
-    await this.actionBusmodelList();
+    // await this.actionBusmodelList();
     await this.actionEditBusclass(this.$route.params.busclassId);
-    await this.actionBusBrandList();
+    // await this.actionBusBrandList();
     this.form = this.getBusclass;
     this.laoding = false
   },
@@ -194,8 +194,8 @@ export default {
       "actionDeleteTypeofbus",
     ]),
     ...mapActions("busclass", ["actionUpdateBusclass", "actionEditBusclass"]),
-    ...mapActions("busmodel", ["actionBusmodelList"]),
-    ...mapActions("busbrand", ["actionBusBrandList"]),
+    // ...mapActions("busmodel", ["actionBusmodelList"]),
+    // ...mapActions("busbrand", ["actionBusBrandList"]),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
