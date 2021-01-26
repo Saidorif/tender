@@ -162,7 +162,7 @@
               </tr>
               <!-- 3 s -->
               <tr>
-                <td rowspan="3">15</td>
+                <td :rowspan="form.tarif_city ? 3 : 2">15</td>
                 <td width="50%"><b>Тариф</b></td>
                 <td><b>{{form.tarif}}</b></td>
               </tr>
@@ -170,7 +170,7 @@
                 <td>1 км. учун йўл тариф (шаҳар атрофи, шаҳарлараро йўналишлар учун)</td>
                 <td>1 км. учун ({{form.tarif_one_km}} сум). Йўл кира ҳаққи (00 сум)</td>
               </tr>
-              <tr>
+              <tr v-if="form.tarif_city">
                 <td>Йўл кира ҳаққи (шаҳар йўналишлар учун)</td>
                 <td>{{form.tarif_city}} сум</td>
               </tr>

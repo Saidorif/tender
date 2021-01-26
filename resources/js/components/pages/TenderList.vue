@@ -165,5 +165,10 @@ export default {
 };
 </script>
 <style scoped>
-
+.tender_card_header .time_counter{
+    background: transparent !important;
+}
+.time_counter{
+    background: transparent !important;
+}
 </style>
