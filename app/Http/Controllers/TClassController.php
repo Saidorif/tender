@@ -64,7 +64,7 @@ class TClassController extends Controller
             'name' => 'required|string',
             'busmodel_id' => 'required|integer',
             'bustype_id' => 'required|integer',
-            'busbrand_id' => 'required|integer',
+            'busmarka_id' => 'required|integer',
             'desc' => 'nullable|string',
             'seat_from' => 'required|integer',
             // 'seat_to' => 'required|integer',
@@ -76,7 +76,7 @@ class TClassController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
-        $inputs['busmarka_id'] = $inputs['busbrand_id'];
+        // $inputs['busmarka_id'] = $inputs['busbrand_id'];
         $result = TClass::create($inputs);
         return response()->json(['success' => true, 'message' => 'Класс транспорта успешно создана']);
     }
