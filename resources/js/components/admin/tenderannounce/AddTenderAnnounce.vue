@@ -344,7 +344,7 @@
 
 			  	<!-- text -->
 			  	<div class="form-group" v-if="allItems.length > 0">
-					<label class="form-control-label" for="text">Примечание {{comment}}</label>		  		
+					<label class="form-control-label" for="text">Примечание {{comment}}</label>
 				  	<textarea class="form-control" id="text" v-model="comment"></textarea>
 			  	</div>
 		      </div>
@@ -444,6 +444,7 @@
 		      "actionGetScheduleTable",
 		    ]),
 		    addLot(){
+                console.log(this.comment)
 		    	if (this.allItems.length > 0) {
 			    	if (this.checked) {
 			    		if (this.allItems.length > 1) {
@@ -539,7 +540,8 @@
 			    			directions:this.direction_ids,
 			    			reyses:[],
 			    			text:this.comment
-			    		}
+                        }
+                        console.log(value)
 			    		let checkLot = true
 			    		let checkItem = true
 			    		this.allLotes.forEach((lots,index)=>{
