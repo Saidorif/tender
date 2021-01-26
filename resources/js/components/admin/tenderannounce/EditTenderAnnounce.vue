@@ -16,7 +16,7 @@
 		  		<div class="alert alert-danger" v-for="(error,index) in errors" v-if="errors.length > 0">
 		  			{{error}}
 		  		</div>
-		  		<form @submit.prevent.enter="saveTender" >
+		  		<form @submit.prevent.enter="saveTender">
 					<div class="row">
 					  <div class="form-group col-md-4">
 					    <label for="name">Дата тердера</label>

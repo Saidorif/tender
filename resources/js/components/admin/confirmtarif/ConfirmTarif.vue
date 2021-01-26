@@ -2,11 +2,88 @@
 	<div class="region">
         <Loader v-if="laoding"/>
 		<div class="card">
-		  	<div class="card-header">
-			    <h4 class="title_user">
-			    	<i class="peIcon fas fa-clipboard-check"></i>
-				    Подтвердить тариф
-				</h4>
+		  	<div class="card-header header_filter">
+		  		<div class="header_title mb-2">
+				    <h4 class="title_user">
+				    	<i class="peIcon fas fa-clipboard-check"></i>
+					    Подтвердить тариф
+					</h4>
+	            	<div class="add_user_btn">
+		                <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
+		            		Количество <b>{{ getPassportList.total }} шт.</b> 
+		            	</span>
+			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
+						    <i class="fas fa-filter"></i>
+			            	Филтр
+						</button>
+		            </div>
+	            </div>
+	            <transition name="slide">
+				  	<div class="filters" v-if="filterShow">
+				  		<div class="row">
+				  			<div class="form-group col-lg-3">
+				  				<label for="region_id">Сортировать по региону!</label>
+			                    <select
+			                      id="region_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.region_id"
+			                    >
+			                      <option value="" selected >Выберите регион!</option>
+			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="dir_type">Сортировать по типу маршрута!</label>
+			                    <select
+			                      id="dir_type"	
+			                      class="form-control input_style"
+			                      v-model="filter.dir_type"
+			                    >
+			                      <option value="" selected >Выберите тип маршрута!</option>
+			                      <option value="bus">Автобус йуналиши</option>
+                      			  <option value="taxi">Йўналиши тахи йуналиши</option>
+			                    </select>
+              				</div>
+              				<div class="form-group col-lg-3">
+				  				<label for="type_id">Сортировать по локацию маршрута!</label>
+			                    <select
+			                      id="type_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.type_id"
+			                    >
+			                      <option value="" selected >Выберите локацию маршрута!</option>
+			                      <option
+					                  :value="item.id"
+					                  v-for="(item,index) in getTypeofdirectionList"
+				                  >{{item.name }} {{item.type}}</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="range">Сортировать!</label>
+				  				<select
+			                      id="range"	
+			                      class="form-control input_style"
+			                      v-model="range"	
+			                      @change="rangeChange"
+			                    >
+			                      <option value="" selected >Выберите локацию маршрута!</option>
+			                      <option value="min" >По снижению</option>
+			                      <option value="max" >По возрастанию</option>
+								</select>
+              				</div>
+						  	<div class="col-lg-12 form-group d-flex justify-content-end">
+							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
+							  		<i class="fas fa-times"></i>
+								  	сброс
+							  	</button>
+							  	<button type="button" class="btn btn-primary ml-2" @click.prevent="search">
+							  		<i class="fas fa-search"></i>
+								  	найти
+							  	</button>
+					  	  	</div>	
+				  		</div>
+				  	</div>	
+			  	</transition>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -22,26 +99,26 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(item,index) in getPassportList">
+						<tr v-for="(item,index) in getPassportList.data">
 							<td scope="row">{{item.id}}</td>
 							<td scope="row">{{item.name}}</td>
                             <td style="padding:0;">
                                 <ul class="table_item_list">
-                                    <li v-for="(ch_item,ch_index) in item.tarifs" >
+                                    <li v-for="(ch_item,ch_index) in item.passport_tarif" >
                                         {{ch_item.summa}}
                                     </li>
                                 </ul>
                             </td>
                             <td style="padding:0;">
                                 <ul class="table_item_list">
-                                    <li v-for="(ch_item,ch_index) in item.tarifs" >
+                                    <li v-for="(ch_item,ch_index) in item.passport_tarif" >
                                         {{ch_item.summa_bagaj}}
                                     </li>
                                 </ul>
                             </td>
                             <td style="padding:0;">
                                 <ul class="table_item_list">
-                                    <li v-for="(ch_item,ch_index) in item.tarifs" >
+                                    <li v-for="(ch_item,ch_index) in item.passport_tarif" >
                                     	<div class="badge" :class="getStatusClass(ch_item.status)">
 	                                        {{ch_item.status == 'pending' ? 'не подтвержден' : 'подтвержден'}}
                                     	</div>
@@ -50,7 +127,7 @@
                             </td>
 							<td style="padding:0;">
                                 <ul class="table_item_list">
-                                    <li v-for="(ch_item,ch_index) in item.tarifs" >
+                                    <li v-for="(ch_item,ch_index) in item.passport_tarif" >
                                         <button type="button" class="btn" :class="ch_item.status == 'approved' ? 'btn-success' : 'fas btn-warning'" style="padding: 2px 9px;"
                                         	@click="completedTender(ch_item.id)"
                                     	>
@@ -61,7 +138,7 @@
 							</td>
 						</tr>
 					</tbody>
-					<!-- <pagination :limit="4" :data="getTarifAnnounces" @pagination-change-page="getResults"></pagination> -->
+					<pagination :limit="4" :data="getPassportList" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
 		  </div>
@@ -71,30 +148,48 @@
 <script>
     import { mapGetters , mapActions } from 'vuex'
     import Loader from '../../Loader'
+    import DatePicker from "vue2-datepicker";
 	export default{
         components:{
-            Loader
+            Loader,
+            DatePicker,
         },
 		data(){
 			return{
+	            filter:{
+	            	region_id:'',
+					type_id:'',
+					dir_type:'',
+					max:false,
+					min:false,
+	            },
+				range:'',
                 laoding: true,
+                filterShow: false,
 			}
 		},
 		async mounted(){
             let page = 1;
-            await this.actionPortTarifList();
+            await this.actionPortTarifList({page:page,item:this.filter});
+            await this.actionRegionList()
+			await this.actionTypeofdirectionList()
             this.laoding = false
 		},
 		computed:{
-			...mapGetters('tarifannounce',['getPassportList', 'getMassage'])
+			...mapGetters('tarifannounce',['getPassportList', 'getMassage']),
+			...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
+			...mapGetters("region", ["getRegionList"]),
 		},
 		methods:{
             ...mapActions('tarifannounce',['actionPortTarifList', 'actionApprovePassportTarifList']),
+            ...mapActions("region", ["actionRegionList"]),
+			...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
             async completedTender(id){
+            	let page = 1;
                 this.laoding = true
                 await this.actionApprovePassportTarifList({tarif_id: id})
                 if(this.getMassage.success){
-                    await this.actionPortTarifList();
+                    await this.actionPortTarifList({page:page,item:this.filter});
                     toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
@@ -103,9 +198,48 @@
                 }
                 this.laoding = false
             },
-			// async getResults(page = 1){
-			// 	await this.actionTarifAnnounces(page)
-			// },
+            toggleFilter(){
+				this.filterShow = !this.filterShow
+			},
+			rangeChange(){
+				if(this.range == 'min'){
+					this.filter.min = true
+					this.filter.max = false
+				}else if(this.range == 'max'){
+					this.filter.min = false
+					this.filter.max = true
+				}
+			},
+			async search(){
+				let page = 1
+				if(this.filter.region_id != '' || this.filter.type_id != ''  || this.filter.dir_type != '' || this.filter.max || this.filter.min ){
+					let data = {
+						page:page,
+						items:this.filter
+					}
+					this.laoding = true
+					await this.actionPortTarifList(data)
+					this.laoding = false
+				}
+			},
+			async clear(){
+				if(this.filter.region_id != '' || this.filter.type_id != '' || this.filter.dir_type != '' || this.filter.max || this.filter.min){
+					this.filter.region_id = ''
+					this.filter.type_id = ''
+					this.filter.dir_type = ''
+					this.filter.min = false
+					this.filter.max = false
+					this.range = ''
+                    let page  = 1
+                    this.laoding = true
+                    await this.actionPortTarifList({page: page,items:this.filter})
+                    this.laoding = false
+				}
+
+			},
+			async getResults(page = 1){
+				await this.actionPortTarifList({page:page,item:this.filter})
+			},
 			// getStatusName(status){
 			// 	if(status == 'pending'){
 			// 		return 'В ожидании'

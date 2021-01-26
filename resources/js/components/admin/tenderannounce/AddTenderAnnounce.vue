@@ -341,6 +341,12 @@
 				  		</ul>
 				  	</div>
 			  	</div>
+
+			  	<!-- text -->
+			  	<div class="form-group" v-if="allItems.length > 0">
+					<label class="form-control-label" for="text">Примечание {{comment}}</label>		  		
+				  	<textarea class="form-control" id="text" v-model="comment"></textarea>
+			  	</div>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-warning" data-dismiss="modal">
@@ -377,6 +383,7 @@
 					address:'',
 					type:'simple',
 				},
+				comment:'',
 				requiredInput:false,
 				direction_ids:{},
 				allLotes:[],
@@ -470,6 +477,7 @@
 	    		this.allItems = []
 	    		this.form.direction_ids=[]
 				this.findList = []
+				this.comment = ''
 		    },
 		    openModal(){
 		    	$('#myModal').modal('show')
@@ -505,71 +513,72 @@
 				this.toName = this.getSchedule ? this.getSchedule.whereTo[0].where.name : ''
 		    },
 		    readyItems(){
-		    	if (this.direction_ids && Object.keys(this.direction_ids).length > 0) {
-			    	// if (this.checked) {
-				    	if(this.checkedGrafik){
-				    		if (this.choosenFromItems.length > 0){
-					    		let value = {
-					    			directions:this.direction_ids,
-					    			reyses:this.choosenFromItems
-					    		}
-					    		this.allItems.push(value)
-				    		}
-				    		if (this.choosenToItems.length > 0){
-					    		let value = {
-					    			directions:this.direction_ids,
-					    			reyses:this.choosenToItems
-					    		}
-					    		this.allItems.push(value)
-				    		}
-				    		this.choosenFromItems = []
-				    		this.choosenToItems = []
-				    		this.direction_ids = {}
-				    	}else{
+		    	if (this.direction_ids && Object.keys(this.direction_ids).length > 0){
+			    	if(this.checkedGrafik){
+			    		if (this.choosenFromItems.length > 0){
 				    		let value = {
 				    			directions:this.direction_ids,
-				    			reyses:[]
+				    			reyses:this.choosenFromItems,
+				    			text:this.comment
 				    		}
-				    		let checkLot = true
-				    		let checkItem = true
-				    		this.allLotes.forEach((lots,index)=>{
-				    			lots.forEach((lot,i)=>{
-					    			if (lot.directions.id == value.directions.id && lot.reyses.length == 0 && value.reyses.length == 0) {
-					    				checkLot = false
-					    			}else{
-					    				checkLot = true
-					    			}
-				    			})
-				    		})
-				    		this.allItems.forEach((item,index)=>{
-				    			if (item.directions.id == value.directions.id && item.reyses.length == 0 && value.reyses.length == 0) {
-				    				checkItem = false
+				    		this.allItems.push(value)
+			    		}
+			    		if (this.choosenToItems.length > 0){
+				    		let value = {
+				    			directions:this.direction_ids,
+				    			reyses:this.choosenToItems,
+				    			text:this.comment
+				    		}
+				    		this.allItems.push(value)
+			    		}
+			    		this.choosenFromItems = []
+			    		this.choosenToItems = []
+			    		this.direction_ids = {}
+			    	}else{
+			    		let value = {
+			    			directions:this.direction_ids,
+			    			reyses:[],
+			    			text:this.comment
+			    		}
+			    		let checkLot = true
+			    		let checkItem = true
+			    		this.allLotes.forEach((lots,index)=>{
+			    			lots.forEach((lot,i)=>{
+				    			if (lot.directions.id == value.directions.id && lot.reyses.length == 0 && value.reyses.length == 0) {
+				    				checkLot = false
 				    			}else{
-				    				checkItem = true
+				    				checkLot = true
 				    			}
-				    		})
-				    		if (!checkLot) {
+			    			})
+			    		})
+			    		this.allItems.forEach((item,index)=>{
+			    			if (item.directions.id == value.directions.id && item.reyses.length == 0 && value.reyses.length == 0) {
+			    				checkItem = false
+			    			}else{
+			    				checkItem = true
+			    			}
+			    		})
+			    		if (!checkLot) {
+			    			toast.fire({
+						    	type: 'error',
+						    	icon: 'error',
+								title: 'В списке лот существует!',
+						    })
+			    		}else{
+				    		if (checkItem){
+			    				this.allItems.push(value)
+				    		}else{
 				    			toast.fire({
 							    	type: 'error',
 							    	icon: 'error',
-									title: 'В списке лот существует!',
+									title: 'Этот маршрут уже выбрано!',
 							    })
-				    		}else{
-					    		if (checkItem){
-				    				this.allItems.push(value)
-					    		}else{
-					    			toast.fire({
-								    	type: 'error',
-								    	icon: 'error',
-										title: 'Этот маршрут уже выбрано!',
-								    })
-					    		}
 				    		}
-		    				this.choosenFromItems = []
-				    		this.choosenToItems = []
-				    		this.direction_ids = {}
-				    	}
-			    	// }
+			    		}
+	    				this.choosenFromItems = []
+			    		this.choosenToItems = []
+			    		this.direction_ids = {}
+			    	}
 		    	}
 		    },
 		    addToAllItems(){
