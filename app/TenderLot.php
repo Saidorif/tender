@@ -12,6 +12,7 @@ class TenderLot extends Model
         'reys_id',
         'time',
         'status',
+        'text',
     ];
 
     protected $casts = [

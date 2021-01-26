@@ -20,6 +20,7 @@ class CreateTenderLotsTable extends Migration
             $table->string('reys_id');
             $table->dateTime('time');
             $table->string('status');//custom|all
+            $table->text('text')->nullable();
             $table->timestamps();
         });
     }
