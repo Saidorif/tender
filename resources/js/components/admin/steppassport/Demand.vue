@@ -7,6 +7,14 @@
       </div>
       <div class="card-body">
         <div class="table-responsive" v-if="getDemand.success">
+          <div class="row">
+            <div class="col-md-12 d-flex justify-content-end">
+              <button type="button" class="btn btn-primary" @click.prevent="refreshDemand">
+
+                Обнавить 
+              </button>
+            </div>
+          </div>
           <table class="table table-bordered">
             <!--             <thead>
               <tr>
@@ -382,16 +390,27 @@ export default {
   },
   async mounted() {
     // await this.actionEditDirection(this.$route.params.directionId);
-    await this.actionDemand(this.$route.params.directionId);
+    let data ={
+        generate:0,
+        id:this.$route.params.directionId
+      }
+      await this.actionDemand(data);
     this.laoding = false;
-    if (this.getDemand.success) {
-      this.form = this.getDemand.result;
-    } else {
-      toast.fire({
-        type: "error",
-        icon: "error",
-        title: this.getDemand.message,
-      });
+
+  },
+  watch:{
+    'getDemand.result':{
+      handler(){
+        if (this.getDemand.success) {
+          this.form = this.getDemand.result;
+        } else {
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getDemand.message,
+          });
+        }
+      },deep:true
     }
   },
   computed: {
@@ -410,6 +429,22 @@ export default {
       } else if (name == "seasonal") {
         return "Mavsumiy";
       }
+    },
+    async refreshDemand(){
+      let data ={
+        generate:1,
+        id:this.$route.params.directionId
+      }
+      await this.actionDemand(data);
+      //   if (this.getDemand.success) {
+      //   this.form = this.getDemand.result;
+      // } else {
+      //   toast.fire({
+      //     type: "error",
+      //     icon: "error",
+      //     title: this.getDemand.message,
+      //   });
+      // }
     },
     async saveData() {
       let data = {

@@ -52,9 +52,9 @@ const actions = {
 			return false
 		}
 	},
-	async actionDemand({commit},id){
+	async actionDemand({commit},payload){
 		try {
-			const demand =  await PassportTabService.demands(id);
+			const demand =  await PassportTabService.demands(payload);
 			await commit('setDemand',demand.data)
 			return true
 		} catch (error) {
