@@ -18,6 +18,72 @@
 						</button>
 		            </div>
 	            </div>
+	            <transition name="slide">
+				  	<div class="filters" v-if="filterShow">
+				  		<div class="row">
+				  			<div class="form-group col-lg-3">
+				  				<label for="region_id">Сортировать по региону!</label>
+			                    <select
+			                      id="region_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.region_id"
+			                    >
+			                      <option value="" selected >Выберите регион!</option>
+			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="dir_type">Сортировать по типу маршрута!</label>
+			                    <select
+			                      id="dir_type"	
+			                      class="form-control input_style"
+			                      v-model="filter.dir_type"
+			                    >
+			                      <option value="" selected >Выберите тип маршрута!</option>
+			                      <option value="bus">Автобус йуналиши</option>
+                      			  <option value="taxi">Йўналиши тахи йуналиши</option>
+			                    </select>
+              				</div>
+              				<div class="form-group col-lg-3">
+				  				<label for="type_id">Сортировать по локацию маршрута!</label>
+			                    <select
+			                      id="type_id"	
+			                      class="form-control input_style"
+			                      v-model="filter.type_id"
+			                    >
+			                      <option value="" selected >Выберите локацию маршрута!</option>
+			                      <option
+					                  :value="item.id"
+					                  v-for="(item,index) in getTypeofdirectionList"
+				                  >{{item.name }} {{item.type}}</option>
+			                    </select>
+              				</div>
+				  			<div class="form-group col-lg-3">
+				  				<label for="range">Сортировать!</label>
+				  				<select
+			                      id="range"	
+			                      class="form-control input_style"
+			                      v-model="range"	
+			                      @change="rangeChange"
+			                    >
+			                      <option value="" selected >Выберите локацию маршрута!</option>
+			                      <option value="min" >По снижению</option>
+			                      <option value="max" >По возрастанию</option>
+								</select>
+              				</div>
+						  	<div class="col-lg-12 form-group d-flex justify-content-end">
+							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
+							  		<i class="fas fa-times"></i>
+								  	сброс
+							  	</button>
+							  	<button type="button" class="btn btn-primary ml-2" @click.prevent="search">
+							  		<i class="fas fa-search"></i>
+								  	найти
+							  	</button>
+					  	  	</div>	
+				  		</div>
+				  	</div>	
+			  	</transition>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -82,9 +148,11 @@
 <script>
     import { mapGetters , mapActions } from 'vuex'
     import Loader from '../../Loader'
+    import DatePicker from "vue2-datepicker";
 	export default{
         components:{
             Loader,
+            DatePicker,
         },
 		data(){
 			return{
@@ -95,6 +163,7 @@
 					max:false,
 					min:false,
 	            },
+				range:'',
                 laoding: true,
                 filterShow: false,
 			}
@@ -131,6 +200,15 @@
             },
             toggleFilter(){
 				this.filterShow = !this.filterShow
+			},
+			rangeChange(){
+				if(this.range == 'min'){
+					this.filter.min = true
+					this.filter.max = false
+				}else if(this.range == 'max'){
+					this.filter.min = false
+					this.filter.max = true
+				}
 			},
 			async search(){
 				let page = 1
