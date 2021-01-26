@@ -227,8 +227,9 @@
 					this.filter.region_id = ''
 					this.filter.type_id = ''
 					this.filter.dir_type = ''
-					this.filter.max = ''
-					this.filter.min = ''
+					this.filter.min = false
+					this.filter.max = false
+					this.range = ''
                     let page  = 1
                     this.laoding = true
                     await this.actionPortTarifList({page: page,items:this.filter})
