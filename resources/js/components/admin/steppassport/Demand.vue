@@ -10,7 +10,7 @@
           <div class="col-md-12 d-flex justify-content-end mb-2">
             <button type="button" class="btn btn-info text-white" @click.prevent="refreshDemand">
               <i class="fas fa-redo"></i>
-              Обнавить 
+              Обнавить
             </button>
           </div>
         </div>
@@ -287,13 +287,13 @@
               </tr>
               <!-- 3 s -->
               <tr>
-                <td rowspan="3">15</td>
+                <td :rowspan="2">15</td>
                 <td width="50%"><b>Тариф</b></td>
                 <td>
                   <b>{{ form.tarif }}</b>
                 </td>
               </tr>
-              <tr>
+              <tr v-if="getDemand.type && getDemand.type.id != 1">
                 <td>
                   1 км. учун йўл тариф (шаҳар атрофи, шаҳарлараро йўналишлар
                   учун)
@@ -305,7 +305,7 @@
                   сум)
                 </td>
               </tr>
-              <tr>
+              <tr v-else>
                 <td>Йўл кира ҳаққи (шаҳар йўналишлар учун)</td>
                 <td>{{ form.tarif_city }} сум</td>
               </tr>
@@ -396,6 +396,7 @@ export default {
       }
       await this.actionDemand(data);
     this.laoding = false;
+    console.log(this.getDemand)
 
   },
   watch:{
