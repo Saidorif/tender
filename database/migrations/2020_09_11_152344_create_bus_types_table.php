@@ -15,7 +15,6 @@ class CreateBusTypesTable extends Migration
     {
         Schema::create('bus_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            // $table->bigInteger('busmarka_id');
             $table->string('name');
             $table->string('desc')->nullable();
             $table->timestamps();
