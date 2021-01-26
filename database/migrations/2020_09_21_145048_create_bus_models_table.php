@@ -22,7 +22,7 @@ class CreateBusModelsTable extends Migration
             $table->string('name');
             $table->bigInteger('bustype_id');
             $table->bigInteger('busmarka_id');
-            $table->bigInteger('busmodel_id');
+            $table->bigInteger('tclass_id');
             $table->integer('seat_from');
             $table->integer('seat_to')->nullable();
             $table->text('desc')->nullable();
