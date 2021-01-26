@@ -1,7 +1,7 @@
 import {TarifannounceService} from "../services/tarifannounce.service";
 
 const state = {
-	passportList: [],
+	passportList: {},
 	message: [],
 };
 
@@ -16,9 +16,9 @@ const getters = {
 
 
 const actions = {
-	async actionPortTarifList({commit},page){
+	async actionPortTarifList({commit},payload){
 		try {
-			const passportList =  await TarifannounceService.passportTarifList(page);
+			const passportList =  await TarifannounceService.passportTarifList(payload);
 			await commit('setPassportList',passportList.data.result)
 			return true
 		} catch (error) {

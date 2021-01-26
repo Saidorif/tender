@@ -417,6 +417,7 @@ class DirectionController extends Controller
     {
         $builder = Direction::query()->with(['passport_tarif']);
         $params = $request->all();
+        $region = null;
         if(!empty($params['region_id'])){
             $builder->where(['region_from_id' => $params['region_id']])->orWhere(['region_to_id' => $params['region_id']]);
         }
