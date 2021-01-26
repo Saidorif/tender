@@ -22,7 +22,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(item,index) in getPassportList">
+						<tr v-for="(item,index) in getPassportList.data">
 							<td scope="row">{{item.id}}</td>
 							<td scope="row">{{item.name}}</td>
                             <td style="padding:0;">
@@ -61,7 +61,7 @@
 							</td>
 						</tr>
 					</tbody>
-					<!-- <pagination :limit="4" :data="getTarifAnnounces" @pagination-change-page="getResults"></pagination> -->
+					<pagination :limit="4" :data="getPassportList" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
 		  </div>
@@ -82,7 +82,8 @@
 		},
 		async mounted(){
             let page = 1;
-            await this.actionPortTarifList();
+            await this.actionPortTarifList(page);
+            console.log(this.getPassportList)
             this.laoding = false
 		},
 		computed:{
@@ -91,10 +92,11 @@
 		methods:{
             ...mapActions('tarifannounce',['actionPortTarifList', 'actionApprovePassportTarifList']),
             async completedTender(id){
+            	let page = 1;
                 this.laoding = true
                 await this.actionApprovePassportTarifList({tarif_id: id})
                 if(this.getMassage.success){
-                    await this.actionPortTarifList();
+                    await this.actionPortTarifList(page);
                     toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
@@ -103,9 +105,9 @@
                 }
                 this.laoding = false
             },
-			// async getResults(page = 1){
-			// 	await this.actionTarifAnnounces(page)
-			// },
+			async getResults(page = 1){
+				await this.actionPortTarifList(page)
+			},
 			// getStatusName(status){
 			// 	if(status == 'pending'){
 			// 		return 'В ожидании'

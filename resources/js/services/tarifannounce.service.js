@@ -1,8 +1,8 @@
 import ApiService from './api.service'
 
 const TarifannounceService = {
-	passportTarifList(){
-		return ApiService.get(`/api/direction/passporttarif/list`)
+	passportTarifList(page){
+		return ApiService.get(`/api/direction/passporttarif/list?page=${page}`)
 	},
 	approvePassportTarifList(tarifId){
 		return ApiService.post(`/api/direction/passporttarif/approve`, tarifId)
