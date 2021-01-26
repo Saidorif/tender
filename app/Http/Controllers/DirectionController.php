@@ -623,9 +623,22 @@ class DirectionController extends Controller
 
     public function requirement(Request $request,$id)
     {
+        $validator = Validator::make($request->all(), [            
+            'generate'  => 'nullable|boolean',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
         $direction = Direction::find($id);
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
+        }
+        //if generate true recalculate requirement
+        if($request->input('generate') == 1){
+            if($direction->requirement){
+                $direction->requirement->delete();
+            }
         }
         if($direction->requirement){
             return response()->json(['success' => true, 'result' => $direction->requirement]);
@@ -649,6 +662,9 @@ class DirectionController extends Controller
         $ptimings  = $direction->timing->toArray();
         $reysesFrom = Reys::where(['direction_id' => $id,'type' => 'from','status' => 'active'])->get();
         $reysesTo   = Reys::where(['direction_id' => $id,'type' => 'to','status' => 'active'])->get();
+        if(count($reysesTo) < 1 || count($reysesFrom) < 1){
+            return response()->json(['error' => true, 'message' => 'Таблица движения не заполнено']);
+        }
         //remove dublicate classess from direction cars
         // $direction_cars_with = [];
         // foreach($direction->carsWith as $the_car){
