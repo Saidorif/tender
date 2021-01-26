@@ -48,8 +48,8 @@
               <label for="busmodel_id">Марка автобуса</label>
               <select
                 class="form-control input_style"
-                v-model="form.busbrand_id"
-                :class="isRequired(form.busbrand_id) ? 'isRequired' : ''"
+                v-model="form.busmarka_id"
+                :class="isRequired(form.busmarka_id) ? 'isRequired' : ''"
               >
                 <option value="" selected disabled>
                   Выберите тип автобус!
@@ -168,7 +168,7 @@ export default {
         bustype_id: "",
         busmodel_id: "",
         desc: "",
-        busbrand_id: "",
+        busmarka_id: "",
       },
       requiredInput: false,
       laoding: true,
@@ -223,6 +223,9 @@ export default {
         this.requiredInput = true;
       }
     },
+    async selectBrandBus(){
+        await this.actionBusmodelListByBrand({busmarka_id:this.form.busmarka_id});
+    }
   },
 };
 </script>
