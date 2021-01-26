@@ -99,6 +99,7 @@ class TenderController extends Controller
             'time' => 'required|string',
             'address' => 'required|string',
             'data.*.*.status' => ['required',Rule::in(['all','custom'])],
+            'data.*.*.text' => 'nullable|string',
         ]);
 
         if($validator->fails()){
@@ -187,6 +188,7 @@ class TenderController extends Controller
                 $lotArr['status'] = $item['status'];
                 $lotArr['time'] = $tenderTime;
                 $lotArr['tender_id'] = $tender->id;
+                $lotArr['text'] = $item['text'];
             }
             $lotArr['direction_id'] = array_unique($lotArr['direction_id']);
             $tenderLot = TenderLot::create([
@@ -195,6 +197,7 @@ class TenderController extends Controller
                 'time' => $tenderTime,
                 'reys_id' => $lotArr['reys_id'],
                 'status' => 'pending',
+                'text' => $lotArr['text'],
             ]);
         }
 
@@ -215,6 +218,7 @@ class TenderController extends Controller
             'time' => 'required|string',
             'address' => 'required|string',
             'data.*.*.status' => ['required',Rule::in(['all','custom'])],
+            'data.*.*.text' => 'nullable|string',
         ]);
 
         if($validator->fails()){
@@ -247,7 +251,7 @@ class TenderController extends Controller
                 }
             }
         }
-        
+
         $tender->update($inputs);
         if(!empty($data)){
             foreach ($data as $key => $items) {
@@ -262,6 +266,7 @@ class TenderController extends Controller
                     $lotArr['status'] = $item['status'];
                     $lotArr['time'] = $tender->time;
                     $lotArr['tender_id'] = $tender->id;
+                    $lotArr['text'] = $item['text'];
                 }
                 $lotArr['direction_id'] = array_unique($lotArr['direction_id']);
                 $tenderLot = TenderLot::create([
@@ -270,6 +275,7 @@ class TenderController extends Controller
                     'time' => $tender->time,
                     'reys_id' => $lotArr['reys_id'],
                     'status' => 'pending',
+                    'text' => $lotArr['text'],
                 ]);
             }
         }
