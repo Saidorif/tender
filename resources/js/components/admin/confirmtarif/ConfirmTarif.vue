@@ -2,11 +2,22 @@
 	<div class="region">
         <Loader v-if="laoding"/>
 		<div class="card">
-		  	<div class="card-header">
-			    <h4 class="title_user">
-			    	<i class="peIcon fas fa-clipboard-check"></i>
-				    Подтвердить тариф
-				</h4>
+		  	<div class="card-header header_filter">
+		  		<div class="header_title mb-2">
+				    <h4 class="title_user">
+				    	<i class="peIcon fas fa-clipboard-check"></i>
+					    Подтвердить тариф
+					</h4>
+	            	<div class="add_user_btn">
+		                <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
+		            		Количество <b>{{ getPassportList.total }} шт.</b> 
+		            	</span>
+			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
+						    <i class="fas fa-filter"></i>
+			            	Филтр
+						</button>
+		            </div>
+	            </div>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -27,21 +38,21 @@
 							<td scope="row">{{item.name}}</td>
                             <td style="padding:0;">
                                 <ul class="table_item_list">
-                                    <li v-for="(ch_item,ch_index) in item.tarifs" >
+                                    <li v-for="(ch_item,ch_index) in item.passport_tarif" >
                                         {{ch_item.summa}}
                                     </li>
                                 </ul>
                             </td>
                             <td style="padding:0;">
                                 <ul class="table_item_list">
-                                    <li v-for="(ch_item,ch_index) in item.tarifs" >
+                                    <li v-for="(ch_item,ch_index) in item.passport_tarif" >
                                         {{ch_item.summa_bagaj}}
                                     </li>
                                 </ul>
                             </td>
                             <td style="padding:0;">
                                 <ul class="table_item_list">
-                                    <li v-for="(ch_item,ch_index) in item.tarifs" >
+                                    <li v-for="(ch_item,ch_index) in item.passport_tarif" >
                                     	<div class="badge" :class="getStatusClass(ch_item.status)">
 	                                        {{ch_item.status == 'pending' ? 'не подтвержден' : 'подтвержден'}}
                                     	</div>
@@ -50,7 +61,7 @@
                             </td>
 							<td style="padding:0;">
                                 <ul class="table_item_list">
-                                    <li v-for="(ch_item,ch_index) in item.tarifs" >
+                                    <li v-for="(ch_item,ch_index) in item.passport_tarif" >
                                         <button type="button" class="btn" :class="ch_item.status == 'approved' ? 'btn-success' : 'fas btn-warning'" style="padding: 2px 9px;"
                                         	@click="completedTender(ch_item.id)"
                                     	>
@@ -73,30 +84,43 @@
     import Loader from '../../Loader'
 	export default{
         components:{
-            Loader
+            Loader,
         },
 		data(){
 			return{
+	            filter:{
+	            	region_id:'',
+					type_id:'',
+					dir_type:'',
+					max:false,
+					min:false,
+	            },
                 laoding: true,
+                filterShow: false,
 			}
 		},
 		async mounted(){
             let page = 1;
-            await this.actionPortTarifList(page);
-            console.log(this.getPassportList)
+            await this.actionPortTarifList({page:page,item:this.filter});
+            await this.actionRegionList()
+			await this.actionTypeofdirectionList()
             this.laoding = false
 		},
 		computed:{
-			...mapGetters('tarifannounce',['getPassportList', 'getMassage'])
+			...mapGetters('tarifannounce',['getPassportList', 'getMassage']),
+			...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
+			...mapGetters("region", ["getRegionList"]),
 		},
 		methods:{
             ...mapActions('tarifannounce',['actionPortTarifList', 'actionApprovePassportTarifList']),
+            ...mapActions("region", ["actionRegionList"]),
+			...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
             async completedTender(id){
             	let page = 1;
                 this.laoding = true
                 await this.actionApprovePassportTarifList({tarif_id: id})
                 if(this.getMassage.success){
-                    await this.actionPortTarifList(page);
+                    await this.actionPortTarifList({page:page,item:this.filter});
                     toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
@@ -105,8 +129,37 @@
                 }
                 this.laoding = false
             },
+            toggleFilter(){
+				this.filterShow = !this.filterShow
+			},
+			async search(){
+				let page = 1
+				if(this.filter.region_id != '' || this.filter.type_id != ''  || this.filter.dir_type != '' || this.filter.max || this.filter.min ){
+					let data = {
+						page:page,
+						items:this.filter
+					}
+					this.laoding = true
+					await this.actionPortTarifList(data)
+					this.laoding = false
+				}
+			},
+			async clear(){
+				if(this.filter.region_id != '' || this.filter.type_id != '' || this.filter.dir_type != '' || this.filter.max || this.filter.min){
+					this.filter.region_id = ''
+					this.filter.type_id = ''
+					this.filter.dir_type = ''
+					this.filter.max = ''
+					this.filter.min = ''
+                    let page  = 1
+                    this.laoding = true
+                    await this.actionPortTarifList({page: page,items:this.filter})
+                    this.laoding = false
+				}
+
+			},
 			async getResults(page = 1){
-				await this.actionPortTarifList(page)
+				await this.actionPortTarifList({page:page,item:this.filter})
 			},
 			// getStatusName(status){
 			// 	if(status == 'pending'){
