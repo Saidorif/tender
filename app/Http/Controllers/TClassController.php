@@ -24,7 +24,7 @@ class TClassController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'bustype_id' => 'nullable|integer',
-            'busmodel_id' => 'required|integer',
+            'busmodel_id' => 'nullable|integer',
             'busmarka_id' => 'nullable|integer',
         ]);
 
