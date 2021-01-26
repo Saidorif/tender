@@ -665,6 +665,10 @@ class DirectionController extends Controller
         if(count($reysesTo) < 1 || count($reysesFrom) < 1){
             return response()->json(['error' => true, 'message' => 'Таблица движения не заполнено']);
         }
+        //Reys times
+        $the_reys_time = array_sum(array_column($ptimings, 'spendtime_between_station')) + array_sum(array_column($ptimings, 'spendtime_to_stay_station'));
+        $the_reys_time_hour = $the_reys_time / 60;
+        $the_reys_time_minut = ($the_reys_time - (int)$the_reys_time_hour * 60 );
         //remove dublicate classess from direction cars
         // $direction_cars_with = [];
         // foreach($direction->carsWith as $the_car){
@@ -681,9 +685,9 @@ class DirectionController extends Controller
             'auto_trans_weekends'           => '',
             'auto_trans_status'             => 'Ишлаб чиқарилганига 14 йилдан ошмаган',
             'direction_total_length'        => $direction->timingWith->last()->distance_from_start_station,
-            'direction_from_value'          => $from_id,
+            'direction_from_value'          => '',
             'direction_from_name'           => $from_name,
-            'direction_to_value'            => $to_id,
+            'direction_to_value'            => '',
             'direction_to_name'             => $to_name,
             'stations_count'                => count($direction->timing),
             'stations_from_name'            => $from_name,
@@ -703,7 +707,7 @@ class DirectionController extends Controller
             'schedule_end_from'             => $reysesTo->last()->reysTimes->first()->start,//Toshkent томондан
             'schedule_end_to'               => $reysesFrom->last()->reysTimes->first()->start,//Nukus томондан 
             'station_intervals'             => '',
-            'reys_time'                     => array_sum(array_column($ptimings, 'spendtime_between_station')) + array_sum(array_column($ptimings, 'spendtime_to_stay_station')),
+            'reys_time'                     => (int)$the_reys_time_hour .':'. $the_reys_time_minut,
             'reys_from_value'               => '00:00',
             'reys_to_value'                 => '00:00',
             'schedules'                     => '-',

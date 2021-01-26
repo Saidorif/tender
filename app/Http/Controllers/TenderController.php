@@ -115,14 +115,17 @@ class TenderController extends Controller
             foreach ($items as $item) {
                 $the_direction = Direction::find($item['direction_id']);
                 if(!$the_direction){
-                    $the_direction_err[] = 'Direction with ID = '.$item['direction_id'].' does no exist';
+                    $the_direction_err[] = 'Направление с ID = '.$item['direction_id'].' не существует';
                 }
                 if($the_direction->status == 'approved'){
-                    $the_direction_err[] = 'Can not add... Direction already in use';
+                    $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+                }
+                if($the_direction->tarif == 0){
+                    $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
                 }
                 if($user->role->name != 'admin'){
                     if($the_direction->region_from_id != $user->region_id || $the_direction->region_to_id != $user->region_id ){
-                        $the_direction_err[] = 'Can not add... Direction in another region';
+                        $the_direction_err[] = 'Нельзя добавить ... Направление в другом регионе';
                     }
                 }
             }
@@ -220,6 +223,31 @@ class TenderController extends Controller
         $inputs = $request->only('address','time');
         $data = $request->input('data');
         $user = $request->user();
+        $user = $request->user();
+        $direction_ids = [];
+        $tender_lots = [];
+        $the_direction_err = [];
+        //Check for direction busy or free
+        foreach ($data as $items) {
+            foreach ($items as $item) {
+                $the_direction = Direction::find($item['direction_id']);
+                if(!$the_direction){
+                    $the_direction_err[] = 'Направление с ID = '.$item['direction_id'].' не существует';
+                }
+                if($the_direction->status == 'approved'){
+                    $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+                }
+                if($the_direction->tarif == 0){
+                    $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
+                }
+                if($user->role->name != 'admin'){
+                    if($the_direction->region_from_id != $user->region_id || $the_direction->region_to_id != $user->region_id ){
+                        $the_direction_err[] = 'Нельзя добавить ... Направление в другом регионе';
+                    }
+                }
+            }
+        }
+        
         $tender->update($inputs);
         if(!empty($data)){
             foreach ($data as $key => $items) {
