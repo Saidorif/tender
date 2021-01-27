@@ -586,12 +586,29 @@
 			...mapActions("passportTab", [
 		      "actionGetScheduleTable",
 		    ]),
+		    addTextToAllItems(items){
+		    	return items.map((item,index)=>{
+		    		return {
+		    			directions:item.directions,
+		    			reyses:item.reyses,
+		    			text:this.text,
+		    		} 
+		    	})
+		    },
 		    addLot(){
 		    	if (this.allItems.length > 0) {
 			    	if (this.checked) {
 			    		if (this.allItems.length > 1) {
-			    			this.allLotes.push(this.allItems)
-				    		$('#myModal').modal('hide')
+			    			if (this.text != '') {
+				    			this.allLotes.push(this.addTextToAllItems(this.allItems))
+					    		$('#myModal').modal('hide')
+			    			}else{
+			    				toast.fire({
+									type: "error",
+									icon: "error",
+									title: 'Введите примечание!'
+							 	});
+			    			}
 			    		}else{
 			    			toast.fire({
 								type: "error",
@@ -601,8 +618,16 @@
 			    		}
 			    	}else{
 			    		if (this.allItems.length == 1) {
-				    		this.allLotes.push(this.allItems)
-					    	$('#myModal').modal('hide')
+			    			if (this.text != '') {
+					    		this.allLotes.push(this.addTextToAllItems(this.allItems))
+						    	$('#myModal').modal('hide')
+			    			}else{
+			    				toast.fire({
+									type: "error",
+									icon: "error",
+									title: 'Введите примечание!'
+							 	});
+			    			}
 			    		}else{
 			    			toast.fire({
 								type: "error",
@@ -649,6 +674,7 @@
 	    		this.allItems = []
 	    		this.form.direction_ids=[]
 				this.findList = []
+				this.text = ''
 		    },
 		    openModal(){
 		    	$('#myModal').modal('show')
@@ -668,17 +694,6 @@
                         return false
                     }
                 }
-		    	// if (item.status == 'active') {
-	    		// 	return 'edit-active'
-		    	// }else{
-		    	// 	return 'edit-pending'
-		    	// }
-		    	// let lot_list = lots.reys_id
-		    	// if (lot_list.length > 0) {
-		    	// 	if (lot_list.includes(id)) {
-		    	// 		return true
-		    	// 	}
-		    	// }
             },
 		    getLengthReys(reys, elem){
                 let count = 0;
@@ -889,11 +904,11 @@
 		      }
 		    },
 		    async dispatchAction(data){
-                  this.form.direction_ids.push(data.id);
-                  this.laoding = true
-                  await this.actionGetScheduleTable(data.id)
-                  this.laoding = false
-			      // From Items
+				this.form.direction_ids.push(data.id);
+				this.laoding = true
+				await this.actionGetScheduleTable(data.id)
+				this.laoding = false
+				// From Items
 				this.fromFirstItems = this.getSchedule.whereFrom[0];
 				this.fromItems = this.getSchedule.whereFrom
 				this.fromName = this.getSchedule ? this.getSchedule.whereFrom[0].where.name : ''
@@ -920,6 +935,7 @@
 							}
 							return{
 								'direction_id':direction_id,
+								'text':item.text,
 								'reys_id':reysItems,
 			    				'status':reysItems.length > 0 ? 'custom' : 'all',
 							}
