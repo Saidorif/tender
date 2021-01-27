@@ -344,8 +344,8 @@
 
 			  	<!-- text -->
 			  	<div class="form-group" v-if="allItems.length > 0">
-					<label class="form-control-label" for="text">Примечание {{comment}}</label>
-				  	<textarea class="form-control" id="text" v-model="comment"></textarea>
+					<label class="form-control-label" for="text">Примечание</label>
+				  	<textarea class="form-control" id="text" v-model="text"></textarea>
 			  	</div>
 		      </div>
 		      <div class="modal-footer">
@@ -383,7 +383,7 @@
 					address:'',
 					type:'simple',
 				},
-				comment:'',
+				text:'',
 				requiredInput:false,
 				direction_ids:{},
 				allLotes:[],
@@ -443,13 +443,29 @@
 			...mapActions("passportTab", [
 		      "actionGetScheduleTable",
 		    ]),
+		    addTextToAllItems(items){
+		    	return items.map((item,index)=>{
+		    		return {
+		    			directions:item.directions,
+		    			reyses:item.reyses,
+		    			text:this.text,
+		    		} 
+		    	})
+		    },
 		    addLot(){
-                console.log(this.comment)
 		    	if (this.allItems.length > 0) {
 			    	if (this.checked) {
 			    		if (this.allItems.length > 1) {
-			    			this.allLotes.push(this.allItems)
-				    		$('#myModal').modal('hide')
+			    			if (this.text != '') {
+				    			this.allLotes.push(this.addTextToAllItems(this.allItems))
+					    		$('#myModal').modal('hide')
+			    			}else{
+			    				toast.fire({
+									type: "error",
+									icon: "error",
+									title: 'Введите примечание!'
+							 	});
+			    			}
 			    		}else{
 			    			toast.fire({
 								type: "error",
@@ -459,8 +475,16 @@
 			    		}
 			    	}else{
 			    		if (this.allItems.length == 1) {
-				    		this.allLotes.push(this.allItems)
-					    	$('#myModal').modal('hide')
+			    			if (this.text != '') {
+					    		this.allLotes.push(this.addTextToAllItems(this.allItems))
+						    	$('#myModal').modal('hide')
+			    			}else{
+			    				toast.fire({
+									type: "error",
+									icon: "error",
+									title: 'Введите примечание!'
+							 	});
+			    			}
 			    		}else{
 			    			toast.fire({
 								type: "error",
@@ -478,7 +502,7 @@
 	    		this.allItems = []
 	    		this.form.direction_ids=[]
 				this.findList = []
-				this.comment = ''
+				this.text = ''
 		    },
 		    openModal(){
 		    	$('#myModal').modal('show')
@@ -520,7 +544,6 @@
 				    		let value = {
 				    			directions:this.direction_ids,
 				    			reyses:this.choosenFromItems,
-				    			text:this.comment
 				    		}
 				    		this.allItems.push(value)
 			    		}
@@ -528,7 +551,6 @@
 				    		let value = {
 				    			directions:this.direction_ids,
 				    			reyses:this.choosenToItems,
-				    			text:this.comment
 				    		}
 				    		this.allItems.push(value)
 			    		}
@@ -539,9 +561,7 @@
 			    		let value = {
 			    			directions:this.direction_ids,
 			    			reyses:[],
-			    			text:this.comment
                         }
-                        console.log(value)
 			    		let checkLot = true
 			    		let checkItem = true
 			    		this.allLotes.forEach((lots,index)=>{
@@ -705,76 +725,26 @@
 			async saveTender(){
 				let data = [];
 				let lotItem = [];
-				// if(this.checked){
-					if (this.allLotes.length > 0){
-						this.allLotes.forEach((lots,l)=>{
-							lotItem = lots.map((item,index)=>{
-								let direction_id = item.directions.id
-								let reysItems = []
-								if (item.reyses.length > 0){
-									reysItems = item.reyses.map((i,k)=>{
-										return i.id
-									})
-								}
-								return{
-									'direction_id':direction_id,
-									'reys_id':reysItems,
-				    				'status':reysItems.length > 0 ? 'custom' : 'all',
-								}
-							})
-							data.push(lotItem)
+				if (this.allLotes.length > 0){
+					this.allLotes.forEach((lots,l)=>{
+						lotItem = lots.map((item,index)=>{
+							let direction_id = item.directions.id
+							let reysItems = []
+							if (item.reyses.length > 0){
+								reysItems = item.reyses.map((i,k)=>{
+									return i.id
+								})
+							}
+							return{
+								'direction_id':direction_id,
+								'text':item.text,
+								'reys_id':reysItems,
+			    				'status':reysItems.length > 0 ? 'custom' : 'all',
+							}
 						})
-					}
-					// else{
-					// 	let newItems = this.choosenFromItems.map((item,index)=>{
-					// 		return item.id
-					// 	})
-					// 	data = [{
-			  //   			direction_id:this.direction_ids.id,
-			  //   			reys_id:newItems,
-			  //   			status:'custom',
-			  //   			time:this.form.time,
-					// 		address:this.form.address,
-			  //   		}]
-					// }
-				// }
-				// else if(this.checkedGrafik && !this.checked){
-				// 	let newFromItems = this.choosenFromItems.map((item,index)=>{
-				// 		return item.id
-				// 	})
-				// 	let newToItems = this.choosenToItems.map((item,index)=>{
-				// 		return item.id
-				// 	})
-				// 	data = [{
-		  //   			direction_id:this.direction_ids.id,
-		  //   			reys_id:newFromItems,
-		  //   			status:'custom',
-		  //   		},{
-		  //   			direction_id:this.direction_ids.id,
-		  //   			reys_id:newToItems,
-		  //   			status:'custom',
-		  //   		}]
-				// }
-				// else if(!this.checkedGrafik && !this.checked){
-				// 	data = [{
-		  //   			direction_id:this.direction_ids.id,
-		  //   			reys_id:[],
-		  //   			status:'all',
-		  //   		}]
-				// }
-
-				// let checkLengthData = true
-				// if (this.checked && this.allItems.length < 2) {
-				// 	checkLengthData = false
-				// }
-				// let checkLengthDataExists = true
-				// data.forEach((data,index)=>{
-				// 	if (data.direction_id) {
-				// 		checkLengthDataExists = true
-				// 	}else{
-				// 		checkLengthDataExists = false
-				// 	}
-				// })
+						data.push(lotItem)
+					})
+				}
 				let newData = {
 					data:data,
 					time:this.form.time,
@@ -795,35 +765,6 @@
 					}else{
 						this.errors = this.getMassage.message
 					}
-		    	// 	if (checkLengthDataExists) {
-			    // 		if (checkLengthData) {
-							// this.laoding = true
-							// await this.actionAddTenderAnnounce(newData)
-							// this.laoding = false
-							// if (this.getMassage.success) {
-							// 	toast.fire({
-							// 		type: "success",
-							// 		icon: "success",
-							// 		title: this.getMassage.message
-							//  	});
-							// 	this.requiredInput = false
-							// 	this.$router.push("/crm/tenderannounce");
-							// }
-			    // 		}else{
-			    // 			toast.fire({
-							// 	type: "error",
-							// 	icon: "error",
-							// 	title: 'В пакете должны быть минимум 2 маршрута!'
-						 // 	});
-			    // 		}
-		    	// 	}
-		    	// 	else{
-		    	// 		toast.fire({
-							// type: "error",
-							// icon: "error",
-							// title: 'Маршрут выберите!'
-					 	// });
-		    	// 	}
 				}else{
 					this.requiredInput = true
 				}

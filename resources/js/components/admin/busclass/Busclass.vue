@@ -93,7 +93,7 @@
                     let page = 1
                     this.laoding = true
                     await this.actionDeleteBusclass(id)
-					if (this.getMassage.error) {
+					if (this.getMassage.success) {
 						await this.actionBusclasses(page)
 						toast.fire({
 				            type: "success",
