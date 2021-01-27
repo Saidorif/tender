@@ -98,7 +98,7 @@ class TClassController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
-        $inputs = $request->only('name');
+        $inputs = $request->only('name','bustype_id');
         $result->update($inputs);
 
         return response()->json(['success' => true, 'message' => 'Модель автобуса успешно обновлен']);
