@@ -564,7 +564,7 @@ class TenderController extends Controller
     
     public function completedTendersLots(Request $request, $id)
     {
-        $tender = Tender::where(['status' => 'completed','status' => 'approved'])->find($id);
+        $tender = Tender::where(['status' => 'completed'])->orWhere(['status' => 'approved'])->find($id);
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Tender not found']);
         }
@@ -940,7 +940,11 @@ class TenderController extends Controller
 
     public function checkTenders(Request $request)
     {
-        $result = Application::with(['user'])->withCount(['cars'])->where(['status' => 'accepted','status' => 'approved'])->get();
+        $result = Application::with(['user'])
+                            ->withCount(['cars'])
+                            ->where(['status' => 'accepted'])
+                            ->orWhere(['status' => 'approved'])
+                            ->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
     
