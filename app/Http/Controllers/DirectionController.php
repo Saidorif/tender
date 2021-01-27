@@ -761,7 +761,7 @@ class DirectionController extends Controller
             'schedule_end_from' => 'nullable|string',
             'schedule_end_to' => 'nullable|string',
             'station_intervals' => 'nullable|string',
-            'reys_time' => 'nullable|integer',
+            'reys_time' => 'nullable|string',
             'reys_from_value' => 'nullable|string',
             'reys_to_value' => 'nullable|string',
             'schedules' => 'nullable|integer',

@@ -117,7 +117,6 @@ class ApplicationController extends Controller
         if($the_old_car){
             return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
         }
-        return 'hello';
         $result = UserCar::create($inputs);
         return response()->json([
             'success' => true,
@@ -189,7 +188,6 @@ class ApplicationController extends Controller
         if($application->cars->count() < 1){
             return response()->json(['error' => true, 'message' => 'Пожалуйста, добавьте машину ...']);
         }
-        return 'hello';
         $text = $application->user->company_name."\n";
         $text .= "ДАТА: ".$application->tender->time."\n";
         $the_file = time().'_'.$application->id;

@@ -570,7 +570,7 @@ class TenderController extends Controller
     
     public function completedTendersLots(Request $request, $id)
     {
-        $tender = Tender::where(['status' => 'completed'])->orWhere(['status' => 'approved'])->find($id);
+        $tender = Tender::where(['status' => 'completed','id' => $id])->orWhere(['status' => 'approved'])->first();
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Tender not found']);
         }
@@ -590,7 +590,7 @@ class TenderController extends Controller
                     $app_tarif = (int)$app->tarif;//Taklif
                     $tender_tarif = $direction->tarif; //Talab
                     if(!$direction->requirement){
-                        return response()->json(['error' => true, 'message' => 'Requirement not found']);
+                        return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$direction->name]);
                     }
                     $tender_avto_capacity = $direction->requirement->transports_seats;//(transports_seats)Tender avto transport orindiqlar sigimi
                     $yonalish = $direction->type->type;
