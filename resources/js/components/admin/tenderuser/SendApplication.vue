@@ -314,7 +314,7 @@
 										</tr>
 										<tr v-if="showBtn == index">
 											<td colspan="10">
-												<table class="table table-bordered">
+												<table class="table table-bordered" v>
 											  		<thead>
 											  			<tr>
 											  				<th width="1%">1</th>
@@ -456,6 +456,7 @@
 					    	placeholder="Номер Авто"
 					    	v-model="car.bustype_id"
 					    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''"
+                            @change="selectClass(car.bustype_id)"
 					    >
 					    	<option value="" selected disabled>Выберите категорию авто!</option>
 					    	<option
@@ -466,6 +467,22 @@
 					    </select>
 					    <!-- @change="selectClass(car.bustype_id)" -->
 				  	</div>
+                    <div class="form-group col-md-3">
+					    <label for="tclass_id">Класс Авто</label>
+					    <!-- <div class="form-control input_style">
+					    	{{getTClassName(car.tclass_id)}}
+					    </div> -->
+					    <select
+						    class="form-control input_style"
+					    	id="tclass_id"
+					    	placeholder="Номер Авто"
+					    	v-model="car.tclass_id"
+					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
+					    >
+					    	<option value="" selected disabled>Выберите класс авто!</option>
+					    	<option :value="busClass.id" v-for="(busClass,index) in getBusclassFindList">{{busClass.name}}</option>
+					    </select>
+				  	</div>
 				  	<div class="form-group col-md-3">
 					    <label for="busmarka_id">Марка Авто</label>
 					    <select
@@ -474,7 +491,7 @@
 					    	placeholder="Номер Авто"
 					    	v-model="car.busmarka_id"
 					    	:class="isRequired(car.busmarka_id) ? 'isRequired' : ''"
-					    	@change="selectCarMarka()"
+					    	@change="selectCarMarka(car)"
 					    >
 					    	<option value="" selected disabled>Выберите марку авто!</option>
 					    	<!-- <option :value="item.marka.id" v-for="(item,index) in getBusBrandList">{{item.marka.name}}</option> -->
@@ -490,29 +507,13 @@
 					    	placeholder="Номер Авто"
 					    	v-model="car.busmodel_id"
 					    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
-                            @change="selectFindClass()"
 					    >
 					    	<option value="" selected disabled>Выберите модель авто!</option>
 					    	<!-- <option :value="item.model.id" v-for="(item,index) in bus_models">{{item.model.name}}</option> -->
-					    	<option :value="item.id" v-for="(item,index) in bus_models">{{item.name}}</option>
+					    	<option :value="item.id" v-for="(item,index) in getBusmodelFindList">{{item.name}}</option>
 					    </select>
 				  	</div>
-                    <div class="form-group col-md-3">
-					    <label for="tclass_id">Класс Авто</label>
-					    <div class="form-control input_style">
-					    	{{getTClassName(car.tclass_id)}}
-					    </div>
-			<!-- 		    <select
-						    class="form-control input_style"
-					    	id="tclass_id"
-					    	placeholder="Номер Авто"
-					    	v-model="car.tclass_id"
-					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
-					    >
-					    	<option value="" selected disabled>Выберите класс авто!</option>
-					    	<option :value="busClass.id" v-for="(busClass,index) in tclasses">{{busClass.name}}</option>
-					    </select> -->
-				  	</div>
+
 				  	<div class="form-group col-md-3">
 					    <label for="date">Дата выпуска</label>
 					    <date-picker
@@ -550,7 +551,7 @@
 				    	>
 				  	</div>
 				  	<div class="form-group col-md-12 table table-responsive">
-					  	<table class="table table-bordered">
+					  	<table class="table table-bordered" v-if="car.bustype_id != 1">
 					  		<thead>
 					  			<tr>
 					  				<th width="1%">1</th>
@@ -855,9 +856,9 @@
 				'getActivate',
 			]),
 			...mapGetters('typeofbus',['getTypeofbusList']),
-            ...mapGetters('busmodel',['getBusmodelList']),
+            ...mapGetters('busmodel',['getBusmodelList', 'getBusmodelFindList']),
 			...mapGetters('busclass',['getBusclassFindList']),
-    		...mapGetters("busbrand", ["getBusBrandList"]),
+            ...mapGetters("busbrand", ["getBusBrandList"]),
 		    checkCars(){
 		    	this.form.cars.forEach((item,index)=>{
 	    			if (item.auto_number != '' && item.bustype_id != '' && item.busmodel_id != '' && item.tclass_id != '') {
@@ -887,8 +888,8 @@
 			},
 			getBusclassFindList:{
 				handler(){
-					this.tclasses = this.getBusclassFindList
-					this.car.tclass_id = this.tclasses.length > 0 ? this.tclasses[0].id : ''
+					// this.tclasses = this.getBusclassFindList
+					// this.car.tclass_id = this.tclasses.length > 0 ? this.tclasses[0].id : ''
 				}
 			},
 			'car.owner_type':{
@@ -937,10 +938,10 @@
 				'actionActivate',
 			]),
 			...mapActions('typeofbus',['actionTypeofbusList']),
-			...mapActions('busmodel',['actionBusmodelList', 'actionBusmodelListByBrand']),
+			...mapActions('busmodel',['actionBusmodelList', 'actionBusmodelListByBrand', 'actionBusmodelFindList']),
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
-			...mapActions("busbrand",["actionBusBrandList"]),
+            ...mapActions("busbrand",["actionBusBrandList"]),
 			openQrcode(){
 				$('#qrcodeModal').modal('show')
 			},
@@ -1130,7 +1131,7 @@
                     this.laoding = true
                     await this.actionBusclassFind(data)
                     this.laoding = false
-			    	this.tclasses = this.getBusclassFindList
+			    	// this.tclasses = this.getBusclassFindList
 		    	}
 		    },
 		    async selectFindClass(bustype_id){
@@ -1271,11 +1272,12 @@
                     this.laoding = false
 		    	}
 		    },
-		    async selectCarMarka(){
-                this.car.busmodel_id = ''
-                this.car.tclass_id = ''
+		    async selectCarMarka(car){
+                car.busmodel_id = ''
+                // this.car.tclass_id = ''
                 this.laoding = true
-                await this.actionBusmodelListByBrand({busbrand_id: this.car.busmarka_id});
+                // await this.actionBusmodelListByBrand({busbrand_id: this.car.busmarka_id});
+                await this.actionBusmodelFindList(car);
                 this.laoding = false
                 this.bus_models = this.getBusmodelList
             },
