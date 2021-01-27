@@ -19,7 +19,8 @@
                 <td width="50%"><b>Автотранспорт воситаси моделининг класси</b></td>
                 <td>
                   <div v-for="(item,index) in form.auto_model_class">
-                    {{ item.model ? item.model.name : item.tclass.name }}
+                      <!-- {{ item.model ? item.model.name : '' }} -->
+                      {{ item.tclass ? item.tclass.name : '' }}
                   </div>
                 </td>
               </tr>

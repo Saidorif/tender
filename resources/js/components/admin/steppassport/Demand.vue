@@ -38,7 +38,8 @@
                 <td>
                   <template v-if="form.auto_model_class">
                     <div v-for="(item, index) in form.auto_model_class">
-                      {{ item.model ? item.model.name : item.tclass.name }}
+                      <!-- {{ item.model ? item.model.name : '' }} -->
+                      {{ item.tclass ? item.tclass.name : '' }}
                     </div>
                   </template>
                 </td>
