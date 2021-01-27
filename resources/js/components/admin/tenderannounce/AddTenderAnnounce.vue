@@ -754,7 +754,7 @@
 		    		this.laoding = true
 					await this.actionAddTenderAnnounce(newData)
 					this.laoding = false
-					if (this.getMassage.success) {
+					if (this.getMassage.success){
 						toast.fire({
 							type: "success",
 							icon: "success",
