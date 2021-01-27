@@ -250,7 +250,7 @@
                       </div>
                       <div class="form-group col-md-2">
                         <label for="tclass_id">Класс Авто</label>
-                        <input type="text" class="form-control input_style" :value="car.tclass.name" disabled>
+                        <input type="text" class="form-control input_style" :value="car.tclass ? car.tclass.name : ''" disabled>
                       </div>
                       <div class="form-group col-md-3">
                         <label for="busmarka_id">Марка Авто</label>
