@@ -47,7 +47,8 @@ class TenderController extends Controller
             }
             $tenders = $builder->paginate(12);
         }else{
-            $tenders = Tender::whereIn('created_by', $created_by_users)->with(['tenderlots'])->paginate(12);
+            // $tenders = Tender::whereIn('created_by', $created_by_users)->with(['tenderlots'])->paginate(12);
+            $tenders = Tender::with(['tenderlots'])->paginate(12);
         }
         return response()->json(['success' => true,'result' => $tenders]);
     }
@@ -123,6 +124,9 @@ class TenderController extends Controller
                 }
                 if($the_direction->tarif == 0){
                     $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
+                }
+                if(!$the_direction->requirement){
+                    return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$the_direction->name]);
                 }
                 if($user->role->name != 'admin'){
                     if($the_direction->region_from_id != $user->region_id || $the_direction->region_to_id != $user->region_id ){
@@ -210,6 +214,9 @@ class TenderController extends Controller
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
         }
+        if($tender->status == 'approved' || $tender->status == 'completed' ){
+            return response()->json(['error' => true, 'message' => 'Tender already activated']);
+        }
         $validator = Validator::make($request->all(),[
             'data' => 'nullable|array',
             'data.*.*.direction_id' => 'required|integer',
@@ -232,21 +239,23 @@ class TenderController extends Controller
         $tender_lots = [];
         $the_direction_err = [];
         //Check for direction busy or free
-        foreach ($data as $items) {
-            foreach ($items as $item) {
-                $the_direction = Direction::find($item['direction_id']);
-                if(!$the_direction){
-                    $the_direction_err[] = 'Направление с ID = '.$item['direction_id'].' не существует';
-                }
-                if($the_direction->status == 'approved'){
-                    $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
-                }
-                if($the_direction->tarif == 0){
-                    $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
-                }
-                if($user->role->name != 'admin'){
-                    if($the_direction->region_from_id != $user->region_id || $the_direction->region_to_id != $user->region_id ){
-                        $the_direction_err[] = 'Нельзя добавить ... Направление в другом регионе';
+        if(!empty($data) > 0){
+            foreach ($data as $items) {
+                foreach ($items as $item) {
+                    $the_direction = Direction::find($item['direction_id']);
+                    if(!$the_direction){
+                        $the_direction_err[] = 'Направление с ID = '.$item['direction_id'].' не существует';
+                    }
+                    if($the_direction->status == 'approved'){
+                        $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+                    }
+                    if($the_direction->tarif == 0){
+                        $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
+                    }
+                    if($user->role->name != 'admin'){
+                        if($the_direction->region_from_id != $user->region_id || $the_direction->region_to_id != $user->region_id ){
+                            $the_direction_err[] = 'Нельзя добавить ... Направление в другом регионе';
+                        }
                     }
                 }
             }
@@ -564,7 +573,7 @@ class TenderController extends Controller
     
     public function completedTendersLots(Request $request, $id)
     {
-        $tender = Tender::where(['status' => 'completed','status' => 'approved'])->find($id);
+        $tender = Tender::where(['status' => 'completed','id' => $id])->orWhere(['status' => 'approved'])->first();
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Tender not found']);
         }
@@ -583,6 +592,9 @@ class TenderController extends Controller
                     //2.Tarif
                     $app_tarif = (int)$app->tarif;//Taklif
                     $tender_tarif = $direction->tarif; //Talab
+                    if(!$direction->requirement){
+                        return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$direction->name]);
+                    }
                     $tender_avto_capacity = $direction->requirement->transports_seats;//(transports_seats)Tender avto transport orindiqlar sigimi
                     $yonalish = $direction->type->type;
                     $tarif_foizda = round(100 - (100*$app_tarif/$tender_tarif));
@@ -640,7 +652,7 @@ class TenderController extends Controller
                     if($app_avto_total >= 12 && $app_avto_total <= 14){
                         $app_avto_ball = 3;
                     }
-            
+
                     //4.Yolovchilar sigimi
                     $app_avto_capacity_ball = 0;
                     $app_avto_capacity_foiz = round(100 - (100 * $app_avto_capacity / $tender_avto_capacity));
@@ -940,7 +952,11 @@ class TenderController extends Controller
 
     public function checkTenders(Request $request)
     {
-        $result = Application::with(['user'])->withCount(['cars'])->where(['status' => 'accepted','status' => 'approved'])->get();
+        $result = Application::with(['user'])
+                            ->withCount(['cars'])
+                            ->where(['status' => 'accepted'])
+                            ->orWhere(['status' => 'approved'])
+                            ->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
     
