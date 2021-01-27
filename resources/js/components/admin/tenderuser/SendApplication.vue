@@ -964,6 +964,12 @@
 				if (this.getActivate.success){
 					await this.actionEditApplication(this.$route.params.userapplicationId)
 					await this.openQrcode()
+                }else{
+            		toast.fire({
+				    	type: 'error',
+				    	icon: 'error',
+						title: this.getActivate.message,
+				    })
                 }
                 this.laoding = false
 			},
