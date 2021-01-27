@@ -314,12 +314,16 @@ export default {
   },
   async mounted() {
     await this.actionEditTenderAnnounce(this.$route.params.tenderuserId);
-    this.laoding = false
-    this.form.time = this.getTenderAnnounce.time;
-    this.form.address = this.getTenderAnnounce.address;
-    this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
-    this.lots = this.getTenderAnnounce.tenderlots;
-    this.tenderlots= this.getTenderAnnounce.tenderlots
+    if (this.getTenderAnnounce) {
+      this.laoding = false
+      this.form.time = this.getTenderAnnounce.time;
+      this.form.address = this.getTenderAnnounce.address;
+      this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
+      this.lots = this.getTenderAnnounce.tenderlots;
+      this.tenderlots= this.getTenderAnnounce.tenderlots
+    }else{
+      this.$router.push('/notfound')
+    }
   },
   methods: {
     ...mapActions("application", [
