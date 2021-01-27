@@ -875,7 +875,7 @@
 					if (this.getApplication) {
 			    		this.cars_with = this.getApplication.cars_with
 						this.files = this.getApplication.attachment
-						this.form = this.getApplication
+						// this.form = this.getApplication
 						this.direction_ids = this.getApplication.tender.direction_ids
 						this.lots = this.getApplication.tender.tenderlots
 						if (this.getApplication.qr_code){
@@ -964,6 +964,12 @@
 				if (this.getActivate.success){
 					await this.actionEditApplication(this.$route.params.userapplicationId)
 					await this.openQrcode()
+                }else{
+            		toast.fire({
+				    	type: 'error',
+				    	icon: 'error',
+						title: this.getActivate.message,
+				    })
                 }
                 this.laoding = false
 			},
