@@ -433,7 +433,7 @@ export default {
       }
     },
     async refreshDemand(){
-      let data ={
+      let data = {
         generate:1,
         id:this.$route.params.directionId
       }
