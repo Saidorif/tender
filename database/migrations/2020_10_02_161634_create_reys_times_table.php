@@ -18,7 +18,7 @@ class CreateReysTimesTable extends Migration
             $table->bigInteger('reys_id');
             $table->bigInteger('direction_id')->nullable();
             $table->string('start')->nullable();
-            $table->string('where')->nullable();
+            $table->text('where')->nullable();
             $table->string('end')->nullable();
             $table->string('bus_order')->nullable();
             $table->string('status')->default('active');
