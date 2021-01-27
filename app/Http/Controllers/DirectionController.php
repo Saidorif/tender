@@ -13,6 +13,7 @@ use App\ReysTime;
 use App\DirectionReq;
 use App\Area;
 use App\PassportTarif;
+use App\TenderLot;
 use Validator;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
@@ -635,9 +636,15 @@ class DirectionController extends Controller
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
+        $tender_lot = TenderLot::whereJsonContains('direction_id', [$direction->id])->first();
         //if generate true recalculate requirement
         if($request->input('generate') == 1){
             if($direction->requirement){
+                //Check if direction added to lot
+                $tender_lot = TenderLot::whereJsonContains('direction_id',[$direction->id])->first();
+                if($tender_lot){
+                    return response()->json(['error' => true, 'message' => 'Направление уже используется']);
+                }
                 $direction->requirement->delete();
             }
         }
@@ -775,6 +782,11 @@ class DirectionController extends Controller
 
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        //Check if direction added to lot
+        $tender_lot = TenderLot::whereJsonContains('direction_id',[$direction->id])->first();
+        if($tender_lot){
+            return response()->json(['error' => true, 'message' => 'Направление уже используется']);
         }
 
         $inputs = $request->all();
