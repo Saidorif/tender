@@ -345,10 +345,16 @@ export default {
       this.laoding = true
       await this.actionUserEditApplication(data);
       this.laoding = false
-      if (this.getUserEditApplication.success) {
+      if (this.getUserEditApplication.success){
         this.$router.push(
           "/crm/application/user/" + this.getUserEditApplication.result.id
         );
+      }else{
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: this.getUserEditApplication.message
+        });
       }
     },
     activeEditClass(item){
