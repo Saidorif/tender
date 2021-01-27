@@ -252,6 +252,9 @@ class TenderController extends Controller
                     if($the_direction->tarif == 0){
                         $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
                     }
+                    if(!$the_direction->requirement){
+                        return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$the_direction->name]);
+                    }
                     if($user->role->name != 'admin'){
                         if($the_direction->region_from_id != $user->region_id || $the_direction->region_to_id != $user->region_id ){
                             $the_direction_err[] = 'Нельзя добавить ... Направление в другом регионе';

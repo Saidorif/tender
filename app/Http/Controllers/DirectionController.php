@@ -643,7 +643,7 @@ class DirectionController extends Controller
                 //Check if direction added to lot
                 $tender_lot = TenderLot::whereJsonContains('direction_id',[$direction->id])->first();
                 if($tender_lot){
-                    return response()->json(['error' => true, 'message' => 'Направление уже используется']);
+                    return response()->json(['error' => true, 'message' => 'Направление уже используется','result' => $direction->requirement]);
                 }
                 $direction->requirement->delete();
             }
