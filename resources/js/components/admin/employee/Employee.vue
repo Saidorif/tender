@@ -112,6 +112,7 @@
 							<th scope="col">№</th>
 							<th scope="col">Ф.И.О</th>
 							<th scope="col">Должность</th>
+							<th scope="col">Область</th>
 							<th scope="col">Рол</th>
 							<th scope="col">E-mail</th>
 							<th scope="col">Телефон</th>
@@ -124,6 +125,7 @@
 							<td scope="row">{{item.id}}</td>
 							<td>{{item.surname}} {{item.name}} {{item.middlename}}</td>
 							<td>{{item.position ? item.position.name : ''}}</td>
+							<td>{{item.region ? item.region.name : ''}}</td>
 							<td>{{item.role ? item.role.name : ''}}</td>
 							<td>{{item.email}}</td>
 							<td>{{item.phone}}</td>
