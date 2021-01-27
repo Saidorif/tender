@@ -3,6 +3,7 @@ import {BusModelService} from "../services/busmodel.service";
 const state = {
 	busmodels: {},
 	busmodellist: [],
+	busmodelfindlist: [],
 	message: [],
 	busmodel: [],
 };
@@ -10,6 +11,9 @@ const state = {
 const getters = {
 	getBusmodelList(state){
 		return state.busmodellist
+	},
+	getBusmodelFindList(state){
+		return state.busmodelfindlist
 	},
 	getBusmodels(state){
 		return state.busmodels
@@ -28,6 +32,16 @@ const actions = {
 		try {
 			const types =  await BusModelService.busmodelList(page);
 			await commit('setBusmodelList',types.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionBusmodelFindList({commit},data){
+		try {
+            console.log(data)
+			const types =  await BusModelService.busmodelfind(data);
+			await commit('setBusmodelFindList',types.data.result)
 			return true
 		} catch (error) {
 			return false
@@ -90,6 +104,9 @@ const actions = {
 };
 
 const mutations = {
+	setBusmodelFindList(state, busmodellist){
+		state.busmodelfindlist = busmodellist
+	},
 	setBusmodelList(state, busmodellist){
 		state.busmodellist = busmodellist
 	},

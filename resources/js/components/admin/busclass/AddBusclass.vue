@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-bus-alt"></i>
-          Добавить категория автобуса
+          Добавить класс автобуса
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/busclass">
           <span class="peIcon pe-7s-back"></span>
@@ -44,7 +44,7 @@
                 :class="isRequired(form.name) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-4">
+            <!-- <div class="form-group col-md-4">
               <label for="busmodel_id">Марка автобуса</label>
               <select
                 class="form-control input_style"
@@ -135,7 +135,7 @@
                 v-model="form.desc"
                 :class="isRequired(form.desc) ? 'isRequired' : ''"
               ></textarea>
-            </div>
+            </div> -->
             <div class="form-group col-lg-2 form_btn d-flex justify-content-end" >
               <button type="submit" class="btn btn-primary btn_save_category">
                 <i class="fas fa-save"></i>
@@ -160,14 +160,14 @@ export default {
         laoding: true,
       form: {
         name: "",
-        seat_from: "",
-        seat_to: "",
-        stay_from: "",
-        stay_to: "",
         bustype_id: "",
-        busmodel_id: "",
-        busmarka_id: "",
-        desc: "",
+        // seat_from: "",
+        // seat_to: "",
+        // stay_from: "",
+        // stay_to: "",
+        // busmodel_id: "",
+        // busmarka_id: "",
+        // desc: "",
       },
       requiredInput: false,
     };
@@ -197,12 +197,11 @@ export default {
     async saveType() {
       if (
         this.form.name != "" &&
-        this.form.desc != "" &&
-        this.form.seat_from != "" &&
-        this.form.stay_from != "" &&
-        this.form.bustype_id != "" &&
-        this.form.busmarka_id != "" &&
-        this.form.busmodel_id != ""
+        this.form.bustype_id != ""
+        // this.form.seat_from != "" &&
+        // this.form.stay_from != "" &&
+        // this.form.busmarka_id != "" &&
+        // this.form.busmodel_id != ""
       ) {
         this.laoding = true
         await this.actionAddBusclass(this.form);

@@ -19,10 +19,10 @@
 								<th scope="col">№</th>
 								<th scope="col">Название класса</th>
 								<th scope="col">Тип автобуса</th>
-								<th scope="col">Модель автобуса</th>
-								<th scope="col">Количество сидящих</th>
+								<!-- <th scope="col">Модель автобуса</th> -->
+								<!-- <th scope="col">Количество сидящих</th> -->
 								<!-- <th scope="col">Количество сидящих (по)</th> -->
-								<th scope="col">Пассажировместимость</th>
+								<!-- <th scope="col">Пассажировместимость</th> -->
 								<!-- <th scope="col">Пассажировместимость (по)</th> -->
 								<th scope="col">Действия</th>
 							</tr>
@@ -32,10 +32,10 @@
 								<td scope="row">{{bus.id}}</td>
 								<td>{{bus.name}}</td>
 								<td>{{bus.bustype ? bus.bustype.name : ''}}</td>
-								<td>{{bus.model ? bus.model.name : ''}}</td>
-								<td>{{bus.seat_from}}</td>
+								<!-- <td>{{bus.model ? bus.model.name : ''}}</td> -->
+								<!-- <td>{{bus.seat_from}}</td> -->
 								<!-- <td>{{bus.seat_to}}</td> -->
-								<td>{{bus.stay_from}}</td>
+								<!-- <td>{{bus.stay_from}}</td> -->
 								<!-- <td>{{bus.stay_to}}</td> -->
 								<td>
 									<router-link
