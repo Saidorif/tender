@@ -389,32 +389,41 @@ export default {
       laoding: true,
     };
   },
-  async mounted() {
+  async mounted(){
     // await this.actionEditDirection(this.$route.params.directionId);
     let data ={
-        generate:0,
-        id:this.$route.params.directionId
-      }
-      await this.actionDemand(data);
-    this.laoding = false;
-    console.log(this.getDemand)
-
-  },
-  watch:{
-    'getDemand.result':{
-      handler(){
-        if (this.getDemand.success) {
-          this.form = this.getDemand.result;
-        } else {
-          toast.fire({
-            type: "error",
-            icon: "error",
-            title: this.getDemand.message,
-          });
-        }
-      },deep:true
+      generate:0,
+      id:this.$route.params.directionId
     }
+    await this.actionDemand(data);
+    if (this.getDemand.success){
+      this.form = this.getDemand.result;
+    } else if(this.getDemand.error){
+      this.form = this.getDemand.result;
+      toast.fire({
+        type: "error",
+        icon: "error",
+        title: this.getDemand.message,
+      });
+    }
+    this.laoding = false;
   },
+  // watch:{
+  //   'getDemand.result':{
+  //     handler(){
+  //       if (this.getDemand.success){
+  //         this.form = this.getDemand.result;
+  //       } else if(this.getDemand.error){
+  //         this.form = this.getDemand.result;
+  //         toast.fire({
+  //           type: "error",
+  //           icon: "error",
+  //           title: this.getDemand.message,
+  //         });
+  //       }
+  //     },deep:true
+  //   }
+  // },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
     ...mapGetters("passportTab", ["getDemand", "getMsg"]),
@@ -438,15 +447,16 @@ export default {
         id:this.$route.params.directionId
       }
       await this.actionDemand(data);
-      //   if (this.getDemand.success) {
-      //   this.form = this.getDemand.result;
-      // } else {
-      //   toast.fire({
-      //     type: "error",
-      //     icon: "error",
-      //     title: this.getDemand.message,
-      //   });
-      // }
+      if (this.getDemand.success){
+        this.form = this.getDemand.result;
+      } else if(this.getDemand.error){
+        this.form = this.getDemand.result;
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: this.getDemand.message,
+        });
+      }
     },
     async saveData() {
       let data = {
