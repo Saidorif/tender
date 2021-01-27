@@ -444,7 +444,6 @@
 		      "actionGetScheduleTable",
 		    ]),
 		    addLot(){
-                console.log(this.comment)
 		    	if (this.allItems.length > 0) {
 			    	if (this.checked) {
 			    		if (this.allItems.length > 1) {
