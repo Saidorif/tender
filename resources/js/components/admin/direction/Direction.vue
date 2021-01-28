@@ -138,7 +138,7 @@
 				<table class="table table-bordered text-center table-hover table-striped">
 					<thead>
 						<tr>
-							<th scope="col" width="5%">№</th>
+							<th scope="col" width="2%">№</th>
 							<th scope="col">Название направления</th>
 							<th scope="col">Номер направления</th>
 							<th scope="col">Год создания</th>
