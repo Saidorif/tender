@@ -91,20 +91,25 @@
 	  					</div>
 	  				</div>
 	  			</div>
+	  			<div class="row">
+	  				<div class="col-md-4">
+	  					<line-chart></line-chart>
+	  				</div>
+	  			</div>
 		  	</div>
 	  	</div>
 	</div>
 </template>
 <script>
 	// import Bar from './chart/Bar'
-	// import Line from './chart/Line'
+	import LineChart from './chart/Line'
 	// import Pie from './chart/Pie'
 	import Loader from '../Loader'
 	import {mapActions, mapGetters} from 'vuex'
 	export default{
 		components:{
 			// Bar,
-			// Line,
+			LineChart,
 			// Pie,
 			Loader
 		},
