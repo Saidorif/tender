@@ -39,7 +39,7 @@
             <div class="form-group col-md-3">
               <label for="seria">Passport raqami</label>
               <input
-                type="number"
+                type="text"
                 v-model="form.pass_number"
                 class="form-control input_style"
                 :class="isRequired(form.pass_number) ? 'isRequired' : ''"
