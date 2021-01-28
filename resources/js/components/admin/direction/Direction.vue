@@ -221,7 +221,7 @@
 			...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
 			...mapActions('typeofbus',['actionTypeofbusList']),
 			async getResults(page = 1){
-				await this.actionDirections(page)
+				await this.actionDirections({page:page,items:this.filter})
 			},
 			toggleFilter(){
 				this.filterShow = !this.filterShow
