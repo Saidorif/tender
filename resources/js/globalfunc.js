@@ -39,7 +39,7 @@ export const g = {
       return [
         {id:1,name:'Avtovokzal'},
         {id:2,name:'Avtostansiya'},
-        {id:3,name:'Oraliq bekat'},
+        {id:3,name:'Bekat'},
         {id:4,name:'Shox bekat'},
       ];
     },
@@ -48,7 +48,7 @@ export const g = {
       let stations = [
         {id:1,name:'Avtovokzal'},
         {id:2,name:'Avtostansiya'},
-        {id:3,name:'Oraliq bekat'},
+        {id:3,name:'Bekat'},
         {id:4,name:'Shox bekat'},
       ]
       stations.forEach((station,index)=>{
