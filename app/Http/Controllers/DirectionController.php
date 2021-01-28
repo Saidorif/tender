@@ -140,7 +140,7 @@ class DirectionController extends Controller
         $area_ids = Area::pluck('id');
         $user = $request->user();
         $validator = Validator::make($request->all(), [            
-            'pass_number'  => 'required|string',
+            'pass_number'  => 'required|string|unique:directions,pass_number',
             'from_type'  => 'required|string',
             'to_type'  => 'required|string',
             'tarif'  => 'nullable|integer',
@@ -235,7 +235,7 @@ class DirectionController extends Controller
         $region_ids = Region::pluck('id');
         $area_ids = Area::pluck('id');
         $validator = Validator::make($request->all(), [            
-            'pass_number'  => 'required|string',
+            'pass_number'  => 'required|string|unique:directions,pass_number,'.$direction->id,
             'from_type'  => 'required|string',
             'to_type'  => 'required|string',
             'tarif'  => 'nullable|integer',
