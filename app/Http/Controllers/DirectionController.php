@@ -138,6 +138,7 @@ class DirectionController extends Controller
     {
         $region_ids = Region::pluck('id');
         $area_ids = Area::pluck('id');
+        $user = $request->user();
         $validator = Validator::make($request->all(), [            
             'pass_number'  => 'required|string',
             'from_type'  => 'required|string',
@@ -187,6 +188,7 @@ class DirectionController extends Controller
             'station_to_id' => $inputs['region_to']['station_id'],
             'region_to_id' => $inputs['region_to']['region_id'],
             'area_to_id' => $inputs['region_to']['area_id'],
+            'created_by' => $user->id,
         ]);
         $from_name = '';
         $to_name = '';
