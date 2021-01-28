@@ -52,7 +52,7 @@ class DirectionController extends Controller
         }else{
             $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo'])
                             ->orderByDesc('id')
-                            ->where(['region_from_id' => $user->region_id,'region_to_id' => $user->region_id])
+                            ->where(['created_by' => $user->id])
                             ->paginate(20);
         }
         return response()->json(['success' => true, 'result' => $result]);
