@@ -10,9 +10,9 @@
 		  	</div>
 		  	<div class="card-body">
 	  			<div class="row">
-	  				<div class="col-md-3 mb-3">
+	  				<div class="col-md-3 mb-3" v-if="$can('index', 'DirectionController')">
 	  					<div class="bg-dashboard bg1">
-	  						<router-link class="dashboard-link" to="/crm/direction" v-if="$can('index', 'DirectionController')">
+	  						<router-link class="dashboard-link" to="/crm/direction">
 				              <i class="peIcon fas fa-route"></i>
 				              <p>
 				                Направления
@@ -20,9 +20,9 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3">
+	  				<div class="col-md-3 mb-3" v-if="$can('carrier', 'UserController')">
 	  					<div class="bg-dashboard bg2">
-	  						<router-link class="dashboard-link" to="/crm/client" v-if="$can('carrier', 'UserController')">
+	  						<router-link class="dashboard-link" to="/crm/client">
 				              <i class="peIcon pe-7s-users"></i>
 				              <p>
 				                Перевозчики
@@ -30,9 +30,9 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3">
+	  				<div class="col-md-3 mb-3" v-if="$can('index', 'TenderController')">
 	  					<div class="bg-dashboard bg3">
-	  						<router-link class="dashboard-link" to="/crm/tenderannounce" v-if="$can('index', 'TenderController')">
+	  						<router-link class="dashboard-link" to="/crm/tenderannounce">
 				              <i class="peIcon fas fa-bullhorn"></i>
 				              <p>
 				                Объявить тендер
@@ -40,9 +40,9 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3">
+	  				<div class="col-md-3 mb-3" v-if="$can('index', 'EmployeeController')">
 	  					<div class="bg-dashboard bg4">
-	  						<router-link class="dashboard-link" to="/crm/payment" v-if="$can('index', 'EmployeeController')">
+	  						<router-link class="dashboard-link" to="/crm/payment">
 				              <i class="peIcon fas fa-money-bill-alt"></i>
 				              <p>
 				                Платежи
@@ -50,9 +50,9 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3">
+	  				<div class="col-md-3 mb-3" v-if="$can('index', 'ComplaintCategoryController')">
 	  					<div class="bg-dashboard bg5">
-	  						<router-link class="dashboard-link" to="/crm/complaint-list" v-if="$can('index', 'ComplaintCategoryController')">
+	  						<router-link class="dashboard-link" to="/crm/complaint-list">
 				              <i class="peIcon fas fa-comment"></i>
 				              <p>
 			                    Список обращения
@@ -60,9 +60,9 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3">
+	  				<div class="col-md-3 mb-3" v-if="$can('index', 'ClientAccessController')">
 	  					<div class="bg-dashboard bg6">
-	  						<router-link class="dashboard-link" to="/crm/apply" v-if="$can('index', 'ClientAccessController')">
+	  						<router-link class="dashboard-link" to="/crm/apply">
 				              <i class="peIcon fas fa-vote-yea"></i>
 				              <p>
 				                Доступ
@@ -70,9 +70,9 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3">
+	  				<div class="col-md-3 mb-3" v-if="$can('checkTenders', 'TenderController')">
 	  					<div class="bg-dashboard bg7">
-	  						<router-link class="dashboard-link" to="/crm/contract-list" v-if="$can('checkTenders', 'TenderController')">
+	  						<router-link class="dashboard-link" to="/crm/contract-list">
 	  							<i class="peIcon fas fa-file"></i>
 			                    <p>
 			                    	Договора
@@ -80,9 +80,9 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3">
+	  				<div class="col-md-3 mb-3" v-if="$can('checkTenders', 'TenderController')">
 	  					<div class="bg-dashboard bg8">
-	  						<router-link class="dashboard-link" to="/crm/protocol-list" v-if="$can('checkTenders', 'TenderController')">
+	  						<router-link class="dashboard-link" to="/crm/protocol-list">
 	  						  <i class="peIcon fas fa-file-alt"></i>	
 			                  <p>
 			                    Протокол
