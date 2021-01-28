@@ -469,17 +469,17 @@ export default {
         			 });
         			this.$router.push(`/crm/direction/edit/${this.getMassage.result.id}`);
         		}else{
-        			toast.fire({
-        				type: "error",
-        				icon: "error",
-        				title: this.getMassage.message
-        			 });
-              // let errors = this.getMassage.message
-              // if(errors.constructor.name === Object){
-              //   this.errors = this.getMassage.message
-              // }else{
-              //   this.errorMessage = this.getMassage.message
-              // }
+        			// toast.fire({
+        			// 	type: "error",
+        			// 	icon: "error",
+        			// 	title: this.getMassage.message
+      			  // });
+              let errors = this.getMassage.message
+              if(errors.constructor.name === Object){
+                this.errors = this.getMassage.message
+              }else{
+                this.errorMessage = this.getMassage.message
+              }
         		}
           }else{
             toast.fire({
