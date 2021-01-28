@@ -10,7 +10,12 @@ class AreaController extends Controller
 {
     public function index(Request $request)
     {
-        $result = Area::with('region')->paginate(12);
+        $user = $request->user();
+        if($user->role->name == 'admin'){
+            $result = Area::with('region')->paginate(12);
+        }else{
+            $result = Area::where(['region_id' => $user->region_id])->with('region')->paginate(12);
+        }        
         return response()->json(['success' => true, 'result' => $result]);
     }
 

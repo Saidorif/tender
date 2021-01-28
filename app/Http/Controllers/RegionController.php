@@ -11,7 +11,12 @@ class RegionController extends Controller
 {
     public function index(Request $request)
     {
-        $result = Region::paginate(12);
+        $user = $request->user();
+        if($user->role->name == 'admin'){
+            $result = Region::paginate(12);
+        }else{
+            $result = Region::where(['id' => $user->region_id])->paginate(12);
+        }
         return response()->json(['success' => true, 'result' => $result]);
     }
 
