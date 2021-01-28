@@ -30,7 +30,7 @@ export default {
 } -->
 <script>
   import { Line } from 'vue-chartjs'
-
+  import { mapGetters , mapActions } from 'vuex'
   export default {
     extends: Line,
     data () {
@@ -39,7 +39,7 @@ export default {
           labels: ["Babol",	"Cabanatuan",	"Daegu",	"Jerusalem",	"Fairfield",	"New York",	"Gangtok", "Buenos Aires", "Hafar Al-Batin", "Idlib"],
           datasets: [
             {
-              label: 'Line Chart',
+              label: 'Направления по республике',
               data: [600,	1150,	342,	6050,	2522,	3241,	1259,	157,	1545, 9841],
               fill: false,
               borderColor: '#2554FF',
@@ -72,7 +72,22 @@ export default {
         }
       }
     },
-    mounted () {
+    computed:{
+		...mapGetters('region',['getRegionList','getMassage']),
+		regions(){
+			let regions = this.getRegionList;
+			if(regions.length > 0){
+				return regions.map((region,index)=>{
+					return region.name
+				})
+			}
+		}
+	},
+    methods:{
+		...mapActions('region',['actionRegionList','actionDeleteRegion']),
+	},
+    async mounted () {
+      await this.actionRegionList()
       this.renderChart(this.chartData, this.options)
     }
   }
