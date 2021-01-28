@@ -10,14 +10,14 @@
 					</h4>
 	            	<div class="add_user_btn">
 		                <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-		            		Количество направления <b>{{ getDirections.total }} шт.</b> 
+		            		Количество направления <b>{{ getDirections.total }} шт.</b>
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
 			            	Филтр
 						</button>
 						<router-link class="btn btn-primary" to="/crm/direction/add">
-							<i class="fas fa-plus"></i> 
+							<i class="fas fa-plus"></i>
 							Добавить
 						</router-link>
 		            </div>
@@ -28,7 +28,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="region_id">Сортировать по региону!</label>
 			                    <select
-			                      id="region_id"	
+			                      id="region_id"
 			                      class="form-control input_style"
 			                      v-model="filter.region_id"
 			                    >
@@ -39,7 +39,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="status">Сортировать по статусу закрепления!</label>
 			                    <select
-			                      id="status"	
+			                      id="status"
 			                      class="form-control input_style"
 			                      v-model="filter.status"
 			                    >
@@ -49,7 +49,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="status">Сортировать по статусу размещения!</label>
 			                    <select
-			                      id="status"	
+			                      id="status"
 			                      class="form-control input_style"
 			                      v-model="filter.status"
 			                    >
@@ -59,7 +59,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="bustype_id">Сортировать по типу авто!</label>
 			                    <select
-			                      id="bustype_id"	
+			                      id="bustype_id"
 			                      class="form-control input_style"
 			                      v-model="filter.bustype_id"
 			                    >
@@ -73,7 +73,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="profitability">Сортировать по рентабельности!</label>
 			                    <select
-			                      id="profitability"	
+			                      id="profitability"
 			                      class="form-control input_style"
 			                      v-model="filter.profitability"
 			                    >
@@ -86,7 +86,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="type_id">Сортировать по локацию маршрута!</label>
 			                    <select
-			                      id="type_id"	
+			                      id="type_id"
 			                      class="form-control input_style"
 			                      v-model="filter.type_id"
 			                    >
@@ -100,7 +100,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="dir_type">Сортировать по типу маршрута!</label>
 			                    <select
-			                      id="dir_type"	
+			                      id="dir_type"
 			                      class="form-control input_style"
 			                      v-model="filter.dir_type"
 			                    >
@@ -128,9 +128,9 @@
 							  		<i class="fas fa-search"></i>
 								  	найти
 							  	</button>
-					  	  	</div>	
+					  	  	</div>
 				  		</div>
-				  	</div>	
+				  	</div>
 			  	</transition>
 		  	</div>
 		  	<div class="card-body">
@@ -144,6 +144,17 @@
 							<th scope="col">Год создания</th>
 							<th scope="col">Действия</th>
 						</tr>
+                        <!-- <tr>
+                            <th scope="col">№</th>
+                            <th>Регион</th>
+                            <th>Номер и наименования маршрута</th>
+                            <th>Наименования организации </th>
+                            <th>Срок действитвия </th>
+                            <th>Статус</th>
+                            <th>Тариф</th>
+                            <th>Автотранспорт</th>
+                            <th>Дата открытия</th>
+                        </tr> -->
 					</thead>
 					<tbody>
 						<tr v-for="(direct,index) in getDirections.data">
@@ -152,16 +163,16 @@
 							<td>{{direct.pass_number}}</td>
 							<td>{{direct.year}}</td>
 							<td>
-								<router-link 
-									tag="button" 
-									class="btn_transparent" 
+								<router-link
+									tag="button"
+									class="btn_transparent"
 									:to='`/crm/direction/edit/${direct.id}`'
 									v-if="$can('edit', 'DirectionController')"
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button 
-									class="btn_transparent" 
+								<button
+									class="btn_transparent"
 									@click="deletePassport(direct.id)"
 									v-if="$can('destroy', 'DirectionController')"
 								>
