@@ -111,6 +111,11 @@ class IntegrationController extends Controller
                 ]);
                 $data_resp = json_decode($response->getBody()->getContents(),true);
                 if($data_resp['pAnswereId'] == 1){
+                    //Check for if the car already in use
+                    $the_old_car = UserCar::where(['auto_number' => $inputs['pPlateNumber']])->first();
+                    if($the_old_car){
+                        return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
+                    }
                     $gai_car = GaiCar::create([
                         'user_id' => $user->id,
                         'app_id' => $inputs['app_id'],

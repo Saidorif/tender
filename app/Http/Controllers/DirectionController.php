@@ -13,6 +13,7 @@ use App\ReysTime;
 use App\DirectionReq;
 use App\Area;
 use App\PassportTarif;
+use App\TenderLot;
 use Validator;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
@@ -51,7 +52,7 @@ class DirectionController extends Controller
         }else{
             $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo'])
                             ->orderByDesc('id')
-                            ->where(['region_from_id' => $user->region_id,'region_to_id' => $user->region_id])
+                            ->where(['created_by' => $user->id])
                             ->paginate(20);
         }
         return response()->json(['success' => true, 'result' => $result]);
@@ -137,8 +138,9 @@ class DirectionController extends Controller
     {
         $region_ids = Region::pluck('id');
         $area_ids = Area::pluck('id');
+        $user = $request->user();
         $validator = Validator::make($request->all(), [            
-            'pass_number'  => 'required|string',
+            'pass_number'  => 'required|string|unique:directions,pass_number',
             'from_type'  => 'required|string',
             'to_type'  => 'required|string',
             'tarif'  => 'nullable|integer',
@@ -186,6 +188,7 @@ class DirectionController extends Controller
             'station_to_id' => $inputs['region_to']['station_id'],
             'region_to_id' => $inputs['region_to']['region_id'],
             'area_to_id' => $inputs['region_to']['area_id'],
+            'created_by' => $user->id,
         ]);
         $from_name = '';
         $to_name = '';
@@ -232,7 +235,7 @@ class DirectionController extends Controller
         $region_ids = Region::pluck('id');
         $area_ids = Area::pluck('id');
         $validator = Validator::make($request->all(), [            
-            'pass_number'  => 'required|string',
+            'pass_number'  => 'required|string|unique:directions,pass_number,'.$direction->id,
             'from_type'  => 'required|string',
             'to_type'  => 'required|string',
             'tarif'  => 'nullable|integer',
@@ -635,9 +638,15 @@ class DirectionController extends Controller
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
+        $tender_lot = TenderLot::whereJsonContains('direction_id', [$direction->id])->first();
         //if generate true recalculate requirement
         if($request->input('generate') == 1){
             if($direction->requirement){
+                //Check if direction added to lot
+                $tender_lot = TenderLot::whereJsonContains('direction_id',[$direction->id])->first();
+                if($tender_lot){
+                    return response()->json(['error' => true, 'message' => 'Направление уже используется','result' => $direction->requirement]);
+                }
                 $direction->requirement->delete();
             }
         }
@@ -761,7 +770,7 @@ class DirectionController extends Controller
             'schedule_end_from' => 'nullable|string',
             'schedule_end_to' => 'nullable|string',
             'station_intervals' => 'nullable|string',
-            'reys_time' => 'nullable|integer',
+            'reys_time' => 'nullable|string',
             'reys_from_value' => 'nullable|string',
             'reys_to_value' => 'nullable|string',
             'schedules' => 'nullable|integer',
@@ -775,6 +784,11 @@ class DirectionController extends Controller
 
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        //Check if direction added to lot
+        $tender_lot = TenderLot::whereJsonContains('direction_id',[$direction->id])->first();
+        if($tender_lot){
+            return response()->json(['error' => true, 'message' => 'Направление уже используется']);
         }
 
         $inputs = $request->all();

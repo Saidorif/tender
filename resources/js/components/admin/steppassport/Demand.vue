@@ -14,16 +14,8 @@
             </button>
           </div>
         </div>
-        <div class="table-responsive" v-if="getDemand.success">
+        <div class="table-responsive" v-if="getDemand.result">
           <table class="table table-bordered">
-            <!--             <thead>
-              <tr>
-                <th>№ т/р</th>
-                <th>Автотранспорт воситаси категорияси</th>
-                <th>Автотранспорт воситаси моделининг класси (фақат енгил автомобиллар учун)</th>
-                <th>Таклиф</th>
-              </tr>
-            </thead> -->
             <tbody>
               <tr>
                 <td>1</td>
@@ -389,32 +381,39 @@ export default {
       laoding: true,
     };
   },
-  async mounted() {
+  async mounted(){
     // await this.actionEditDirection(this.$route.params.directionId);
     let data ={
-        generate:0,
-        id:this.$route.params.directionId
-      }
-      await this.actionDemand(data);
-    this.laoding = false;
-    console.log(this.getDemand)
-
-  },
-  watch:{
-    'getDemand.result':{
-      handler(){
-        if (this.getDemand.success) {
-          this.form = this.getDemand.result;
-        } else {
-          toast.fire({
-            type: "error",
-            icon: "error",
-            title: this.getDemand.message,
-          });
-        }
-      },deep:true
+      generate:0,
+      id:this.$route.params.directionId
     }
+    await this.actionDemand(data);
+    this.form = this.getDemand.result;
+    if(this.getDemand.error){
+      toast.fire({
+        type: "error",
+        icon: "error",
+        title: this.getDemand.message,
+      });
+    }
+    this.laoding = false;
   },
+  // watch:{
+  //   'getDemand.result':{
+  //     handler(){
+  //       if (this.getDemand.success){
+  //         this.form = this.getDemand.result;
+  //       } else if(this.getDemand.error){
+  //         this.form = this.getDemand.result;
+  //         toast.fire({
+  //           type: "error",
+  //           icon: "error",
+  //           title: this.getDemand.message,
+  //         });
+  //       }
+  //     },deep:true
+  //   }
+  // },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
     ...mapGetters("passportTab", ["getDemand", "getMsg"]),
@@ -433,20 +432,19 @@ export default {
       }
     },
     async refreshDemand(){
-      let data ={
+      let data = {
         generate:1,
         id:this.$route.params.directionId
       }
       await this.actionDemand(data);
-      //   if (this.getDemand.success) {
-      //   this.form = this.getDemand.result;
-      // } else {
-      //   toast.fire({
-      //     type: "error",
-      //     icon: "error",
-      //     title: this.getDemand.message,
-      //   });
-      // }
+      this.form = this.getDemand.result;
+      if(this.getDemand.error){
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: this.getDemand.message,
+        });
+      }
     },
     async saveData() {
       let data = {
@@ -462,12 +460,21 @@ export default {
           icon: "success",
           title: this.getMsg.message,
         });
-      } else {
-        toast.fire({
-          type: "error",
-          icon: "error",
-          title: "Ошибка проверте данные!",
-        });
+      } else if(this.getMsg.error) {
+        let errors= this.getMsg.message
+        if(errors.constructor.name === 'Object'){
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: "Заполните все поля!",
+          });
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getMsg.message,
+          });
+        }
       }
     },
   },

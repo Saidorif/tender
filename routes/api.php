@@ -26,7 +26,7 @@ Route::group([
     // Route::post('create-user', 'UserController@createUser');
     Route::get('complaintcategory/list', 'ComplaintCategoryController@list');
     Route::group(['middleware' => 'jwt.auth'], function(){
-        // Route::group(['middleware' => 'permit'], function(){
+        Route::group(['middleware' => 'permit'], function(){
 
             //Client accesses
             Route::post('getaccess/index', 'ClientAccessController@index');
@@ -274,7 +274,7 @@ Route::group([
             //Permissions
             Route::post('permissions', 'PermissionController@index');
             Route::post('permissions/store/{id}', 'PermissionController@store')->where('id', '[0-9]+');
-        // });
+        });
     });
 
 

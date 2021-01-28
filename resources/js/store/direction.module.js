@@ -42,9 +42,9 @@ const actions = {
 			return false
 		}
 	},
-	async actionDirections({commit},page){
+	async actionDirections({commit},payload){
 		try {
-			const directions =  await DirectService.directs(page);
+			const directions =  await DirectService.directs(payload);
 			await commit('setDirections',directions.data.result)
 			return true
 		} catch (error) {

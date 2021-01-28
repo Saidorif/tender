@@ -258,7 +258,7 @@
 					let page = 1
 					this.laoding = true
 					await this.actionDeleteDirection(id)
-					await this.actionDirections(page)
+					await this.actionDirections({page: page,items:this.filter})
 					this.laoding = false
 					toast.fire({
 				    	type: 'success',

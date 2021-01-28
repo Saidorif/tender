@@ -18,7 +18,7 @@ class EmployeeController extends Controller
         $builder = [];
         $user = $request->user();
         if ($user->role_id == 1) {
-            $builder = User::query()->with(['role','position'])->where('role_id','!=',9);
+            $builder = User::query()->with(['role','position','region'])->where('role_id','!=',9);
         }else{
             $builder = User::query()
                 ->where('role_id', '!=', 1)
@@ -57,7 +57,7 @@ class EmployeeController extends Controller
 
     public function list()
     {
-        $users = User::where('role_id', '!=', 1)->get();
+        $users = User::with(['region','position'])->where('role_id', '!=', 1)->get();
         return response()->json(['success' => true, 'result' => $users]);
     }
 

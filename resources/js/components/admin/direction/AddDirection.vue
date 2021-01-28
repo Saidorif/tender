@@ -13,6 +13,13 @@
         </router-link>
       </div>
       <div class="card-body">
+        <div class="alert alert-danger" v-for="(error,index) in errors" v-if="errors.length > 0">
+          {{error}}
+        </div>
+
+        <div class="alert alert-danger" v-if="errorMessage != ''">
+          {{errorMessage}}
+        </div>
         <form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
           <div class="row">
             <div class="form-group col-md-3">
@@ -366,6 +373,8 @@ export default {
       areaTo:[],
       stationFrom:[],
       stationTo:[],
+      errors:[],
+      errorMessage:'',
       requiredInput: false,
       laoding: true
     };
@@ -447,24 +456,38 @@ export default {
         this.form.seasonal != ""
       ) {
         if (this.checkCars) {
-          this.form['cars'] = this.cars
-          this.laoding = true
-          await this.actionAddDirection(this.form)
-          this.laoding = false
-      		if(this.getMassage.success){
-      			toast.fire({
-      				type: "success",
-      				icon: "success",
-      				title: this.getMassage.message
-      			 });
-      			this.$router.push(`/crm/direction/edit/${this.getMassage.result.id}`);
-      		}else{
-      			toast.fire({
-      				type: "error",
-      				icon: "error",
-      				title: this.getMassage.message
-      			 });
-      		}
+          if (this.form.from_type && this.form.to_type) {
+            this.form['cars'] = this.cars
+            this.laoding = true
+            await this.actionAddDirection(this.form)
+            this.laoding = false
+        		if(this.getMassage.success){
+        			toast.fire({
+        				type: "success",
+        				icon: "success",
+        				title: this.getMassage.message
+        			 });
+        			this.$router.push(`/crm/direction/edit/${this.getMassage.result.id}`);
+        		}else{
+        			// toast.fire({
+        			// 	type: "error",
+        			// 	icon: "error",
+        			// 	title: this.getMassage.message
+      			  // });
+              let errors = this.getMassage.message
+              if(errors.constructor.name === Object){
+                this.errors = this.getMassage.message
+              }else{
+                this.errorMessage = this.getMassage.message
+              }
+        		}
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Выберите название откуда и куда!'
+             });
+          }
         }else{
           toast.fire({
             type: "error",

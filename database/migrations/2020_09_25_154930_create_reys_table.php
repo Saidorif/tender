@@ -17,8 +17,8 @@ class CreateReysTable extends Migration
             $table->bigIncrements('id');
             $table->integer('direction_id');
             $table->integer('station_id');
-            $table->string('where');//from|to
-            $table->string('from');//from|to
+            $table->text('where');//from|to
+            $table->text('from');//from|to
             $table->text('stations');
             $table->string('type');
             $table->integer('count_bus');

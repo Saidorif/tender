@@ -62,6 +62,11 @@ class ApplicationController extends Controller
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
         }
+        //Check for if already sent application to this lot
+        $the_old_app = Application::where(['lot_id' => $inputs['lot_id']])->first();
+        if($the_old_app){
+            return response()->json(['error' => true, 'message' => 'Вы уже отправляли заявку на этот лот']);
+        }
         $user = $request->user();
         $inputs['user_id'] = $user->id;
         $direction_ids = [];
@@ -107,6 +112,11 @@ class ApplicationController extends Controller
         $inputs = $request->all();
         $inputs['user_id'] = $user->id;
         $inputs['auto_number'] = strtoupper($inputs['auto_number']);
+        //Check for if the car already in use
+        $the_old_car = UserCar::where(['auto_number' => $inputs['auto_number']])->first();
+        if($the_old_car){
+            return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
+        }
         $result = UserCar::create($inputs);
         return response()->json([
             'success' => true,
@@ -174,6 +184,9 @@ class ApplicationController extends Controller
         }
         if($application->status == 'accepted'){
             return response()->json(['error' => true, 'message' => 'Application already accepted...']);
+        }
+        if($application->cars->count() < 1){
+            return response()->json(['error' => true, 'message' => 'Пожалуйста, добавьте машину ...']);
         }
         $text = $application->user->company_name."\n";
         $text .= "ДАТА: ".$application->tender->time."\n";
