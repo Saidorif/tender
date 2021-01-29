@@ -41,6 +41,10 @@ class DirectionController extends Controller
         if(!empty($inputs['profitability'])){
             $builder->where(['profitability' => $inputs['profitability']]);
         }
+        //по номеру
+        if(!empty($inputs['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$inputs['pass_number'].'%');
+        }
         //по дата открытия
         if(!empty($inputs['year'])){
             $from_year = $inputs['year'].'-01-01';
