@@ -6,6 +6,14 @@
         <PassportTab/>
       </div>
       <div class="card-body">
+        <div class="row">
+          <div class="col-md-12 d-flex justify-content-end mb-2">
+            <button type="button" class="btn btn-info text-white" @click.prevent="refreshDemand">
+              <i class="fas fa-redo"></i>
+              Обнавить
+            </button>
+          </div>
+        </div>
         <div class="table-responsive">
           <table class="table table-bordered">
             <tbody>
@@ -229,7 +237,11 @@ export default {
   },
   async mounted(){
     // await this.actionEditDirection(this.$route.params.directionId);
-    await this.actionDemand(this.$route.params.directionId);
+    let data ={
+      generate:0,
+      id:this.$route.params.directionId
+    }
+    await this.actionDemand(data);
     this.laoding = false
         if(this.getDemand.success){
             this.form = this.getDemand.result
@@ -260,6 +272,21 @@ export default {
       }
       else if (name == 'seasonal') {
         return 'Mavsumiy';
+      }
+    },
+    async refreshDemand(){
+      let data = {
+        generate:1,
+        id:this.$route.params.directionId
+      }
+      await this.actionDemand(data);
+      this.form = this.getDemand.result;
+      if(this.getDemand.error){
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: this.getDemand.message,
+        });
       }
     },
     saveData(){
