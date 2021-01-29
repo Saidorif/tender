@@ -89,7 +89,11 @@ class DirectionController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
+        $user = $request->user();
         $builder = Direction::query();
+        if($user->role->name != 'admin'){
+            $builder->where(['region_from_id' => $user->region_id]);
+        }
         $builder->where('name','LIKE', '%'.$request->input('name').'%');
         $builder->orWhere('pass_number','LIKE', '%'.$request->input('name').'%');
         $result = $builder->get();
