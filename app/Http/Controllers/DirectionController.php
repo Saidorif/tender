@@ -27,7 +27,7 @@ class DirectionController extends Controller
         $builder = Direction::query();
         //по региону!
         if(!empty($inputs['region_id'])){
-            $builder->where(['region_from_id' => $inputs['region_id'],'region_to_id' => $inputs['region_id']]);
+            $builder->where(['region_id' => $inputs['region_id']]);
         }
         //по типу маршрута! bus or taxi
         if(!empty($inputs['dir_type'])){
