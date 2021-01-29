@@ -120,7 +120,7 @@ class Direction extends Model
 
     public function createdBy()
     {
-        return $this->belongsTo(\App\User::class,'created_by');
+        return $this->belongsTo(\App\User::class,'created_by')->with('region');
     }
     
     public function getModeratorAttribute()
