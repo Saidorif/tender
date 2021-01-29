@@ -625,7 +625,7 @@ export default {
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("direction", ["getDirection",'getMassage']),
     ...mapGetters("passportTab", ["getTarif"]),
-        ...mapGetters("busbrand", ["getBusBrandList"]),
+    ...mapGetters("busbrand", ["getBusBrandList"]),
     ...mapGetters("busmodel", ["getBusmodelFindList"]),
     checkCars(){
       if(this.cars.length > 0){

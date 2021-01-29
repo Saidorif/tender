@@ -17,11 +17,11 @@
           </div>
           <form @submit.enter.prevent="onLogin">
             <div  class="input-group input_group_with_label">
-              <input  type="email" id="useremail" class="form-control" v-model="form.email" :class="isLoginRequired(form.email) ? 'isRequired' : ''"> 
+              <input  type="email" id="useremail" class="form-control" v-model="form.email" :class="isLoginRequired(form.email) ? 'isRequired' : ''">
               <label  for="useremail">Email</label>
             </div>
             <div  class="input-group input_group_with_label mb-5">
-              <input  type="password" id="userpassword" class="form-control" v-model="form.password" :class="isLoginRequired(form.password) ? 'isRequired' : ''"> 
+              <input  type="password" id="userpassword" class="form-control" v-model="form.password" :class="isLoginRequired(form.password) ? 'isRequired' : ''">
               <label  for="userpassword">Parol</label>
             </div>
             <div class="d-flex justify-content-between align-items-center">
@@ -147,24 +147,24 @@ export default {
         this.laoding = true
         await this.login(this.form);
         await this.authenticationErrorCode;
-        this.laoding = false
         if (!this.authenticationErrorCode) {
           toast.fire({
             type: "success",
             icon: "success",
             title: "Вошли в систему!",
           });
+          window.location.href = "/crm/dashboard";
           this.$Progress.finish();
           // setTimeout(()=>{
           // 	window.location = '/crm/dashboard';
           // },100)
           //   this.$router.push("/crm/dashboard");
           this.requiredLoginInput = false;
-          window.location.href = "/crm/dashboard";
         } else {
           this.errorMsg = this.authenticationError;
           this.$Progress.fail();
         }
+        this.laoding = false
       } else {
         this.requiredLoginInput = true;
       }
