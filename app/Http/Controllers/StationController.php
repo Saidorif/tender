@@ -12,9 +12,9 @@ class StationController extends Controller
     {
         $user = $request->user();
         if($user->role->name == 'admin'){
-            $result = Station::with(['region','area'])->paginate(12);
+            $result = Station::with(['region','area'])->orderByDesc('id')->paginate(12);
         }else{
-            $result = Station::where(['region_id' => $user->region_id])->with(['region','area'])->paginate(12);
+            $result = Station::where(['region_id' => $user->region_id])->with(['region','area'])->orderByDesc('id')->paginate(12);
         }
         return response()->json(['success' => true, 'result' => $result]);
     }
