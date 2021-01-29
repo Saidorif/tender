@@ -27,7 +27,11 @@ class DirectionController extends Controller
         $builder = Direction::query();
         //по региону!
         if(!empty($inputs['region_id'])){
-            $builder->where(['region_from_id' => $inputs['region_id'],'region_to_id' => $inputs['region_id']]);
+            $region = $inputs['region_id'];
+            // $builder->where(['region_from_id' => $inputs['region_id'],'region_to_id' => $inputs['region_id']]);
+            $builder->whereHas('createdBy', function ($query) use ($region){
+                $query->where('region_id',$region);
+            });
         }
         //по типу маршрута! bus or taxi
         if(!empty($inputs['dir_type'])){
@@ -52,9 +56,9 @@ class DirectionController extends Controller
             $builder->whereBetween('year',[$from_year, $to_year]);
         }
         if($user->role->name == 'admin'){
-            $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo'])->orderByDesc('id')->paginate(20);
+            $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])->orderByDesc('id')->paginate(20);
         }else{
-            $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo'])
+            $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])
                             ->orderByDesc('id')
                             ->where(['created_by' => $user->id])
                             ->paginate(20);

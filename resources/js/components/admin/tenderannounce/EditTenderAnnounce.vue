@@ -604,16 +604,16 @@
 		    	if (this.allItems.length > 0) {
 			    	if (this.checked) {
 			    		if (this.allItems.length > 1) {
-			    			if (this.text != '') {
+			    			// if (this.text != '') {
 				    			this.allLotes.push(this.addTextToAllItems(this.allItems))
 					    		$('#myModal').modal('hide')
-			    			}else{
-			    				toast.fire({
-									type: "error",
-									icon: "error",
-									title: 'Введите примечание!'
-							 	});
-			    			}
+			    		// 	}else{
+			    		// 		toast.fire({
+									// type: "error",
+									// icon: "error",
+									// title: 'Введите примечание!'
+							 	// });
+			    		// 	}
 			    		}else{
 			    			toast.fire({
 								type: "error",
@@ -623,16 +623,16 @@
 			    		}
 			    	}else{
 			    		if (this.allItems.length == 1) {
-			    			if (this.text != '') {
+			    			// if (this.text != '') {
 					    		this.allLotes.push(this.addTextToAllItems(this.allItems))
 						    	$('#myModal').modal('hide')
-			    			}else{
-			    				toast.fire({
-									type: "error",
-									icon: "error",
-									title: 'Введите примечание!'
-							 	});
-			    			}
+			    		// 	}else{
+			    		// 		toast.fire({
+									// type: "error",
+									// icon: "error",
+									// title: 'Введите примечание!'
+							 	// });
+			    		// 	}
 			    		}else{
 			    			toast.fire({
 								type: "error",

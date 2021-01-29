@@ -29,9 +29,9 @@
 								<router-link tag="button" class="btn_transparent" :to='`/crm/typeofdirection/edit/${type.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<!-- <button class="btn_transparent" @click="deleteType(type.id)">
+								<button v-if="$can('destroy', 'DirectionTypeController')"  class="btn_transparent" @click="deleteType(type.id)">
 									<i class="pe_icon pe-7s-trash trashColor"></i>
-								</button> -->
+								</button>
 							</td>
 						</tr>
 					</tbody>
