@@ -48,9 +48,9 @@ class DirectionController extends Controller
             $builder->whereBetween('year',[$from_year, $to_year]);
         }
         if($user->role->name == 'admin'){
-            $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo'])->orderByDesc('id')->paginate(20);
+            $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])->orderByDesc('id')->paginate(20);
         }else{
-            $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo'])
+            $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])
                             ->orderByDesc('id')
                             ->where(['created_by' => $user->id])
                             ->paginate(20);

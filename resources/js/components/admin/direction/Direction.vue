@@ -139,6 +139,7 @@
 					<thead>
 						<tr>
 							<th scope="col" width="2%">№</th>
+							<th scope="col">Область</th>
 							<th scope="col">Название направления</th>
 							<th scope="col">Номер направления</th>
 							<th scope="col">Год создания</th>
@@ -159,6 +160,11 @@
 					<tbody>
 						<tr v-for="(direct,index) in getDirections.data">
 							<td scope="row">{{index + 1}}</td>
+							<td>
+								<template v-if="direct.created_by">
+									{{direct.created_by.region ? direct.created_by.region.name : ''}}
+								</template>
+							</td>
 							<td>{{direct.name}}</td>
 							<td>{{direct.pass_number}}</td>
 							<td>{{direct.year}}</td>
