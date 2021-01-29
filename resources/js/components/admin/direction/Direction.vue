@@ -25,7 +25,11 @@
 	            <transition name="slide">
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
-				  			<div class="form-group col-lg-3">
+				  			<div class="form-group col-lg-2">
+				  				<label for="bypass_number">Номер направления</label>
+                                  <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
+              				</div>
+				  			<div class="form-group col-lg-2">
 				  				<label for="region_id">Сортировать по региону!</label>
 			                    <select
 			                      id="region_id"
@@ -36,8 +40,8 @@
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
-				  			<div class="form-group col-lg-3">
-				  				<label for="status">Сортировать по статусу закрепления!</label>
+				  			<div class="form-group col-lg-2">
+				  				<label for="status">По статусу закрепления!</label>
 			                    <select
 			                      id="status"
 			                      class="form-control input_style"
@@ -47,7 +51,7 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="status">Сортировать по статусу размещения!</label>
+				  				<label for="status">По статусу размещения!</label>
 			                    <select
 			                      id="status"
 			                      class="form-control input_style"
@@ -212,7 +216,8 @@
 					bustype_id:'',
 					type_id:'',
 					profitability:'',
-					year:'',
+                    year:'',
+                    pass_number: '',
 				},
 				filterShow:false,
 				laoding: true
@@ -246,7 +251,7 @@
 			},
 			async search(){
 				let page = 1
-				if(this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
+				if(this.filter.pass_number != '' || this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
 					let data = {
 						page:page,
 						items:this.filter
@@ -258,13 +263,14 @@
 				}
 			},
 			async clear(){
-				if(this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
+				if(this.filter.pass_number != '' ||   this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
 					this.filter.region_id = ''
 					this.filter.dir_type = ''
 					this.filter.type_id = ''
 					this.filter.year = ''
 					this.filter.profitability = ''
 					this.filter.bustype_id = ''
+					this.filter.pass_number = ''
                     let page  = 1
                     this.laoding = true
                     localStorage.setItem("dir_f",  JSON.stringify(this.filter))
