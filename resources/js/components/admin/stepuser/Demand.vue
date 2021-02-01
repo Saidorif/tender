@@ -6,14 +6,14 @@
         <PassportTab/>
       </div>
       <div class="card-body">
-        <div class="row">
+  <!--       <div class="row">
           <div class="col-md-12 d-flex justify-content-end mb-2">
             <button type="button" class="btn btn-info text-white" @click.prevent="refreshDemand">
               <i class="fas fa-redo"></i>
               Обнавить
             </button>
           </div>
-        </div>
+        </div> -->
         <div class="table-responsive">
           <table class="table table-bordered">
             <tbody>
@@ -252,9 +252,6 @@ export default {
                 title: this.getDemand.message,
             })
         }
-    Vue.set(this.form,'stations_from_value','')
-    Vue.set(this.form,'stations_to_value','')
-    Vue.set(this.form,'station_intervals','')
     },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
@@ -274,21 +271,21 @@ export default {
         return 'Mavsumiy';
       }
     },
-    async refreshDemand(){
-      let data = {
-        generate:1,
-        id:this.$route.params.directionId
-      }
-      await this.actionDemand(data);
-      this.form = this.getDemand.result;
-      if(this.getDemand.error){
-        toast.fire({
-          type: "error",
-          icon: "error",
-          title: this.getDemand.message,
-        });
-      }
-    },
+    // async refreshDemand(){
+    //   let data = {
+    //     generate:1,
+    //     id:this.$route.params.directionId
+    //   }
+    //   await this.actionDemand(data);
+    //   this.form = this.getDemand.result;
+    //   if(this.getDemand.error){
+    //     toast.fire({
+    //       type: "error",
+    //       icon: "error",
+    //       title: this.getDemand.message,
+    //     });
+    //   }
+    // },
     saveData(){
 
     }
