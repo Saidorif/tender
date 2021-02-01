@@ -7,7 +7,7 @@
           <i class="peIcon fas fa-bullhorn"></i>
           Посмотреть тендер
         </h4>
-        <router-link class="btn btn-primary back_btn" to="/crm/tenderannounce">
+        <router-link class="btn btn-primary back_btn" to="/crm/tenderuser">
           <span class="peIcon pe-7s-back"></span>
           Назад
         </router-link>
@@ -354,14 +354,20 @@ export default {
           "/crm/application/user/" + this.getUserEditApplication.result.id
         );
       }else{
-        toast.fire({
-          type: "error",
-          icon: "error",
-          title: this.getUserEditApplication.message
+        swal.fire({
+          icon: 'error',
+          title: this.getUserEditApplication.message,
+          text: '',
+          footer: `<a href="/crm/application/user/${this.getUserEditApplication.result}"><b>Продолжить</b></a>`
         });
-        this.$router.push(
-          "/crm/application/user/" + this.getUserEditApplication.result.id
-        );
+        // toast.fire({
+        //   type: "error",
+        //   icon: "error",
+        //   title: this.getUserEditApplication.message
+        // });
+        // this.$router.push(
+        //   "/crm/application/user/" + this.getUserEditApplication.result
+        // );
       }
     },
     activeEditClass(item){
