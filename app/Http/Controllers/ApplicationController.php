@@ -62,12 +62,12 @@ class ApplicationController extends Controller
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
         }
-        //Check for if already sent application to this lot
-        $the_old_app = Application::where(['lot_id' => $inputs['lot_id']])->first();
-        if($the_old_app){
-            return response()->json(['error' => true, 'message' => 'Вы уже отправляли заявку на этот лот']);
-        }
         $user = $request->user();
+        //Check for if already sent application to this lot
+        $the_old_app = Application::where(['lot_id' => $inputs['lot_id'],'user_id' => $user->id])->first();
+        if($the_old_app){
+            return response()->json(['error' => true, 'message' => 'Вы уже отправляли заявку на этот лот','result' => $the_old_app]);
+        }
         $inputs['user_id'] = $user->id;
         $direction_ids = [];
         foreach($tender->direction_ids as $key => $direction){
