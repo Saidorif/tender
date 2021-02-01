@@ -359,6 +359,9 @@ export default {
           icon: "error",
           title: this.getUserEditApplication.message
         });
+        this.$router.push(
+          "/crm/application/user/" + this.getUserEditApplication.result.id
+        );
       }
     },
     activeEditClass(item){
