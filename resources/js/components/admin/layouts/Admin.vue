@@ -132,7 +132,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview" v-if="$can('completedTenders', 'TenderController')">
             <a href="#" class="nav-link">
               <span class="peIcon fas fa-file" style="font-size: 20px;"></span>
               <p>
@@ -203,7 +203,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview" v-if="$can('index', 'ComplaintCategoryController')">
             <a href="#" class="nav-link">
               <span class="peIcon fas fa-comment" style="font-size: 20px;"></span>
               <p>
@@ -229,7 +229,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview" v-if="$can('index', 'RegionController')">
             <a href="#" class="nav-link">
               <i class="peIcon fas fa-cogs" style="font-size: 20px;"></i>
               <p>
