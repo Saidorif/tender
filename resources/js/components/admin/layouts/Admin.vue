@@ -77,7 +77,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview" v-if="$can('listTarifApprove', 'DirectionController')">
             <a href="#" class="nav-link" >
               <i class="peIcon fas fa-clipboard-check"></i>
               <p>
@@ -100,7 +100,7 @@
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item" v-if="$can('listTarif', 'DirectionController')">
+              <li class="nav-item" v-if="$can('listTarifApprove', 'DirectionController')">
                 <router-link class="nav-link" to="/crm/confirm-tarif">
                   <p>
                     Тариф
