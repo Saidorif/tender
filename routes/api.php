@@ -224,6 +224,18 @@ Route::group([
             Route::get('xronom/activate/{id}', 'DirectionController@xronomActivate');
             Route::get('xronom/reject/{id}', 'DirectionController@xronomReject');
             Route::get('xronom/edit/{id}', 'DirectionController@xronomEdit');
+            
+            Route::get('sxema', 'DirectionController@sxema');
+            Route::get('sxema/approve/{id}', 'DirectionController@sxemaApprove');
+            Route::get('sxema/activate/{id}', 'DirectionController@sxemaActivate');
+            Route::get('sxema/reject/{id}', 'DirectionController@sxemaReject');
+            Route::get('sxema/edit/{id}', 'DirectionController@sxemaEdit');
+            
+            Route::get('xjadval', 'DirectionController@xjadval');
+            Route::get('xjadval/approve/{id}', 'DirectionController@xjadvalApprove');
+            Route::get('xjadval/activate/{id}', 'DirectionController@xjadvalActivate');
+            Route::get('xjadval/reject/{id}', 'DirectionController@xjadvalReject');
+            Route::get('xjadval/edit/{id}', 'DirectionController@xjadvalEdit');
 
             //Integration
             Route::post('adliya','IntegrationController@adliya');

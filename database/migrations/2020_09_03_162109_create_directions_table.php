@@ -19,6 +19,10 @@ class CreateDirectionsTable extends Migration
             $table->integer('titul_approver')->nullable();
             $table->string('xronom_status')->default('active')->nullable();
             $table->integer('xronom_approver')->nullable();
+            $table->string('sxema_status')->default('active')->nullable();
+            $table->integer('sxema_approver')->nullable();
+            $table->string('xjadval_status')->default('active')->nullable();
+            $table->integer('xjadval_approver')->nullable();
             $table->string('name')->nullable();
             $table->string('pass_number');
             $table->string('from_type')->default('region');
