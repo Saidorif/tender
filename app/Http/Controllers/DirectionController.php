@@ -109,6 +109,7 @@ class DirectionController extends Controller
     public function edit(Request $request, $id)
     {
         $user = $request->user();
+        $region = $user->region_id;
         if($user->role->name == 'admin'){
             $result = Direction::with([
                 'regionToWith',
@@ -136,7 +137,10 @@ class DirectionController extends Controller
                 'stationTo',
                 'carsWith',
                 'schemaDetails',
-            ])->where(['region_from_id' => $user->region_id,'region_to_id' => $user->region_id])
+            ])->whereHas('createdBy', function ($query) use ($region){
+                $query->where('region_id',$region);
+            })
+            // ->where(['region_from_id' => $user->region_id,'region_to_id' => $user->region_id])
             ->find($id);
         }
         if(!$result){
@@ -434,7 +438,11 @@ class DirectionController extends Controller
         $params = $request->all();
         $region = null;
         if(!empty($params['region_id'])){
-            $builder->where(['region_from_id' => $params['region_id']])->orWhere(['region_to_id' => $params['region_id']]);
+            $region = $params['region_id'];
+            $builder->whereHas('createdBy', function ($query) use ($region){
+                $query->where('region_id',$region);
+            });
+            // $builder->where(['region_from_id' => $params['region_id']])->orWhere(['region_to_id' => $params['region_id']]);
         }
         if(!empty($params['type_id'])){
             $builder->where(['type_id' => $params['type_id']]);
