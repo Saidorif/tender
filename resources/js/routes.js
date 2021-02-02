@@ -912,7 +912,7 @@ const router = new Router({
 					component:AddConfirmTiming,
 				},
 				{
-					path:'confirm-timing/edit/:timingannounceId',
+					path:'confirm-timing/edit/:confirmtimingId',
 					component:EditConfirmTiming,
 				},
 				{
