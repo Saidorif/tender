@@ -904,6 +904,19 @@ class DirectionController extends Controller
         return response()->json(['success' => true, 'message' => 'Titul activated']);
     }
     
+    public function titulReject(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Titul not found']);
+        }
+        $result->titul_status = 'active';
+        $result->titul_approver = $user->id;
+        $result->save();
+        return response()->json(['success' => true, 'message' => 'Titul rejected']);
+    }
+    
     public function titulApprove(Request $request,$id)
     {
         $user = $request->user();
@@ -939,6 +952,19 @@ class DirectionController extends Controller
         $result->xronom_approver = $user->id;
         $result->save();
         return response()->json(['success' => true, 'message' => 'Xronometraj activated']);
+    }
+    
+    public function xronomReject(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Xronometraj not found']);
+        }
+        $result->xronom_status = 'active';
+        $result->xronom_approver = $user->id;
+        $result->save();
+        return response()->json(['success' => true, 'message' => 'Xronometraj rejected']);
     }
 
     public function xronomApprove(Request $request,$id)
