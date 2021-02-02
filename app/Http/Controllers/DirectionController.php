@@ -362,6 +362,7 @@ class DirectionController extends Controller
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
+        //Agar yonalish shaxar ichida bosa
         if($direction->type_id == 1){
             $total_result = $this->cityTarif($direction);
         }else{
@@ -772,10 +773,10 @@ class DirectionController extends Controller
             'auto_trans_working_days'       => '',
             'auto_trans_weekends'           => '',
             'auto_trans_status'             => 'Ишлаб чиқарилганига 14 йилдан ошмаган',
-            'direction_total_length'        => $direction->timingWith->last()->distance_from_start_station,
-            'direction_from_value'          => '',
+            'direction_total_length'        => 0,//$direction->timingWith->last()->distance_from_start_station,
+            'direction_from_value'          => $direction->timingWith->last()->distance_from_start_station,
             'direction_from_name'           => $from_name,
-            'direction_to_value'            => '',
+            'direction_to_value'            => 0,
             'direction_to_name'             => $to_name,
             'stations_count'                => count($direction->timing),
             'stations_from_name'            => $from_name,
