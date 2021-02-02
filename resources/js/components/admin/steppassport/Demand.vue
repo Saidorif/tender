@@ -90,7 +90,11 @@
                 <td rowspan="3">6</td>
                 <td width="50%"><b>Йуналишнинг умумий узунлиги</b></td>
                 <td>
-                  <b>{{ form.direction_total_length }}</b>
+                  <input
+                    type="number"
+                    v-model="form.direction_total_length"
+                    class="form-control"
+                  />
                 </td>
               </tr>
               <tr>

@@ -9,7 +9,7 @@
 				<div class="tarif_column">
 					<div class="add_to_table">
 					</div>
-					<div class="confirm_tarif_default">
+					<div class="confirm_tarif_default" v-if="titulData.type && titulData.type.id != 1">
 						<div class="form-group">
 							<label for="summa" class="form-control-label">Тариф</label>
 							<input
