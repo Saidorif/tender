@@ -14,7 +14,7 @@ const ConfirmTitulSerivce = {
 		return ApiService.get(`/api/titul/activate/${id}`)
 	},
 	rejectTitul(id){
-		return ApiService.get(`/api/titul/activate/${id}`)
+		return ApiService.get(`/api/titul/reject/${id}`)
 	},
 };
 
