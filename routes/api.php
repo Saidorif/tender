@@ -212,6 +212,11 @@ Route::group([
             Route::delete('direction/destroy/{id}', 'DirectionController@destroy');
             Route::delete('direction/car/destroy/{id}', 'DirectionController@deleteDirectionCar');
 
+            //Approve titul xronometraj...
+            Route::get('titul', 'DirectionController@titul');
+            Route::get('titul/approve/{id}', 'DirectionController@titulApprove');
+            Route::get('titul/activate/{id}', 'DirectionController@titulActivate');
+
             //Integration
             Route::post('adliya','IntegrationController@adliya');
             Route::post('gai/vehicle','IntegrationController@getVehicleInfo');

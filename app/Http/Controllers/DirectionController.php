@@ -881,4 +881,41 @@ class DirectionController extends Controller
         }
         return response()->json(['success' => true, 'message' => 'Требование обновлен']);
     }
+
+    public function titul(Request $request)
+    {
+        $result = Direction::where(['titul_status' => 'pending'])->paginate(12);
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+    
+    public function titulActivate(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Titul not found']);
+        }
+        if($result->titul_status != 'pending'){
+            return response()->json(['error' => true, 'message' => 'Titul is '.$result->titul_status]);
+        }
+        $result->titul_status = 'completed';
+        $result->titul_approver = $user->id;
+        $result->save();
+        return response()->json(['success' => true, 'message' => 'Titul activated']);
+    }
+    
+    public function titulApprove(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Titul not found']);
+        }
+        if($result->titul_status != 'active'){
+            return response()->json(['error' => true, 'message' => 'Titul is '.$result->titul_status]);
+        }
+        $result->titul_status = 'pending';
+        $result->save();
+        return response()->json(['success' => true, 'message' => 'Titul successfuly sent for approve']);
+    }
 }
