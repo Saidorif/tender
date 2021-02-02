@@ -100,6 +100,20 @@
                   </p>
                 </router-link>
               </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/confirm-scheme">
+                  <p>
+                    Схема
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/crm/confirm-schedule">
+                  <p>
+                    График движения
+                  </p>
+                </router-link>
+              </li>
               <li class="nav-item" v-if="$can('listTarifApprove', 'DirectionController')">
                 <router-link class="nav-link" to="/crm/confirm-tarif">
                   <p>
