@@ -1032,13 +1032,174 @@ class DirectionController extends Controller
         $user = $request->user();
         $result = Direction::find($id);
         if(!$result){
-            return response()->json(['error' => true, 'message' => 'Xronomometraj not found']);
+            return response()->json(['error' => true, 'message' => 'Xronometraj not found']);
         }
         if($result->xronom_status != 'active'){
-            return response()->json(['error' => true, 'message' => 'Xronomometraj is '.$result->xronom_status]);
+            return response()->json(['error' => true, 'message' => 'Xronometraj is '.$result->xronom_status]);
         }
         $result->xronom_status = 'pending';
         $result->save();
-        return response()->json(['success' => true, 'message' => 'Xronomometraj successfuly sent for approve']);
+        return response()->json(['success' => true, 'message' => 'Xronometraj successfuly sent for approve']);
     }
+
+    public function sxema(Request $request)
+    {
+        $result = Direction::with([
+            'regionTo',
+            'regionFrom',
+            'areaFrom',
+            'areaTo',
+            'createdBy'
+            ])
+            ->where(['sxema_status' => 'pending'])
+            ->orWhere(['sxema_status' => 'completed'])
+            ->paginate(12);
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+    
+    public function sxemaEdit(Request $request,$id)
+    {
+        $result = Direction::with([
+            'regionToWith',
+            'regionFromWith',
+            'areaFromWith',
+            'areaToWith',
+            'timingWith',
+            'timingDetails',
+            'type',
+            'stationFrom',
+            'stationTo',
+            'carsWith',
+            'schemaDetails',
+        ])->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Sxema not found']);
+        }
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
+    public function sxemaActivate(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Sxema not found']);
+        }
+        if($result->sxema_status != 'pending'){
+            return response()->json(['error' => true, 'message' => 'Sxema is '.$result->sxema_status]);
+        }
+        $result->sxema_status = 'completed';
+        $result->sxema_approver = $user->id;
+        $result->save();
+        return response()->json(['success' => true, 'message' => 'Sxema activated']);
+    }
+    
+    public function sxemaReject(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Sxema not found']);
+        }
+        $result->sxema_status = 'active';
+        $result->sxema_approver = $user->id;
+        $result->save();
+        return response()->json(['success' => true, 'message' => 'Sxema rejected']);
+    }
+
+    public function sxemaApprove(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Sxema not found']);
+        }
+        if($result->sxema_status != 'active'){
+            return response()->json(['error' => true, 'message' => 'Sxema is '.$result->sxema_status]);
+        }
+        $result->sxema_status = 'pending';
+        $result->save();
+        return response()->json(['success' => true, 'message' => 'Sxema successfuly sent for approve']);
+    }
+
+    public function xjadval(Request $request)
+    {
+        $result = Direction::with([
+            'regionTo',
+            'regionFrom',
+            'areaFrom',
+            'areaTo',
+            'createdBy'
+            ])
+            ->where(['xjadval_status' => 'pending'])
+            ->orWhere(['xjadval_status' => 'completed'])
+            ->paginate(12);
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+    
+    public function xjadvalEdit(Request $request,$id)
+    {
+        $result = Direction::with([
+            'regionToWith',
+            'regionFromWith',
+            'areaFromWith',
+            'areaToWith',
+            'timingWith',
+            'timingDetails',
+            'type',
+            'stationFrom',
+            'stationTo',
+            'carsWith',
+            'schemaDetails',
+        ])->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Schedule not found']);
+        }
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
+    public function xjadvalActivate(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Schedule not found']);
+        }
+        if($result->xjadval_status != 'pending'){
+            return response()->json(['error' => true, 'message' => 'Schedule is '.$result->xjadval_status]);
+        }
+        $result->xjadval_status = 'completed';
+        $result->xjadval_approver = $user->id;
+        $result->save();
+        return response()->json(['success' => true, 'message' => 'Schedule activated']);
+    }
+    
+    public function xjadvalReject(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Schedule not found']);
+        }
+        $result->xjadval_status = 'active';
+        $result->xjadval_approver = $user->id;
+        $result->save();
+        return response()->json(['success' => true, 'message' => 'Schedule rejected']);
+    }
+
+    public function xjadvalApprove(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Schedule not found']);
+        }
+        if($result->xjadval_status != 'active'){
+            return response()->json(['error' => true, 'message' => 'Schedule is '.$result->xjadval_status]);
+        }
+        $result->xjadval_status = 'pending';
+        $result->save();
+        return response()->json(['success' => true, 'message' => 'Schedule successfuly sent for approve']);
+    }
+    
 }

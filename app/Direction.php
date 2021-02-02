@@ -32,6 +32,10 @@ class Direction extends Model
         'titul_approver',
         'xronom_status',
         'xronom_approver',
+        'sxema_status',
+        'sxema_approver',
+        'xjadval_status',
+        'xjadval_approver',
     ];
 
     protected $casts = ['from_where' => 'array'];
