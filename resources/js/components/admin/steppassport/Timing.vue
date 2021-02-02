@@ -6,13 +6,6 @@
         <PassportTab/>
       </div>
       <div class="card-body">
-        <div class="alert alert-danger" v-for="(error,index) in errors" v-if="errors.length > 0">
-          {{error}}
-        </div>
-
-        <div class="alert alert-danger" v-if="errorMessage != ''">
-          {{errorMessage}}
-        </div>
         <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
           <h2>{{getDirection.name}} bo'yicha boshlang'ich ma'lumot  </h2>
           <div class="col-md-12 tabs_block">
@@ -87,7 +80,7 @@
               />
             </div>
             <div class="form-group col-md-6" >
-              <label for="start_speedometer">Jonash vaqtida (km) 	Бошланғич спидометр кўрсаткичи </label>
+              <label for="start_speedometer">Jonash vaqtida (km)  Бошланғич спидометр кўрсаткичи </label>
               <input
                 type="number"
                 v-model="form.start_speedometer"
@@ -223,7 +216,7 @@
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="seria">	Тўхтаганда вақт кўрсаткичи </label>
+              <label for="seria"> Тўхтаганда вақт кўрсаткичи </label>
               <date-picker
                 lang="ru"
                 class="input_style"
@@ -256,36 +249,26 @@
               />
             </div>
           </div>
-          <div class="form-group col-lg-12">
-            <div class="row">
-              <div class="col-md-6">
-                <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
-                  <i class="far fa-share-square"></i>
-                  Отправить на подтверждение
-                </button>
-              </div>
-              <div class="col-md-6 form_btn d-flex justify-content-end">
-                <div class="form-group mr-3 mb-0">
-                    <label for="conclusion">Xulosa</label>
-                    <select name="conclusion" id="conclusion" v-model="timingDetails.conclusion" :class="isRequired(timingDetails.conclusion) ? 'isRequired' : ''" class="form-control input_style">
-                        <option value="Talablarga javob beradi">Talablarga javob beradi</option>
-                        <option value="Talablarga javob bermaydi">Talablarga javob bermaydi</option>
-                    </select>
-                </div>
-                <button type="button" @click="clearTable()" class="btn btn-danger mr-2" v-if="tableTwoData.length">
-                  <i class="fas fa-trash"></i>
-                  Очистить таблисту
-                </button>
-                <button type="button" @click="addItem()" class="btn btn-info mr-2">
-                  <i class="fas fa-plus"></i>
-                  Добавить
-                </button>
-                <button type="submit" class="btn btn-primary btn_save_category">
-                  <i class="fas fa-save"></i>
-                  Сохранить
-                </button>
-              </div>
+          <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
+            <div class="form-group col-md-3 mb-0">
+                <label for="conclusion">Xulosa</label>
+                <select name="conclusion" id="conclusion" v-model="timingDetails.conclusion" :class="isRequired(timingDetails.conclusion) ? 'isRequired' : ''" class="form-control input_style">
+                    <option value="Talablarga javob beradi">Talablarga javob beradi</option>
+                    <option value="Talablarga javob bermaydi">Talablarga javob bermaydi</option>
+                </select>
             </div>
+            <button type="button" @click="clearTable()" class="btn btn-danger mr-2" v-if="tableTwoData.length">
+              <i class="fas fa-trash"></i>
+              Очистить таблисту
+            </button>
+            <button type="button" @click="addItem()" class="btn btn-info mr-2">
+              <i class="fas fa-plus"></i>
+              Добавить
+            </button>
+            <button type="submit" class="btn btn-primary btn_save_category">
+              <i class="fas fa-save"></i>
+              Сохранить
+            </button>
           </div>
           <div class="table-responsive" v-if="tableTwoData.length">
             <table class="table table-bordered text-center table-hover table-striped">
@@ -335,8 +318,8 @@
                   </td>
                   <td >
                     <button v-if="index == tableTwoData.length -1" class="btn_transparent" type="button" @click="deletTableItem(index)">
-					    <i class="pe_icon pe-7s-trash trashColor"></i>
-					</button>
+              <i class="pe_icon pe-7s-trash trashColor"></i>
+          </button>
                   </td>
                 </tr>
                 <tr>
@@ -431,8 +414,7 @@ export default {
         total_spendtime_between_station: 0,
         total_spendtime_to_stay_station: 0,
         laoding: true,
-        errors: [],
-        errorMessage: '',
+        fullTableInfo: [],
         errorInput: true,
     };
   },
@@ -462,7 +444,6 @@ export default {
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("passportTab", ["getTimingMassage"]),
     ...mapGetters("direction", ["getDirection"]),
-    ...mapGetters("confirmtiming", ["getTimingMassage"]),
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
@@ -471,29 +452,11 @@ export default {
     ...mapActions("area", ["actionAreaByRegion"]),
     ...mapActions("direction", ["actionEditDirection"]),
     ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
-    ...mapActions("confirmtiming", ["actionApproveTiming"]),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
     isRequiredTwo(input) {
       return this.requiredInputTwo && input === "";
-    },
-    async sendToActivate(){
-      await this.actionApproveTiming(this.$route.params.directionId)
-      if (this.getTimingMassage.success){
-        await this.actionEditDirection(this.$route.params.directionId);
-        toast.fire({
-          type: "success",
-          icon: "success",
-          title: this.getTimingMassage.message,
-        });
-      }else{
-        toast.fire({
-          type: "error",
-          icon: "error",
-          title: this.getTimingMassage.message,
-        });
-      }
     },
     async selectArea(this_select, parent_select) {
       this.laoding = true
@@ -662,6 +625,10 @@ export default {
 
         this.requiredInput = false;
         if(this.tableTwoData.length){
+            // this.tableTwoData.forEach((item)=>{
+            //     item.vars = JSON.stringify(this.fullTableInfo)
+            // })
+
             this.laoding = true
             await this.actionAddTiming({vars: JSON.stringify(this.fullTableInfo), timing: this.tableTwoData, timingDetails: this.timingDetails, technic_speed: this.technic_speed, traffic_speed: this.traffic_speed, });
             this.laoding = false
@@ -672,16 +639,11 @@ export default {
                     title: this.getTimingMassage.message
                 });
             }else{
-                if(this.errors.constructor.name === 'Object'){
-                  this.errors = this.getTimingMassage.message
-                }else{
-                  this.errorMessage = this.getTimingMassage.message
-                }
-                // toast.fire({
-                //     type: "error",
-                //     icon: "error",
-                //     title: this.getTimingMassage.message
-                // });
+                toast.fire({
+                    type: "error",
+                    icon: "error",
+                    title: this.getTimingMassage.message
+                });
             }
         }else{
             toast.fire({
