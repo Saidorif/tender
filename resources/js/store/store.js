@@ -42,6 +42,7 @@ import {apply} from "./apply.module"
 import {protocol} from "./protocol.module"
 import { tarifannounce } from "./tarifannounce.module"
 import { tarifcity } from "./tarifcity.module"
+import { confirmtitul } from "./confirmtitul.module"
 
 import { TokenService } from './../services/storage.service'
 
@@ -91,6 +92,7 @@ const store = new Vuex.Store(
             apply,
             tarifannounce,
             tarifcity,
+            confirmtitul,
 		},
 		state:{
 			rules:[],
