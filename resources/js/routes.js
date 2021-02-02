@@ -161,6 +161,16 @@ import ConfirmTarif from './components/admin/confirmtarif/ConfirmTarif'
 import AddConfirmTarif from './components/admin/confirmtarif/AddConfirmTarif'
 import EditConfirmTarif from './components/admin/confirmtarif/EditConfirmTarif'
 
+// ConfirmScheme
+import ConfirmScheme from './components/admin/confirmscheme/ConfirmScheme'
+import AddConfirmScheme from './components/admin/confirmscheme/AddConfirmScheme'
+import EditConfirmScheme from './components/admin/confirmscheme/EditConfirmScheme'
+
+// ConfirmSchedule
+import ConfirmSchedule from './components/admin/confirmschedule/ConfirmSchedule'
+import AddConfirmSchedule from './components/admin/confirmschedule/AddConfirmSchedule'
+import EditConfirmSchedule from './components/admin/confirmschedule/EditConfirmSchedule'
+
 // ConfirmTitul
 import ConfirmTitul from './components/admin/confirmtitul/ConfirmTitul'
 import AddConfirmTitul from './components/admin/confirmtitul/AddConfirmTitul'
@@ -920,6 +930,30 @@ const router = new Router({
 				{
 					path:'confirm-tarif/edit/:tarifannounceId',
 					component:EditConfirmTarif,
+				},
+				{
+					path:'confirm-scheme',
+					component:ConfirmScheme,
+				},
+				{
+					path:'confirm-scheme/add',
+					component:AddConfirmScheme,
+				},
+				{
+					path:'confirm-scheme/edit/:confirmschemeId',
+					component:EditConfirmScheme,
+				},
+				{
+					path:'confirm-schedule',
+					component:ConfirmSchedule,
+				},
+				{
+					path:'confirm-schedule/add',
+					component:AddConfirmSchedule,
+				},
+				{
+					path:'confirm-schedule/edit/:confirmscheduleId',
+					component:EditConfirmSchedule,
 				},
 				{
 					path:'confirm-titul',
