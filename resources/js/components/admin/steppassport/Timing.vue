@@ -100,7 +100,7 @@
                 :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
                 placeholder="Select datetime"
                 :class="isRequiredTwo(form.start_time) ? 'isRequired' : ''"
-                format="HH:mm"
+                format="HH:mm:ss"
               ></date-picker>
             </div>
             <div class="form-group col-md-6">
@@ -224,7 +224,7 @@
                 :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
                 placeholder="Select end_time"
                 :class="isRequiredTwo(form.end_time) ? 'isRequired' : ''"
-                format="HH:mm"
+                format="HH:mm:ss"
               ></date-picker>
             </div>
             <div class="form-group col-md-6">
@@ -541,7 +541,7 @@ export default {
                     60;
                 element.spendtime_between_station = parseFloat(
                     result_spendtime_to_stay_station
-                ).toFixed(0);
+                ).toFixed(2);
                 this.tableTwoData[
                     this.tableTwoData.length - 1
                 ].spendtime_to_stay_station = result_spendtime_to_stay_station;
@@ -555,7 +555,7 @@ export default {
             60;
             element.spendtime_between_station = parseFloat(
             result_spendtime_between_station
-            ).toFixed(0);
+            ).toFixed(2);
             this.tableTwoData.push(element);
         })
         let thisData;
