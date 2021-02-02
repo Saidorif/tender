@@ -888,6 +888,27 @@ class DirectionController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
     
+    public function titulEdit(Request $request,$id)
+    {
+        $result = Direction::with([
+            'regionToWith',
+            'regionFromWith',
+            'areaFromWith',
+            'areaToWith',
+            'timingWith',
+            'timingDetails',
+            'type',
+            'stationFrom',
+            'stationTo',
+            'carsWith',
+            'schemaDetails',
+        ])->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'result' => 'Titul not found']);
+        }
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+    
     public function titulActivate(Request $request,$id)
     {
         $user = $request->user();
@@ -935,6 +956,27 @@ class DirectionController extends Controller
     public function xronom(Request $request)
     {
         $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])->where(['xronom_status' => 'pending'])->paginate(12);
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+    
+    public function xronomEdit(Request $request,$id)
+    {
+        $result = Direction::with([
+            'regionToWith',
+            'regionFromWith',
+            'areaFromWith',
+            'areaToWith',
+            'timingWith',
+            'timingDetails',
+            'type',
+            'stationFrom',
+            'stationTo',
+            'carsWith',
+            'schemaDetails',
+        ])->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Xronometraj not found']);
+        }
         return response()->json(['success' => true, 'result' => $result]);
     }
 
