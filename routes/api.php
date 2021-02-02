@@ -216,6 +216,10 @@ Route::group([
             Route::get('titul', 'DirectionController@titul');
             Route::get('titul/approve/{id}', 'DirectionController@titulApprove');
             Route::get('titul/activate/{id}', 'DirectionController@titulActivate');
+            
+            Route::get('xronom', 'DirectionController@xronom');
+            Route::get('xronom/approve/{id}', 'DirectionController@xronomApprove');
+            Route::get('xronom/activate/{id}', 'DirectionController@xronomActivate');
 
             //Integration
             Route::post('adliya','IntegrationController@adliya');
