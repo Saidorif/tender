@@ -884,7 +884,7 @@ class DirectionController extends Controller
 
     public function titul(Request $request)
     {
-        $result = Direction::where(['titul_status' => 'pending'])->paginate(12);
+        $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])->where(['titul_status' => 'pending'])->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
     
@@ -921,7 +921,7 @@ class DirectionController extends Controller
 
     public function xronom(Request $request)
     {
-        $result = Direction::where(['xronom_status' => 'pending'])->paginate(12);
+        $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])->where(['xronom_status' => 'pending'])->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
