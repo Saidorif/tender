@@ -229,7 +229,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview" v-if="$can('index', 'RegionController')">
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="peIcon fas fa-cogs" style="font-size: 20px;"></i>
               <p>
@@ -278,7 +278,7 @@
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item has-treeview">
+              <li class="nav-item has-treeview" v-if="$can('index', 'BusTypeController')">
                 <a href="#" class="nav-link" >
                   <i class="peIcon fas fa-bus"></i>
                   <p>
