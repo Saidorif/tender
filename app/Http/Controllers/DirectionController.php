@@ -884,7 +884,7 @@ class DirectionController extends Controller
 
     public function titul(Request $request)
     {
-        $result = Direction::where(['titul_status' => 'pending'])->paginate(12);
+        $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])->where(['titul_status' => 'pending'])->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
     
@@ -917,5 +917,42 @@ class DirectionController extends Controller
         $result->titul_status = 'pending';
         $result->save();
         return response()->json(['success' => true, 'message' => 'Titul successfuly sent for approve']);
+    }
+
+    public function xronom(Request $request)
+    {
+        $result = Direction::with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])->where(['xronom_status' => 'pending'])->paginate(12);
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
+    public function xronomActivate(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Xronometraj not found']);
+        }
+        if($result->xronom_status != 'pending'){
+            return response()->json(['error' => true, 'message' => 'Xronometraj is '.$result->xronom_status]);
+        }
+        $result->xronom_status = 'completed';
+        $result->xronom_approver = $user->id;
+        $result->save();
+        return response()->json(['success' => true, 'message' => 'Xronometraj activated']);
+    }
+
+    public function xronomApprove(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Xronomometraj not found']);
+        }
+        if($result->xronom_status != 'active'){
+            return response()->json(['error' => true, 'message' => 'Xronomometraj is '.$result->xronom_status]);
+        }
+        $result->xronom_status = 'pending';
+        $result->save();
+        return response()->json(['success' => true, 'message' => 'Xronomometraj successfuly sent for approve']);
     }
 }

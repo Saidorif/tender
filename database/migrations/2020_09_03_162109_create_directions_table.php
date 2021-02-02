@@ -16,7 +16,9 @@ class CreateDirectionsTable extends Migration
         Schema::create('directions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('titul_status')->default('active')->nullable();
-            $table->string('titul_approver')->nullable();
+            $table->integer('titul_approver')->nullable();
+            $table->string('xronom_status')->default('active')->nullable();
+            $table->integer('xronom_approver')->nullable();
             $table->string('name')->nullable();
             $table->string('pass_number');
             $table->string('from_type')->default('region');

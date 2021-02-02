@@ -30,6 +30,8 @@ class Direction extends Model
         'dir_type',
         'titul_status',
         'titul_approver',
+        'xronom_status',
+        'xronom_approver',
     ];
 
     protected $casts = ['from_where' => 'array'];
