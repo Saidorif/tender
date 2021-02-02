@@ -249,26 +249,36 @@
               />
             </div>
           </div>
-          <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
-            <div class="form-group col-md-3 mb-0">
-                <label for="conclusion">Xulosa</label>
-                <select name="conclusion" id="conclusion" v-model="timingDetails.conclusion" :class="isRequired(timingDetails.conclusion) ? 'isRequired' : ''" class="form-control input_style">
-                    <option value="Talablarga javob beradi">Talablarga javob beradi</option>
-                    <option value="Talablarga javob bermaydi">Talablarga javob bermaydi</option>
-                </select>
+          <div class="form-group col-lg-12">
+            <div class="row">
+              <div class="col-md-6">
+                <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
+                  <i class="far fa-share-square"></i>
+                  Отправить на подтверждение
+                </button>
+              </div>
+              <div class="col-md-6 form_btn d-flex justify-content-end">
+                <div class="form-group mr-3 mb-0">
+                    <label for="conclusion">Xulosa dsa das</label>
+                    <select name="conclusion" id="conclusion" v-model="timingDetails.conclusion" :class="isRequired(timingDetails.conclusion) ? 'isRequired' : ''" class="form-control input_style">
+                        <option value="Talablarga javob beradi">Talablarga javob beradi</option>
+                        <option value="Talablarga javob bermaydi">Talablarga javob bermaydi</option>
+                    </select>
+                </div>
+                <button type="button" @click="clearTable()" class="btn btn-danger mr-2" v-if="tableTwoData.length">
+                  <i class="fas fa-trash"></i>
+                  Очистить таблисту
+                </button>
+                <button type="button" @click="addItem()" class="btn btn-info mr-2">
+                  <i class="fas fa-plus"></i>
+                  Добавить
+                </button>
+                <button type="submit" class="btn btn-primary btn_save_category">
+                  <i class="fas fa-save"></i>
+                  Сохранить
+                </button>
+              </div>
             </div>
-            <button type="button" @click="clearTable()" class="btn btn-danger mr-2" v-if="tableTwoData.length">
-              <i class="fas fa-trash"></i>
-              Очистить таблисту
-            </button>
-            <button type="button" @click="addItem()" class="btn btn-info mr-2">
-              <i class="fas fa-plus"></i>
-              Добавить
-            </button>
-            <button type="submit" class="btn btn-primary btn_save_category">
-              <i class="fas fa-save"></i>
-              Сохранить
-            </button>
           </div>
           <div class="table-responsive" v-if="tableTwoData.length">
             <table class="table table-bordered text-center table-hover table-striped">
@@ -444,6 +454,7 @@ export default {
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("passportTab", ["getTimingMassage"]),
     ...mapGetters("direction", ["getDirection"]),
+    ...mapGetters("confirmtiming", ["getTimingMassage"]),
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
@@ -452,6 +463,24 @@ export default {
     ...mapActions("area", ["actionAreaByRegion"]),
     ...mapActions("direction", ["actionEditDirection"]),
     ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
+    ...mapActions("confirmtiming", ["actionApproveTiming"]),
+    async sendToActivate(){
+      await this.actionApproveTiming(this.$route.params.directionId)
+      if (this.getTimingMassage.success){
+        await this.actionEditDirection(this.$route.params.directionId);
+        toast.fire({
+          type: "success",
+          icon: "success",
+          title: this.getTimingMassage.message,
+        });
+      }else{
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: this.getTimingMassage.message,
+        });
+      }
+    },
     isRequired(input) {
       return this.requiredInput && input === "";
     },
