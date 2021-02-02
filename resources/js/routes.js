@@ -964,7 +964,7 @@ const router = new Router({
 					component:AddConfirmTitul,
 				},
 				{
-					path:'confirm-titul/edit/:titulannounceId',
+					path:'confirm-titul/edit/:confirmtitulId',
 					component:EditConfirmTitul,
 				},
 				{

@@ -1,6 +1,6 @@
 <template>
   <div class="add_region">
-      <Loader v-if="laoding"/>
+    <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <h4 class="title_user">

@@ -335,15 +335,25 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
-                    <button type="button" class="btn btn-info btn_save_category mr-3" @click.prevent="addCar">
-                      <i class="fas fa-plus"></i>
-                      Добавить авто
-                    </button>
-                    <button type="submit" class="btn btn-primary btn_save_category">
-                      <i class="fas fa-save"></i>
-                      Сохранить
-                    </button>
+                  <div class="form-group col-lg-12">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
+                          <i class="far fa-share-square"></i>
+                          Отправить на подтверждение
+                        </button>
+                      </div>
+                      <div class="col-md-6 form_btn d-flex justify-content-end">
+                        <button type="button" class="btn btn-info btn_save_category mr-3" @click.prevent="addCar">
+                          <i class="fas fa-plus"></i>
+                          Добавить авто
+                        </button>
+                        <button type="submit" class="btn btn-primary btn_save_category">
+                          <i class="fas fa-save"></i>
+                          Сохранить
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
             </form>
@@ -477,6 +487,24 @@ export default {
     ...mapActions("direction", ["actionUpdateDirection"]),
     ...mapActions("busbrand", ["actionBusBrandList"]),
     ...mapActions("busmodel", ["actionBusmodelFindList"]),
+    ...mapActions('confirmtitul',['actionApproveTitul']),
+    async sendToActivate(){
+      await this.actionApproveTitul(this.$route.params.directionId)
+      if (this.getTitulMassage.success){
+        await this.actionEditDirection(this.$route.params.directionId);
+        toast.fire({
+          type: "success",
+          icon: "success",
+          title: this.getTitulMassage.message,
+        });
+      }else{
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: this.getTitulMassage.message,
+        });
+      }
+    },
     async removeEditCar(id){
       if(confirm("Вы действительно хотите удалить?")){
         await this.actionCarDeleteDirection(id)
@@ -624,6 +652,7 @@ export default {
     ...mapGetters("passportTab", ["getTarif"]),
     ...mapGetters("busbrand", ["getBusBrandList"]),
     ...mapGetters("busmodel", ["getBusmodelFindList"]),
+    ...mapGetters('confirmtitul',['getTitulMassage']),
     checkCars(){
       if(this.cars.length > 0){
         let result = true
