@@ -11,11 +11,27 @@ class StationController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        if($user->role->name == 'admin'){
-            $result = Station::with(['region','area'])->orderByDesc('id')->paginate(12);
-        }else{
-            $result = Station::where(['region_id' => $user->region_id])->with(['region','area'])->orderByDesc('id')->paginate(12);
+        $inputs = $request->all();
+        
+        $builder = Station::query();
+
+        if(!empty($inputs['area_id'])){
+            $builder->where(['area_id' => $inputs['area_id']]);
         }
+        if(!empty($inputs['station_type'])){
+            $builder->where(['station_type' => $inputs['station_type']]);
+        }
+        if(!empty($inputs['name'])){
+            $builder->where('name','LIKE', '%'.$inputs['name'].'%');
+        }
+        if($user->role->name == 'admin'){
+            if(!empty($inputs['region_id'])){
+                $builder->where(['region_id' => $inputs['region_id']]);
+            }
+        }else{
+            $builder = Station::where(['region_id' => $user->region_id]);
+        }
+        $result = $builder->with(['region','area'])->orderByDesc('id')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 

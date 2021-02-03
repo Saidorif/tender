@@ -24,9 +24,9 @@ const getters = {
 
 
 const actions = {
-	async actionStations({commit},page){
+	async actionStations({commit},payload){
 		try {
-			const stations =  await StationService.stations(page);
+			const stations =  await StationService.stations(payload);
 			await commit('setStations',stations.data.result)
 			return true
 		} catch (error) {

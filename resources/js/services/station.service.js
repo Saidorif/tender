@@ -1,8 +1,8 @@
 import ApiService from './api.service'
 
 const StationService = {
-	stations(page){
-		return ApiService.post(`/api/station?page=${page}`)
+	stations(data){
+		return ApiService.post(`/api/station?page=${data.page}`,data.items)
 	},
 	stationByRegion(data){
 		return ApiService.post(`/api/station/regionby`, data)
