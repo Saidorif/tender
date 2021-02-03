@@ -29,7 +29,7 @@ class StationController extends Controller
                 $builder->where(['region_id' => $inputs['region_id']]);
             }
         }else{
-            $builder = Station::where(['region_id' => $user->region_id]);
+            $builder = $builder->where(['region_id' => $user->region_id]);
         }
         $result = $builder->with(['region','area'])->orderByDesc('id')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);

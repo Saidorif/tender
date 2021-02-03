@@ -158,7 +158,7 @@
                           <th>Номер Авто</th>
                           <th>Хозяин</th>
                           <th>Марка</th>
-                          <th>Адрес</th>
+                          <th>Вместимость</th>
                           <th>Тип машины</th>
                           <th>Дата выпуска</th>
                         </tr>
@@ -168,7 +168,7 @@
                           <td>{{gai.pPlateNumber}}</td>
                           <td>{{gai.pNameOfClient}}</td>
                           <td>{{gai.pMarka}}</td>
-                          <td>{{gai.pAdressOfClient}}</td>
+                          <td>{{gai.pNumberofplace}}</td>
                           <td>{{gai.pTypeOfAuto}}</td>
                           <td>{{gai.pMadeofYear}}</td>
                         </tr>
