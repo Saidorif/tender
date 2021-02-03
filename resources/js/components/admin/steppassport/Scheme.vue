@@ -112,11 +112,21 @@
               </div>
             </div>
           </div>
-          <div class="col-md-12 btn_send d-flex justify-content-end">
-            <button type="button" class="btn btn-primary" @click.prevent="saveData">
-                <i class="fas fa-save"></i>
-                Сохранить
-            </button>
+          <div class="form-group col-lg-12">
+            <div class="row">
+              <div class="col-md-6">
+                <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
+                  <i class="far fa-share-square"></i>
+                  Отправить на подтверждение
+                </button>
+              </div>
+              <div class="col-md-6 form_btn d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary btn_save_category" @click.prevent="saveData">
+                  <i class="fas fa-save"></i>
+                  Сохранить
+                </button>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -162,11 +172,30 @@ export default {
     ...mapGetters("direction", ["getDirection"]),
     ...mapGetters("passportTab", ["getMsg"]),
     ...mapGetters("conditionalsign", ["getConditionalSignList"]),
+    ...mapGetters('confirmscheme',['getSchemeMassage'])
   },
   methods: {
     ...mapActions("passportTab", ["actionAddTiming", "actionAddSchemadetail"]),
     ...mapActions("direction", ["actionEditDirection"]),
     ...mapActions("conditionalsign", ["actionConditionalSignList"]),
+    ...mapActions('confirmscheme',['actionApproveScheme']),
+    async sendToActivate(){
+      await this.actionApproveScheme(this.$route.params.directionId)
+      if (this.getSchemeMassage.success){
+        await this.actionEditDirection(this.$route.params.directionId);
+        toast.fire({
+          type: "success",
+          icon: "success",
+          title: this.getSchemeMassage.message,
+        });
+      }else{
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: this.getSchemeMassage.message,
+        });
+      }
+    },
     async saveData() {
       if(this.agreedData.length){
         this.laoding = true
