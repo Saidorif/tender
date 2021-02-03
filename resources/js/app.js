@@ -14,6 +14,7 @@ Vue.use(VueProgressBar,{
 
 Vue.config.devtools = false
 
+
 // // jQuery
 // const $ = require('jquery');
 // window.$ = $;

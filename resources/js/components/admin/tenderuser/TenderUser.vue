@@ -95,7 +95,9 @@
 							<td>{{item.address}}</td>
 							<td>{{item.moderator}}</td>
 							<td>{{item.time}}</td>
-							<td :id="item.id">{{$g.dateCounter(item.time,item.id)}}</td>
+							<td>
+								<time-counter :date="item.time"/>
+							</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/tenderuser/edit/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -116,6 +118,7 @@
 <script>
     import { mapGetters , mapActions } from 'vuex'
     import Loader from '../../Loader'
+    import TimeCounter from '../../TimeCounter'
     import Multiselect from 'vue-multiselect';
     import DatePicker from "vue2-datepicker";
 	export default{
@@ -123,6 +126,7 @@
             Loader,
             DatePicker,
             Multiselect,
+            TimeCounter,
 		},
 		data(){
 			return{
