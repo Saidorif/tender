@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Отправить заявку
+				    Отправить заявку 
 				</h4>
                 <h4 class="title_user">{{ form.tender ?  form.tender.direction_ids[0].name : '' }}</h4>
 				<div class="d-flex">
@@ -19,6 +19,11 @@
 				</div>
 		  	</div>
 		  	<div class="card-body">
+				<div class="row">
+					<div class="col-md-12">
+						<h2><em>Название организации:</em> <b>{{form.user ? form.user.company_name : ''}}</b></h2>
+					</div>
+				</div>
 		  		<form enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-3 d-flex align-items-center mt-4">
