@@ -39,7 +39,9 @@
 							<td>{{item.address}}</td>
 							<td>{{item.moderator}}</td>
 							<td>{{item.time}}</td>
-							<td :id="item.id">{{$g.dateCounter(item.time,item.id)}}</td>
+							<td>
+								<time-counter :date="item.time"/>
+							</td>
 							<td>
 								<div class="badge" :class="getStatusClass(item.status)">
 									{{getStatusName(item.status)}}
@@ -66,6 +68,9 @@
     import { mapGetters , mapActions } from 'vuex'
     import Loader from '../../Loader'
 	export default{
+        components:{
+            Loader,
+        },
 		data(){
 			return{
                 laoding: true,
@@ -75,9 +80,6 @@
 			let page = 1;
             await this.actionTenderAnnounces(page)
             this.laoding = false
-        },
-        components:{
-            Loader
         },
 		computed:{
 			...mapGetters('tenderannounce',['getTenderAnnounces','getMassage'])

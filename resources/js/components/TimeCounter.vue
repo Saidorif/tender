@@ -1,5 +1,5 @@
-<template id="countdown-template">
-  <div class="countdown">
+<template>
+  <div class="countdown" v-if="defineDate">
     <div class="block">
       <p class="digit">{{ days | two_digits }}</p>
       <p class="text">день</p>
@@ -16,6 +16,9 @@
       <p class="digit">{{ seconds | two_digits }}</p>
       <p class="text">секунд</p>
     </div>
+  </div>
+  <div v-else>
+  	<div class='btn btn-color'>Завершено!</div>
   </div>
 </template>
 <script>
@@ -47,6 +50,15 @@
 		    }
 	  	},
 	  	computed: {
+	  		defineDate(){
+	  			let now = Math.trunc(Date.parse(this.date) / 1000);
+	  			let date = Math.trunc((new Date()).getTime() / 1000)
+	  			if(now >= date){
+	  				return true
+	  			}else{
+	  				return false
+	  			}
+	  		},
 		    dateInMilliseconds() {
 		      return Math.trunc(Date.parse(this.date) / 1000)
 		    },
@@ -61,21 +73,24 @@
 		    },
 		    days() {
 		      return Math.trunc((this.dateInMilliseconds - this.now) / 60 / 60 / 24);
-		    }
+		    },
 	  	}
 	}
 </script>
 <style scoped>
-
 	.countdown {
 	  display: flex;
+	  justify-content: center;
+	  align-items:center;
 	}
 
 	.block {
 	    display: flex;
 	    margin-right: 20px;
 	}
-
+	.block p{
+		margin-bottom:0 !important;
+	}
 	.text {
 	    color: #1abc9c;
 	    font-size: 20px;
@@ -90,5 +105,10 @@
 	    font-weight: 100;
 	    font-family: 'Roboto', serif;
 	    text-align: center;
+	}
+	.btn-color{
+		color:#1abc9c;
+		border:2px solid #1abc9c;
+		font-weight:bold;
 	}
 </style>

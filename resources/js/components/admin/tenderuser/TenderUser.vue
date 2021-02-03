@@ -118,7 +118,6 @@
 <script>
     import { mapGetters , mapActions } from 'vuex'
     import Loader from '../../Loader'
-    import TimeCounter from '../../TimeCounter'
     import Multiselect from 'vue-multiselect';
     import DatePicker from "vue2-datepicker";
 	export default{
@@ -126,7 +125,6 @@
             Loader,
             DatePicker,
             Multiselect,
-            TimeCounter,
 		},
 		data(){
 			return{
