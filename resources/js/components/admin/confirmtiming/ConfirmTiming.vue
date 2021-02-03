@@ -22,46 +22,28 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(item,index) in getPassportList">
-							<td scope="row">{{item.id}}</td>
-							<td scope="row">{{item.name}}</td>
-                            <td style="padding:0;">
-                                <ul class="table_item_list">
-                                    <li v-for="(ch_item,ch_index) in item.timings" >
-                                        {{ch_item.summa}}
-                                    </li>
-                                </ul>
-                            </td>
-                            <td style="padding:0;">
-                                <ul class="table_item_list">
-                                    <li v-for="(ch_item,ch_index) in item.timings" >
-                                        {{ch_item.summa_bagaj}}
-                                    </li>
-                                </ul>
-                            </td>
-                            <td style="padding:0;">
-                                <ul class="table_item_list">
-                                    <li v-for="(ch_item,ch_index) in item.timings" >
-                                    	<div class="badge" :class="getStatusClass(ch_item.status)">
-	                                        {{ch_item.status == 'pending' ? 'не подтвержден' : 'подтвержден'}}
-                                    	</div>
-                                    </li>
-                                </ul>
-                            </td>
-							<td style="padding:0;">
-                                <ul class="table_item_list">
-                                    <li v-for="(ch_item,ch_index) in item.timings" >
-                                        <button type="button" class="btn" :class="ch_item.status == 'approved' ? 'btn-success' : 'fas btn-warning'" style="padding: 2px 9px;"
-                                        	@click="completedTender(ch_item.id)"
-                                    	>
-                                            <i :class="ch_item.status == 'approved' ? 'far fa-check-circle' : 'fas fa-times'"></i>
-                                        </button>
-                                    </li>
-                                </ul>
+						<tr v-for="(direct,index) in getTimings.data">
+							<td scope="row">{{index + 1}}</td>
+							<td>
+								<template v-if="direct.created_by">
+									{{direct.created_by.region ? direct.created_by.region.name : ''}}
+								</template>
+							</td>
+							<td>{{direct.name}}</td>
+							<td>{{direct.pass_number}}</td>
+							<td>{{direct.year}}</td>
+							<td>
+								<router-link
+									tag="button"
+									class="btn_transparent"
+									:to='`/crm/confirm-timing/edit/${direct.id}`'
+								>
+									<i class="pe_icon pe-7s-edit editColor"></i>
+								</router-link>
 							</td>
 						</tr>
 					</tbody>
-					<!-- <pagination :limit="4" :data="getTimingAnnounces" @pagination-change-page="getResults"></pagination> -->
+					<pagination :limit="4" :data="getTimings" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
 		  </div>
@@ -82,39 +64,26 @@
 		},
 		async mounted(){
             let page = 1;
-            await this.actionPortTimingList();
+            await this.actionTimings();
             this.laoding = false
 		},
 		computed:{
-			...mapGetters('timingannounce',['getPassportList', 'getMassage'])
+			...mapGetters('confirmtiming',['getTimings', 'getTimingMassage'])
 		},
 		methods:{
-            ...mapActions('timingannounce',['actionPortTimingList', 'actionApprovePassportTimingList']),
-            async completedTender(id){
-                            this.laoding = true
-                await this.actionApprovePassportTimingList({timing_id: id})
-                if(this.getMassage.success){
-                    await this.actionPortTimingList();
-                    toast.fire({
-				    	type: 'success',
-				    	icon: 'success',
-						title: 'Тендер хронометраж подтверждена!',
-				    })
-                }
-                            this.laoding = false
-            },
-			// async getResults(page = 1){
-			// 	await this.actionTitulAnnounces(page)
-			// },
-			// getStatusName(status){
-			// 	if(status == 'pending'){
-			// 		return 'В ожидании'
-			// 	}else if(status == 'rejected'){
-			// 		return 'Отказано'
-			// 	}else if(status == 'completed'){
-			// 		return 'Завершен'
-			// 	}
-			// },
+            ...mapActions('confirmtiming',['actionTimings','actionActivateTiming']),
+			async getResults(page = 1){
+				await this.actionTimings(page)
+			},
+			getStatusName(status){
+				if(status == 'pending'){
+					return 'В ожидании'
+				}else if(status == 'rejected'){
+					return 'Отказано'
+				}else if(status == 'completed'){
+					return 'Завершен'
+				}
+			},
 			getStatusClass(status){
 				if(status == 'pending'){
 					return 'badge-warning'
@@ -122,18 +91,6 @@
 					return 'badge-success'
 				}
 			},
-			// async deleteTitul(id){
-			// 	if(confirm("Вы действительно хотите удалить?")){
-			// 		let page = 1
-			// 		await this.actionDeleteTitulAnnounce(id)
-			// 		await this.actionTitulAnnounces(page)
-			// 		toast.fire({
-			// 	    	type: 'success',
-			// 	    	icon: 'success',
-			// 			title: 'Тендер удален!',
-			// 	    })
-			// 	}
-			// }
 		}
 	}
 </script>

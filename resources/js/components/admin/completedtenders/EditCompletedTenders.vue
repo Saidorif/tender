@@ -19,8 +19,16 @@
                   <thead>
                       <tr>
                           <th>№</th>
-                          <th>Направления</th>
-                          <th>Перевозчики отправившие предложении</th>
+                          <th width="15%">Направления</th>
+                          <th width="15%">Перевозчики отправившие предложении</th>
+                          <th>Avto ishlab chiqarilgan yildan boshlab necha yil otgani</th>
+                          <th>Yolovchilar sigimi</th>
+                          <th>Transport kategoriyasiga mosligi</th>
+                          <th>Transport modelining mosligi</th>
+                          <th>Qatnovlar soni</th>
+                          <th>Tarif</th>
+                          <th>Qoshimcha qulayliklar mavjudligi</th>
+                          <th>Tadbirlar rejasi</th>
                           <th>Набранные баллы</th>
                           <th>Результаты изучения тендерных предложений</th>
                           <th>Статус лицензии</th>
@@ -36,6 +44,62 @@
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
                                 {{item.company_name != null ? item.company_name : 'noname'}}
+                              </li>
+                            </ul>
+                          </td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                {{item.app_avto_ball}}
+                              </li>
+                            </ul>
+                          </td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                {{item.app_avto_capacity_ball}}
+                              </li>
+                            </ul>
+                          </td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                {{item.app_categoriya}}
+                              </li>
+                            </ul>
+                          </td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                {{item.app_model}}
+                              </li>
+                            </ul>
+                          </td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                {{item.app_qatnovlar_ball}}
+                              </li>
+                            </ul>
+                          </td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                {{item.app_tarif_ball}}
+                              </li>
+                            </ul>
+                          </td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                {{item.avto_qulayliklar_ball}}
+                              </li>
+                            </ul>
+                          </td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(item,index) in directions">
+                                {{item.tadbirlar_rejasi_ball}}
                               </li>
                             </ul>
                           </td>

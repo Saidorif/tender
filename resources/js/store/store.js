@@ -43,6 +43,9 @@ import {protocol} from "./protocol.module"
 import { tarifannounce } from "./tarifannounce.module"
 import { tarifcity } from "./tarifcity.module"
 import { confirmtitul } from "./confirmtitul.module"
+import { confirmtiming } from "./confirmtiming.module"
+import { confirmscheme } from "./confirmscheme.module"
+import { confirmschedule } from "./confirmschedule.module"
 
 import { TokenService } from './../services/storage.service'
 
@@ -93,6 +96,9 @@ const store = new Vuex.Store(
             tarifannounce,
             tarifcity,
             confirmtitul,
+            confirmtiming,
+            confirmschedule,
+            confirmscheme,
 		},
 		state:{
 			rules:[],

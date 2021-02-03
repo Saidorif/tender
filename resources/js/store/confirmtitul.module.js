@@ -3,6 +3,7 @@ import {ConfirmTitulSerivce} from "../services/confirmtitul.service";
 const state = {
 	message: [],
 	titul: {},
+	showTitul: {},
 };
 
 const getters = {
@@ -12,6 +13,9 @@ const getters = {
 	getTituls(state){
 		return state.titul
 	},
+	getShowTitul(state){
+		return state.showTitul
+	},
 };
 
 
@@ -20,6 +24,15 @@ const actions = {
 		try {
 			const types =  await ConfirmTitulSerivce.tituls();
 			await commit('setTitul',types.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionTitulShow({commit},id){
+		try {
+			const types =  await ConfirmTitulSerivce.titulShow(id);
+			await commit('setShowTitul',types.data.result)
 			return true
 		} catch (error) {
 			return false
@@ -57,6 +70,9 @@ const actions = {
 const mutations = {
 	setTitul(state, titul){
 		state.titul = titul
+	},
+	setShowTitul(state, showTitul){
+		state.showTitul = showTitul
 	},
 	setMessage(state, message){
 		state.message = message

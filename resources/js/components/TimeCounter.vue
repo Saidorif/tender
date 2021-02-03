@@ -1,63 +1,114 @@
 <template>
-	<div :id='id'></div>
+  <div class="countdown" v-if="defineDate">
+    <div class="block">
+      <p class="digit">{{ days | two_digits }}</p>
+      <p class="text">день</p>
+    </div>
+    <div class="block">
+      <p class="digit">{{ hours | two_digits }}</p>
+      <p class="text">час</p>
+    </div>
+    <div class="block">
+      <p class="digit">{{ minutes | two_digits }}</p>
+      <p class="text">минут</p>
+    </div>
+    <div class="block">
+      <p class="digit">{{ seconds | two_digits }}</p>
+      <p class="text">секунд</p>
+    </div>
+  </div>
+  <div v-else>
+  	<div class='btn btn-color'>Завершено!</div>
+  </div>
 </template>
 <script>
 	export default{
-		props:['date','id'],
-		mounted(){
-			let countDownDate = new Date(this.date).getTime();
-			  // Update the count down every 1 second
-		  	let x = setInterval(function() {
-
-		    // Get today's date and time
-		    let now = new Date().getTime();
-
-		    // Find the distance between now and the count down date
-		    let distance = countDownDate - now;
-
-		    // Time calculations for days, hours, minutes and seconds
-		    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-		    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-		    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-		    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-		    // Display the result in the element with id=id
-		    document.getElementById(this.id).innerHTML = `<div class="d-flex justify-content-center">
-		      <div class="time_counter">
-		        <div>${days}</div>
-		        <div>день</div>
-		      </div>
-		      <div class="time_counter">
-		        <div>${hours}</div>
-		        <div>час</div>
-		      </div>
-		      <div class="time_counter">
-		        <div>${minutes}</div>
-		        <div>минут</div>
-		      </div>
-		      <div class="time_counter">
-		        <div>${seconds}</div>
-		        <div>секунд</div>
-		      </div>
-		    </div>`;
-
-		    // If the count down is finished, write some text
-		    if (distance < 0) {
-		      clearInterval(x);
-		      document.getElementById(this.id).innerHTML = "<div class='btn btn-outline-info'>Завершено!</div>";
+		filters: {
+		  two_digits: function (value) {
+		    if (value < 0) {
+			    return '00';
+			  }
+		  	if (value.toString().length <= 1) {
+			    return `0${value}`;
+		  	}	
+		  	return value;
+		  }
+		},
+		mounted() {
+		    window.setInterval(() => {
+		        this.now = Math.trunc((new Date()).getTime() / 1000);
+		    },1000);
+  		},
+	  	props: {
+		    date: {
+		      type: String
 		    }
-		  }, 1000);
-		}
+	  	},
+	  	data() {
+		    return {
+		      now: Math.trunc((new Date()).getTime() / 1000)
+		    }
+	  	},
+	  	computed: {
+	  		defineDate(){
+	  			let now = Math.trunc(Date.parse(this.date) / 1000);
+	  			let date = Math.trunc((new Date()).getTime() / 1000)
+	  			if(now >= date){
+	  				return true
+	  			}else{
+	  				return false
+	  			}
+	  		},
+		    dateInMilliseconds() {
+		      return Math.trunc(Date.parse(this.date) / 1000)
+		    },
+		    seconds() {
+		      return (this.dateInMilliseconds - this.now) % 60;
+		    },
+		    minutes() {
+		      return Math.trunc((this.dateInMilliseconds - this.now) / 60) % 60;
+		    },
+		    hours() {
+		      return Math.trunc((this.dateInMilliseconds - this.now) / 60 / 60) % 24;
+		    },
+		    days() {
+		      return Math.trunc((this.dateInMilliseconds - this.now) / 60 / 60 / 24);
+		    },
+	  	}
 	}
 </script>
 <style scoped>
-	.time_counter{
-	    background-color: #292666;
-	    border-radius: 5px;
-	    color: white;
-	    font-weight: 600;
-	    padding: 0 5px;
-	    font-size: 14px;
-	    margin-right:3px;
+	.countdown {
+	  display: flex;
+	  justify-content: center;
+	  align-items:center;
+	}
+
+	.block {
+	    display: flex;
+	    margin-right: 20px;
+	}
+	.block p{
+		margin-bottom:0 !important;
+	}
+	.text {
+	    color: #1abc9c;
+	    font-size: 20px;
+	    font-family: 'Roboto Condensed', serif;
+	    font-weight: 40;
+	    text-align: center;
+	}
+
+	.digit {
+        color: #2a3d42;
+	    font-size: 20px;
+	    font-weight: 100;
+	    font-family: 'Roboto', serif;
+	    text-align: center;
+	}
+	.btn-color{
+		color:#1abc9c;
+		border:2px solid #1abc9c;
+		font-weight:bold;
 	}
 </style>

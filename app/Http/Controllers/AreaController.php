@@ -21,20 +21,31 @@ class AreaController extends Controller
 
     public function list(Request $request)
     {
-        $result = Area::all();
+        $user = $request->user();
+        if($user->role->name == 'admin'){
+            $result = Area::with('region')->get();
+        }else{
+            $result = Area::where(['region_id' => $user->region_id])->with('region')->get();
+        }  
         return response()->json(['success' => true, 'result' => $result]);
     }
 
     public function regionby(Request $request)
     {
-        $validator = Validator::make($request->all(), [            
-            'region_id'  => 'required|integer'
-        ]);
+        $user = $request->user();
 
-        if($validator->fails()){
-            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        if($user->role_id == 1){
+            $validator = Validator::make($request->all(), [            
+                'region_id'  => 'required|integer'
+            ]);
+
+            if($validator->fails()){
+                return response()->json(['error' => true, 'message' => $validator->messages()]);
+            }
+            $result = Area::where(['region_id' => $request->input('region_id')])->get();
+        }else{
+            $result = Area::where(['region_id' => $user->region_id])->get();
         }
-        $result = Area::where(['region_id' => $request->input('region_id')])->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
 

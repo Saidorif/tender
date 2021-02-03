@@ -58,6 +58,12 @@ export const g = {
       })
       return result
     },
+    replaceCommaToDot(val){
+      if(val != ''){
+        val = val.replace(/,/g, '.')
+        return val
+      }
+    },
     dateCounter(date,id){
       // Set the date we're counting down to
       let countDownDate = new Date(date).getTime();

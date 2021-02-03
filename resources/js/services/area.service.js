@@ -4,6 +4,9 @@ const AreaService = {
 	areas(page){
 		return ApiService.post(`/api/area?page=${page}`)
 	},
+	arealist(){
+		return ApiService.get(`/api/area/list`)
+	},
 	getAreaByRegion(id){
 		return ApiService.post(`/api/area/regionby`, id)
 	},

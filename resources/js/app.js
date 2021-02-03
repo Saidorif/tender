@@ -14,6 +14,7 @@ Vue.use(VueProgressBar,{
 
 Vue.config.devtools = false
 
+
 // // jQuery
 // const $ = require('jquery');
 // window.$ = $;
@@ -64,6 +65,8 @@ window.toast = toast;
 
 import Master from './components/layouts/Master'
 
+import TimeCounter from './components/TimeCounter'
+Vue.component('time-counter', TimeCounter)
 // Some services
 import {TokenService} from './services/storage.service'
 import ApiService from './services/api.service'
@@ -85,6 +88,7 @@ const app = new Vue({
     i18n,
     components:{
       Master,
+      TimeCounter,
     },
   store,
 });

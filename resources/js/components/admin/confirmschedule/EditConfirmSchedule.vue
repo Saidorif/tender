@@ -1,247 +1,479 @@
 <template>
-  <div class="add_region">
-      <Loader v-if="laoding"/>
-    <div class="card">
+  <div class="add_area">
+    <Loader v-if="laoding"/>
+    <div class="card card_with_tabs">
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-clipboard-check"></i>
           Подтвердить график движения
         </h4>
-        <router-link class="btn btn-primary back_btn" to="/crm/confirm-tender">
+        <router-link class="btn btn-primary back_btn" to="/crm/confirm-schedule">
           <span class="peIcon pe-7s-back"></span>
           Назад
         </router-link>
       </div>
       <div class="card-body">
-        <div class="row">
-          <div class="form-group in col-md-2">
-            <label for="name">Направления</label>
-            <p class="form-control input_style disabled">{{ form.time }}</p>
-          </div>
-          <div class="form-group col-md-3">
-            <label for="price">Тариф</label>
-            <p class="form-control input_style disabled">{{ form.price }}</p>
-          </div>
-          <div class="col-md-2 ml_auto">
-            <button
-              type="button"
-              class="btn btn-danger"
-              data-toggle="modal"
-              data-target="#exampleModal"
-            >
-              <i class="fas fa-ban"></i> Отказ
-            </button>
-            <button type="button" class="btn btn-success" @click="completedTender()">
-              <i class="far fa-check-circle"></i>Подтвердить
-            </button>
-          </div>
-        </div>
-        <!-- All edit choosen tables -->
-
-
-        <!-- cancel modal -->
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Причина отказа</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <textarea class="form-control" v-model="rejectmsg" name="" id="" cols="30" rows="10" placeholder="Техт отказа" :class="isRequired(rejectmsg) ? 'isRequired' : ''"  ></textarea>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary" @click="rejectTender()">Отправить</button>
-              </div>
+        <form
+          @submit.prevent.enter="saveData"
+          enctype="multipart/form-data"
+          class="row tabRow"
+        >
+          <div class="row col-md-12">
+            <div class="form-group col-md-3">
+              <label for="reys_to_count" v-if="this.titulData">Reyslar soni {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
+              <input
+                type="number"
+                v-model.number="form.reys_to_count"
+                id="reys_to_count"
+                class="form-control input_style"
+                :class="isRequired(form.reys_to_count) ? 'isRequired' : ''"
+              />
+            </div>
+            <div class="form-group col-md-3" v-if="this.titulData">
+              <label for="reys_from_count">Reyslar soni  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
+              <input
+                type="number"
+                v-model.number="form.reys_from_count"
+                id="reys_from_count"
+                class="form-control input_style"
+                :class="isRequired(form.reys_from_count) ? 'isRequired' : ''"
+              />
+            </div>
+            <div class="form-group col-md-3">
+              <label for="count_bus">Qatnovchi avtomobillar soni </label>
+              <input
+                type="number"
+                v-model.number="form.count_bus"
+                id="count_bus"
+                class="form-control input_style"
+                :class="isRequired(form.count_bus) ? 'isRequired' : ''"
+              />
             </div>
           </div>
-        </div>
+          <h2 v-if="titulData.type">
+            {{ titulData.type.type }} - {{ titulData.pass_number }} - sonli "{{
+              titulData.name
+            }}"Avtobus yo'nalishi qatnov yo'li masofasini va xarakat vaqtini
+            olchash qaydnomasi
+          </h2>
+          <div class="col-md-4">
+            <p>
+              Qatnov yo'l masofasi
+              <b v-if="titulData.timing_with"
+                >{{
+                  titulData.timing_with[titulData.timing_with.length - 1]
+                    .distance_from_start_station
+                }}
+                km</b
+              >
+            </p>
+          </div>
+          <div class="col-md-4">
+            <p>Qatnovchi avtomobillar soni {{ form.count_bus }}</p>
+          </div>
+          <div class="col-md-4">
+            <p>Yolkira xaqqi so'm</p>
+          </div>
+          <div class="table-responsive" v-if="form.whereTo">
+            <table
+              class="table table-bordered text-center table-hover table-striped"
+            >
+              <thead>
+                <tr>
+                  <th scope="col" rowspan="5">Qatnovlar</th>
+                  <th scope="col" :colspan="form.whereTo.stations.length * 2">
+                    {{form.whereTo.where.name}} томондан
+                  </th>
+                  <th scope="col" rowspan="3">Reys ischinligi</th>
+                </tr>
+                <tr>
+                  <th
+                    colspan="2"
+                    v-for="(item, index) in form.whereTo.stations"
+                  >
+                    {{ item.name }}
+                    <i v-if="index != 0 && index != form.whereTo.stations.length - 1" class="trashTable fas fa-trash"  @click="removeStation('whereTo', index)"></i>
+                  </th>
+                </tr>
+                <tr>
+                  <template v-for="(item, index) in form.whereTo.stations">
+                    <th>Прибытие</th>
+                    <th>Отправление</th>
+                  </template>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(p_item, p_index) in form.whereTo.reyses">
+                  <td>{{ p_index + 1 }}</td>
+                  <template v-for="(ch_item, ch_index) in p_item">
+                    <td class="reys1" colspan="1">
+                      <DatePicker
+                        v-model="ch_item.end"
+                        type="time"
+                        class="table_input"
+                        valueType="format"
+                        format="HH:mm"
+                      />
+                    </td>
+                    <td class="reys1" colspan="1">
+                      <DatePicker
+                        v-model="ch_item.start"
+                        type="time"
+                        class="table_input"
+                        valueType="format"
+                        format="HH:mm"
+                      />
+                    </td>
+                    <input type="hidden" v-model="p_item.bus_order" class="table_input" />
+                  </template>
+                  <td class="reys1" colspan="1">
+                    <input type="text" v-model="p_item.bus_order" class="table_input" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-responsive" v-if="form.whereFrom">
+            <table  class="table table-bordered text-center table-hover table-striped">
+              <thead>
+                <tr>
+                  <th scope="col" rowspan="5">Qatnovlar</th>
+                  <th scope="col" :colspan="form.whereFrom.stations.length * 2">
+                     {{form.whereFrom.where.name}} томондан
+                  </th>
+                  <th scope="col" rowspan="3">Reys ischinligi</th>
+                </tr>
+                <tr>
+                  <th colspan="2" v-for="(item, index) in form.whereFrom.stations" >
+                    {{ item.name }}
+                    <i v-if="index != 0 && index != form.whereFrom.stations.length - 1" class="trashTable fas fa-trash"  @click="removeStation('whereFrom', index)"></i>
+                  </th>
+                </tr>
+                <tr>
+                  <template v-for="(item, index) in form.whereFrom.stations">
+                    <th>Прибытие</th>
+                    <th>Отправление</th>
+                  </template>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(p_item, p_index) in form.whereFrom.reyses">
+                  <td>{{ p_index + 1 }}</td>
+                  <template v-for="(ch_item, ch_index) in p_item">
+                    <td class="reys1" colspan="1">
+                      <DatePicker
+                        v-model="ch_item.end"
+                        type="time"
+                        class="table_input"
+                        valueType="format"
+                        format="HH:mm"
+                      />
+                    </td>
+                    <td class="reys1" colspan="1">
+                      <DatePicker
+                        v-model="ch_item.start"
+                        type="time"
+                        class="table_input"
+                        valueType="format"
+                        format="HH:mm"
+                      />
+                    </td>
+                    <input type="hidden" v-model="p_item.bus_order" class="table_input" />
+                  </template>
+                  <td class="reys1" colspan="1">
+                    <input type="text" v-model="p_item.bus_order" class="table_input" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary btn_save_category">
+              <i class="fas fa-save"></i>
+              Сохранить
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </template>
 <script>
 import DatePicker from "vue2-datepicker";
-import Multiselect from "vue-multiselect";
 import { mapGetters, mapActions } from "vuex";
 import Loader from '../../Loader'
 export default {
   components: {
     DatePicker,
-    Multiselect,
     Loader
   },
   data() {
     return {
-        form: {
-            direction: "",
-            price: "",
+      titulData: {},
+      form: {
+        whereFrom: {
+          where: '',
+          stations: [],
+          reyses: [],
+          from: ''
         },
-        requiredInput: false,
-        isLoading: false,
-      	fromName: "",
-      	toName: "",
-        rejectmsg: '',
-        laoding: true,
+        whereTo: {
+          where:  '',
+          stations: [],
+          reyses: [],
+          from: ''
+        },
+        count_bus: '',
+        reys_to_count: '',
+        reys_from_count: '',
+      },
+      requiredInput: false,
+      laoding: true
     };
   },
-  computed: {
-    ...mapGetters("tarifannounce", ["getMassage", "getTarifAnnounce"]),
-    ...mapGetters("confirmtarif", ["getRejMassage"]),
+  watch: {
+    'form.reys_to_count': {
+      handler() {
+        if (this.form.reys_to_count) {
+            if(this.getSchedule.whereTo.length){
+              if(this.form.reys_to_count > this.form.whereTo.reyses.length){
+                let forEachNumber = this.form.reys_to_count - this.form.whereTo.reyses.length
+                for (let index = 0; index < forEachNumber; index++) {
+                    let dataArray = this.form.whereTo.stations.map((item) => {
+                      return { end: "", start: "", where: item, bus_order: '',};
+                    });
+                    this.form.whereTo.reyses.push(dataArray);
+                }
+              }else{
+                let forEachNumber =  this.form.whereTo.reyses.length - this.form.reys_to_count
+                this.form.whereTo.reyses.splice(-forEachNumber, forEachNumber);
+              }
+            }else{
+              this.form.whereTo.reyses = [];
+              for (let i = 1; i <= this.form.reys_to_count; i++) {
+                let dataArray = this.form.whereTo.stations.map((item) => {
+                  return { end: "", start: "", where: item, bus_order: '', };
+                });
+                this.form.whereTo.reyses.push(dataArray);
+              }
+            }
+        }
+      },
+      deep: true
+    },
+    'form.reys_from_count': {
+      handler() {
+          if (this.form.reys_from_count) {
+            if(this.getSchedule.whereFrom.length){
+              if(this.form.reys_from_count > this.form.whereFrom.reyses.length){
+                let forEachNumber = this.form.reys_from_count - this.form.whereFrom.reyses.length
+                for (let index = 0; index < forEachNumber; index++) {
+                    let dataArray = this.form.whereFrom.stations.map((item) => {
+                      return { end: "", start: "", where: item };
+                    });
+                    this.form.whereFrom.reyses.push(dataArray);
+                }
+              }else{
+                let forEachNumber =  this.form.whereFrom.reyses.length - this.form.reys_from_count
+                this.form.whereFrom.reyses.splice(-forEachNumber, forEachNumber);
+              }
+            }else{
+              this.form.whereFrom.reyses = [];
+              for (let i = 1; i <= this.form.reys_from_count; i++) {
+                let dataArray = this.form.whereFrom.stations.map((item) => {
+                  return { end: "", start: "", where: item };
+                });
+                this.form.whereFrom.reyses.push(dataArray);
+              }
+            }
+          }
+      },
+    },
   },
   async mounted() {
-    await this.actionEditTarifAnnounce(this.$route.params.tarifannounceId);
+    await this.actionScheduleShow(this.$route.params.confirmscheduleId);
+    await this.actionGetScheduleTable(this.$route.params.confirmscheduleId);
     this.laoding = false
+      this.titulData = this.getShowschedule;
+    if(this.getSchedule.whereFrom.length && this.getSchedule.whereTo.length){
+      this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
+      this.form.whereFrom.stations =  this.getSchedule.whereFrom[0].stations
+      this.getSchedule.whereFrom.forEach(element => {
+        this.form.whereFrom.reyses.push(element.reys_times)
+      });
+      this.form.whereTo.where = this.getSchedule.whereTo[0].where;
+      this.form.whereTo.stations =  this.getSchedule.whereTo[0].stations
+      this.getSchedule.whereTo.forEach(element => {
+        this.form.whereTo.reyses.push(element.reys_times)
+      });
+      this.form.count_bus = this.getSchedule.whereFrom[0].count_bus
+      this.form.reys_from_count = this.getSchedule.whereFrom[0].reys_from_count
+      this.form.reys_to_count = this.getSchedule.whereFrom[0].reys_to_count
+      this.form.whereFrom.from = this.titulData.timing_with[0].whereForm;
+      this.form.whereTo.from =  this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
+      this.form.whereFrom.reyses.forEach((p_item)=>{
+          p_item['bus_order'] = p_item[0].bus_order
+      })
+      this.form.whereTo.reyses.forEach((p_item)=>{
+          p_item['bus_order'] = p_item[0].bus_order
+      })
+    }else{
+      this.form.whereFrom.where = this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
+      this.form.whereTo.where = this.titulData.timing_with[0].whereForm;
+      this.form.whereFrom.from = this.titulData.timing_with[0].whereForm;
+      this.form.whereTo.from =  this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
+      let stationsLeng = this.titulData.timing_with.length;
+      this.titulData.timing_with.forEach((item, i) => {
+        this.form.whereTo.stations.push(item.whereForm)
+        this.form.whereFrom.stations.push(item.whereForm);
+        if(stationsLeng == i + 1){
+          this.form.whereTo.stations.push(item.whereTo)
+          this.form.whereFrom.stations.push(item.whereTo);
+        }
+      });
+      this.form.whereFrom.stations = this.form.whereFrom.stations.reverse()
+    }
+  },
+  computed: {
+    ...mapGetters("confirmschedule", ["getShowschedule"]),
+    ...mapGetters("passportTab", ["getScheduleResMsg", "getSchedule"]),
   },
   methods: {
-    ...mapActions("confirmtarif", [
-      "actionRejectTarif",
-      "actionCompletedTarif"
+    ...mapActions("confirmschedule", ["actionScheduleShow"]),
+    ...mapActions("passportTab", [
+      "actionAddTiming",
+      "clearTimingTable",
+      "actionSetScheduleTable",
+      "actionGetScheduleTable",
     ]),
-    ...mapActions("tarifannounce", [
-      "actionAddTarifAnnounce",
-      "actionEditRarifAnnounce",
-      "actionUpdateTarifAnnounce",
-      "actionDeleteTarifAnnounceItem",
-    ]),
-  	activeEditClass(item){
-  		if (item.status == 'active') {
-  			return 'edit-active'
-  		}else{
-  			return 'edit-pending'
-  		}
-  	},
+    async saveData() {
+        this.form.whereTo.reyses.forEach((p_item) => {
+            p_item.forEach((ch_item)=>{
+                ch_item.bus_order = p_item.bus_order
+            })
+        })
+        this.form.whereFrom.reyses.forEach((p_item) => {
+            p_item.forEach((ch_item)=>{
+                ch_item.bus_order = p_item.bus_order
+            })
+        })
+      if (
+        this.form.count_bus != "" &&
+        this.form.reys_to_count != "" &&
+        this.form.reys_from_count != ""
+      ) {
+        this.laoding = true
+        await this.actionSetScheduleTable({
+          id: this.$route.params.confirmscheduleId,
+          data: this.form,
+        });
+        this.laoding = false
+        if (this.getScheduleResMsg.success) {
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: "Malumotlar saqlandi",
+          });
+        } else {
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: "nmadir nito",
+          });
+        }
+        this.requiredInput = false;
+      }else{
+        this.requiredInput = true;
+      }
+    },
     isRequired(input) {
       return this.requiredInput && input === "";
     },
-    async completedTender(){
-        this.laoding = true
-      await this.actionCompletedTarif(this.$route.params.tarifannounceId);
-      this.laoding = false
-      if(this.getRejMassage.success){
-        toast.fire({
-				  type: "success",
-				  icon: "success",
-				  title: this.getRejMassage.message
-				});
-        this.$router.push("/crm/confirm-tarif");
-      }
+    removeItem(index) {
+      this.form.splice(index, 1);
     },
-    async rejectTarif(){
-      if (this.rejectmsg != '' && this.rejectmsg != null){
-          this.laoding = true
-        await this.actionRejectTarif({id:this.$route.params.tarifannounceId, message: this.rejectmsg })
-        this.laoding = false
-        $('#exampleModal').modal('hide')
-        if(this.getRejMassage.success){
-          toast.fire({
-				    type: "success",
-				    icon: "success",
-				    title: this.getRejMassage.message
-				  });
-          this.$router.push("/crm/confirm-tarif");
+    calcToTime(fromTime, toTime, index, thisItem) {
+      let nextItem = this.form[index];
+    },
+    removeStation(parentName, index){
+      window.swal.fire({
+        title: 'Ishonchingiz komilmi?',
+        text: "Siz buni qaytarib ololmaysiz!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: "Ha, uni o'chirib tashlang!",
+        cancelButtonText: "Bekor qilish",
+      }).then( async (result) => {
+        if (result.value) {
+          this.form[parentName].stations.splice(index, 1);
+          this.form[parentName].reyses.forEach((item)=>{
+            item.splice(index, 1)
+          })
         }
-        this.requiredInput = false
-      }else{
-        this.requiredInput = true
-      }
+      })
     }
   },
 };
 </script>
 <style scoped>
-tr {
-  cursor: pointer !important;
+.tabRow {
+  padding-left: 30px;
+  padding-right: 30px;
 }
-tr.active {
-  background: #d6d6d6;
+.th_with_input {
+  padding: 0;
 }
-.check_box_with_label {
+.table_input {
+  width: 70px;
+  padding: 0px;
+  border: none;
+  background: transparent;
 }
-.check_box_with_label input {
-  --active: #275efe;
-  --active-inner: #fff;
-  --focus: 2px rgba(39, 94, 254, 0.3);
-  --border: #bbc1e1;
-  --border-hover: #275efe;
-  --background: #fff;
-  --disabled: #f6f8ff;
-  --disabled-inner: #e1e6f9;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  height: 21px;
-  outline: none;
-  display: inline-block;
-  vertical-align: top;
-  position: relative;
-  margin: 0;
-  cursor: pointer;
-  border: 1px solid var(--bc, var(--border));
-  background: var(--b, var(--background));
-  -webkit-transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
-  transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
-  width: 38px;
-  border-radius: 11px;
-  min-height: unset;
+.btn_trash {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.check_box_with_label input::after {
-  content: "";
-  display: block;
+.input_bd_none {
+  border: none;
+  width: 20px;
+  text-align: center;
+}
+.reys8.hovered,
+.reys7.hovered,
+.reys6.hovered,
+.reys5.hovered,
+.reys4.hovered,
+.reys3.hovered,
+.reys2.hovered,
+.reys1.hovered {
+  background-color: #e0f3ff;
+}
+tbody tr td:focus-within {
+  border-bottom: 1px solid #000;
+}
+.trashTable{
+  color: red;
   position: absolute;
-  -webkit-transition: opacity var(--d-o, 0.2s),
-    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
-  transition: opacity var(--d-o, 0.2s),
-    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
-  transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
-    opacity var(--d-o, 0.2s);
-  transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
-    opacity var(--d-o, 0.2s),
-    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
-  left: 2px;
-  top: 2px;
-  border-radius: 50%;
-  width: 15px;
-  height: 15px;
-  background: var(--ab, var(--border));
-  -webkit-transform: translateX(var(--x, 0));
-  transform: translateX(var(--x, 0));
-}
-.check_box_with_label label {
-  display: block;
+  top: 8px;
+  right: 5px;
   cursor: pointer;
-  margin-bottom: 15px;
+  opacity: 0;
+  transition: .5s;
 }
-.check_box_with_label input[type="checkbox"]:checked {
-  --ab: var(--active-inner);
-  --x: 17px;
-  --b: var(--active);
-  --bc: var(--active);
-  --d-o: 0.3s;
-  --d-t: 0.6s;
-  --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+th{
+  position: relative;
 }
-input.disabled {
-  cursor: not-allowed;
+th:hover .trashTable{
+  opacity: 1;
 }
-.cardtender{
-    padding: 0;
-    box-shadow: none;
-    background-color: rgba(0,0,0,.03);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
-}
-.cardtender .card-header{
-    background: #f3f3f4;
-}
+
 </style>

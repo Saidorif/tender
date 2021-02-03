@@ -77,7 +77,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item has-treeview" v-if="$can('listTarifApprove', 'DirectionController')">
+          <li class="nav-item has-treevie" v-if="$can('listTarifApprove', 'DirectionController')">
             <a href="#" class="nav-link" >
               <i class="peIcon fas fa-clipboard-check"></i>
               <p>
@@ -85,7 +85,7 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treevie">
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/confirm-titul">
                   <p>
@@ -146,7 +146,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item has-treeview" v-if="$can('completedTenders', 'TenderController')">
+          <li class="nav-item has-treevie" v-if="$can('completedTenders', 'TenderController')">
             <a href="#" class="nav-link">
               <span class="peIcon fas fa-file" style="font-size: 20px;"></span>
               <p>
@@ -154,7 +154,7 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treevie">
               <li class="nav-item" v-if="$can('completedTenders', 'TenderController')">
                 <router-link class="nav-link" to="/crm/completed-tenders">
                   <p>
@@ -217,7 +217,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item has-treeview" v-if="$can('index', 'ComplaintCategoryController')">
+          <li class="nav-item has-treevie" v-if="$can('index', 'ComplaintCategoryController')">
             <a href="#" class="nav-link">
               <span class="peIcon fas fa-comment" style="font-size: 20px;"></span>
               <p>
@@ -226,7 +226,7 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treevie">
               <li class="nav-item" v-if="$can('index', 'ComplaintCategoryController')">
                 <router-link class="nav-link" to="/crm/complaint-list">
                   <p>
@@ -243,7 +243,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treevie">
             <a href="#" class="nav-link">
               <i class="peIcon fas fa-cogs" style="font-size: 20px;"></i>
               <p>
@@ -251,7 +251,7 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treevie">
               <li class="nav-item" v-if="$can('index', 'RegionController')">
                 <router-link class="nav-link" to="/crm/region">
                   <i class="peIcon fas fa-globe"></i>
@@ -292,14 +292,14 @@
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item has-treeview" v-if="$can('index', 'BusTypeController')">
+              <li class="nav-item has-treevie" v-if="$can('index', 'BusTypeController')">
                 <a href="#" class="nav-link" >
                   <i class="peIcon fas fa-bus"></i>
                   <p>
                     Автобуса
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treevie">
                     <li class="nav-item" v-if="$can('index', 'BusTypeController')">
                         <router-link class="nav-link" to="/crm/typeofbus">
                             <p>
@@ -340,7 +340,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview" v-if="$can('index', 'RoleController')">
+          <li class="nav-item has-treevie" v-if="$can('index', 'RoleController')">
             <a href="#" class="nav-link">
               <span class="peIcon pe-7s-settings" style="font-size: 20px;"></span>
               <p>
@@ -348,7 +348,7 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treevie">
               <li class="nav-item" v-if="$can('index', 'RoleController')">
                 <router-link class="nav-link" to="/crm/role">
                   <p>
@@ -405,6 +405,7 @@
 </template>
 
 <script>
+
   import { mapActions, mapGetters } from "vuex";
   import {TokenService} from './../../../services/storage.service'
 export default {
@@ -422,6 +423,10 @@ export default {
   async mounted(){
     await this.profileUser()
     await this.actionComplaintLength()
+    $('.has-treevie a').on('click', function(e){
+        e.preventDefault();
+        $(this).parent('.has-treevie').toggleClass('menu-opens')
+    })
   },
   methods: {
     ...mapActions(['logout','profileUser']),
@@ -435,7 +440,36 @@ export default {
 </script>
 
 <style scoped>
-  .brand-text img{
-    width: 52px;
-  }
+    .brand-text img{
+        width: 52px;
+    }
+    .nav-sidebar .nav-treevie{
+        display: block;
+        padding: 0.5em 0 0 2rem;
+        position: relative;
+        max-height: 0;
+        overflow: hidden;
+        transition: .5s !important;
+    }
+
+    .nav-sidebar .nav-treevie::before {
+        content: "";
+        max-height: 0;
+        height: 100%;
+        opacity: 1;
+        width: 3px;
+        background: #52dcbc;
+        position: absolute;
+        left: 32px;
+        top: 0;
+        border-radius: 15px;
+        transition: .5s !important;
+    }
+    .nav-sidebar .has-treevie.menu-opens .nav-treevie::before,
+    .has-treevie.menu-opens .nav-treevie{
+        max-height: 700px;
+    }
+    .nav-sidebar .menu-opens>.nav-link i.right{
+        transform: rotate(-90deg);
+    }
 </style>

@@ -349,11 +349,7 @@
                           <option :value="item.id" v-for="(item,index) in getBusmodelFindList">{{item.name}}</option>
                         </select>
                       </div>
-                      <div class="form-group col-md-1 btn_remove_auto">
-                        <button type="button" class="btn btn-danger" @click.prevent="removeCar(index)">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </div>
+                      <div class="form-group col-md-1 btn_remove_auto"></div>
                     </div>
                   </div>
                   <div class="form-group col-lg-12 d-flex justify-content-end">
@@ -428,30 +424,30 @@ export default {
     };
   },
   watch:{
-    getDirection:{
+    getShowTitul:{
       handler(){
         this.laoding = false
-        this.form.dir_type = this.getDirection.dir_type;
-        this.form.pass_number = this.getDirection.pass_number;
-        this.form.tarif = this.getDirection.tarif;
-        this.form.region_from.region_id = this.getDirection.region_from_id;
-        this.form.region_from.area_id = this.getDirection.area_from_id;
-        this.form.region_from.station_id = this.getDirection.station_from_id;
-        this.form.region_to.region_id = this.getDirection.region_to_id;
-        this.form.region_to.area_id = this.getDirection.area_to_id;
-        this.form.region_to.station_id = this.getDirection.station_to_id;
-        this.form.year = this.getDirection.year.toString();
-        this.form.from_type = this.getDirection.from_type;
-        this.form.to_type = this.getDirection.to_type;
-        this.form.from_where = this.getDirection.from_where;
-        this.form.seasonal = this.getDirection.seasonal;
-        this.form.distance = this.getDirection.distance;
-        this.form.type_id = this.getDirection.type_id;
-        this.cars_with = this.getDirection.cars_with;
-        this.areaFrom = this.getDirection.region_from_with.area;
-        this.areaTo = this.getDirection.region_to_with.area;
-        this.stationFrom =  this.getDirection.area_from_with ? this.getDirection.area_from_with.station : '';
-        this.stationTo = this.getDirection.area_to_with ? this.getDirection.area_to_with.station : '';
+        this.form.dir_type = this.getShowTitul.dir_type;
+        this.form.pass_number = this.getShowTitul.pass_number;
+        this.form.tarif = this.getShowTitul.tarif;
+        this.form.region_from.region_id = this.getShowTitul.region_from_id;
+        this.form.region_from.area_id = this.getShowTitul.area_from_id;
+        this.form.region_from.station_id = this.getShowTitul.station_from_id;
+        this.form.region_to.region_id = this.getShowTitul.region_to_id;
+        this.form.region_to.area_id = this.getShowTitul.area_to_id;
+        this.form.region_to.station_id = this.getShowTitul.station_to_id;
+        this.form.year = this.getShowTitul.year.toString();
+        this.form.from_type = this.getShowTitul.from_type;
+        this.form.to_type = this.getShowTitul.to_type;
+        this.form.from_where = this.getShowTitul.from_where;
+        this.form.seasonal = this.getShowTitul.seasonal;
+        this.form.distance = this.getShowTitul.distance;
+        this.form.type_id = this.getShowTitul.type_id;
+        this.cars_with = this.getShowTitul.cars_with;
+        this.areaFrom = this.getShowTitul.region_from_with.area;
+        this.areaTo = this.getShowTitul.region_to_with.area;
+        this.stationFrom =  this.getShowTitul.area_from_with ? this.getShowTitul.area_from_with.station : '';
+        this.stationTo = this.getShowTitul.area_to_with ? this.getShowTitul.area_to_with.station : '';
         this.loaded = true
       }
     }
@@ -460,30 +456,30 @@ export default {
     await this.actionRegionList();
     await this.actionTypeofbusList();
     await this.actionTypeofdirectionList();
-    await this.actionEditDirection(this.$route.params.confirmtitulId);
+    await this.actionTitulShow(this.$route.params.confirmtitulId);
     await this.actionBusBrandList();
     this.laoding = false
-    this.form.pass_number = this.getDirection.pass_number;
-    this.form.dir_type = this.getDirection.dir_type;
-    this.form.tarif = this.getDirection.tarif;
-    this.form.region_from.region_id = this.getDirection.region_from_id;
-    this.form.region_from.area_id = this.getDirection.area_from_id;
-    this.form.region_from.station_id = this.getDirection.station_from_id;
-    this.form.region_to.region_id = this.getDirection.region_to_id;
-    this.form.region_to.area_id = this.getDirection.area_to_id;
-    this.form.region_to.station_id = this.getDirection.station_to_id;
-    this.form.year = this.getDirection.year.toString();
-    this.form.from_type = this.getDirection.from_type;
-    this.form.to_type = this.getDirection.to_type;
-    this.form.from_where = this.getDirection.from_where;
-    this.form.seasonal = this.getDirection.seasonal;
-    this.form.distance = this.getDirection.distance;
-    this.form.type_id = this.getDirection.type_id;
-    this.cars_with = this.getDirection.cars_with;
-    this.areaFrom = this.getDirection.region_from_with.area;
-    this.areaTo = this.getDirection.region_to_with.area;
-    this.stationFrom =  this.getDirection.area_from_with ? this.getDirection.area_from_with.station : '';
-    this.stationTo = this.getDirection.area_to_with ? this.getDirection.area_to_with.station : '';
+    this.form.pass_number = this.getShowTitul.pass_number;
+    this.form.dir_type = this.getShowTitul.dir_type;
+    this.form.tarif = this.getShowTitul.tarif;
+    this.form.region_from.region_id = this.getShowTitul.region_from_id;
+    this.form.region_from.area_id = this.getShowTitul.area_from_id;
+    this.form.region_from.station_id = this.getShowTitul.station_from_id;
+    this.form.region_to.region_id = this.getShowTitul.region_to_id;
+    this.form.region_to.area_id = this.getShowTitul.area_to_id;
+    this.form.region_to.station_id = this.getShowTitul.station_to_id;
+    this.form.year = this.getShowTitul.year.toString();
+    this.form.from_type = this.getShowTitul.from_type;
+    this.form.to_type = this.getShowTitul.to_type;
+    this.form.from_where = this.getShowTitul.from_where;
+    this.form.seasonal = this.getShowTitul.seasonal;
+    this.form.distance = this.getShowTitul.distance;
+    this.form.type_id = this.getShowTitul.type_id;
+    this.cars_with = this.getShowTitul.cars_with;
+    this.areaFrom = this.getShowTitul.region_from_with.area;
+    this.areaTo = this.getShowTitul.region_to_with.area;
+    this.stationFrom =  this.getShowTitul.area_from_with ? this.getShowTitul.area_from_with.station : '';
+    this.stationTo = this.getShowTitul.area_to_with ? this.getShowTitul.area_to_with.station : '';
     this.loaded = true
   },
   methods: {
@@ -493,35 +489,36 @@ export default {
     ...mapActions("station", ["actionStationByRegion"]),
     ...mapActions("area", ["actionAreaByRegion"]),
     ...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
-    ...mapActions("direction", ["actionEditDirection","actionCarDeleteDirection"]),
     ...mapActions("passportTab", ["actionTarif"]),
     ...mapActions("direction", ["actionUpdateDirection"]),
     ...mapActions("busbrand", ["actionBusBrandList"]),
     ...mapActions("busmodel", ["actionBusmodelFindList"]),
-    ...mapActions('confirmtitul',['actionActivateTitul','actionRejectTitul']),
+    ...mapActions('confirmtitul',['actionActivateTitul','actionRejectTitul','actionTitulShow']),
     async rejectTitul(){
-      await this.actionRejectTitul(this.$route.params.confirmtitulId)
-      if (this.getTitulMassage.success){
-        await this.actionEditDirection(this.$route.params.confirmtitulId);
-        this.$route.push('/crm/confirm-titul')
-        toast.fire({
-          type: "success",
-          icon: "success",
-          title: this.getTitulMassage.message,
-        });
-      }else{
-        toast.fire({
-          type: "error",
-          icon: "error",
-          title: this.getTitulMassage.message,
-        });
+      if(confirm("Вы действительно хотите отказатся?")){
+        await this.actionRejectTitul(this.$route.params.confirmtitulId)
+        if (this.getTitulMassage.success){
+          await this.actionTitulShow(this.$route.params.confirmtitulId);
+          this.$router.push('/crm/confirm-titul')
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getTitulMassage.message,
+          });
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getTitulMassage.message,
+          });
+        }
       }
     },
     async sendToActivate(){
       await this.actionActivateTitul(this.$route.params.confirmtitulId)
       if (this.getTitulMassage.success){
-        await this.actionEditDirection(this.$route.params.confirmtitulId);
-        this.$route.push('/crm/confirm-titul')
+        await this.actionTitulShow(this.$route.params.confirmtitulId);
+        this.$router.push('/crm/confirm-titul')
         toast.fire({
           type: "success",
           icon: "success",
@@ -563,11 +560,6 @@ export default {
     isRequired(input) {
       return this.requiredInput && input === "";
     },
-    async sendDirection(){
-      this.laoding = true
-      await this.actionEditDirection(this.$route.params.confirmtitulId);
-      this.laoding = false
-    },
     async selectRegion(input) {
       await this.actionAreaByRegion({ region_id: this.form[input].region_id });
       if (input == "region_from") {
@@ -599,11 +591,10 @@ export default {
     ...mapGetters("area", ["getAreaList"]),
     ...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
     ...mapGetters("station", ["getStationsList"]),
-    ...mapGetters("direction", ["getDirection",'getMassage']),
     ...mapGetters("passportTab", ["getTarif"]),
     ...mapGetters("busbrand", ["getBusBrandList"]),
     ...mapGetters("busmodel", ["getBusmodelFindList"]),
-    ...mapGetters('confirmtitul',['getTitulMassage']),
+    ...mapGetters('confirmtitul',['getTitulMassage','getShowTitul']),
     checkCars(){
       if(this.cars.length > 0){
         let result = true

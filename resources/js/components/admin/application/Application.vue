@@ -47,10 +47,8 @@
 							</td>
 							<td width="15%">{{reg.cars_with.length}}</td>
 							<td>{{reg.lots ? reg.lots.time : ''}}</td>
-							<td :id="reg.id">
-                                <template  v-if="reg.lots" >
-                                    {{$g.dateCounter(reg.lots.time,reg.id)}}
-                                </template>
+							<td>
+                                <time-counter :date="reg.lots.time"/>
                             </td>
 							<td>
 								<router-link
