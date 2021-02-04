@@ -262,6 +262,7 @@ Route::group([
             Route::post('area', 'AreaController@index');
             Route::post('area/store', 'AreaController@store');
             Route::get('area/list', 'AreaController@list');
+            Route::post('area/regionxron', 'AreaController@regionxron');
             Route::get('area/edit/{id}', 'AreaController@edit');
             Route::post('area/update/{id}', 'AreaController@update');
             Route::delete('area/destroy/{id}', 'AreaController@destroy');
