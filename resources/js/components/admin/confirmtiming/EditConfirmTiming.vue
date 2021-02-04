@@ -200,8 +200,8 @@ export default {
     ...mapGetters("conditionalsign", ["getConditionalSignList"]),
     ...mapGetters("area", ["getAreaList"]),
     ...mapGetters("station", ["getStationsList"]),
-    ...mapGetters("passportTab", ["getTimingMassage"]),
-    ...mapGetters("confirmtiming", ["getShowTiming","getTimingMassage"]),
+    ...mapGetters("passportTab", ["getTimingConfirmMassage"]),
+    ...mapGetters("confirmtiming", ["getShowTiming","getTimingConfirmMassage"]),
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
@@ -213,38 +213,38 @@ export default {
     async rejectTitul(){
       if(confirm("Вы действительно хотите отказатся?")){
         await this.actionRejectTiming(this.$route.params.confirmtimingId)
-        if (this.getTimingMassage.success){
+        if (this.getTimingConfirmMassage.success){
           await this.actionTimingShow(this.$route.params.confirmtimingId);
           this.$router.push('/crm/confirm-timing')
           toast.fire({
             type: "success",
             icon: "success",
-            title: this.getTimingMassage.message,
+            title: this.getTimingConfirmMassage.message,
           });
         }else{
           toast.fire({
             type: "error",
             icon: "error",
-            title: this.getTimingMassage.message,
+            title: this.getTimingConfirmMassage.message,
           });
         }
       }
     },
     async sendToActivate(){
       await this.actionActivateTiming(this.$route.params.confirmtimingId)
-      if (this.getTimingMassage.success){
+      if (this.getTimingConfirmMassage.success){
         await this.actionTimingShow(this.$route.params.confirmtimingId);
         this.$router.push('/crm/confirm-timing')
         toast.fire({
           type: "success",
           icon: "success",
-          title: this.getTimingMassage.message,
+          title: this.getTimingConfirmMassage.message,
         });
       }else{
         toast.fire({
           type: "error",
           icon: "error",
-          title: this.getTimingMassage.message,
+          title: this.getTimingConfirmMassage.message,
         });
       }
     },

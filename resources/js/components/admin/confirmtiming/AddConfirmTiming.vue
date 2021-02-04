@@ -91,7 +91,7 @@ export default {
   },
   computed: {
     ...mapGetters("tarifannounce", ["getMassage", "getTarifAnnounce"]),
-    ...mapGetters("confirmtarif", ["getRejMassage"]),
+    ...mapGetters("confirmtarif", ["getTimingConfirmMassage"]),
   },
   async mounted() {
     await this.actionEditTarifAnnounce(this.$route.params.tarifannounceId);
@@ -122,11 +122,11 @@ export default {
         this.laoding = true
       await this.actionCompletedTarif(this.$route.params.tarifannounceId);
       this.laoding = false
-      if(this.getRejMassage.success){
+      if(this.getTimingConfirmMassage.success){
         toast.fire({
 				  type: "success",
 				  icon: "success",
-				  title: this.getRejMassage.message
+				  title: this.getTimingConfirmMassage.message
 				});
         this.$router.push("/crm/confirm-tarif");
       }
@@ -137,11 +137,11 @@ export default {
         await this.actionRejectTarif({id:this.$route.params.tarifannounceId, message: this.rejectmsg })
         this.laoding = false
         $('#exampleModal').modal('hide')
-        if(this.getRejMassage.success){
+        if(this.getTimingConfirmMassage.success){
           toast.fire({
 				    type: "success",
 				    icon: "success",
-				    title: this.getRejMassage.message
+				    title: this.getTimingConfirmMassage.message
 				  });
           this.$router.push("/crm/confirm-tarif");
         }

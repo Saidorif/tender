@@ -7,7 +7,7 @@ const state = {
 };
 
 const getters = {
-	getTimingMassage(state){
+	getTimingConfirmMassage(state){
 		return state.message
 	},
 	getTimings(state){
