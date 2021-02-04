@@ -428,7 +428,7 @@ export default {
         errorInput: true,
     };
   },
-  async mounted() {
+  async mounted(){
     await this.actionEditDirection(this.$route.params.directionId);
     await this.actionRegionList();
     await this.actionConditionalSignList();
@@ -450,7 +450,7 @@ export default {
   computed: {
     ...mapGetters("region", ["getRegionList"]),
     ...mapGetters("conditionalsign", ["getConditionalSignList"]),
-    ...mapGetters("area", ["getAreaList"]),
+    ...mapGetters("area", ["getAreaXromLists"]),
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("passportTab", ["getTimingMassage"]),
     ...mapGetters("direction", ["getDirection"]),
@@ -460,7 +460,7 @@ export default {
     ...mapActions("region", ["actionRegionList"]),
     ...mapActions("conditionalsign", ["actionConditionalSignList"]),
     ...mapActions("station", ["actionStationByRegion"]),
-    ...mapActions("area", ["actionAreaByRegion"]),
+    ...mapActions("area", ["actionXromAreaList"]),
     ...mapActions("direction", ["actionEditDirection"]),
     ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
     ...mapActions("confirmtiming", ["actionApproveTiming"]),
@@ -501,11 +501,11 @@ export default {
       }
     },
     async selectRegion(input) {
-      await this.actionAreaByRegion({ region_id: this.form[input].id });
+      await this.actionXromAreaList({ region_id: this.form[input].id });
       if (input == "region_from_id") {
-        this.form.areaFrom = this.getAreaList;
+        this.form.areaFrom = this.getAreaXromLists;
       } else if (input == "region_to_id") {
-        this.form.areaTo = this.getAreaList;
+        this.form.areaTo = this.getAreaXromLists;
       }
     },
     calctechnic_speed(){
