@@ -454,7 +454,7 @@ export default {
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("passportTab", ["getTimingMassage"]),
     ...mapGetters("direction", ["getDirection"]),
-    ...mapGetters("confirmtiming", ["getTimingMassage"]),
+    ...mapGetters("confirmtiming", ["getTimingConfirmMassage"]),
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
@@ -466,18 +466,18 @@ export default {
     ...mapActions("confirmtiming", ["actionApproveTiming"]),
     async sendToActivate(){
       await this.actionApproveTiming(this.$route.params.directionId)
-      if (this.getTimingMassage.success){
+      if (this.getTimingConfirmMassage.success){
         await this.actionEditDirection(this.$route.params.directionId);
         toast.fire({
           type: "success",
           icon: "success",
-          title: this.getTimingMassage.message,
+          title: this.getTimingConfirmMassage.message,
         });
       }else{
         toast.fire({
           type: "error",
           icon: "error",
-          title: this.getTimingMassage.message,
+          title: this.getTimingConfirmMassage.message,
         });
       }
     },
@@ -661,6 +661,7 @@ export default {
             this.laoding = true
             await this.actionAddTiming({vars: JSON.stringify(this.fullTableInfo), timing: this.tableTwoData, timingDetails: this.timingDetails, technic_speed: this.technic_speed, traffic_speed: this.traffic_speed, });
             this.laoding = false
+            console.log(this.getTimingMassage)
             if(this.getTimingMassage.success){
                 toast.fire({
                     type: "success",

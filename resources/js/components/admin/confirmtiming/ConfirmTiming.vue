@@ -68,7 +68,7 @@
             this.laoding = false
 		},
 		computed:{
-			...mapGetters('confirmtiming',['getTimings', 'getTimingMassage'])
+			...mapGetters('confirmtiming',['getTimings', 'getTimingConfirmMassage'])
 		},
 		methods:{
             ...mapActions('confirmtiming',['actionTimings','actionActivateTiming']),
