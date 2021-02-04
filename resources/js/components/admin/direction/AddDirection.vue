@@ -386,6 +386,15 @@ export default {
     await this.actionBusBrandList();
     this.laoding = false
   },
+  // watch:{
+  //   'form.from_type':{
+  //     handler(){
+  //       console.log(this.form.region_from[this.form.from_type + '_id']);
+  //       console.log('from_type: ' + this.form.from_type + '_id');
+  //       console.log(this.form.region_from);
+  //     }
+  //   },deep:true
+  // },
   methods: {
     ...mapActions('typeofbus',['actionTypeofbusList']),
     ...mapActions('busclass',['actionBusclassFind']),
@@ -421,14 +430,8 @@ export default {
       })
     },
     async selectModel(car){
-    //   car.busmodel_id = ''
-    //   car.bus_models = car.bus_marks.filter((item,index)=>{
-    //     if (item.marka.id == car.busmarka_id){
-    //       return item
-    //     }
-    //   })
-        car.busmodel_id = ''
-        await this.actionBusmodelFindList(car)
+      car.busmodel_id = ''
+      await this.actionBusmodelFindList(car)
     },
     removeCar(index){
       Vue.delete(this.cars,index)

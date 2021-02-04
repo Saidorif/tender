@@ -48,7 +48,10 @@
 							<td width="15%">{{reg.cars_with.length}}</td>
 							<td>{{reg.lots ? reg.lots.time : ''}}</td>
 							<td>
-                                <time-counter :date="reg.lots.time"/>
+								<template v-if="reg.lots && reg.lots.time">
+	                                <time-counter :date="reg.lots.time"/>
+								</template>
+								<template v-else></template>
                             </td>
 							<td>
 								<router-link
