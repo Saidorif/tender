@@ -48,6 +48,19 @@ class AreaController extends Controller
         }
         return response()->json(['success' => true, 'result' => $result]);
     }
+    
+    public function regionxron(Request $request)
+    {
+        $user = $request->user();
+        $validator = Validator::make($request->all(), [
+            'region_id'  => 'required|integer'
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $result = Area::where(['region_id' => $request->input('region_id')])->get();
+        return response()->json(['success' => true, 'result' => $result]);
+    }
 
     public function edit($id)
     {
