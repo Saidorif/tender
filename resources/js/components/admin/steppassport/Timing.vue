@@ -559,32 +559,19 @@ export default {
                     element.end_speedometer - element.start_speedometer
                 ).toFixed(1);
             }else{
-                element.distance_from_start_station = parseFloat(
-                    element.end_speedometer - this.tableTwoData[0].start_speedometer
-                ).toFixed(1);
-                let result_spendtime_to_stay_station =
-                    (this.toTimestamp(element.start_time) -
-                    this.toTimestamp(
-                        this.tableTwoData[this.tableTwoData.length - 1].end_time
-                    )) /
-                    60;
-                element.spendtime_between_station = parseFloat(
-                    result_spendtime_to_stay_station
-                ).toFixed(2);
-                this.tableTwoData[
-                    this.tableTwoData.length - 1
-                ].spendtime_to_stay_station = result_spendtime_to_stay_station;
+                element.distance_from_start_station = parseFloat(element.end_speedometer - this.tableTwoData[0].start_speedometer).toFixed(1);
+                let result_spendtime_to_stay_station = (this.toTimestamp(element.start_time) - this.toTimestamp(this.tableTwoData[this.tableTwoData.length - 1].end_time  )) / 60;
+                element.spendtime_between_station = result_spendtime_to_stay_station;
+                this.tableTwoData[ this.tableTwoData.length - 1].spendtime_to_stay_station = result_spendtime_to_stay_station;
             } //else
-            element.distance_between_station = parseFloat(
-            element.end_speedometer - element.start_speedometer
-            ).toFixed(1);
-            let result_spendtime_between_station =
-            (this.toTimestamp(element.end_time) -
-                this.toTimestamp(element.start_time)) /
-            60;
-            element.spendtime_between_station = parseFloat(
-            result_spendtime_between_station
-            ).toFixed(2);
+            element.distance_between_station = parseFloat(element.end_speedometer - element.start_speedometer).toFixed(1);
+            // let result_spendtime_between_station = (this.toTimestamp(element.end_time) - this.toTimestamp(element.start_time)) / 60;
+            let rSec = Math.abs(element.end_time - element.start_time)/1000;
+            let minut  = Math.floor(rSec/60)
+            let sec = rSec % 60;
+            let strSec = sec <= 9 ? '0'+sec : sec
+            let result_spendtime_between_station = minut+'.'+strSec;
+            element.spendtime_between_station = result_spendtime_between_station;
             this.tableTwoData.push(element);
         })
         let thisData;
@@ -631,8 +618,8 @@ export default {
       this.form.details.splice(index, 1);
     },
     toTimestamp(strDate) {
-      var datum = Date.parse(strDate);
-      return datum / 1000;
+        var datum = Date.parse(strDate);
+        return datum / 1000;
     },
     async saveData() {
       if(
