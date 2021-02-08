@@ -7,6 +7,9 @@ const AreaService = {
 	arealist(){
 		return ApiService.get(`/api/area/list`)
 	},
+	areaxrom(id){
+		return ApiService.post(`/api/area/regionxron`,id)
+	},
 	getAreaByRegion(id){
 		return ApiService.post(`/api/area/regionby`, id)
 	},

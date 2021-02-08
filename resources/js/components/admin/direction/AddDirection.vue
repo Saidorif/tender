@@ -400,7 +400,7 @@ export default {
     ...mapActions('busclass',['actionBusclassFind']),
     ...mapActions("region", ["actionRegionList"]),
     ...mapActions("station", ["actionStationByRegion"]),
-    ...mapActions("area", ["actionAreaByRegion"]),
+    ...mapActions("area", ["actionXromAreaList"]),
     ...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
     ...mapActions("direction", ["actionAddDirection"]),
     ...mapActions("busbrand", ["actionBusBrandList"]),
@@ -504,12 +504,12 @@ export default {
       }
     },
     async selectRegion(input) {
-      await this.actionAreaByRegion({ region_id: this.form[input].region_id });
+      await this.actionXromAreaList({ region_id: this.form[input].region_id });
       if(input == 'region_from'){
-        this.areaFrom = this.getAreaList
+        this.areaFrom = this.getAreaXromLists
         this.form.region_from.area_id = ''
       }else if(input == 'region_to'){
-        this.areaTo = this.getAreaList
+        this.areaTo = this.getAreaXromLists
         this.form.region_to.area_id = ''
       }
     },
@@ -531,7 +531,7 @@ export default {
     ...mapGetters('busclass',['getBusclassFindList']),
     ...mapGetters('typeofbus',['getTypeofbusList']),
     ...mapGetters("region", ["getRegionList"]),
-    ...mapGetters("area", ["getAreaList"]),
+    ...mapGetters("area", ["getAreaXromLists"]),
     ...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("direction", ["getMassage"]),

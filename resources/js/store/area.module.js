@@ -6,6 +6,7 @@ const state = {
 	area: [],
 	areaList: [],
 	lists: [],
+	xromlists: [],
 };
 
 const getters = {
@@ -23,11 +24,23 @@ const getters = {
 	},
 	getAreaLists(state){
 		return state.lists
+	},
+	getAreaXromLists(state){
+		return state.xromlists
 	}
 };
 
 
 const actions = {
+	async actionXromAreaList({commit},data){
+		try {
+			const areas =  await AreaService.areaxrom(data);
+			await commit('setXromAreaLists',areas.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionAreaList({commit}){
 		try {
 			const areas =  await AreaService.arealist();
@@ -99,6 +112,9 @@ const mutations = {
 	},
 	setAreaLists(state, lists){
 		state.lists = lists
+	},
+	setXromAreaLists(state, xromlists){
+		state.xromlists = xromlists
 	},
 	setAreaList(state, areaList){
 		state.areaList = areaList

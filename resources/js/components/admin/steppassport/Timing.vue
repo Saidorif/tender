@@ -428,7 +428,7 @@ export default {
         errorInput: true,
     };
   },
-  async mounted() {
+  async mounted(){
     await this.actionEditDirection(this.$route.params.directionId);
     await this.actionRegionList();
     await this.actionConditionalSignList();
@@ -450,7 +450,7 @@ export default {
   computed: {
     ...mapGetters("region", ["getRegionList"]),
     ...mapGetters("conditionalsign", ["getConditionalSignList"]),
-    ...mapGetters("area", ["getAreaList"]),
+    ...mapGetters("area", ["getAreaXromLists"]),
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("passportTab", ["getTimingMassage"]),
     ...mapGetters("direction", ["getDirection"]),
@@ -460,7 +460,7 @@ export default {
     ...mapActions("region", ["actionRegionList"]),
     ...mapActions("conditionalsign", ["actionConditionalSignList"]),
     ...mapActions("station", ["actionStationByRegion"]),
-    ...mapActions("area", ["actionAreaByRegion"]),
+    ...mapActions("area", ["actionXromAreaList"]),
     ...mapActions("direction", ["actionEditDirection"]),
     ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
     ...mapActions("confirmtiming", ["actionApproveTiming"]),
@@ -501,11 +501,11 @@ export default {
       }
     },
     async selectRegion(input) {
-      await this.actionAreaByRegion({ region_id: this.form[input].id });
+      await this.actionXromAreaList({ region_id: this.form[input].id });
       if (input == "region_from_id") {
-        this.form.areaFrom = this.getAreaList;
+        this.form.areaFrom = this.getAreaXromLists;
       } else if (input == "region_to_id") {
-        this.form.areaTo = this.getAreaList;
+        this.form.areaTo = this.getAreaXromLists;
       }
     },
     calctechnic_speed(){
@@ -516,9 +516,11 @@ export default {
         this.tableTwoData.forEach((item)=>{
             calc_technic_speed += parseFloat(item.spendtime_between_station)
             calc_traffic_speed += parseFloat(item.spendtime_to_stay_station)
-            calc_spendtime_between_station += parseFloat(item.spendtime_between_station)
-            calc_spendtime_to_stay_station += parseFloat(item.spendtime_to_stay_station)
+            calc_spendtime_between_station += Number(item.spendtime_between_station)
+            calc_spendtime_to_stay_station += Number(item.spendtime_to_stay_station)
         })
+        console.log(calc_spendtime_between_station)
+        console.log(calc_spendtime_to_stay_station)
         this.technic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  calc_technic_speed
         this.traffic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
         this.technic_speed = parseFloat(this.technic_speed).toFixed(1)
@@ -559,32 +561,24 @@ export default {
                     element.end_speedometer - element.start_speedometer
                 ).toFixed(1);
             }else{
-                element.distance_from_start_station = parseFloat(
-                    element.end_speedometer - this.tableTwoData[0].start_speedometer
-                ).toFixed(1);
-                let result_spendtime_to_stay_station =
-                    (this.toTimestamp(element.start_time) -
-                    this.toTimestamp(
-                        this.tableTwoData[this.tableTwoData.length - 1].end_time
-                    )) /
-                    60;
-                element.spendtime_between_station = parseFloat(
-                    result_spendtime_to_stay_station
-                ).toFixed(2);
-                this.tableTwoData[
-                    this.tableTwoData.length - 1
-                ].spendtime_to_stay_station = result_spendtime_to_stay_station;
+                element.distance_from_start_station = parseFloat(element.end_speedometer - this.tableTwoData[0].start_speedometer).toFixed(1);
+                // let result_spendtime_to_stay_station = (this.toTimestamp(element.start_time) - this.toTimestamp(this.tableTwoData[this.tableTwoData.length - 1].end_time  )) / 60;
+                let strSec = Math.abs(new Date(element.start_time) - new Date(this.tableTwoData[this.tableTwoData.length - 1].end_time))/1000;
+                let stminut  = Math.floor(strSec/60)
+                let stsec = strSec % 60;
+                let ststrSec = stsec <= 9 ? '0'+stsec : stsec
+                let result_spendtime_to_stay_station = stminut+'.'+ststrSec;
+                element.spendtime_between_station = result_spendtime_to_stay_station;
+                this.tableTwoData[ this.tableTwoData.length - 1].spendtime_to_stay_station = result_spendtime_to_stay_station;
             } //else
-            element.distance_between_station = parseFloat(
-            element.end_speedometer - element.start_speedometer
-            ).toFixed(1);
-            let result_spendtime_between_station =
-            (this.toTimestamp(element.end_time) -
-                this.toTimestamp(element.start_time)) /
-            60;
-            element.spendtime_between_station = parseFloat(
-            result_spendtime_between_station
-            ).toFixed(2);
+            element.distance_between_station = parseFloat(element.end_speedometer - element.start_speedometer).toFixed(1);
+            // let result_spendtime_between_station = (this.toTimestamp(element.end_time) - this.toTimestamp(element.start_time)) / 60;
+            let rSec = Math.abs(new Date(element.end_time) - new Date(element.start_time))/1000;
+            let minut  = Math.floor(rSec/60)
+            let sec = rSec % 60;
+            let strSec = sec <= 9 ? '0'+sec : sec
+            let result_spendtime_between_station = minut+'.'+strSec;
+            element.spendtime_between_station = result_spendtime_between_station;
             this.tableTwoData.push(element);
         })
         let thisData;
@@ -631,8 +625,8 @@ export default {
       this.form.details.splice(index, 1);
     },
     toTimestamp(strDate) {
-      var datum = Date.parse(strDate);
-      return datum / 1000;
+        var datum = Date.parse(strDate);
+        return datum / 1000;
     },
     async saveData() {
       if(
