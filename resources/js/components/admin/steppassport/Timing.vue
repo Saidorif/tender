@@ -511,16 +511,15 @@ export default {
     calctechnic_speed(){
         let calc_technic_speed = 0
         let calc_traffic_speed = 0
-        let calc_spendtime_between_station = 0
+        let calc_spendtime_between_station = '00:00:00';
         let calc_spendtime_to_stay_station = 0
         this.tableTwoData.forEach((item)=>{
             calc_technic_speed += parseFloat(item.spendtime_between_station)
             calc_traffic_speed += parseFloat(item.spendtime_to_stay_station)
-            calc_spendtime_between_station += Number(item.spendtime_between_station)
+            // calc_spendtime_between_station += Number(item.spendtime_between_station)
+            calc_spendtime_between_station = this.calcTimeAddTime(calc_spendtime_between_station, item.spendtime_between_station)
             calc_spendtime_to_stay_station += Number(item.spendtime_to_stay_station)
         })
-        console.log(calc_spendtime_between_station)
-        console.log(calc_spendtime_to_stay_station)
         this.technic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  calc_technic_speed
         this.traffic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
         this.technic_speed = parseFloat(this.technic_speed).toFixed(1)
@@ -571,13 +570,7 @@ export default {
                 element.spendtime_between_station = result_spendtime_to_stay_station;
                 this.tableTwoData[ this.tableTwoData.length - 1].spendtime_to_stay_station = result_spendtime_to_stay_station;
             } //else
-            element.distance_between_station = parseFloat(element.end_speedometer - element.start_speedometer).toFixed(1);
-            // let result_spendtime_between_station = (this.toTimestamp(element.end_time) - this.toTimestamp(element.start_time)) / 60;
-            let rSec = Math.abs(new Date(element.end_time) - new Date(element.start_time))/1000;
-            let minut  = Math.floor(rSec/60)
-            let sec = rSec % 60;
-            let strSec = sec <= 9 ? '0'+sec : sec
-            let result_spendtime_between_station = minut+'.'+strSec;
+            let result_spendtime_between_station = this.calcTimeToTime(element.start_time, element.end_time);
             element.spendtime_between_station = result_spendtime_between_station;
             this.tableTwoData.push(element);
         })
@@ -693,6 +686,45 @@ export default {
     },
     removePerson(index) {
       this.timingDetails.persons.splice(index, 1);
+    },
+    calcTimeToTime(start, end){
+        let starttime = new Date(start)
+        let endtime = new Date(end)
+        let elapsed = endtime.getTime() - starttime.getTime()
+        let ms = elapsed % 1000;
+        elapsed = (elapsed - ms) / 1000;
+        let secs = elapsed % 60;
+        secs = secs <= 9 ? '0'+secs : secs
+        elapsed = (elapsed - secs) / 60;
+        let mins = elapsed % 60;
+        mins = mins <= 9 ? '0'+mins : mins
+        let hrs = (elapsed - mins) / 60;
+        hrs = (elapsed - mins) / 60  <= 9 ? '0'+hrs : hrs;
+        let res =  hrs + ':' + mins + ':' + secs;
+        return res
+    },
+    calcTimeAddTime(oldTime, newTime){
+        // oldTime
+        let oldHour = Number(oldTime.split(':')[0]) * 3600;
+        let oldMin = Number(oldTime.split(':')[1]) * 60;
+        let oldSec = Number(oldTime.split(':')[2])
+        let oldResult = oldHour+oldMin+oldSec
+        // newTime
+        let newHour = Number(newTime.split(':')[0]) * 3600;
+        let newMin = Number(newTime.split(':')[1]) * 60;
+        let newSec = Number(newTime.split(':')[2])
+        let newResult = newHour+newMin+newSec
+
+        let summ = oldResult + newResult
+
+        let hours = Math.floor(summ / 60 / 60);
+        let minutes = Math.floor(summ / 60) - (hours * 60);
+        let seconds = summ % 60;
+
+        let HourName = hours < 10 ? '0'+hours.toString() : hours
+        let MinuteName = minutes < 10 ? '0'+minutes.toString() : minutes
+        let SecondName = seconds < 10 ? '0'+seconds.toString() : seconds
+        return HourName+':'+MinuteName+':'+SecondName
     },
     async clearTable(){
       window.swal.fire({
