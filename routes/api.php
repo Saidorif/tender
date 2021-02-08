@@ -64,6 +64,7 @@ Route::group([
 
             // Tender Announce
             Route::post('tender', 'TenderController@index');
+            Route::post('tender/announce', 'TenderController@announceTender');
             Route::post('tender/store', 'TenderController@store');
             Route::post('tender/list', 'TenderController@list');
             Route::get('tender/ball/{id}', 'TenderController@appBall')->where('id', '[0-9]+');

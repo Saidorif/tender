@@ -399,7 +399,7 @@ export default {
         from_type: "",
         to_type: "",
         year: "",
-        from_where: "",
+        from_where: {},
         seasonal: "",
         distance: "",
         type_id: "",
@@ -413,7 +413,9 @@ export default {
       stationFrom:[],
       stationTo:[],
       requiredInput: false,
-      laoding: true
+      laoding: true,
+      fromChoosenName:{},
+      toChoosenName:{},
     };
   },
   watch:{
@@ -423,16 +425,16 @@ export default {
         this.form.dir_type = this.getDirection.dir_type;
         this.form.pass_number = this.getDirection.pass_number;
         this.form.tarif = this.getDirection.tarif;
-        this.form.region_from.region_id = this.getDirection.region_from_id;
-        this.form.region_from.area_id = this.getDirection.area_from_id;
-        this.form.region_from.station_id = this.getDirection.station_from_id;
-        this.form.region_to.region_id = this.getDirection.region_to_id;
-        this.form.region_to.area_id = this.getDirection.area_to_id;
-        this.form.region_to.station_id = this.getDirection.station_to_id;
+        this.form.region_from.region_id = this.getDirection.region_from_id ? this.getDirection.region_from_id : '';
+        this.form.region_from.area_id = this.getDirection.area_from_id ? this.getDirection.area_from_id : '';
+        this.form.region_from.station_id = this.getDirection.station_from_id ? this.getDirection.station_id : '';
+        this.form.region_to.region_id = this.getDirection.region_to_id ? this.getDirection.region_to_id : '';
+        this.form.region_to.area_id = this.getDirection.area_to_id ? this.getDirection.area_to_id : '';
+        this.form.region_to.station_id = this.getDirection.station_to_id ? this.getDirection.station_to_id : '';
         this.form.year = this.getDirection.year.toString();
         this.form.from_type = this.getDirection.from_type;
         this.form.to_type = this.getDirection.to_type;
-        this.form.from_where = this.getDirection.from_where;
+        this.form.from_where.id = this.getDirection.from_where.id;
         this.form.seasonal = this.getDirection.seasonal;
         this.form.distance = this.getDirection.distance;
         this.form.type_id = this.getDirection.type_id;
@@ -443,27 +445,134 @@ export default {
         this.stationTo = this.getDirection.area_to_with ? this.getDirection.area_to_with.station : '';
         this.loaded = true
       }
+    },
+    'form.region_from':{
+      handler(){
+
+        if(this.getDirection.from_type){
+          this.form.from_type = this.getDirection.from_type;
+        }else{
+          this.form.from_type = ''
+        }
+      },deep:true
+    },
+    'form.region_to':{
+      handler(){
+        if(this.getDirection.to_type){
+          this.form.to_type = this.getDirection.to_type;
+        }else{
+          this.form.to_type = ''
+        }
+      },deep:true
+    },
+    'form.from_type':{
+      handler(){
+        let fromId = this.form.region_from[this.form.from_type + '_id']
+        if(this.form.from_type == 'region'){
+
+          if(this.getRegionList.find(item => item.id === fromId)){
+            this.fromChoosenName = this.getRegionList.find(item => item.id === fromId)
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Shahar yoki viloyat tanlang!'
+            });
+          }
+        }
+        else if(this.form.from_type == 'area'){
+
+          if (this.areaFrom.find(item => item.id === fromId)) {
+            this.fromChoosenName = this.areaFrom.find(item => item.id === fromId)
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Tuman yoki qishloqni tanlang!'
+            });
+          }
+        }
+        else if(this.form.from_type == 'station'){
+          if(this.stationFrom.find(item => item.id === fromId)){
+            this.fromChoosenName = this.stationFrom.find(item => item.id === fromId)
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Bekatni tanlang!'
+            });
+          }
+        }
+      },deep:true
+    },
+    'form.to_type':{
+      handler(){
+        let toId = this.form.region_to[this.form.to_type + '_id']
+        if(this.form.to_type == 'region'){
+          if (this.getRegionList.find(item => item.id === toId)) {
+            this.toChoosenName = this.getRegionList.find(item => item.id === toId)
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Shahar yoki viloyat tanlang!'
+            });
+          }
+        }
+        else if(this.form.to_type == 'area'){
+          if(this.areaTo.find(item => item.id === toId)){
+            this.toChoosenName = this.areaTo.find(item => item.id === toId)
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Tuman yoki qishloqni tanlang!'
+            });
+          }
+        }
+        else if(this.form.to_type == 'station'){
+          if(this.stationTo.find(item => item.id === toId)){
+            this.toChoosenName = this.stationTo.find(item => item.id === toId)
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Bekatni tanlang!'
+            });
+          }
+        }
+      },deep:true
     }
   },
   async mounted() {
+    // this.$route.push(`/crm/direction/titul-tab/${this.$route.params.directionId}`)
     await this.actionRegionList();
     await this.actionTypeofbusList();
     await this.actionTypeofdirectionList();
     await this.actionEditDirection(this.$route.params.directionId);
-        await this.actionBusBrandList();
+    await this.actionBusBrandList();
     this.laoding = false
     this.form.pass_number = this.getDirection.pass_number;
     this.form.dir_type = this.getDirection.dir_type;
     this.form.tarif = this.getDirection.tarif;
-    this.form.region_from.region_id = this.getDirection.region_from_id;
-    this.form.region_from.area_id = this.getDirection.area_from_id;
-    this.form.region_from.station_id = this.getDirection.station_from_id;
-    this.form.region_to.region_id = this.getDirection.region_to_id;
-    this.form.region_to.area_id = this.getDirection.area_to_id;
-    this.form.region_to.station_id = this.getDirection.station_to_id;
+    this.form.region_from.region_id = this.getDirection.region_from_id ? this.getDirection.region_from_id : '';
+    this.form.region_from.area_id = this.getDirection.area_from_id ? this.getDirection.area_from_id : '';
+    this.form.region_from.station_id = this.getDirection.station_from_id ? this.getDirection.station_id : '';
+    this.form.region_to.region_id = this.getDirection.region_to_id ? this.getDirection.region_to_id : '';
+    this.form.region_to.area_id = this.getDirection.area_to_id ? this.getDirection.area_to_id : '';
+    this.form.region_to.station_id = this.getDirection.station_to_id ? this.getDirection.station_to_id : '';
     this.form.year = this.getDirection.year.toString();
-    this.form.from_type = this.getDirection.from_type;
-    this.form.to_type = this.getDirection.to_type;
+    // if (this.getDirection.from_type) {
+    //   this.form.from_type = this.getDirection.from_type;
+    // }else{
+    //   this.form.from_type = ''
+    // }
+    // if (this.getDirection.to_type) {
+    //   this.form.to_type = this.getDirection.to_type;
+    // }else{
+    //   this.form.to_type = ''
+    // }
+    // this.form.to_type = this.getDirection.to_type;
     this.form.from_where = this.getDirection.from_where;
     this.form.seasonal = this.getDirection.seasonal;
     this.form.distance = this.getDirection.distance;
@@ -546,8 +655,8 @@ export default {
     //       return item
     //     }
     //   })
-            car.busmodel_id = ''
-        await this.actionBusmodelFindList(car)
+      car.busmodel_id = ''
+      await this.actionBusmodelFindList(car)
     },
     removeCar(index){
       Vue.delete(this.cars,index)
@@ -579,7 +688,7 @@ export default {
         this.form.type_id != ""  &&
         this.form.region_from.region_id != ""  &&
         this.form.region_to.region_id != ""  &&
-        this.form.from_where != "" &&
+        this.form.from_where &&
         this.form.seasonal != ""
       ) {
         if (this.checkCars) {
@@ -619,12 +728,18 @@ export default {
     },
     async selectRegion(input) {
       await this.actionXromAreaList({ region_id: this.form[input].region_id });
-      if (input == "region_from") {
-        this.areaFrom = this.getAreaXromLists;
-        this.form.area_from_id = "";
-      } else if (input == "region_to") {
-        this.areaTo = this.getAreaXromLists;
-        this.form.area_to_id = "";
+      if(input == 'region_from'){
+        this.areaFrom = this.getAreaXromLists
+        this.fromChoosenName = {}
+        this.form.region_from.area_id = ''
+        this.form.region_from.station_id = ''
+        this.stationFrom = []
+      }else if(input == 'region_to'){
+        this.areaTo = this.getAreaXromLists
+        this.form.region_to.area_id = ''
+        this.toChoosenName = {}
+        this.form.region_to.station_id = ''
+        this.stationTo = []
       }
     },
     async selectArea(input) {
@@ -632,12 +747,14 @@ export default {
         region_id: this.form[input].region_id,
         area_id: this.form[input].area_id,
       });
-      if (input == "region_from") {
-        this.stationFrom = this.getStationsList;
-        this.form.station_from_id = "";
-      } else if (input == "region_to") {
-        this.stationTo = this.getStationsList;
-        this.form.station_to_id = "";
+      if(input == 'region_from'){
+        this.stationFrom = this.getStationsList
+        this.form.region_from.station_id = ''
+        this.fromChoosenName = {}
+      }else if(input == 'region_to'){
+        this.stationTo = this.getStationsList
+        this.form.region_to.station_id = ''
+        this.toChoosenName = {}
       }
     },
   },
@@ -668,95 +785,109 @@ export default {
         return true
       }
     },
-    destinations() {
-      let from = null;
-      let to = null;
-      let itemsFrom = [];
-      let itemsTo = [];
-      let arr = [null, null];
-      if (this.form.region_from.region_id && this.form.region_to.region_id) {
-        if (this.form.region_from.region_id == this.form.region_to.region_id) {
-          // If region_from 'id' is equal to region_to 'id'
-          if (this.form.region_from.area_id == this.form.region_to.area_id) {
-            // FROM
-            itemsFrom = this.form.region_from.station_id
-              ? this.stationFrom
-              : this.areaFrom;
-            from = this.form.region_from.station_id
-              ? this.form.region_from.station_id
-              : this.form.region_from.area_id;
-            itemsFrom.forEach((item) => {
-              if (item.id == from) {
-                arr[0] = item;
-              }
-            });
-            // TO
-            itemsTo = this.form.region_to.station_id
-              ? this.stationTo
-              : this.areaTo;
-            to = this.form.region_to.station_id
-              ? this.form.region_to.station_id
-              : this.form.region_to.area_id;
-            itemsTo.forEach((item) => {
-              if (item.id == to) {
-                arr[1] = item;
-              }
-            });
-          } else {
-            // FROM
-            itemsFrom = this.form.region_from.area_id
-              ? this.areaFrom
-              : this.getRegionList;
-            from = this.form.region_from.area_id
-              ? this.form.region_from.area_id
-              : this.form.region_from.region_id;
-            itemsFrom.forEach((item) => {
-              if (item.id == from) {
-                arr[0] = item;
-              }
-            });
-            // TO
-            itemsTo = this.form.region_to.area_id
-              ? this.areaTo
-              : this.getRegionList;
-            to = this.form.region_to.area_id
-              ? this.form.region_to.area_id
-              : this.form.region_to.region_id;
-            itemsTo.forEach((item) => {
-              if (item.id == to) {
-                arr[1] = item;
-              }
-            });
-          }
-        } else {
-          // FROM
-          itemsFrom = this.form.region_from.area_id
-            ? this.areaFrom
-            : this.getRegionList;
-          from = this.form.region_from.area_id
-            ? this.form.region_from.area_id
-            : this.form.region_from.region_id;
-          itemsFrom.forEach((item) => {
-            if (item.id == from) {
-              arr[0] = item;
-            }
-          });
-          // TO
-          itemsTo = this.form.region_to.area_id
-            ? this.areaTo
-            : this.getRegionList;
-          to = this.form.region_to.area_id
-            ? this.form.region_to.area_id
-            : this.form.region_to.region_id;
-          itemsTo.forEach((item) => {
-            if (item.id == to) {
-              arr[1] = item;
-            }
-          });
-        }
-        return arr;
+    destinations(){
+      // let from = null;
+      // let to = null;
+      // let itemsFrom = []
+      // let itemsTo = []
+      let arr = [null,null];
+      if(this.fromChoosenName){
+        arr[0] = this.fromChoosenName
       }
-    },
+      if(this.toChoosenName){
+        arr[1] = this.toChoosenName
+      }
+      return arr
+    }
+    // destinations() {
+    //   let from = null;
+    //   let to = null;
+    //   let itemsFrom = [];
+    //   let itemsTo = [];
+    //   let arr = [null, null];
+    //   if (this.form.region_from.region_id && this.form.region_to.region_id) {
+    //     if (this.form.region_from.region_id == this.form.region_to.region_id) {
+    //       // If region_from 'id' is equal to region_to 'id'
+    //       if (this.form.region_from.area_id == this.form.region_to.area_id) {
+    //         // FROM
+    //         itemsFrom = this.form.region_from.station_id
+    //           ? this.stationFrom
+    //           : this.areaFrom;
+    //         from = this.form.region_from.station_id
+    //           ? this.form.region_from.station_id
+    //           : this.form.region_from.area_id;
+    //         itemsFrom.forEach((item) => {
+    //           if (item.id == from) {
+    //             arr[0] = item;
+    //           }
+    //         });
+    //         // TO
+    //         itemsTo = this.form.region_to.station_id
+    //           ? this.stationTo
+    //           : this.areaTo;
+    //         to = this.form.region_to.station_id
+    //           ? this.form.region_to.station_id
+    //           : this.form.region_to.area_id;
+    //         itemsTo.forEach((item) => {
+    //           if (item.id == to) {
+    //             arr[1] = item;
+    //           }
+    //         });
+    //       } else {
+    //         // FROM
+    //         itemsFrom = this.form.region_from.area_id
+    //           ? this.areaFrom
+    //           : this.getRegionList;
+    //         from = this.form.region_from.area_id
+    //           ? this.form.region_from.area_id
+    //           : this.form.region_from.region_id;
+    //         itemsFrom.forEach((item) => {
+    //           if (item.id == from) {
+    //             arr[0] = item;
+    //           }
+    //         });
+    //         // TO
+    //         itemsTo = this.form.region_to.area_id
+    //           ? this.areaTo
+    //           : this.getRegionList;
+    //         to = this.form.region_to.area_id
+    //           ? this.form.region_to.area_id
+    //           : this.form.region_to.region_id;
+    //         itemsTo.forEach((item) => {
+    //           if (item.id == to) {
+    //             arr[1] = item;
+    //           }
+    //         });
+    //       }
+    //     } else {
+    //       // FROM
+    //       itemsFrom = this.form.region_from.area_id
+    //         ? this.areaFrom
+    //         : this.getRegionList;
+    //       from = this.form.region_from.area_id
+    //         ? this.form.region_from.area_id
+    //         : this.form.region_from.region_id;
+    //       itemsFrom.forEach((item) => {
+    //         if (item.id == from) {
+    //           arr[0] = item;
+    //         }
+    //       });
+    //       // TO
+    //       itemsTo = this.form.region_to.area_id
+    //         ? this.areaTo
+    //         : this.getRegionList;
+    //       to = this.form.region_to.area_id
+    //         ? this.form.region_to.area_id
+    //         : this.form.region_to.region_id;
+    //       itemsTo.forEach((item) => {
+    //         if (item.id == to) {
+    //           arr[1] = item;
+    //         }
+    //       });
+    //     }
+    //     return arr;
+    //   }
+    // },
   },
 };
 </script>

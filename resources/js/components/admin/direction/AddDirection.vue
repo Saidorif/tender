@@ -54,6 +54,7 @@
                   value="region"
                   v-model="form.from_type"
                   id="from_type_region"
+                  :checked="form.from_type === 'region'"
                 />
               </label>
               <select
@@ -192,7 +193,7 @@
                   :id="'from_where'+index"
                   :value="item"
                 />
-                <label :for="'from_where'+index">{{item.name}}</label>
+                <label :for="'from_where'+index">{{item ? item.name : ''}}</label>
               </div>
             </div>
             <div class="form-group col-md-3">
@@ -229,16 +230,16 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-                    <label for="profitability">Йуналишнинг тури</label>
-                    <select
-                      class="form-control input_style"
-                      v-model="form.dir_type"
-                      :class="isRequired(form.dir_type) ? 'isRequired' : ''"
-                    >
-                      <option value="bus">Автобус йуналиши</option>
-                      <option value="taxi">Йўналиши тахи йуналиши</option>
-                    </select>
-                  </div>
+              <label for="profitability">Йуналишнинг тури</label>
+              <select
+                class="form-control input_style"
+                v-model="form.dir_type"
+                :class="isRequired(form.dir_type) ? 'isRequired' : ''"
+              >
+                <option value="bus">Автобус йуналиши</option>
+                <option value="taxi">Йўналиши тахи йуналиши</option>
+              </select>
+            </div>
             <div class="form-group col-md-3">
               <label for="tarif">Tarif</label>
               <input
@@ -361,7 +362,9 @@ export default {
           station_id: "",
         },
         year: "",
-        from_where: "",
+        from_type: "",
+        to_type: "",
+        from_where: {},
         seasonal: "",
         distance: "",
         type_id: "",
@@ -376,7 +379,9 @@ export default {
       errors:[],
       errorMessage:'',
       requiredInput: false,
-      laoding: true
+      laoding: true,
+      fromChoosenName:{},
+      toChoosenName:{},
     };
   },
   async mounted() {
@@ -386,15 +391,94 @@ export default {
     await this.actionBusBrandList();
     this.laoding = false
   },
-  // watch:{
-  //   'form.from_type':{
-  //     handler(){
-  //       console.log(this.form.region_from[this.form.from_type + '_id']);
-  //       console.log('from_type: ' + this.form.from_type + '_id');
-  //       console.log(this.form.region_from);
-  //     }
-  //   },deep:true
-  // },
+  watch:{
+    'form.region_from':{
+      handler(){
+        this.form.from_type = ''
+      },deep:true
+    },
+    'form.region_to':{
+      handler(){
+        this.form.to_type = ''
+      },deep:true
+    },
+    'form.from_type':{
+      handler(){
+        let fromId = this.form.region_from[this.form.from_type + '_id']
+        if(this.form.from_type == 'region'){
+          if(this.getRegionList.find(item => item.id === fromId)){
+            this.fromChoosenName = this.getRegionList.find(item => item.id === fromId)
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Shahar yoki viloyat tanlang!'
+            });
+          }
+        }
+        else if(this.form.from_type == 'area'){
+          if (this.areaFrom.find(item => item.id === fromId)) {
+            this.fromChoosenName = this.areaFrom.find(item => item.id === fromId)
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Tuman yoki qishloqni tanlang!'
+            });
+          }
+        }
+        else if(this.form.from_type == 'station'){
+          if(this.stationFrom.find(item => item.id === fromId)){
+            this.fromChoosenName = this.stationFrom.find(item => item.id === fromId)
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Bekatni tanlang!'
+            });
+          }
+        }
+      },deep:true
+    },
+    'form.to_type':{
+      handler(){
+        let toId = this.form.region_to[this.form.to_type + '_id']
+        if(this.form.to_type == 'region'){
+          if (this.getRegionList.find(item => item.id === toId)) {
+            this.toChoosenName = this.getRegionList.find(item => item.id === toId)
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Shahar yoki viloyat tanlang!'
+            });
+          }
+        }
+        else if(this.form.to_type == 'area'){
+          if(this.areaTo.find(item => item.id === toId)){
+            this.toChoosenName = this.areaTo.find(item => item.id === toId)
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Tuman yoki qishloqni tanlang!'
+            });
+          }
+        }
+        else if(this.form.to_type == 'station'){
+          if(this.stationTo.find(item => item.id === toId)){
+            this.toChoosenName = this.stationTo.find(item => item.id === toId)
+          }else{
+            toast.fire({
+              type: "error",
+              icon: "error",
+              title: 'Bekatni tanlang!'
+            });
+          }
+        }
+      },deep:true
+    }
+  },
   methods: {
     ...mapActions('typeofbus',['actionTypeofbusList']),
     ...mapActions('busclass',['actionBusclassFind']),
@@ -455,7 +539,7 @@ export default {
         this.form.type_id != ""  &&
         this.form.region_from.region_id != ""  &&
         this.form.region_to.region_id != ""  &&
-        this.form.from_where != "" &&
+        this.form.from_where &&
         this.form.seasonal != ""
       ) {
         if (this.checkCars) {
@@ -472,11 +556,6 @@ export default {
         			 });
         			this.$router.push(`/crm/direction/edit/${this.getMassage.result.id}`);
         		}else{
-        			// toast.fire({
-        			// 	type: "error",
-        			// 	icon: "error",
-        			// 	title: this.getMassage.message
-      			  // });
               let errors = this.getMassage.message
               if(errors.constructor.name === Object){
                 this.errors = this.getMassage.message
@@ -507,10 +586,16 @@ export default {
       await this.actionXromAreaList({ region_id: this.form[input].region_id });
       if(input == 'region_from'){
         this.areaFrom = this.getAreaXromLists
+        this.fromChoosenName = {}
         this.form.region_from.area_id = ''
+        this.form.region_from.station_id = ''
+        this.stationFrom = []
       }else if(input == 'region_to'){
         this.areaTo = this.getAreaXromLists
         this.form.region_to.area_id = ''
+        this.toChoosenName = {}
+        this.form.region_to.station_id = ''
+        this.stationTo = []
       }
     },
     async selectArea(input) {
@@ -521,9 +606,11 @@ export default {
       if(input == 'region_from'){
         this.stationFrom = this.getStationsList
         this.form.region_from.station_id = ''
+        this.fromChoosenName = {}
       }else if(input == 'region_to'){
         this.stationTo = this.getStationsList
         this.form.region_to.station_id = ''
+        this.toChoosenName = {}
       }
     },
   },
@@ -553,70 +640,77 @@ export default {
       }
     },
     destinations(){
-      let from = null;
-      let to = null;
-      let itemsFrom = []
-      let itemsTo = []
+      // let from = null;
+      // let to = null;
+      // let itemsFrom = []
+      // let itemsTo = []
       let arr = [null,null];
-      if (this.form.region_from.region_id && this.form.region_to.region_id) {
-        if(this.form.region_from.region_id == this.form.region_to.region_id){
-        // If region_from 'id' is equal to region_to 'id'
-          if (this.form.region_from.area_id == this.form.region_to.area_id){
-            // FROM
-            itemsFrom = this.form.region_from.station_id ? this.stationFrom : this.areaFrom
-            from = this.form.region_from.station_id ? this.form.region_from.station_id : this.form.region_from.area_id
-            itemsFrom.forEach(item =>{
-              if (item.id == from) {
-                arr[0] = item
-              }
-            })
-            // TO
-            itemsTo = this.form.region_to.station_id ? this.stationTo : this.areaTo
-            to = this.form.region_to.station_id ? this.form.region_to.station_id : this.form.region_to.area_id
-            itemsTo.forEach(item =>{
-              if (item.id == to) {
-                arr[1] = item
-              }
-            })
-          }else{
-            // FROM
-            itemsFrom = this.form.region_from.area_id ? this.areaFrom : this.getRegionList
-            from = this.form.region_from.area_id ? this.form.region_from.area_id : this.form.region_from.region_id
-            itemsFrom.forEach(item =>{
-              if (item.id == from) {
-                arr[0] = item
-              }
-            })
-            // TO
-            itemsTo = this.form.region_to.area_id ? this.areaTo : this.getRegionList
-            to = this.form.region_to.area_id ? this.form.region_to.area_id : this.form.region_to.region_id
-            itemsTo.forEach(item =>{
-              if (item.id == to) {
-                arr[1] = item
-              }
-            })
-          }
-        }
-        else{
-          // FROM
-          itemsFrom = this.form.region_from.area_id ? this.areaFrom : this.getRegionList
-          from = this.form.region_from.area_id ? this.form.region_from.area_id : this.form.region_from.region_id
-          itemsFrom.forEach(item =>{
-            if (item.id == from) {
-              arr[0] = item
-            }
-          })
-          // TO
-          itemsTo = this.form.region_to.area_id ? this.areaTo : this.getRegionList
-          to = this.form.region_to.area_id ? this.form.region_to.area_id : this.form.region_to.region_id
-          itemsTo.forEach(item =>{
-            if (item.id == to) {
-              arr[1] = item
-            }
-          })
-        }
-        return arr
+      if(this.fromChoosenName){
+        arr[0] = this.fromChoosenName
       }
+      if(this.toChoosenName){
+        arr[1] = this.toChoosenName
+      }
+      return arr
+      // if (this.form.region_from.region_id && this.form.region_to.region_id) {
+      //   if(this.form.region_from.region_id == this.form.region_to.region_id){
+      //   // If region_from 'id' is equal to region_to 'id'
+      //     if (this.form.region_from.area_id == this.form.region_to.area_id){
+      //       // FROM
+      //       itemsFrom = this.form.region_from.station_id ? this.stationFrom : this.areaFrom
+      //       from = this.form.region_from.station_id ? this.form.region_from.station_id : this.form.region_from.area_id
+      //       itemsFrom.forEach(item =>{
+      //         if (item.id == from) {
+      //           arr[0] = item
+      //         }
+      //       })
+      //       // TO
+      //       itemsTo = this.form.region_to.station_id ? this.stationTo : this.areaTo
+      //       to = this.form.region_to.station_id ? this.form.region_to.station_id : this.form.region_to.area_id
+      //       itemsTo.forEach(item =>{
+      //         if (item.id == to) {
+      //           arr[1] = item
+      //         }
+      //       })
+      //     }else{
+      //       // FROM
+      //       itemsFrom = this.form.region_from.area_id ? this.areaFrom : this.getRegionList
+      //       from = this.form.region_from.area_id ? this.form.region_from.area_id : this.form.region_from.region_id
+      //       itemsFrom.forEach(item =>{
+      //         if (item.id == from) {
+      //           arr[0] = item
+      //         }
+      //       })
+      //       // TO
+      //       itemsTo = this.form.region_to.area_id ? this.areaTo : this.getRegionList
+      //       to = this.form.region_to.area_id ? this.form.region_to.area_id : this.form.region_to.region_id
+      //       itemsTo.forEach(item =>{
+      //         if (item.id == to) {
+      //           arr[1] = item
+      //         }
+      //       })
+      //     }
+      //   }
+      //   else{
+      //     // FROM
+      //     itemsFrom = this.form.region_from.area_id ? this.areaFrom : this.getRegionList
+      //     from = this.form.region_from.area_id ? this.form.region_from.area_id : this.form.region_from.region_id
+      //     itemsFrom.forEach(item =>{
+      //       if (item.id == from) {
+      //         arr[0] = item
+      //       }
+      //     })
+      //     // TO
+      //     itemsTo = this.form.region_to.area_id ? this.areaTo : this.getRegionList
+      //     to = this.form.region_to.area_id ? this.form.region_to.area_id : this.form.region_to.region_id
+      //     itemsTo.forEach(item =>{
+      //       if (item.id == to) {
+      //         arr[1] = item
+      //       }
+      //     })
+      //   }
+      //   return arr
+      // }
     },
   },
 };

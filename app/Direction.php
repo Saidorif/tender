@@ -13,6 +13,8 @@ class Direction extends Model
         'region_to_id',
         'area_from_id',
         'area_to_id',
+        'tender_id',
+        'lot_id',
         'year',
         'distance',
         'type_id',
