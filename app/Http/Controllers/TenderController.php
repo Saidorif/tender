@@ -23,7 +23,7 @@ class TenderController extends Controller
         //Grab user ids working in this region
         $created_by_users = User::where(['region_id' => $user->region_id])->pluck('id')->toArray();
         if($user->role->name == 'admin'){
-            $builder = Tender::query()->with(['tenderlots'])->where(['status' => 'approved']);
+            $builder = Tender::query()->with(['tenderlots']);//->where(['status' => 'approved']);
             if(!empty($params['region_id'])){
                 $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
                 $builder->whereIn('created_by', $users_region);
@@ -209,6 +209,13 @@ class TenderController extends Controller
                 'status' => 'pending',
                 'text' => $lotArr['text'],
             ]);
+            //update directions statuses and add tender and lot ids
+            $directions = Direction::whereIn('id',$lotArr['direction_id'])->get();
+            foreach($directions as $dir){
+                $dir->tender_id = $tender->id;
+                $dir->lot_id = $tenderLot->id;
+                $dir->save();
+            }
         }
 
         return response()->json(['success' => true,'message' => 'Объявление о тендере успешно создано']);
@@ -295,6 +302,13 @@ class TenderController extends Controller
                     'status' => 'pending',
                     'text' => $lotArr['text'],
                 ]);
+                //update directions statuses and add tender and lot ids
+                $directions = Direction::whereIn('id',$lotArr['direction_id'])->get();
+                foreach($directions as $dir){
+                    $dir->tender_id = $tender->id;
+                    $dir->lot_id = $tenderLot->id;
+                    $dir->save();
+                }
             }
         }
         return response()->json(['success' => true,'message' => 'Объявление о тендере успешно обновлено']);
@@ -355,6 +369,14 @@ class TenderController extends Controller
             return response()->json(['error' => true, 'message' => 'Тендер лот не найдено']);
         }
         $d_ids = $tender_lots->getDirection();
+        //update directions statuses and remove tender and lot ids
+        $directions = Direction::whereIn('id',$d_ids)->get();
+        foreach($directions as $dir){
+            $dir->tender_id = null;
+            $dir->lot_id = null;
+            $dir->save();
+        }
+
         $tender_lots->delete();
         $t_d_ids = array_diff($tender->getDirection(), $d_ids);
         $tender->direction_ids = $t_d_ids;
@@ -1037,6 +1059,13 @@ class TenderController extends Controller
         $tender_lots = TenderLot::where(['tender_id' => $tender->id])->get();
         if($tender_lots){
             foreach($tender_lots as $lot){
+                //update directions statuses and remove tender and lot ids
+                $directions = Direction::whereIn('id',$lot->getDirection())->get();
+                foreach($directions as $dir){
+                    $dir->tender_id = null;
+                    $dir->lot_id = null;
+                    $dir->save();
+                }
                 $lot->delete();
             }
         }
