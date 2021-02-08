@@ -23,7 +23,7 @@ class TenderController extends Controller
         //Grab user ids working in this region
         $created_by_users = User::where(['region_id' => $user->region_id])->pluck('id')->toArray();
         if($user->role->name == 'admin'){
-            $builder = Tender::query()->with(['tenderlots']);
+            $builder = Tender::query()->with(['tenderlots'])->where(['status' => 'approved']);
             if(!empty($params['region_id'])){
                 $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
                 $builder->whereIn('created_by', $users_region);
@@ -33,9 +33,9 @@ class TenderController extends Controller
                 $to_time = $params['time'].' 23:59:59';
                 $builder->whereBetween('time', [$from_time,$to_time]);
             }
-            if(!empty($params['status']) && $params['status'] == true){
-                $builder->where('status','=',$params['status']);
-            }
+            // if(!empty($params['status']) && $params['status'] == true){
+            //     $builder->where('status','=',$params['status']);
+            // }
             if(!empty($params['type_id'])){
                 $direction_ids = Direction::where(['type_id' => $params['type_id']])->pluck('id')->toArray();
                 if(empty($direction_ids)){
@@ -51,6 +51,12 @@ class TenderController extends Controller
             $tenders = Tender::with(['tenderlots'])->paginate(12);
         }
         return response()->json(['success' => true,'result' => $tenders]);
+    }
+
+    public function announceTender(Request $request)
+    {
+        $tenders = Tender::where(['status' => 'pending'])->with(['tenderlots'])->paginate(12);
+        return response()->json(['success' => true, 'result' => $tenders]);
     }
 
     public function list(Request $request)
@@ -969,7 +975,12 @@ class TenderController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Application not found']);
         }
-        return response()->json(['success' => true, 'result' => $result]);
+        $new_result = [];
+        // foreach($result->carsWith as $key => $car){
+        //     $new_result[$key]['car'] = $result->carsWith;
+        //     $new_result[$key]['gai'] = $car->gai;
+        // }
+        return response()->json(['success' => true, 'result' => $result,'new_result' => $new_result]);
     }
     
     public function tenderLotApprove(Request $request,$id)
