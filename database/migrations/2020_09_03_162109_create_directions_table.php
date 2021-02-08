@@ -17,6 +17,8 @@ class CreateDirectionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('titul_status')->default('active')->nullable();
             $table->integer('titul_approver')->nullable();
+            $table->integer('tender_id')->nullable();
+            $table->integer('lot_id')->nullable();
             $table->string('xronom_status')->default('active')->nullable();
             $table->integer('xronom_approver')->nullable();
             $table->string('sxema_status')->default('active')->nullable();
