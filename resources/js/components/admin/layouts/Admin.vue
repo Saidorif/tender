@@ -142,7 +142,7 @@
             <router-link class="nav-link" to="/crm/tenderuser">
               <i class="peIcon fas fa-file"></i>
               <p>
-                Тендеры
+                Активные тендеры
               </p>
             </router-link>
           </li>

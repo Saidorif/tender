@@ -5,6 +5,7 @@ const state = {
 	tenderannouncelist: [],
 	message: [],
 	tenderannounce: [],
+    tenderAnnounceData: [],
 };
 
 const getters = {
@@ -20,6 +21,9 @@ const getters = {
 	getTenderAnnounce(state){
 		return state.tenderannounce
 	},
+    getTenderAnnounceLs(state){
+		return state.tenderAnnounceData
+    },
 };
 
 
@@ -28,6 +32,15 @@ const actions = {
 		try {
 			const tenderannounces =  await TenderAnnounceService.tenderannounceList(page);
 			await commit('setTenderAnnounceList',tenderannounces.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+    async actionTenderAnnounceLs({commit},page){
+		try {
+			const passportList =  await TenderAnnounceService.tenderAnnounce(page);
+			await commit('setTenderAnnounceLs',passportList.data.result)
 			return true
 		} catch (error) {
 			return false
@@ -90,6 +103,9 @@ const actions = {
 };
 
 const mutations = {
+    setTenderAnnounceLs(state, tenderAnnounceData){
+		state.tenderAnnounceData = tenderAnnounceData
+	},
 	setTenderAnnounceList(state, tenderannouncelist){
 		state.tenderannouncelist = tenderannouncelist
 	},
