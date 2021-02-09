@@ -141,25 +141,30 @@
 			  <div class="table-responsive">
 				<table class="table table-bordered text-center table-hover table-striped">
 					<thead>
-						<tr>
+						<!-- <tr>
 							<th scope="col" width="2%">№</th>
 							<th scope="col">Область</th>
 							<th scope="col">Название направления</th>
+							<th scope="col"></th>
+							<th scope="col"></th>
+							<th scope="col"></th>
+							<th scope="col"></th>
 							<th scope="col">Номер направления</th>
 							<th scope="col">Год создания</th>
 							<th scope="col">Действия</th>
-						</tr>
-                        <!-- <tr>
+						</tr> -->
+                        <tr>
                             <th scope="col">№</th>
                             <th>Регион</th>
                             <th>Номер и наименования маршрута</th>
                             <th>Наименования организации </th>
-                            <th>Срок действитвия </th>
+                            <th>Срок действитвия контракта </th>
                             <th>Статус</th>
-                            <th>Тариф</th>
-                            <th>Автотранспорт</th>
+                            <th>Йўналиши тури</th>
                             <th>Дата открытия</th>
-                        </tr> -->
+                            <th>Потверждения</th>
+                            <th scope="col">Действия</th>
+                        </tr>
 					</thead>
 					<tbody>
 						<tr v-for="(direct,index) in getDirections.data">
@@ -169,9 +174,13 @@
 									{{direct.created_by.region ? direct.created_by.region.name : ''}}
 								</template>
 							</td>
-							<td>{{direct.name}}</td>
-							<td>{{direct.pass_number}}</td>
+							<td><b>{{direct.pass_number}}</b> - {{direct.name}}</td>
+							<td></td>
+							<td></td>
+							<td><span class="alert alert-danger pt-1 pb-1">Неразмещен в тендер</span>  </td>
+							<td>{{direct.dir_type == 'taxi' ? 'Йўналишли тахи йуналиши' : 'Автобус йуналиши'}}</td>
 							<td>{{direct.year}}</td>
+							<td>{{ checkApprove(direct) }}</td>
 							<td>
 								<router-link
 									tag="button"
@@ -292,7 +301,20 @@
 						title: 'Passport удалено!',
 				    })
 				}
-			}
+			},
+            checkApprove(item){
+                console.log(item)
+                if(
+                    item.xronom_status == 'completed' &&
+                    item.xjadval_status == 'completed' &&
+                    item.titul_status == 'completed' &&
+                    item.sxema_status == 'completed'
+                ){
+                    return 'да'
+                }else{
+                    return 'нет'
+                }
+            }
 		}
 	}
 </script>
