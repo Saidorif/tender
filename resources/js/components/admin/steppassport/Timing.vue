@@ -562,11 +562,7 @@ export default {
             }else{
                 element.distance_from_start_station = parseFloat(element.end_speedometer - this.tableTwoData[0].start_speedometer).toFixed(1);
                 // let result_spendtime_to_stay_station = (this.toTimestamp(element.start_time) - this.toTimestamp(this.tableTwoData[this.tableTwoData.length - 1].end_time  )) / 60;
-                let strSec = Math.abs(new Date(element.start_time) - new Date(this.tableTwoData[this.tableTwoData.length - 1].end_time))/1000;
-                let stminut  = Math.floor(strSec/60)
-                let stsec = strSec % 60;
-                let ststrSec = stsec <= 9 ? '0'+stsec : stsec
-                let result_spendtime_to_stay_station = stminut+'.'+ststrSec;
+                let result_spendtime_to_stay_station = this.calcTimeToTime(this.tableTwoData[this.tableTwoData.length - 1].end_time, element.start_time);
                 element.spendtime_between_station = result_spendtime_to_stay_station;
                 this.tableTwoData[ this.tableTwoData.length - 1].spendtime_to_stay_station = result_spendtime_to_stay_station;
             } //else
