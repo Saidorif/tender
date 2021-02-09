@@ -35,6 +35,9 @@ class CreateUserCarsTable extends Migration
             $table->string('telephone_power')->nullable();
             $table->string('station_announce')->nullable();
             $table->string('monitor')->nullable();
+            $table->tinyInteger('technical_status')->default(0)->nullable();
+            $table->text('text')->nullable();
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }

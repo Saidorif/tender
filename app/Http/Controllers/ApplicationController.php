@@ -236,6 +236,9 @@ class ApplicationController extends Controller
             'car_id' => 'required|integer',
             'app_id' => 'required|integer',
             'status' => ['required',Rule::in(['rejected','accepted']),],
+            'technical_status' => ['nullable',Rule::in([0,1]),],
+            'text' => 'required|string',
+            'file' => 'nullable|file',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
@@ -248,8 +251,17 @@ class ApplicationController extends Controller
         // if($car->status == 'rejected' || $car->status == 'accepted'){
         //     return response()->json(['error' => true, 'message' => 'Статус автотранспорта уже изменен']);
         // }
-        $car->status = $inputs['status'];
-        $car->save();
+        //Upload file
+        if($request->hasFile('file')){
+            $path = public_path('usercars');
+            $file = $request->file('image');
+            $fileName = Str::random(20).'.'.$file->getClientOriginalExtension();
+            $file->move($path, $fileName);
+            $inputs['image'] = '/usercars/'.$fileName;
+            $car->file = $inputs['image'];
+            $car->save();
+        }
+        $car->update($inputs);
         return response()->json(['success' => true, 'message' => 'Статус автотранспорта изменен']);
     }
 }
