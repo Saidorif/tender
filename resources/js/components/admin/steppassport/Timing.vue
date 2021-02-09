@@ -333,7 +333,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="7" scope="row">Ortacha tezlik = {{technic_speed}} km/soat 11</td>
+                  <td colspan="7" scope="row">Ortacha tezlik = {{technic_speed}} km/soat</td>
                   <td colspan="1" scope="row">{{total_spendtime_between_station}}</td>
                   <td colspan="1" scope="row"></td>
                   <td colspan="1" scope="row">{{total_spendtime_to_stay_station}}</td>
@@ -509,18 +509,18 @@ export default {
       }
     },
     calctechnic_speed(){
-        let calc_technic_speed = 0
-        let calc_traffic_speed = 0
+        let calc_technic_speed = '00:00:00';
+        let calc_traffic_speed = '00:00:00';
         let calc_spendtime_between_station = '00:00:00';
         let calc_spendtime_to_stay_station = '00:00:00';
         this.tableTwoData.forEach((item)=>{
-            calc_technic_speed += parseFloat(item.spendtime_between_station)
-            calc_traffic_speed += parseFloat(item.spendtime_to_stay_station)
-            calc_spendtime_between_station = this.calcTimeAddTime(calc_spendtime_between_station, item.spendtime_between_station )
+            calc_technic_speed =  this.calcTimeAddTime(calc_technic_speed, item.spendtime_between_station == 0 ? '00:00:00' : item.spendtime_between_station)
+            calc_traffic_speed = this.calcTimeAddTime(calc_traffic_speed, item.spendtime_to_stay_station == 0 ? '00:00:00' : item.spendtime_to_stay_station)
+            calc_spendtime_between_station = this.calcTimeAddTime(calc_spendtime_between_station, item.spendtime_between_station == 0 ? '00:00:00' : item.spendtime_between_station)
             calc_spendtime_to_stay_station = this.calcTimeAddTime(calc_spendtime_to_stay_station,  item.spendtime_to_stay_station == 0 ? '00:00:00' : item.spendtime_to_stay_station)
         })
-        this.technic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  calc_technic_speed
-        this.traffic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
+        this.technic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  this.timeToMinuts(calc_technic_speed)
+        this.traffic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  (this.timeToMinuts(calc_technic_speed) + this.timeToMinuts(calc_traffic_speed))
         this.technic_speed = parseFloat(this.technic_speed).toFixed(1)
         this.traffic_speed = parseFloat(this.traffic_speed).toFixed(1)
         this.total_spendtime_between_station = calc_spendtime_between_station
@@ -528,6 +528,11 @@ export default {
     },
     signSelect(detail){
         detail.name = detail.sign.id
+    },
+    timeToMinuts(time){
+        var a = time.split(':');
+        var minut = (+a[0]) * 60 + (+a[1]);
+        return minut
     },
     addItem() {
       if (
