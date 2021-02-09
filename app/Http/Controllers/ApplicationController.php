@@ -62,6 +62,9 @@ class ApplicationController extends Controller
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
         }
+        if($tender->status != 'completed'){
+            return response()->json(['error' => true, 'message' => 'Объявление о тендере не подтвержден']);
+        }
         $user = $request->user();
         //Check for if already sent application to this lot
         $the_old_app = Application::where(['lot_id' => $inputs['lot_id'],'user_id' => $user->id])->first();
@@ -137,6 +140,12 @@ class ApplicationController extends Controller
         }
         if($car->application->status == 'accepted'){
             return response()->json(['error' => true, 'message' => 'Автотранспорт не может быт удалено']);
+        }
+        if($car->gai){
+            $car->gai->delete();
+        }
+        if($car->adliya){
+            $car->adliya->delete();
         }
         $car->delete();
         return response()->json(['success' => true, 'message' => 'Автотранспорт удалено']);
