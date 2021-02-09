@@ -33,7 +33,7 @@
 							</td>
 							<td>{{item.address}}</td>
 							<td>{{item.time}}</td>
-							<td :id="item.id">{{$g.dateCounter(item.time,item.id)}}</td>
+							<td><time-counter :date="item.time"/></td>
 							<td>
 								<div class="badge" :class="getStatusClass(item.status)">
 									{{getStatusName(item.status)}}
