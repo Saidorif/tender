@@ -57,7 +57,7 @@
 							</td>
 						</tr>
 					</tbody>
-					<pagination :limit="4" :data="actionTenderAnnounceLs" @pagination-change-page="getResults"></pagination>
+					<!-- <pagination :limit="4" :data="actionTenderAnnounceLs" @pagination-change-page="getResults"></pagination> -->
 				</table>
 			  </div>
 		  </div>
