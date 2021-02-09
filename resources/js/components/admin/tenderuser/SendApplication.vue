@@ -1258,6 +1258,12 @@
 				            title: this.getMassage.message
 			          	});
 			    		await this.actionEditApplication(this.$route.params.userapplicationId)
+                    }else{
+                    	toast.fire({
+				            type: "error",
+				            icon: "error",
+				            title: this.getMassage.message
+			          	});
                     }
                     this.laoding = false
 		    	}else{
@@ -1279,6 +1285,12 @@
 				            title: this.getMassage.message
 			          	});
 						await this.actionEditApplication(this.$route.params.userapplicationId)
+                    }else{
+                    	toast.fire({
+				            type: "error",
+				            icon: "error",
+				            title: this.getMassage.message
+			          	});
                     }
                     this.laoding = false
 		    	}

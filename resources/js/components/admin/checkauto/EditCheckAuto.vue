@@ -49,9 +49,14 @@
                   </td>
                   <td><b>Давлат раками</b></td>
                   <td>{{car.auto_number}}</td>
-                  <td>{{car.gai[0].pNameOfClient}}</td>
+                  <td>{{car.gai.pNameOfClient}}</td>
                   <td rowspan="5">
-                      <h2 class="text-primary text-center"><i class="fas fa-file-alt" @click.prevent="showAdliya(car)"></i></h2>
+                      <h2 class="text-primary text-center" v-if="car.adliya">
+                        <i class="fas fa-file-alt" @click.prevent="showAdliya(car.adliya)"></i>
+                      </h2>
+                      <h2 class="text-secondary text-center" v-else>
+                        <i class="fas fa-file-alt"></i>
+                      </h2>
                   </td>
                   <td rowspan="5">
                     <div class="d-flex flex-column">
@@ -69,22 +74,22 @@
                 <tr>
                   <td><b>Авто йили</b></td>
                   <td>{{car.date}}</td>
-                  <td>{{car.gai[0].pMadeofYear}}</td>
+                  <td>{{car.gai.pMadeofYear}}</td>
                 </tr>
                 <tr>
                   <td><b>Авто тури</b></td>
                   <td>{{car.bustype ? car.bustype.name : ''}}</td>
-                  <td>{{car.gai[0].pTypeOfAuto}}</td>
+                  <td>{{car.gai.pTypeOfAuto}}</td>
                 </tr>
                 <tr>
                   <td><b>Модель</b></td>
                   <td>{{car.busmodel ? car.busmodel.name : ''}}</td>
-                  <td>{{car.gai[0].pMarka}}</td>
+                  <td>{{car.gai.pMarka}}</td>
                 </tr>
                 <tr>
                   <td><b>Сиғими</b></td>
                   <td>{{car.capacity}}</td>
-                  <td>{{car.gai[0].pNumberofplace}}</td>
+                  <td>{{car.gai.pNumberofplace}}</td>
                 </tr>
               </template>
             </tbody>
@@ -94,16 +99,38 @@
 
       <!-- Modal start-->
       <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalLongTitle"><strong>Минюст данные</strong></h5>
               <button type="button" class="close" @click.prevent="closeModal">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              ...
+              <h3><strong>Минюст данные</strong></h3>
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th>Номер Авто</th>
+                    <th>Хозяин</th>
+                    <th>ИНН</th>
+                    <th>Дата нотариального действия</th>
+                    <th>Номер реестра нотариального действия</th>
+                    <th>Срок нотариального действия</th>
+                  </tr>
+                </thead>
+                <tbody v-if="modalItem">
+                  <tr>
+                    <td>{{modalItem.auto_number}}</td>
+                    <td>{{modalItem.nameOwner}}</td>
+                    <td>{{modalItem.pINN}}</td>
+                    <td>{{modalItem.pDateNatarius}}</td>
+                    <td>{{modalItem.pNumberNatarius}}</td>
+                    <td>{{modalItem.expirationDate}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Закрыть</button>
@@ -324,7 +351,6 @@ export default {
     ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage','actionCloseLot']),
     showAdliya(item){
       this.modalItem = item
-      console.log(this.modalItem)
       $('#exampleModalCenter').modal('show')
     },
     closeModal(){
