@@ -7,6 +7,9 @@ const ConfirmtenderSerivce = {
 	completedTender(id){
 		return ApiService.get(`/api/tender/complete/${id}`)
 	},
+	confirmTenderList(page){
+		return ApiService.post(`/api/tender/announce?page=${page}`)
+	},
 };
 
 export { ConfirmtenderSerivce };

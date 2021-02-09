@@ -23,7 +23,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(item,index) in getTenderAnnounces.data">
+						<tr v-for="(item,index) in getConfirmList.data">
 							<td scope="row">{{item.id}}</td>
 							<td>
 								<em>
@@ -46,7 +46,7 @@
 							</td>
 						</tr>
 					</tbody>
-					<pagination :limit="4" :data="getTenderAnnounces" @pagination-change-page="getResults"></pagination>
+					<pagination :limit="4" :data="getConfirmList" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
 		  </div>
@@ -67,16 +67,18 @@
 		},
 		async mounted(){
 			let page = 1;
-            await this.actionTenderAnnounces(page)
+            await this.actionConfirmList(page)
             this.laoding = false
 		},
 		computed:{
-			...mapGetters('tenderannounce',['getTenderAnnounces','getMassage'])
+			...mapGetters('tenderannounce',['getTenderAnnounces','getMassage']),
+			...mapGetters('confirmtender',['getConfirmList']),
 		},
 		methods:{
 			...mapActions('tenderannounce',['actionTenderAnnounces','actionDeleteTenderAnnounce']),
+			...mapActions('confirmtender',['actionConfirmList']),
 			async getResults(page = 1){
-				await this.actionTenderAnnounces(page)
+				await this.actionConfirmList(page)
 			},
 			getStatusName(status){
 				if(status == 'pending'){
@@ -101,7 +103,7 @@
                     let page = 1
                     this.laoding = true
 					await this.actionDeleteTenderAnnounce(id)
-                    await this.actionTenderAnnounces(page)
+                    await this.actionConfirmList(page)
                     this.laoding = false
 					toast.fire({
 				    	type: 'success',
