@@ -138,8 +138,8 @@
                 <div class="modal-body">
                   <form>
                     <div class="form-group">
-                      <label for="checkAuto">
-                        <input type="checkbox" id="checkAuto" true-value="1" false-value="0" v-model="carItem.checkAuto">
+                      <label for="technical_status">
+                        <input type="checkbox" id="technical_status" true-value="1" false-value="0" v-model="carItem.technical_status">
                         Автотранспорт воситаси техник соз ҳолатда
                       </label>
                     </div>
@@ -156,10 +156,6 @@
                         accept=".png, .jpg, .jpeg"
                         @change="changePhoto($event)"
                       />
-                    </div>
-                    <div class="avatar-preview">
-                      <!-- <img :src="photoImg(carItem.file)" width="150"> -->
-                      <!-- <button type="button" class="btn btn-danger" @click="removeFile" v-if="carItem.file != ''">Удалить файл</button> -->
                     </div>
                   </form>
                 </div>
@@ -198,7 +194,7 @@ export default {
         id:'',
         file:'',
         text:'',
-        checkAuto:0
+        technical_status:0
       },
       tests:[],
       company_name:'',
@@ -234,47 +230,13 @@ export default {
     changePhoto(event){
       let file = event.target.files[0];
       this.carItem.file = file
-      // if(
-      //   event.target.files[0]["type"] === "image/png" ||
-      //   event.target.files[0]["type"] === "image/jpeg" ||
-      //   event.target.files[0]["type"] === "image/jpg"
-      // ){
-      //   if (file.size > 1048576) {
-      //     swal.fire({
-      //       type: "error",
-      //       title: "Ошибка",
-      //       text: "Размер изображения больше лимита"
-      //     });
-      //   }else{
-      //     let reader = new FileReader();
-      //     reader.onload = event => {
-      //       this.carItem.file = event.target.result;
-      //     };
-      //     reader.readAsDataURL(file);
-      //   }
-      // }else{
-      //   swal.fire({
-      //     type: "error",
-      //     title: "Ошибка",
-      //     text: "Картинка должна быть только png,jpg,jpeg!"
-      //   });
-      // }
     },
-    // photoImg(img) {
-    //   if (img) {
-    //     if (img.length < 100) {
-    //       return "/img/user.jpg";
-    //     } else {
-    //       return img;
-    //     }
-    //   }
-    // },
     closeModal(){
       this.carItem = {
         id:'',
         file:'',
         text:'',
-        checkAuto:0
+        technical_status:0
       }
       $('#exampleModalCenter').modal('hide')
     },
@@ -291,27 +253,41 @@ export default {
       }
       this.laoding = false
     },
-    async denyCar(id){
+    async denyCar(){
       $('#exampleModalCenter').modal('show')
       let form = new FormData()
       form.append('file', this.carItem.file);
-      console.log(form)
-      // let data = {
-      //   app_id:this.$route.params.appId,
-      //   car_id:id,
-      //   status:'rejected',
-      // }
-      // this.laoding = true
-      // await this.actionStatusMessage(data)
-      // if (this.getStatusMessage.success) {
-      //   await this.actionAppCars(this.$route.params.appId);
-      //   toast.fire({
-      //     type: "success",
-      //     icon: "success",
-      //     title: this.getStatusMessage.message
-      //   });
-      // }
-      // this.laoding = false
+      form.append('text', this.carItem.text);
+      form.append('technical_status', this.carItem.technical_status);
+      form.append('app_id', this.$route.params.appId);
+      form.append('car_id', this.carItem.id);
+      form.append('status', 'rejected');
+      if(this.carItem.text != ''){
+        this.laoding = true
+        await this.actionStatusMessage(form)
+        if (this.getStatusMessage.success) {
+          await this.actionAppCars(this.$route.params.appId);
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getStatusMessage.message
+          });
+          this.closeModal()
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getStatusMessage.message
+          });
+        }
+        this.laoding = false
+      }else{
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: "Вводите текст"
+        });
+      }
     },
     async activeCar(id){
       if(confirm("Вы действительно хотите подтвердить?")){
