@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use App\Application;
 use App\Tender;
 use App\UserCar;
+use App\Direction;
 use App\User;
 
 class ApplicationController extends Controller
@@ -166,15 +167,19 @@ class ApplicationController extends Controller
         if(!$application){
             return response()->json(['error' => true, 'message' => 'Заявка не найдено']);
         }
+        if($application->status == 'accepted'){
+            return response()->json(['error' => true, 'message' => 'Application already accepted...']);
+        }
         $validator = Validator::make($request->all(),[
             'tender_id' => 'required|integer',
-            'tarif' => 'nullable|integer',
+            'tarif' => 'required|integer',
             'status' => 'nullable|string',
             'daily_technical_job' => 'nullable|boolean',
             'daily_medical_job' => 'nullable|boolean',
             'hours_rule' => 'nullable|boolean',
             'videoregistrator' => 'nullable|boolean',
             'gps' => 'nullable|boolean',
+            'qty_reys' => 'required|integer',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
@@ -192,10 +197,26 @@ class ApplicationController extends Controller
             return response()->json(['error' => true, 'message' => 'Заявка не найдено']);
         }
         if($application->status == 'accepted'){
-            return response()->json(['error' => true, 'message' => 'Application already accepted...']);
+            return response()->json(['error' => true, 'message' => 'Заявка уже принята']);
         }
         if($application->cars->count() < 1){
-            return response()->json(['error' => true, 'message' => 'Пожалуйста, добавьте машину ...']);
+            return response()->json(['error' => true, 'message' => 'Пожалуйста, добавьте машину']);
+        }
+        if($application->tarif < 1 ){
+            return response()->json(['error' => true, 'message' => 'Пожалуйста, заполните тариф']);
+        }
+        if($application->qty_reys < 1 ){
+            return response()->json(['error' => true, 'message' => 'Пожалуйста, заполните количество рейсов']);
+        }
+        //check for direction cars count
+        $lot = $application->lots;
+        $requirement_cars_count = 0;
+        $directions = Direction::whereIn('id',$lot->getDirection())->get();
+        foreach($directions as $dir){
+            $requirement_cars_count += $dir->requirement->auto_trans_count;
+        }
+        if($requirement_cars_count > $application->cars->count()){
+            return response()->json(['error' => true, 'message' => 'Пожалуйста, добавьте ещё '.($requirement_cars_count - $application->cars->count()).' машин']);
         }
         $text = $application->user->company_name."\n";
         $text .= "ДАТА: ".$application->tender->time."\n";

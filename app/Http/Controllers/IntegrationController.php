@@ -60,21 +60,26 @@ class IntegrationController extends Controller
             ]);
             $data_resp = json_decode($response->getBody()->getContents(),true);
             if($data_resp['resultCode'] == 1){
-                $adliya_car = AdliyaCar::create([
-                    "user_id" => $user->id,
-                    "app_id" => $inputs['app_id'],
-                    "auto_number" => $data_resp['results'][0]['pAutoNumber'],
-                    "pINN" => $user->inn,
-                    "pPinfl" => !empty($inputs['pPinfl']) ? $inputs['pPinfl'] : null ,
-                    "nameOwner" => $data_resp['nameOwner'],
-                    // "pKuzov" => $data_resp['results'][0]['pKuzov'],
-                    "pNumberNatarius" => $data_resp['results'][0]['pNumberNatarius'],
-                    "pDateNatarius" => $data_resp['results'][0]['pDateNatarius'],
-                    "startDate" => $data_resp['results'][0]['startDate'],
-                    "expirationDate" => $data_resp['results'][0]['expirationDate'],
-                    "resultCode" => $data_resp['resultCode'],
-                    "resultNote" => $data_resp['resultNote'],
-                ]);
+                $the_old_adliya_car = AdliyaCar::where(['auto_number' => $data_resp['results'][0]['pAutoNumber']])->first();
+                if($the_old_adliya_car){
+                    return response()->json(['success' => true, 'result' => $the_old_adliya_car]);
+                }else{
+                    $adliya_car = AdliyaCar::create([
+                        "user_id" => $user->id,
+                        "app_id" => $inputs['app_id'],
+                        "auto_number" => $data_resp['results'][0]['pAutoNumber'],
+                        "pINN" => $user->inn,
+                        "pPinfl" => !empty($inputs['pPinfl']) ? $inputs['pPinfl'] : null ,
+                        "nameOwner" => $data_resp['nameOwner'],
+                        // "pKuzov" => $data_resp['results'][0]['pKuzov'],
+                        "pNumberNatarius" => $data_resp['results'][0]['pNumberNatarius'],
+                        "pDateNatarius" => $data_resp['results'][0]['pDateNatarius'],
+                        "startDate" => $data_resp['results'][0]['startDate'],
+                        "expirationDate" => $data_resp['results'][0]['expirationDate'],
+                        "resultCode" => $data_resp['resultCode'],
+                        "resultNote" => $data_resp['resultNote'],
+                    ]);
+                }
                 return response()->json(['success' => true, 'result' => $data_resp]);
             }else{
                 return response()->json(['error' => true, 'message' => $data_resp['resultNote']]);
@@ -121,23 +126,28 @@ class IntegrationController extends Controller
                 ]);
                 $data_resp = json_decode($response->getBody()->getContents(),true);
                 if($data_resp['pAnswereId'] == 1){
-                    $gai_car = GaiCar::create([
-                        'user_id' => $user->id,
-                        'app_id' => $inputs['app_id'],
-                        'pTexpassportSery' => $inputs['pTexpassportSery'],
-                        'pTexpassportNumber' => $inputs['pTexpassportNumber'],
-                        'pPlateNumber' => $inputs['pPlateNumber'],
-                        "pVehicleId" => $data_resp['VehicleInfo']['pVehicleId'],
-                        "pMarka" => $data_resp['VehicleInfo']['pMarka'],
-                        "pMadeofYear" => $data_resp['VehicleInfo']['pMadeofYear'],
-                        "pNumberofplace" => $data_resp['VehicleInfo']['pNumberofplace'],
-                        "pWeightAuto" => $data_resp['VehicleInfo']['pWeightAuto'],
-                        "pNameOfClient" => $data_resp['VehicleInfo']['pNameOfClient'],
-                        "pTypeOfAuto" => $data_resp['VehicleInfo']['pTypeOfAuto'],
-                        "pTechnicalStatus" => $data_resp['VehicleInfo']['pTechnicalStatus'],
-                        "pAdressOfClient" => $data_resp['VehicleInfo']['pAdressOfClient'],
-                        "status" => 'pending',
-                    ]);
+                    $the_old_gai_car = GaiCar::where(['pPlateNumber' => $inputs['pPlateNumber']])->first();
+                    if($the_old_gai_car){
+                        return response()->json(['success' => true, 'result' => $the_old_gai_car]);
+                    }else{
+                        $gai_car = GaiCar::create([
+                            'user_id' => $user->id,
+                            'app_id' => $inputs['app_id'],
+                            'pTexpassportSery' => $inputs['pTexpassportSery'],
+                            'pTexpassportNumber' => $inputs['pTexpassportNumber'],
+                            'pPlateNumber' => $inputs['pPlateNumber'],
+                            "pVehicleId" => $data_resp['VehicleInfo']['pVehicleId'],
+                            "pMarka" => $data_resp['VehicleInfo']['pMarka'],
+                            "pMadeofYear" => $data_resp['VehicleInfo']['pMadeofYear'],
+                            "pNumberofplace" => $data_resp['VehicleInfo']['pNumberofplace'],
+                            "pWeightAuto" => $data_resp['VehicleInfo']['pWeightAuto'],
+                            "pNameOfClient" => $data_resp['VehicleInfo']['pNameOfClient'],
+                            "pTypeOfAuto" => $data_resp['VehicleInfo']['pTypeOfAuto'],
+                            "pTechnicalStatus" => $data_resp['VehicleInfo']['pTechnicalStatus'],
+                            "pAdressOfClient" => $data_resp['VehicleInfo']['pAdressOfClient'],
+                            "status" => 'pending',
+                        ]);
+                    }
                     return response()->json(['success' => true, 'result' => $data_resp]);
                 }else{
                     return response()->json(['error' => true, 'message' => $data_resp['pAnswereMessage']]);
