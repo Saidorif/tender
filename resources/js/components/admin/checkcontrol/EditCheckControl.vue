@@ -61,11 +61,6 @@
                     <thead>
                       <tr>
                         <th>Статус</th>
-                        <th>Категория Авто</th>
-                        <th>Класс Авто</th>
-                        <th>Марка Авто</th>
-                        <th>Модель Авто</th>
-                        <th>Дата выпуска</th>
                         <th>Количество рейсов</th>
                         <th>Вместимость</th>
                         <th>Количество сидящих</th>
@@ -85,11 +80,6 @@
                             {{getStatusName(car_items.status)}}
                           </div>
                         </td>
-                        <td>{{car_items.bustype ? car_items.bustype.name : ''}}</td>
-                        <td width="5%">{{car_items.tclass ? car_items.tclass.name : ''}}</td>
-                        <td>{{car_items.busmarka ? car_items.busmarka.name : ''}}</td>
-                        <td>{{car_items.busmodel ? car_items.busmodel.name : ''}}</td>
-                        <td>{{car_items.date}}</td>
                         <td>{{car_items.qty_reys}}</td>
                         <td>{{car_items.capacity}}</td>
                         <td>{{car_items.seat_qty}}</td>
@@ -121,7 +111,7 @@
                 <hr>
                 <div class="row">
                   <div class="col-lg-12 d-flex justify-content-end">
-                    <button type="button" class="btn btn-danger mr-2" @click.prevent="denyCar(car_items.id)">
+                    <button type="button" class="btn btn-danger mr-2" @click.prevent="openModal(car_items.id)">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
@@ -130,6 +120,55 @@
                       Подтвердить
                     </button>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal start-->
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>Примечания</strong></h5>
+                  <button type="button" class="close" @click.prevent="closeModal">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="checkAuto">
+                        <input type="checkbox" id="checkAuto" true-value="1" false-value="0" v-model="carItem.checkAuto">
+                        Автотранспорт воситаси техник соз ҳолатда
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <label for="textAuto">Текст</label>
+                      <textarea class="form-control" id="textAuto" v-model="carItem.text"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="fileAuto">Файл</label>
+                      <input 
+                        type="file" 
+                        class="form-control" 
+                        id="fileAuto" 
+                        accept=".png, .jpg, .jpeg"
+                        @change="changePhoto($event)"
+                      />
+                    </div>
+                    <div class="avatar-preview">
+                      <!-- <img :src="photoImg(carItem.file)" width="150"> -->
+                      <!-- <button type="button" class="btn btn-danger" @click="removeFile" v-if="carItem.file != ''">Удалить файл</button> -->
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Закрыть</button>
+                  <button type="button" class="btn btn-success" @click.prevent="denyCar">
+                    <i class="fas fa-save"></i>
+                    Сохранить
+                  </button>
                 </div>
               </div>
             </div>
@@ -155,7 +194,14 @@ export default {
     return {
       cars:[],
       laoding: true,
-      company_name:''
+      carItem: {
+        id:'',
+        file:'',
+        text:'',
+        checkAuto:0
+      },
+      tests:[],
+      company_name:'',
     };
   },
   watch:{
@@ -178,8 +224,62 @@ export default {
   },
   methods: {
     ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage','actionCloseLot']),
+    openModal(id){
+      $("#exampleModalCenter").modal('show')
+      this.carItem.id = id
+    },
+    removeFile(){
+      this.carItem.file = ''
+    },
+    changePhoto(event){
+      let file = event.target.files[0];
+      this.carItem.file = file
+      // if(
+      //   event.target.files[0]["type"] === "image/png" ||
+      //   event.target.files[0]["type"] === "image/jpeg" ||
+      //   event.target.files[0]["type"] === "image/jpg"
+      // ){
+      //   if (file.size > 1048576) {
+      //     swal.fire({
+      //       type: "error",
+      //       title: "Ошибка",
+      //       text: "Размер изображения больше лимита"
+      //     });
+      //   }else{
+      //     let reader = new FileReader();
+      //     reader.onload = event => {
+      //       this.carItem.file = event.target.result;
+      //     };
+      //     reader.readAsDataURL(file);
+      //   }
+      // }else{
+      //   swal.fire({
+      //     type: "error",
+      //     title: "Ошибка",
+      //     text: "Картинка должна быть только png,jpg,jpeg!"
+      //   });
+      // }
+    },
+    // photoImg(img) {
+    //   if (img) {
+    //     if (img.length < 100) {
+    //       return "/img/user.jpg";
+    //     } else {
+    //       return img;
+    //     }
+    //   }
+    // },
+    closeModal(){
+      this.carItem = {
+        id:'',
+        file:'',
+        text:'',
+        checkAuto:0
+      }
+      $('#exampleModalCenter').modal('hide')
+    },
     async completeLot(){
-        this.laoding = true
+      // this.laoding = true
       await this.actionCloseLot(this.$route.params.appId)
       if (this.getStatusMessage.success) {
         await this.actionAppCars(this.$route.params.appId);
@@ -192,24 +292,26 @@ export default {
       this.laoding = false
     },
     async denyCar(id){
-      if(confirm("Вы действительно хотите отказаться?")){
-        let data = {
-          app_id:this.$route.params.appId,
-          car_id:id,
-          status:'rejected',
-        }
-        this.laoding = true
-        await this.actionStatusMessage(data)
-        if (this.getStatusMessage.success) {
-          await this.actionAppCars(this.$route.params.appId);
-          toast.fire({
-            type: "success",
-            icon: "success",
-            title: this.getStatusMessage.message
-          });
-        }
-        this.laoding = false
-      }
+      $('#exampleModalCenter').modal('show')
+      let form = new FormData()
+      form.append('file', this.carItem.file);
+      console.log(form)
+      // let data = {
+      //   app_id:this.$route.params.appId,
+      //   car_id:id,
+      //   status:'rejected',
+      // }
+      // this.laoding = true
+      // await this.actionStatusMessage(data)
+      // if (this.getStatusMessage.success) {
+      //   await this.actionAppCars(this.$route.params.appId);
+      //   toast.fire({
+      //     type: "success",
+      //     icon: "success",
+      //     title: this.getStatusMessage.message
+      //   });
+      // }
+      // this.laoding = false
     },
     async activeCar(id){
       if(confirm("Вы действительно хотите подтвердить?")){

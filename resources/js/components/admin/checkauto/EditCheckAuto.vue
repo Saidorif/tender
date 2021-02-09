@@ -355,7 +355,6 @@ export default {
     },
     closeModal(){
       this.modalItem = {}
-      console.log(this.modalItem)
       $('#exampleModalCenter').modal('hide')
     },
     async completeLot(){
