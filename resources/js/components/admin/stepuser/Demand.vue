@@ -20,7 +20,13 @@
               <tr>
                 <td>1</td>
                 <td width="50%"><b>Автотранспорт воситаси категорияси</b></td>
-                <td>{{form.auto_type_name}}</td>
+                <td>
+                  <template v-if="form.auto_model_class">
+                    <div v-for="(item, index) in form.auto_model_class">
+                      {{ item.bustype ? item.bustype.name : '' }}
+                    </div>
+                  </template>
+                </td>
               </tr>
               <tr>
                 <td>2</td>
