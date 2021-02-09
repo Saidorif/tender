@@ -1003,7 +1003,7 @@ class TenderController extends Controller
     
     public function tenderLotApprove(Request $request,$id)
     {
-        $application = Application::orderBy('id','ASC')->find($id);
+        $application = Application::find($id);
         if(!$application){
             return response()->json(['error' => true, 'message' => 'Application not found']);
         }
