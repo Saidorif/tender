@@ -214,7 +214,7 @@ export default {
       return this.company_name  ? this.company_name : 'Без название'
     },
   },
-  async mounted() {
+  async mounted(){
     await this.actionAppCars(this.$route.params.appId);
     this.laoding = false
   },
