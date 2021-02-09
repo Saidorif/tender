@@ -18,7 +18,7 @@
         <div id="app">
             <Master/>
         </div>
-        <script src="{{ asset('js/app.js?version=0.0.31') }}"></script>
+        <script src="{{ asset('js/app.js?version=0.0.32') }}"></script>
         <script src="{{ asset('js/fancybox.js') }}"></script>
         <script src="{{ asset('js/print.js') }}"></script>
     </body>
