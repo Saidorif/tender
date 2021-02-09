@@ -23,7 +23,7 @@ class TenderController extends Controller
         //Grab user ids working in this region
         $created_by_users = User::where(['region_id' => $user->region_id])->pluck('id')->toArray();
         if($user->role->name == 'admin'){
-            $builder = Tender::query()->with(['tenderlots']);//->where(['status' => 'approved']);
+            $builder = Tender::query()->with(['tenderlots'])->where(['status' => 'completed']);
             if(!empty($params['region_id'])){
                 $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
                 $builder->whereIn('created_by', $users_region);
@@ -572,7 +572,7 @@ class TenderController extends Controller
         //Grab user ids working in this region
         $created_by_users = User::where(['region_id' => $user->region_id])->pluck('id')->toArray();
         if($user->role->name == 'admin'){
-            $builder = Tender::query();
+            $builder = Tender::query()->where('time','<', Carbon::now());
             if(!empty($params['region_id'])){
                 $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
                 $builder->whereIn('created_by', $users_region);
@@ -597,6 +597,7 @@ class TenderController extends Controller
                             ->with(['tenderlots'])
                             ->withCount(['tenderlots','tenderapps'])
                             ->where(['status' => 'completed','status' => 'approved'])
+                            ->where('time','>', date('Y-m-d H:m:s'))
                             ->paginate(12);
         }
         return response()->json(['success' => true, 'result' => $result]);
