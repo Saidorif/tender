@@ -119,63 +119,6 @@
                   </table>
                 </div>
                 <hr>
-                <!-- adliya -->
-                <template v-if="car_items.adliya.length > 0">
-                  <h3><strong>Минюст данные</strong></h3>
-                  <div class=" table-responsive table">
-                    <table class="table table-hover table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Номер Авто</th>
-                          <th>Хозяин</th>
-                          <th>ИНН</th>
-                          <th>Дата нотариального действия</th>
-                          <th>Номер реестра нотариального действия</th>
-                          <th>Срок нотариального действия</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(adliya,adliya_index) in car_items.adliya">
-                          <td>{{adliya.auto_number}}</td>
-                          <td>{{adliya.nameOwner}}</td>
-                          <td>{{adliya.pINN}}</td>
-                          <td>{{adliya.pDateNatarius}}</td>
-                          <td>{{adliya.pNumberNatarius}}</td>
-                          <td>{{adliya.expirationDate}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </template>
-                <hr>
-                <!-- gai -->
-                <template v-if="car_items.gai.length > 0">
-                  <h3><strong>ГАИ данные</strong></h3>
-                  <div class=" table-responsive table">
-                    <table class="table table-hover table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Номер Авто</th>
-                          <th>Хозяин</th>
-                          <th>Марка</th>
-                          <th>Вместимость</th>
-                          <th>Тип машины</th>
-                          <th>Дата выпуска</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(gai,gai_index) in car_items.gai">
-                          <td>{{gai.pPlateNumber}}</td>
-                          <td>{{gai.pNameOfClient}}</td>
-                          <td>{{gai.pMarka}}</td>
-                          <td>{{gai.pNumberofplace}}</td>
-                          <td>{{gai.pTypeOfAuto}}</td>
-                          <td>{{gai.pMadeofYear}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </template>
                 <div class="row">
                   <div class="col-lg-12 d-flex justify-content-end">
                     <button type="button" class="btn btn-danger mr-2" @click.prevent="denyCar(car_items.id)">
