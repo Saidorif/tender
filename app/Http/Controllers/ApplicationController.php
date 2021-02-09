@@ -10,6 +10,7 @@ use App\Tender;
 use App\UserCar;
 use App\Direction;
 use App\User;
+use Str;
 
 class ApplicationController extends Controller
 {
@@ -237,7 +238,7 @@ class ApplicationController extends Controller
             'app_id' => 'required|integer',
             'status' => ['required',Rule::in(['rejected','accepted']),],
             'technical_status' => ['nullable',Rule::in([0,1]),],
-            'text' => 'required|string',
+            'text' => 'nullable|string',
             'file' => 'nullable|file',
         ]);
         if($validator->fails()){
@@ -254,11 +255,11 @@ class ApplicationController extends Controller
         //Upload file
         if($request->hasFile('file')){
             $path = public_path('usercars');
-            $file = $request->file('image');
+            $file = $request->file('file');
             $fileName = Str::random(20).'.'.$file->getClientOriginalExtension();
             $file->move($path, $fileName);
-            $inputs['image'] = '/usercars/'.$fileName;
-            $car->file = $inputs['image'];
+            $inputs['file'] = '/usercars/'.$fileName;
+            $car->file = $inputs['file'];
             $car->save();
         }
         $car->update($inputs);
