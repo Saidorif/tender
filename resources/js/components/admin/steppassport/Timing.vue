@@ -317,7 +317,7 @@
                   <td>{{ table.distance_in_limited_speed }} </td>
                   <td>{{ table.spendtime_between_station }} </td>
                   <td>{{ table.spendtime_between_limited_space }}</td>
-                  <td>{{ table.spendtime_to_stay_station }} </td>
+                  <td>{{ table.spendtime_to_stay_station == 0 ? '00:00:00':table.spendtime_to_stay_station}} </td>
                   <td>{{ table.speed_between_station }}</td>
                   <td>{{ table.speed_between_limited_space }}</td>
                   <td class="detail_td">
@@ -333,7 +333,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="7" scope="row">Ortacha tezlik = {{technic_speed}} km/soat</td>
+                  <td colspan="7" scope="row">Ortacha tezlik = {{technic_speed}} km/soat 11</td>
                   <td colspan="1" scope="row">{{total_spendtime_between_station}}</td>
                   <td colspan="1" scope="row"></td>
                   <td colspan="1" scope="row">{{total_spendtime_to_stay_station}}</td>
@@ -393,7 +393,7 @@ export default {
             distance_in_limited_speed: "", //Shundan xarakat tezligi chegaralangan oraliqda
             spendtime_between_station: "", //Bekatlar oraligidagi xarakat
             spendtime_between_limited_space: "", //Shundan xarakat tezligi chegaralangan oraliqda
-            spendtime_to_stay_station: 0, //Oraliq bekatdan toxtash uchun
+            spendtime_to_stay_station: '00:00:00', //Oraliq bekatdan toxtash uchun
             speed_between_station: "", //Bekatlar oraligidagi xarakat
             speed_between_limited_space: "", //Shundan xarakat tezligi chegaralangan oraliqda
             details: [{ name: "", count: "" }], //Qatnov yoli xaqidagi malumotlar
@@ -421,8 +421,8 @@ export default {
         requiredInputTwo: false,
         technic_speed: 0,
         traffic_speed: 0,
-        total_spendtime_between_station: 0,
-        total_spendtime_to_stay_station: 0,
+        total_spendtime_between_station: '00:00:00',
+        total_spendtime_to_stay_station: '00:00:00',
         laoding: true,
         fullTableInfo: [],
         errorInput: true,
@@ -512,13 +512,12 @@ export default {
         let calc_technic_speed = 0
         let calc_traffic_speed = 0
         let calc_spendtime_between_station = '00:00:00';
-        let calc_spendtime_to_stay_station = 0
+        let calc_spendtime_to_stay_station = '00:00:00';
         this.tableTwoData.forEach((item)=>{
             calc_technic_speed += parseFloat(item.spendtime_between_station)
             calc_traffic_speed += parseFloat(item.spendtime_to_stay_station)
-            // calc_spendtime_between_station += Number(item.spendtime_between_station)
-            calc_spendtime_between_station = this.calcTimeAddTime(calc_spendtime_between_station, item.spendtime_between_station)
-            calc_spendtime_to_stay_station += Number(item.spendtime_to_stay_station)
+            calc_spendtime_between_station = this.calcTimeAddTime(calc_spendtime_between_station, item.spendtime_between_station )
+            calc_spendtime_to_stay_station = this.calcTimeAddTime(calc_spendtime_to_stay_station,  item.spendtime_to_stay_station == 0 ? '00:00:00' : item.spendtime_to_stay_station)
         })
         this.technic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  calc_technic_speed
         this.traffic_speed =  (this.tableTwoData[this.tableTwoData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
@@ -561,7 +560,6 @@ export default {
                 ).toFixed(1);
             }else{
                 element.distance_from_start_station = parseFloat(element.end_speedometer - this.tableTwoData[0].start_speedometer).toFixed(1);
-                // let result_spendtime_to_stay_station = (this.toTimestamp(element.start_time) - this.toTimestamp(this.tableTwoData[this.tableTwoData.length - 1].end_time  )) / 60;
                 let result_spendtime_to_stay_station = this.calcTimeToTime(this.tableTwoData[this.tableTwoData.length - 1].end_time, element.start_time);
                 element.spendtime_between_station = result_spendtime_to_stay_station;
                 this.tableTwoData[ this.tableTwoData.length - 1].spendtime_to_stay_station = result_spendtime_to_stay_station;
@@ -588,7 +586,7 @@ export default {
             distance_in_limited_speed: "",
             spendtime_between_station: "",
             spendtime_between_limited_space: "",
-            spendtime_to_stay_station: 0,
+            spendtime_to_stay_station: '00:00:00',
             speed_between_station: "",
             speed_between_limited_space: "",
             details: [{ name: "", count: "" }],
@@ -637,14 +635,9 @@ export default {
 
         this.requiredInput = false;
         if(this.tableTwoData.length){
-            // this.tableTwoData.forEach((item)=>{
-            //     item.vars = JSON.stringify(this.fullTableInfo)
-            // })
-
             this.laoding = true
             await this.actionAddTiming({vars: JSON.stringify(this.fullTableInfo), timing: this.tableTwoData, timingDetails: this.timingDetails, technic_speed: this.technic_speed, traffic_speed: this.traffic_speed, });
             this.laoding = false
-            console.log(this.getTimingMassage)
             if(this.getTimingMassage.success){
                 toast.fire({
                     type: "success",
