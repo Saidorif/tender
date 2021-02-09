@@ -23,7 +23,7 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-responsive table-bordered">
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th>Авто тартиб раками</th>
@@ -36,47 +36,110 @@
             <tbody>
               <template v-for="(car,index) in cars">
                 <tr>
-                  <td rowspan="5">{{index+1}}</td>
-                  <td>Давлат раками</td>
+                  <td rowspan="5">
+                    <div class="text-center d-flex flex-column">
+                      <b>{{index+1}}</b>
+                      <div class="badge mt-2 mb-2" :class="getCarStatusClass(car.status)">
+                        {{getCarStatusName(car.status)}}
+                      </div>
+                      <div class="badge" :class="getLicenseStatusClass(car.license_status)">
+                        {{getLicenseStatusName(car.license_status)}}
+                      </div>
+                    </div>
+                  </td>
+                  <td><b>Давлат раками</b></td>
                   <td>{{car.auto_number}}</td>
-                  <td>data</td>
-                  <td>data</td>
-                  <td>data</td>
+                  <td>{{car.gai.pNameOfClient}}</td>
+                  <td rowspan="5">
+                      <h2 class="text-primary text-center" v-if="car.adliya">
+                        <i class="fas fa-file-alt" @click.prevent="showAdliya(car.adliya)"></i>
+                      </h2>
+                      <h2 class="text-secondary text-center" v-else>
+                        <i class="fas fa-file-alt"></i>
+                      </h2>
+                  </td>
+                  <td rowspan="5">
+                    <div class="d-flex flex-column">
+                      <button type="button" class="btn btn-danger mb-2" @click.prevent="denyCar(car_items.id)">
+                        <i class="fas fa-minus-circle"></i>
+                        Отказ
+                      </button>
+                      <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)">
+                        <i class="fas fa-check-circle"></i>
+                        Подтвердить
+                      </button>
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td>Авто йили</td>
+                  <td><b>Авто йили</b></td>
                   <td>{{car.date}}</td>
-                  <td>data</td>
-                  <td>data</td>
-                  <td>data</td>
+                  <td>{{car.gai.pMadeofYear}}</td>
                 </tr>
                 <tr>
-                  <td>Авто тури </td>
+                  <td><b>Авто тури</b></td>
                   <td>{{car.bustype ? car.bustype.name : ''}}</td>
-                  <td>data</td>
-                  <td>data</td>
-                  <td>data</td>
+                  <td>{{car.gai.pTypeOfAuto}}</td>
                 </tr>
                 <tr>
-                  <td>Модель</td>
+                  <td><b>Модель</b></td>
                   <td>{{car.busmodel ? car.busmodel.name : ''}}</td>
-                  <td>data</td>
-                  <td>data</td>
-                  <td>data</td>
+                  <td>{{car.gai.pMarka}}</td>
                 </tr>
                 <tr>
-                  <td>Сиғими</td>
+                  <td><b>Сиғими</b></td>
                   <td>{{car.capacity}}</td>
-                  <td>data</td>
-                  <td>data</td>
-                  <td>data</td>
+                  <td>{{car.gai.pNumberofplace}}</td>
                 </tr>
               </template>
             </tbody>
           </table>
         </div>
       </div>
-      <div class="card-body">
+
+      <!-- Modal start-->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle"><strong>Минюст данные</strong></h5>
+              <button type="button" class="close" @click.prevent="closeModal">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h3><strong>Минюст данные</strong></h3>
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th>Номер Авто</th>
+                    <th>Хозяин</th>
+                    <th>ИНН</th>
+                    <th>Дата нотариального действия</th>
+                    <th>Номер реестра нотариального действия</th>
+                    <th>Срок нотариального действия</th>
+                  </tr>
+                </thead>
+                <tbody v-if="modalItem">
+                  <tr>
+                    <td>{{modalItem.auto_number}}</td>
+                    <td>{{modalItem.nameOwner}}</td>
+                    <td>{{modalItem.pINN}}</td>
+                    <td>{{modalItem.pDateNatarius}}</td>
+                    <td>{{modalItem.pNumberNatarius}}</td>
+                    <td>{{modalItem.expirationDate}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal end -->
+  <!--     <div class="card-body">
         <div class="accordion" id="accordionExample" v-if="cars.length > 0">
           <div class="card" v-for="(car_items,car_index) in cars">
             <div class="card-header btn-block d-flex justify-content-between">
@@ -100,7 +163,6 @@
                   </div>
                 </div>
             </div>
-
             <div
               id="collapseOne"
               class="collapse"
@@ -173,7 +235,6 @@
                   </table>
                 </div>
                 <hr>
-                <!-- adliya -->
                 <template v-if="car_items.adliya.length > 0">
                   <h3><strong>Минюст данные</strong></h3>
                   <div class=" table-responsive table">
@@ -202,7 +263,6 @@
                   </div>
                 </template>
                 <hr>
-                <!-- gai -->
                 <template v-if="car_items.gai.length > 0">
                   <h3><strong>ГАИ данные</strong></h3>
                   <div class=" table-responsive table">
@@ -246,7 +306,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -265,7 +325,8 @@ export default {
     return {
       cars:[],
       laoding: true,
-      company_name:''
+      company_name:'',
+      modalItem:{},
     };
   },
   watch:{
@@ -285,14 +346,22 @@ export default {
   async mounted() {
     await this.actionAppCars(this.$route.params.appId);
     this.laoding = false
-    console.log(this.cars)
   },
   methods: {
     ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage','actionCloseLot']),
+    showAdliya(item){
+      this.modalItem = item
+      $('#exampleModalCenter').modal('show')
+    },
+    closeModal(){
+      this.modalItem = {}
+      console.log(this.modalItem)
+      $('#exampleModalCenter').modal('hide')
+    },
     async completeLot(){
-        this.laoding = true
+      this.laoding = true
       await this.actionCloseLot(this.$route.params.appId)
-      if (this.getStatusMessage.success) {
+      if(this.getStatusMessage.success){
         await this.actionAppCars(this.$route.params.appId);
         toast.fire({
           type: "success",
