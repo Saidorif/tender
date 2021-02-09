@@ -47,7 +47,7 @@
 						    	id="tarif"
 						    	placeholder="Тариф"
 						    	v-model="form.tarif"
-						    	:class="isRequired(form.tarif) ? 'isRequired' : ''"
+						    	:class="isRequiredData(form.tarif) ? 'isRequired' : ''"
 						    	:disabled="makeDisabled"
 					    	></div>
 				  	  	</div>
@@ -59,7 +59,7 @@
 						    	id="qty_reys"
 						    	placeholder="Количество рейсов"
 						    	v-model="form.qty_reys"
-						    	:class="isRequired(form.qty_reys) ? 'isRequired' : ''"
+						    	:class="isRequiredData(form.qty_reys) ? 'isRequired' : ''"
 						    	:disabled="makeDisabled"
 					    	>
 					  	</div>
@@ -839,6 +839,7 @@
 				showBtn:Number,
 				isLoading:false,
 				newItems:[],
+				requiredDataInput:false,
 				showDirections:false,
                 makeDisabled:false,
                 contract_time:'',
@@ -1106,6 +1107,16 @@
 				this.car.auto_number=''
 		    	this.requiredInput = false
 		    },
+			isRequiredData(input){
+				if(this.requiredDataInput){
+					if(input === '' || input === null){
+						return true
+					}
+				}else{
+					return false
+				}
+		    },
+
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
@@ -1248,30 +1259,35 @@
 		    			check = false
 		    		}
 		    	}
-		    	if (check) {
-                    this.laoding = true
-			    	await this.actionUpdateApplication(this.form)
-			    	if(this.getMassage.success){
+		    	if(this.form.tarif != '' && this.form.tarif != null && this.form.qty_reys != '' && this.form.qty_reys != null){
+			    	if (check) {
+	                    this.laoding = true
+				    	await this.actionUpdateApplication(this.form)
+				    	if(this.getMassage.success){
+				    		toast.fire({
+					            type: "success",
+					            icon: "success",
+					            title: this.getMassage.message
+				          	});
+				    		await this.actionEditApplication(this.$route.params.userapplicationId)
+	                    }else{
+	                    	toast.fire({
+					            type: "error",
+					            icon: "error",
+					            title: this.getMassage.message
+				          	});
+	                    }
+	                    this.laoding = false
+			    	}else{
 			    		toast.fire({
-				            type: "success",
-				            icon: "success",
-				            title: this.getMassage.message
-			          	});
-			    		await this.actionEditApplication(this.$route.params.userapplicationId)
-                    }else{
-                    	toast.fire({
 				            type: "error",
 				            icon: "error",
-				            title: this.getMassage.message
+				            title: 'Загрузите файл!'
 			          	});
-                    }
-                    this.laoding = false
+			    	}
+		    		this.requiredDataInput = false
 		    	}else{
-		    		toast.fire({
-			            type: "error",
-			            icon: "error",
-			            title: 'Загрузите файл!'
-		          	});
+		    		this.requiredDataInput = true
 		    	}
 		    },
 		    async deleteCar(id){
