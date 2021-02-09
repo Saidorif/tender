@@ -111,7 +111,7 @@
                 <hr>
                 <div class="row">
                   <div class="col-lg-12 d-flex justify-content-end">
-                    <button type="button" class="btn btn-danger mr-2" @click.prevent="openModal(car_items.id)">
+                    <button type="button" class="btn btn-danger mr-2" @click.prevent="openModal(car_items)">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
@@ -151,9 +151,9 @@
                       <label for="fileAuto">Файл</label>
                       <input 
                         type="file" 
+                        ref="fileupload"
                         class="form-control" 
                         id="fileAuto" 
-                        accept=".png, .jpg, .jpeg"
                         @change="changePhoto($event)"
                       />
                     </div>
@@ -220,9 +220,9 @@ export default {
   },
   methods: {
     ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage','actionCloseLot']),
-    openModal(id){
+    openModal(item){
       $("#exampleModalCenter").modal('show')
-      this.carItem.id = id
+      this.carItem = item
     },
     removeFile(){
       this.carItem.file = ''
@@ -238,6 +238,7 @@ export default {
         text:'',
         technical_status:0
       }
+      this.$refs.fileupload.value='';
       $('#exampleModalCenter').modal('hide')
     },
     async completeLot(){
