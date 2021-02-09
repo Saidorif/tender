@@ -121,7 +121,7 @@
                   </p>
                 </router-link>
               </li>
-              <li class="nav-item" v-if="$can('index', 'TenderController')">
+              <li class="nav-item" v-if="$can('announceTender', 'TenderController')">
                 <router-link class="nav-link" to="/crm/confirm-tender">
                   <p>
                     Тендер
@@ -130,7 +130,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item" v-if="$can('index', 'TenderController')">
+          <li class="nav-item" v-if="$can('announceTender', 'TenderController')">
             <router-link class="nav-link" to="/crm/tenderannounce">
               <i class="peIcon fas fa-bullhorn"></i>
               <p>
