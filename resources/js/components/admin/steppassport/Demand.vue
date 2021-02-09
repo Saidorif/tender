@@ -62,8 +62,8 @@
               <tr>
                 <td>Ишкунлари</td>
                 <td>
-                  <textarea 
-                    rows="1" 
+                  <textarea
+                    rows="1"
                     v-model="form.auto_trans_working_days"
                     class="form-control"
                   ></textarea>
@@ -72,8 +72,8 @@
               <tr>
                 <td>Дам олиш кунлари</td>
                 <td>
-                  <textarea 
-                    rows="1" 
+                  <textarea
+                    rows="1"
                     v-model="form.auto_trans_weekends"
                     class="form-control"
                   ></textarea>

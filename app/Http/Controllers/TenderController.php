@@ -997,12 +997,7 @@ class TenderController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Application not found']);
         }
-        $new_result = [];
-        // foreach($result->carsWith as $key => $car){
-        //     $new_result[$key]['car'] = $result->carsWith;
-        //     $new_result[$key]['gai'] = $car->gai;
-        // }
-        return response()->json(['success' => true, 'result' => $result,'new_result' => $new_result]);
+        return response()->json(['success' => true, 'result' => $result]);
     }
     
     public function tenderLotApprove(Request $request,$id)

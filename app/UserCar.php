@@ -64,11 +64,11 @@ class UserCar extends Model
 
     public function gai()
     {
-        return $this->hasMany(\App\GaiCar::class,'pPlateNumber','auto_number');
+        return $this->hasOne(\App\GaiCar::class,'pPlateNumber','auto_number');
     }
     
     public function adliya()
     {
-        return $this->hasMany(\App\AdliyaCar::class,'auto_number','auto_number');
+        return $this->hasOne(\App\AdliyaCar::class,'auto_number','auto_number');
     }
 }
