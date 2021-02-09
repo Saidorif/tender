@@ -427,7 +427,7 @@ export default {
         this.form.tarif = this.getDirection.tarif;
         this.form.region_from.region_id = this.getDirection.region_from_id ? this.getDirection.region_from_id : '';
         this.form.region_from.area_id = this.getDirection.area_from_id ? this.getDirection.area_from_id : '';
-        this.form.region_from.station_id = this.getDirection.station_from_id ? this.getDirection.station_id : '';
+        this.form.region_from.station_id = this.getDirection.station_from_id ? this.getDirection.station_from_id : '';
         this.form.region_to.region_id = this.getDirection.region_to_id ? this.getDirection.region_to_id : '';
         this.form.region_to.area_id = this.getDirection.area_to_id ? this.getDirection.area_to_id : '';
         this.form.region_to.station_id = this.getDirection.station_to_id ? this.getDirection.station_to_id : '';
@@ -444,6 +444,7 @@ export default {
         this.stationFrom =  this.getDirection.area_from_with ? this.getDirection.area_from_with.station : '';
         this.stationTo = this.getDirection.area_to_with ? this.getDirection.area_to_with.station : '';
         this.loaded = true
+        console.log(this.getDirection)
       }
     },
     'form.region_from':{
@@ -557,7 +558,7 @@ export default {
     this.form.tarif = this.getDirection.tarif;
     this.form.region_from.region_id = this.getDirection.region_from_id ? this.getDirection.region_from_id : '';
     this.form.region_from.area_id = this.getDirection.area_from_id ? this.getDirection.area_from_id : '';
-    this.form.region_from.station_id = this.getDirection.station_from_id ? this.getDirection.station_id : '';
+    this.form.region_from.station_id = this.getDirection.station_from_id ? this.getDirection.station_from_id : '';
     this.form.region_to.region_id = this.getDirection.region_to_id ? this.getDirection.region_to_id : '';
     this.form.region_to.area_id = this.getDirection.area_to_id ? this.getDirection.area_to_id : '';
     this.form.region_to.station_id = this.getDirection.station_to_id ? this.getDirection.station_to_id : '';

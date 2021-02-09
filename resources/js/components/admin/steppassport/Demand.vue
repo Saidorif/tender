@@ -62,21 +62,21 @@
               <tr>
                 <td>Ишкунлари</td>
                 <td>
-                  <input
-                    type="number"
+                  <textarea 
+                    rows="1" 
                     v-model="form.auto_trans_working_days"
                     class="form-control"
-                  />
+                  ></textarea>
                 </td>
               </tr>
               <tr>
                 <td>Дам олиш кунлари</td>
                 <td>
-                  <input
-                    type="number"
+                  <textarea 
+                    rows="1" 
                     v-model="form.auto_trans_weekends"
                     class="form-control"
-                  />
+                  ></textarea>
                 </td>
               </tr>
               <!-- 3 end -->
