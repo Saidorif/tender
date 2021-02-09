@@ -832,7 +832,7 @@ const router = new Router({
 					path:'tenderannounce',
 					component:TenderAnnounce,
 					meta:{
-						action:'index',
+						action:'announceTender',
 						subject:'TenderController'
 					}
 				},
@@ -904,7 +904,7 @@ const router = new Router({
 					path:'confirm-tender',
 					component:ConfirmTender,
 					meta:{
-						action:'index',
+						action:'announceTender',
 						subject:'TenderController'
 					}
 				},

@@ -60,11 +60,11 @@
                   </td>
                   <td rowspan="5">
                     <div class="d-flex flex-column">
-                      <button type="button" class="btn btn-danger mb-2" @click.prevent="denyCar(car_items.id)">
+                      <button type="button" class="btn btn-danger mb-2" @click.prevent="denyCar(car.id)">
                         <i class="fas fa-minus-circle"></i>
                         Отказ
                       </button>
-                      <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)">
+                      <button type="button" class="btn btn-success" @click.prevent="activeCar(car.id)">
                         <i class="fas fa-check-circle"></i>
                         Подтвердить
                       </button>
