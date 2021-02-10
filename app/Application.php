@@ -27,7 +27,7 @@ class Application extends Model
 
     public function user()
     {
-        return $this->belongsTo(\App\User::class,'user_id');
+        return $this->belongsTo(\App\User::class,'user_id')->with(['region','area']);
     }
 
     public function cars()
