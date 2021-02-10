@@ -6,10 +6,10 @@
 	    		<PassportTab/>
 	  		</div>
 	  		<div class="card-body">
-				<div class="tarif_column">
+				<div class="tarif_column"  v-if="titulData.type && titulData.type.id != 1">
 					<div class="add_to_table">
 					</div>
-					<div class="confirm_tarif_default" v-if="titulData.type && titulData.type.id != 1">
+					<div class="confirm_tarif_default">
 						<div class="form-group">
 							<label for="summa" class="form-control-label">Тариф</label>
 							<input
