@@ -5,15 +5,15 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-file"></i>
-          Лоты
+          Проверка заявку
         </h4>
         <h3 class="ml-5">
           <b>{{getCompanyName}}</b>
         </h3>
         <div class="d-flex align-items-center">
-          <button type="button" class="btn btn-info mr-3" @click.prevent="completeLot">
+          <button type="button" class="btn btn-success mr-3" @click.prevent="completeLot" v-if="form.tender_status == 'active'">
             <i class="fas fa-check"></i>
-            Закрыть лот
+            Закрыть заявку
           </button>
           <router-link class="btn btn-primary back_btn" to="/crm/check-control">
             <span class="peIcon pe-7s-back"></span>
@@ -22,109 +22,150 @@
         </div>
       </div>
       <div class="card-body">
+        <div class="form-group col-md-12 table table-responsive mb-4">
+          <div class="d-flex justify-content-center text-center">
+            <h4 class="app_title">
+              Йўналишларда ишлаётганда ҳаракатланиш хавфсизлигини таъминлаш бўйича қатнашчи томонидан амалга оширилган тадбирлар режаси қуйидагича баҳоланади
+            </h4>
+          </div>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th width="1%">1</th>
+                <th width="50%">
+                  Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан
+                  ўтказиш учун барча шароитлар яратилган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.daily_technical_job)"></span>
+                </th>
+              </tr>
+              <tr>
+                <th>2</th>
+                <th width="50%">
+                  Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча
+                  шароитлар яратилган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.daily_medical_job)"></span>
+                </th>
+              </tr>
+              <tr>
+                <th>3</th>
+                <th width="50%">
+                  Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча
+                  ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.hours_rule)"></span>
+                </th>
+              </tr>
+              <tr>
+                <th>4</th>
+                <th width="50%">
+                  Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор
+                  ўрнатилган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.videoregistrator)"></span>
+                </th>
+              </tr>
+              <tr>
+                <th>5</th>
+                <th width="50%">
+                  Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш
+                  тизимига уланган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.gps)"></span>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
         <div class="accordion" id="accordionExample" v-if="cars.length > 0">
-
-          <div class="card" v-for="(car_items,car_index) in cars">
-            <div class="card-header btn-block d-flex justify-content-between">
-                <button
-                  class="text-left"
-                  type="button"
-                  :id="'headingOne'+car_index"
-                  data-toggle="collapse"
-                  data-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >
-                  <b>{{car_items.auto_number}}</b>
-                </button>
-                <div>
-                  <div class="badge" :class="getCarStatusClass(car_items.status)">
-                    {{getCarStatusName(car_items.status)}}
-                  </div>
-                  <div class="badge" :class="getLicenseStatusClass(car_items.license_status)">
-                    {{getLicenseStatusName(car_items.license_status)}}
-                  </div>
-                </div>
-            </div>
-
-            <div
-              id="collapseOne"
-              class="collapse"
-              :class="car_index == 0 ? 'show' : ''"
-              :aria-labelledby="'headingOne'+car_index"
-              data-parent="#accordionExample"
-            >
-              <div class="card-body">
-                <h3><strong>Вводные данные</strong></h3>
-                <div class=" table-responsive table">
-                  <table class="table table-hover table-bordered">
-                    <thead>
-                      <tr>
-                        <th>Статус</th>
-                        <th>Количество рейсов</th>
-                        <th>Вместимость</th>
-                        <th>Количество сидящих</th>
-                        <th>Кондиционер (климат-назорати тизими)</th>
-                        <th>Интернет</th>
-                        <th>Биохожатхона</th>
-                        <th>Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган мослашганлиги</th>
-                        <th>Телефон қувватлагичлари</th>
-                        <th>Хар бир ўриндиқда монитор (планшет)</th>
-                        <th>Бекатларни эълон қилиш аудио тизими</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="badge" :class="getStatusClass(car_items.status)">
-                            {{getStatusName(car_items.status)}}
-                          </div>
-                        </td>
-                        <td>{{car_items.qty_reys}}</td>
-                        <td>{{car_items.capacity}}</td>
-                        <td>{{car_items.seat_qty}}</td>
-                        <td>
-                          <span v-html="checkBox(car_items.conditioner)"></span>
-                        </td>
-                        <td>
-                          <span v-html="checkBox(car_items.internet)"></span>
-                        </td>
-                        <td>
-                          <span v-html="checkBox(car_items.bio_toilet)"></span>
-                        </td>
-                        <td>
-                          <span v-html="checkBox(car_items.bus_adapted)"></span>
-                        </td>
-                        <td>
-                          <span v-html="checkBox(car_items.telephone_power)"></span>
-                        </td>
-                        <td>
-                          <span v-html="checkBox(car_items.monitor)"></span>
-                        </td>
-                        <td>
-                          <span v-html="checkBox(car_items.station_announce)"></span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-lg-12 d-flex justify-content-end">
-                    <button type="button" class="btn btn-danger mr-2" @click.prevent="openModal(car_items)">
-                      <i class="fas fa-minus-circle"></i>
-                      Отказ
-                    </button>
-                    <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)">
-                      <i class="fas fa-check-circle"></i>
-                      Подтвердить
-                    </button>
-                  </div>
-                </div>
-              </div>
+          <div class="d-flex justify-content-center">
+            <h4>Автомобили</h4>
+          </div>
+          <div class="card-body">
+            <h3><strong>Вводные данные</strong></h3>
+            <div class=" table-responsive table">
+              <table class="table table-hover table-bordered text-center">
+                <thead>
+                  <tr>
+                    <th>№</th>
+                    <th>Статус</th>
+                    <th>Номер авто</th>
+                    <th>Количество рейсов</th>
+                    <th>Вместимость</th>
+                    <th>Количество сидящих</th>
+                    <th>Кондиционер (климат-назорати тизими)</th>
+                    <th>Интернет</th>
+                    <th>Биохожатхона</th>
+                    <th>Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган мослашганлиги</th>
+                    <th>Телефон қувватлагичлари</th>
+                    <th>Хар бир ўриндиқда монитор (планшет)</th>
+                    <th>Бекатларни эълон қилиш аудио тизими</th>
+                    <th class="wd12">Назорат</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(car_items,car_index) in cars">
+                    <td>
+                      <b>{{car_index + 1}}</b>
+                    </td> 
+                    <td>
+                      <div class="badge" :class="getCarStatusClass(car_items.status)">
+                        {{getCarStatusName(car_items.status)}}
+                      </div>
+                      <div class="badge" :class="getLicenseStatusClass(car_items.license_status)">
+                        {{getLicenseStatusName(car_items.license_status)}}
+                      </div>
+                    </td>
+                    <td>
+                      <b>{{car_items.auto_number}}</b>
+                    </td> 
+                    <td>{{car_items.qty_reys}}</td>
+                    <td>{{car_items.capacity}}</td>
+                    <td>{{car_items.seat_qty}}</td>
+                    <td>
+                      <span v-html="checkBox(car_items.conditioner)"></span>
+                    </td>
+                    <td>
+                      <span v-html="checkBox(car_items.internet)"></span>
+                    </td>
+                    <td>
+                      <span v-html="checkBox(car_items.bio_toilet)"></span>
+                    </td>
+                    <td>
+                      <span v-html="checkBox(car_items.bus_adapted)"></span>
+                    </td>
+                    <td>
+                      <span v-html="checkBox(car_items.telephone_power)"></span>
+                    </td>
+                    <td>
+                      <span v-html="checkBox(car_items.monitor)"></span>
+                    </td>
+                    <td>
+                      <span v-html="checkBox(car_items.station_announce)"></span>
+                    </td>
+                    <td>
+                      <div class="col-lg-12 d-flex flex-column">
+                        <button type="button" class="btn btn-danger mb-2" @click.prevent="openModal(car_items)">
+                          <i class="fas fa-minus-circle"></i>
+                          Отказ
+                        </button>
+                        <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)" v-if="form.tender_status == 'active'">
+                          <i class="fas fa-check-circle"></i>
+                          Подтвердить 
+                        </button>
+                      </div>  
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-
           <!-- Modal start-->
           <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -139,13 +180,25 @@
                   <form>
                     <div class="form-group">
                       <label for="technical_status">
-                        <input type="checkbox" id="technical_status" true-value="1" false-value="0" v-model="carItem.technical_status">
+                        <input 
+                          type="checkbox" 
+                          id="technical_status" 
+                          true-value="1" 
+                          false-value="0" 
+                          v-model="carItem.technical_status"
+                          :disabled="form.tender_status != 'active'"
+                        >
                         Автотранспорт воситаси техник соз ҳолатда
                       </label>
                     </div>
                     <div class="form-group">
                       <label for="textAuto">Текст</label>
-                      <textarea class="form-control" id="textAuto" v-model="carItem.text"></textarea>
+                      <textarea 
+                        class="form-control" 
+                        id="textAuto" 
+                        v-model="carItem.text" 
+                        :disabled="form.tender_status != 'active'"
+                      ></textarea>
                     </div>
                     <div class="form-group">
                       <label for="fileAuto">Файл</label>
@@ -154,6 +207,7 @@
                         ref="fileupload"
                         class="form-control" 
                         id="fileAuto" 
+                        :disabled="form.tender_status != 'active'"
                         @change="changePhoto($event)"
                       />
                     </div>
@@ -161,7 +215,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Закрыть</button>
-                  <button type="button" class="btn btn-success" @click.prevent="denyCar">
+                  <button type="button" class="btn btn-success" @click.prevent="denyCar" v-if="form.tender_status == 'active'">
                     <i class="fas fa-save"></i>
                     Сохранить
                   </button>
@@ -188,7 +242,18 @@ export default {
   },
   data() {
     return {
+      form:{
+        tarif:'',
+        direction_id:'',
+        daily_medical_job:0,
+        daily_technical_job:0,
+        videoregistrator:0,
+        gps:0,
+        qty_reys:'',
+        hours_rule:0,
+      },
       cars:[],
+      makeDisabled: true,
       laoding: true,
       carItem: {
         id:'',
@@ -203,6 +268,7 @@ export default {
   watch:{
     getAppCars:{
       handler(){
+        this.form = this.getAppCars;
         this.cars = this.getAppCars.cars_with;
         this.company_name = this.getAppCars.user.company_name;
       }
@@ -216,11 +282,13 @@ export default {
   },
   async mounted(){
     await this.actionAppCars(this.$route.params.appId);
+    $('#exampleModalCenter').modal({backdrop: 'static',keyboard: true, show: false}); 
     this.laoding = false
   },
   methods: {
     ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage','actionCloseLot']),
     openModal(item){
+      this.$refs.fileupload.value='';
       $("#exampleModalCenter").modal('show')
       this.carItem = item
     },
@@ -232,12 +300,10 @@ export default {
       this.carItem.file = file
     },
     closeModal(){
-      this.carItem = {
-        id:'',
-        file:'',
-        text:'',
-        technical_status:0
-      }
+      this.carItem.id = ''
+      this.carItem.file = ''
+      this.carItem.text = ''
+      this.carItem.technical_status = ''
       this.$refs.fileupload.value='';
       $('#exampleModalCenter').modal('hide')
     },
@@ -311,10 +377,10 @@ export default {
       }
     },
     checkBox(check){
-      if (check == 0) {
-        return '<i class="fas fa-times-circle text-danger"></i>';
-      }else if(check == 1){
+      if(check == 1){
         return '<i class="fas fa-check-circle text-success"></i>';
+      }else{
+        return '<i class="fas fa-times-circle text-danger"></i>';
       }
     },
     getStatusClass(name){
@@ -339,7 +405,7 @@ export default {
     },
     getCarStatusName(status){
       if (status == 'active'){
-        return 'Неподтверждено'
+        return 'Непроверено'
       }else if(status == 'accepted'){
         return 'Подтверждено'
       }else if(status == 'rejected'){
@@ -373,6 +439,9 @@ export default {
 };
 </script>
 <style scoped>
+.wd12{
+  width: 12%;
+}
 tr {
   cursor: pointer !important;
 }

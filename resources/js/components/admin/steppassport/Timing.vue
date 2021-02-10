@@ -560,15 +560,14 @@ export default {
         this.tableTwoData = [];
         dataTable.forEach((element, index)=>{
             if(index == 0){
-                element.distance_from_start_station = parseFloat(
-                    element.end_speedometer - element.start_speedometer
-                ).toFixed(1);
+                element.distance_from_start_station = parseFloat(element.end_speedometer - element.start_speedometer).toFixed(1);
             }else{
                 element.distance_from_start_station = parseFloat(element.end_speedometer - this.tableTwoData[0].start_speedometer).toFixed(1);
                 let result_spendtime_to_stay_station = this.calcTimeToTime(this.tableTwoData[this.tableTwoData.length - 1].end_time, element.start_time);
                 element.spendtime_between_station = result_spendtime_to_stay_station;
                 this.tableTwoData[ this.tableTwoData.length - 1].spendtime_to_stay_station = result_spendtime_to_stay_station;
             } //else
+            element.distance_between_station = (element.end_speedometer - element.start_speedometer).toFixed(1);
             let result_spendtime_between_station = this.calcTimeToTime(element.start_time, element.end_time);
             element.spendtime_between_station = result_spendtime_between_station;
             this.tableTwoData.push(element);

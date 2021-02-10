@@ -15,7 +15,8 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Название компании</th>
-							<th scope="col">Статус</th>
+							<!-- <th scope="col">Статус</th> -->
+							<th scope="col">Статус заявки</th>
 							<th scope="col">Количество авто</th>
 							<th scope="col">Действия</th>
 						</tr>
@@ -24,9 +25,14 @@
 						<tr v-for="(item,index) in getCheckContolsList">
 							<td scope="row">{{index+1}}</td>
 							<td>{{item.user.company_name ? item.user.company_name : 'Без название'}}</td>
-							<td>
+					<!-- 		<td>
                                 <div class="badge" :class="getStatusClass(item.status)">
 									{{getStatusName(item.status)}}
+								</div>
+                            </td> -->
+							<td>
+                                <div class="badge" :class="getStatusClass(item.tender_status)">
+									{{getStatusName(item.tender_status)}}
 								</div>
                             </td>
 							<td>{{item.cars_count}} шт</td>
@@ -70,20 +76,20 @@
 				await this.actionCheckContolsList(page)
             },
             getStatusClass(status){
-				if(status == 'pending'){
+				if(status == 'active'){
 					return 'badge-secondary'
 				}else if(status == 'rejected'){
 					return 'badge-danger'
-				}else if(status == 'accepted'){
+				}else if(status == 'accepted' || status == 'approved'){
 					return 'badge-success'
 				}
             },
             getStatusName(status){
-				if(status == 'pending'){
+				if(status == 'active'){
 					return 'В ожидании'
 				}else if(status == 'rejected'){
 					return 'Отказано'
-				}else if(status == 'accepted'){
+				}else if(status == 'accepted' || status == 'approved'){
 					return 'Завершен'
 				}
 			},
