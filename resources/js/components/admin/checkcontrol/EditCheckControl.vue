@@ -151,7 +151,7 @@
                     </td>
                     <td>
                       <div class="col-lg-12 d-flex flex-column">
-                        <button type="button" class="btn btn-danger mb-2" @click.prevent="openModal(car_items)">
+                        <button type="button" class="btn btn-danger mb-2" @click.prevent="openModal(car_items)" >
                           <i class="fas fa-minus-circle"></i>
                           Отказ
                         </button>
