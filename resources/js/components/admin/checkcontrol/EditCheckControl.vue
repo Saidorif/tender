@@ -87,107 +87,81 @@
           <div class="d-flex justify-content-center">
             <h4>Автомобили</h4>
           </div>
-          <div class="card" v-for="(car_items,car_index) in cars">
-            <div class="card-header btn-block d-flex justify-content-between">
-                <button
-                  class="text-left"
-                  type="button"
-                  :id="'headingOne'+car_index"
-                  data-toggle="collapse"
-                  data-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >
-                  <b>{{car_items.auto_number}}</b>
-                </button>
-                <div>
-                  <div class="badge" :class="getCarStatusClass(car_items.status)">
-                    {{getCarStatusName(car_items.status)}}
-                  </div>
-                  <div class="badge" :class="getLicenseStatusClass(car_items.license_status)">
-                    {{getLicenseStatusName(car_items.license_status)}}
-                  </div>
-                </div>
-            </div>
-
-            <div
-              id="collapseOne"
-              class="collapse"
-              :class="car_index == 0 ? 'show' : ''"
-              :aria-labelledby="'headingOne'+car_index"
-              data-parent="#accordionExample"
-            >
-              <div class="card-body">
-                <h3><strong>Вводные данные</strong></h3>
-                <div class=" table-responsive table">
-                  <table class="table table-hover table-bordered">
-                    <thead>
-                      <tr>
-                        <th>Статус</th>
-                        <th>Количество рейсов</th>
-                        <th>Вместимость</th>
-                        <th>Количество сидящих</th>
-                        <th>Кондиционер (климат-назорати тизими)</th>
-                        <th>Интернет</th>
-                        <th>Биохожатхона</th>
-                        <th>Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган мослашганлиги</th>
-                        <th>Телефон қувватлагичлари</th>
-                        <th>Хар бир ўриндиқда монитор (планшет)</th>
-                        <th>Бекатларни эълон қилиш аудио тизими</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="badge" :class="getStatusClass(car_items.status)">
-                            {{getStatusName(car_items.status)}}
-                          </div>
-                        </td>
-                        <td>{{car_items.qty_reys}}</td>
-                        <td>{{car_items.capacity}}</td>
-                        <td>{{car_items.seat_qty}}</td>
-                        <td>
-                          <span v-html="checkBox(car_items.conditioner)"></span>
-                        </td>
-                        <td>
-                          <span v-html="checkBox(car_items.internet)"></span>
-                        </td>
-                        <td>
-                          <span v-html="checkBox(car_items.bio_toilet)"></span>
-                        </td>
-                        <td>
-                          <span v-html="checkBox(car_items.bus_adapted)"></span>
-                        </td>
-                        <td>
-                          <span v-html="checkBox(car_items.telephone_power)"></span>
-                        </td>
-                        <td>
-                          <span v-html="checkBox(car_items.monitor)"></span>
-                        </td>
-                        <td>
-                          <span v-html="checkBox(car_items.station_announce)"></span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-lg-12 d-flex justify-content-end">
-                    <button type="button" class="btn btn-danger mr-2" @click.prevent="openModal(car_items)">
-                      <i class="fas fa-minus-circle"></i>
-                      Отказ
-                    </button>
-                    <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)" v-if="form.tender_status == 'active'">
-                      <i class="fas fa-check-circle"></i>
-                      Подтвердить 
-                    </button>
-                  </div>
-                </div>
-              </div>
+          <div class="card-body">
+            <h3><strong>Вводные данные</strong></h3>
+            <div class=" table-responsive table">
+              <table class="table table-hover table-bordered text-center">
+                <thead>
+                  <tr>
+                    <th>№</th>
+                    <th>Статус</th>
+                    <th>Количество рейсов</th>
+                    <th>Вместимость</th>
+                    <th>Количество сидящих</th>
+                    <th>Кондиционер (климат-назорати тизими)</th>
+                    <th>Интернет</th>
+                    <th>Биохожатхона</th>
+                    <th>Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган мослашганлиги</th>
+                    <th>Телефон қувватлагичлари</th>
+                    <th>Хар бир ўриндиқда монитор (планшет)</th>
+                    <th>Бекатларни эълон қилиш аудио тизими</th>
+                    <th class="wd12">Назорат</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(car_items,car_index) in cars">
+                    <td>
+                      <b>{{car_index + 1}}</b>
+                    </td>  
+                    <td>
+                      <div class="badge" :class="getCarStatusClass(car_items.status)">
+                        {{getCarStatusName(car_items.status)}}
+                      </div>
+                      <div class="badge" :class="getLicenseStatusClass(car_items.license_status)">
+                        {{getLicenseStatusName(car_items.license_status)}}
+                      </div>
+                    </td>
+                    <td>{{car_items.qty_reys}}</td>
+                    <td>{{car_items.capacity}}</td>
+                    <td>{{car_items.seat_qty}}</td>
+                    <td>
+                      <span v-html="checkBox(car_items.conditioner)"></span>
+                    </td>
+                    <td>
+                      <span v-html="checkBox(car_items.internet)"></span>
+                    </td>
+                    <td>
+                      <span v-html="checkBox(car_items.bio_toilet)"></span>
+                    </td>
+                    <td>
+                      <span v-html="checkBox(car_items.bus_adapted)"></span>
+                    </td>
+                    <td>
+                      <span v-html="checkBox(car_items.telephone_power)"></span>
+                    </td>
+                    <td>
+                      <span v-html="checkBox(car_items.monitor)"></span>
+                    </td>
+                    <td>
+                      <span v-html="checkBox(car_items.station_announce)"></span>
+                    </td>
+                    <td>
+                      <div class="col-lg-12 d-flex flex-column">
+                        <button type="button" class="btn btn-danger mb-2" @click.prevent="openModal(car_items)">
+                          <i class="fas fa-minus-circle"></i>
+                          Отказ
+                        </button>
+                        <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)" v-if="form.tender_status == 'active'">
+                          <i class="fas fa-check-circle"></i>
+                          Подтвердить 
+                        </button>
+                      </div>  
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-
           <!-- Modal start-->
           <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -427,7 +401,7 @@ export default {
     },
     getCarStatusName(status){
       if (status == 'active'){
-        return 'Неподтверждено'
+        return 'Непроверено'
       }else if(status == 'accepted'){
         return 'Подтверждено'
       }else if(status == 'rejected'){
@@ -461,6 +435,9 @@ export default {
 };
 </script>
 <style scoped>
+.wd12{
+  width: 12%;
+}
 tr {
   cursor: pointer !important;
 }
