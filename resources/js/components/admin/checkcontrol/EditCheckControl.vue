@@ -95,6 +95,7 @@
                   <tr>
                     <th>№</th>
                     <th>Статус</th>
+                    <th>Номер авто</th>
                     <th>Количество рейсов</th>
                     <th>Вместимость</th>
                     <th>Количество сидящих</th>
@@ -112,7 +113,7 @@
                   <tr v-for="(car_items,car_index) in cars">
                     <td>
                       <b>{{car_index + 1}}</b>
-                    </td>  
+                    </td> 
                     <td>
                       <div class="badge" :class="getCarStatusClass(car_items.status)">
                         {{getCarStatusName(car_items.status)}}
@@ -121,6 +122,9 @@
                         {{getLicenseStatusName(car_items.license_status)}}
                       </div>
                     </td>
+                    <td>
+                      <b>{{car_items.auto_number}}</b>
+                    </td> 
                     <td>{{car_items.qty_reys}}</td>
                     <td>{{car_items.capacity}}</td>
                     <td>{{car_items.seat_qty}}</td>
