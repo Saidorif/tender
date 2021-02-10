@@ -621,6 +621,7 @@ class TenderController extends Controller
                     $result[$key][$k]['name'] = $direction->name;
                     $result[$key][$k]['company_name'] = $app->user->company_name;
                     $result[$key][$k]['fio'] = $app->user->getFio();
+                    $result[$key][$k]['user'] = $app->user;
                     //2.Tarif
                     $app_tarif = (int)$app->tarif;//Taklif
                     //Agar shahar yonalish bolsa
