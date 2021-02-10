@@ -22,8 +22,71 @@
         </div>
       </div>
       <div class="card-body">
+        <div class="form-group col-md-12 table table-responsive mb-4">
+          <div class="d-flex justify-content-center text-center">
+            <h4 class="app_title">
+              Йўналишларда ишлаётганда ҳаракатланиш хавфсизлигини таъминлаш бўйича қатнашчи томонидан амалга оширилган тадбирлар режаси қуйидагича баҳоланади
+            </h4>
+          </div>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th width="1%">1</th>
+                <th width="50%">
+                  Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан
+                  ўтказиш учун барча шароитлар яратилган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.daily_technical_job)"></span>
+                </th>
+              </tr>
+              <tr>
+                <th>2</th>
+                <th width="50%">
+                  Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча
+                  шароитлар яратилган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.daily_medical_job)"></span>
+                </th>
+              </tr>
+              <tr>
+                <th>3</th>
+                <th width="50%">
+                  Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча
+                  ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.hours_rule)"></span>
+                </th>
+              </tr>
+              <tr>
+                <th>4</th>
+                <th width="50%">
+                  Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор
+                  ўрнатилган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.videoregistrator)"></span>
+                </th>
+              </tr>
+              <tr>
+                <th>5</th>
+                <th width="50%">
+                  Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш
+                  тизимига уланган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.gps)"></span>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
         <div class="accordion" id="accordionExample" v-if="cars.length > 0">
-
+          <div class="d-flex justify-content-center">
+            <h4>Автомобили</h4>
+          </div>
           <div class="card" v-for="(car_items,car_index) in cars">
             <div class="card-header btn-block d-flex justify-content-between">
                 <button
@@ -188,7 +251,18 @@ export default {
   },
   data() {
     return {
+      form:{
+        tarif:'',
+        direction_id:'',
+        daily_medical_job:0,
+        daily_technical_job:0,
+        videoregistrator:0,
+        gps:0,
+        qty_reys:'',
+        hours_rule:0,
+      },
       cars:[],
+      makeDisabled: true,
       laoding: true,
       carItem: {
         id:'',
@@ -203,6 +277,7 @@ export default {
   watch:{
     getAppCars:{
       handler(){
+        this.form = this.getAppCars;
         this.cars = this.getAppCars.cars_with;
         this.company_name = this.getAppCars.user.company_name;
       }
@@ -216,11 +291,13 @@ export default {
   },
   async mounted(){
     await this.actionAppCars(this.$route.params.appId);
+    $('#exampleModalCenter').modal({backdrop: 'static',keyboard: true, show: false}); 
     this.laoding = false
   },
   methods: {
     ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage','actionCloseLot']),
     openModal(item){
+      this.$refs.fileupload.value='';
       $("#exampleModalCenter").modal('show')
       this.carItem = item
     },
@@ -232,12 +309,10 @@ export default {
       this.carItem.file = file
     },
     closeModal(){
-      this.carItem = {
-        id:'',
-        file:'',
-        text:'',
-        technical_status:0
-      }
+      this.carItem.id = ''
+      this.carItem.file = ''
+      this.carItem.text = ''
+      this.carItem.technical_status = ''
       this.$refs.fileupload.value='';
       $('#exampleModalCenter').modal('hide')
     },
@@ -311,10 +386,10 @@ export default {
       }
     },
     checkBox(check){
-      if (check == 0) {
-        return '<i class="fas fa-times-circle text-danger"></i>';
-      }else if(check == 1){
+      if(check == 1){
         return '<i class="fas fa-check-circle text-success"></i>';
+      }else{
+        return '<i class="fas fa-times-circle text-danger"></i>';
       }
     },
     getStatusClass(name){
