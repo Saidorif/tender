@@ -1003,30 +1003,49 @@ class TenderController extends Controller
     
     public function tenderLotApprove(Request $request,$id)
     {
-        $application = Application::orderBy('id','ASC')->find($id);
+        $application = Application::find($id);
         if(!$application){
             return response()->json(['error' => true, 'message' => 'Application not found']);
         }
+        if($application->tender_status != 'active'){
+            return response()->json(['error' => true, 'message' => 'Application already '.$application->tender_status]);
+        }
         $result = [];
-        //Update application status
-        $application->status = 'approved';
-        $application->save();
-
-        $tender = $application->tender;
-        $tender_lots = $tender->tenderlots;
-        //Update tender status
-        $tender->status = 'approved';
-        $tender->save();
-        //Update lots status
-        foreach($tender_lots as $lot){
-            $lot->status = 'approved';
-            $lot->save();
-            $directions = $lot->direction_id;
-            foreach($directions as $dir){
-                Direction::where(['id' => $dir->id])->update(['status' => 'approved']);
+        //Get application cars
+        $cars = $application->cars;
+        $accepted_cars = 0;
+        foreach($cars as $car){
+            if($car->status == 'accepted'){
+                $accepted_cars++;
             }
         }
-        return response()->json(['success' => true, 'result' => $result]);
+        if($accepted_cars == count($cars)){
+            $application->tender_status = 'accepted';
+            $application->save();
+            return response()->json(['success' => true,'message' => 'Application accepted']);
+        }else{
+            $application->tender_status = 'rejected';
+            $application->save();
+            return response()->json(['success' => true, 'message' => 'Application rejected']);
+        }
+        //Update application status
+        // $application->status = 'approved';
+        // $application->save();
+
+        // $tender = $application->tender;
+        // $tender_lots = $tender->tenderlots;
+        // //Update tender status
+        // $tender->status = 'approved';
+        // $tender->save();
+        // //Update lots status
+        // foreach($tender_lots as $lot){
+        //     $lot->status = 'approved';
+        //     $lot->save();
+        //     $directions = $lot->direction_id;
+        //     foreach($directions as $dir){
+        //         Direction::where(['id' => $dir->id])->update(['status' => 'approved']);
+        //     }
+        // }
     }
 
     public function getinfo(Request $request, $id)
