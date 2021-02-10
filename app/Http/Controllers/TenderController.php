@@ -625,7 +625,7 @@ class TenderController extends Controller
                     $app_tarif = (int)$app->tarif;//Taklif
                     //Agar shahar yonalish bolsa
                     if($direction->type_id == 1){
-                        $tender_tarif = (int)$direction->tarif;
+                        $tender_tarif = (int)$direction->regionFrom->tarifcity->first()->tarif;
                     }else{
                         $tender_tarif = $direction->tarif; //Talab
                     }
