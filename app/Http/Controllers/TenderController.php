@@ -629,7 +629,7 @@ class TenderController extends Controller
                     }
                     $tender_avto_capacity = $direction->requirement->transports_seats;//(transports_seats)Tender avto transport orindiqlar sigimi
                     $yonalish = $direction->type->type;
-                    $tarif_foizda = round(100 - (100*$app_tarif/$tender_tarif));
+                    $tarif_foizda = round(100 - ((100*$app_tarif)/$tender_tarif));
                     $app_tarif_ball = 0;
                     //Agar taklif talabdan 21% dan yuqori bolsa
                     if($tarif_foizda <= -21){
@@ -722,9 +722,14 @@ class TenderController extends Controller
                     $app_model = 0;
                     foreach ($tender_cars as $t_car) {
                         foreach ($app->cars as $a_car) {
-                            //6.Transport kategoriyasiga mosligi
+                            //6.Transport kategoriyasiga mosligi 3 ball
                             if($t_car->bustype_id == $a_car->bustype_id){
-                                $app_categoriya ++;
+                                //agar avtotransport qatnashchining mulki bolsa 1.15 qoshiladi
+                                if($a_car->gai){
+                                    $app_categoriya += 3.45;
+                                }else{
+                                    $app_categoriya += 3;
+                                }
                             }
                             //7.Transport modelining mosligi
                             if($t_car->busmodel_id == $a_car->busmodel_id){
@@ -732,33 +737,44 @@ class TenderController extends Controller
                             }
                         }
                     }
+                    //6-izox: Barcha ballar qoshiladi va talab etilgan avtotransportlar soniga bolinadi
+                    $app_categoriya  = round($app_categoriya / (int)$direction->requirement->auto_trans_count,2);
                     //8.Qoshimcha qulayliklar mavjudligi
                     $avto_qulayliklar_ball = 0;
+                    $conditioner_cars = $app->cars()->where(['conditioner' => 1])->count();
+                    $internet_cars = $app->cars()->where(['internet' => 1])->count();
+                    $bio_toilet_cars = $app->cars()->where(['bio_toilet' => 1])->count();
+                    $bus_adapted_cars = $app->cars()->where(['bus_adapted' => 1])->count();
+                    $telephone_power_cars = $app->cars()->where(['telephone_power' => 1])->count();
+                    $monitor_cars = $app->cars()->where(['monitor' => 1])->count();
+                    $station_announce_cars = $app->cars()->where(['station_announce' => 1])->count();
+                    $cars_rest_total = 0;
+
                     foreach($app->cars as $car){
                         if((int)$car->conditioner == 1){
-                            $avto_qulayliklar_ball += 1.20;
+                            $cars_rest_total += $app_categoriya * 1.20;
                         }
                         if((int)$car->internet == 1){
-                            $avto_qulayliklar_ball += 1.15;
+                            $cars_rest_total += $app_categoriya * 1.15;
                         }
                         if((int)$car->bio_toilet == 1){
-                            $avto_qulayliklar_ball += 1.10;
+                            $cars_rest_total += $app_categoriya * 1.10;
                         }
                         if((int)$car->bus_adapted == 1){
-                            $avto_qulayliklar_ball += 1.20;
+                            $cars_rest_total += $app_categoriya * 1.20;
                         }
                         if((int)$car->telephone_power == 1){
-                            $avto_qulayliklar_ball += 1.05;
+                            $cars_rest_total += $app_categoriya * 1.05;
                         }
                         if((int)$car->monitor == 1){
-                            $avto_qulayliklar_ball += 1.05;
+                            $cars_rest_total += $app_categoriya * 1.05;
                         }
                         if($car->station_announce){
-                            $avto_qulayliklar_ball += 1.05;
+                            $cars_rest_total += $app_categoriya * 1.05;
                         }
                     }
-                    if($avto_qulayliklar_ball){
-                        $avto_qulayliklar_ball = $avto_qulayliklar_ball / count($app->cars);
+                    if($cars_rest_total){
+                        $avto_qulayliklar_ball = $cars_rest_total / count($app->cars);
                     }
                     //9.Tadbirlar rejasi
                     $tadbirlar_rejasi_ball = 0;
@@ -779,6 +795,9 @@ class TenderController extends Controller
                     }
                     //10.Ustuvor mezonlar
             
+                    $result[$key][$k]['app_tarif'] = $app_tarif;
+                    $result[$key][$k]['tender_tarif'] = $direction->tarif;
+                    $result[$key][$k]['tarif_foizda'] = $tarif_foizda;
                     $result[$key][$k]['app_tarif_ball'] = $app_tarif_ball;
                     $result[$key][$k]['app_avto_ball'] = $app_avto_ball;
                     $result[$key][$k]['app_avto_capacity_ball'] = $app_avto_capacity_ball;
@@ -909,7 +928,7 @@ class TenderController extends Controller
                         foreach ($app->cars as $key => $a_car) {
                             //6.Transport kategoriyasiga mosligi
                             if($t_car->bustype_id == $a_car->bustype_id){
-                                $app_categoriya ++;
+                                $app_categoriya += 3;
                             }
                             //7.Transport modelining mosligi
                             if($t_car->busmodel_id == $a_car->busmodel_id){
