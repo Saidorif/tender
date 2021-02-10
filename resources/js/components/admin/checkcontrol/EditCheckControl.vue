@@ -11,9 +11,9 @@
           <b>{{getCompanyName}}</b>
         </h3>
         <div class="d-flex align-items-center">
-          <button type="button" class="btn btn-info mr-3" @click.prevent="completeLot">
+          <button type="button" class="btn btn-success mr-3" @click.prevent="completeLot" v-if="form.tender_status == 'active'">
             <i class="fas fa-check"></i>
-            Закрыть лот
+            Закрыть заявку
           </button>
           <router-link class="btn btn-primary back_btn" to="/crm/check-control">
             <span class="peIcon pe-7s-back"></span>
@@ -178,9 +178,9 @@
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)">
+                    <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)" v-if="form.tender_status == 'active'">
                       <i class="fas fa-check-circle"></i>
-                      Подтвердить
+                      Подтвердить 
                     </button>
                   </div>
                 </div>
@@ -202,13 +202,25 @@
                   <form>
                     <div class="form-group">
                       <label for="technical_status">
-                        <input type="checkbox" id="technical_status" true-value="1" false-value="0" v-model="carItem.technical_status">
+                        <input 
+                          type="checkbox" 
+                          id="technical_status" 
+                          true-value="1" 
+                          false-value="0" 
+                          v-model="carItem.technical_status"
+                          :disabled="form.tender_status != 'active'"
+                        >
                         Автотранспорт воситаси техник соз ҳолатда
                       </label>
                     </div>
                     <div class="form-group">
                       <label for="textAuto">Текст</label>
-                      <textarea class="form-control" id="textAuto" v-model="carItem.text"></textarea>
+                      <textarea 
+                        class="form-control" 
+                        id="textAuto" 
+                        v-model="carItem.text" 
+                        :disabled="form.tender_status != 'active'"
+                      ></textarea>
                     </div>
                     <div class="form-group">
                       <label for="fileAuto">Файл</label>
@@ -217,6 +229,7 @@
                         ref="fileupload"
                         class="form-control" 
                         id="fileAuto" 
+                        :disabled="form.tender_status != 'active'"
                         @change="changePhoto($event)"
                       />
                     </div>
@@ -224,7 +237,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Закрыть</button>
-                  <button type="button" class="btn btn-success" @click.prevent="denyCar">
+                  <button type="button" class="btn btn-success" @click.prevent="denyCar" v-if="form.tender_status == 'active'">
                     <i class="fas fa-save"></i>
                     Сохранить
                   </button>
