@@ -49,7 +49,7 @@
                   </td>
                   <td><b>Давлат раками</b></td>
                   <td>{{car.auto_number}}</td>
-                  <td>{{car.gai.pNameOfClient}}</td>
+                  <td>{{car.gai ? car.gai.pNameOfClient : ''}}</td>
                   <td rowspan="5">
                       <h2 class="text-primary text-center" v-if="car.adliya">
                         <i class="fas fa-file-alt" @click.prevent="showAdliya(car.adliya)"></i>
@@ -74,22 +74,22 @@
                 <tr>
                   <td><b>Авто йили</b></td>
                   <td>{{car.date}}</td>
-                  <td>{{car.gai.pMadeofYear}}</td>
+                  <td>{{car.gai ? car.gai.pMadeofYear : ''}}</td>
                 </tr>
                 <tr>
                   <td><b>Авто тури</b></td>
                   <td>{{car.bustype ? car.bustype.name : ''}}</td>
-                  <td>{{car.gai.pTypeOfAuto}}</td>
+                  <td>{{car.gai ? car.gai.pTypeOfAuto : ''}}</td>
                 </tr>
                 <tr>
                   <td><b>Модель</b></td>
                   <td>{{car.busmodel ? car.busmodel.name : ''}}</td>
-                  <td>{{car.gai.pMarka}}</td>
+                  <td>{{car.gai ? car.gai.pMarka : ''}}</td>
                 </tr>
                 <tr>
                   <td><b>Сиғими</b></td>
                   <td>{{car.capacity}}</td>
-                  <td>{{car.gai.pNumberofplace}}</td>
+                  <td>{{car.gai ? car.gai.pNumberofplace : ''}}</td>
                 </tr>
               </template>
             </tbody>
