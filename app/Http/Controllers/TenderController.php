@@ -128,7 +128,7 @@ class TenderController extends Controller
                 if($the_direction->status == 'approved'){
                     $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
                 }
-                if($the_direction->tarif == 0){
+                if($the_direction->type_id != 1 && $the_direction->tarif == 0){
                     $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
                 }
                 if(!$the_direction->requirement){
@@ -621,9 +621,15 @@ class TenderController extends Controller
                     $result[$key][$k]['name'] = $direction->name;
                     $result[$key][$k]['company_name'] = $app->user->company_name;
                     $result[$key][$k]['fio'] = $app->user->getFio();
+                    $result[$key][$k]['user'] = $app->user;
                     //2.Tarif
                     $app_tarif = (int)$app->tarif;//Taklif
-                    $tender_tarif = $direction->tarif; //Talab
+                    //Agar shahar yonalish bolsa
+                    if($direction->type_id == 1){
+                        $tender_tarif = (int)$direction->regionFrom->tarifcity->first()->tarif;
+                    }else{
+                        $tender_tarif = $direction->tarif; //Talab
+                    }
                     if(!$direction->requirement){
                         return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$direction->name]);
                     }
