@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-file"></i>
-          Лоты
+          Проверка заявку
         </h4>
         <h3 class="ml-5">
           <b>{{getCompanyName}}</b>
