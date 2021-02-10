@@ -30,6 +30,9 @@ class UserCar extends Model
         'license_start_date',
         'license_exp_date',
         'license_number',
+        'technical_status',
+        'text',
+        'file',
     ];
 
     public function user()

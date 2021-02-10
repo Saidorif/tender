@@ -11,9 +11,9 @@
           <b>{{getCompanyName}}</b>
         </h3>
         <div class="d-flex align-items-center">
-          <button type="button" class="btn btn-info mr-3" @click.prevent="completeLot">
+          <button type="button" class="btn btn-success mr-3" @click.prevent="completeLot" v-if="form.tender_status == 'active'">
             <i class="fas fa-check"></i>
-            Закрыть лот
+            Закрыть заявку
           </button>
           <router-link class="btn btn-primary back_btn" to="/crm/check-control">
             <span class="peIcon pe-7s-back"></span>
@@ -22,8 +22,71 @@
         </div>
       </div>
       <div class="card-body">
+        <div class="form-group col-md-12 table table-responsive mb-4">
+          <div class="d-flex justify-content-center text-center">
+            <h4 class="app_title">
+              Йўналишларда ишлаётганда ҳаракатланиш хавфсизлигини таъминлаш бўйича қатнашчи томонидан амалга оширилган тадбирлар режаси қуйидагича баҳоланади
+            </h4>
+          </div>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th width="1%">1</th>
+                <th width="50%">
+                  Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан
+                  ўтказиш учун барча шароитлар яратилган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.daily_technical_job)"></span>
+                </th>
+              </tr>
+              <tr>
+                <th>2</th>
+                <th width="50%">
+                  Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча
+                  шароитлар яратилган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.daily_medical_job)"></span>
+                </th>
+              </tr>
+              <tr>
+                <th>3</th>
+                <th width="50%">
+                  Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча
+                  ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.hours_rule)"></span>
+                </th>
+              </tr>
+              <tr>
+                <th>4</th>
+                <th width="50%">
+                  Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор
+                  ўрнатилган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.videoregistrator)"></span>
+                </th>
+              </tr>
+              <tr>
+                <th>5</th>
+                <th width="50%">
+                  Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш
+                  тизимига уланган
+                </th>
+                <th>
+                  <span v-html="checkBox(form.gps)"></span>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
         <div class="accordion" id="accordionExample" v-if="cars.length > 0">
-
+          <div class="d-flex justify-content-center">
+            <h4>Автомобили</h4>
+          </div>
           <div class="card" v-for="(car_items,car_index) in cars">
             <div class="card-header btn-block d-flex justify-content-between">
                 <button
@@ -61,11 +124,6 @@
                     <thead>
                       <tr>
                         <th>Статус</th>
-                        <th>Категория Авто</th>
-                        <th>Класс Авто</th>
-                        <th>Марка Авто</th>
-                        <th>Модель Авто</th>
-                        <th>Дата выпуска</th>
                         <th>Количество рейсов</th>
                         <th>Вместимость</th>
                         <th>Количество сидящих</th>
@@ -85,11 +143,6 @@
                             {{getStatusName(car_items.status)}}
                           </div>
                         </td>
-                        <td>{{car_items.bustype ? car_items.bustype.name : ''}}</td>
-                        <td width="5%">{{car_items.tclass ? car_items.tclass.name : ''}}</td>
-                        <td>{{car_items.busmarka ? car_items.busmarka.name : ''}}</td>
-                        <td>{{car_items.busmodel ? car_items.busmodel.name : ''}}</td>
-                        <td>{{car_items.date}}</td>
                         <td>{{car_items.qty_reys}}</td>
                         <td>{{car_items.capacity}}</td>
                         <td>{{car_items.seat_qty}}</td>
@@ -121,15 +174,73 @@
                 <hr>
                 <div class="row">
                   <div class="col-lg-12 d-flex justify-content-end">
-                    <button type="button" class="btn btn-danger mr-2" @click.prevent="denyCar(car_items.id)">
+                    <button type="button" class="btn btn-danger mr-2" @click.prevent="openModal(car_items)">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)">
+                    <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)" v-if="form.tender_status == 'active'">
                       <i class="fas fa-check-circle"></i>
-                      Подтвердить
+                      Подтвердить 
                     </button>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal start-->
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>Примечания</strong></h5>
+                  <button type="button" class="close" @click.prevent="closeModal">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="technical_status">
+                        <input 
+                          type="checkbox" 
+                          id="technical_status" 
+                          true-value="1" 
+                          false-value="0" 
+                          v-model="carItem.technical_status"
+                          :disabled="form.tender_status != 'active'"
+                        >
+                        Автотранспорт воситаси техник соз ҳолатда
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <label for="textAuto">Текст</label>
+                      <textarea 
+                        class="form-control" 
+                        id="textAuto" 
+                        v-model="carItem.text" 
+                        :disabled="form.tender_status != 'active'"
+                      ></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="fileAuto">Файл</label>
+                      <input 
+                        type="file" 
+                        ref="fileupload"
+                        class="form-control" 
+                        id="fileAuto" 
+                        :disabled="form.tender_status != 'active'"
+                        @change="changePhoto($event)"
+                      />
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Закрыть</button>
+                  <button type="button" class="btn btn-success" @click.prevent="denyCar" v-if="form.tender_status == 'active'">
+                    <i class="fas fa-save"></i>
+                    Сохранить
+                  </button>
                 </div>
               </div>
             </div>
@@ -153,14 +264,33 @@ export default {
   },
   data() {
     return {
+      form:{
+        tarif:'',
+        direction_id:'',
+        daily_medical_job:0,
+        daily_technical_job:0,
+        videoregistrator:0,
+        gps:0,
+        qty_reys:'',
+        hours_rule:0,
+      },
       cars:[],
+      makeDisabled: true,
       laoding: true,
-      company_name:''
+      carItem: {
+        id:'',
+        file:'',
+        text:'',
+        technical_status:0
+      },
+      tests:[],
+      company_name:'',
     };
   },
   watch:{
     getAppCars:{
       handler(){
+        this.form = this.getAppCars;
         this.cars = this.getAppCars.cars_with;
         this.company_name = this.getAppCars.user.company_name;
       }
@@ -172,14 +302,35 @@ export default {
       return this.company_name  ? this.company_name : 'Без название'
     },
   },
-  async mounted() {
+  async mounted(){
     await this.actionAppCars(this.$route.params.appId);
+    $('#exampleModalCenter').modal({backdrop: 'static',keyboard: true, show: false}); 
     this.laoding = false
   },
   methods: {
     ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage','actionCloseLot']),
+    openModal(item){
+      this.$refs.fileupload.value='';
+      $("#exampleModalCenter").modal('show')
+      this.carItem = item
+    },
+    removeFile(){
+      this.carItem.file = ''
+    },
+    changePhoto(event){
+      let file = event.target.files[0];
+      this.carItem.file = file
+    },
+    closeModal(){
+      this.carItem.id = ''
+      this.carItem.file = ''
+      this.carItem.text = ''
+      this.carItem.technical_status = ''
+      this.$refs.fileupload.value='';
+      $('#exampleModalCenter').modal('hide')
+    },
     async completeLot(){
-        this.laoding = true
+      // this.laoding = true
       await this.actionCloseLot(this.$route.params.appId)
       if (this.getStatusMessage.success) {
         await this.actionAppCars(this.$route.params.appId);
@@ -191,15 +342,18 @@ export default {
       }
       this.laoding = false
     },
-    async denyCar(id){
-      if(confirm("Вы действительно хотите отказаться?")){
-        let data = {
-          app_id:this.$route.params.appId,
-          car_id:id,
-          status:'rejected',
-        }
+    async denyCar(){
+      $('#exampleModalCenter').modal('show')
+      let form = new FormData()
+      form.append('file', this.carItem.file);
+      form.append('text', this.carItem.text);
+      form.append('technical_status', this.carItem.technical_status);
+      form.append('app_id', this.$route.params.appId);
+      form.append('car_id', this.carItem.id);
+      form.append('status', 'rejected');
+      if(this.carItem.text != ''){
         this.laoding = true
-        await this.actionStatusMessage(data)
+        await this.actionStatusMessage(form)
         if (this.getStatusMessage.success) {
           await this.actionAppCars(this.$route.params.appId);
           toast.fire({
@@ -207,8 +361,21 @@ export default {
             icon: "success",
             title: this.getStatusMessage.message
           });
+          this.closeModal()
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getStatusMessage.message
+          });
         }
         this.laoding = false
+      }else{
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: "Вводите текст"
+        });
       }
     },
     async activeCar(id){
@@ -232,10 +399,10 @@ export default {
       }
     },
     checkBox(check){
-      if (check == 0) {
-        return '<i class="fas fa-times-circle text-danger"></i>';
-      }else if(check == 1){
+      if(check == 1){
         return '<i class="fas fa-check-circle text-success"></i>';
+      }else{
+        return '<i class="fas fa-times-circle text-danger"></i>';
       }
     },
     getStatusClass(name){

@@ -21,6 +21,7 @@ class CreateApplicationsTable extends Migration
             $table->bigInteger('lot_id');
             $table->string('tarif')->nullable();
             $table->string('status')->default('active')->nullable();
+            $table->string('tender_status')->default('active')->nullable();
             $table->string('daily_technical_job')->nullable();
             $table->string('daily_medical_job')->nullable();
             $table->string('hours_rule')->nullable();
