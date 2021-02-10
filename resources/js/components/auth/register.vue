@@ -5,16 +5,16 @@
     <div class="card-body login-card-body">
       <form @submit.enter.prevent="onSignUp" class="form_content jv_login_block">
         <div class="flagbg">
-          <div class="input-group input_group_with_label">
+          <div class="input-group col-md-4 input_group_with_label">
             <select id="complaint_category_id" class="form-control input_style"  v-model="signUp.region_id" :class="isRequired(signUp.region_id) ? 'isRequired' : ''" @change="selectRegion()">
               <option :value="item.id" v-for="(item, index) in getRegionList">
                 {{ item.name }}
               </option>
-            </select> 
+            </select>
             <label for="complaint_category_id">Viloyatni tanlang!</label>
           </div>
-          <div class="input-group input_group_with_label">
-            <select id="complaint_category_id" class="form-control input_style" 
+          <div class="input-group col-md-4 input_group_with_label">
+            <select id="complaint_category_id" class="form-control input_style"
               v-model="signUp.area_id" :class="isRequired(signUp.area_id) ? 'isRequired' : ''">
               <option
                 :value="item.id"
@@ -22,10 +22,10 @@
               >
                 {{ item.name }}
               </option>
-            </select> 
+            </select>
             <label for="complaint_category_id">Viloyat yoki shaharni tanlang!</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               id="address"
@@ -35,7 +35,7 @@
             />
             <label  for="address">Manzil</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -45,7 +45,7 @@
             />
             <label  for="surname">Familya</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -55,7 +55,7 @@
             />
             <label  for="name">Ism</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -65,7 +65,7 @@
             />
             <label  for="middlename">Sharif</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -76,7 +76,7 @@
             />
             <label  for="STIR">STIR</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -86,7 +86,7 @@
             />
             <label  for="company_name">Kompaniyani nomi</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -106,7 +106,7 @@
             />
             <label  for="userEmail">Email</label>
           </div> -->
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -142,7 +142,7 @@
             />
             <label  for="license_number">Parolni tasdiqlang</label>
           </div> -->
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -152,7 +152,7 @@
             />
             <label  for="city">Bankining manzli</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -165,7 +165,7 @@
             />
             <label  for="bank_number">Bank hisob raqami</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -176,7 +176,7 @@
             />
             <label  for="mfo">MFO</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -187,7 +187,7 @@
             />
             <label  for="oked">OKED</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -198,7 +198,7 @@
             />
             <label  for="license_number">Litsenziya nomeri</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -208,7 +208,7 @@
             />
             <label  for="license_number">Litsenziya turi</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
             <date-picker
               lang="ru"
               type="date"
@@ -220,7 +220,7 @@
             ></date-picker>
             <label  for="license_date">Litsenziya sanasi</label>
           </div>
-          <div  class="input-group input_group_with_label">
+          <div  class="input-group col-md-4 input_group_with_label">
           </div>
             <div class="btns_block">
               <div class="btn_register_block">
