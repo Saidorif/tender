@@ -100,7 +100,7 @@
    </div>
 </template>
 <script>
-	import { mapGetters , mapActions } from 'vuex'
+	import {mapGetters , mapActions} from 'vuex'
 	import PassportTab from "./PassportTab";
 import Loader from '../../Loader'
 

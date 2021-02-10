@@ -39,11 +39,14 @@
                   <tbody>
                       <tr v-for="(directions, d_index) in lots">
                           <td>{{d_index+1}}</td>
-                          <td>{{directions[0].name}}</td>
+                          <td>{{directions[0].name}}</a>
+                          </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.company_name != null ? item.company_name : 'noname'}}
+                                <a href="#" @click.prevent="openModal(item)">
+                                  {{item.company_name != null ? item.company_name : 'noname'}}
+                                </a>
                               </li>
                             </ul>
                           </td>
@@ -171,6 +174,9 @@ export default {
     ...mapActions("completedtender", [
       "actionCompletedTendersShow",
     ]),
+    openModal(item){
+      console.log(item)
+    }
   },
 };
 </script>
