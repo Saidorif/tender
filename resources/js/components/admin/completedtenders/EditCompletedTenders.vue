@@ -33,7 +33,7 @@
                           <th>Подробнее</th>
                           <th>Результаты изучения тендерных предложений</th>
                           <th>Статус лицензии</th>
-                          <th>Протоколы</th>
+                          <!-- <th>Протоколы</th> -->
                           <th>Контракты</th>
                       </tr>
                   </thead>
@@ -136,12 +136,6 @@
                                 status
                               </li>
                             </ul>
-                          </td>
-                          <td class="without_padding">
-                            <router-link class="" tag="a" :to="`/crm/protocol/${$route.params.tenderId}`">
-                              <i class="fas fa-edit"></i>
-                              Протокол
-                            </router-link>
                           </td>
                           <td class="without_padding">
                             <router-link class="" tag="a" :to="`/crm/contract/${$route.params.tenderId}`">
