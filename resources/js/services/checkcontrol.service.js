@@ -13,6 +13,9 @@ const CheckControlSerivce = {
 	closeLot(id){
 		return ApiService.post(`/api/tender/approve/${id}`)
 	},
+	checkLicense(inn){
+		return ApiService.get(`/api/get-license-list/${inn}`)
+	},
 };
 
 export { CheckControlSerivce };

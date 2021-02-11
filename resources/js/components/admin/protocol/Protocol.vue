@@ -45,7 +45,7 @@
                     _____________________ Д.Т.Дехканов
                 </p>
                 <p style="font-size: 18.5px;text-align:right;line-heifht:0;margin: 0 80px; padding:0;">
-                    2018 йил «26» декабрь
+                    {{getProtocol.tender ? $g.getYear(getProtocol.tender.time) : ''}} йил «{{getProtocol.tender ? $g.getDay(getProtocol.tender.time) : ''}}» {{getProtocol.tender ? $g.getMonthInLetter(getProtocol.tender.time) : ''}}
                 </p>
                 <p style="font-size: 18.5px;text-align:center;margin:10px 40px 0px 40px;">
                     Шаҳарлараро-вилоятлараро йўналишларни жойлаштириш
@@ -56,8 +56,10 @@
 
                 <table style="width:100%;">
                     <tr>
-                        <td style="font-size: 18.5px;margin: 0;line-heifht:0;">2018 йил 26 декабрь</td>
-                        <td style="font-size: 18.5px;margin: 0;line-heifht:0;text-align:right">Тошкент ш.</td>
+                        <td style="font-size: 18.5px;margin: 0;line-heifht:0;">{{getProtocol.tender ? $g.getYear(getProtocol.tender.time) : ''}} йил {{getProtocol.tender ? $g.getDay(getProtocol.tender.time) : ''}} {{getProtocol.tender ? $g.getMonthInLetter(getProtocol.tender.time) : ''}}</td>
+                        <td style="font-size: 18.5px;margin: 0;line-heifht:0;text-align:right">
+                            {{getProtocol.tender ? getProtocol.tender.moderator : ''}}
+                        </td>
                     </tr>
                 </table>
                 <h4 style="font-size: 18.5px;text-align:center;font-weight:bold;">Кун тартиби:</h4>
@@ -81,7 +83,7 @@
                 <h6 style="font-size: 18.5px;margin:0;font-weight:bold;margin-bottom:10px;">Келиб тушган тендер таклифларини баҳолаш натижалари қуйидагича: </h6>
                 <div style="margin-bottom: 30px;" v-for="(items,index) in getProtocol.lots">
                     <h6 style="font-size: 18.5px;margin:0;margin-bottom:0px;font-weight:normal;"><b>{{index+1}}) {{items.title}}</b>	 автобус йўналиши бўйича:</h6>
-                    <h6 style="font-size: 18.5px;margin:0;font-weight:normal;">кутилаётган энг кам балл 25 балл</h6>
+                    <h6 style="font-size: 18.5px;margin:0;font-weight:normal;">кутилаётган энг кам балл {{items.minimal_ball}} балл</h6>
                     <p style="font-size: 18.5px;margin:0px;" v-for="(val,k) in items.items">1)	«{{val.company_name}}»   - тўплаган бали {{val.total}} балл </p>
                 </div>
                 <h6 style="font-size: 18.5px;margin:0;font-weight:bold;margin-bottom:10px;text-decoration: underline;font-style: italic;text-align:center;">Идоралараро Комиссия бир овоздан қуйидагиларни қарор қилди:</h6>

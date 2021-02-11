@@ -11,6 +11,10 @@
           <b>{{getCompanyName}}</b>
         </h3>
         <div class="d-flex align-items-center">
+          <button type="button" class="btn btn-info mr-3" @click.prevent="checkLicense" v-if="form.tender_status == 'active'">
+            <i class="fas fa-file-alt"></i>
+            Проверка лицензии
+          </button>
           <button type="button" class="btn btn-success mr-3" @click.prevent="completeLot" v-if="form.tender_status == 'active'">
             <i class="fas fa-check"></i>
             Закрыть заявку
@@ -275,7 +279,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("checkcontrol", ["getAppCars",'getStatusMessage']),
+    ...mapGetters("checkcontrol", ["getAppCars",'getStatusMessage','getStatusLicense']),
     getCompanyName(){
       return this.company_name  ? this.company_name : 'Без название'
     },
@@ -286,7 +290,35 @@ export default {
     this.laoding = false
   },
   methods: {
-    ...mapActions("checkcontrol", ["actionAppCars",'actionStatusMessage','actionCloseLot']),
+    ...mapActions("checkcontrol", [
+      "actionAppCars",
+      'actionStatusMessage',
+      'actionCloseLot',
+      'actionCheckLicense'
+    ]),
+    async checkLicense(){
+      let inn = this.form.user ? this.form.user.inn : null
+      if(confirm("Вы действительно хотите проверить лицензии?")){
+        this.laoding = true
+        await this.actionCheckLicense(inn)
+        this.laoding = false
+        console.log(this.getStatusLicense)
+        if (this.getStatusLicense.success){
+          await this.actionAppCars(this.$route.params.appId);
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getStatusLicense.message
+          });
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getStatusLicense.message
+          });
+        }
+      }
+    },
     openModal(item){
       this.$refs.fileupload.value='';
       $("#exampleModalCenter").modal('show')

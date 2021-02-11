@@ -64,6 +64,14 @@ export const g = {
         return val
       }
     },
+    getYear(year){
+      let new_date = new Date(year);
+      return new_date.getFullYear();
+    },
+    getDay(day){
+      let new_date = new Date(day);
+      return new_date.getDay();
+    },
     dateCounter(date,id){
       // Set the date we're counting down to
       let countDownDate = new Date(date).getTime();
@@ -111,5 +119,33 @@ export const g = {
         }
 
       }, 1000);
+    },
+    getMonthInLetter(date){
+    if (date) {
+      let new_date = new Date(date);
+      let month = new_date.getMonth();
+      let months=[
+        {id:1,name:'январь'},
+        {id:2,name:'февраль'},
+        {id:3,name:'март'},
+        {id:4,name:'апрель'},
+        {id:5,name:'май'},
+        {id:6,name:'июнь'},
+        {id:7,name:'июль'},
+        {id:8,name:'августь'},
+        {id:9,name:'сентябрь'},
+        {id:10,name:'октябрь'},
+        {id:11,name:'ноябрь'},
+        {id:12,name:'декабрь'},
+      ];
+      months.forEach((items,index)=>{
+        if(month == items.id){
+            name = items.name
+        }
+      })
+      return name
+    }else{
+      return date
     }
+  },
 }
