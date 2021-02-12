@@ -82,7 +82,7 @@
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.lot_reys}}
+                                {{item.reys_ball}}
                               </li>
                             </ul>
                           </td>
@@ -96,7 +96,7 @@
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.avto_qulayliklar_ball}}
+                                {{item.cars_ball}}
                               </li>
                             </ul>
                           </td>
@@ -110,7 +110,7 @@
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.total}}
+                                {{item.total_ball}}
                               </li>
                             </ul>
                           </td>
