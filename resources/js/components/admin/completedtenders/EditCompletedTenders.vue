@@ -245,7 +245,91 @@
               </button>
             </div>
             <div class="modal-body">
-       
+              <div class="table-responsive table">
+                <table class="table-bordered table table-hover" v-if="userItem">
+                  <thead>
+                    <tr>
+                      <th>№</th>
+                      <th>Бахолаш мезонлари</th>
+                      <th>Киритилган таклиф</th>
+                      <th>Йуналиш талабида</th>
+                      <th>Хисобланган балл</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Тариф</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Количество рейсов</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Автоларнинг уртача йили</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>Автоларнинг умумий сигими</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>Категория/класс</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>М1 булса моделнинг класси</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr>
+                <table class="table-bordered table table-hover" v-if="userItem">
+                  <thead>
+                    <tr>
+                      <th>№</th>
+                      <th>
+                        Йўналишларда ишлаётганда ҳаракатланиш хавфсизлигини таъминлаш бўйича қатнашчи томонидан амалга оширилган тадбирлар режаси (факат ташувчи белгилаганлари куринади)
+                      </th>
+                      <th>Хисобланган балл</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>
+                        Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан ўтказиш учун барча шароитлар яратилган
+                      </td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>
+                        Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча шароитлар яратилган
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" @click.prevent="closeBallModal">Закрыть</button>
