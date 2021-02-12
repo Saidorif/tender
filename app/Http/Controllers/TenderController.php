@@ -814,9 +814,9 @@ class TenderController extends Controller
                     $app_model = round($app_model / (int)$direction->requirement->schedules,2);
                     //6-izox: Barcha ballar qoshiladi va talab etilgan avtotransportlar soniga bolinadi
                     $app_categoriya  = round($app_categoriya / (int)$direction->requirement->auto_trans_count,2);
-                    $appBallArray['app_categoryies'] = array_unique($app->cars->pluck('bustype_id')->toArray());
-                    $appBallArray['lot_categoryies'] = $tender_cars->pluck('bustype_id')->toArray();
-                    $appBallArray['categoryies_ball'] = $app_categoriya;
+                    $appBallArray['app_categories'] = array_unique($app->cars->pluck('bustype_id')->toArray());
+                    $appBallArray['lot_categories'] = $tender_cars->pluck('bustype_id')->toArray();
+                    $appBallArray['categories_ball'] = $app_categoriya;
                     $appBallArray['app_models'] = array_unique($app->cars->pluck('tclass_id')->toArray());
                     $appBallArray['lot_models'] = $tender_cars->pluck('tclass_id')->toArray();
                     $appBallArray['models_ball'] = $app_model;

@@ -33,9 +33,9 @@ class CreateApplicationBallsTable extends Migration
             $table->double('app_capacity',15,2)->nullable();
             $table->double('lot_capacity',15,2)->nullable();
             $table->double('capacity_ball',15,2)->nullable();
-            $table->string('app_categoryies')->nullable();
-            $table->string('lot_categoryies')->nullable();
-            $table->double('categoryies_ball',15,2)->nullable();
+            $table->string('app_categories')->nullable();
+            $table->string('lot_categories')->nullable();
+            $table->double('categories_ball',15,2)->nullable();
             $table->string('app_models')->nullable();
             $table->string('lot_models')->nullable();
             $table->double('models_ball',15,2)->nullable();

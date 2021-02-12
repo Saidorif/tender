@@ -25,9 +25,9 @@ class ApplicationBall extends Model
         'app_capacity',
         'lot_capacity',
         'capacity_ball',
-        'app_categoryies',
-        'lot_categoryies',
-        'categoryies_ball',
+        'app_categories',
+        'lot_categories',
+        'categories_ball',
         'app_models',
         'lot_models',
         'models_ball',
@@ -43,8 +43,8 @@ class ApplicationBall extends Model
 
     protected $casts = [
         'direction_ids' => 'array',
-        'app_categoryies' => 'array',
-        'lot_categoryies' => 'array',
+        'app_categories' => 'array',
+        'lot_categories' => 'array',
         'app_models' => 'array',
         'lot_models' => 'array',
     ];
@@ -52,5 +52,49 @@ class ApplicationBall extends Model
     public function user()
     {
         return $this->belongsTo(\App\User::class,'user_id');
+    }
+
+    public function getAppCategoriesAttribute($value)
+    {
+        $d_ids = json_decode($value,true);
+        $result = [];
+        foreach ($d_ids as $key => $id) {
+            $bustype = BusType::find($id);
+            $result[] = $bustype;
+        }
+        return $result;
+    }
+    
+    public function getLotCategoriesAttribute($value)
+    {
+        $d_ids = json_decode($value,true);
+        $result = [];
+        foreach ($d_ids as $key => $id) {
+            $bustype = BusType::find($id);
+            $result[] = $bustype;
+        }
+        return $result;
+    }
+    
+    public function getAppModelsAttribute($value)
+    {
+        $d_ids = json_decode($value,true);
+        $result = [];
+        foreach ($d_ids as $key => $id) {
+            $bustype = TClass::find($id);
+            $result[] = $bustype;
+        }
+        return $result;
+    }
+    
+    public function getLotModelsAttribute($value)
+    {
+        $d_ids = json_decode($value,true);
+        $result = [];
+        foreach ($d_ids as $key => $id) {
+            $bustype = TClass::find($id);
+            $result[] = $bustype;
+        }
+        return $result;
     }
 }
