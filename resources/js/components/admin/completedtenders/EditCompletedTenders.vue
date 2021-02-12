@@ -68,7 +68,7 @@
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.categoryies_ball}}
+                                {{item.categories_ball}}
                               </li>
                             </ul>
                           </td>
@@ -290,16 +290,40 @@
                     <tr>
                       <td>5</td>
                       <td>Категория/класс</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td>
+                        <ul class="list-inline" v-if="ballItems.app_categories">
+                            <li v-for="(app_cat,index) in ballItems.app_categories">
+                              {{app_cat.name}}
+                            </li>
+                        </ul>
+                      </td>
+                      <td>
+                        <ul class="list-inline" v-if="ballItems.lot_categories">
+                            <li v-for="(lot_cat,index) in ballItems.lot_categories">
+                              {{lot_cat.name}}
+                            </li>
+                        </ul>
+                      </td>
+                      <td>{{ballItems.categories_ball}}</td>
                     </tr>
                     <tr>
                       <td>6</td>
                       <td>М1 булса моделнинг класси</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td>
+                        <ul class="list-inline" v-if="ballItems.app_models">
+                            <li v-for="(app_model,index) in ballItems.app_models">
+                              {{app_model.name}}
+                            </li>
+                        </ul>
+                      </td>
+                      <td>
+                        <ul class="list-inline" v-if="ballItems.lot_models">
+                            <li v-for="(lot_model,index) in ballItems.lot_models">
+                              {{lot_model.name}}
+                            </li>
+                        </ul>
+                      </td>
+                      <td>{{ballItems.models_ball}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -513,9 +537,9 @@ input.disabled {
 .without_padding li{
   text-align: center;
 }
-.list-inline li{
+/*.list-inline li{
   border-bottom: 1px solid #000;
-}
+}*/
 .list-inline li:last-child{
   border: none;
 }
