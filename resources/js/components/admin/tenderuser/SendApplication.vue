@@ -411,9 +411,11 @@
 					  	<div class="form-group col-lg-12 d-flex justify-content-end align-items-end" v-if="!makeDisabled">
                             <div class="form-group col-md-3 mb-0" >
                                 <label>Muddat</label>
-                                <select  class="form-control"  v-model="contract_time" >
-                                    <option selected disabled>Muddatni tanlang!</option>
-                                    <option v-for="option in timeOptions" :value="option.val">{{ option.name }}</option>
+                                <select  class="form-control"  v-model="contract_time" v-if="contract_time">
+                                    <!-- <option selected disabled>Muddatni tanlang!</option> -->
+                                    <option v-for="option in timeOptions" :value="option.val" v-if="contract_time <= option.val">
+                                    	{{ option.name }}
+                                    </option>
                                 </select>
                             </div>
 						  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
@@ -1003,7 +1005,6 @@
                         this.contract_time = 5
                     }else if(res < 5){
                         this.contract_time = 4
-                        console.log(this.contract_time)
                     }else if(res < 8){
                         this.contract_time = 3
                     }else if(res < 11){
