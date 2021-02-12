@@ -885,7 +885,7 @@ class TenderController extends Controller
                         $tadbirlar_rejasi_ball += 1;
                         $appBallArray['gps'] = (int)$app->gps;
                     }
-                    // $appBallArray['cars_ball'] = $app->cars_ball;
+                    
                     
                     //10.Ustuvor mezonlar
             
@@ -904,6 +904,7 @@ class TenderController extends Controller
                     $result[$key][$k]['tadbirlar_rejasi_ball'] = $tadbirlar_rejasi_ball;
                     $result[$key][$k]['total'] = $app_tarif_ball + $app_avto_ball + $app_avto_capacity_ball + $app_qatnovlar_ball + $app_categoriya + $app_model + round($avto_qulayliklar_ball,3) + $tadbirlar_rejasi_ball;
                     $appBallArray['total_ball'] = $result[$key][$k]['total'];
+                    $appBallArray['cars_ball'] =$result[$key][$k]['avto_qulayliklar_ball'];
                     $result[$key][$k]['appBallArray'] = $appBallArray;
                     $applicationBall = ApplicationBall::create($appBallArray);
                 }
