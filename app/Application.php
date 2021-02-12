@@ -58,4 +58,9 @@ class Application extends Model
     {
         return $this->hasMany(\App\File::class,'app_id');
     }
+    
+    public function balls()
+    {
+        return $this->hasOne(\App\ApplicationBall::class,'app_id')->with('user');
+    }
 }
