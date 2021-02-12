@@ -1,6 +1,6 @@
 <template>
   <div class="add_region">
-      <Loader v-if="laoding"/>
+    <Loader v-if="laoding"/>
     <div class="card">
       <div class="card-header">
         <h4 class="title_user">
@@ -110,6 +110,8 @@
                     <th>Телефон қувватлагичлари</th>
                     <th>Хар бир ўриндиқда монитор (планшет)</th>
                     <th>Бекатларни эълон қилиш аудио тизими</th>
+                    <th>ГАИ маълумоти</th>
+                    <th>Нотариус маълумоти</th>
                     <th class="wd12">Назорат</th>
                   </tr>
                 </thead>
@@ -154,6 +156,22 @@
                       <span v-html="checkBox(car_items.station_announce)"></span>
                     </td>
                     <td>
+                        <h2 class="text-primary text-center" v-if="car_items.gai">
+                          <i class="fas fa-file-alt" @click.prevent="showGai(car_items)"></i>
+                        </h2>
+                        <h2 class="text-secondary text-center" v-else>
+                          <i class="fas fa-file-alt"></i>
+                        </h2>
+                    </td>
+                    <td>
+                        <h2 class="text-primary text-center" v-if="car_items.adliya">
+                          <i class="fas fa-file-alt" @click.prevent="showAdliya(car_items.adliya)"></i>
+                        </h2>
+                        <h2 class="text-secondary text-center" v-else>
+                          <i class="fas fa-file-alt"></i>
+                        </h2>
+                    </td>
+                    <td>
                       <div class="col-lg-12 d-flex flex-column">
                         <button type="button" class="btn btn-danger mb-2" @click.prevent="openModal(car_items)" >
                           <i class="fas fa-minus-circle"></i>
@@ -168,6 +186,102 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+          <!-- Gai Modal-->
+          <div class="modal fade" id="gaiModal" tabindex="-1" role="dialog" aria-labelledby="gaiModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>ГАИ данные</strong></h5>
+                  <button type="button" class="close" @click.prevent="closeGaiModal">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h3><strong>ГАИ данные</strong></h3>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Авто тартиб раками</th>
+                        <th>Киритилган маълумот</th>
+                        <th>ГАИ маълумоти</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <td><b>Давлат раками</b></td>
+                          <td>{{gaiItem.auto_number}}</td>
+                          <td>{{gaiItem.gai ? gaiItem.gai.pNameOfClient : ''}}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Авто йили</b></td>
+                          <td>{{gaiItem.date}}</td>
+                          <td>{{gaiItem.gai ? gaiItem.gai.pMadeofYear : ''}}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Авто тури</b></td>
+                          <td>{{gaiItem.bustype ? gaiItem.bustype.name : ''}}</td>
+                          <td>{{gaiItem.gai ? gaiItem.gai.pTypeOfAuto : ''}}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Модель</b></td>
+                          <td>{{gaiItem.busmodel ? gaiItem.busmodel.name : ''}}</td>
+                          <td>{{gaiItem.gai ? gaiItem.gai.pMarka : ''}}</td>
+                        </tr>
+                        <tr>
+                          <td><b>Сиғими</b></td>
+                          <td>{{gaiItem.capacity}}</td>
+                          <td>{{gaiItem.gai ? gaiItem.gai.pNumberofplace : ''}}</td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click.prevent="closeGaiModal">Закрыть</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Natarius Modal-->
+          <div class="modal fade" id="natariusModal" tabindex="-1" role="dialog" aria-labelledby="natariusModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>Минюст данные</strong></h5>
+                  <button type="button" class="close" @click.prevent="closeNatariusModal">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h3><strong>Минюст данные</strong></h3>
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Номер Авто</th>
+                        <th>Хозяин</th>
+                        <th>ИНН</th>
+                        <th>Дата нотариального действия</th>
+                        <th>Номер реестра нотариального действия</th>
+                        <th>Срок нотариального действия</th>
+                      </tr>
+                    </thead>
+                    <tbody v-if="natariusItem">
+                      <tr>
+                        <td>{{natariusItem.auto_number}}</td>
+                        <td>{{natariusItem.nameOwner}}</td>
+                        <td>{{natariusItem.pINN}}</td>
+                        <td>{{natariusItem.pDateNatarius}}</td>
+                        <td>{{natariusItem.pNumberNatarius}}</td>
+                        <td>{{natariusItem.expirationDate}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click.prevent="closeNatariusModal">Закрыть</button>
+                </div>
+              </div>
             </div>
           </div>
           <!-- Modal start-->
@@ -266,6 +380,8 @@ export default {
         technical_status:0
       },
       tests:[],
+      natariusItem:{},
+      gaiItem:{},
       company_name:'',
     };
   },
@@ -296,6 +412,23 @@ export default {
       'actionCloseLot',
       'actionCheckLicense'
     ]),
+    showGai(item){
+      this.gaiItem = item
+      console.log(this.gaiItem)
+      $('#gaiModal').modal('show')
+    },
+    closeGaiModal(){
+      this.gaiItem = {}
+      $('#gaiModal').modal('hide')
+    },
+    showAdliya(item){
+      this.natariusItem = item
+      $('#natariusModal').modal('show')
+    },
+    closeNatariusModal(){
+      this.natariusItem = {}
+      $('#natariusModal').modal('hide')
+    },
     async checkLicense(){
       let inn = this.form.user ? this.form.user.inn : null
       if(confirm("Вы действительно хотите проверить лицензии?")){
