@@ -54,42 +54,42 @@
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.app_avto_ball}}
+                                {{item.years_ball}}
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.app_avto_capacity_ball}}
+                                {{item.capacity_ball}}
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.app_categoriya}}
+                                {{item.categoryies_ball}}
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.app_model}}
+                                {{item.models_ball}}
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.app_qatnovlar_ball}}
+                                {{item.lot_reys}}
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.app_tarif_ball}}
+                                {{item.tarif_ball}}
                               </li>
                             </ul>
                           </td>
