@@ -821,7 +821,7 @@ class DirectionController extends Controller
             'direction_id' => 'required|integer',
             'auto_type' => 'nullable|integer',
             'auto_type_name' => 'nullable|string',
-            // 'auto_model_class' => 'nullable|string',
+            // 'auto_model_class' => 'nullable',
             'auto_trans_count' => 'nullable|integer',
             'auto_trans_working_days' => 'nullable|string',
             'auto_trans_weekends' => 'nullable|string',
@@ -871,7 +871,7 @@ class DirectionController extends Controller
         }
 
         $inputs = $request->all();
-        unset($inputs['auto_model_class']);
+        $inputs['auto_model_class'] = $direction->carsWith->pluck('id')->toArray();
         $inputs['direction_id'] = $direction->id;
 
         if(!$direction->requirement){
