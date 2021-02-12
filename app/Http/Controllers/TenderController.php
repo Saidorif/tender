@@ -885,7 +885,7 @@ class TenderController extends Controller
                         $tadbirlar_rejasi_ball += 1;
                         $appBallArray['gps'] = (int)$app->gps;
                     }
-                    
+                    $appBallArray['tadbirlar_rejasi_ball'] = $tadbirlar_rejasi_ball;
                     
                     //10.Ustuvor mezonlar
             
