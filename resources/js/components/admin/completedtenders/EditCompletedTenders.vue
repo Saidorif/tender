@@ -46,7 +46,7 @@
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
                                 <a href="#" @click.prevent="openModal(item.user)">
-                                  {{item.company_name != null ? item.company_name : 'noname'}}
+                                  <b>{{item.company_name != null ? item.company_name : 'noname'}}</b>
                                 </a>
                               </li>
                             </ul>
@@ -117,8 +117,8 @@
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                <a href="" @click.prevent="ballItem(item)">
-                                  <i class="fas fa-eye"></i>
+                                <a href="" @click.prevent="ballItem(item)" class="h4">
+                                  <i class="fas fa-expand-arrows-alt"></i>
                                 </a>
                               </li>
                             </ul>
