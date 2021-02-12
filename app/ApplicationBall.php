@@ -36,6 +36,7 @@ class ApplicationBall extends Model
         'hours_rule',
         'videoregistrator',
         'gps',
+        'tadbirlar_rejasi_ball',
         'cars_ball',
         'total_ball',
     ];

@@ -45,6 +45,7 @@ class CreateApplicationBallsTable extends Migration
             $table->tinyInteger('videoregistrator')->nullable();
             $table->tinyInteger('gps')->nullable();
             $table->double('cars_ball',15,2)->nullable();
+            $table->double('tadbirlar_rejasi_ball',15,2)->nullable();
             $table->double('total_ball',15,2)->nullable();
             $table->timestamps();
         });
