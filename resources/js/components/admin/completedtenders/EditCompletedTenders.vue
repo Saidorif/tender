@@ -31,8 +31,8 @@
                           <th>Tadbirlar rejasi</th>
                           <th>Набранные баллы</th>
                           <th>Подробнее</th>
-                          <th>Результаты изучения тендерных предложений</th>
-                          <th>Статус лицензии</th>
+                 <!--          <th>Результаты изучения тендерных предложений</th>
+                          <th>Статус лицензии</th> -->
                           <!-- <th>Протоколы</th> -->
                           <th>Контракты</th>
                       </tr>
@@ -123,7 +123,7 @@
                               </li>
                             </ul>
                           </td>
-                          <td class="without_padding">
+<!--                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
                                 status
@@ -136,11 +136,13 @@
                                 status
                               </li>
                             </ul>
-                          </td>
+                          </td> -->
                           <td class="without_padding">
                             <router-link class="" tag="a" :to="`/crm/contract/${$route.params.tenderId}`">
-                              <i class="fas fa-edit"></i>
-                              Контракт
+                              <b>
+                                <i class="fas fa-file-alt"></i>
+                                Контракт
+                              </b>
                             </router-link>
                           </td>
                       </tr>
@@ -235,8 +237,8 @@
         </div>
       </div>
       <!-- Modal FOR BALL-->
-      <div class="modal fade" id="ballModal" tabindex="-1" role="dialog" aria-labelledby="ballModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal fade bd-example-modal-lg" id="ballModal" tabindex="-1" role="dialog" aria-labelledby="ballModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">Баллы</h5>
@@ -246,7 +248,7 @@
             </div>
             <div class="modal-body">
               <div class="table-responsive table">
-                <table class="table-bordered table table-hover" v-if="userItem">
+                <table class="table-bordered table table-hover" v-if="ballItems">
                   <thead>
                     <tr>
                       <th>№</th>
@@ -260,30 +262,30 @@
                     <tr>
                       <td>1</td>
                       <td>Тариф</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td>{{ballItems.app_tarif}}</td>
+                      <td>{{ballItems.lot_tarif}}</td>
+                      <td>{{ballItems.tarif_ball}}</td>
                     </tr>
                     <tr>
                       <td>2</td>
                       <td>Количество рейсов</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td>{{ballItems.app_reys}}</td>
+                      <td>{{ballItems.lot_reys}}</td>
+                      <td>{{ballItems.reys_ball}}</td>
                     </tr>
                     <tr>
                       <td>3</td>
                       <td>Автоларнинг уртача йили</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td>{{ballItems.app_years}}</td>
+                      <td>{{ballItems.lot_years}}</td>
+                      <td>{{ballItems.years_ball}}</td>
                     </tr>
                     <tr>
                       <td>4</td>
                       <td>Автоларнинг умумий сигими</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td>{{ballItems.app_capacity}}</td>
+                      <td>{{ballItems.lot_capacity}}</td>
+                      <td>{{ballItems.capacity_ball}}</td>
                     </tr>
                     <tr>
                       <td>5</td>
@@ -302,7 +304,7 @@
                   </tbody>
                 </table>
                 <hr>
-                <table class="table-bordered table table-hover" v-if="userItem">
+                <table class="table-bordered table table-hover" v-if="ballItems">
                   <thead>
                     <tr>
                       <th>№</th>
@@ -318,14 +320,35 @@
                       <td>
                         Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан ўтказиш учун барча шароитлар яратилган
                       </td>
-                      <td></td>
+                      <td>{{ballItems.daily_technical_job}}</td>
                     </tr>
                     <tr>
                       <td>2</td>
                       <td>
                         Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча шароитлар яратилган
                       </td>
-                      <td></td>
+                      <td>{{ballItems.daily_medical_job}}</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>
+                        Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган 
+                      </td>
+                      <td>{{ballItems.hours_rule}}</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>
+                        Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор ўрнатилган  
+                      </td>
+                      <td>{{ballItems.videoregistrator}}</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>
+                        Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш тизимига уланган 
+                      </td>
+                      <td>{{ballItems.gps}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -354,7 +377,8 @@ export default {
   data() {
     return {
         laoding: true,
-        userItem:{}
+        userItem:{},
+        ballItems:{},
     };
   },
   computed: {
@@ -379,10 +403,12 @@ export default {
       this.userItem = item
     },
     ballItem(item){
+      this.ballItems = item
       $('#ballModal').modal('show')
     },
     closeBallModal(){
       $('#ballModal').modal('hide')
+      this.ballItems = {}
     },
   },
 };
