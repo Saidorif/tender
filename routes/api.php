@@ -25,6 +25,8 @@ Route::group([
     Route::post('checkuser', 'UserController@checkuser');
     // Route::post('create-user', 'UserController@createUser');
     Route::get('complaintcategory/list', 'ComplaintCategoryController@list');
+    Route::post('tender/index', 'TenderController@userIndex');
+    Route::post('tender/index-completed', 'TenderController@userCompleted');
     Route::group(['middleware' => 'jwt.auth'], function(){
         Route::group(['middleware' => 'permit'], function(){
 
@@ -243,6 +245,10 @@ Route::group([
             Route::post('gai/vehicle','IntegrationController@getVehicleInfo');
             Route::get('get-license-list/{inn}','IntegrationController@getLicenseList');
             Route::get('check-license/{auto_number}','IntegrationController@checkLicense');
+
+            //Contract
+            Route::get('contract','ContractController@index');
+            Route::get('contract/edit/{id}','ContractController@edit');
 
             //Region CRUD
             Route::post('region', 'RegionController@index');

@@ -53,6 +53,18 @@ class TenderController extends Controller
         }
         return response()->json(['success' => true,'result' => $tenders]);
     }
+    
+    public function userIndex(Request $request)
+    {
+        $tenders = Tender::where(['status' => 'pending'])->with(['tenderlots'])->paginate(12);
+        return response()->json(['success' => true, 'result' => $tenders]);
+    }
+    
+    public function userCompleted(Request $request)
+    {
+        $tenders = Tender::where(['status' => 'completed'])->with(['tenderlots'])->paginate(12);
+        return response()->json(['success' => true, 'result' => $tenders]);
+    }
 
     public function announceTender(Request $request)
     {
@@ -618,7 +630,13 @@ class TenderController extends Controller
             $direction_ids = $lot->getDirection();
             foreach($applications as $k => $app){
                 if($app->balls){
-                    $result[$key][$k] = $app->balls;
+                    $balls = $app->balls;
+                    if($lot->contract != null){
+                        if($balls->app_id == $lot->contract->app_id){
+                            $balls->contract = $lot->contract;
+                        }
+                    }
+                    $result[$key][$k] = $balls;
                     continue;
                 }
                 foreach($direction_ids as $value){
@@ -698,8 +716,8 @@ class TenderController extends Controller
                     $app_avto_total = 0;
                     $app_avto_ball = 0;
                     $app_avto_years_total = 0;
+                    $app_avto_years = 0;
                     foreach($app->cars as $cars){
-                        // $app_avto_years = 0;
                         $app_avto_years = date('Y') - $cars->date;
                         $app_avto_capacity += $cars->seat_qty;
                         //Avto ishlab chiqarilgan yildan boshlab necha yil otgani
