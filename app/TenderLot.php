@@ -34,6 +34,11 @@ class TenderLot extends Model
         return $this->hasMany(\App\Application::class, 'lot_id');
     }
     
+    public function contract()
+    {
+        return $this->hasOne(\App\Contract::class, 'lot_id');
+    }
+    
     public function tender()
     {
         return $this->belongsTo(\App\Tender::class, 'tender_id');
