@@ -49,7 +49,7 @@ class TenderLot extends Model
         $d_ids = json_decode($value,true);
         $result = [];
         foreach ($d_ids as $key => $id) {
-            $direction = Direction::where(['id' => $id])->first();
+            $direction = Direction::where(['id' => $id])->with('type')->first();
             $result[] = $direction;
         }
         foreach($result as $key => $value){
