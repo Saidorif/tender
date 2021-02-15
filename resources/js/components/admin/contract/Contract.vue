@@ -328,14 +328,15 @@ export default {
     return {laoding: true,};
   },
   async mounted() {
-    // await this.actionEditEmployee({ id: this.$route.params.workerId });
+    await this.actionContract({ id: this.$route.params.conId });
+    console.log(this.getContract)
     this.laoding = false
   },
   computed: {
-    // ...mapGetters("worker", ["getEmployee"]),
+    ...mapGetters("contract", ["getContract"]),
   },
   methods: {
-    // ...mapActions("worker", ["actionEditEmployee"]),
+    ...mapActions("contract", ["actionContract"]),
   },
 };
 </script>
