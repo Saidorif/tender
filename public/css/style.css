@@ -2003,6 +2003,10 @@ hr {
   .tender_card {
     width: 100%;
   }
+
+  .lognCard {
+    height: auto;
+  }
 }
 
 @media (max-width: 540px) {
