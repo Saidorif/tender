@@ -5,7 +5,7 @@
     <div class="card-body login-card-body">
       <form @submit.enter.prevent="onSignUp" class="form_content jv_login_block">
         <div class="flagbg">
-          <div class="input-group col-md-4 input_group_with_label">
+          <div class="input-group  input_group_with_label">
             <select id="complaint_category_id" class="form-control input_style"  v-model="signUp.region_id" :class="isRequired(signUp.region_id) ? 'isRequired' : ''" @change="selectRegion()">
               <option :value="item.id" v-for="(item, index) in getRegionList">
                 {{ item.name }}
@@ -13,7 +13,7 @@
             </select>
             <label for="complaint_category_id">Viloyatni tanlang!</label>
           </div>
-          <div class="input-group col-md-4 input_group_with_label">
+          <div class="input-group  input_group_with_label">
             <select id="complaint_category_id" class="form-control input_style"
               v-model="signUp.area_id" :class="isRequired(signUp.area_id) ? 'isRequired' : ''">
               <option
@@ -25,7 +25,7 @@
             </select>
             <label for="complaint_category_id">Viloyat yoki shaharni tanlang!</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               id="address"
@@ -35,7 +35,7 @@
             />
             <label  for="address">Manzil</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -45,7 +45,7 @@
             />
             <label  for="surname">Familya</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -55,7 +55,7 @@
             />
             <label  for="name">Ism</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -65,7 +65,7 @@
             />
             <label  for="middlename">Sharif</label>
           </div>
-          <div  class="input-group col-md-4  input_group_with_label">
+          <div  class="input-group   input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -76,7 +76,7 @@
             />
             <label  for="STIR">STIR</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -86,7 +86,7 @@
             />
             <label  for="company_name">Kompaniyani nomi</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -96,17 +96,7 @@
             />
             <label  for="trusted_person">Vakolatli shaxs</label>
           </div>
-<!--           <div  class="input-group input_group_with_label">
-            <input
-              type="email"
-              class="form-control"
-              id="userEmail"
-              v-model="signUp.email"
-              :class="isRequired(signUp.email) ? 'isRequired' : ''"
-            />
-            <label  for="userEmail">Email</label>
-          </div> -->
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -117,32 +107,7 @@
             />
             <label  for="phone">Telefon</label>
           </div>
-<!--           <div  class="input-group input_group_with_label">
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              :class="isRequired(signUp.password) ? 'isRequired' : ''"
-              v-model="signUp.password"
-            />
-            <label  for="password">Parol</label>
-          </div>
-          <div  class="input-group input_group_with_label">
-            <input
-              type="password"
-              class="form-control"
-              id="license_number"
-              v-model="signUp.confirm_password"
-              :class="
-                isRequired(signUp.confirm_password)
-                  ? 'isRequired'
-                  : ''
-              "
-              @input="confirmPassword()"
-            />
-            <label  for="license_number">Parolni tasdiqlang</label>
-          </div> -->
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -152,7 +117,7 @@
             />
             <label  for="city">Bankining manzli</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -165,7 +130,7 @@
             />
             <label  for="bank_number">Bank hisob raqami</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -176,7 +141,7 @@
             />
             <label  for="mfo">MFO</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -187,7 +152,7 @@
             />
             <label  for="oked">OKED</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -198,7 +163,7 @@
             />
             <label  for="license_number">Litsenziya nomeri</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <input
               type="text"
               class="form-control"
@@ -208,7 +173,7 @@
             />
             <label  for="license_number">Litsenziya turi</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
             <date-picker
               lang="ru"
               type="date"
@@ -220,7 +185,7 @@
             ></date-picker>
             <label  for="license_date">Litsenziya sanasi</label>
           </div>
-          <div  class="input-group col-md-4 input_group_with_label">
+          <div  class="input-group  input_group_with_label">
           </div>
             <div class="btns_block">
               <div class="btn_register_block">
@@ -425,4 +390,15 @@ export default {
 .mx-icon-clear {
   color: #acf1c1 !important;
 }
+@media(max-width: 1000px){
+    .jv_login_block .flagbg .input_group_with_label{
+        max-width: calc(100% / 2 - 20px);
+    }
+}
+@media(max-width: 700px){
+    .jv_login_block .flagbg .input_group_with_label{
+        max-width: 100%;
+    }
+}
+
 </style>
