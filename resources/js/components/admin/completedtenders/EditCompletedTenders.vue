@@ -135,12 +135,14 @@
                             </ul>
                           </td> -->
                           <td class="without_padding">
-                            <router-link class="" tag="a" :to="`/crm/contract/${$route.params.tenderId}`">
-                              <b>
-                                <i class="fas fa-file-alt"></i>
-                                Контракт
-                              </b>
-                            </router-link>
+                            <template v-for="(item,index) in directions">
+                              <router-link class="" tag="a" :to="{path:`/crm/contract/${item.contract.id}`,query:{TID:$route.params.tenderId}}" v-if="item.contract">
+                                <b>
+                                  <i class="fas fa-file-alt"></i>
+                                  Контракт
+                                </b>
+                              </router-link>
+                            </template>
                           </td>
                       </tr>
                   </tbody>

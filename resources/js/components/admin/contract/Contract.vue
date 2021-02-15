@@ -10,9 +10,9 @@
           <i class="fas fa-download"></i>
           Юклаш
         </button>
-        <router-link class="btn btn-primary back_btn" :to="`/crm/completed-tenders/show/${$route.params.conId}`">
+        <button type="button" class="btn btn-primary back_btn" @click="back">
           <span class="peIcon pe-7s-back"></span> Назад
-        </router-link>
+        </button>
       </div>
     </div>
     <div class="download_btn d-flex justify-content-center mb-4">
@@ -37,22 +37,22 @@
                 Шаҳарлараро-вилоятлараро ва халқаро йўловчилар ташиш
                 йўналишларида хизмат кўрсатиш бўйича
             </h6>
-            <h6 style="font-size: 16px;text-align:center;font-weight:bold;">______ - сонли КОНТРАКТ</h6>
+            <h6 style="font-size: 16px;text-align:center;font-weight:bold;">{{getContract.number}} - сонли КОНТРАКТ</h6>
             <table style="width:100%;">
                 <tr>
-                    <td style="font-size: 16px;margin: 0;line-heifht:0;">2018 йил 26 декабрь</td>
+                    <td style="font-size: 16px;margin: 0;line-heifht:0;">{{$g.getYear(myDate)}} йил {{$g.getDay(myDate)}} {{$g.getMonthInLetter(myDate)}}</td>
                     <td style="font-size: 16px;margin: 0;line-heifht:0;text-align:right">Тошкент ш.</td>
                 </tr>
             </table>
             <p style="font-size: 16px;margin: 0;line-heifht:0;text-align:justify;margin-top:15px;margin-bottom:15px;">
                 Шаҳарлараро - вилоятлараро ва ҳалқаро йўналишларни жойлаштириш учун очиқ тендерлар ташкил этиш ва ўтказиш масалалари бўйича Идоралараро комиссиянинг 2020 йил « 19 » февралдаги қарори (2-сонли баённома)га асосан, Ўзбекистон Республикаси Транспорти вазир ўринбосари – Идоралараро комиссия раиси номидан Д.Дехканов, бундан кейин “Буюртмачи” деб аталувчи бир томондан ва
-                “UZAUTOTRANS SERVICE” МЧЖ раҳбари А.И.Хамролиев, бундан кейин “Ташувчи” деб аталувчи иккинчи томондан қуйидагилар ҳақида ушбу Контрактни туздилар.
+                “{{getCompanyInfo.company_name}}” раҳбари {{$g.getFirstLetter(getCompanyInfo.name)}}.{{$g.getFirstLetter(getCompanyInfo.middlename)}}.{{getCompanyInfo.surname}}, бундан кейин “Ташувчи” деб аталувчи иккинчи томондан қуйидагилар ҳақида ушбу Контрактни туздилар.
             </p>
             <h6 style="font-size: 16px;text-align:center;font-weight:bold;">
                 I.Контрактнинг мавзуси
             </h6>
             <p>
-                “Буюртмачи” 2020 йил « 6 » мартидан “Ташувчи”га ушбу Контрактда изоҳланган шартларда, ВШ-988-сонли «Тошкент-Термиз» автобус йўналишида йўловчиларни ташишни амалга ошириш ҳуқуқини беради.
+                “Буюртмачи” {{$g.getYear(getContract.exp_date)}} йил « {{$g.getDay(getContract.exp_date)}} » {{$g.getMonthInLetter(getContract.exp_date)}}идан “Ташувчи”га ушбу Контрактда изоҳланган шартларда, <template v-for="(dir,index) in getDirections">ВШ-{{dir.pass_number}}-сонли «{{dir.name}}» </template> автобус йўналишида йўловчиларни ташишни амалга ошириш ҳуқуқини беради.
             </p>
             <h6 style="font-size: 16px;text-align:center;font-weight:bold;">
                 II. Томонларнинг ҳуқуқ ва мажбуриятлари
@@ -80,29 +80,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">1.</td>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">YUTONG BUS</td>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">01 391 СGA</td>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">51</td>
-                    </tr>
-                    <tr>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">1.</td>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">YUTONG BUS</td>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">01 382 СGA</td>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">51</td>
-                    </tr>
-                    <tr>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">1.</td>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">YUTONG BUS</td>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">01 382 СGA</td>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">51</td>
-                    </tr>
-                    <tr>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">1.</td>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">YUTONG BUS</td>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">01 382 СGA</td>
-                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">51</td>
+                    <tr v-if="cars.length > 0 " v-for="(car,index) in cars">
+                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">{{index+1}}</td>
+                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">
+                            {{car.busmarka ? car.busmarka.name : ''}}
+                        </td>
+                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">
+                            {{car.auto_number}}
+                        </td>
+                        <td style="border:1px solid #000;font-size: 16px;margin: 0;line-heifht:0;text-align:center">
+                            {{car.capacity}}
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -276,7 +264,7 @@
             </p>
             <p style="font-size: 16px;font-weight:bold;text-align:center;">VII. Контрактнинг амал қилиш муддати, уни ўзгартириш ва бекор қилиш</p>
             <p style="font-size: 16px;font-weight:normal;text-indent: 50px;margin-bottom:0px;">
-                7.1. Мазкур Контракт имзоланган кундан бошлаб кучга киради ва 2027 йилнинг «6» мартигача амал қилади.
+                7.1. Мазкур Контракт имзоланган кундан бошлаб кучга киради ва {{$g.getYear(getContract.exp_date)}} йилнинг «{{$g.getDay(getContract.exp_date)}}» {{$g.getMonthInLetter(getContract.exp_date)}}игача амал қилади.
             </p>
             <p style="font-size: 16px;font-weight:normal;text-indent: 50px;margin-bottom:0px;">
                 7.2. Мазкур Контрактни ўзгартириш ва бекор қилиш ушбу Контрактнинг         2.4.4. бандига асосан, шунингдек томонларнинг келишувига кўра ва Ўзбекистон Республикасининг қонун ҳужжатларига мувофиқ амалга оширилади.
@@ -293,8 +281,7 @@
                     </tr>
                     <tr>
                         <th style="width:50%;font-size: 16px;text-align:center;font-weight: bold;">
-                            “UZAUTOTRANS SERVICE”
-                                МЧЖ раҳбари
+                            “{{getCompanyInfo.company_name}}” раҳбари
                         </th>
                         <th style="width:50%;font-size: 16px;text-align:center;font-weight: bold;">
                             Ўзбекистон Республикаси Транспорти
@@ -304,7 +291,7 @@
                     </tr>
                     <tr>
                         <th style="width:50%;font-size: 16px;text-align:center;font-weight: bold;">
-                            _____________ А.И. Хамролиев
+                            _____________ {{$g.getFirstLetter(getCompanyInfo.name)}}.{{$g.getFirstLetter(getCompanyInfo.middlename)}}.{{getCompanyInfo.surname}}
                         </th>
                         <th style="width:50%;font-size: 16px;text-align:center;font-weight: bold;">_________________Д.Дехканов </th>
                     </tr>
@@ -325,18 +312,43 @@ export default {
     Loader
   },
   data() {
-    return {laoding: true,};
+    return {
+        laoding: true,
+        cars:[],
+        myDate:'',
+        customdate:'',
+    };
   },
   async mounted() {
-    await this.actionContract({ id: this.$route.params.conId });
-    console.log(this.getContract)
+    await this.actionContract(this.$route.params.conId);
+    if(this.getContract && this.getContract.app){
+        this.cars = this.getContract.app.cars_with.length > 0 ? this.getContract.app.cars_with : []
+    }
+    this.myDate = this.$g.itemDate(this.getContract.created_at)
     this.laoding = false
   },
   computed: {
     ...mapGetters("contract", ["getContract"]),
+    getCompanyInfo(){
+        if(this.getContract){
+            return this.getContract.user ? this.getContract.user : ''
+        }
+    },
+    getDirections(){
+        if(this.getContract && this.getContract.lot){
+            return this.getContract.lot.direction_id.length > 0 ? this.getContract.lot.direction_id : []
+        }
+    }
   },
   methods: {
     ...mapActions("contract", ["actionContract"]),
+    back(){
+        if(this.$route.query.TID){
+            this.$router.push(`/crm/completed-tenders/show/${this.$route.query.TID}`) 
+        }else{
+            this.$router.push(`/crm/completed-tenders/show/${this.$route.params.conId}`) 
+        }
+    }
   },
 };
 </script>

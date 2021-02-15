@@ -15,6 +15,11 @@ export const g = {
       fileDownload.click();
       document.body.removeChild(fileDownload);
     },
+    getFirstLetter(name){
+      if (name) {
+          return name.substring(0,1)
+      }
+    },
   	getDate(date){
 	    let new_date = new Date(date);
 	    var month = new_date.getMonth()+1;
@@ -65,12 +70,32 @@ export const g = {
       }
     },
     getYear(year){
-      let new_date = new Date(year);
-      return new_date.getFullYear();
+      if(year){
+        let new_date = new Date(year);
+        return new_date.getFullYear();
+      }
     },
     getDay(day){
-      let new_date = new Date(day);
-      return new_date.getDay();
+      if(day){
+        // let new_date = new Date(day);
+        let new_date = day.split('-')
+        let myDay = Number(new_date[2]);
+        return myDay;
+      }
+    },
+    itemDate(day){
+      if(day){
+        let new_date = new Date(day).toLocaleDateString("en-US");
+        let date = new_date.split('/')
+        let month  = Number(date[0]) <= 9 ? '0'+date[0] : date[0]
+        return date[2]+'-'+month+'-'+date[1];
+      }
+    },
+    getMonth(month){
+      if(month){
+        let new_date = new Date(month);
+        return new_date.getMonth();
+      }
     },
     dateCounter(date,id){
       // Set the date we're counting down to
@@ -122,8 +147,10 @@ export const g = {
     },
     getMonthInLetter(date){
     if (date) {
-      let new_date = new Date(date);
-      let month = new_date.getMonth();
+      // let new_date = new Date(date);
+      // let month = new_date.getMonth();
+      let new_date = date.split('-')
+      let month = Number(new_date[1]);
       let months=[
         {id:1,name:'январь'},
         {id:2,name:'февраль'},
