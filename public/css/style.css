@@ -1893,7 +1893,7 @@ hr {
   font-weight: bold;
   font-size: 20px;
   transition: 0.5s;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .tender_card:hover .tender_card_footer {
