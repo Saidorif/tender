@@ -67,6 +67,9 @@ class ApplicationController extends Controller
         if($tender->status != 'completed'){
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не подтвержден']);
         }
+        if($tender->time < now()){
+            return response()->json(['error' => true, 'message' => 'Объявление о тендере завершен']);
+        }
         $user = $request->user();
         //Check for if already sent application to this lot
         $the_old_app = Application::where(['lot_id' => $inputs['lot_id'],'user_id' => $user->id])->first();

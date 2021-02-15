@@ -71,7 +71,7 @@ class TenderCheck extends Command
                     }
                 }
                 $this->info('Application which earn high ball ('.$applicationBall->company_name.') '.$applicationBall->total_ball);
-                $this->info('Accpeted cars '.$cars_accepted);
+                $this->info('Accepted cars '.$cars_accepted);
                 $this->info('Rejected cars '.$cars_rejected);
                 $this->info('Cars with license '.$cars_license);
                 // 0. Check Application is winner or not
@@ -128,7 +128,7 @@ class TenderCheck extends Command
                     
                 }
                 if($cars_rejected > 0){
-                    $this->info('('.$applicationBall->company_name.') is rejected. Accpeted cars '.$cars_accepted.' Rejected cars '. $cars_rejected.')');
+                    $this->info('('.$applicationBall->company_name.') is rejected. Accepted cars '.$cars_accepted.' Rejected cars '. $cars_rejected.')');
                     // 1. Change application status to rejected
                     $application->status = 'rejected';
                     $application->tender_status = 'rejected';

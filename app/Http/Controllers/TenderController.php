@@ -141,6 +141,9 @@ class TenderController extends Controller
                 if($the_direction->status == 'approved'){
                     $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
                 }
+                if($the_direction->status == 'busy' || $the_direction->contract_id != null ){
+                    $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+                }
                 if($the_direction->type_id != 1 && $the_direction->tarif == 0){
                     $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
                 }
