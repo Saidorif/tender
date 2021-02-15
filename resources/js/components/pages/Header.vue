@@ -13,7 +13,11 @@
                     <router-link to="/checkcontract">{{ $t('menu.check_contract') }}</router-link>
                 </li>
                 <li>
-                    <router-link to="/list-tender"> {{ $t('menu.conducted_tenders') }}</router-link>
+                    <a href="#" role="button">{{ $t('menu.conducted_tenders') }}</a>
+                    <div class="drop_down_menu">
+                        <router-link to="/list-tender/active">Faol tenderlar</router-link>
+                        <router-link to="/list-tender/completed">Yakunlangan tenderlar</router-link>
+                    </div>
                 </li>
                 <li>
                     <router-link to="/contact">{{ $t('menu.contacts') }}</router-link>

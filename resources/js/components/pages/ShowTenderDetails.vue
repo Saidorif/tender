@@ -17,13 +17,13 @@
                   <div class="form-group col-md-2">
                     <label for="name">Дата тердера</label>
                     <div class="form-control input_style">
-                      2021-12-27 14:00:00
+                      {{form.time}}
                     </div>
                   </div>
                   <div class="form-group col-md-3">
                     <label for="address">Адрес</label>
                     <div class="form-control input_style">
-                      Uzbekistan Tashkent
+                      {{form.address}}
                     </div>
                   </div>
                 </div>
@@ -32,9 +32,9 @@
                 <div class="d-flex justify-content-center">
                   <h4 >Лоты</h4>
                 </div>
-                <div class="card cardtender">
+                <div class="card cardtender" v-for="(lot, index) of form.tenderlots">
                   <div class="card-header">
-                    <h4 class="lot_n"><em >Лот №</em> 1</h4>
+                    <h4 class="lot_n"><em >Лот №</em> {{index + 1}}</h4>
                     <button
                       type="button"
                       class="btn btn-info btn_save_category"
@@ -198,12 +198,14 @@ export default {
     },
   },
   async mounted() {
-    await this.actionEditTenderAnnounce(this.$route.params.tenderId);
-    this.form.time = this.getTenderAnnounce.time;
-    this.form.address = this.getTenderAnnounce.address;
-    this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
-    this.lots = this.getTenderAnnounce.tenderlots;
-    this.tenderlots = this.getTenderAnnounce.tenderlots;
+    // await this.actionEditTenderAnnounce(this.$route.params.tenderId);
+    // this.form.time = this.getTenderAnnounce.time;
+    // this.form.address = this.getTenderAnnounce.address;
+    // this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
+    // this.lots = this.getTenderAnnounce.tenderlots;
+    // this.tenderlots = this.getTenderAnnounce.tenderlots;
+    this.form = JSON.parse(localStorage.getItem('td'))
+    console.log(this.form)
   },
   methods: {
     ...mapActions("application", [
