@@ -53,6 +53,18 @@ class TenderController extends Controller
         }
         return response()->json(['success' => true,'result' => $tenders]);
     }
+    
+    public function userIndex(Request $request)
+    {
+        $tenders = Tender::where(['status' => 'pending'])->with(['tenderlots'])->paginate(12);
+        return response()->json(['success' => true, 'result' => $tenders]);
+    }
+    
+    public function userCompleted(Request $request)
+    {
+        $tenders = Tender::where(['status' => 'completed'])->with(['tenderlots'])->paginate(12);
+        return response()->json(['success' => true, 'result' => $tenders]);
+    }
 
     public function announceTender(Request $request)
     {
