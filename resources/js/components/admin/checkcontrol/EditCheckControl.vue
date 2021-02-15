@@ -435,7 +435,6 @@ export default {
         this.laoding = true
         await this.actionCheckLicense(inn)
         this.laoding = false
-        console.log(this.getStatusLicense)
         if (this.getStatusLicense.success){
           await this.actionAppCars(this.$route.params.appId);
           toast.fire({
@@ -453,7 +452,6 @@ export default {
       }
     },
     openModal(item){
-      console.log(item)
       this.$refs.fileupload.value='';
       $("#exampleModalCenter").modal('show')
       this.carItem = item
