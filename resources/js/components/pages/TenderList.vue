@@ -6,6 +6,7 @@
       <div class="col-md-12">
         <h2 class="title" align="center" v-html="$t('conducted_tenders.title')"></h2>
         <p class="sub_title">{{$t('conducted_tenders.sub_title')}}</p>
+        <h6 class="block_title">Faol tenderlar</h6>
         <div class="tenders_list">
             <!-- tender_card -->
             <div class="tender_card">
@@ -33,6 +34,9 @@
                 </div>
                 <router-link to='/u/show-tender-details/1' class="tender_card_footer" >Batafsil</router-link>
             </div>
+        </div>
+        <h6 class="block_title">Yakunlangan tenderlar</h6>
+        <div class="tenders_list">
             <!-- tender_card -->
             <div class="tender_card">
                 <div class="tender_card_header">
@@ -170,5 +174,24 @@ export default {
 }
 .time_counter{
     background: transparent !important;
+}
+.block_title{
+    font-size: 30px;
+    font-weight: bold;
+    padding-top: 20px;
+    margin: 0px;
+    position: relative;
+}
+.block_title::before{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: #292666;
+}
+.tenders_list{
+    margin-bottom: 30px;
 }
 </style>

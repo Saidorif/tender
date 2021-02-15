@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Отправить заявку 
+				    Отправить заявку
 				</h4>
                 <h4 class="title_user">{{ form.tender ?  form.tender.direction_ids[0].name : '' }}</h4>
 				<div class="d-flex">
@@ -411,9 +411,9 @@
 					  	<div class="form-group col-lg-12 d-flex justify-content-end align-items-end" v-if="!makeDisabled">
                             <div class="form-group col-md-3 mb-0" >
                                 <label>Muddat</label>
-                                <select  class="form-control"  v-model="contract_time" v-if="contract_time">
+                                <select  class="form-control"  v-model="contract_time" v-if="old_contract_time">
                                     <!-- <option selected disabled>Muddatni tanlang!</option> -->
-                                    <option v-for="option in timeOptions" :value="option.val" v-if="contract_time <= option.val">
+                                    <option v-for="option in timeOptions" :value="option.val" v-if="old_contract_time >= option.val">
                                     	{{ option.name }}
                                     </option>
                                 </select>
@@ -845,6 +845,7 @@
 				showDirections:false,
                 makeDisabled:false,
                 contract_time:'',
+                old_contract_time:'',
                 timeOptions: [
                     {name: '1 yil', val: 1},
                     {name: '2 yil', val: 2},
@@ -1014,6 +1015,7 @@
                     }else{
                         this.contract_time = ''
                     }
+                    this.old_contract_time = this.contract_time;
                 }
             },
 		    changePhoto(event) {
@@ -1229,6 +1231,7 @@
 					            icon: "success",
 					            title: this.getMassage.message
 				          	});
+                              this.calcTimeContract()
 					    	$('#myModal').modal('hide')
 				    	}else{
 				    		toast.fire({
