@@ -39,6 +39,7 @@ class ApplicationBall extends Model
         'tadbirlar_rejasi_ball',
         'cars_ball',
         'total_ball',
+        'status',
     ];
 
     protected $casts = [

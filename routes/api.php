@@ -244,6 +244,10 @@ Route::group([
             Route::get('get-license-list/{inn}','IntegrationController@getLicenseList');
             Route::get('check-license/{auto_number}','IntegrationController@checkLicense');
 
+            //Contract
+            Route::get('contract','ContractController@index');
+            Route::get('contract/edit/{id}','ContractController@edit');
+
             //Region CRUD
             Route::post('region', 'RegionController@index');
             Route::post('region/store', 'RegionController@store');

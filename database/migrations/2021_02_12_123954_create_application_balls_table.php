@@ -47,6 +47,7 @@ class CreateApplicationBallsTable extends Migration
             $table->double('cars_ball',15,2)->nullable();
             $table->double('tadbirlar_rejasi_ball',15,2)->nullable();
             $table->double('total_ball',15,2)->nullable();
+            $table->string('status')->default('active')->nullable();
             $table->timestamps();
         });
     }

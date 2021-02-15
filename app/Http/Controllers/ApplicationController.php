@@ -239,7 +239,7 @@ class ApplicationController extends Controller
             'status' => ['required',Rule::in(['rejected','accepted']),],
             'technical_status' => ['nullable',Rule::in([0,1]),],
             'text' => 'nullable|string',
-            'file' => 'nullable|file',
+            // 'file' => 'nullable|file',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);

@@ -38,6 +38,7 @@ class Direction extends Model
         'sxema_approver',
         'xjadval_status',
         'xjadval_approver',
+        'contract_id',
     ];
 
     protected $casts = ['from_where' => 'array'];

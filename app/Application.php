@@ -21,6 +21,7 @@ class Application extends Model
         'gps',
         'qr_code',
         'tender_status',
+        'contract_time',
     ];
 
     protected $casts = ['direction_ids' => 'array'];
