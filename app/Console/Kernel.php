@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\AutoLicenseSync::class,
+        Commands\TenderCheck::class,
     ];
 
     /**
@@ -24,8 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('license:check')->dailyAt('22:00');
+        $schedule->command('tender:check')->dailyAt('22:00');
     }
 
     /**

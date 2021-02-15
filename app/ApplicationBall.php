@@ -54,6 +54,11 @@ class ApplicationBall extends Model
         return $this->belongsTo(\App\User::class,'user_id');
     }
 
+    public function application()
+    {
+        return $this->belongsTo(\App\Application::class,'app_id');
+    }
+
     public function getAppCategoriesAttribute($value)
     {
         $d_ids = json_decode($value,true);
