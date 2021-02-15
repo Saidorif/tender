@@ -170,13 +170,6 @@
                 </router-link>
               </li>
               <li class="nav-item" v-if="$can('checkTenders', 'TenderController')">
-                <router-link class="nav-link" to="/crm/checkauto">
-                  <p>
-                    Проверка авто
-                  </p>
-                </router-link>
-              </li>
-              <li class="nav-item" v-if="$can('checkTenders', 'TenderController')">
                 <router-link class="nav-link" to="/crm/protocol-list">
                   <p>
                     Протокол

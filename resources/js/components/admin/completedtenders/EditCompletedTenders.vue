@@ -31,9 +31,9 @@
                           <th>Tadbirlar rejasi</th>
                           <th>Набранные баллы</th>
                           <th>Подробнее</th>
-                          <th>Результаты изучения тендерных предложений</th>
-                          <th>Статус лицензии</th>
-                          <th>Протоколы</th>
+                 <!--          <th>Результаты изучения тендерных предложений</th>
+                          <th>Статус лицензии</th> -->
+                          <!-- <th>Протоколы</th> -->
                           <th>Контракты</th>
                       </tr>
                   </thead>
@@ -46,7 +46,7 @@
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
                                 <a href="#" @click.prevent="openModal(item.user)">
-                                  {{item.company_name != null ? item.company_name : 'noname'}}
+                                  <b>{{item.company_name != null ? item.company_name : 'noname'}}</b>
                                 </a>
                               </li>
                             </ul>
@@ -54,49 +54,49 @@
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.app_avto_ball}}
+                                {{item.years_ball}}
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.app_avto_capacity_ball}}
+                                {{item.capacity_ball}}
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.app_categoriya}}
+                                {{item.categories_ball}}
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.app_model}}
+                                {{item.models_ball}}
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.app_qatnovlar_ball}}
+                                {{item.reys_ball}}
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.app_tarif_ball}}
+                                {{item.tarif_ball}}
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.avto_qulayliklar_ball}}
+                                {{item.cars_ball}}
                               </li>
                             </ul>
                           </td>
@@ -110,20 +110,20 @@
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                {{item.total}}
+                                {{item.total_ball}}
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
-                                <a href="" @click.prevent="ballItem(item)">
-                                  <i class="fas fa-eye"></i>
+                                <a href="" @click.prevent="ballItem(item)" class="h4">
+                                  <i class="fas fa-expand-arrows-alt"></i>
                                 </a>
                               </li>
                             </ul>
                           </td>
-                          <td class="without_padding">
+<!--                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(item,index) in directions">
                                 status
@@ -136,17 +136,13 @@
                                 status
                               </li>
                             </ul>
-                          </td>
-                          <td class="without_padding">
-                            <router-link class="" tag="a" :to="`/crm/protocol/${$route.params.tenderId}`">
-                              <i class="fas fa-edit"></i>
-                              Протокол
-                            </router-link>
-                          </td>
+                          </td> -->
                           <td class="without_padding">
                             <router-link class="" tag="a" :to="`/crm/contract/${$route.params.tenderId}`">
-                              <i class="fas fa-edit"></i>
-                              Контракт
+                              <b>
+                                <i class="fas fa-file-alt"></i>
+                                Контракт
+                              </b>
                             </router-link>
                           </td>
                       </tr>
@@ -241,8 +237,8 @@
         </div>
       </div>
       <!-- Modal FOR BALL-->
-      <div class="modal fade" id="ballModal" tabindex="-1" role="dialog" aria-labelledby="ballModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal fade bd-example-modal-lg" id="ballModal" tabindex="-1" role="dialog" aria-labelledby="ballModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">Баллы</h5>
@@ -251,7 +247,136 @@
               </button>
             </div>
             <div class="modal-body">
-       
+              <div class="table-responsive table">
+                <table class="table-bordered table table-hover" v-if="ballItems">
+                  <thead>
+                    <tr>
+                      <th>№</th>
+                      <th>Бахолаш мезонлари</th>
+                      <th>Киритилган таклиф</th>
+                      <th>Йуналиш талабида</th>
+                      <th>Хисобланган балл</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Тариф</td>
+                      <td>{{ballItems.app_tarif}}</td>
+                      <td>{{ballItems.lot_tarif}}</td>
+                      <td>{{ballItems.tarif_ball}}</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Количество рейсов</td>
+                      <td>{{ballItems.app_reys}}</td>
+                      <td>{{ballItems.lot_reys}}</td>
+                      <td>{{ballItems.reys_ball}}</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Автоларнинг уртача йили</td>
+                      <td>{{ballItems.app_years}}</td>
+                      <td>{{ballItems.lot_years}}</td>
+                      <td>{{ballItems.years_ball}}</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>Автоларнинг умумий сигими</td>
+                      <td>{{ballItems.app_capacity}}</td>
+                      <td>{{ballItems.lot_capacity}}</td>
+                      <td>{{ballItems.capacity_ball}}</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>Категория/класс</td>
+                      <td>
+                        <ul class="list-inline" v-if="ballItems.app_categories">
+                            <li v-for="(app_cat,index) in ballItems.app_categories">
+                              {{app_cat.name}}
+                            </li>
+                        </ul>
+                      </td>
+                      <td>
+                        <ul class="list-inline" v-if="ballItems.lot_categories">
+                            <li v-for="(lot_cat,index) in ballItems.lot_categories">
+                              {{lot_cat.name}}
+                            </li>
+                        </ul>
+                      </td>
+                      <td>{{ballItems.categories_ball}}</td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>М1 булса моделнинг класси</td>
+                      <td>
+                        <ul class="list-inline" v-if="ballItems.app_models">
+                            <li v-for="(app_model,index) in ballItems.app_models">
+                              {{app_model.name}}
+                            </li>
+                        </ul>
+                      </td>
+                      <td>
+                        <ul class="list-inline" v-if="ballItems.lot_models">
+                            <li v-for="(lot_model,index) in ballItems.lot_models">
+                              {{lot_model.name}}
+                            </li>
+                        </ul>
+                      </td>
+                      <td>{{ballItems.models_ball}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr>
+                <table class="table-bordered table table-hover" v-if="ballItems">
+                  <thead>
+                    <tr>
+                      <th>№</th>
+                      <th>
+                        Йўналишларда ишлаётганда ҳаракатланиш хавфсизлигини таъминлаш бўйича қатнашчи томонидан амалга оширилган тадбирлар режаси (факат ташувчи белгилаганлари куринади)
+                      </th>
+                      <th>Хисобланган балл</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>
+                        Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан ўтказиш учун барча шароитлар яратилган
+                      </td>
+                      <td>{{ballItems.daily_technical_job}}</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>
+                        Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча шароитлар яратилган
+                      </td>
+                      <td>{{ballItems.daily_medical_job}}</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>
+                        Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган 
+                      </td>
+                      <td>{{ballItems.hours_rule}}</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>
+                        Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор ўрнатилган  
+                      </td>
+                      <td>{{ballItems.videoregistrator}}</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>
+                        Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш тизимига уланган 
+                      </td>
+                      <td>{{ballItems.gps}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" @click.prevent="closeBallModal">Закрыть</button>
@@ -276,7 +401,8 @@ export default {
   data() {
     return {
         laoding: true,
-        userItem:{}
+        userItem:{},
+        ballItems:{},
     };
   },
   computed: {
@@ -301,10 +427,12 @@ export default {
       this.userItem = item
     },
     ballItem(item){
+      this.ballItems = item
       $('#ballModal').modal('show')
     },
     closeBallModal(){
       $('#ballModal').modal('hide')
+      this.ballItems = {}
     },
   },
 };
@@ -409,9 +537,9 @@ input.disabled {
 .without_padding li{
   text-align: center;
 }
-.list-inline li{
+/*.list-inline li{
   border-bottom: 1px solid #000;
-}
+}*/
 .list-inline li:last-child{
   border: none;
 }

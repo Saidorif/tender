@@ -100,6 +100,10 @@
 									>
 										<i class="pe_icon pe-7s-edit editColor"></i>
 									</router-link>
+		                            <router-link class="" tag="a" :to="`/crm/protocol/${item.id}`">
+		                              <i class="fas fa-edit protocol_btn"></i>
+		                              <!-- Протокол -->
+		                            </router-link>
 								</td>
 							</tr>
 						</tbody>
@@ -210,3 +214,8 @@
 		}
 	}
 </script>
+<style scoped>
+	.protocol_btn{
+        font-size: 20px;
+	}
+</style>
