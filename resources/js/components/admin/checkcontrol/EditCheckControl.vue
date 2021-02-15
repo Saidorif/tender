@@ -11,14 +11,6 @@
           <b>{{getCompanyName}}</b>
         </h3>
         <div class="d-flex align-items-center">
-          <button type="button" class="btn btn-info mr-3" @click.prevent="checkLicense" v-if="form.tender_status == 'active'">
-            <i class="fas fa-file-alt"></i>
-            Проверка лицензии
-          </button>
-          <button type="button" class="btn btn-success mr-3" @click.prevent="completeLot" v-if="form.tender_status == 'active'">
-            <i class="fas fa-check"></i>
-            Закрыть заявку
-          </button>
           <router-link class="btn btn-primary back_btn" to="/crm/check-control">
             <span class="peIcon pe-7s-back"></span>
             Назад
@@ -373,7 +365,7 @@ export default {
       cars:[],
       makeDisabled: true,
       laoding: true,
-      carItem: {
+      carItem:{
         id:'',
         file:'',
         text:'',
@@ -395,7 +387,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("checkcontrol", ["getAppCars",'getStatusMessage','getStatusLicense']),
+    ...mapGetters("checkcontrol",["getAppCars",'getStatusMessage','getStatusLicense']),
     getCompanyName(){
       return this.company_name  ? this.company_name : 'Без название'
     },
