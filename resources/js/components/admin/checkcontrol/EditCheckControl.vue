@@ -453,6 +453,7 @@ export default {
       }
     },
     openModal(item){
+      console.log(item)
       this.$refs.fileupload.value='';
       $("#exampleModalCenter").modal('show')
       this.carItem = item
