@@ -26,8 +26,8 @@
 						<tr v-for="(item,index) in getCheckContolsList">
 							<td scope="row">{{index+1}}</td>
 							<td>{{item.user.company_name ? item.user.company_name : 'Без название'}}</td>
-							<td scope="row">Дата</td>
-							<td scope="row">Адрес</td>
+							<td scope="row">{{item.tender ? item.tender.time : ''}}</td>
+							<td scope="row">{{item.tender ? item.tender.address : ''}}</td>
 					<!-- 		<td>
                                 <div class="badge" :class="getStatusClass(item.status)">
 									{{getStatusName(item.status)}}
