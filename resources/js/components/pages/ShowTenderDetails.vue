@@ -12,29 +12,29 @@
         <div class="add_region">
           <div class="card">
             <div class="card-body">
-              <form data-v-2411b0aa="">
+              <form >
                 <div class="row">
                   <div class="form-group col-md-2">
                     <label for="name">Дата тердера</label>
                     <div class="form-control input_style">
-                      2021-12-27 14:00:00
+                      {{form.time}}
                     </div>
                   </div>
                   <div class="form-group col-md-3">
                     <label for="address">Адрес</label>
                     <div class="form-control input_style">
-                      Uzbekistan Tashkent
+                      {{form.address}}
                     </div>
                   </div>
                 </div>
               </form>
               <div class="table-responsive">
                 <div class="d-flex justify-content-center">
-                  <h4 data-v-2411b0aa="">Лоты</h4>
+                  <h4 >Лоты</h4>
                 </div>
-                <div class="card cardtender">
+                <div class="card cardtender" v-for="(lot, index) of form.tenderlots">
                   <div class="card-header">
-                    <h4 class="lot_n"><em data-v-2411b0aa="">Лот №</em> 1</h4>
+                    <h4 class="lot_n"><em >Лот №</em> {{index + 1}}</h4>
                     <button
                       type="button"
                       class="btn btn-info btn_save_category"
@@ -48,9 +48,10 @@
                     <div class="mb-2">
                       <div
                         class="d-flex align-items-center justify-content-between"
+                        v-for="dir of lot.direction_id"
                       >
-                        <h4 data-v-2411b0aa="">
-                          1) Қашқадарё вилояти-Самарқанд вилояти (0 рейс)
+                        <h4 >
+                          1) {{ dir.name }}(0 рейс)
                         </h4>
                         <a
                           href="/crm/stepuser/demand-tab/4"
@@ -58,14 +59,14 @@
                           ><i class="fas fa-eye"></i
                         ></a>
                       </div>
-                      <div data-v-2411b0aa="">
-                        <h3 data-v-2411b0aa="">
-                          <span data-v-2411b0aa="">Бектемир - Қарши ш.</span>
+                      <div >
+                        <h3 >
+                          <span >Бектемир - Қарши ш.</span>
                         </h3>
                         <table class="table table-bordered">
-                          <thead data-v-2411b0aa="">
-                            <tr data-v-2411b0aa="">
-                              <th data-v-2411b0aa="">№</th>
+                          <thead >
+                            <tr >
+                              <th >№</th>
                               <th colspan="2">Бектемир</th>
                               <th colspan="2">Ургут автостанцияси</th>
                               <th colspan="2">Дехконобод бозори</th>
@@ -75,33 +76,33 @@
                               <th colspan="2">Қарши ш.</th>
                             </tr>
                           </thead>
-                          <tbody data-v-2411b0aa="">
+                          <tbody >
                             <tr class="edit-active">
-                              <td data-v-2411b0aa="">1</td>
-                              <td data-v-2411b0aa="">12</td>
-                              <td data-v-2411b0aa=""></td>
-                              <td data-v-2411b0aa="">12</td>
-                              <td data-v-2411b0aa="">12</td>
-                              <td data-v-2411b0aa="">21</td>
-                              <td data-v-2411b0aa="">1</td>
-                              <td data-v-2411b0aa="">21</td>
-                              <td data-v-2411b0aa="">21</td>
-                              <td data-v-2411b0aa="">2</td>
-                              <td data-v-2411b0aa="">1</td>
-                              <td data-v-2411b0aa="">121</td>
-                              <td data-v-2411b0aa="">12</td>
-                              <td data-v-2411b0aa=""></td>
-                              <td data-v-2411b0aa="">21</td>
+                              <td >1</td>
+                              <td >12</td>
+                              <td ></td>
+                              <td >12</td>
+                              <td >12</td>
+                              <td >21</td>
+                              <td >1</td>
+                              <td >21</td>
+                              <td >21</td>
+                              <td >2</td>
+                              <td >1</td>
+                              <td >121</td>
+                              <td >12</td>
+                              <td ></td>
+                              <td >21</td>
                             </tr>
                           </tbody>
                         </table>
-                        <h3 data-v-2411b0aa="">
-                          <span data-v-2411b0aa="">Қарши ш. - Бектемир</span>
+                        <h3 >
+                          <span >Қарши ш. - Бектемир</span>
                         </h3>
                         <table class="table table-bordered">
-                          <thead data-v-2411b0aa="">
-                            <tr data-v-2411b0aa="">
-                              <th data-v-2411b0aa="">№</th>
+                          <thead >
+                            <tr >
+                              <th >№</th>
                               <th colspan="2">Қарши ш.</th>
                               <th colspan="2">Жом қ.</th>
                               <th colspan="2">Самарқанд ш.</th>
@@ -111,23 +112,23 @@
                               <th colspan="2">Бектемир</th>
                             </tr>
                           </thead>
-                          <tbody data-v-2411b0aa="">
+                          <tbody >
                             <tr class="edit-active">
-                              <td data-v-2411b0aa="">1</td>
-                              <td data-v-2411b0aa="">121</td>
-                              <td data-v-2411b0aa=""></td>
-                              <td data-v-2411b0aa="">2</td>
-                              <td data-v-2411b0aa="">21</td>
-                              <td data-v-2411b0aa="">1</td>
-                              <td data-v-2411b0aa="">12</td>
-                              <td data-v-2411b0aa="">21</td>
-                              <td data-v-2411b0aa="">21</td>
-                              <td data-v-2411b0aa="">21</td>
-                              <td data-v-2411b0aa="">21</td>
-                              <td data-v-2411b0aa="">1</td>
-                              <td data-v-2411b0aa="">12</td>
-                              <td data-v-2411b0aa=""></td>
-                              <td data-v-2411b0aa="">21</td>
+                              <td >1</td>
+                              <td >121</td>
+                              <td ></td>
+                              <td >2</td>
+                              <td >21</td>
+                              <td >1</td>
+                              <td >12</td>
+                              <td >21</td>
+                              <td >21</td>
+                              <td >21</td>
+                              <td >21</td>
+                              <td >1</td>
+                              <td >12</td>
+                              <td ></td>
+                              <td >21</td>
                             </tr>
                           </tbody>
                         </table>
@@ -198,12 +199,14 @@ export default {
     },
   },
   async mounted() {
-    await this.actionEditTenderAnnounce(this.$route.params.tenderId);
-    this.form.time = this.getTenderAnnounce.time;
-    this.form.address = this.getTenderAnnounce.address;
-    this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
-    this.lots = this.getTenderAnnounce.tenderlots;
-    this.tenderlots = this.getTenderAnnounce.tenderlots;
+    // await this.actionEditTenderAnnounce(this.$route.params.tenderId);
+    // this.form.time = this.getTenderAnnounce.time;
+    // this.form.address = this.getTenderAnnounce.address;
+    // this.edit_direction_ids = this.getTenderAnnounce.direction_ids;
+    // this.lots = this.getTenderAnnounce.tenderlots;
+    // this.tenderlots = this.getTenderAnnounce.tenderlots;
+    this.form = JSON.parse(localStorage.getItem('td'))
+    console.log(this.form)
   },
   methods: {
     ...mapActions("application", [
