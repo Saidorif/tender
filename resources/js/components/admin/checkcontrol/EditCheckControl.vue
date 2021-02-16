@@ -528,6 +528,12 @@ export default {
             icon: "success",
             title: this.getStatusMessage.message
           });
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getStatusMessage.message
+          });
         }
         this.laoding = false
       }
