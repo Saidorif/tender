@@ -209,6 +209,14 @@
               </p>
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/crm/setting">
+              <i class="peIcon fas fa-cog"></i>
+              <p>
+                Настройка системы
+              </p>
+            </router-link>
+          </li>
           <li class="nav-item" v-if="$can('index', 'EmployeeController')">
             <router-link class="nav-link" to="/crm/employee">
               <i class="peIcon fas fa-users"></i>

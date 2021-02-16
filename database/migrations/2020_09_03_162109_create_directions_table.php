@@ -46,6 +46,7 @@ class CreateDirectionsTable extends Migration
             $table->string('moderatory')->nullable();
             $table->string('dir_type');
             $table->integer('contract_id')->nullable();
+            $table->string('reys_status')->nullable();
             $table->timestamps();
         });
     }

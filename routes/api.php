@@ -246,6 +246,9 @@ Route::group([
             Route::get('get-license-list/{inn}','IntegrationController@getLicenseList');
             Route::get('check-license/{auto_number}','IntegrationController@checkLicense');
 
+            Route::get('setting','SettingController@index');
+            Route::post('setting/update','SettingController@update');
+
             //Contract
             Route::get('contract','ContractController@index');
             Route::get('contract/edit/{id}','ContractController@edit');

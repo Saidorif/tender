@@ -144,6 +144,9 @@ class TenderController extends Controller
                 if($the_direction->status == 'busy' || $the_direction->contract_id != null ){
                     $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
                 }
+                if($the_direction->tender_id != null || $the_direction->lot_id != null ){
+                    $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+                }
                 if($the_direction->type_id != 1 && $the_direction->tarif == 0){
                     $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
                 }
@@ -169,6 +172,9 @@ class TenderController extends Controller
                 $tender_lots[$key]['time'] = $tenderTime;
                 $tender_lots[$key]['status'] = $value['status'];
                 if($value['status'] == 'custom'){
+                    $direction = Direction::find($value['direction_id']);
+                    $direction->reys_status = 'custom';
+                    $direction->save();
                     // foreach ($value['reys_id'] as $key => $reys) {
                     //     $reys = Reys::find($reys);
                     //     $reys->status = 'pending';
@@ -177,6 +183,8 @@ class TenderController extends Controller
                 }
                 if($value['status'] == 'all'){
                     $direction = Direction::find($value['direction_id']);
+                    $direction->reys_status = 'all';
+                    $direction->save();
                     // foreach ($direction->schedule as $key => $r) {
                     //     $r->status = 'pending';
                     //     $r->save();
