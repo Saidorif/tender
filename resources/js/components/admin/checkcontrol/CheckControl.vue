@@ -15,7 +15,8 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Название компании</th>
-							<!-- <th scope="col">Статус</th> -->
+							<th scope="col">Дата тендера</th>
+							<th scope="col">Адрес тендера</th>
 							<th scope="col">Статус заявки</th>
 							<th scope="col">Количество авто</th>
 							<th scope="col">Действия</th>
@@ -25,6 +26,8 @@
 						<tr v-for="(item,index) in getCheckContolsList">
 							<td scope="row">{{index+1}}</td>
 							<td>{{item.user.company_name ? item.user.company_name : 'Без название'}}</td>
+							<td scope="row">Дата</td>
+							<td scope="row">Адрес</td>
 					<!-- 		<td>
                                 <div class="badge" :class="getStatusClass(item.status)">
 									{{getStatusName(item.status)}}
