@@ -221,6 +221,8 @@ import Payment from './components/admin/payment/Payment'
 import EditPayment from './components/admin/payment/EditPayment'
 import AddPayment from './components/admin/payment/AddPayment'
 
+// Setting
+import Setting from './components/admin/setting/Setting'
 
 // NotFound
 import NotFound from './components/NotFound/NotFound'
@@ -1052,6 +1054,10 @@ const router = new Router({
 				{
 					path:'protocol-list',
 					component:ProtocolList,
+				},
+				{
+					path:'setting',
+					component:Setting,
 				},
 				{
 					path:'apply',
