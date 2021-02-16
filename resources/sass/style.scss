@@ -1093,11 +1093,11 @@ hr{
     transition: .3s all ease-in-out;
     bottom: -5px;
 }
-.main_header .menu_list li a:hover {
+.main_header .menu_list li > a:hover {
     color: #292666;
 }
-.main_header .menu_list li a.active:before,
-.main_header .menu_list li a:hover:before {
+.main_header .menu_list li > a.active:before,
+.main_header .menu_list li > a:hover:before {
     width: 100%;
 }
 .btn_login{
@@ -1602,7 +1602,35 @@ hr{
 .tender_card:hover .tender_card_footer{
     background: rgba(0,0,0,.5);
 }
-
+.main_header .menu_list li{
+    position: relative;
+}
+.main_header .menu_list li .drop_down_menu{
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 1px 1px 5px 0px #ccc;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: .5s;
+    z-index: 9;
+}
+.main_header .menu_list li:hover .drop_down_menu{
+    opacity: 1;
+    pointer-events: all;
+    top: 27px;
+}
+.main_header .menu_list li .drop_down_menu a{
+    margin-right: 0;
+    padding: 7px 15px;
+    display: block;
+}
+.main_header .menu_list li .drop_down_menu a:hover{
+    background-color: #a5b0c7;
+}
 @media (max-width: 1400px){
     .main_header .menu_list li a{
         margin-right: 20px;

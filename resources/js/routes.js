@@ -204,6 +204,7 @@ import Contact from './components/pages/Contact'
 import About from './components/pages/About'
 import CheckContract from './components/pages/CheckContract'
 import TenderList from './components/pages/TenderList'
+import TenderListCompleted from './components/pages/TenderListCompleted'
 
 // TenderUser
 import TenderUser from './components/admin/tenderuser/TenderUser'
@@ -1126,10 +1127,17 @@ const router = new Router({
 					},
 				},
 				{
-					path:'/list-tender',
+					path:'/list-tender/active',
 					name:'list-tender',
 					components:{
 						default:TenderList,
+					},
+				},
+				{
+					path:'/list-tender/completed',
+					name:'list-tender-completed',
+					components:{
+						default:TenderListCompleted,
 					},
 				},
 				{
