@@ -48,9 +48,10 @@
                     <div class="mb-2">
                       <div
                         class="d-flex align-items-center justify-content-between"
+                        v-for="dir of lot.direction_id"
                       >
                         <h4 >
-                          1) Қашқадарё вилояти-Самарқанд вилояти (0 рейс)
+                          1) {{ dir.name }}(0 рейс)
                         </h4>
                         <a
                           href="/crm/stepuser/demand-tab/4"
