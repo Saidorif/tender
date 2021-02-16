@@ -95,6 +95,6 @@ class SettingController extends Controller
         $inputs['favicon'] = $logoFavicon;
         $inputs['updated_by'] = $user->id;
         $setting->update($inputs);
-        return response()->json(['success' => true, 'result' => $setting]);
+        return response()->json(['success' => true, 'message' => 'Settings updated successfully']);
     }
 }
