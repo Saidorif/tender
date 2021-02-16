@@ -53,11 +53,11 @@
 		},
 		async mounted(){
 			await this.actionSetting()
-			console.log(this.getSetting)
+			this.form.salary = this.getSetting.salary
 			this.laoding = false
 		},
 		computed:{
-			...mapGetters('setting',['getMassage','getSetting'])
+			...mapGetters('setting',['getMessage','getSetting'])
 		},
 		methods:{
 			...mapActions('setting',['actionSetting','actionUpdateSetting']),
@@ -69,18 +69,18 @@
 					this.laoding = true
 					await this.actionUpdateSetting(this.form)
 					this.laoding = false
-					if (this.getMassage.success) {
+					if (this.getMessage.success) {
 						toast.fire({
 					    	type: 'success',
 					    	icon: 'success',
-							title: this.getMassage.message,
+							title: this.getMessage.message,
 					    })
 						this.requiredInput =false
 					}else{
 						toast.fire({
 					    	type: 'error',
 					    	icon: 'error',
-							title: this.getMassage.message,
+							title: this.getMessage.message,
 					    })
 					}
 				}else{
