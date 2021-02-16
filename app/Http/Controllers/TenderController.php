@@ -1197,11 +1197,16 @@ class TenderController extends Controller
 
     public function checkTenders(Request $request)
     {
-        $result = Application::with(['user'])
-                            ->withCount(['cars'])
-                            ->where(['status' => 'accepted'])
-                            ->orWhere(['status' => 'approved'])
-                            ->get();
+        $tenders = Tender::where(['status' => 'completed'])->get();
+        $tenderlots = TenderLot::whereIn('tender_id',$tenders->pluck('id')->toArray())->get();
+        $result = [];
+        foreach($tenderlots as $lot){
+            $applicationBall = ApplicationBall::orderBy('total_ball','DESC')->where(['lot_id' => $lot->id,'status' => 'active'])->first();
+            if($applicationBall != null){
+                $app = Application::with(['user','tender'])->withCount(['cars'])->find($applicationBall->app_id);
+                $result[] = $app;
+            }
+        }
         return response()->json(['success' => true, 'result' => $result]);
     }
     
