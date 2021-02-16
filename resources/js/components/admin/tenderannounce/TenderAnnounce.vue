@@ -114,7 +114,7 @@
                     let page = 1
                     this.laoding = true
 					await this.actionDeleteTenderAnnounce(id)
-                    await this.actionTenderAnnounces(page)
+                    await this.actionTenderAnnounceLs(page)
                     this.laoding = false
 					toast.fire({
 				    	type: 'success',
