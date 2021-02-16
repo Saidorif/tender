@@ -10,13 +10,14 @@
                     <router-link to="/about">{{ $t('menu.about_tender') }}</router-link>
                 </li>
                 <li>
-                    <router-link to="/checkcontract">{{ $t('menu.check_contract') }}</router-link>
+                    <router-link to="/search_tarif">Tarifni bilish</router-link>
                 </li>
                 <li>
                     <a href="#" role="button">{{ $t('menu.conducted_tenders') }}</a>
                     <div class="drop_down_menu">
                         <router-link to="/list-tender/active">Faol tenderlar</router-link>
                         <router-link to="/list-tender/completed">Yakunlangan tenderlar</router-link>
+                        <router-link to="/checkcontract">{{ $t('menu.check_contract') }}</router-link>
                     </div>
                 </li>
                 <li>
