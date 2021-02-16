@@ -172,6 +172,9 @@ class TenderController extends Controller
                 $tender_lots[$key]['time'] = $tenderTime;
                 $tender_lots[$key]['status'] = $value['status'];
                 if($value['status'] == 'custom'){
+                    $direction = Direction::find($value['direction_id']);
+                    $direction->reys_status = 'custom';
+                    $direction->save();
                     // foreach ($value['reys_id'] as $key => $reys) {
                     //     $reys = Reys::find($reys);
                     //     $reys->status = 'pending';
@@ -180,6 +183,8 @@ class TenderController extends Controller
                 }
                 if($value['status'] == 'all'){
                     $direction = Direction::find($value['direction_id']);
+                    $direction->reys_status = 'all';
+                    $direction->save();
                     // foreach ($direction->schedule as $key => $r) {
                     //     $r->status = 'pending';
                     //     $r->save();

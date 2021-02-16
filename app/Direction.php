@@ -39,6 +39,7 @@ class Direction extends Model
         'xjadval_status',
         'xjadval_approver',
         'contract_id',
+        'reys_status',
     ];
 
     protected $casts = ['from_where' => 'array'];
