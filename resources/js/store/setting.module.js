@@ -9,7 +9,7 @@ const getters = {
 	getSetting(state){
 		return state.setting
 	},
-	getMassage(state){
+	getMessage(state){
 		return state.message
 	},
 };
