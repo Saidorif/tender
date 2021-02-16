@@ -6,41 +6,55 @@
 				<div class="tarif_column">
 			  		<h1>Yo'l kira haqi jadvali {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
 			  		<div class="table-responsive">
-				  		<table class="table table-bordered ">
-				  			<thead>
-				  				<tr>
-				  					<th>№ т/р</th>
-				  					<th>Бошлангич ва оралик охирги бекатлар номи</th>
-				  					<template :colspan="titulData.timing_with.length" v-for="(item,index) in titulData.timing_with">
-					  					<th>
-						  					{{item.whereTo.name}}
-						  				</th>
-				  					</template>
-				  				</tr>
-				  			</thead>
-				  			<tbody>
-				  				<tr v-for="(items,index) in getTarif">
-				  					<td>{{index+1}}</td>
-				  					<td>{{items[index].from_name}}</td>
-				  					<template v-for="(item,key) in items">
-				  						<td v-if="item.tarif">
-				  							<div class="tarifs tarif">
-				  								<b>{{item.tarif}}</b>
-				  							</div>
-				  							<div class="tarifs tarif_bagaj">
-				  								<b>{{item.tarif_bagaj}}</b>
-				  							</div>
-				  							<div class="tarifs tarif_bagaj">
-				  								<b>{{item.distance_test}}KM</b>
-				  							</div>
-				  						</td>
-				  						<template v-else >
-					  						<td class="has_no_name_tarif" v-if="key !='ddd'"></td>
-				  						</template>
-				  					</template>
-				  				</tr>
-				  			</tbody>
-				  		</table>
+				  		<div class="table-responsive" v-for="(t_item,t_index) in getTarif">
+				  			<div class="d-flex align-items-center w-50 justify-content-between">
+				  				<h4>{{t_index+1}})</h4>
+				  				<div class="">
+				  					Сумма: <b>{{t_item.tarif.summa}}</b>
+				  				</div>
+				  				<div class="">
+				  					Сумма багажа: <b>{{t_item.tarif.summa_bagaj}}</b>
+				  				</div>
+				  				<div class="">
+				  					Дата тарифа: <b>{{t_item.tarif.created_at}}</b>
+				  				</div>
+				  			</div>
+					  		<table class="table table-bordered ">
+					  			<thead>
+					  				<tr>
+					  					<th>№ т/р</th>
+					  					<th>Бошлангич ва оралик охирги бекатлар номи</th>
+					  					<template :colspan="titulData.timing_with.length" v-for="(item,index) in titulData.timing_with">
+						  					<th>
+							  					{{item.whereTo.name}}
+							  				</th>
+					  					</template>
+					  				</tr>
+					  			</thead>
+					  			<tbody>
+					  				<tr v-for="(items,index) in t_item.items">
+					  					<td>{{index+1}}</td>
+					  					<td>{{items[index].from_name ? items[index].from_name : ''}}</td>
+					  					<template v-for="(item,key) in items">
+					  						<td v-if="item.tarif" :class="key == items.length - 1 && index == 0 ? 'alert-danger' : ''">
+					  							<div class="tarifs tarif">
+					  								<b>{{item.tarif}}</b>
+					  							</div>
+					  							<div class="tarifs tarif_bagaj">
+					  								<b>{{item.tarif_bagaj}}</b>
+					  							</div>
+					  							<div class="tarifs tarif_bagaj">
+					  								<b>{{item.distance_test}}KM</b>
+					  							</div>
+					  						</td>
+					  						<template v-else >
+						  						<td class="has_no_name_tarif" v-if="key !='ddd'"></td>
+					  						</template>
+					  					</template>
+					  				</tr>
+					  			</tbody>
+					  		</table>
+				  		</div>
 			  		</div>
 				</div>
 		</div>
@@ -72,6 +86,7 @@ import Loader from '../Loader'
 			await this.actionTarif(this.$route.params.directionId);
 			this.titulData = this.getDirection
 			this.laoding = false
+            console.log(this.getTarif)
 		},
 		computed:{
 			...mapGetters("direction", ["getDirection"]),
@@ -80,6 +95,22 @@ import Loader from '../Loader'
 		methods:{
 			...mapActions("passportTab", ["actionTarif"]),
 			...mapActions("direction", ["actionEditDirection"]),
+            getStatusClass(status){
+		    	if (status == 'pending') {
+		    		return 'alert-warning'
+		    	}else{
+		    		return 'alert-primary'
+		    	}
+		    },
+             getStatusName(status){
+		    	if (status == 'pending') {
+		    		return 'В ожидании!'
+		    	}else if(status == 'approved'){
+		    		return 'Подвержден!'
+		    	}else{
+		    		return status
+		    	}
+		    },
 		}
 	}
 </script>
