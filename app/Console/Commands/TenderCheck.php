@@ -75,7 +75,7 @@ class TenderCheck extends Command
                 $this->info('Rejected cars '.$cars_rejected);
                 $this->info('Cars with license '.$cars_license);
                 // 0. Check Application is winner or not
-                if($cars_count == $cars_accepted && $cars_count == $cars_accepted){
+                if($cars_count == $cars_accepted && $cars_count == $cars_license){
                     $this->info('('.$applicationBall->company_name.') is winner');
                     // 1. Change application and app_balls status
                     $application->status = 'winnner';

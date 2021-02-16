@@ -252,6 +252,25 @@ class ApplicationController extends Controller
         if(!$car){
             return response()->json(['error' => true, 'message' => 'Автотранспорт не найдено']);
         }
+        if($car->gai == null && $car->adliya == null){
+            return response()->json(['error' => true, 'message' => 'Автотранспорт не проверено']);
+        }
+        if($inputs['status'] == 'accepted'){
+            if($car->gai != null){
+                $checked_car = [
+                    'date' => $car->gai->pMadeofYear,
+                    'capacity' => $car->gai->pNumberofplace,
+                    'bustype' => $car->gai->pTypeOfAuto,
+                ];
+                if($car->date != $checked_car['date']){
+                    return response()->json(['error' => true, 'message' => 'Год выпуска автомобиля не совпадает']);
+                }
+                if($car->capacity != $checked_car['capacity']){
+                    return response()->json(['error' => true, 'message' => 'Вместимость автомобиля не соответствует']);
+                }
+            }
+        }
+        
         // if($car->status == 'rejected' || $car->status == 'accepted'){
         //     return response()->json(['error' => true, 'message' => 'Статус автотранспорта уже изменен']);
         // }
