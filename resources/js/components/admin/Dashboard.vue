@@ -10,7 +10,7 @@
 		  	</div>
 		  	<div class="card-body">
 	  			<div class="row">
-	  				<div class="col-md-3 mb-3" v-if="$can('index', 'DirectionController')">
+	  				<div class="col-xl-3 col-lg-4 col-md-6 mb-3" v-if="$can('index', 'DirectionController')">
 	  					<div class="bg-dashboard bg1">
 	  						<router-link class="dashboard-link" to="/crm/direction">
 				              <i class="peIcon fas fa-route"></i>
@@ -20,7 +20,7 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3" v-if="$can('carrier', 'UserController')">
+	  				<div class="col-xl-3 col-lg-4 col-md-6 mb-3" v-if="$can('carrier', 'UserController')">
 	  					<div class="bg-dashboard bg2">
 	  						<router-link class="dashboard-link" to="/crm/client">
 				              <i class="peIcon pe-7s-users"></i>
@@ -30,7 +30,7 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3" v-if="$can('index', 'TenderController')">
+	  				<div class="col-xl-3 col-lg-4 col-md-6 mb-3" v-if="$can('index', 'TenderController')">
 	  					<div class="bg-dashboard bg3">
 	  						<router-link class="dashboard-link" to="/crm/tenderannounce">
 				              <i class="peIcon fas fa-bullhorn"></i>
@@ -40,7 +40,7 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3" v-if="$can('index', 'EmployeeController')">
+	  				<div class="col-xl-3 col-lg-4 col-md-6 mb-3" v-if="$can('index', 'EmployeeController')">
 	  					<div class="bg-dashboard bg4">
 	  						<router-link class="dashboard-link" to="/crm/payment">
 				              <i class="peIcon fas fa-money-bill-alt"></i>
@@ -50,7 +50,7 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3" v-if="$can('index', 'ComplaintCategoryController')">
+	  				<div class="col-xl-3 col-lg-4 col-md-6 mb-3" v-if="$can('index', 'ComplaintCategoryController')">
 	  					<div class="bg-dashboard bg5">
 	  						<router-link class="dashboard-link" to="/crm/complaint-list">
 				              <i class="peIcon fas fa-comment"></i>
@@ -60,7 +60,7 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3" v-if="$can('index', 'ClientAccessController')">
+	  				<div class="col-xl-3 col-lg-4 col-md-6 mb-3" v-if="$can('index', 'ClientAccessController')">
 	  					<div class="bg-dashboard bg6">
 	  						<router-link class="dashboard-link" to="/crm/apply">
 				              <i class="peIcon fas fa-vote-yea"></i>
@@ -70,7 +70,7 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3" v-if="$can('checkTenders', 'TenderController')">
+	  				<div class="col-xl-3 col-lg-4 col-md-6 mb-3" v-if="$can('checkTenders', 'TenderController')">
 	  					<div class="bg-dashboard bg7">
 	  						<router-link class="dashboard-link" to="/crm/contract-list">
 	  							<i class="peIcon fas fa-file"></i>
@@ -80,10 +80,10 @@
 				            </router-link>
 	  					</div>
 	  				</div>
-	  				<div class="col-md-3 mb-3" v-if="$can('checkTenders', 'TenderController')">
+	  				<div class="col-xl-3 col-lg-4 col-md-6 mb-3" v-if="$can('checkTenders', 'TenderController')">
 	  					<div class="bg-dashboard bg8">
 	  						<router-link class="dashboard-link" to="/crm/protocol-list">
-	  						  <i class="peIcon fas fa-file-alt"></i>	
+	  						  <i class="peIcon fas fa-file-alt"></i>
 			                  <p>
 			                    Протокол
 			                  </p>

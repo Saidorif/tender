@@ -147,7 +147,6 @@ export default {
   },
   async mounted() {
     await this.actionProtocol(this.$route.params.tenderId);
-    console.log(this.getProtocol)
     this.laoding = false
   },
   computed: {

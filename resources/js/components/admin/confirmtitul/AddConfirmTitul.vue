@@ -14,15 +14,15 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="form-group in col-md-2">
+          <div class="form-group in col-lg-2 col-md-6">
             <label for="name">Направления</label>
             <p class="form-control input_style disabled">{{ form.time }}</p>
           </div>
-          <div class="form-group col-md-3">
+          <div class="form-group col-xl-3 col-md-6">
             <label for="price">Тариф</label>
             <p class="form-control input_style disabled">{{ form.price }}</p>
           </div>
-          <div class="col-md-2 ml_auto">
+          <div class="col-lg-2 col-md-6 ml_auto">
             <button
               type="button"
               class="btn btn-danger"

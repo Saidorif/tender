@@ -111,7 +111,7 @@
                   <tr v-for="(car_items,car_index) in cars">
                     <td>
                       <b>{{car_index + 1}}</b>
-                    </td> 
+                    </td>
                     <td>
                       <div class="badge" :class="getCarStatusClass(car_items.status)">
                         {{getCarStatusName(car_items.status)}}
@@ -122,7 +122,7 @@
                     </td>
                     <td>
                       <b>{{car_items.auto_number}}</b>
-                    </td> 
+                    </td>
                     <td>{{car_items.qty_reys}}</td>
                     <td>{{car_items.capacity}}</td>
                     <td>{{car_items.seat_qty}}</td>
@@ -171,9 +171,9 @@
                         </button>
                         <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)" v-if="form.tender_status == 'active'">
                           <i class="fas fa-check-circle"></i>
-                          Подтвердить 
+                          Подтвердить
                         </button>
-                      </div>  
+                      </div>
                     </td>
                   </tr>
                 </tbody>
@@ -290,11 +290,11 @@
                   <form>
                     <div class="form-group">
                       <label for="technical_status">
-                        <input 
-                          type="checkbox" 
-                          id="technical_status" 
-                          true-value="1" 
-                          false-value="0" 
+                        <input
+                          type="checkbox"
+                          id="technical_status"
+                          true-value="1"
+                          false-value="0"
                           v-model="carItem.technical_status"
                           :disabled="form.tender_status != 'active'"
                         >
@@ -303,20 +303,20 @@
                     </div>
                     <div class="form-group">
                       <label for="textAuto">Текст</label>
-                      <textarea 
-                        class="form-control" 
-                        id="textAuto" 
-                        v-model="carItem.text" 
+                      <textarea
+                        class="form-control"
+                        id="textAuto"
+                        v-model="carItem.text"
                         :disabled="form.tender_status != 'active'"
                       ></textarea>
                     </div>
                     <div class="form-group">
                       <label for="fileAuto">Файл</label>
-                      <input 
-                        type="file" 
+                      <input
+                        type="file"
                         ref="fileupload"
-                        class="form-control" 
-                        id="fileAuto" 
+                        class="form-control"
+                        id="fileAuto"
                         :disabled="form.tender_status != 'active'"
                         @change="changePhoto($event)"
                       />
@@ -394,7 +394,7 @@ export default {
   },
   async mounted(){
     await this.actionAppCars(this.$route.params.appId);
-    $('#exampleModalCenter').modal({backdrop: 'static',keyboard: true, show: false}); 
+    $('#exampleModalCenter').modal({backdrop: 'static',keyboard: true, show: false});
     this.laoding = false
   },
   methods: {
@@ -406,7 +406,6 @@ export default {
     ]),
     showGai(item){
       this.gaiItem = item
-      console.log(this.gaiItem)
       $('#gaiModal').modal('show')
     },
     closeGaiModal(){

@@ -145,7 +145,6 @@
 			async checkEmailExist(email, index){
 				let message = ''
 				await this.actionCheckEmail({email: email});
-				console.log(this.getCheckEmail.message)
 				if(this.getCheckEmail.error){
 					if(this.getCheckEmail.message.email[0] === "The email must be a valid email address."){
 						message = "Адрес электронной почты должен быть действительным.";

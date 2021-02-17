@@ -1160,14 +1160,10 @@
 		    	}
 		    },
 		    async selectFindClass(bustype_id){
-                // console.log(this.car.bustype_id  )
-                // console.log(this.car.busmarka_id  )
-                // console.log(this.car.busmodel_id  )
                 this.car.tclass_id = ''
                 if(this.car.bustype_id && this.car.busmarka_id && this.car.busmodel_id){
                     await this.actionBusclassFind(this.car)
                     this.tclasses = this.getBusclassFindList
-                    console.log(this.getBusclassFindList)
                 }
 		    },
 		    async selectMarka(tclass_id){

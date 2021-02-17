@@ -136,11 +136,9 @@ import Loader from '../../Loader'
 					// 		for (var k = 0; k <= i; k++) {
 					// 			summ +=numbers[k]
 					// 			newArr.push(summ)
-					// 			// console.log(numbers[i])
 					// 		}
 					// 	}
 					// }
-					// console.log(newArr)
 
 					// let newItems = []
 					// let tarif = 65
@@ -175,7 +173,6 @@ import Loader from '../../Loader'
 					// 		// 		for (var k = 1; k <= i; k++) {
 					// 		// 			summ +=numbers[k]
 					// 		// 			newArr.push(summ)
-					// 		// 			// console.log(numbers[i])
 					// 		// 		}
 					// 		// 	}
 					// 		// }
@@ -189,15 +186,12 @@ import Loader from '../../Loader'
 					// 			if (s_index>0) {
 					// 				myNum += Number(newItems[index-s_index - 1].distance_between_station)
 					// 				arrItem["count"].push(myNum)
-					// 				// console.log(myNum)
 					// 			}
 					// 		})
-					// 		// console.log('+++')
 					// 		newItems.push(arrItem)
 					// 	}
 					// })
 					// this.items = newItems
-					// console.log(this.items)
 				}
 			}
 		},

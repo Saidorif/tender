@@ -66,7 +66,7 @@
             </ul>
           </div>
           <div class="row col-md-12"  v-if="agreedData.length">
-            <div class="form-group col-md-3 agree_item" v-for="(p_item,p_index) in agreedData">
+            <div class="form-group col-xl-3 col-md-6 agree_item" v-for="(p_item,p_index) in agreedData">
               <h6>"Kelishilgan"</h6>
               <p>{{p_item.organ }} {{ p_item.job}}:</p>
               <p><span></span>{{p_item.fio }}. {{ p_item.date}}</p>
@@ -74,7 +74,7 @@
             </div>
           </div>
           <div class="row col-md-12">
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="organ">Tashkilot nomi</label>
               <input
                 type="text"
@@ -84,7 +84,7 @@
                 :class="isRequired(form.organ) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="organ">Xodim lavozimi</label>
               <input
                 type="text"
@@ -94,7 +94,7 @@
                 :class="isRequired(form.job) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="organ">F.I.SH</label>
               <input
                 type="text"
@@ -104,7 +104,7 @@
                 :class="isRequired(form.fio) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-gruop col-md-3">
+            <div class="form-gruop col-xl-3 col-md-6">
               <label for="organ">Sana</label>
               <div class="d-flex">
                   <date-picker lang="ru" class="input_style" v-model="form.date" type="date" format="DD-MM-YYYY" valueType="format"       :class="isRequired(form.date) ? 'isRequired' : ''"></date-picker>

@@ -493,7 +493,6 @@
 		    	}
 		    },
 		    addCar(){
-		    	console.log(this.form)
 		   //  	let item = {
 		   //  		auto_number:'',
 					// bustype_id:'',

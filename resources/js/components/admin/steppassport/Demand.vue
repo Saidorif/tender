@@ -302,9 +302,7 @@
                   учун)
                 </td>
                 <td>
-                  1 км. учун ({{ form.tarif_one_km }} сум). Йўл кира ҳаққи ({{
-                    form.tarif_full_km
-                  }}
+                  1 км. учун ({{ form.tarif_one_km }} сум). Йўл кира ҳаққи ({{ form.tarif_full_km }}
                   сум)
                 </td>
               </tr>

@@ -62,7 +62,6 @@ export default {
     let page = 1;
     await this.actionTenderIndex(page);
     await this.actionTenderIndexCompleted(page);
-    console.log(this.getTenderIndexCompleted)
     this.laoding = false
   },
   methods: {

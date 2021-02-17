@@ -12,7 +12,7 @@
           class="row tabRow"
         >
           <div class="row col-md-12">
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="reys_to_count" v-if="this.titulData">Reyslar soni {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
               <input
                 type="number"
@@ -22,7 +22,7 @@
                 :class="isRequired(form.reys_to_count) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-3" v-if="this.titulData">
+            <div class="form-group col-xl-3 col-md-6" v-if="this.titulData">
               <label for="reys_from_count">Reyslar soni  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
               <input
                 type="number"
@@ -32,7 +32,7 @@
                 :class="isRequired(form.reys_from_count) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="count_bus">Qatnovchi avtomobillar soni </label>
               <input
                 type="number"
