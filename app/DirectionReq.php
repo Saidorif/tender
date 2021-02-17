@@ -12,6 +12,8 @@ class DirectionReq extends Model
         'auto_type_name',
         'auto_model_class',
         'auto_trans_count',
+        'auto_trans_count_from',
+        'auto_trans_count_to',
         'auto_trans_working_days',
         'auto_trans_weekends',
         'auto_trans_status',

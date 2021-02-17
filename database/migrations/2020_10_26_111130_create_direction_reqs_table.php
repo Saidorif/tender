@@ -20,6 +20,8 @@ class CreateDirectionReqsTable extends Migration
             $table->string('auto_type_name')->nullable();
             $table->string('auto_model_class')->nullable();
             $table->string('auto_trans_count')->nullable();
+            $table->integer('auto_trans_count_from')->nullable();
+            $table->integer('auto_trans_count_to')->nullable();
             $table->string('auto_trans_working_days')->nullable();
             $table->string('auto_trans_weekends')->nullable();
             $table->string('auto_trans_status')->nullable();
