@@ -49,12 +49,12 @@
                     {{form.dir_type == 'bus' ? 'Автобус йуналиши' : "Йўналиши тахи йуналиши"}}
                 </td>
               </tr>
+              <!-- 4 -->
               <tr>
                 <td rowspan="3">4</td>
                 <td width="50%">
                   <b
-                    >Автотранспорт воситалари сони (саройдан фойдаланиш
-                    коэффициенти 0,8 хисобга олинганда)</b
+                    >Иш режаси</b
                   >
                 </td>
                 <td>{{ form.auto_trans_count }}</td>
@@ -337,9 +337,39 @@
                   />
                 </td>
               </tr>
+              <tr>
+                <td rowspan="3">17</td>
+                <td width="50%">
+                  <b
+                    >Автотранспорт воситалари сони (саройдан фойдаланиш
+                    коэффициенти 0,8 хисобга олинганда)</b
+                  >
+                </td>
+                <td>{{ form.auto_trans_count }}</td>
+              </tr>
+              <tr>
+                <td>{{ form.reyses_from_name }}-{{ form.reyses_to_name }}</td>
+                <td>
+                  <input
+                    type="number"
+                    v-model="form.auto_trans_count_from"
+                    class="form-control"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>{{ form.reyses_to_name }}-{{ form.reyses_from_name }}</td>
+                <td>
+                  <input
+                    type="number"
+                    v-model="form.auto_trans_count_to"
+                    class="form-control"
+                  />
+                </td>
+              </tr>
               <!-- 3 end -->
               <tr>
-                <td>17</td>
+                <td>18</td>
                 <td width="50%"><b>Минимал балл</b></td>
                 <td>
                   <input
