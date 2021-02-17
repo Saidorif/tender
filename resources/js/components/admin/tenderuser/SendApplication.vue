@@ -926,13 +926,17 @@
 			await this.actionBusmodelList()
             await this.actionBusBrandList()
             this.calcTimeContract()
-            this.laoding = false
-            this.form = this.getApplication
-			this.cars_with = this.getApplication.cars_with
-			this.files = this.getApplication.attachment
-			this.direction_ids = this.getApplication.tender.direction_ids
-            this.lots = this.getApplication.tender.tenderlots
-            this.car.app_id = this.$route.params.userapplicationId;
+            if(this.getApplication){
+	            this.laoding = false
+	            this.form = this.getApplication
+				this.cars_with = this.getApplication.cars_with
+				this.files = this.getApplication.attachment
+				this.direction_ids = this.getApplication.tender.direction_ids
+	            this.lots = this.getApplication.tender.tenderlots
+	            this.car.app_id = this.$route.params.userapplicationId;
+            }else{
+				this.$router.push('/notfound')            	
+            }
 		},
 		methods:{
 			...mapActions('application',[
