@@ -205,6 +205,7 @@ import About from './components/pages/About'
 import CheckContract from './components/pages/CheckContract'
 import TenderList from './components/pages/TenderList'
 import TenderListCompleted from './components/pages/TenderListCompleted'
+import Searchtarif from './components/pages/Searchtarif'
 
 // TenderUser
 import TenderUser from './components/admin/tenderuser/TenderUser'
@@ -1144,6 +1145,13 @@ const router = new Router({
 					name:'list-tender-completed',
 					components:{
 						default:TenderListCompleted,
+					},
+				},
+				{
+					path:'/search_tarif',
+					name:'search_tarif',
+					components:{
+						default:Searchtarif,
 					},
 				},
 				{
