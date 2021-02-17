@@ -76,6 +76,10 @@ class ApplicationController extends Controller
         if($the_old_app){
             return response()->json(['error' => true, 'message' => 'Вы уже отправляли заявку на этот лот','result' => $the_old_app->id]);
         }
+        $salary = getAppFee();
+        if($user->balance < $salary){
+            return response()->json(['error' => true, 'message' => 'Пожалуйста, оплатите регистрационный сбор']);
+        }
         $inputs['user_id'] = $user->id;
         $direction_ids = [];
         foreach($tender->direction_ids as $key => $direction){
