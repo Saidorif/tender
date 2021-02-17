@@ -5,7 +5,7 @@
     <div class="container about_block">
       <div class="col-md-12">
         <h2  align="center" class="title"><span>Yo'nalish</span> tarifni bilish </h2>
-          <p class="sub_title" > {{$t('contacts_page.sub_title')}} </p>
+
       </div>
     </div>
   </div>

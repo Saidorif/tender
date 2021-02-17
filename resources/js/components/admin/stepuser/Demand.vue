@@ -41,14 +41,15 @@
               <tr>
                 <td>3</td>
                 <td width="50%"><b>Йуналишнинг тури</b></td>
-                <td v-if="form.dir_type">
-                    {{form.dir_type == 'bus' ? 'Автобус йуналиши' : "Йўналиши тахи йуналиши"}}
+                <td>
+                  <template v-if="form.dir_type">
+                      {{form.dir_type == 'bus' ? 'Автобус йуналиши' : "Йўналиши тахи йуналиши"}}
+                  </template>
                 </td>
               </tr>
               <tr>
                 <td rowspan="3">4</td>
-                <td width="50%"><b>Автотранспорт воситалари сони (саройдан фойдаланиш коэффициенти 0,8 хисобга олинганда)</b></td>
-                <td>{{form.auto_trans_count}}</td>
+                <td width="50%"><b>Иш режаси</b></td>
               </tr>
               <tr>
                 <td>Ишкунлари</td>
@@ -202,7 +203,24 @@
               </tr>
               <!-- 3 end -->
               <tr>
-                <td>17</td>
+                <td rowspan="3">17</td>
+                <td width="50%"><b>Автотранспорт воситалари сони (саройдан фойдаланиш коэффициенти 0,8 хисобга олинганда)</b></td>
+                <td>{{form.auto_trans_count}}</td>
+              </tr>
+              <tr>
+                <td>{{ form.reyses_from_name }}-{{ form.reyses_to_name }}</td>
+                <td>
+                  {{form.auto_trans_count_from}}
+                </td>
+              </tr>
+              <tr>
+                <td>{{ form.reyses_to_name }}-{{ form.reyses_from_name }}</td>
+                <td>
+                  {{form.auto_trans_count_to}}
+                </td>
+              </tr>
+              <tr>
+                <td>18</td>
                 <td width="50%"><b>Минимал балл</b></td>
                 <td>{{form.minimum_bal}}</td>
               </tr>

@@ -157,7 +157,6 @@ export default {
         });
       } else {
         this.form.file = event.target.files[0];
-        console.log(this.form.file)
       }
     },
     dispatchAction(data){

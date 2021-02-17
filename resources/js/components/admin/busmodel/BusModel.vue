@@ -77,7 +77,6 @@
 			let page = 1;
             await this.actionBusmodels()
             this.laoding = false
-            console.log(this.getBusmodels)
 		},
 		computed:{
 			...mapGetters('busmodel',['getBusmodels','getMassage'])

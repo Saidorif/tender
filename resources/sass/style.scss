@@ -1631,6 +1631,10 @@ hr{
 .main_header .menu_list li .drop_down_menu a:hover{
     background-color: #a5b0c7;
 }
+.sidebar-collapse .main-sidebar,
+.sidebar-collapse .main-sidebar::before{
+    margin-left: -300px;
+}
 @media (max-width: 1400px){
     .main_header .menu_list li a{
         margin-right: 20px;
@@ -1658,6 +1662,9 @@ hr{
     .btn_login{
         padding-left: 15px;
         padding-right: 15px;
+    }
+    .card_with_tabs .card-header .passport_tab{
+        flex-wrap: wrap;
     }
 }
 @media (max-width: 1000px){
@@ -1708,6 +1715,15 @@ hr{
     .contact_block{
         flex-direction: column;
     }
+    #myTab{
+        margin-top: 30px;
+        justify-content: center;
+        width: 100%;
+    }
+    .tabRow{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 }
 @media (max-width: 700px){
     .tender_card{
@@ -1715,6 +1731,17 @@ hr{
     }
     .lognCard{
         height: auto;
+    }
+    .header_title{
+        flex-wrap: wrap;
+    }
+    .card_with_tabs .card-header.tabCard{
+        padding: 30px 0px;
+        text-align: center;
+    }
+    #myTab .nav-item{
+        width: 100%;
+        margin-bottom: 20px;
     }
 }
 @media (max-width: 540px){
@@ -1739,6 +1766,9 @@ hr{
     }
     .jv_form_block{
         padding: 30px;
+    }
+    .add_user_btn{
+        flex-wrap: wrap;
     }
 }
 @media (max-width: 400px){

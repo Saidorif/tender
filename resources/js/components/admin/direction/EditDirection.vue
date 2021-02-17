@@ -8,7 +8,7 @@
         <div class="card-body">
         <form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
           <div class="row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="type_id">Yo'nalish klasifikatsiyasi</label>
               <select
                 class="form-control input_style"
@@ -22,7 +22,7 @@
                 >{{item.name }} {{item.type}}</option>
               </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="seria">Passport raqami</label>
               <input
                 type="text"
@@ -31,7 +31,7 @@
                 :class="isRequired(form.pass_number) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">
                 Shaxardan, viloyatdan
                 <input
@@ -52,7 +52,7 @@
                 <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">
                 Tumandan, qishloqdan, shaxridan
                 <input
@@ -74,7 +74,7 @@
                 <option :value="item.id" v-for="(item,index) in areaFrom">{{item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">
                 Bekatdan
                 <input
@@ -95,7 +95,7 @@
                 <option :value="item.id" v-for="(item,index) in stationFrom">{{item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">
                 Shaxarga, viloyatga
                 <input
@@ -116,7 +116,7 @@
                 <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">
                 Tumanga, qishloqga, shaxriga
                 <input
@@ -138,7 +138,7 @@
                 <option :value="item.id" v-for="(item,index) in areaTo">{{item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">
                 Bekatga
                 <input
@@ -159,7 +159,7 @@
                 <option :value="item.id" v-for="(item,index) in stationTo">{{item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-xl-2">
               <label for="seasonal">Ishlash mavsumi</label>
               <select
                 class="form-control input_style"
@@ -172,7 +172,7 @@
                 <option value="seasonal">Mavsumiy</option>
               </select>
             </div>
-            <div class="col-md-4 input_radios_block">
+            <div class="col-xl-4 input_radios_block">
               <p>Qaysi tarafdan</p>
               <div class="form-group input_radio_with_label" v-for="(item,index) in destinations">
                 <input
@@ -185,7 +185,7 @@
                 <label :for="'from_where'+index">{{item ? item.name : ''}}</label>
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="seria">Yo'nalish ochilish sanasi</label>
               <date-picker
                 lang="ru"
@@ -195,7 +195,7 @@
                 :class="isRequired(form.year) ? 'isRequired' : ''"
               ></date-picker>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="profitability">Рентабельность</label>
               <select
                 class="form-control input_style"
@@ -207,7 +207,7 @@
                 <option value="middle">Средный</option>
               </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="profitability">Йуналишнинг тури</label>
               <select
                 class="form-control input_style"
@@ -218,7 +218,7 @@
                 <option value="taxi">Йўналиши тахи йуналиши</option>
               </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="seria">Yonalish masofasi</label>
               <input
                 type="number"
@@ -227,7 +227,7 @@
                 step="0.01"
               />
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="tarif">Tarif</label>
               <input
                 type="number"
@@ -241,7 +241,7 @@
                 <h3><strong>Автотранспорты</strong></h3>
               </div>
               <div class="row" v-for="(car,index) in cars_with">
-                <div class="form-group col-md-3">
+                <div class="form-group col-xl-3 col-md-6">
                   <label :for="'bustype_id'+index">Категория Авто</label>
                   <input type="text" class="form-control input_style" :value="car.bustype.name" disabled>
                 </div>
@@ -249,11 +249,11 @@
                   <label for="tclass_id">Класс Авто</label>
                   <input type="text" class="form-control input_style" :value="car.tclass ? car.tclass.name : ''" disabled>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-xl-3 col-md-6">
                   <label for="busmarka_id">Марка Авто</label>
                   <input type="text" class="form-control input_style" :value="car.marka ? car.marka.name : ''" disabled>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-xl-3 col-md-6">
                   <label for="busmodel_id">Модель Авто</label>
                   <input type="text" class="form-control input_style" :value="car.model ? car.model.name : ''" disabled>
                 </div>
@@ -301,7 +301,7 @@
                     <option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
                   </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-xl-3 col-md-6">
                   <label for="busmarka_id">Марка Авто</label>
                   <select
                     class="form-control input_style"
@@ -315,7 +315,7 @@
               <option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
                   </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-xl-3 col-md-6">
                   <label for="busmodel_id">Модель Авто</label>
                   <select
                     class="form-control input_style"
@@ -444,7 +444,6 @@ export default {
         this.stationFrom =  this.getDirection.area_from_with ? this.getDirection.area_from_with.station : '';
         this.stationTo = this.getDirection.area_to_with ? this.getDirection.area_to_with.station : '';
         this.loaded = true
-        console.log(this.getDirection)
       }
     },
     'form.region_from':{

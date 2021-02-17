@@ -8,12 +8,12 @@
       <div class="card-body">
         <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
           <h2>{{getDirection.name}} bo'yicha boshlang'ich ma'lumot  </h2>
-          <div class="col-md-12 tabs_block">
-            <div class="form-group col-md-3">
+          <div class="col-xl-12 tabs_block">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="timingDetails_date">O'chov otkazilgan kun</label>
               <date-picker lang="ru" class="input_style" v-model="timingDetails.date" type="date" format="DD-MM-YYYY" valueType="format" :class="isRequired(timingDetails.date) ? 'isRequired' : ''" ></date-picker>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="avto_model">Xronametraj otqizilgan avtomabil rusumi</label>
               <input
                 type="text"
@@ -23,7 +23,7 @@
                 :class="isRequired(timingDetails.avto_model) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="avto_number">Xronametraj otqizilgan avtomabil davlat raqami</label>
               <input
                 type="text"
@@ -33,21 +33,21 @@
                 :class="isRequired(timingDetails.avto_number) ? 'isRequired' : ''"
               />
             </div>
-            <h4 class="col-md-12">Xronametraj otkazgan shaxslar</h4>
+            <h4 class="col-xl-12">Xronametraj otkazgan shaxslar</h4>
             <template v-for="(person,p_index) in timingDetails.persons">
-              <div class="form-group col-md-2">
+              <div class="form-group col-xl-2">
                 <label for="person_name">Ism</label>
                 <input type="text" v-model="person.name"  class="form-control input_style" :class="isRequired(person.name) ? 'isRequired' : ''" />
               </div>
-              <div class="form-group col-md-2">
+              <div class="form-group col-xl-2">
                 <label for="surname">Familyasi</label>
                 <input type="text" v-model="person.surname"  class="form-control input_style" :class="isRequired(person.surname) ? 'isRequired' : ''" />
               </div>
-              <div class="form-group col-md-3">
+              <div class="form-group col-xl-3 col-md-6">
                 <label for="person_job">Ish joyi</label>
                 <input type="text" v-model="person.job" id="person_job" class="form-control input_style" :class="isRequired(person.job) ? 'isRequired' : ''" />
               </div>
-              <div class="form-group col-md-3">
+              <div class="form-group col-xl-3 col-md-6">
                 <label for="person_position">Lavozimi</label>
                 <input
                   type="text"
@@ -57,7 +57,7 @@
                   :class="isRequired(person.position) ? 'isRequired' : ''"
                 />
               </div>
-              <div class="form-group col-md-1">
+              <div class="form-group col-xl-1">
                 <button @click="addPerson()"           type="button" class="btn btn-info mr-2"  v-if="timingDetails.persons.length == p_index  +1 ">
                   <i class="fas fa-plus"></i>
                 </button>
@@ -68,8 +68,8 @@
             </template>
           </div>
           <h2>Asosiy ma'lumotlar</h2>
-          <div class="col-md-12 tabs_block">
-            <div class="form-group col-md-6" >
+          <div class="col-xl-12 tabs_block">
+            <div class="form-group col-xl-6" >
               <label for="start_speedometer">Бошланғич манзил номи </label>
               <input
                 type="text"
@@ -79,7 +79,7 @@
                 disabled
               />
             </div>
-            <div class="form-group col-md-6" >
+            <div class="form-group col-xl-6" >
               <label for="start_speedometer">Jonash vaqtida (km)  Бошланғич спидометр кўрсаткичи </label>
               <input
                 type="number"
@@ -91,7 +91,7 @@
                 :disabled="tableTwoData.length > 0"
               />
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-xl-6">
               <label for="start_time">Boshlash vaqti Бошлаш вақти </label>
               <date-picker
                 lang="ru"
@@ -103,7 +103,7 @@
                 format="HH:mm:ss"
               ></date-picker>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-xl-6">
               <label for="speed_between_station">Bekatlar oraligidagi xarakat (km/soat)</label>
               <input
                 type="number"
@@ -114,7 +114,7 @@
                 step="0.01"
               />
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-xl-6">
               <label for="speed_between_limited_space">Shundan xarakat tezligi chegaralangan oraliqda (km/soat)</label>
               <input
                 type="number"
@@ -125,7 +125,7 @@
                 step="0.01"
               />
             </div>
-            <div class="form-group col-md-6 triple_input" v-for="(detail,p_index) in form.details">
+            <div class="form-group col-xl-6 triple_input" v-for="(detail,p_index) in form.details">
               <label>Qatnov yoli xaqidagi malumotlar</label>
               <select class="form-control input_style" v-model="detail.sign" @change="signSelect(detail)" >
                 <option
@@ -152,7 +152,7 @@
                 <i class="fas fa-trash"></i>
               </button>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-xl-6">
               <label for="whereToregion_to_id" :class="isRequiredTwo(form.whereTo) ? 'isRequired' : ''">Oraliq toxtash viloyat nomi</label>
               <input
                 v-model="form.whereTo"
@@ -175,7 +175,7 @@
                 >{{s_item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-6" v-if="form.region_to_id">
+            <div class="form-group col-xl-6" v-if="form.region_to_id">
               <label for="whereToarea_to_id" :class="isRequiredTwo(form.whereTo) ? 'isRequired' : ''">Oraliq toxtash tuman nomi</label>
               <input v-model="form.whereTo" type="radio" name="where_to" :value="form.area_to_id"  id="whereToarea_to_id"                 />
               <select
@@ -192,7 +192,7 @@
                 >{{s_item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-6" v-if="form.area_to_id">
+            <div class="form-group col-xl-6" v-if="form.area_to_id">
               <input v-model="form.whereTo" type="radio" name="where_to" :value="form.station_to_id"     id="wherestation_to_id"            />
               <label for="wherestation_to_id" :class="isRequired(form.whereTo) ? 'isRequired' : ''">Oraliq toxtash bekat nomi</label>
               <select class="form-control input_style" v-model="form.station_to_id">
@@ -204,7 +204,7 @@
                 >{{s_item.name}}</option>
               </select>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-xl-6">
               <label for="end_speedometer">Kelgan vaqtida (km)</label>
               <input
                 type="number"
@@ -215,7 +215,7 @@
                 step="0.01"
               />
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-xl-6">
               <label for="seria"> Тўхтаганда вақт кўрсаткичи </label>
               <date-picker
                 lang="ru"
@@ -227,7 +227,7 @@
                 format="HH:mm:ss"
               ></date-picker>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-xl-6">
               <label for="distance_in_limited_speed">Shundan xarakat tezligi chegaralangan oraliqda (km)</label>
               <input
                 type="number"
@@ -238,7 +238,7 @@
                 step="0.01"
               />
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-xl-6">
               <label for="spendtime_between_limited_space">Shundan xarakat tezligi chegaralangan oraliqda (minut)</label>
               <input
                 type="text"
@@ -251,15 +251,15 @@
           </div>
           <div class="form-group col-lg-12">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-xl-6">
                 <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
                   <i class="far fa-share-square"></i>
                   Отправить на подтверждение
                 </button>
               </div>
-              <div class="col-md-6 form_btn d-flex justify-content-end">
+              <div class="col-xl-6 form_btn d-flex justify-content-end">
                 <div class="form-group mr-3 mb-0">
-                    <label for="conclusion">Xulosa dsa das</label>
+                    <label for="conclusion">Xulosa</label>
                     <select name="conclusion" id="conclusion" v-model="timingDetails.conclusion" :class="isRequired(timingDetails.conclusion) ? 'isRequired' : ''" class="form-control input_style">
                         <option value="Talablarga javob beradi">Talablarga javob beradi</option>
                         <option value="Talablarga javob bermaydi">Talablarga javob bermaydi</option>
@@ -341,13 +341,15 @@
                 </tr>
               </tbody>
             </table>
-            <div class="table_footer">
-              <div class="col-md-6">
+
+          </div>
+                      <div class="table_footer">
+              <div class="col-xl-6">
                 <p>Qatnov yoli xarakat xafsizligiga:  {{timingDetails.conclusion}}</p>
                 <p>Olchov otkazilgan kun:  {{timingDetails.date}} yil</p>
                 <p>Xronametraj otkazilgan avtomobil rusumi va davlat raqami:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
               </div>
-              <div class="col-md-4 right_item">
+              <div class="col-xl-4 right_item">
                 <div>
                   <p>Olchov <br> qatnashchilari <br>  imzolari:</p>
                 </div>
@@ -356,7 +358,6 @@
                 </div>
               </div>
             </div>
-          </div>
         </form>
       </div>
     </div>
@@ -557,6 +558,7 @@ export default {
     },
     calcTableData(){
         let dataTable = this.fullTableInfo
+
         this.tableTwoData = [];
         dataTable.forEach((element, index)=>{
             if(index == 0){
@@ -566,6 +568,7 @@ export default {
                 let result_spendtime_to_stay_station = this.calcTimeToTime(this.tableTwoData[this.tableTwoData.length - 1].end_time, element.start_time);
                 element.spendtime_between_station = result_spendtime_to_stay_station;
                 this.tableTwoData[ this.tableTwoData.length - 1].spendtime_to_stay_station = result_spendtime_to_stay_station;
+
             } //else
             element.distance_between_station = (element.end_speedometer - element.start_speedometer).toFixed(1);
             let result_spendtime_between_station = this.calcTimeToTime(element.start_time, element.end_time);

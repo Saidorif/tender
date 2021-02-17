@@ -303,7 +303,6 @@
 				}
 			},
             checkApprove(item){
-                console.log(item)
                 if(
                     item.xronom_status == 'completed' &&
                     item.xjadval_status == 'completed' &&

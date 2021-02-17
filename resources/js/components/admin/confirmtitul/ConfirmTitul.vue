@@ -66,7 +66,6 @@
             let page = 1;
             await this.actionTituls();
             this.laoding = false
-            console.log(this.getTituls)
 		},
 		computed:{
 			...mapGetters('confirmtitul',['getTituls', 'getTitulMassage'])

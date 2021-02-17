@@ -215,7 +215,6 @@ export default {
     // this.lots = this.getTenderAnnounce.tenderlots;
     // this.tenderlots = this.getTenderAnnounce.tenderlots;
     this.form = JSON.parse(localStorage.getItem("td"));
-    console.log(this.form);
   },
   methods: {
     ...mapActions("application", [
