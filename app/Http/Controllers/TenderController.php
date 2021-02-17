@@ -141,12 +141,21 @@ class TenderController extends Controller
                 if($the_direction->status == 'approved'){
                     $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
                 }
-                if($the_direction->status == 'busy' || $the_direction->contract_id != null ){
+                if($the_direction->contract_id != null ){
                     $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
                 }
-                if($the_direction->tender_id != null || $the_direction->lot_id != null ){
+                if($the_direction->status == 'busy' || $the_direction->reys_status == 'all' ){
                     $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
                 }
+                if($the_direction->reys_status == 'custom' ){
+                    $tenderLot = TenderLot::whereJsonContains('reys_id',$item['reys_id'])->first();
+                    if($tenderLot){
+                        $the_direction_err[] = 'Направление с этими рейcами уже используется';
+                    }
+                }
+                // if($the_direction->tender_id != null || $the_direction->lot_id != null ){
+                //     $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+                // }
                 if($the_direction->type_id != 1 && $the_direction->tarif == 0){
                     $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
                 }
@@ -621,7 +630,7 @@ class TenderController extends Controller
                             ->with(['tenderlots'])
                             ->withCount(['tenderlots','tenderapps'])
                             ->where(['status' => 'completed','status' => 'approved'])
-                            ->where('time','>', date('Y-m-d H:m:s'))
+                            ->where('time','<', date('Y-m-d H:m:s'))
                             ->paginate(12);
         }
         return response()->json(['success' => true, 'result' => $result]);

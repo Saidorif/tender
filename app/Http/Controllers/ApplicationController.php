@@ -78,14 +78,13 @@ class ApplicationController extends Controller
         }
         $salary = getAppFee();
         if($user->balance < $salary){
-            return response()->json(['error' => true, 'message' => 'Пожалуйста, оплатите регистрационный сбор']);
+            return response()->json(['error' => true, 'message' => 'Пожалуйста, оплатите регистрационный сбор ('.$user->balance.')']);
         }
         $inputs['user_id'] = $user->id;
         $direction_ids = [];
         foreach($tender->direction_ids as $key => $direction){
             $direction_ids[] = $direction['id'];
         }
-        // print_r($direction_ids);die;
         $inputs['direction_ids'] = $direction_ids;
         $application = Application::create($inputs);
         return response()->json([
@@ -221,7 +220,12 @@ class ApplicationController extends Controller
         $requirement_cars_count = 0;
         $directions = Direction::whereIn('id',$lot->getDirection())->get();
         foreach($directions as $dir){
-            $requirement_cars_count += $dir->requirement->auto_trans_count;
+            if($dir->reys_status == 'all'){
+                $requirement_cars_count += $dir->requirement->auto_trans_count;
+            }
+            if($dir->reys_status == 'custom'){
+                $requirement_cars_count += $dir->requirement->auto_trans_count_from;
+            }
         }
         if($requirement_cars_count > $application->cars->count()){
             return response()->json(['error' => true, 'message' => 'Пожалуйста, добавьте ещё '.($requirement_cars_count - $application->cars->count()).' машин']);
