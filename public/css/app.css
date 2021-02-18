@@ -26333,6 +26333,7 @@ input[type=number] {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .header_filter {

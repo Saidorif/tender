@@ -14,7 +14,7 @@
 			            	Филтр
 						</button>
 						<router-link class="btn btn-primary" to="/crm/direction/add">
-							<i class="fas fa-plus"></i> 
+							<i class="fas fa-plus"></i>
 							Добавить
 						</router-link>
 		            </div>
@@ -25,7 +25,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="region_id">Сортировать по региону!</label>
 			                    <select
-			                      id="region_id"	
+			                      id="region_id"
 			                      class="form-control input_style"
 			                      v-model="filter.region_id"
 			                    >
@@ -37,7 +37,7 @@
 				  				<label for="time">Сортировать по дате открытия!</label>
 				  				<date-picker
 					                lang="ru"
-					                type="date" 
+					                type="date"
 					                v-model="filter.time"
 					                format="YYYY-MM-DD" valueType="format"
 					                placeholder="Выберите дату!"
@@ -62,9 +62,9 @@
 							  		<i class="fas fa-search"></i>
 								  	найти
 							  	</button>
-					  	  	</div>	
+					  	  	</div>
 				  		</div>
-				  	</div>	
+				  	</div>
 			  	</transition>
 		  	</div>
 		  	<div class="card-body">

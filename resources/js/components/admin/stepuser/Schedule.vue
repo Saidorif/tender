@@ -6,8 +6,8 @@
         <PassportTab />
       </div>
       <div class="card-body">
-        <div class="row col-md-12">
-          <div class="form-group col-md-3">
+        <div class="row" width="100%">
+          <div class="form-group col-lg-4 col-md-6">
             <label for="reys_to_count" v-if="this.titulData">
               Reyslar soni {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan
             </label>
@@ -15,7 +15,7 @@
               {{form.reys_to_count}}
             </div>
           </div>
-          <div class="form-group col-md-3" v-if="this.titulData">
+          <div class="form-group col-lg-4 col-md-6" v-if="this.titulData">
             <label for="reys_from_count">
               Reyslar soni  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan
             </label>
@@ -23,7 +23,7 @@
               {{form.reys_from_count}}
             </div>
           </div>
-          <div class="form-group col-md-3">
+          <div class="form-group col-lg-4 col-md-6">
             <label for="count_bus">Qatnovchi avtomobillar soni </label>
             <div class="form-control input_style">
               {{form.count_bus}}

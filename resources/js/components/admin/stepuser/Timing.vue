@@ -58,22 +58,22 @@
                 </tr>
               </tbody>
             </table>
-            <div class="table_footer">
-              <div class="col-md-6">
-                <p>Qatnov yoli xarakat xafsizligiga:  {{timingDetails.conclusion}}</p>
-                <p>Olchov otkazilgan kun:  {{timingDetails.date}} yil</p>
-                <p>Xronametraj otkazilgan avtomobil rusumi va davlat raqami:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
-              </div>
-              <div class="col-md-4 right_item">
-                <div>
-                  <p>Olchov <br> qatnashchilari <br>  imzolari:</p>
-                </div>
-                <div>
-                  <p  v-for="(person,index) in timingDetails.persons">{{person.name.charAt(0)}}.{{person.surname}}</p>
-                </div>
-              </div>
+        </div>
+        <div class="table_footer">
+          <div class="col-xl-6">
+            <p>Qatnov yoli xarakat xafsizligiga:  {{timingDetails.conclusion}}</p>
+            <p>Olchov otkazilgan kun:  {{timingDetails.date}} yil</p>
+            <p>Xronametraj otkazilgan avtomobil rusumi va davlat raqami:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
+          </div>
+          <div class="col-xl-4 col-lg-6 right_item">
+            <div>
+              <p>Olchov <br> qatnashchilari <br>  imzolari:</p>
+            </div>
+            <div>
+              <p  v-for="(person,index) in timingDetails.persons">{{person.name.charAt(0)}}.{{person.surname}}</p>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -150,7 +150,7 @@ export default {
     };
   },
   async mounted() {
-    await this.actionEditDirection(this.$route.params.directionId); 
+    await this.actionEditDirection(this.$route.params.directionId);
     await this.actionRegionList();
     this.laoding = false
     this.titulData = this.getDirection
@@ -210,8 +210,8 @@ export default {
       let calc_technic_speed = 0
       let calc_traffic_speed = 0
       this.tableData.forEach((item)=>{
-        calc_technic_speed += parseFloat(item.spendtime_between_station) 
-        calc_traffic_speed += parseFloat(item.spendtime_to_stay_station) 
+        calc_technic_speed += parseFloat(item.spendtime_between_station)
+        calc_traffic_speed += parseFloat(item.spendtime_to_stay_station)
       })
       this.technic_speed =  (this.tableData[this.tableData.length - 1].distance_from_start_station * 60) /  calc_technic_speed
       this.traffic_speed =  (this.tableData[this.tableData.length - 1].distance_from_start_station * 60) /  (calc_technic_speed + calc_traffic_speed)
@@ -229,7 +229,7 @@ export default {
         this.form.distance_in_limited_speed != "" &&
         this.form.spendtime_between_limited_space != "" &&
         this.form.region_to_id != "" &&
-        this.form.whereTo  != "" 
+        this.form.whereTo  != ""
       ) {
         let thisData = {};
         if (this.tableData.length == 0) {
@@ -442,6 +442,7 @@ export default {
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
+  flex-wrap: wrap;
 }
 .table_footer .right_item{
   display: flex;
