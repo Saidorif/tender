@@ -7,6 +7,9 @@ const PageService = {
 	tenderIndexCompleted(page){
 		return ApiService.post(`/api/tender/index-completed?page=${page}`)
 	},
+	getTarifByNumber(data){
+		return ApiService.post(`/api/get-tarif-by-number`, data)
+	},
 };
 
 export { PageService };
