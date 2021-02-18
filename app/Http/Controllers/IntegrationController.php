@@ -42,7 +42,7 @@ class IntegrationController extends Controller
         $body['pResource'] = $inputs['pResource'];
         $body['cars'][] = $inputs['cars'];
         //Check for if the car already in use
-        $the_old_car = UserCar::where(['auto_number' => $inputs['auto_number']])->first();
+        $the_old_car = UserCar::where(['auto_number' => $inputs['cars']['auto_number']])->first();
         if($the_old_car){
             return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
         }
