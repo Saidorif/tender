@@ -255,7 +255,7 @@
               </div>
               <div class="row" v-for="(car,index) in cars">
                 <h4 class="car_index">{{index+1}})</h4>
-                <div class="form-group col-md-2">
+                <div class="form-group col-xl-2 col-lg-4 col-md-5">
                   <label :for="'bustype_id'+index">Категория Авто</label>
                   <select
                     class="form-control input_style"
@@ -272,7 +272,7 @@
                     >{{busType.name}}</option>
                   </select>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-xl-2 col-lg-4 col-md-6">
                   <label for="tclass_id">Класс Авто</label>
                   <select
                     class="form-control input_style"
@@ -286,7 +286,7 @@
                     <option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
                   </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-lg-3 col-md-6">
                   <label for="busmarka_id">Марка Авто</label>
                   <select
                     class="form-control input_style"
@@ -300,7 +300,7 @@
                     <option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
                   </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-lg-3 col-md-5">
                   <label for="busmodel_id">Модель Авто</label>
                   <select
                     class="form-control input_style"

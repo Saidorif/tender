@@ -19,8 +19,8 @@
           class="row tabRow"
         >
           <div class="row col-md-12">
-            <div class="form-group col-md-3">
-              <label for="reys_to_count" v-if="this.titulData">Reyslar soni {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
+            <div class="form-group col-md-3" v-if="titulData">
+              <label for="reys_to_count" v-if="titulData.timing_with && titulData.timing_with.length" >Reyslar soni {{ titulData.timing_with[0].whereForm  ? titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
               <input
                 type="number"
                 v-model.number="form.reys_to_count"
@@ -29,8 +29,8 @@
                 :class="isRequired(form.reys_to_count) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-3" v-if="this.titulData">
-              <label for="reys_from_count">Reyslar soni  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
+            <div class="form-group col-md-3" v-if="titulData">
+              <label for="reys_from_count" v-if="titulData.timing_with && titulData.timing_with.length">Reyslar soni  {{ titulData.timing_with[0].whereTo  ? titulData.timing_with[titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
               <input
                 type="number"
                 v-model.number="form.reys_from_count"
@@ -59,11 +59,8 @@
           <div class="col-md-4">
             <p>
               Qatnov yo'l masofasi
-              <b v-if="titulData.timing_with"
-                >{{
-                  titulData.timing_with[titulData.timing_with.length - 1]
-                    .distance_from_start_station
-                }}
+              <b v-if="titulData.timing_with && titulData.timing_with.length"
+                >{{ titulData.timing_with[titulData.timing_with.length - 1].distance_from_start_station}}
                 km</b
               >
             </p>
@@ -295,6 +292,7 @@ export default {
     await this.actionGetScheduleTable(this.$route.params.confirmscheduleId);
     this.laoding = false
       this.titulData = this.getShowschedule;
+      console.log(this.titulData)
     if(this.getSchedule.whereFrom.length && this.getSchedule.whereTo.length){
       this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
       this.form.whereFrom.stations =  this.getSchedule.whereFrom[0].stations
@@ -309,8 +307,8 @@ export default {
       this.form.count_bus = this.getSchedule.whereFrom[0].count_bus
       this.form.reys_from_count = this.getSchedule.whereFrom[0].reys_from_count
       this.form.reys_to_count = this.getSchedule.whereFrom[0].reys_to_count
-      this.form.whereFrom.from = this.titulData.timing_with[0].whereForm;
-      this.form.whereTo.from =  this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
+      this.form.whereFrom.from = this.titulData.timing_with.length ? this.titulData.timing_with[0].whereForm : '';
+      this.form.whereTo.from = this.titulData.timing_with.length ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo : '';
       this.form.whereFrom.reyses.forEach((p_item)=>{
           p_item['bus_order'] = p_item[0].bus_order
       })

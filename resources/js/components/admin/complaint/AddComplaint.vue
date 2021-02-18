@@ -12,7 +12,7 @@
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveComplt" >
 					<div class="row">
-					  <div class="form-group col-md-9">
+					  <div class="form-group col-lg-9 col-md-8">
 					    <label for="name">Заголовок</label>
 					    <input
 					    	type="text"
@@ -23,7 +23,7 @@
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
-					  <div class="form-group col-lg-3 form_btn">
+					  <div class="form-group col-lg-3 col-md-4 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить

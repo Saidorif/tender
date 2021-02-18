@@ -10,7 +10,7 @@
 					</h4>
 	            	<div class="add_user_btn">
 	            		<span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-		            		Количество тендеров <b>{{ getTenderAnnounces.total }} шт.</b> 
+		            		Количество тендеров <b>{{ getTenderAnnounces.total }} шт.</b>
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter mr-3" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
@@ -21,10 +21,10 @@
 	            <transition name="slide">
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
-				  			<div class="form-group col-lg-3">
+				  			<div class="form-group col-xl-4 col-md-6">
 				  				<label for="region_id">Сортировать по региону!</label>
 			                    <select
-			                      id="region_id"	
+			                      id="region_id"
 			                      class="form-control input_style"
 			                      v-model="filter.region_id"
 			                    >
@@ -32,10 +32,10 @@
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
-				  			<div class="form-group col-lg-3">
+				  			<div class="form-group col-xl-4 col-md-6">
 				  				<label for="type_id">Сортировать по типу маршрута!</label>
 			                    <select
-			                      id="type_id"	
+			                      id="type_id"
 			                      class="form-control input_style"
 			                      v-model="filter.type_id"
 			                    >
@@ -43,11 +43,11 @@
 			                      <option :value="item.id" v-for="(item,index) in getTypeofdirectionList">{{item.name}}</option>
 			                    </select>
               				</div>
-				  			<div class="form-group col-lg-3">
+				  			<div class="form-group col-xl-4 col-md-6">
 				  				<label for="time">Сортировать по дате!</label>
 				  				<date-picker
 					                lang="ru"
-					                type="date" 
+					                type="date"
 					                v-model="filter.time"
 					                format="YYYY-MM-DD" valueType="format"
 					                placeholder="Выберите дату!"
@@ -64,9 +64,9 @@
 							  		<i class="fas fa-search"></i>
 								  	найти
 							  	</button>
-					  	  	</div>	
+					  	  	</div>
 				  		</div>
-				  	</div>	
+				  	</div>
 			  	</transition>
 		  	</div>
 		  	<div class="card-body">

@@ -12,13 +12,13 @@
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="savePayment" >
 					<div class="row">
-					  <div class="form-group col-md-3">
+					  <div class="form-group col-xl-3 col-xl-6">
 					    <label for="name">Названиe компаний</label>
-					    <multiselect 
+					    <multiselect
 							:value="values"
 							:options="findList"
 							@search-change="value => findCompany(value)"
-							v-model="values" 
+							v-model="values"
 	                        placeholder="Выберите название компаний"
 	                        :searchable="true"
 	                        track-by="id"
@@ -28,52 +28,52 @@
 							selectLabel="Нажмите Enter, чтобы выбрать"
 							deselectLabel="Нажмите Enter, чтобы удалить"
 							:option="[]"
-							:class="isRequired(form.inn) ? 'isRequired' : ''"  
+							:class="isRequired(form.inn) ? 'isRequired' : ''"
 							@select="dispatchAction"
 							@remove="removeInn"
 							>
 							<span slot="noResult">По вашему запросу ничего не найдено</span>
 							<span slot="noOptions">Cписок пустой</span>
-						</multiselect>	
+						</multiselect>
 					  </div>
-					  <div class="form-group col-md-2">
+					  <div class="form-group col-xl-2">
 					    <label for="summ">Сумма</label>
-					    <input 
-					    	type="number" 
-					    	class="form-control input_style" 
-					    	id="summ" 
+					    <input
+					    	type="number"
+					    	class="form-control input_style"
+					    	id="summ"
 					    	placeholder="Сумма"
 					    	v-model="form.summ"
-					    	:class="isRequired(form.summ) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.summ) ? 'isRequired' : ''"
 				    	>
 					  </div>
-					  <div class="form-group col-md-2">
+					  <div class="form-group col-xl-2">
 					    <label for="date">Дата</label>
-					    <input 
-					    	type="date" 
-					    	class="form-control input_style" 
-					    	id="date" 
+					    <input
+					    	type="date"
+					    	class="form-control input_style"
+					    	id="date"
 					    	placeholder="Дата"
 					    	v-model="form.date"
-					    	:class="isRequired(form.date) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.date) ? 'isRequired' : ''"
 				    	>
 					  </div>
-					  <div class="form-group col-md-3">
+					  <div class="form-group col-xl-3 col-xl-6">
 					    <label for="details">Детали</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="details" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="details"
 					    	placeholder="Область"
 					    	v-model="form.details"
-					    	:class="isRequired(form.details) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.details) ? 'isRequired' : ''"
 				    	>
 					  </div>
-					  <div class="form-group col-lg-2 form_btn">
+					  <div class="form-group col-xl-2 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
 						  	Сохранить
-						</button>	
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -158,5 +158,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>
