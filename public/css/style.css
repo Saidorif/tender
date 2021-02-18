@@ -1939,6 +1939,10 @@ hr {
   margin-left: -300px;
 }
 
+.alert {
+  white-space: nowrap;
+}
+
 @media (max-width: 1400px) {
   .main_header .menu_list li a {
     margin-right: 20px;

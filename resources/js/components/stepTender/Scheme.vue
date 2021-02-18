@@ -62,7 +62,7 @@
                 </div>
                 </template>
             </div>
-            <div class="road_signs col-md-6">
+            <div class="road_signs col-xl-6">
                 <h6>Shatrli belgilar</h6>
                 <ul>
                 <li>

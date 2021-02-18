@@ -8,62 +8,62 @@
 	  		<div class="card-body">
 				<form>
           <div class="row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="type_id">Yo'nalish klasifikatsiyasi</label>
               <div class="form-control input_style">
                 {{item.type ? item.type.name : ''}}
                 {{item.type ? item.type.type : ''}}
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="seria">Passport raqami</label>
               <div class="form-control input_style">
                 {{form.pass_number}}
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">Shaxardan, viloyatdan</label>
               <div class="form-control input_style">
                 {{item.region_from_with ? item.region_from_with.name : ''}}
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">Tumandan, qishloqdan, shaxridan</label>
               <div class="form-control input_style">
                 {{item.area_from_with ? item.area_from_with.name : ''}}
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">Bekatdan</label>
               <div class="form-control input_style">
                 {{item.station_from ? item.station_from.name : ''}}
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">Shaxarga, viloyatga</label>
               <div class="form-control input_style">
                 {{item.region_to_with ? item.region_to_with.name : ''}}
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">Tumanga, qishloqga, shaxriga,</label>
               <div class="form-control input_style">
                 {{item.area_to_with ? item.area_to_with.name : ''}}
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">Bakatga</label>
               <div class="form-control input_style">
                 {{item.station_to ? item.station_to.name : ''}}
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="seasonal">Ishlash mavsumi</label>
               <div class="form-control input_style">
                 {{getSeasonal(form.seasonal)}}
               </div>
             </div>
-            <div class="col-md-3 input_radios_block">
+            <div class="col-xl-3 col-md-6 input_radios_block">
               <p>Qaysi tarafdan</p>
               <div class="form-group input_radio_with_label" v-for="(item,index) in destinations">
                 <input
@@ -77,13 +77,13 @@
                 <label :for="'from_where'+index">{{item.name}}</label>
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="seria">Yo'nalish ochilish sanasi</label>
               <div class="form-control input_style">
                 {{form.year}}
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="seria">Yonalish masofasi</label>
               <div class="form-control input_style">
                 {{form.distance}}

@@ -55,20 +55,20 @@
                     </tr>
                 </tbody>
                 </table>
-                <div class="table_footer">
-                <div class="col-md-6">
+            </div>
+            <div class="table_footer" v-if="tableData.length">
+                <div class="col-xl-6 col-lg-6">
                     <p>Qatnov yoli xarakat xafsizligiga:  {{timingDetails.conclusion}}</p>
                     <p>Olchov otkazilgan kun:  {{timingDetails.date}} yil</p>
                     <p>Xronametraj otkazilgan avtomobil rusumi va davlat raqami:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
                 </div>
-                <div class="col-md-4 right_item">
+                <div class="col-xl-4 col-lg-6 right_item">
                     <div>
                     <p>Olchov <br> qatnashchilari <br>  imzolari:</p>
                     </div>
                     <div>
                     <p  v-for="(person,index) in timingDetails.persons">{{person.name.charAt(0)}}.{{person.surname}}</p>
                     </div>
-                </div>
                 </div>
             </div>
         </div>

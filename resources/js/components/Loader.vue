@@ -230,6 +230,11 @@ export default {
     -webkit-animation-delay: 4.2s;
     animation-delay: 4.2s;
 }
+@media (max-width: 1000px) {
+    .ctn-preloader .animation-preloader .txt-loading[data-v-e79ec684]{
+        font-size: 2em;
+    }
+}
 @keyframes spinner {
     to{
         transform:rotateZ(360deg);

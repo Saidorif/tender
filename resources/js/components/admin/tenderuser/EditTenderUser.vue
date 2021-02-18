@@ -15,13 +15,13 @@
       <div class="card-body">
         <form>
           <div class="row">
-            <div class="form-group col-md-2">
+            <div class="form-group col-xl-2 col-md-6">
               <label for="name">Дата тердера</label>
               <div class="form-control input_style">
                 {{ form.time }}
               </div>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-xl-3 col-md-6">
               <label for="address">Адрес</label>
               <div class="form-control input_style">
                 {{ form.address }}
