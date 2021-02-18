@@ -27,12 +27,12 @@ class IntegrationController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
+        $inputs = $request->all();
         //Check for if the car already in use
         $the_old_car = UserCar::where(['auto_number' => $inputs['auto_number']])->first();
         if($the_old_car){
             return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
-        }
-        $inputs = $request->all();
+        }        
         $user = $request->user();
         $inputs['pID'] = Str::uuid();
         $inputs['pResource'] = 1;
