@@ -34,17 +34,21 @@ class AreaController extends Controller
     {
         $user = $request->user();
 
-        if($user->role_id == 1){
-            $validator = Validator::make($request->all(), [            
-                'region_id'  => 'required|integer'
-            ]);
+        if($user){
+            if($user->role_id == 1){
+                $validator = Validator::make($request->all(), [            
+                    'region_id'  => 'required|integer'
+                ]);
 
-            if($validator->fails()){
-                return response()->json(['error' => true, 'message' => $validator->messages()]);
+                if($validator->fails()){
+                    return response()->json(['error' => true, 'message' => $validator->messages()]);
+                }
+                $result = Area::where(['region_id' => $request->input('region_id')])->get();
+            }else{
+                $result = Area::where(['region_id' => $user->region_id])->get();
             }
-            $result = Area::where(['region_id' => $request->input('region_id')])->get();
         }else{
-            $result = Area::where(['region_id' => $user->region_id])->get();
+            $result = Area::where(['region_id' => $request->region_id])->get();
         }
         return response()->json(['success' => true, 'result' => $result]);
     }
