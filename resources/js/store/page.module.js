@@ -3,6 +3,7 @@ import {PageService} from "../services/page.service";
 const state = {
 	tenderIndex: [],
 	tenderIndexCompleted: [],
+	tarifByNumber: null,
 };
 
 const getters = {
@@ -12,6 +13,9 @@ const getters = {
 	getTenderIndexCompleted(state){
 		return state.tenderIndexCompleted
 	},
+    getGetTarifByNumber(state){
+        return state.tarifByNumber
+    }
 };
 
 
@@ -34,9 +38,21 @@ const actions = {
 			return false
 		}
 	},
+	async actionGetTarifByNumber({commit},payload){
+		try {
+			const actions =  await PageService.getTarifByNumber(payload);
+			await commit('setGetTarifByNumber',actions.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 };
 
 const mutations = {
+	setGetTarifByNumber(state, data){
+		state.tarifByNumber = data
+	},
 	setTenderIndex(state, data){
 		state.tenderIndex = data
 	},
