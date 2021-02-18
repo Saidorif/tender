@@ -27,12 +27,7 @@ class IntegrationController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
-        //Check for if the car already in use
-        $the_old_car = UserCar::where(['auto_number' => $inputs['auto_number']])->first();
-        if($the_old_car){
-            return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
-        }
-        $inputs = $request->all();
+        $inputs = $request->all();        
         $user = $request->user();
         $inputs['pID'] = Str::uuid();
         $inputs['pResource'] = 1;
@@ -46,6 +41,11 @@ class IntegrationController extends Controller
         $body['pID'] = $inputs['pID'];
         $body['pResource'] = $inputs['pResource'];
         $body['cars'][] = $inputs['cars'];
+        //Check for if the car already in use
+        $the_old_car = UserCar::where(['auto_number' => $inputs['cars']['auto_number']])->first();
+        if($the_old_car){
+            return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
+        }
         try {
             //Send query
             $query = json_encode($body);
