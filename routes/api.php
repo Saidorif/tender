@@ -23,7 +23,7 @@ Route::group([
     Route::post('complaint/store', 'ComplaintController@store');
     Route::post('getaccess', 'ClientAccessController@store');
     Route::post('checkuser', 'UserController@checkuser');
-    // Route::post('create-user', 'UserController@createUser');
+    Route::post('get-tarif-by-number', 'DirectionController@getTarifByNumber');
     Route::get('complaintcategory/list', 'ComplaintCategoryController@list');
     Route::post('tender/index', 'TenderController@userIndex');
     Route::post('tender/index-completed', 'TenderController@userCompleted');
