@@ -22,7 +22,7 @@
 				  				</tr>
 				  			</thead>
 				  			<tbody>
-				  				<tr v-for="(items,index) in getTarif">
+				<!--   				<tr v-for="(items,index) in getTarif">
 				  					<td>{{index+1}}</td>
 				  					<td>{{items[index].from_name}}</td>
 				  					<template v-for="(item,key) in items">
@@ -41,7 +41,7 @@
 					  						<td class="has_no_name_tarif" v-if="key !='ddd'"></td>
 				  						</template>
 				  					</template>
-				  				</tr>
+				  				</tr> -->
 				  			</tbody>
 				  		</table>
 			  		</div>
@@ -75,6 +75,7 @@ import Loader from '../../Loader'
 			await this.actionEditDirection(this.$route.params.directionId);
 			await this.actionTarif(this.$route.params.directionId);
 			this.titulData = this.getDirection
+			console.log(this.titulData )
 			this.laoding = false
 		},
 		computed:{
