@@ -3,7 +3,7 @@ import {PageService} from "../services/page.service";
 const state = {
 	tenderIndex: [],
 	tenderIndexCompleted: [],
-	tarifByNumber: null,
+	tarifByNumber: [],
 };
 
 const getters = {
