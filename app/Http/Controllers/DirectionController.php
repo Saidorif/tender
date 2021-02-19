@@ -145,6 +145,23 @@ class DirectionController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function findForUsers(Request $request)
+    {
+        $validator = Validator::make($request->all(), [            
+            'name'  => 'required|string|min:3',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $name = htmlspecialchars($request->input('name'));
+        $builder = Direction::query()->select('status','tarif','name','pass_number','dir_type');
+        $builder->where('name','LIKE', '%'.$name.'%');
+        $builder->orWhere('pass_number','LIKE', '%'.$name.'%');
+        $result = $builder->get();
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+    
     public function find(Request $request)
     {
         $validator = Validator::make($request->all(), [            

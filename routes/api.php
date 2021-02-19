@@ -27,6 +27,7 @@ Route::group([
     Route::get('complaintcategory/list', 'ComplaintCategoryController@list');
     Route::post('tender/index', 'TenderController@userIndex');
     Route::post('tender/index-completed', 'TenderController@userCompleted');
+    Route::post('find-direction', 'DirectionController@findForUsers');
     Route::group(['middleware' => 'jwt.auth'], function(){
         Route::group(['middleware' => 'permit'], function(){
 
