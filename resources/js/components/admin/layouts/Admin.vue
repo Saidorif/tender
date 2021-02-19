@@ -230,7 +230,7 @@
               <span class="peIcon fas fa-comment" style="font-size: 20px;"></span>
               <p>
                 Обращения
-                <span class="badge badge-primary" v-if="getComplaintLength">{{getComplaintLength}}2</span>
+                <span class="badge badge-primary" v-if="getComplaintLength">{{getComplaintLength}}</span>
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
