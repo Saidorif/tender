@@ -155,7 +155,7 @@ class DirectionController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $name = htmlspecialchars($request->input('name'));
-        $builder = Direction::query()->select('status','tarif','name','pass_number','dir_type');
+        $builder = Direction::query()->select('id','status','tarif','name','pass_number','dir_type');
         $builder->where('name','LIKE', '%'.$name.'%');
         $builder->orWhere('pass_number','LIKE', '%'.$name.'%');
         $result = $builder->get();
