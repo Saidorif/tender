@@ -44,7 +44,7 @@
                 <th>Бошлангич ва оралик охирги бекатлар номи</th>
                 <template
                   :colspan="statinsName.length"
-                  v-for="(item) in statinsName.reverse()"
+                  v-for="(item) in statinsName"
                 >
                   <th>
                     {{ item }}
@@ -125,8 +125,8 @@ export default {
           this.errorText = null;
           this.statinsName = [];
           this.getGetTarifByNumber.forEach((item)=>{
-              item.items.forEach((elem, ind)=>{
-                  this.statinsName.push(elem[ind].from_name)
+              item.items[0].forEach((elem, ind)=>{
+                  this.statinsName.push(elem.to_name)
               })
           })
         }
