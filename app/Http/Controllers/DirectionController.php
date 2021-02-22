@@ -148,18 +148,35 @@ class DirectionController extends Controller
     public function findForUsers(Request $request)
     {
         $validator = Validator::make($request->all(), [            
-            'name'  => 'required|string|min:3',
+            'region_from_id'  => 'required|integer',
+            'region_to_id'  => 'nullable|integer',
+            'area_from_id'  => 'nullable|integer',
+            'area_to_id'  => 'nullable|integer',
         ]);
-
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
-        $name = htmlspecialchars($request->input('name'));
-        $builder = Direction::query()->select('id','status','tarif','name','pass_number','dir_type');
-        $builder->where('name','LIKE', '%'.$name.'%');
-        $builder->orWhere('pass_number','LIKE', '%'.$name.'%');
+        $inputs = $request->all();
+        $builder = PassportTiming::query()->select('id','whereForm','whereTo','direction_id');
+        $builder->where('region_from_id','=',$inputs['region_from_id']);
+
+        if(!empty($inputs['region_to_id'])){
+            $builder->where('region_to_id','=',$inputs['region_to_id']);
+        }
+        if(!empty($inputs['area_from_id'])){
+            $builder->where('area_from_id','=',$inputs['area_from_id']);
+        }
+        if(!empty($inputs['area_to_id'])){
+            $builder->where('area_to_id','=',$inputs['area_to_id']);
+        }
         $result = $builder->get();
         return response()->json(['success' => true, 'result' => $result]);
+    }
+
+    public function directionInfoForUsers(Request $request, $id)
+    {
+        
+        return response()->json($result);
     }
     
     public function find(Request $request)
