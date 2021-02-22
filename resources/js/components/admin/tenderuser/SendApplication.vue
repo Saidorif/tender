@@ -412,7 +412,6 @@
                             <div class="form-group col-md-3 mb-0" >
                                 <label>Muddat</label>
                                 <select  class="form-control"  v-model="contract_time" v-if="old_contract_time">
-                                    <!-- <option selected disabled>Muddatni tanlang!</option> -->
                                     <option v-for="option in timeOptions" :value="option.val" v-if="old_contract_time >= option.val">
                                     	{{ option.name }}
                                     </option>
@@ -778,6 +777,49 @@
 	      	  	</div>
 	  	  	</div>
   	  	</div>
+
+  	  	<!-- Offer -->
+
+  	  	<!-- Button trigger modal -->
+		<!-- Modal -->
+		<div class="modal fade bd-example-modal-lg" id="offerModal" tabindex="-1" role="dialog" aria-labelledby="offerTitle" aria-hidden="true">
+		  <div class="modal-dialog  modal-lg modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="offerTitle">Согласование</h5>
+		        <button type="button" class="close" @click.prevent="closeOfferModal">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		      </div>
+		      <div class="modal-footer">
+		  	  	<div class="form-group d-flex justify-content-end align-items-center offer_btn">
+		  	  		<input type="checkbox" name="" true-value="1" id="offer" false-value="0" v-model="offer">
+		  	  		<label for="offer" class="form-control-label ml-2 mt-3 text-info">
+		  	  			<h5>Ознакомлен и согласен</h5>
+		  	  		</label>
+		  	  	</div>
+		        <button type="button" class="btn btn-info" @click.prevent="offerConfirm">
+		        	<i class="fas fa-share-square"></i>
+		        	Отправить
+		        </button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+
 	</div>
 </template>
 <script>
@@ -852,7 +894,8 @@
                     {name: '3 yil', val: 3},
                     {name: '4 yil', val: 4},
                     {name: '5 yil', val: 5},
-                ]
+                ],
+                offer:0
 			}
 		},
 		computed:{
@@ -910,17 +953,18 @@
 						this.car.pTexpassportSery=''
 						this.car.pTexpassportNumber=''
 					}
-				}
-			},deep:true,
+				},deep:true
+			},
 			'car.auto_number':{
 				handler(){
 					if (this.car.auto_number.length > 8) {
 			          this.car.auto_number = this.car.auto_number.slice(0,8)
 			        }
-				}
-			},deep:true,
+				},deep:true
+			},
 		},
 		async mounted(){
+			$('#offerModal').modal({backdrop: 'static',keyboard: true, show: false});
 			await this.actionEditApplication(this.$route.params.userapplicationId)
 			await this.actionTypeofbusList()
 			await this.actionBusmodelList()
@@ -955,8 +999,40 @@
 			...mapActions('direction',['actionDirectionFind']),
 			...mapActions('busclass',['actionBusclassFind']),
             ...mapActions("busbrand",["actionBusBrandList"]),
+            async offerConfirm(){
+            	if(this.offer == 1){
+	                this.laoding = true
+					await this.actionActivate(this.$route.params.userapplicationId)
+					if (this.getActivate.success){
+						await this.actionEditApplication(this.$route.params.userapplicationId)
+						await this.openQrcode()
+	                }else{
+	            		toast.fire({
+					    	type: 'error',
+					    	icon: 'error',
+							title: this.getActivate.message,
+					    })
+					    this.closeOfferModal()
+					    this.offer = 0
+	                }
+	                this.laoding = false
+            	}
+            	else{
+            		toast.fire({
+			            type: "error",
+			            icon: "error",
+			            title: "Ознакомьтесь с текстом публичной оферты "
+		          	});
+            	}
+            },
 			openQrcode(){
 				$('#qrcodeModal').modal('show')
+			},
+			openOfferModal(){
+				$('#offerModal').modal('show')
+			},
+			closeOfferModal(){
+				$('#offerModal').modal('hide')
 			},
 			getTClassName(id){
 				if(this.tclasses.length > 0){
@@ -971,20 +1047,8 @@
 					return 'Выберите класс авто'
 				}
 			},
-			async activate(){
-                this.laoding = true
-				await this.actionActivate(this.$route.params.userapplicationId)
-				if (this.getActivate.success){
-					await this.actionEditApplication(this.$route.params.userapplicationId)
-					await this.openQrcode()
-                }else{
-            		toast.fire({
-				    	type: 'error',
-				    	icon: 'error',
-						title: this.getActivate.message,
-				    })
-                }
-                this.laoding = false
+			activate(){
+				this.openOfferModal()
 			},
 			activeEditClass(item){
 		    	if (item.status == 'active'){
@@ -1358,5 +1422,9 @@
 	    width: 100%;
 	    padding: 20px;
 	    text-align:center;
+	}
+	.offer_btn label,.offer_btn h5, .offer_btn input{
+		cursor:pointer;
+	    font-weight: 600;
 	}
 </style>
