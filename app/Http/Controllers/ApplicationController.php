@@ -273,9 +273,9 @@ class ApplicationController extends Controller
                 if($car->date != $checked_car['date']){
                     return response()->json(['error' => true, 'message' => 'Год выпуска автомобиля не совпадает']);
                 }
-                if($car->capacity != $checked_car['capacity']){
-                    return response()->json(['error' => true, 'message' => 'Вместимость автомобиля не соответствует']);
-                }
+                // if($car->capacity != $checked_car['capacity']){
+                //     return response()->json(['error' => true, 'message' => 'Вместимость автомобиля не соответствует']);
+                // }
             }
         }
         

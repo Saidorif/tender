@@ -739,7 +739,7 @@ class TenderController extends Controller
                     $app_avto_years = 0;
                     foreach($app->cars as $cars){
                         $app_avto_years = date('Y') - $cars->date;
-                        $app_avto_capacity += $cars->seat_qty;
+                        $app_avto_capacity += $cars->capacity;
                         //Avto ishlab chiqarilgan yildan boshlab necha yil otgani
                         if($app_avto_years >= 0 && $app_avto_years <= 2){
                             $app_avto_ball += 10;
@@ -756,14 +756,19 @@ class TenderController extends Controller
                         if($app_avto_years >= 12 && $app_avto_years <= 14){
                             $app_avto_ball += 3;
                         }
-                        $app_avto_years_total += $app_avto_ball;
+                        $app_avto_years_total += $app_avto_years;
                     }
                     //Umumiy ballar talabdagi avtolar soniga bolinadi
                     if($app_avto_ball){
-                        $app_avto_ball = $app_avto_ball / (int)$direction->requirement->auto_trans_count;
+                        if($direction->reys_status == 'all'){
+                            $talabdagi_son = (int)$direction->requirement->auto_trans_count;
+                        }else{
+                            $talabdagi_son = (int)$direction->requirement->auto_trans_count_from;
+                        }
+                        $app_avto_ball = $app_avto_ball / (int)$talabdagi_son;
                     }
                     $appBallArray['app_years'] = $app_avto_years_total;
-                    $appBallArray['lot_years'] = (int)$direction->requirement->auto_trans_count;
+                    $appBallArray['lot_years'] = (int)$talabdagi_son;
                     $appBallArray['years_ball'] = $app_avto_ball;
                     //4.Yolovchilar sigimi
                     $app_avto_capacity_ball = 0;
@@ -794,11 +799,11 @@ class TenderController extends Controller
                     //5.Qatnovlar soni
                     $app_qatnovlar_ball = 0;
                     //Agar taklif etilgan qatnovlar soni talabga teng yoki yuqori bolsa 3 ball bomasa 0 
-                    $tender_qatnovlar_soni = count($direction->schedule);
+                    $tender_qatnovlar_soni = $direction->reys_status == 'custom' ? (int)$direction->requirement->reyses_from_value : count($direction->schedule);
                     if((int)$app->qty_reys >= $tender_qatnovlar_soni){
                         $app_qatnovlar_ball = 3;
                     }
-                    $appBallArray['app_reys'] = $tender_qatnovlar_soni;
+                    $appBallArray['app_reys'] = $app->qty_reys;
                     $appBallArray['lot_reys'] = $tender_qatnovlar_soni;
                     $appBallArray['reys_ball'] = $app_qatnovlar_ball;
                     //6.Transport kategoriyasiga mosligi
@@ -806,7 +811,11 @@ class TenderController extends Controller
                     $tender_cars = $direction->cars;
                     $app_categoriya = 0;
                     $app_model = 0;
+                    $m1 = false;
                     foreach ($tender_cars as $t_car) {
+                        if($t_car->bustype_id == 1){
+                            $m1 = true;
+                        }
                         foreach ($app->cars as $a_car) {
                             //6.Transport kategoriyasiga mosligi 3 ball
                             if($t_car->bustype_id == $a_car->bustype_id){
@@ -851,7 +860,7 @@ class TenderController extends Controller
                     //Model mosligidan chiqqan umumiy ball jadvallar soniga bolinadi
                     $app_model = round($app_model / (int)$direction->requirement->schedules,2);
                     //6-izox: Barcha ballar qoshiladi va talab etilgan avtotransportlar soniga bolinadi
-                    $app_categoriya  = round($app_categoriya / (int)$direction->requirement->auto_trans_count,2);
+                    $app_categoriya  = round($app_categoriya / (int)$direction->requirement->schedules,2);
                     $appBallArray['app_categories'] = array_unique($app->cars->pluck('bustype_id')->toArray());
                     $appBallArray['lot_categories'] = $tender_cars->pluck('bustype_id')->toArray();
                     $appBallArray['categories_ball'] = $app_categoriya;
@@ -870,26 +879,26 @@ class TenderController extends Controller
                     $cars_rest_total = 0;
 
                     foreach($app->cars as $car){
-                        if((int)$car->conditioner == 1 && $app_categoriya >= 3){
-                            $cars_rest_total += 3 * 1.20;
+                        if((int)$car->conditioner == 1){
+                            $cars_rest_total += (3 * 1.20);
                         }
-                        if((int)$car->internet == 1 && $app_categoriya >= 3){
-                            $cars_rest_total += 3 * 1.15;
+                        if((int)$car->internet == 1){
+                            $cars_rest_total += (3 * 1.15);
                         }
-                        if((int)$car->bio_toilet == 1 && $app_categoriya >= 3){
-                            $cars_rest_total += 3 * 1.10;
+                        if((int)$car->bio_toilet == 1){
+                            $cars_rest_total += (3 * 1.10);
                         }
-                        if((int)$car->bus_adapted == 1 && $app_categoriya >= 3){
-                            $cars_rest_total += 3 * 1.10;
+                        if((int)$car->bus_adapted == 1){
+                            $cars_rest_total += (3 * 1.10);
                         }
-                        if((int)$car->telephone_power == 1 && $app_categoriya >= 3){
-                            $cars_rest_total += 3 * 1.05;
+                        if((int)$car->telephone_power == 1){
+                            $cars_rest_total += (3 * 1.05);
                         }
-                        if((int)$car->monitor == 1 && $app_categoriya >= 3){
-                            $cars_rest_total += 3 * 1.05;
+                        if((int)$car->monitor == 1){
+                            $cars_rest_total += (3 * 1.05);
                         }
                         if($car->station_announce){
-                            $cars_rest_total += 3 * 1.05;
+                            $cars_rest_total += (3 * 1.05);
                         }
                     }
                     if($cars_rest_total){
@@ -940,7 +949,11 @@ class TenderController extends Controller
                     $result[$key][$k]['avto_qulayliklar_ball'] = round($avto_qulayliklar_ball,3);
                     $result[$key][$k]['cars_rest_total'] = $cars_rest_total;
                     $result[$key][$k]['tadbirlar_rejasi_ball'] = $tadbirlar_rejasi_ball;
-                    $result[$key][$k]['total'] = $app_tarif_ball + $app_avto_ball + $app_avto_capacity_ball + $app_qatnovlar_ball + $app_categoriya + $app_model + round($avto_qulayliklar_ball,3) + $tadbirlar_rejasi_ball;
+                    if($m1){
+                        $result[$key][$k]['total'] = $app_tarif_ball + $app_avto_ball + $app_avto_capacity_ball + $app_qatnovlar_ball + $app_model + round($avto_qulayliklar_ball,3) + $tadbirlar_rejasi_ball;
+                    }else{
+                        $result[$key][$k]['total'] = $app_tarif_ball + $app_avto_ball + $app_avto_capacity_ball + $app_qatnovlar_ball + $app_categoriya + round($avto_qulayliklar_ball,3) + $tadbirlar_rejasi_ball;
+                    }
                     $appBallArray['total_ball'] = $result[$key][$k]['total'];
                     $appBallArray['cars_ball'] =$result[$key][$k]['avto_qulayliklar_ball'];
                     $result[$key][$k]['appBallArray'] = $appBallArray;
