@@ -409,9 +409,9 @@
 							</table>
 						</div>
 					  	<div class="form-group col-lg-12 d-flex justify-content-end align-items-end" v-if="!makeDisabled">
-                            <div class="form-group col-md-3 mb-0" >
+                            <div class="form-group col-md-3 mb-0" v-if="old_contract_time">
                                 <label>Muddat</label>
-                                <select  class="form-control"  v-model="contract_time" v-if="old_contract_time">
+                                <select  class="form-control"  v-model="contract_time">
                                     <option v-for="option in timeOptions" :value="option.val" v-if="old_contract_time >= option.val">
                                     	{{ option.name }}
                                     </option>
@@ -1011,7 +1011,7 @@
 					    	type: 'error',
 					    	icon: 'error',
 							title: this.getActivate.message,
-					    })
+					    });
 					    this.closeOfferModal()
 					    this.offer = 0
 	                }
