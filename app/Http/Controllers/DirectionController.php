@@ -150,16 +150,24 @@ class DirectionController extends Controller
         $validator = Validator::make($request->all(), [            
             'name'  => 'required|string|min:3',
         ]);
-
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
-        $name = htmlspecialchars($request->input('name'));
-        $builder = Direction::query()->select('id','status','tarif','name','pass_number','dir_type');
-        $builder->where('name','LIKE', '%'.$name.'%');
-        $builder->orWhere('pass_number','LIKE', '%'.$name.'%');
+        $name = $request->input('name');
+        // $builder = Direction::query()->select('id','status','tarif','name','pass_number','dir_type');
+        // $builder->where('name','LIKE', '%'.$name.'%');
+        // $builder->orWhere('pass_number','LIKE', '%'.$name.'%');
+        // $result = $builder->get();
+        $builder = PassportTiming::query();
+        $builder->whereJsonContains('whereForm',['name' =>'Тошкент']);
         $result = $builder->get();
         return response()->json(['success' => true, 'result' => $result]);
+    }
+
+    public function directionInfoForUsers(Request $request, $id)
+    {
+        
+        return response()->json($result);
     }
     
     public function find(Request $request)

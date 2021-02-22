@@ -19,6 +19,17 @@ class AreaController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function userList(Request $request)
+    {
+        $region_id = $request->input('region_id');
+        if(!empty($region_id)){
+            $result = Area::where(['region_id' => $region_id])->with('region')->get();
+        }else{
+            $result = Area::with('region')->get();
+        }
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+    
     public function list(Request $request)
     {
         $user = $request->user();

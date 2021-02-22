@@ -19,6 +19,7 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('register', 'UserController@register');
     Route::get('region/list', 'RegionController@list');
+    Route::get('area/user-list', 'AreaController@userList');
     Route::post('area/regionby', 'AreaController@regionby');
     Route::post('complaint/store', 'ComplaintController@store');
     Route::post('getaccess', 'ClientAccessController@store');
@@ -28,6 +29,7 @@ Route::group([
     Route::post('tender/index', 'TenderController@userIndex');
     Route::post('tender/index-completed', 'TenderController@userCompleted');
     Route::post('find-direction', 'DirectionController@findForUsers');
+    Route::post('find-direction/{id}', 'DirectionController@directionInfoForUsers');
     Route::group(['middleware' => 'jwt.auth'], function(){
         Route::group(['middleware' => 'permit'], function(){
 
