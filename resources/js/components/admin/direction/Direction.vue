@@ -272,7 +272,7 @@
 				}
 			},
 			async clear(){
-				if(this.filter.pass_number != '' ||   this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
+				// if(this.filter.pass_number != '' ||   this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
 					this.filter.region_id = ''
 					this.filter.dir_type = ''
 					this.filter.type_id = ''
@@ -285,7 +285,7 @@
                     localStorage.setItem("dir_f",  JSON.stringify(this.filter))
                     await this.actionDirections({page: page,items:this.filter})
                     this.laoding = false
-				}
+				// }
 
 			},
 			async deletePassport(id){
