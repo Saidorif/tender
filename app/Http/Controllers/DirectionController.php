@@ -152,22 +152,29 @@ class DirectionController extends Controller
             'region_to_id'  => 'nullable|integer',
             'area_from_id'  => 'nullable|integer',
             'area_to_id'  => 'nullable|integer',
+            'type'  => 'nullable|integer',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
-        $builder = PassportTiming::query()->select('id','whereForm','whereTo','direction_id');
-        $builder->where('region_from_id','=',$inputs['region_from_id']);
+        $builder = PassportTiming::query()
+                            ->leftJoin('directions','directions.id','=','passport_timings.direction_id')
+                            ->select('passport_timings.id','passport_timings.whereForm','passport_timings.whereTo','passport_timings.direction_id','directions.type_id as type','directions.tarif as tarif');
+        $builder->where('passport_timings.region_from_id','=',$inputs['region_from_id']);
+        $builder->where('directions.tarif','!=',null);
 
         if(!empty($inputs['region_to_id'])){
-            $builder->where('region_to_id','=',$inputs['region_to_id']);
+            $builder->where('passport_timings.region_to_id','=',$inputs['region_to_id']);
+        }
+        if(!empty($inputs['type'])){
+            $builder->where('directions.type_id','=',$inputs['type']);
         }
         if(!empty($inputs['area_from_id'])){
-            $builder->where('area_from_id','=',$inputs['area_from_id']);
+            $builder->where('passport_timings.area_from_id','=',$inputs['area_from_id']);
         }
         if(!empty($inputs['area_to_id'])){
-            $builder->where('area_to_id','=',$inputs['area_to_id']);
+            $builder->where('passport_timings.area_to_id','=',$inputs['area_to_id']);
         }
         $result = $builder->get();
         return response()->json(['success' => true, 'result' => $result]);
