@@ -56,6 +56,11 @@ import Direction from './components/admin/direction/Direction'
 import AddDirection from './components/admin/direction/AddDirection'
 import EditDirection from './components/admin/direction/EditDirection'
 
+// UserDirection
+import UserDirection from './components/admin/userdirection/UserDirection'
+
+
+
 // Type of Direction
 import Typeofdirection from './components/admin/typeofdirection/Typeofdirection'
 import AddTypeofdirection from './components/admin/typeofdirection/AddTypeofdirection'
@@ -565,6 +570,10 @@ const router = new Router({
 						action:'edit',
 						subject:'ComplaintController'
 					}
+				},
+				{
+					path:'direction-user',
+					component:UserDirection,
 				},
 				{
 					path:'direction',

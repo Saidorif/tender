@@ -175,9 +175,16 @@
 								</template>
 							</td>
 							<td><b>{{direct.pass_number}}</b> - {{direct.name}}</td>
+							<td>
+                                <a href="#" @click.prevent="openModal(direct)">
+                                  <b></b>
+                                </a>
+                            </td>
 							<td></td>
-							<td></td>
-							<td><span class="alert alert-danger pt-1 pb-1">Неразмещен в тендер</span>  </td>
+							<td>
+                                <span class="alert alert-danger pt-1 pb-1" v-if="direct.status == 'active'"> Неразмещен в тендер</span>
+                                <span class="alert alert-success pt-1 pb-1" v-if="direct.status == 'busy'"> Размещен в тендер</span>
+                            </td>
 							<td>{{direct.dir_type == 'taxi' ? 'Йўналишли тахи йуналиши' : 'Автобус йуналиши'}}</td>
 							<td>{{direct.year}}</td>
 							<td>{{ checkApprove(direct) }}</td>
@@ -204,6 +211,91 @@
 				</table>
 			  </div>
 		  </div>
+                          <!-- Modal For USER-->
+      <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Данные организации</h5>
+              <button type="button" class="close" @click.prevent="closeUserModal">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="table-responsive table">
+                <table class="table-bordered table table-hover" v-if="userItem">
+                  <thead></thead>
+                  <tbody>
+                    <tr>
+                      <th>Название организации</th>
+                      <td>{{userItem.company_name}}</td>
+                    </tr>
+                    <tr>
+                      <th>Ф.И.О</th>
+                      <td>{{userItem.surname}}  {{userItem.name}} {{userItem.middlename}}</td>
+                    </tr>
+                    <tr>
+                      <th>Область</th>
+                      <td>{{userItem.region ? userItem.region.name : ''}}</td>
+                    </tr>
+                    <tr>
+                      <th>Регион/Город</th>
+                      <td>{{userItem.area ? userItem.area.name : ''}}</td>
+                    </tr>
+                    <tr>
+                      <th>Уполномоченное лицо</th>
+                      <td>{{userItem.trusted_person}}</td>
+                    </tr>
+                    <tr>
+                      <th>ИНН</th>
+                      <td>{{userItem.inn}}</td>
+                    </tr>
+                    <tr>
+                      <th>Телефон</th>
+                      <td>{{userItem.phone}}</td>
+                    </tr>
+                    <tr>
+                      <th>Адрес</th>
+                      <td>{{userItem.address}}</td>
+                    </tr>
+                    <tr>
+                      <th>Р/счет</th>
+                      <td>{{userItem.bank_number}}</td>
+                    </tr>
+                    <tr>
+                      <th>МФО</th>
+                      <td>{{userItem.mfo}}</td>
+                    </tr>
+                    <tr>
+                      <th>ОКЕД</th>
+                      <td>{{userItem.oked}}</td>
+                    </tr>
+                    <tr>
+                      <th>Адрес банка</th>
+                      <td>{{userItem.city}}</td>
+                    </tr>
+                    <tr>
+                      <th>Номер лицензии</th>
+                      <td>{{userItem.license_number}}</td>
+                    </tr>
+                    <tr>
+                      <th>Тип лицензии</th>
+                      <td>{{userItem.license_type}}</td>
+                    </tr>
+                    <tr>
+                      <th>Дата лицензии</th>
+                      <td>{{userItem.license_date}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" @click.prevent="closeUserModal">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </div>
 	  	</div>
 	</div>
 </template>
@@ -258,6 +350,10 @@
 			toggleFilter(){
 				this.filterShow = !this.filterShow
 			},
+            openModal(item){
+                $('#userModal').modal('show')
+                this.userItem = item
+            },
 			async search(){
 				let page = 1
 				if(this.filter.pass_number != '' || this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
