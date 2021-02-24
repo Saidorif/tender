@@ -383,6 +383,7 @@ export default {
       laoding: true,
       fromChoosenName:{},
       toChoosenName:{},
+      itemIndex:0,
     };
   },
   async mounted() {
@@ -520,6 +521,9 @@ export default {
     },
     removeCar(index){
       Vue.delete(this.cars,index)
+      if(this.itemIndex > 0){
+        this.itemIndex--
+      }
     },
     addCar(){
       if(this.cars.length == 0){
@@ -534,6 +538,7 @@ export default {
         })
       }else{
         if(this.cars[0].bustype_id != ''){
+          this.itemIndex++
           let busType = this.cars[0].bustype_id
           this.cars.push({
             bustype_id:busType,
@@ -544,6 +549,7 @@ export default {
             bus_models:[],
             bus_marks:[],
           })
+          this.selectClass(this.cars[this.itemIndex])
         }else{
           toast.fire({
             type: "error",
@@ -603,7 +609,7 @@ export default {
         this.requiredInput = true;
       }
     },
-    async selectRegion(input) {
+    async selectRegion(input){
       await this.actionXromAreaList({ region_id: this.form[input].region_id });
       if(input == 'region_from'){
         this.areaFrom = this.getAreaXromLists
