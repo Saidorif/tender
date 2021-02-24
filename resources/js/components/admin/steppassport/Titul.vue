@@ -279,6 +279,7 @@
                     v-model="car.bustype_id"
                     :class="isRequired(car.bustype_id) ? 'isRequired' : ''"
                     @change="selectClass(car)"
+                    :disabled="makeDisabled"
                   >
                     <option value="" selected disabled>Выберите категорию авто!</option>
                     <option
@@ -416,6 +417,7 @@ export default {
       laoding: true,
       fromChoosenName:{},
       toChoosenName:{},
+      itemIndex:0,
     };
   },
   watch:{
@@ -649,22 +651,20 @@ export default {
       })
     },
     async selectModel(car){
-    //   car.busmodel_id = ''
-    //   car.bus_models = car.bus_marks.filter((item,index)=>{
-    //     if (item.marka.id == car.busmarka_id){
-    //       return item
-    //     }
-    //   })
       car.busmodel_id = ''
       await this.actionBusmodelFindList(car)
     },
     removeCar(index){
       Vue.delete(this.cars,index)
+      if(this.itemIndex > 0){
+        this.itemIndex--
+      }
     },
     addCar(){
-      this.cars.push(
-        {
-          bustype_id:'',
+      if(this.cars.length == 0){
+        let bType = this.cars_with.length > 0 ? this.cars_with[0].bustype_id : '' 
+        this.cars.push({
+          bustype_id:bType,
           tclass_id:'',
           busmarka_id:'',
           busmodel_id:'',
@@ -672,6 +672,30 @@ export default {
           bus_models:[],
           bus_marks:[],
         })
+      }else{
+        if(this.cars[0].bustype_id != ''){
+          this.itemIndex++
+          let busType = this.cars[0].bustype_id
+          this.cars.push({
+            bustype_id:busType,
+            tclass_id:'',
+            busmarka_id:'',
+            busmodel_id:'',
+            tclasses:[],
+            bus_models:[],
+            bus_marks:[],
+          })
+          this.selectClass(this.cars[this.itemIndex])
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: "Категорияни танланг!"
+          });
+        }
+      }
+      console.log(this.cars_with)
+      console.log(this.cars)
     },
     isRequired(input) {
       return this.requiredInput && input === "";
@@ -770,6 +794,15 @@ export default {
     ...mapGetters("busbrand", ["getBusBrandList"]),
     ...mapGetters("busmodel", ["getBusmodelFindList"]),
     ...mapGetters('confirmtitul',['getTitulMassage']),
+    makeDisabled(){
+      if(this.cars_with.length > 0){
+        return 'disabled'
+      }else if(this.cars_with.length >= 0 && this.cars.length > 1){
+        return 'disabled'
+      }else{
+        return false
+      }
+    },
     checkCars(){
       if(this.cars.length > 0){
         let result = true
@@ -786,10 +819,6 @@ export default {
       }
     },
     destinations(){
-      // let from = null;
-      // let to = null;
-      // let itemsFrom = []
-      // let itemsTo = []
       let arr = [null,null];
       if(this.fromChoosenName){
         arr[0] = this.fromChoosenName
@@ -799,95 +828,6 @@ export default {
       }
       return arr
     }
-    // destinations() {
-    //   let from = null;
-    //   let to = null;
-    //   let itemsFrom = [];
-    //   let itemsTo = [];
-    //   let arr = [null, null];
-    //   if (this.form.region_from.region_id && this.form.region_to.region_id) {
-    //     if (this.form.region_from.region_id == this.form.region_to.region_id) {
-    //       // If region_from 'id' is equal to region_to 'id'
-    //       if (this.form.region_from.area_id == this.form.region_to.area_id) {
-    //         // FROM
-    //         itemsFrom = this.form.region_from.station_id
-    //           ? this.stationFrom
-    //           : this.areaFrom;
-    //         from = this.form.region_from.station_id
-    //           ? this.form.region_from.station_id
-    //           : this.form.region_from.area_id;
-    //         itemsFrom.forEach((item) => {
-    //           if (item.id == from) {
-    //             arr[0] = item;
-    //           }
-    //         });
-    //         // TO
-    //         itemsTo = this.form.region_to.station_id
-    //           ? this.stationTo
-    //           : this.areaTo;
-    //         to = this.form.region_to.station_id
-    //           ? this.form.region_to.station_id
-    //           : this.form.region_to.area_id;
-    //         itemsTo.forEach((item) => {
-    //           if (item.id == to) {
-    //             arr[1] = item;
-    //           }
-    //         });
-    //       } else {
-    //         // FROM
-    //         itemsFrom = this.form.region_from.area_id
-    //           ? this.areaFrom
-    //           : this.getRegionList;
-    //         from = this.form.region_from.area_id
-    //           ? this.form.region_from.area_id
-    //           : this.form.region_from.region_id;
-    //         itemsFrom.forEach((item) => {
-    //           if (item.id == from) {
-    //             arr[0] = item;
-    //           }
-    //         });
-    //         // TO
-    //         itemsTo = this.form.region_to.area_id
-    //           ? this.areaTo
-    //           : this.getRegionList;
-    //         to = this.form.region_to.area_id
-    //           ? this.form.region_to.area_id
-    //           : this.form.region_to.region_id;
-    //         itemsTo.forEach((item) => {
-    //           if (item.id == to) {
-    //             arr[1] = item;
-    //           }
-    //         });
-    //       }
-    //     } else {
-    //       // FROM
-    //       itemsFrom = this.form.region_from.area_id
-    //         ? this.areaFrom
-    //         : this.getRegionList;
-    //       from = this.form.region_from.area_id
-    //         ? this.form.region_from.area_id
-    //         : this.form.region_from.region_id;
-    //       itemsFrom.forEach((item) => {
-    //         if (item.id == from) {
-    //           arr[0] = item;
-    //         }
-    //       });
-    //       // TO
-    //       itemsTo = this.form.region_to.area_id
-    //         ? this.areaTo
-    //         : this.getRegionList;
-    //       to = this.form.region_to.area_id
-    //         ? this.form.region_to.area_id
-    //         : this.form.region_to.region_id;
-    //       itemsTo.forEach((item) => {
-    //         if (item.id == to) {
-    //           arr[1] = item;
-    //         }
-    //       });
-    //     }
-    //     return arr;
-    //   }
-    // },
   },
 };
 </script>
