@@ -56,6 +56,11 @@ import Direction from './components/admin/direction/Direction'
 import AddDirection from './components/admin/direction/AddDirection'
 import EditDirection from './components/admin/direction/EditDirection'
 
+// UserDirection
+import UserDirection from './components/admin/userdirection/UserDirection'
+
+
+
 // Type of Direction
 import Typeofdirection from './components/admin/typeofdirection/Typeofdirection'
 import AddTypeofdirection from './components/admin/typeofdirection/AddTypeofdirection'
@@ -117,6 +122,10 @@ import ComplaintListAll from './components/admin/complaint/ComplaintListAll'
 import Complaint from './components/admin/complaint/Complaint'
 import AddComplaint from './components/admin/complaint/AddComplaint'
 import EditComplaint from './components/admin/complaint/EditComplaint'
+
+import UserComplaint from './components/admin/complaintuser/UserComplaint'
+import UserShowComplaint from './components/admin/complaintuser/UserShowComplaint'
+import UserAddComplaint from './components/admin/complaintuser/UserAddComplaint'
 
 // PassportTab
 import Schedule from './components/admin/steppassport/Schedule'
@@ -180,6 +189,8 @@ import EditConfirmTitul from './components/admin/confirmtitul/EditConfirmTitul'
 import CompletedTenders from './components/admin/completedtenders/CompletedTenders'
 import AddCompletedTenders from './components/admin/completedtenders/AddCompletedTenders'
 import EditCompletedTenders from './components/admin/completedtenders/EditCompletedTenders'
+// UserCompletedTenders
+import UserCompletedTenders from './components/admin/usercompletedtenders/UserCompletedTenders'
 
 // Protocol
 import Protocol from './components/admin/protocol/Protocol'
@@ -543,6 +554,18 @@ const router = new Router({
 					}
 				},
 				{
+					path:'complaint-list-user',
+					component:UserComplaint,
+				},
+				{
+					path:'complaint-list-user/show/:id',
+					component:UserShowComplaint,
+				},
+				{
+					path:'complaint-list-user/add',
+					component:UserAddComplaint
+				},
+				{
 					path:'complaint',
 					component:Complaint,
 					meta:{
@@ -565,6 +588,10 @@ const router = new Router({
 						action:'edit',
 						subject:'ComplaintController'
 					}
+				},
+				{
+					path:'direction-user',
+					component:UserDirection,
 				},
 				{
 					path:'direction',
@@ -863,6 +890,10 @@ const router = new Router({
 						action:'completedTenders',
 						subject:'TenderController'
 					}
+                },
+				{
+					path:'completed-tenders-user',
+					component:UserCompletedTenders,
                 },
 				{
 					path:'check-control',

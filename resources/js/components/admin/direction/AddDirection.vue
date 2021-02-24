@@ -264,6 +264,7 @@
                     v-model="car.bustype_id"
                     :class="isRequired(car.bustype_id) ? 'isRequired' : ''"
                     @change="selectClass(car)"
+                    :disabled="cars.length > 1 ? 'disabled' : false"
                   >
                     <option value="" selected disabled>Выберите категорию авто!</option>
                     <option
@@ -382,6 +383,7 @@ export default {
       laoding: true,
       fromChoosenName:{},
       toChoosenName:{},
+      itemIndex:0,
     };
   },
   async mounted() {
@@ -519,10 +521,13 @@ export default {
     },
     removeCar(index){
       Vue.delete(this.cars,index)
+      if(this.itemIndex > 0){
+        this.itemIndex--
+      }
     },
     addCar(){
-      this.cars.push(
-        {
+      if(this.cars.length == 0){
+        this.cars.push({
           bustype_id:'',
           tclass_id:'',
           busmarka_id:'',
@@ -531,6 +536,28 @@ export default {
           bus_models:[],
           bus_marks:[],
         })
+      }else{
+        if(this.cars[0].bustype_id != ''){
+          this.itemIndex++
+          let busType = this.cars[0].bustype_id
+          this.cars.push({
+            bustype_id:busType,
+            tclass_id:'',
+            busmarka_id:'',
+            busmodel_id:'',
+            tclasses:[],
+            bus_models:[],
+            bus_marks:[],
+          })
+          this.selectClass(this.cars[this.itemIndex])
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: "Категорияни танланг!"
+          });
+        }
+      }
     },
     async saveDirection() {
       if (
@@ -582,7 +609,7 @@ export default {
         this.requiredInput = true;
       }
     },
-    async selectRegion(input) {
+    async selectRegion(input){
       await this.actionXromAreaList({ region_id: this.form[input].region_id });
       if(input == 'region_from'){
         this.areaFrom = this.getAreaXromLists

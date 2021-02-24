@@ -25,9 +25,9 @@ class ComplaintController extends Controller
         }
         if(!empty($params['region_id'])){
             $direction_ids = Direction::where(['region_from_id' => $params['region_id']])
-                                    ->orWhere(['region_to_id' => $params['region_id']])
-                                    ->pluck('id')
-                                    ->toArray();
+                ->orWhere(['region_to_id' => $params['region_id']])
+                ->pluck('id')
+                ->toArray();
             $builder->whereIn('direction_id', $direction_ids);
         }
         $result = $builder->with(['direction'])->orderBy('id', 'DESC')->paginate(12);
