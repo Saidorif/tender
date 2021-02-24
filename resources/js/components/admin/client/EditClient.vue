@@ -253,7 +253,7 @@ export default {
     getClient:{
       handler(){
         this.form = this.getClient
-        if (this.form.status == 'inactive') {
+        if (this.form.status == 'active') {
           this.statusText = 'Заблокировать'
           this.statusClass = ' btn-danger'
           this.statusFont = ' fa-lock'
@@ -272,10 +272,10 @@ export default {
     ...mapActions("client", ["actionClientEdit",'actionClientUpdate']),
     async changeStatus(){
       let status = ''
-      if (this.form.status == 'active') {
-        status = 'inactive'
-      }else{
+      if (this.form.status == 'inactive') {
         status = 'active'
+      }else{
+        status = 'inactive'
       }
       let data ={
         id:this.$route.params.clientId,

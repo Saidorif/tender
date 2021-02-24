@@ -14,7 +14,8 @@ Vue.use(VueProgressBar,{
 
 Vue.config.devtools = false
 
-
+import Vue2Editor from "vue2-editor";
+Vue.use(Vue2Editor)
 // // jQuery
 // const $ = require('jquery');
 // window.$ = $;

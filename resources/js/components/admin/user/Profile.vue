@@ -1,15 +1,15 @@
 <template>
   <div class="card">
-    <Loader v-if="laoding"/>
+    <Loader v-if="laoding" />
     <div class="card-header">
       <h3 class="card-title title_user mb-0">
         <i class="peIcon pe-7s-user"></i>Мои данные
       </h3>
-      <div class="balance" v-if="form.user">
-        <strong>Баланс:</strong> {{form.user.balance}}
+      <div class="balance" v-if="form">
+        <strong>Баланс:</strong> {{ form.balance }}
       </div>
     </div>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
         <a
           class="nav-link active"
@@ -152,15 +152,262 @@
           </div>
         </form>
       </div>
+    </div> -->
+    <div class="card-body">
+      <section class="content" v-if="form">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xl-3 col-lg-4 profileLeft">
+              <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                  <div class="text-center">
+                    <img
+                      src="/img/user.svg"
+                      alt="User profile picture"
+                      class="profile-user-img img-fluid img-circle"
+                    />
+                  </div>
+                  <h3 class="profile-username text-center">{{ form.name}}</h3>
+                  <p class="text-muted text-center">"OOO Pixeel.uz"</p>
+                  <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                      <b>Количество машины: </b> <a class="float-right">0</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>Мой счет:</b>
+                      <a class="float-right">
+                         {{ form.balance }}
+                        <i>сум</i></a
+                      >
+                    </li>
+                    <li class="list-group-item">
+                      <b>Количество заявок:</b>
+                      <a class="float-right">0 шт</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>Количество контрактов :</b>
+                      <a class="float-right">0 шт</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>Статус:</b>
+                      <a class="float-right"
+                        ><div class="statusAlert alert-success" style="border-radius:6px;padding-left:5px; padding-right:5px;">
+                          активный
+                        </div></a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-9 col-lg-8 profileRight">
+              <div class="card">
+                <div
+                  class="card-header p-2 d-flex justify-content-between align-items-center"
+                >
+                  <ul class="nav nav-pills tab_header_profile">
+                    <li class="nav-item">
+                      <a
+                        href="#myInfo"
+                        data-toggle="tab"
+                        class="nav-link active"
+                        ><i class="fas fa-id-card mr-1"></i>
+                        Мои данные
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        href="#mypassword"
+                        data-toggle="tab"
+                        class="nav-link show"
+                        ><i class="fas fa-id-card mr-1"></i>
+                        Изменить пароль
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div id="myInfo" class="tab-pane active">
+                      <form class="form-horizontal">
+                        <div class="row">
+                          <div class="col-sm-12 form-group"><!----></div>
+                          <div class="col-sm-6 form-group">
+                            <label for="inputName" class="control-label"
+                              >Ф.И.О</label
+                            >
+                            <input
+                              type="text"
+                              id="inputName"
+                              placeholder="Ф.И.О"
+                              disabled="disabled"
+                              class="form-control"
+                              v-model="form.name"
+                            />
+                          </div>
+                          <div class="col-sm-6 form-group">
+                            <label for="inputEmail" class="control-label"
+                              >E-mail почта</label
+                            >
+                            <input
+                              type="email"
+                              id="inputEmail"
+                              placeholder="E-mail..."
+                              disabled="disabled"
+                              class="form-control"
+                              v-model="form.email"
+                            />
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <label for="inputCompanyName" class="control-label"
+                              >Название фирмы</label
+                            >
+                            <input
+                              type="text"
+                              id="inputCompanyName"
+                              placeholder="Название фирмы..."
+                              disabled="disabled"
+                              class="form-control"
+                              v-model="form.company_name"
+                            />
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <label for="inputAddress" class="control-label"
+                              >Адрес</label
+                            >
+                            <input
+                              type="text"
+                              id="inputAddress"
+                              placeholder="Адрес..."
+                              disabled="disabled"
+                              class="form-control"
+                              v-model="form.address"
+                            />
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <label for="inputTel" class="control-label"
+                              >Номер телефона</label
+                            >
+                            <input
+                              type="text"
+                              disabled="disabled"
+                              class="form-control"
+                              v-model="form.phone"
+                            />
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <label for="inputinn" class="control-label"
+                              >ИНН</label
+                            >
+                            <input disabled="disabled" class="form-control" v-model="form.inn" />
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <label for="inputmfo" class="control-label"
+                              >МФО</label
+                            >
+                            <input disabled="disabled" class="form-control"  v-model="form.mfo" />
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <label for="inputoked" class="control-label"
+                              >ОКЭД</label
+                            >
+                            <input disabled="disabled" class="form-control"  v-model="form.oked" />
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <label for="inputRCh" class="control-label"
+                              >Р/счет</label
+                            >
+                            <input disabled="disabled" class="form-control" v-model="form.bank_number" />
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <label for="inputBA" class="control-label"
+                              >Адрес банка</label
+                            >
+                            <input
+                              type="text"
+                              id="inputBA"
+                              placeholder="Адрес банка..."
+                              disabled="disabled"
+                              class="form-control"
+                               v-model="form.city"
+                            />
+                          </div>
+                          <div class="form-group col-sm-12 saveBtn">
+                            <button type="button" class="btn btn-info">
+                              Изменить
+                            </button>
+                            <!---->
+                            <!---->
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div id="mypassword" class="tab-pane show">
+                      <form class="form-horizontal">
+                        <div class="row">
+                          <div class="col-sm-12 form-group"><!----></div>
+                          <div class="col-sm-6 form-group">
+                            <label for="inputName" class="control-label"
+                              >Старый пароль</label
+                            >
+                            <input
+                              type="password"
+                              id="inputName"
+                              placeholder="Пароль"
+                              class="form-control"
+                               v-model="form.password"
+                            />
+                          </div>
+                          <div class="col-sm-6 form-group">
+                            <label for="inputName" class="control-label"
+                              >Новый пароль</label
+                            >
+                            <input
+                              type="password"
+                              id="inputName"
+                              placeholder="Новый пароль"
+                              class="form-control"
+                              v-model="form.new_password"
+                            />
+                            <!---->
+                          </div>
+                          <div class="col-sm-6 form-group">
+                            <label for="inputName" class="control-label"
+                              >Подтвердите пароль</label
+                            >
+                            <input
+                              type="password"
+                              id="inputName"
+                              placeholder="Подтвердите пароль"
+                              class="form-control"
+                              v-model="form.confirm_password"
+                            />
+                            <!---->
+                          </div>
+                          <div class="form-group col-sm-12 saveBtn">
+                            <button type="button" class="btn btn-info mt-4">
+                              Изменить
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import Loader from '../../Loader'
+import Loader from "../../Loader";
 export default {
-  components:{
-      Loader
+  components: {
+    Loader,
   },
   data() {
     return {
@@ -171,32 +418,32 @@ export default {
         phone: "",
         image: "/img/user.jpg",
         file: "",
-        text: ""
+        text: "",
       },
       fileFormat: "нет-файла",
       passwords: {
         password: "",
-        confirm_password: ""
+        confirm_password: "",
       },
       requiredInput: false,
       requiredPassword: false,
       checkPassword: false,
-      laoding: true
+      laoding: true,
     };
   },
   computed: {
-    ...mapGetters("user", ["getProfile"])
+    ...mapGetters("user", ["getProfile"]),
   },
   async mounted() {
     await this.ActionProfile();
-    this.form = this.getProfile;
-    this.laoding = false
+    this.form = this.getProfile.user;
+    this.laoding = false;
   },
   methods: {
     ...mapActions("user", [
       "ActionProfile",
       "ActionProfileUpdate",
-      "ActionChangePassword"
+      "ActionChangePassword",
     ]),
     confirmPassword() {
       if (this.passwords.password && this.passwords.confirm_password) {
@@ -223,11 +470,11 @@ export default {
           type: "error",
           icon: "error",
           title: "Ошибка",
-          text: "Размер файл не должно быть больше 1мб"
+          text: "Размер файл не должно быть больше 1мб",
         });
       } else {
         let reader = new FileReader();
-        reader.onload = event => {
+        reader.onload = (event) => {
           this.form.file = event.target.result;
           this.fileFormat = "docx";
         };
@@ -245,11 +492,11 @@ export default {
           swal.fire({
             type: "error",
             title: "Ошибка",
-            text: "Размер изображения больше лимита"
+            text: "Размер изображения больше лимита",
           });
         } else {
           let reader = new FileReader();
-          reader.onload = event => {
+          reader.onload = (event) => {
             this.form.image = event.target.result;
           };
           reader.readAsDataURL(file);
@@ -258,7 +505,7 @@ export default {
         swal.fire({
           type: "error",
           title: "Ошибка",
-          text: "Картинка должна быть только png,jpg,jpeg!"
+          text: "Картинка должна быть только png,jpg,jpeg!",
         });
       }
     },
@@ -274,7 +521,7 @@ export default {
         toast.fire({
           type: "success",
           icon: "success",
-          title: "Данный изменен!"
+          title: "Данный изменен!",
         });
       } else {
         this.requiredInput = true;
@@ -290,23 +537,126 @@ export default {
         toast.fire({
           type: "success",
           icon: "success",
-          title: "Пароль изменен!"
+          title: "Пароль изменен!",
         });
       } else {
         this.requiredPassword = true;
       }
     },
-    printCv(){
-      			 	$('.cv_block').printThis();
-    }
-  }
+    printCv() {
+      $(".cv_block").printThis();
+    },
+  },
 };
 </script>
 <style scoped>
-.cv_tab{
+.tab_header_profile.nav-pills .nav-link{
+    color: #292666;
+    font-weight: bold;
+}
+.tab_header_profile.nav-pills .nav-link:hover,
+.tab_header_profile.nav-pills .nav-link.active{
+    color: white;
+}
+.cv_tab {
   background: #9fc1cc40;
   padding: 30px 0px;
 }
+page {
+  background: white;
+  display: block;
+  margin: 0px auto;
+  margin-bottom: 0.5cm;
+}
+page[size="A4"] {
+  width: 21cm;
+  height: 29.7cm;
+  padding: 30px;
+}
+page[size="A4"][layout="landscape"] {
+  width: 29.7cm;
+  height: 21cm;
+}
+.cv_title {
+  text-align: center;
+  font-weight: bold;
+}
+.cv_user_img {
+  width: 130px;
+  height: 150px;
+  overflow: hidden;
+  border: 1px solid #000;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+.cv_user_img img {
+  width: 100%;
+}
+.cv_header {
+  display: flex;
+  align-items: flex-start;
+}
+.cv_header_info {
+  width: calc(100% - 150px);
+}
+.cv_header_info h2 {
+  font-weight: bold;
+}
+.cv_block p {
+  font-size: 16px;
+}
+.cv_header_info p {
+  margin-bottom: 0;
+}
+.cv_body_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cv_body_list li {
+  list-style: none;
+  width: 60%;
+  margin-bottom: 10px;
+}
+.cv_body_list li:nth-child(odd) {
+  width: 40%;
+}
+.cv_body_list li {
+  display: flex;
+  flex-direction: column;
+}
+.cv_body_list li:last-child {
+  width: 100%;
+}
+.cv_exper_subtitle {
+  text-align: center;
+  font-weight: bold;
+}
+.cv_experience_list {
+}
+.cv_experience_list li {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+.cv_ex_date {
+  width: 220px;
+}
+.cv_experience_list li .cv_ex_info {
+  width: calc(100% - 220px);
+}
+.cv_experience_list li .cv_ex_info p {
+  margin-bottom: 0;
+}
+.print_cv {
+  position: absolute;
+  right: 0;
+  top: 120px;
+  background: #3f6ad8;
+  color: #fff;
+  padding: 10px 30px;
+  border: none;
+}
+@media print {
   page {
     background: white;
     display: block;
@@ -322,11 +672,11 @@ export default {
     width: 29.7cm;
     height: 21cm;
   }
-  .cv_title{
+  .cv_title {
     text-align: center;
     font-weight: bold;
   }
-  .cv_user_img{
+  .cv_user_img {
     width: 130px;
     height: 150px;
     overflow: hidden;
@@ -334,161 +684,73 @@ export default {
     margin-right: 30px;
     margin-bottom: 30px;
   }
-  .cv_user_img img{
+  .cv_user_img img {
     width: 100%;
   }
-  .cv_header{
+  .cv_header {
     display: flex;
     align-items: flex-start;
   }
-  .cv_header_info{
+  .cv_header_info {
     width: calc(100% - 150px);
   }
-  .cv_header_info h2{
+  .cv_header_info h2 {
     font-weight: bold;
   }
-  .cv_block p{
+  .cv_block p {
     font-size: 16px;
   }
-  .cv_header_info p{
+  .cv_header_info p {
     margin-bottom: 0;
   }
-  .cv_body_list{
+  .cv_body_list {
     display: flex;
     flex-wrap: wrap;
   }
-  .cv_body_list li{
+  .cv_body_list li {
     list-style: none;
     width: 60%;
     margin-bottom: 10px;
   }
-  .cv_body_list li:nth-child(odd){
-        width: 40%;
+  .cv_body_list li:nth-child(odd) {
+    width: 40%;
   }
-  .cv_body_list li{
+  .cv_body_list li {
     display: flex;
     flex-direction: column;
   }
-  .cv_body_list li:last-child{
+  .cv_body_list li:last-child {
     width: 100%;
   }
-  .cv_exper_subtitle{
+  .cv_exper_subtitle {
     text-align: center;
     font-weight: bold;
   }
-  .cv_experience_list{
-
+  .cv_experience_list {
   }
-  .cv_experience_list li{
+  .cv_experience_list li {
     list-style: none;
     display: flex;
     justify-content: space-between;
   }
-  .cv_ex_date{
+  .cv_ex_date {
     width: 220px;
   }
-  .cv_experience_list li .cv_ex_info{
+  .cv_experience_list li .cv_ex_info {
     width: calc(100% - 220px);
   }
-   .cv_experience_list li .cv_ex_info p{
-     margin-bottom: 0;
-   }
-   .print_cv{
-      position: absolute;
-      right: 0;
-      top: 120px;
-      background: #3f6ad8;
-      color: #fff;
-      padding: 10px 30px;
-      border: none;
-   }
-  @media print
-    {
-      page {
-        background: white;
-        display: block;
-        margin: 0px auto;
-        margin-bottom: 0.5cm;
-      }
-      page[size="A4"] {
-        width: 21cm;
-        height: 29.7cm;
-        padding: 30px;
-      }
-      page[size="A4"][layout="landscape"] {
-        width: 29.7cm;
-        height: 21cm;
-      }
-      .cv_title{
-        text-align: center;
-        font-weight: bold;
-      }
-      .cv_user_img{
-        width: 130px;
-        height: 150px;
-        overflow: hidden;
-        border: 1px solid #000;
-        margin-right: 30px;
-        margin-bottom: 30px;
-      }
-      .cv_user_img img{
-        width: 100%;
-      }
-      .cv_header{
-        display: flex;
-        align-items: flex-start;
-      }
-      .cv_header_info{
-        width: calc(100% - 150px);
-      }
-      .cv_header_info h2{
-        font-weight: bold;
-      }
-      .cv_block p{
-        font-size: 16px;
-      }
-      .cv_header_info p{
-        margin-bottom: 0;
-      }
-      .cv_body_list{
-        display: flex;
-        flex-wrap: wrap;
-      }
-      .cv_body_list li{
-        list-style: none;
-        width: 60%;
-        margin-bottom: 10px;
-      }
-      .cv_body_list li:nth-child(odd){
-            width: 40%;
-      }
-      .cv_body_list li{
-        display: flex;
-        flex-direction: column;
-      }
-      .cv_body_list li:last-child{
-        width: 100%;
-      }
-      .cv_exper_subtitle{
-        text-align: center;
-        font-weight: bold;
-      }
-      .cv_experience_list{
+  .cv_experience_list li .cv_ex_info p {
+    margin-bottom: 0;
+  }
+}
+.saveBtn{
+    display: flex;
+    justify-content: flex-end;
 
-      }
-      .cv_experience_list li{
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-      }
-      .cv_ex_date{
-        width: 220px;
-      }
-      .cv_experience_list li .cv_ex_info{
-        width: calc(100% - 220px);
-      }
-      .cv_experience_list li .cv_ex_info p{
-        margin-bottom: 0;
-      }
-    }
+}
+ .saveBtn   .btn-info{
+    color: #ffffff;
+    background-color: #292666;
+    border-color: #292666;
+}
 </style>
