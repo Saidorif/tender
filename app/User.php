@@ -107,4 +107,19 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->name .' '. $this->middlename .' '. $this->surname;
     }
+
+    public function cars()
+    {
+        return $this->hasMany(\App\UserCar::class,'user_id');
+    }
+    
+    public function applications()
+    {
+        return $this->hasMany(\App\Application::class,'user_id');
+    }
+    
+    public function contracts()
+    {
+        return $this->hasMany(\App\Contract::class,'user_id');
+    }
 }

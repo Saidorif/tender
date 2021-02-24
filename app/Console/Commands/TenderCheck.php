@@ -89,8 +89,8 @@ class TenderCheck extends Command
                     foreach($app_balls as $ball){
                         $ball->status = 'rejected';
                         $ball->save();
-                        $this->info('Other balls changed to rejected');
                     }
+                    $this->info('Other balls changed to rejected');
                     //Change other applications to rejected
                     $apps = Application::where(['lot_id' => $lot->id,'status' => 'accepted'])->get();
                     foreach($apps as $a){
