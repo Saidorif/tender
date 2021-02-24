@@ -9,7 +9,7 @@
         <strong>Баланс:</strong> {{ form.balance }}
       </div>
     </div>
-    <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
+   <!--  <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
         <a
           class="nav-link active"
@@ -36,8 +36,8 @@
           <i class="peIcon pe-7s-unlock"></i> Изменить пароль
         </a>
       </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
+    </ul> -->
+  <!--   <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active " id="home" role="tabpanel" aria-labelledby="home-tab">
         <form role="form" @submit.prevent.enter="sendProfile">
           <div class="card-body d-flex flex-wrap" v-if="form.user" >
@@ -171,7 +171,7 @@
                   <p class="text-muted text-center">"OOO Pixeel.uz"</p>
                   <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
-                      <b>Количество машины: </b> <a class="float-right">0</a>
+                      <b>Количество машины: </b> <a class="float-right">{{form.cars_count}}</a>
                     </li>
                     <li class="list-group-item">
                       <b>Мой счет:</b>
@@ -182,11 +182,11 @@
                     </li>
                     <li class="list-group-item">
                       <b>Количество заявок:</b>
-                      <a class="float-right">0 шт</a>
+                      <a class="float-right">{{form.applications_count}} шт</a>
                     </li>
                     <li class="list-group-item">
                       <b>Количество контрактов :</b>
-                      <a class="float-right">0 шт</a>
+                      <a class="float-right">{{form.contracts_count}} шт</a>
                     </li>
                     <li class="list-group-item">
                       <b>Статус:</b>
@@ -231,7 +231,7 @@
                     <div id="myInfo" class="tab-pane active">
                       <form class="form-horizontal">
                         <div class="row">
-                          <div class="col-sm-12 form-group"><!----></div>
+                          <div class="col-sm-12 form-group"></div>
                           <div class="col-sm-6 form-group">
                             <label for="inputName" class="control-label"
                               >Ф.И.О</label
@@ -336,8 +336,6 @@
                             <button type="button" class="btn btn-info">
                               Изменить
                             </button>
-                            <!---->
-                            <!---->
                           </div>
                         </div>
                       </form>
@@ -419,6 +417,9 @@ export default {
         image: "/img/user.jpg",
         file: "",
         text: "",
+        applications_count: 0,
+        cars_count: 0,
+        contracts_count: 0,
       },
       fileFormat: "нет-файла",
       passwords: {
