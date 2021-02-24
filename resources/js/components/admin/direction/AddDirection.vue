@@ -264,6 +264,7 @@
                     v-model="car.bustype_id"
                     :class="isRequired(car.bustype_id) ? 'isRequired' : ''"
                     @change="selectClass(car)"
+                    :disabled="cars.length > 1 ? 'disabled' : false"
                   >
                     <option value="" selected disabled>Выберите категорию авто!</option>
                     <option
@@ -521,8 +522,8 @@ export default {
       Vue.delete(this.cars,index)
     },
     addCar(){
-      this.cars.push(
-        {
+      if(this.cars.length == 0){
+        this.cars.push({
           bustype_id:'',
           tclass_id:'',
           busmarka_id:'',
@@ -531,6 +532,26 @@ export default {
           bus_models:[],
           bus_marks:[],
         })
+      }else{
+        if(this.cars[0].bustype_id != ''){
+          let busType = this.cars[0].bustype_id
+          this.cars.push({
+            bustype_id:busType,
+            tclass_id:'',
+            busmarka_id:'',
+            busmodel_id:'',
+            tclasses:[],
+            bus_models:[],
+            bus_marks:[],
+          })
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: "Категорияни танланг!"
+          });
+        }
+      }
     },
     async saveDirection() {
       if (
