@@ -123,6 +123,9 @@ import Complaint from './components/admin/complaint/Complaint'
 import AddComplaint from './components/admin/complaint/AddComplaint'
 import EditComplaint from './components/admin/complaint/EditComplaint'
 
+import UserComplaint from './components/admin/complaintuser/UserComplaint'
+import UserShowComplaint from './components/admin/complaintuser/UserShowComplaint'
+
 // PassportTab
 import Schedule from './components/admin/steppassport/Schedule'
 import Titul from './components/admin/steppassport/Titul'
@@ -546,6 +549,14 @@ const router = new Router({
 						action:'edit',
 						subject:'ComplaintCategoryController'
 					}
+				},
+				{
+					path:'complaint-list-user',
+					component:UserComplaint,
+				},
+				{
+					path:'complaint-list-user/show/:id',
+					component:UserShowComplaint,
 				},
 				{
 					path:'complaint',

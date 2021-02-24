@@ -233,6 +233,14 @@
               </p>
             </router-link>
           </li>
+          <li class="nav-item" v-if="$can('index', 'EmployeeController')">
+            <router-link class="nav-link" to="/crm/complaint-list-user">
+              <i class="peIcon fas fa-comment"></i>
+              <p>
+                Обращения <small style="padding:2px 6px;background: #74b303;border-radius:3px;">user</small>
+              </p>
+            </router-link>
+          </li>
           <li class="nav-item has-treevie" v-if="$can('index', 'ComplaintCategoryController')">
             <a href="#" class="nav-link">
               <span class="peIcon fas fa-comment" style="font-size: 20px;"></span>
