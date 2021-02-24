@@ -56,6 +56,11 @@ import Direction from './components/admin/direction/Direction'
 import AddDirection from './components/admin/direction/AddDirection'
 import EditDirection from './components/admin/direction/EditDirection'
 
+// UserDirection
+import UserDirection from './components/admin/userdirection/UserDirection'
+
+
+
 // Type of Direction
 import Typeofdirection from './components/admin/typeofdirection/Typeofdirection'
 import AddTypeofdirection from './components/admin/typeofdirection/AddTypeofdirection'
@@ -117,6 +122,9 @@ import ComplaintListAll from './components/admin/complaint/ComplaintListAll'
 import Complaint from './components/admin/complaint/Complaint'
 import AddComplaint from './components/admin/complaint/AddComplaint'
 import EditComplaint from './components/admin/complaint/EditComplaint'
+
+import UserComplaint from './components/admin/complaintuser/UserComplaint'
+import UserShowComplaint from './components/admin/complaintuser/UserShowComplaint'
 
 // PassportTab
 import Schedule from './components/admin/steppassport/Schedule'
@@ -543,6 +551,14 @@ const router = new Router({
 					}
 				},
 				{
+					path:'complaint-list-user',
+					component:UserComplaint,
+				},
+				{
+					path:'complaint-list-user/show/:id',
+					component:UserShowComplaint,
+				},
+				{
 					path:'complaint',
 					component:Complaint,
 					meta:{
@@ -565,6 +581,10 @@ const router = new Router({
 						action:'edit',
 						subject:'ComplaintController'
 					}
+				},
+				{
+					path:'direction-user',
+					component:UserDirection,
 				},
 				{
 					path:'direction',
