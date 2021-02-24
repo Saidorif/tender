@@ -9,6 +9,8 @@ use App\Application;
 use App\Tender;
 use App\UserCar;
 use App\Direction;
+use App\DirectionCar;
+use App\TenderLot;
 use App\User;
 use Str;
 
@@ -121,6 +123,26 @@ class ApplicationController extends Controller
         }
         $user = $request->user();
         $inputs = $request->all();
+        //check for bustype_id is equal
+        $application = Application::find($inputs['app_id']);
+        if(!$application){
+            return response()->json(['error' => true, 'message' => 'Заявка не найдена']);
+        }
+        $tender_lot = TenderLot::find($application->lot_id);
+        if(!$tender_lot){
+            return response()->json(['error' => true, 'message' => 'Лот не найден']);
+        }
+        $dir_cars = DirectionCar::whereIn('direction_id',$tender_lot->getDirection())->pluck('bustype_id')->toArray();
+        $bus_types = [];
+        foreach($dir_cars as $d_car){
+            if($d_car != $inputs['bustype_id']){
+                $bus_types[] = $inputs['bustype_id'];
+            }
+        }
+        if(count($bus_types) > 0){
+            return response()->json(['error' => true, 'message' => 'Категория Авто не совпадает']);
+        }
+
         $inputs['user_id'] = $user->id;
         $inputs['auto_number'] = strtoupper($inputs['auto_number']);
         //Check for if the car already in use

@@ -292,6 +292,14 @@ class DirectionController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        //check for bustype_id is equal
+        $bus_types = [];
+        foreach($inputs['cars'] as $i_car){
+            $bus_types[$i_car['bustype_id']] = $i_car['bustype_id'];
+        }
+        if(count($bus_types) > 1){
+            return response()->json(['error' => true, 'message' => 'Категория Авто должно быть одинакова']);
+        }
         $direction = Direction::create([
             'pass_number' => $inputs['pass_number'],
             'from_type' => $inputs['from_type'],
@@ -387,6 +395,17 @@ class DirectionController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        //check for bustype_id is equal
+        $bus_types = [];
+        foreach($inputs['cars'] as $i_car){
+            $bus_types[$i_car['bustype_id']] = $i_car['bustype_id'];
+        }
+        foreach($direction->cars as $d_car){
+            $bus_types[$d_car->bustype_id] = $d_car->bustype_id;
+        }
+        if(count($bus_types) > 1){
+            return response()->json(['error' => true, 'message' => 'Категория Авто должно быть одинакова']);
+        }
         $from_name = '';
         $to_name = '';
         if($inputs['from_type'] == 'region'){

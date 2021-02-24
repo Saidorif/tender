@@ -13,7 +13,7 @@ class Application extends Model
         'lot_id',
         'tarif',
         'qty_reys',
-        'status',
+        'status',//active,rejected,winnner
         'daily_technical_job',
         'daily_medical_job',
         'hours_rule',
