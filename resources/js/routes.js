@@ -125,6 +125,7 @@ import EditComplaint from './components/admin/complaint/EditComplaint'
 
 import UserComplaint from './components/admin/complaintuser/UserComplaint'
 import UserShowComplaint from './components/admin/complaintuser/UserShowComplaint'
+import UserAddComplaint from './components/admin/complaintuser/UserAddComplaint'
 
 // PassportTab
 import Schedule from './components/admin/steppassport/Schedule'
@@ -188,6 +189,8 @@ import EditConfirmTitul from './components/admin/confirmtitul/EditConfirmTitul'
 import CompletedTenders from './components/admin/completedtenders/CompletedTenders'
 import AddCompletedTenders from './components/admin/completedtenders/AddCompletedTenders'
 import EditCompletedTenders from './components/admin/completedtenders/EditCompletedTenders'
+// UserCompletedTenders
+import UserCompletedTenders from './components/admin/usercompletedtenders/UserCompletedTenders'
 
 // Protocol
 import Protocol from './components/admin/protocol/Protocol'
@@ -559,6 +562,10 @@ const router = new Router({
 					component:UserShowComplaint,
 				},
 				{
+					path:'complaint-list-user/add',
+					component:UserAddComplaint
+				},
+				{
 					path:'complaint',
 					component:Complaint,
 					meta:{
@@ -883,6 +890,10 @@ const router = new Router({
 						action:'completedTenders',
 						subject:'TenderController'
 					}
+                },
+				{
+					path:'completed-tenders-user',
+					component:UserCompletedTenders,
                 },
 				{
 					path:'check-control',

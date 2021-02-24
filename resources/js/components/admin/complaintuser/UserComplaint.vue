@@ -7,7 +7,7 @@
 			    	<i class="peIcon fas fa-comment"></i>
 				    Обращения
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/complaint/add"><i class="fas fa-plus"></i> Добавить</router-link>
+				<router-link class="btn btn-primary" to="/crm/complaint-list-user/add"><i class="fas fa-plus"></i> Добавить</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
