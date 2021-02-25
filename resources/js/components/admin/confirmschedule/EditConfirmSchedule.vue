@@ -14,40 +14,32 @@
       </div>
       <div class="card-body">
         <form
-          @submit.prevent.enter="saveData"
           enctype="multipart/form-data"
           class="row tabRow"
         >
           <div class="row col-md-12">
             <div class="form-group col-md-3" v-if="titulData">
-              <label for="reys_to_count" v-if="titulData.timing_with && titulData.timing_with.length" >Reyslar soni {{ titulData.timing_with[0].whereForm  ? titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
-              <input
-                type="number"
-                v-model.number="form.reys_to_count"
-                id="reys_to_count"
-                class="form-control input_style"
-                :class="isRequired(form.reys_to_count) ? 'isRequired' : ''"
-              />
+              <label for="reys_to_count" v-if="titulData.timing_with && titulData.timing_with.length" >
+                Reyslar soni {{ titulData.timing_with[0].whereForm  ? titulData.timing_with[0].whereForm.name : '' }} tomondan
+              </label>
+              <div class="form-control input_style">
+                {{form.reys_to_count}}
+              </div>
             </div>
             <div class="form-group col-md-3" v-if="titulData">
-              <label for="reys_from_count" v-if="titulData.timing_with && titulData.timing_with.length">Reyslar soni  {{ titulData.timing_with[0].whereTo  ? titulData.timing_with[titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
-              <input
-                type="number"
-                v-model.number="form.reys_from_count"
-                id="reys_from_count"
-                class="form-control input_style"
-                :class="isRequired(form.reys_from_count) ? 'isRequired' : ''"
-              />
+              <label for="reys_from_count" v-if="titulData.timing_with && titulData.timing_with.length">
+                Reyslar soni  
+                {{ titulData.timing_with[0].whereTo  ? titulData.timing_with[titulData.timing_with.length - 1].whereTo.name : '' }} tomondan
+              </label>
+              <div class="form-control input_style">
+                {{form.reys_from_count}}
+              </div>
             </div>
             <div class="form-group col-md-3">
               <label for="count_bus">Qatnovchi avtomobillar soni </label>
-              <input
-                type="number"
-                v-model.number="form.count_bus"
-                id="count_bus"
-                class="form-control input_style"
-                :class="isRequired(form.count_bus) ? 'isRequired' : ''"
-              />
+              <div class="form-control input_style">
+                {{form.count_bus}}
+              </div>
             </div>
           </div>
           <h2 v-if="titulData.type">
@@ -104,27 +96,21 @@
                   <td>{{ p_index + 1 }}</td>
                   <template v-for="(ch_item, ch_index) in p_item">
                     <td class="reys1" colspan="1">
-                      <DatePicker
-                        v-model="ch_item.end"
-                        type="time"
-                        class="table_input"
-                        valueType="format"
-                        format="HH:mm"
-                      />
+                      <div class="table_input">
+                        {{ch_item.end}}
+                      </div>
                     </td>
                     <td class="reys1" colspan="1">
-                      <DatePicker
-                        v-model="ch_item.start"
-                        type="time"
-                        class="table_input"
-                        valueType="format"
-                        format="HH:mm"
-                      />
+                      <div class="table_input">
+                        {{ch_item.start}}
+                      </div>
                     </td>
                     <input type="hidden" v-model="p_item.bus_order" class="table_input" />
                   </template>
                   <td class="reys1" colspan="1">
-                    <input type="text" v-model="p_item.bus_order" class="table_input" />
+                    <div class="table_input">
+                      {{p_item.bus_order}}
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -158,36 +144,34 @@
                   <td>{{ p_index + 1 }}</td>
                   <template v-for="(ch_item, ch_index) in p_item">
                     <td class="reys1" colspan="1">
-                      <DatePicker
-                        v-model="ch_item.end"
-                        type="time"
-                        class="table_input"
-                        valueType="format"
-                        format="HH:mm"
-                      />
+                      <div class="table_input">
+                        {{ch_item.end}}
+                      </div>
                     </td>
                     <td class="reys1" colspan="1">
-                      <DatePicker
-                        v-model="ch_item.start"
-                        type="time"
-                        class="table_input"
-                        valueType="format"
-                        format="HH:mm"
-                      />
+                      <div class="table_input">
+                        {{ch_item.start}}
+                      </div>
                     </td>
                     <input type="hidden" v-model="p_item.bus_order" class="table_input" />
                   </template>
                   <td class="reys1" colspan="1">
-                    <input type="text" v-model="p_item.bus_order" class="table_input" />
+                    <div class="table_input">
+                      {{p_item.bus_order}}
+                    </div>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary btn_save_category">
-              <i class="fas fa-save"></i>
-              Сохранить
+          <div class="form-group col-lg-12 d-flex justify-content-end">
+            <button type="button" class="btn btn-danger btn_save_category mr-3" @click.prevent="rejectTitul">
+              <i class="fas fa-times"></i>
+              Отказать
+            </button>
+            <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
+              <i class="fas fa-check"></i>
+              Подтвердить
             </button>
           </div>
         </form>
@@ -292,7 +276,6 @@ export default {
     await this.actionGetScheduleTable(this.$route.params.confirmscheduleId);
     this.laoding = false
       this.titulData = this.getShowschedule;
-      console.log(this.titulData)
     if(this.getSchedule.whereFrom.length && this.getSchedule.whereTo.length){
       this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
       this.form.whereFrom.stations =  this.getSchedule.whereFrom[0].stations
@@ -333,85 +316,58 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("confirmschedule", ["getShowschedule"]),
     ...mapGetters("passportTab", ["getScheduleResMsg", "getSchedule"]),
+    ...mapGetters("confirmschedule", ["getSchedules","getScheduleMassage","getShowschedule"]),
   },
   methods: {
-    ...mapActions("confirmschedule", ["actionScheduleShow"]),
+    ...mapActions("confirmschedule", ["actionScheduleShow","actionActivateSchedule","actionRejectSchedule"]),
     ...mapActions("passportTab", [
       "actionAddTiming",
       "clearTimingTable",
       "actionSetScheduleTable",
       "actionGetScheduleTable",
     ]),
-    async saveData() {
-        this.form.whereTo.reyses.forEach((p_item) => {
-            p_item.forEach((ch_item)=>{
-                ch_item.bus_order = p_item.bus_order
-            })
-        })
-        this.form.whereFrom.reyses.forEach((p_item) => {
-            p_item.forEach((ch_item)=>{
-                ch_item.bus_order = p_item.bus_order
-            })
-        })
-      if (
-        this.form.count_bus != "" &&
-        this.form.reys_to_count != "" &&
-        this.form.reys_from_count != ""
-      ) {
-        this.laoding = true
-        await this.actionSetScheduleTable({
-          id: this.$route.params.confirmscheduleId,
-          data: this.form,
-        });
-        this.laoding = false
-        if (this.getScheduleResMsg.success) {
-          toast.fire({
-            type: "success",
-            icon: "success",
-            title: "Malumotlar saqlandi",
-          });
-        } else {
-          toast.fire({
-            type: "error",
-            icon: "error",
-            title: "nmadir nito",
-          });
-        }
-        this.requiredInput = false;
-      }else{
-        this.requiredInput = true;
-      }
-    },
-    isRequired(input) {
-      return this.requiredInput && input === "";
-    },
-    removeItem(index) {
-      this.form.splice(index, 1);
-    },
     calcToTime(fromTime, toTime, index, thisItem) {
       let nextItem = this.form[index];
     },
-    removeStation(parentName, index){
-      window.swal.fire({
-        title: 'Ishonchingiz komilmi?',
-        text: "Siz buni qaytarib ololmaysiz!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: "Ha, uni o'chirib tashlang!",
-        cancelButtonText: "Bekor qilish",
-      }).then( async (result) => {
-        if (result.value) {
-          this.form[parentName].stations.splice(index, 1);
-          this.form[parentName].reyses.forEach((item)=>{
-            item.splice(index, 1)
-          })
+    async rejectTitul(){
+      if(confirm("Вы действительно хотите отказатся?")){
+        await this.actionRejectSchedule(this.$route.params.confirmscheduleId)
+        if (this.getScheduleMassage.success){
+          await this.actionScheduleShow(this.$route.params.confirmscheduleId);
+          this.$router.push('/crm/confirm-schedule')
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getScheduleMassage.message,
+          });
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getScheduleMassage.message,
+          });
         }
-      })
-    }
+      }
+    },
+    async sendToActivate(){
+      await this.actionActivateSchedule(this.$route.params.confirmscheduleId)
+      if (this.getScheduleMassage.success){
+        await this.actionScheduleShow(this.$route.params.confirmscheduleId);
+        this.$router.push('/crm/confirm-schedule')
+        toast.fire({
+          type: "success",
+          icon: "success",
+          title: this.getScheduleMassage.message,
+        });
+      }else{
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: this.getScheduleMassage.message,
+        });
+      }
+    },
   },
 };
 </script>
