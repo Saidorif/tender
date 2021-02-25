@@ -13,6 +13,9 @@ const ApplicationService = {
 	editapplication(id){
 		return ApiService.get(`/api/application/edit/${id}`)
 	},
+	showapplication(data){
+		return ApiService.get(`/api/application/show/${data.id}?page=${data.page}`)
+	},
 	updateapplication(data){
 		return ApiService.post(`/api/application/update/${data.id}`,data)
 	},

@@ -16,7 +16,7 @@
 					<span class="qr_code" @click.prevent="openQrcode" v-if="makeDisabled">
 						<i class="fas fa-qrcode"></i>
 					</span>
-					<router-link class="btn btn-primary back_btn" to="/crm/application">
+					<router-link class="btn btn-primary back_btn" :to='`/crm/application/${$route.query.tId}`'>
 						<span class="peIcon pe-7s-back"></span>
 						Назад
 					</router-link>

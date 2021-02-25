@@ -22,7 +22,7 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">address</th>
+							<th scope="col">Адрес</th>
 							<th scope="col">Статус</th>
 							<th scope="col">Дата</th>
 							<th scope="col">Действия</th>
@@ -32,13 +32,17 @@
 						<tr v-for="(reg,index) in getApplications.data">
 							<td scope="row">{{reg.id}}</td>
 							<td scope="row">{{reg.address}}</td>
-							<td scope="row">{{reg.status}}</td>
+							<td scope="row">
+								<div class="badge " :class="getStatusClass(reg.status)">
+									{{getStatusName(reg.status)}}
+								</div>
+							</td>
 							<td scope="row">{{reg.time}}</td>
 							<td>
 								<router-link
 									tag="button"
 									class="btn_transparent"
-									:to='`/crm/application/user/${reg.id}`'
+									:to='`/crm/application/${reg.id}`'
 									v-if="$can('index', 'ApplicationController')"
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -104,14 +108,14 @@
 			getStatusName(status){
 				if(status == 'active'){
 					return 'Незавершен!'
-				}else if(status == 'accepted'){
+				}else if(status == 'completed'){
 					return 'Завершен!'
 				}
 			},
 			getStatusClass(status){
 				if(status == 'active'){
 					return 'badge-warning'
-				}else if(status == 'accepted'){
+				}else if(status == 'completed'){
 					return 'badge-primary'
 				}
 			},

@@ -11,10 +11,10 @@
 					<i class="fas fa-plus"></i>
 					Добавить
 				</button> -->
-		<!-- 		<router-link class="btn btn-primary" to="/crm/application/add">
-					<i class="fas fa-plus"></i>
-					Добавить
-				</router-link> -->
+				<router-link class="btn btn-primary" to="/crm/tender/application">
+					<span class="peIcon pe-7s-back"></span>
+						Назад
+				</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -31,7 +31,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(reg,index) in getApplications.data">
+						<tr v-for="(reg,index) in getShowApplications.data">
 							<td scope="row">{{reg.id}}</td>
 							<td>
 								<ul class="list-inline" v-if="reg.lots && reg.lots.direction_id.length > 0">
@@ -57,7 +57,7 @@
 								<router-link
 									tag="button"
 									class="btn_transparent"
-									:to='`/crm/application/user/${reg.id}`'
+									:to='`/crm/application/user/${reg.id}?tId=${$route.params.tenderAppId}`'
 									v-if="$can('index', 'ApplicationController')"
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -72,7 +72,7 @@
 							</td>
 						</tr>
 					</tbody>
-					<pagination :limit="4" :data="getApplications" @pagination-change-page="getResults"></pagination>
+					<pagination :limit="4" :data="getShowApplications" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
 		  </div>
@@ -92,13 +92,16 @@
 			}
 		},
 		async mounted(){
-			let page = 1;
-            await this.actionApplications(page)
+			let data = {
+				page:1,
+				id:this.$route.params.tenderAppId
+			}
+            await this.actionShowApplications(data)
             this.laoding = false
 		},
 		computed:{
 			...mapGetters('application',[
-				'getApplications',
+				'getShowApplications',
 				'getApplication',
 				'getMassage',
 				'getAddMessage'
@@ -106,12 +109,16 @@
 		},
 		methods:{
 			...mapActions('application',[
-				'actionApplications',
+				'actionShowApplications',
 				'actionDeleteApplication',
 				'actionAddApplication',
 			]),
 			async getResults(page = 1){
-				await this.actionApplications(page)
+				let data = {
+					page:page,
+					id:this.$route.params.tenderAppId
+				}
+	            await this.actionShowApplications(data)
 			},
 			async getEditId(){
 				await this.actionAddApplication()
@@ -137,7 +144,11 @@
 				if(confirm("Вы действительно хотите удалить?")){
 					let page = 1
 					await this.actionDeleteApplication(id)
-					await this.actionApplications(page)
+					let data = {
+						page:page,
+						id:this.$route.params.tenderAppId
+					}
+		            await this.actionShowApplications(data)
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',

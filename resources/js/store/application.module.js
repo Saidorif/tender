@@ -3,6 +3,7 @@ import {ApplicationService} from "../services/application.service";
 const state = {
 	applications: {},
 	applicationlist: [],
+	showapplications: {},
 	message: [],
 	addmessage: [],
 	application: [],
@@ -14,6 +15,9 @@ const state = {
 };
 
 const getters = {
+	getShowApplications(state){
+		return state.showapplications
+	},
 	getApplicationList(state){
 		return state.applicationlist
 	},
@@ -48,6 +52,15 @@ const getters = {
 
 
 const actions = {
+	async actionShowApplications({commit},payload){
+		try {
+			const applications =  await ApplicationService.showapplication(payload);
+			await commit('setShowapplications',applications.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionActivate({commit},id){
 		try {
 			const applications =  await ApplicationService.activate(id);
@@ -186,6 +199,9 @@ const actions = {
 };
 
 const mutations = {
+	setShowapplications(state, showapplications){
+		state.showapplications = showapplications
+	},
 	setApplicationList(state, applicationlist){
 		state.applicationlist = applicationlist
 	},
