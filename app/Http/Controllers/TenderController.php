@@ -685,7 +685,7 @@ class TenderController extends Controller
                         $tarif_foizda = round(100 - ((100*$app_tarif)/$tender_tarif));
                         $app_tarif_ball = 0;
                         //Agar taklif talabga mos bolsa
-                        if($tarif_foizda <= 9){
+                        if($tarif_foizda <= 9 && $tarif_foizda >= 1){
                             $app_tarif_ball = 3;
                         }
                         //Agar taklif talabdan 10 - 20% dan past bolsa
@@ -713,7 +713,7 @@ class TenderController extends Controller
                             $app_tarif_ball = 2;
                         }
                         //Agar taklif talabga mos bolsa
-                        if($tarif_foizda <= 9){
+                        if($tarif_foizda <= 9 && $tarif_foizda >= 1){
                             $app_tarif_ball = 3;
                         }
                         //Agar taklif talabdan 10 - 20% dan past bolsa
@@ -957,6 +957,7 @@ class TenderController extends Controller
                     $appBallArray['total_ball'] = $result[$key][$k]['total'];
                     $appBallArray['cars_ball'] =$result[$key][$k]['avto_qulayliklar_ball'];
                     $result[$key][$k]['appBallArray'] = $appBallArray;
+                    $appBallArray['details'] = $result;
                     $applicationBall = ApplicationBall::create($appBallArray);
                 }
             }
@@ -965,7 +966,7 @@ class TenderController extends Controller
         if($return){
             return $items;
         }
-        return response()->json(['success' => true, 'result' => $items]);
+        return response()->json(['success' => true, 'result' => $items,'res' => $result]);
     }
     
     public function completedTendersBall(Request $request,$id,$inside = false)
