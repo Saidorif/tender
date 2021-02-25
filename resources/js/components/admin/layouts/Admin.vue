@@ -210,7 +210,7 @@
             </router-link>
           </li>
           <li class="nav-item" v-if="$can('index', 'ApplicationController')">
-            <router-link class="nav-link" to="/crm/application">
+            <router-link class="nav-link" to="/crm/tender/application">
               <i class="peIcon fas fa-file"></i>
               <p>
                 Заявки

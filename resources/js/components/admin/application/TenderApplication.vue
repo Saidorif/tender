@@ -22,42 +22,27 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Маршруты</th>
+							<th scope="col">Адрес</th>
 							<th scope="col">Статус</th>
-							<th scope="col">Количество автотранспорта</th>
 							<th scope="col">Дата</th>
-							<th scope="col">Осталось</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="(reg,index) in getApplications.data">
 							<td scope="row">{{reg.id}}</td>
-							<td>
-								<ul class="list-inline" v-if="reg.lots && reg.lots.direction_id.length > 0">
-								    <li v-for="(val,key) in reg.lots.direction_id">
-								    	<b>{{val.name}}</b>
-								    </li>
-								</ul>
-							</td>
-							<td>
+							<td scope="row">{{reg.address}}</td>
+							<td scope="row">
 								<div class="badge " :class="getStatusClass(reg.status)">
 									{{getStatusName(reg.status)}}
 								</div>
 							</td>
-							<td width="15%">{{reg.cars_with.length}}</td>
-							<td>{{reg.lots ? reg.lots.time : ''}}</td>
-							<td>
-								<template v-if="reg.lots && reg.lots.time">
-	                                <time-counter :date="reg.lots.time"/>
-								</template>
-								<template v-else></template>
-                            </td>
+							<td scope="row">{{reg.time}}</td>
 							<td>
 								<router-link
 									tag="button"
 									class="btn_transparent"
-									:to='`/crm/application/user/${reg.id}`'
+									:to='`/crm/application/${reg.id}`'
 									v-if="$can('index', 'ApplicationController')"
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -94,6 +79,7 @@
 		async mounted(){
 			let page = 1;
             await this.actionApplications(page)
+            console.log(this.getApplications)
             this.laoding = false
 		},
 		computed:{
@@ -122,14 +108,14 @@
 			getStatusName(status){
 				if(status == 'active'){
 					return 'Незавершен!'
-				}else if(status == 'accepted'){
+				}else if(status == 'completed'){
 					return 'Завершен!'
 				}
 			},
 			getStatusClass(status){
 				if(status == 'active'){
 					return 'badge-warning'
-				}else if(status == 'accepted'){
+				}else if(status == 'completed'){
 					return 'badge-primary'
 				}
 			},
