@@ -129,6 +129,7 @@ Route::group([
             Route::post('application/tender/store', 'ApplicationController@storeFromTenders');
             Route::get('application/list', 'ApplicationController@list');
             Route::get('application/edit/{id}', 'ApplicationController@edit');
+            Route::get('application/show/{id}', 'ApplicationController@show');
             Route::post('application/update/{id}', 'ApplicationController@update');
             Route::get('application/activate/{id}', 'ApplicationController@activate');
 

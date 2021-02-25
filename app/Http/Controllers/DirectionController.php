@@ -14,6 +14,7 @@ use App\DirectionReq;
 use App\Area;
 use App\PassportTarif;
 use App\TenderLot;
+use App\User;
 use Validator;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
@@ -262,7 +263,8 @@ class DirectionController extends Controller
         $area_ids = Area::pluck('id');
         $user = $request->user();
         $validator = Validator::make($request->all(), [            
-            'pass_number'  => 'required|string|unique:directions,pass_number',
+            // 'pass_number'  => 'required|string|unique:directions,pass_number',
+            'pass_number'  => 'required|string',
             'from_type'  => 'required|string',
             'to_type'  => 'required|string',
             'tarif'  => 'nullable|integer',
@@ -292,6 +294,12 @@ class DirectionController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        //Check for pass number is unique in the region
+        $users_in_region = User::where(['region_id' => $user->region_id,'role_id' => $user->role_id])->pluck('id')->toArray();
+        $dir_with_pass_number = Direction::where(['pass_number' => $inputs['pass_number']])->whereIn('created_by',$users_in_region)->first();
+        if($dir_with_pass_number){
+            return response()->json(['error' => true, 'message' => ' Номер направления занять']);
+        }
         //check for bustype_id is equal
         $bus_types = [];
         foreach($inputs['cars'] as $i_car){
