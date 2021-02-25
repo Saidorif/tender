@@ -162,6 +162,18 @@ class TenderController extends Controller
                 if(!$the_direction->requirement){
                     return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$the_direction->name]);
                 }
+                if($the_direction->titul_status != 'completed'){
+                    return response()->json(['error' => true, 'message' => 'Титул не подтвержден '.$the_direction->name]);
+                }
+                if($the_direction->xronom_status != 'completed'){
+                    return response()->json(['error' => true, 'message' => 'Хронометраж не подтвержден '.$the_direction->name]);
+                }
+                if($the_direction->sxema_status != 'completed'){
+                    return response()->json(['error' => true, 'message' => 'Схема не подтвержден '.$the_direction->name]);
+                }
+                if($the_direction->xjadval_status != 'completed'){
+                    return response()->json(['error' => true, 'message' => 'График движения не подтвержден '.$the_direction->name]);
+                }
                 if($user->role->name != 'admin'){
                     if($the_direction->region_from_id != $user->region_id || $the_direction->region_to_id != $user->region_id ){
                         $the_direction_err[] = 'Нельзя добавить ... Направление в другом регионе';
@@ -728,7 +740,7 @@ class TenderController extends Controller
                     $appBallArray['lot_tarif'] = $tender_tarif;
                     $appBallArray['tarif_ball'] = $app_tarif_ball;
                     
-                    $tender_avto_capacity = $direction->requirement->transports_seats;//(transports_seats)Tender avto transport orindiqlar sigimi
+                    $tender_avto_capacity = $direction->requirement->transports_capacity;//(transports_seats)Tender avto transport orindiqlar sigimi
                     $yonalish = $direction->type->type;
                     
                     //3.Avto year                    
