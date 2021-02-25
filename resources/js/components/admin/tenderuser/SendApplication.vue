@@ -1042,9 +1042,9 @@
 					    	icon: 'error',
 							title: this.getActivate.message,
 					    });
-					    this.closeOfferModal()
 					    this.offer = 0
 	                }
+				    this.closeOfferModal()
 	                this.laoding = false
             	}
             	else{
