@@ -16,6 +16,7 @@ import Forgot from './components/auth/forgot'
 import Profile from './components/admin/user/Profile'
 
 // Employee
+import TenderApplication from './components/admin/application/TenderApplication'
 import Application from './components/admin/application/Application'
 import AddApplication from './components/admin/application/AddApplication'
 import EditApplication from './components/admin/application/EditApplication'
@@ -270,10 +271,18 @@ const router = new Router({
 					}
 				},
 				{
-					path:'application',
-					component:Application,
+					path:'tender/application',
+					component:TenderApplication,
 					meta:{
 						action:'index',
+						subject:'ApplicationController'
+					}
+				},
+				{
+					path:'application/:tenderAppId',
+					component:Application,
+					meta:{
+						action:'show',
 						subject:'ApplicationController'
 					}
 				},
