@@ -24,7 +24,7 @@ class TenderController extends Controller
         //Grab user ids working in this region
         $created_by_users = User::where(['region_id' => $user->region_id])->pluck('id')->toArray();
         if($user->role->name == 'admin'){
-            $builder = Tender::query()->with(['tenderlots'])->where(['status' => 'completed']);
+            $builder = Tender::query()->with(['tenderlots'])->where(['status' => 'completed'])->where('time','>',now());
             if(!empty($params['region_id'])){
                 $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
                 $builder->whereIn('created_by', $users_region);
@@ -49,7 +49,7 @@ class TenderController extends Controller
             $tenders = $builder->paginate(12);
         }else{
             // $tenders = Tender::whereIn('created_by', $created_by_users)->with(['tenderlots'])->paginate(12);
-            $tenders = Tender::with(['tenderlots'])->paginate(12);
+            $tenders = Tender::with(['tenderlots'])->where('time','>',now())->paginate(12);
         }
         return response()->json(['success' => true,'result' => $tenders]);
     }
