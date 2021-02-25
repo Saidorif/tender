@@ -180,11 +180,21 @@
               </tbody>
             </table>
           </div>
-          <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary btn_save_category">
-              <i class="fas fa-save"></i>
-              Сохранить
-            </button>
+          <div class="form-group col-lg-12">
+            <div class="row">
+              <div class="col-md-6">
+                <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
+                  <i class="far fa-share-square"></i>
+                  Отправить на подтверждение
+                </button>
+              </div>
+              <div class="col-md-6 form_btn d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary btn_save_category">
+                  <i class="fas fa-save"></i>
+                  Сохранить
+                </button>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -332,15 +342,34 @@ export default {
   computed: {
     ...mapGetters("direction", ["getDirection"]),
     ...mapGetters("passportTab", ["getScheduleResMsg", "getSchedule"]),
+    ...mapGetters('confirmschedule',['getScheduleMassage'])
   },
   methods: {
     ...mapActions("direction", ["actionEditDirection"]),
+    ...mapActions('confirmschedule',['actionApproveSchedule']),
     ...mapActions("passportTab", [
       "actionAddTiming",
       "clearTimingTable",
       "actionSetScheduleTable",
       "actionGetScheduleTable",
     ]),
+    async sendToActivate(){
+      await this.actionApproveSchedule(this.$route.params.directionId)
+      if (this.getScheduleMassage.success){
+        await this.actionEditDirection(this.$route.params.directionId);
+        toast.fire({
+          type: "success",
+          icon: "success",
+          title: this.getScheduleMassage.message,
+        });
+      }else{
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: this.getScheduleMassage.message,
+        });
+      }
+    },
     async saveData() {
         this.form.whereTo.reyses.forEach((p_item) => {
             p_item.forEach((ch_item)=>{
