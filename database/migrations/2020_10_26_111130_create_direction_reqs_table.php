@@ -59,6 +59,8 @@ class CreateDirectionReqsTable extends Migration
             $table->string('transports_capacity')->nullable();
             $table->string('transports_seats')->nullable();
             $table->string('minimum_bal')->nullable();
+            $table->string('status')->default('active')->nullable();
+            $table->integer('approver')->nullable();
             $table->timestamps();
         });
     }

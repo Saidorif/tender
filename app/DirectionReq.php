@@ -51,6 +51,8 @@ class DirectionReq extends Model
         'transports_capacity',
         'transports_seats',
         'minimum_bal',
+        'status',
+        'approver',
     ];
 
     protected $casts = ['auto_model_class' => 'array'];
