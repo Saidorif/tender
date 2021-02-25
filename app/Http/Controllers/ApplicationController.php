@@ -18,7 +18,7 @@ class ApplicationController extends Controller
 {
     public function index(Request $request)
     {
-        $tenders = Tender::where(['status' => 'completed'])->where('time','<',now())->get();
+        $tenders = Tender::where(['status' => 'completed'])->where('time','<',now())->paginate(12);
         return response()->json(['success' => true, 'result' => $tenders]);
     }
 
