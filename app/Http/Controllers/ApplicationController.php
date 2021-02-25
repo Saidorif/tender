@@ -16,18 +16,24 @@ use Str;
 
 class ApplicationController extends Controller
 {
-
     public function index(Request $request)
+    {
+        $tenders = Tender::where(['status' => 'completed'])->where('time','<',now())->get();
+        return response()->json(['success' => true, 'result' => $tenders]);
+    }
+
+    public function show(Request $request,$id)
     {
         $user = $request->user();
         if($user->role->name == 'admin'){
-            $result = Application::orderBy('id', 'DESC')->with(['user','carsWith','lots','attachment'])->paginate(12);
+            $result = Application::orderBy('id', 'DESC')->with(['user','carsWith','lots','attachment'])->where(['tender_id' => $id])->paginate(12);
         }else{
             //grab the user ids in this region
             $user_ids = User::where(['region_id' => $user->region_id,'role_id' => 9])->pluck('id')->toArray();
             $result = Application::orderBy('id', 'DESC')
                             ->with(['user','carsWith','lots','attachment'])
                             ->whereIn('user_id', $user_ids)
+                            ->where(['tender_id' => $id])
                             ->paginate(12);
         }
         return response()->json(['success' => true, 'result' => $result]);
