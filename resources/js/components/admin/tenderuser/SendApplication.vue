@@ -6,8 +6,12 @@
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
 				    Отправить заявку
-				</h4>
-                <h4 class="title_user">{{ form.tender ?  form.tender.direction_ids[0].name : '' }}</h4>
+				</h4> 
+				<div class="">
+	                <h4 class="title_user" v-if="direction_ids.length > 0" v-for="(item,index) in direction_ids">
+	                	{{index+1}}) {{  item.name }}
+	                </h4>
+				</div>
 				<div class="d-flex">
 					<span class="qr_code" @click.prevent="openQrcode" v-if="makeDisabled">
 						<i class="fas fa-qrcode"></i>
