@@ -162,6 +162,9 @@ class TenderController extends Controller
                 if(!$the_direction->requirement){
                     return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$the_direction->name]);
                 }
+                if(!$the_direction->requirement->status != 'completed'){
+                    return response()->json(['error' => true, 'message' => 'Требование не подтвержден '.$the_direction->name]);
+                }
                 if($the_direction->titul_status != 'completed'){
                     return response()->json(['error' => true, 'message' => 'Титул не подтвержден '.$the_direction->name]);
                 }
