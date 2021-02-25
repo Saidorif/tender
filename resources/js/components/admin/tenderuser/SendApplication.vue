@@ -409,6 +409,18 @@
 											</td>
 										</tr>
 									</template>
+										<tr>
+											<td colspan="7">
+												Итоги:
+											</td>
+											<td>
+												{{countCapacity}} 
+											</td>
+											<td>
+												{{countSeatQty}}
+											</td>
+											<td>...</td>
+										</tr>
 								</tbody>
 							</table>
 						</div>
@@ -923,6 +935,20 @@
 	    				return false
 	    			}
 		    	})
+		    },
+		    countCapacity(){
+		    	let count = 0
+		    	this.cars_with.forEach((car,index)=>{
+		    		count +=Number(car.capacity)
+		    	})
+		    	return count
+		    } ,
+		    countSeatQty(){
+				let count = 0
+		    	this.cars_with.forEach((car,index)=>{
+		    		count +=Number(car.seat_qty)
+		    	})
+		    	return count
 		    },
 		},
 		watch:{
