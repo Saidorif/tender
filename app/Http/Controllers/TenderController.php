@@ -700,7 +700,7 @@ class TenderController extends Controller
                         $tarif_foizda = round(100 - ((100*$app_tarif)/$tender_tarif));
                         $app_tarif_ball = 0;
                         //Agar taklif talabga mos bolsa
-                        if($tarif_foizda <= 9 && $tarif_foizda >= 1){
+                        if($tarif_foizda <= 9 && $tarif_foizda >= 0){
                             $app_tarif_ball = 3;
                         }
                         //Agar taklif talabdan 10 - 20% dan past bolsa
@@ -981,7 +981,7 @@ class TenderController extends Controller
         if($return){
             return $items;
         }
-        return response()->json(['success' => true, 'result' => $items,'res' => $result]);
+        return response()->json(['success' => true, 'result' => $items]);
     }
     
     public function completedTendersBall(Request $request,$id,$inside = false)
