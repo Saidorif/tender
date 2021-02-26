@@ -329,6 +329,7 @@
                   <i class="peIcon fas fa-bus"></i>
                   <p>
                     Автобуса
+                    <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
                 <ul class="nav nav-treevie">
@@ -498,7 +499,7 @@ export default {
         transition: .5s !important;
     }
     .nav-sidebar .has-treevie.menu-opens .nav-treevie::before,
-    .has-treevie.menu-opens .nav-treevie{
+    .has-treevie.menu-opens > .nav-treevie{
         max-height: 700px;
     }
     .nav-sidebar .menu-opens>.nav-link i.right{
