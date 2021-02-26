@@ -728,7 +728,7 @@ class TenderController extends Controller
                             $app_tarif_ball = 2;
                         }
                         //Agar taklif talabga mos bolsa
-                        if($tarif_foizda <= 9 && $tarif_foizda >= 1){
+                        if($tarif_foizda <= 9 && $tarif_foizda >= 0){
                             $app_tarif_ball = 3;
                         }
                         //Agar taklif talabdan 10 - 20% dan past bolsa
