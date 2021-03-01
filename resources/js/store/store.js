@@ -49,6 +49,7 @@ import { confirmschedule } from "./confirmschedule.module"
 import { page } from "./page.module"
 import { contract } from "./contract.module"
 import { setting } from "./setting.module"
+import { confirmdemand } from "./confirmdemand.module"
 
 import { TokenService } from './../services/storage.service'
 
@@ -105,6 +106,7 @@ const store = new Vuex.Store(
             page,
             contract,
             setting,
+            confirmdemand,
 		},
 		state:{
 			rules:[],

@@ -129,6 +129,13 @@
                   </p>
                 </router-link>
               </li>
+              <li class="nav-item" v-if="$can('listTarifApprove', 'DirectionController')">
+                <router-link class="nav-link" to="/crm/confirm-confirmdemand">
+                  <p>
+                    Талаб
+                  </p>
+                </router-link>
+              </li>
               <li class="nav-item" v-if="$can('announceTender', 'TenderController')">
                 <router-link class="nav-link" to="/crm/confirm-tender">
                   <p>
@@ -442,8 +449,7 @@
   import { mapActions, mapGetters } from "vuex";
   import {TokenService} from './../../../services/storage.service'
 export default {
-  components: {
-  },
+  components: {},
   data(){
     return {
 
@@ -478,7 +484,7 @@ export default {
     }
     .nav-sidebar .nav-treevie{
         display: block;
-        padding: 0.5em 0 0 2rem;
+        padding: 0em 0 0 2rem;
         position: relative;
         max-height: 0;
         overflow: hidden;
