@@ -1347,6 +1347,24 @@ class DirectionController extends Controller
         return response()->json(['success' => true, 'message' => 'Schedule successfuly sent for approve']);
     }
 
+    public function dirReq(Request $request)
+    {
+        $result = DirectionReq::with(['type'])
+            ->where(['status' => 'pending'])
+            ->orWhere(['status' => 'completed'])
+            ->paginate(12);
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+    
+    public function dirReqEdit(Request $request,$id)
+    {
+        $result = DirectionReq::with(['type'])->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Requirement not found']);
+        }
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function dirReqActivate(Request $request,$id)
     {
         $user = $request->user();

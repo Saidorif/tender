@@ -244,6 +244,8 @@ Route::group([
             Route::get('xjadval/reject/{id}', 'DirectionController@xjadvalReject');
             Route::get('xjadval/edit/{id}', 'DirectionController@xjadvalEdit');
             
+            Route::get('dirreq', 'DirectionController@dirReq');
+            Route::get('dirreq/edit/{id}', 'DirectionController@dirReqEdit');
             Route::get('dirreq/approve/{id}', 'DirectionController@dirReqApprove');
             Route::get('dirreq/activate/{id}', 'DirectionController@dirReqActivate');
             Route::get('dirreq/reject/{id}', 'DirectionController@dirReqReject');
