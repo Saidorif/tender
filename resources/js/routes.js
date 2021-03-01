@@ -156,6 +156,11 @@ import UDemand from './components/stepTender/Demand'
 // ShowTenderDetails
 import ShowTenderDetails from './components/pages/ShowTenderDetails'
 
+// ConfirmDemand
+import ConfirmDemand from './components/admin/confirmdemand/ConfirmDemand'
+import AddConfirmDemand from './components/admin/confirmdemand/AddConfirmDemand'
+import EditConfirmDemand from './components/admin/confirmdemand/EditConfirmDemand'
+
 // ConfirmTender
 import ConfirmTender from './components/admin/confirmtender/ConfirmTender'
 import AddConfirmTender from './components/admin/confirmtender/AddConfirmTender'
@@ -1031,6 +1036,18 @@ const router = new Router({
 				{
 					path:'confirm-titul/edit/:confirmtitulId',
 					component:EditConfirmTitul,
+				},
+				{
+					path:'confirm-confirmdemand',
+					component:ConfirmDemand,
+				},
+				{
+					path:'confirm-confirmdemand/add',
+					component:AddConfirmDemand,
+				},
+				{
+					path:'confirm-confirmdemand/edit/:confirmdemandId',
+					component:EditConfirmDemand,
 				},
 				{
 					path:'payment',

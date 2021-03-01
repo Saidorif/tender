@@ -231,12 +231,14 @@ Route::group([
             Route::get('xronom/activate/{id}', 'DirectionController@xronomActivate');
             Route::get('xronom/reject/{id}', 'DirectionController@xronomReject');
             Route::get('xronom/edit/{id}', 'DirectionController@xronomEdit');
+            Route::post('xronom/filestore', 'DirectionController@xronomFile');
             
             Route::get('sxema', 'DirectionController@sxema');
             Route::get('sxema/approve/{id}', 'DirectionController@sxemaApprove');
             Route::get('sxema/activate/{id}', 'DirectionController@sxemaActivate');
             Route::get('sxema/reject/{id}', 'DirectionController@sxemaReject');
             Route::get('sxema/edit/{id}', 'DirectionController@sxemaEdit');
+            Route::post('sxema/filestore', 'DirectionController@sxemaFile');
             
             Route::get('xjadval', 'DirectionController@xjadval');
             Route::get('xjadval/approve/{id}', 'DirectionController@xjadvalApprove');
@@ -244,6 +246,8 @@ Route::group([
             Route::get('xjadval/reject/{id}', 'DirectionController@xjadvalReject');
             Route::get('xjadval/edit/{id}', 'DirectionController@xjadvalEdit');
             
+            Route::get('dirreq', 'DirectionController@dirReq');
+            Route::get('dirreq/edit/{id}', 'DirectionController@dirReqEdit');
             Route::get('dirreq/approve/{id}', 'DirectionController@dirReqApprove');
             Route::get('dirreq/activate/{id}', 'DirectionController@dirReqActivate');
             Route::get('dirreq/reject/{id}', 'DirectionController@dirReqReject');

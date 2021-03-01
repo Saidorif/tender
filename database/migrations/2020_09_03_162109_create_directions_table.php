@@ -31,6 +31,7 @@ class CreateDirectionsTable extends Migration
             $table->string('to_type')->default('region');
             $table->date('year');
             $table->double('distance',15,2)->default(0)->nullable();
+            $table->double('tarif',15,2)->default(0)->nullable();
             $table->bigInteger('type_id');
             $table->text('from_where');
             $table->string('seasonal');
@@ -43,10 +44,12 @@ class CreateDirectionsTable extends Migration
             $table->bigInteger('station_from_id')->nullable();
             $table->bigInteger('station_to_id')->nullable();
             $table->bigInteger('created_by')->default(1)->nullable();
-            $table->string('moderatory')->nullable();
+            $table->string('moderator')->nullable();
             $table->string('dir_type');
             $table->integer('contract_id')->nullable();
             $table->string('reys_status')->nullable();
+            $table->string('xronom_file')->nullable();
+            $table->string('sxema_file')->nullable();
             $table->timestamps();
         });
     }

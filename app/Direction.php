@@ -33,6 +33,7 @@ class Direction extends Model
         'titul_status',
         'titul_approver',
         'xronom_status',
+        'xronom_file',
         'xronom_approver',
         'sxema_status',
         'sxema_approver',
