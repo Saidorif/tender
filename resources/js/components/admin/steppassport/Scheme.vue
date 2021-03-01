@@ -6,7 +6,7 @@
         <PassportTab/>
       </div>
       <div class="card-body">
-        <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
+        <div class="row tabRow">
           <h1 v-if="titulData.type">Avtobus qatnov yoli tasviri {{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
           <div class="map_scheme" v-if="schemeData.length">
             <div class="mid_line"></div>
@@ -65,6 +65,10 @@
               </li>
             </ul>
           </div>
+          <form @submit.prevent.enter="sendFile"  enctype="multipart/form-data" class="col-md-6 d-flex">
+            <input type="file" id="file" ref="file" @change="handleFileUpload()" name="file" class="form-control" style="border-radius:0px;height: 41px;" >
+            <button type="submit" class="btn btn-primary btn_save_category" style="width: 210px;border-radius:0px;height: 41px;">Сохранить файл</button>
+          </form>
           <div class="row col-md-12"  v-if="agreedData.length">
             <div class="form-group col-xl-3 col-md-6 agree_item" v-for="(p_item,p_index) in agreedData">
               <h6>"Kelishilgan"</h6>
@@ -73,62 +77,64 @@
               <p></p>
             </div>
           </div>
-          <div class="row col-md-12">
-            <div class="form-group col-xl-3 col-md-6">
-              <label for="organ">Tashkilot nomi</label>
-              <input
-                type="text"
-                v-model="form.organ"
-                id="organ"
-                class="form-control input_style"
-                :class="isRequired(form.organ) ? 'isRequired' : ''"
-              />
+          <form @submit.prevent.enter="saveData" enctype="multipart/form-data">
+            <div class="row col-md-12">
+                <div class="form-group col-xl-3 col-md-6">
+                <label for="organ">Tashkilot nomi</label>
+                <input
+                    type="text"
+                    v-model="form.organ"
+                    id="organ"
+                    class="form-control input_style"
+                    :class="isRequired(form.organ) ? 'isRequired' : ''"
+                />
+                </div>
+                <div class="form-group col-xl-3 col-md-6">
+                <label for="organ">Xodim lavozimi</label>
+                <input
+                    type="text"
+                    v-model="form.job"
+                    id="organ"
+                    class="form-control input_style"
+                    :class="isRequired(form.job) ? 'isRequired' : ''"
+                />
+                </div>
+                <div class="form-group col-xl-3 col-md-6">
+                <label for="organ">F.I.SH</label>
+                <input
+                    type="text"
+                    v-model="form.fio"
+                    id="organ"
+                    class="form-control input_style"
+                    :class="isRequired(form.fio) ? 'isRequired' : ''"
+                />
+                </div>
+                <div class="form-gruop col-xl-3 col-md-6">
+                <label for="organ">Sana</label>
+                <div class="d-flex">
+                    <date-picker lang="ru" class="input_style" v-model="form.date" type="date" format="DD-MM-YYYY" valueType="format"       :class="isRequired(form.date) ? 'isRequired' : ''"></date-picker>
+                    <button  @click="addAgreeData" type="button" class="btn btn-info ml-2"><i  class="fas fa-plus"></i></button>
+                </div>
+                </div>
             </div>
-            <div class="form-group col-xl-3 col-md-6">
-              <label for="organ">Xodim lavozimi</label>
-              <input
-                type="text"
-                v-model="form.job"
-                id="organ"
-                class="form-control input_style"
-                :class="isRequired(form.job) ? 'isRequired' : ''"
-              />
+            <div class="form-group col-lg-12">
+                <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
+                    <i class="far fa-share-square"></i>
+                    Отправить на подтверждение
+                    </button>
+                </div>
+                <div class="col-md-6 form_btn d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary btn_save_category" @click.prevent="saveData">
+                    <i class="fas fa-save"></i>
+                    Сохранить
+                    </button>
+                </div>
+                </div>
             </div>
-            <div class="form-group col-xl-3 col-md-6">
-              <label for="organ">F.I.SH</label>
-              <input
-                type="text"
-                v-model="form.fio"
-                id="organ"
-                class="form-control input_style"
-                :class="isRequired(form.fio) ? 'isRequired' : ''"
-              />
-            </div>
-            <div class="form-gruop col-xl-3 col-md-6">
-              <label for="organ">Sana</label>
-              <div class="d-flex">
-                  <date-picker lang="ru" class="input_style" v-model="form.date" type="date" format="DD-MM-YYYY" valueType="format"       :class="isRequired(form.date) ? 'isRequired' : ''"></date-picker>
-                  <button  @click="addAgreeData" type="button" class="btn btn-info ml-2"><i  class="fas fa-plus"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="form-group col-lg-12">
-            <div class="row">
-              <div class="col-md-6">
-                <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
-                  <i class="far fa-share-square"></i>
-                  Отправить на подтверждение
-                </button>
-              </div>
-              <div class="col-md-6 form_btn d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary btn_save_category" @click.prevent="saveData">
-                  <i class="fas fa-save"></i>
-                  Сохранить
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -157,7 +163,8 @@ export default {
       },
       agreedData: [],
       requiredInput: false,
-      laoding: true
+      laoding: true,
+      file: ''
     };
   },
   async mounted() {
@@ -175,7 +182,7 @@ export default {
     ...mapGetters('confirmscheme',['getSchemeMassage'])
   },
   methods: {
-    ...mapActions("passportTab", ["actionAddTiming", "actionAddSchemadetail"]),
+    ...mapActions("passportTab", ["actionAddTiming", "actionAddSchemadetail", 'actionSendSchemeFile']),
     ...mapActions("direction", ["actionEditDirection"]),
     ...mapActions("conditionalsign", ["actionConditionalSignList"]),
     ...mapActions('confirmscheme',['actionApproveScheme']),
@@ -196,6 +203,7 @@ export default {
         });
       }
     },
+
     async saveData() {
       if(this.agreedData.length){
         this.laoding = true
@@ -222,6 +230,22 @@ export default {
         });
       }
 
+    },
+    handleFileUpload(){
+        this.file = this.$refs.file.files[0];
+    },
+    async sendFile(){
+        let myFileData = new FormData();
+        myFileData.append('file', this.file);
+        myFileData.append('id', this.$route.params.directionId);
+        await this.actionSendSchemeFile(myFileData);
+        if(this.getMsg.success){
+            toast.fire({
+                type: "success",
+                icon: "success",
+                title: 'Fayl yuklandi',
+            });
+        }
     },
     addAgreeData(){
         let data = this.form

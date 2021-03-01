@@ -27,6 +27,9 @@ const PassportTabService = {
 	},
 	demandSave(data){
 		return ApiService.post(`/api/direction/requirement/${data.id}`,data.items)
+	},
+	sendSechemeFile(data){
+		return ApiService.postWithfile(`/api/xronom/filestore`,data)
 	}
 };
 
