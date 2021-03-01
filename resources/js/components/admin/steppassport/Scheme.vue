@@ -66,7 +66,7 @@
             </ul>
           </div>
           <form @submit.prevent.enter="sendFile"  enctype="multipart/form-data" class="col-md-6 d-flex">
-            <input type="file" id="file" ref="file" @change="handleFileUpload()" name="file" class="form-control" style="border-radius:0px;height: 41px;" >
+            <input type="file" accept="application/pdf" id="file" ref="file" @change="handleFileUpload()" name="file" class="form-control" style="border-radius:0px;height: 41px;" >
             <button type="submit" class="btn btn-primary btn_save_category" style="width: 210px;border-radius:0px;height: 41px;">Сохранить файл</button>
           </form>
           <div class="row col-md-12"  v-if="agreedData.length">
@@ -237,7 +237,7 @@ export default {
     async sendFile(){
         let myFileData = new FormData();
         myFileData.append('file', this.file);
-        myFileData.append('id', this.$route.params.directionId);
+        myFileData.append('direction_id', this.$route.params.directionId);
         await this.actionSendSchemeFile(myFileData);
         if(this.getMsg.success){
             toast.fire({
