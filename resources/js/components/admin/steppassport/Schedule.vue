@@ -105,7 +105,7 @@
                         type="time"
                         class="table_input"
                         valueType="format"
-                        format="HH:mm"
+                        format="HH:mm:ss"
                       />
                     </td>
                     <td class="reys1" colspan="1">
@@ -114,7 +114,7 @@
                         type="time"
                         class="table_input"
                         valueType="format"
-                        format="HH:mm"
+                        format="HH:mm:ss"
                       />
                     </td>
                     <input type="hidden" v-model="p_item.bus_order" class="table_input" />
@@ -159,7 +159,7 @@
                         type="time"
                         class="table_input"
                         valueType="format"
-                        format="HH:mm"
+                        format="HH:mm:ss"
                       />
                     </td>
                     <td class="reys1" colspan="1">
@@ -168,7 +168,7 @@
                         type="time"
                         class="table_input"
                         valueType="format"
-                        format="HH:mm"
+                        format="HH:mm:ss"
                       />
                     </td>
                     <input type="hidden" v-model="p_item.bus_order" class="table_input" />

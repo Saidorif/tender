@@ -243,6 +243,10 @@ Route::group([
             Route::get('xjadval/activate/{id}', 'DirectionController@xjadvalActivate');
             Route::get('xjadval/reject/{id}', 'DirectionController@xjadvalReject');
             Route::get('xjadval/edit/{id}', 'DirectionController@xjadvalEdit');
+            
+            Route::get('dirreq/approve/{id}', 'DirectionController@dirReqApprove');
+            Route::get('dirreq/activate/{id}', 'DirectionController@dirReqActivate');
+            Route::get('dirreq/reject/{id}', 'DirectionController@dirReqReject');
 
             //Integration
             Route::post('adliya','IntegrationController@adliya');

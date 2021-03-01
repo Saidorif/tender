@@ -403,6 +403,13 @@ class DirectionController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        $user = $request->user();
+        //Check for pass number is unique in the region
+        $users_in_region = User::where(['region_id' => $user->region_id,'role_id' => $user->role_id])->pluck('id')->toArray();
+        $dir_with_pass_number = Direction::where(['pass_number' => $inputs['pass_number']])->whereIn('created_by',$users_in_region)->first();
+        if($dir_with_pass_number){
+            return response()->json(['error' => true, 'message' => ' Номер направления занять']);
+        }
         //check for bustype_id is equal
         $bus_types = [];
         foreach($inputs['cars'] as $i_car){
@@ -1010,6 +1017,7 @@ class DirectionController extends Controller
         $inputs = $request->all();
         $inputs['auto_model_class'] = $direction->carsWith->pluck('id')->toArray();
         $inputs['direction_id'] = $direction->id;
+        $inputs['status'] = 'active';
 
         if(!$direction->requirement){
             $direction_req = DirectionReq::create($inputs);
@@ -1337,6 +1345,50 @@ class DirectionController extends Controller
         $result->xjadval_status = 'pending';
         $result->save();
         return response()->json(['success' => true, 'message' => 'Schedule successfuly sent for approve']);
+    }
+
+    public function dirReqActivate(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Requirement not found']);
+        }
+        if($result->requirement->status != 'pending'){
+            return response()->json(['error' => true, 'message' => 'Requirement is '.$result->requirement->status]);
+        }
+        $result->requirement->status = 'completed';
+        $result->requirement->approver = $user->id;
+        $result->requirement->save();
+        return response()->json(['success' => true, 'message' => 'Requirement activated']);
+    }
+    
+    public function dirReqReject(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Requirement not found']);
+        }
+        $result->requirement->status = 'active';
+        $result->requirement->approver = $user->id;
+        $result->requirement->save();
+        return response()->json(['success' => true, 'message' => 'Requirement rejected']);
+    }
+
+    public function dirReqApprove(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Direction::find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Requirement not found']);
+        }
+        if($result->requirement->status != 'active'){
+            return response()->json(['error' => true, 'message' => 'Requirement is '.$result->requirement->status]);
+        }
+        $result->requirement->status = 'pending';
+        $result->requirement->save();
+        return response()->json(['success' => true, 'message' => 'Requirement successfuly sent for approve']);
     }
     
 }

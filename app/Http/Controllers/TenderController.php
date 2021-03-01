@@ -24,7 +24,7 @@ class TenderController extends Controller
         //Grab user ids working in this region
         $created_by_users = User::where(['region_id' => $user->region_id])->pluck('id')->toArray();
         if($user->role->name == 'admin'){
-            $builder = Tender::query()->with(['tenderlots'])->where(['status' => 'completed']);
+            $builder = Tender::query()->with(['tenderlots'])->where(['status' => 'completed'])->where('time','>',now());
             if(!empty($params['region_id'])){
                 $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
                 $builder->whereIn('created_by', $users_region);
@@ -49,7 +49,7 @@ class TenderController extends Controller
             $tenders = $builder->paginate(12);
         }else{
             // $tenders = Tender::whereIn('created_by', $created_by_users)->with(['tenderlots'])->paginate(12);
-            $tenders = Tender::with(['tenderlots'])->paginate(12);
+            $tenders = Tender::with(['tenderlots'])->where('time','>',now())->paginate(12);
         }
         return response()->json(['success' => true,'result' => $tenders]);
     }
@@ -161,6 +161,9 @@ class TenderController extends Controller
                 }
                 if(!$the_direction->requirement){
                     return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$the_direction->name]);
+                }
+                if(!$the_direction->requirement->status != 'completed'){
+                    return response()->json(['error' => true, 'message' => 'Требование не подтвержден '.$the_direction->name]);
                 }
                 if($the_direction->titul_status != 'completed'){
                     return response()->json(['error' => true, 'message' => 'Титул не подтвержден '.$the_direction->name]);
@@ -697,7 +700,7 @@ class TenderController extends Controller
                         $tarif_foizda = round(100 - ((100*$app_tarif)/$tender_tarif));
                         $app_tarif_ball = 0;
                         //Agar taklif talabga mos bolsa
-                        if($tarif_foizda <= 9 && $tarif_foizda >= 1){
+                        if($tarif_foizda <= 9 && $tarif_foizda >= 0){
                             $app_tarif_ball = 3;
                         }
                         //Agar taklif talabdan 10 - 20% dan past bolsa
@@ -725,7 +728,7 @@ class TenderController extends Controller
                             $app_tarif_ball = 2;
                         }
                         //Agar taklif talabga mos bolsa
-                        if($tarif_foizda <= 9 && $tarif_foizda >= 1){
+                        if($tarif_foizda <= 9 && $tarif_foizda >= 0){
                             $app_tarif_ball = 3;
                         }
                         //Agar taklif talabdan 10 - 20% dan past bolsa
@@ -978,7 +981,7 @@ class TenderController extends Controller
         if($return){
             return $items;
         }
-        return response()->json(['success' => true, 'result' => $items,'res' => $result]);
+        return response()->json(['success' => true, 'result' => $items]);
     }
     
     public function completedTendersBall(Request $request,$id,$inside = false)
