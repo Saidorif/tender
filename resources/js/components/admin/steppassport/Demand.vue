@@ -7,11 +7,21 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-md-12 d-flex justify-content-end mb-2">
-            <button type="button" class="btn btn-info text-white" @click.prevent="refreshDemand">
-              <i class="fas fa-redo"></i>
-              Обнавить
-            </button>
+          <div class="form-group col-lg-12">
+            <div class="row">
+              <div class="col-md-6">
+                <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
+                  <i class="far fa-share-square"></i>
+                  Отправить на подтверждение
+                </button>
+              </div>
+              <div class="col-md-6 form_btn d-flex justify-content-end">
+                <button type="button" class="btn btn-info text-white" @click.prevent="refreshDemand">
+                  <i class="fas fa-redo"></i>
+                  Обнавить
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="table-responsive" v-if="getDemand.result">
@@ -451,10 +461,29 @@ export default {
   computed: {
     ...mapGetters("direction", ["getDirection"]),
     ...mapGetters("passportTab", ["getDemand", "getMsg"]),
+    ...mapGetters('confirmdemand',['getDemandConfirmMassage']),
   },
   methods: {
     ...mapActions("direction", ["actionEditDirection"]),
     ...mapActions("passportTab", ["actionDemand", "actionDemandSave"]),
+    ...mapActions('confirmdemand',['actionApproveDemand']),
+    async sendToActivate(){
+      await this.actionApproveDemand(this.$route.params.directionId)
+      if (this.getDemandConfirmMassage.success){
+        await this.actionEditDirection(this.$route.params.directionId);
+        toast.fire({
+          type: "success",
+          icon: "success",
+          title: this.getDemandConfirmMassage.message,
+        });
+      }else{
+        toast.fire({
+          type: "error",
+          icon: "error",
+          title: this.getDemandConfirmMassage.message,
+        });
+      }
+    },
     isRequired(input) {
       return this.requiredInput && input === "";
     },

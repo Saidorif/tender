@@ -28,7 +28,6 @@
                 <td width="50%"><b>Автотранспорт воситаси моделининг класси</b></td>
                 <td>
                   <div v-for="(item,index) in form.auto_model_class">
-                      <!-- {{ item.model ? item.model.name : '' }} -->
                       {{ item.tclass ? item.tclass.name : '' }}
                   </div>
                 </td>
@@ -225,12 +224,6 @@
             <label for="text">Текст</label>
             <textarea id="text" class="form-control" v-model="form.holiday_days" disabled></textarea>
           </div>
-       <!--    <div class="btn_send d-flex justify-content-end">
-            <button type="button" class="btn btn-primary" @click.prevent="saveData">
-              <i class="fas fa-save"></i>
-              Сохранить
-            </button>
-          </div> -->
         </div>
       </div>
     </div>
@@ -255,7 +248,7 @@ export default {
     };
   },
   async mounted(){
-    // await this.actionDemandShow(this.$route.params.comfirmdemandId);
+    await this.actionDemandShow(this.$route.params.comfirmdemandId);
     let data ={
       generate:0,
       id:this.$route.params.comfirmdemandId
@@ -288,24 +281,6 @@ export default {
         return 'Mavsumiy';
       }
     },
-    // async refreshDemand(){
-    //   let data = {
-    //     generate:1,
-    //     id:this.$route.params.comfirmdemandId
-    //   }
-    //   await this.actionDemand(data);
-    //   this.form = this.getDemand.result;
-    //   if(this.getDemand.error){
-    //     toast.fire({
-    //       type: "error",
-    //       icon: "error",
-    //       title: this.getDemand.message,
-    //     });
-    //   }
-    // },
-    saveData(){
-
-    }
   },
 };
 </script>
