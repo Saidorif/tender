@@ -49,6 +49,7 @@ class CreateDirectionsTable extends Migration
             $table->integer('contract_id')->nullable();
             $table->string('reys_status')->nullable();
             $table->string('xronom_file')->nullable();
+            $table->string('sxema_file')->nullable();
             $table->timestamps();
         });
     }

@@ -238,6 +238,7 @@ Route::group([
             Route::get('sxema/activate/{id}', 'DirectionController@sxemaActivate');
             Route::get('sxema/reject/{id}', 'DirectionController@sxemaReject');
             Route::get('sxema/edit/{id}', 'DirectionController@sxemaEdit');
+            Route::post('sxema/filestore', 'DirectionController@sxemaFile');
             
             Route::get('xjadval', 'DirectionController@xjadval');
             Route::get('xjadval/approve/{id}', 'DirectionController@xjadvalApprove');
