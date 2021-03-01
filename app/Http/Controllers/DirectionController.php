@@ -1408,5 +1408,33 @@ class DirectionController extends Controller
         $result->requirement->save();
         return response()->json(['success' => true, 'message' => 'Requirement successfuly sent for approve']);
     }
+
+    public function xronomFile(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'file' => 'required|file|mimes:pdf|max:4096',
+            'direction_id' => 'required|integer',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inputs = $request->all();
+        $direction = Direction::find($inputs['direction_id']);
+        if(!$direction){
+            return response()->json(['error' => true, 'message' => 'Direction not found']);
+        }
+        //Upload file and image
+        if($request->hasFile('file')){
+            $input = [];
+            $path = public_path('uploads');
+            $the_file = $request->file('file');
+            $fileName = \Str::random(20).'.'.$the_file->getClientOriginalExtension();
+            $the_file->move($path, $fileName);
+            $input['file'] = '/uploads/'.$fileName;
+            $direction->xronom_file = $input['file'];
+            $direction->save();
+        }
+        return response()->json(['success' => true, 'message' => 'File uploaded successfully']);
+    }
     
 }

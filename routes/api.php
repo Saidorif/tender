@@ -231,6 +231,7 @@ Route::group([
             Route::get('xronom/activate/{id}', 'DirectionController@xronomActivate');
             Route::get('xronom/reject/{id}', 'DirectionController@xronomReject');
             Route::get('xronom/edit/{id}', 'DirectionController@xronomEdit');
+            Route::post('xronom/filestore', 'DirectionController@xronomFile');
             
             Route::get('sxema', 'DirectionController@sxema');
             Route::get('sxema/approve/{id}', 'DirectionController@sxemaApprove');
