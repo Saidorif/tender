@@ -30,6 +30,7 @@ const getters = {
 	getMsg(state){
 		return state.msg
 	}
+
 };
 
 
@@ -100,6 +101,15 @@ const actions = {
 	async actionAddSchemadetail({commit},payload){
 		try {
 			const timingData =  await PassportTabService.addSchemadetail(payload);
+			await commit('setMsg',timingData.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionSendSchemeFile({commit},payload){
+		try {
+			const timingData =  await PassportTabService.sendSechemeFile(payload);
 			await commit('setMsg',timingData.data)
 			return true
 		} catch (error) {

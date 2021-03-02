@@ -91,17 +91,23 @@
                 :disabled="tableTwoData.length > 0"
               />
             </div>
-            <div class="form-group col-xl-6">
-              <label for="start_time">Boshlash vaqti Бошлаш вақти </label>
-              <date-picker
-                lang="ru"
-                class="input_style"
-                v-model="form.start_time"
-                :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
-                placeholder="Select datetime"
-                :class="isRequiredTwo(form.start_time) ? 'isRequired' : ''"
-                format="HH:mm:ss"
-              ></date-picker>
+            <div class="form-group col-xl-6 d-flex justify-content-bettwen">
+                <div class="form-group col-md-10 pl-0">
+                    <label for="start_time">Boshlash vaqti Бошлаш вақти </label>
+                    <date-picker
+                        lang="ru"
+                        class="input_style"
+                        v-model="form.start_time"
+                        :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
+                        placeholder="Select datetime"
+                        :class="isRequiredTwo(form.start_time) ? 'isRequired' : ''"
+                        format="HH:mm:ss"
+                    ></date-picker>
+                </div>
+                <div class="form-group col-md-2 pr-0">
+                    <input type="checkbox" v-model="form.nextDay" id="nextDay">
+                    <label for="nextDay">Keyingi kun</label>
+                </div>
             </div>
             <div class="form-group col-xl-6">
               <label for="speed_between_station">Bekatlar oraligidagi xarakat (km/soat)</label>
@@ -405,6 +411,7 @@ export default {
             whereForm: '',
             whereTo: '',
             detailsOptions: [],
+            nextDay: false,
         },
         timingDetails: {
             date: "",
@@ -604,6 +611,7 @@ export default {
             whereForm: this.fullTableInfo[this.fullTableInfo.length - 1].whereTo,
             whereTo: "",
             detailsOptions: this.getConditionalSignList,
+            nextDay: false,
         };
         this.form = thisData;
     },
@@ -637,7 +645,6 @@ export default {
           this.timingDetails.persons[2].name != "" &&
           this.timingDetails.persons[2].surname != "" &&
           this.timingDetails.persons[2].position != ""
-
         ){
 
         this.requiredInput = false;
