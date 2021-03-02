@@ -406,7 +406,7 @@ class DirectionController extends Controller
         $user = $request->user();
         //Check for pass number is unique in the region
         $users_in_region = User::where(['region_id' => $user->region_id,'role_id' => $user->role_id])->pluck('id')->toArray();
-        $dir_with_pass_number = Direction::where(['pass_number' => $inputs['pass_number']])->whereIn('created_by',$users_in_region)->first();
+        $dir_with_pass_number = Direction::where(['pass_number' => $inputs['pass_number']])->where('id','!=',$direction->id)->whereIn('created_by',$users_in_region)->first();
         if($dir_with_pass_number){
             return response()->json(['error' => true, 'message' => ' Номер направления занять']);
         }
