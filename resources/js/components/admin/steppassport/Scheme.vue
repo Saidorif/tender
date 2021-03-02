@@ -65,9 +65,10 @@
               </li>
             </ul>
           </div>
-          <form @submit.prevent.enter="sendFile"  enctype="multipart/form-data" class="col-md-6 d-flex">
-            <input type="file" accept="application/pdf" id="file" ref="file" @change="handleFileUpload()" name="file" class="form-control" style="border-radius:0px;height: 41px;" >
+          <form @submit.prevent.enter="sendFile"  enctype="multipart/form-data" class="col-md-6 d-flex flex-wrap">
+            <input type="file" accept="application/pdf" id="file" ref="file" @change="handleFileUpload()" required name="file" class="form-control" style="width:60%;border-radius:0px;height: 41px;" >
             <button type="submit" class="btn btn-primary btn_save_category" style="width: 210px;border-radius:0px;height: 41px;">Сохранить файл</button>
+            <a v-if="getDirection.sxema_file" :href="getDirection.sxema_file" download="" class="btn btn-info btn_save_category">Скачать файл</a>
           </form>
           <div class="row col-md-12"  v-if="agreedData.length">
             <div class="form-group col-xl-3 col-md-6 agree_item" v-for="(p_item,p_index) in agreedData">
@@ -77,7 +78,7 @@
               <p></p>
             </div>
           </div>
-          <form @submit.prevent.enter="saveData" enctype="multipart/form-data">
+          <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="col-md-12">
             <div class="row col-md-12">
                 <div class="form-group col-xl-3 col-md-6">
                 <label for="organ">Tashkilot nomi</label>
@@ -235,17 +236,26 @@ export default {
         this.file = this.$refs.file.files[0];
     },
     async sendFile(){
-        let myFileData = new FormData();
-        myFileData.append('file', this.file);
-        myFileData.append('direction_id', this.$route.params.directionId);
-        await this.actionSendSchemeFile(myFileData);
-        if(this.getMsg.success){
+        if(this.file){
+            let myFileData = new FormData();
+            myFileData.append('file', this.file);
+            myFileData.append('direction_id', this.$route.params.directionId);
+            await this.actionSendSchemeFile(myFileData);
+            if(this.getMsg.success){
+                toast.fire({
+                    type: "success",
+                    icon: "success",
+                    title: 'Fayl yuklandi',
+                });
+            }
+        }else{
             toast.fire({
-                type: "success",
-                icon: "success",
-                title: 'Fayl yuklandi',
+                type: "error",
+                icon: "error",
+                title: 'Faylni tanlang',
             });
         }
+
     },
     addAgreeData(){
         let data = this.form
