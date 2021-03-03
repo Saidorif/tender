@@ -164,13 +164,13 @@
 					min:false,
 	            },
 				range:'',
+				page:1,
                 laoding: true,
                 filterShow: false,
 			}
 		},
 		async mounted(){
-            let page = 1;
-            await this.actionPortTarifList({page:page,item:this.filter});
+            await this.actionPortTarifList({page:this.page,item:this.filter});
             await this.actionRegionList()
 			await this.actionTypeofdirectionList()
             this.laoding = false
@@ -185,11 +185,10 @@
             ...mapActions("region", ["actionRegionList"]),
 			...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
             async completedTender(id){
-            	let page = 1;
                 this.laoding = true
                 await this.actionApprovePassportTarifList({tarif_id: id})
                 if(this.getMassage.success){
-                    await this.actionPortTarifList({page:page,item:this.filter});
+                    await this.actionPortTarifList({page:this.page,item:this.filter});
                     toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
@@ -211,10 +210,9 @@
 				}
 			},
 			async search(){
-				let page = 1
 				if(this.filter.region_id != '' || this.filter.type_id != ''  || this.filter.dir_type != '' || this.filter.max || this.filter.min ){
 					let data = {
-						page:page,
+						page:this.page,
 						items:this.filter
 					}
 					this.laoding = true
@@ -238,6 +236,7 @@
 
 			},
 			async getResults(page = 1){
+				this.page = page
 				await this.actionPortTarifList({page:page,item:this.filter})
 			},
 			// getStatusName(status){
