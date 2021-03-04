@@ -91,23 +91,17 @@
                 :disabled="tableTwoData.length > 0"
               />
             </div>
-            <div class="form-group col-xl-6 d-flex justify-content-bettwen">
-                <div class="form-group col-md-10 pl-0">
-                    <label for="start_time">Boshlash vaqti Бошлаш вақти </label>
-                    <date-picker
-                        lang="ru"
-                        class="input_style"
-                        v-model="form.start_time"
-                        :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
-                        placeholder="Select datetime"
-                        :class="isRequiredTwo(form.start_time) ? 'isRequired' : ''"
-                        format="HH:mm:ss"
-                    ></date-picker>
-                </div>
-                <div class="form-group col-md-2 pr-0">
-                    <input type="checkbox" v-model="form.nextDay" id="nextDay">
-                    <label for="nextDay">Keyingi kun</label>
-                </div>
+            <div class="form-group col-xl-6">
+              <label for="start_time">Boshlash vaqti Бошлаш вақти </label>
+              <date-picker
+                  lang="ru"
+                  class="input_style"
+                  v-model="form.start_time"
+                  :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
+                  placeholder="Select datetime"
+                  :class="isRequiredTwo(form.start_time) ? 'isRequired' : ''"
+                  format="HH:mm:ss"
+              ></date-picker>
             </div>
             <div class="form-group col-xl-6">
               <label for="speed_between_station">Bekatlar oraligidagi xarakat (km/soat)</label>
@@ -221,17 +215,23 @@
                 step="0.01"
               />
             </div>
-            <div class="form-group col-xl-6">
-              <label for="seria"> Тўхтаганда вақт кўрсаткичи </label>
-              <date-picker
-                lang="ru"
-                class="input_style"
-                v-model="form.end_time"
-                :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
-                placeholder="Select end_time"
-                :class="isRequiredTwo(form.end_time) ? 'isRequired' : ''"
-                format="HH:mm:ss"
-              ></date-picker>
+            <div class="form-group col-xl-6 d-flex">
+              <div class="form-group col-md-10 pl-0">
+                <label for="seria"> Тўхтаганда вақт кўрсаткичи </label>
+                <date-picker
+                  lang="ru"
+                  class="input_style"
+                  v-model="form.end_time"
+                  :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
+                  placeholder="Select end_time"
+                  :class="isRequiredTwo(form.end_time) ? 'isRequired' : ''"
+                  format="HH:mm:ss"
+                ></date-picker>
+              </div>
+              <div class="form-group col-md-2 pr-0">
+                    <input type="checkbox" v-model="form.nextDay" id="nextDay">
+                    <label for="nextDay">Keyingi kun</label>
+              </div>
             </div>
             <div class="form-group col-xl-6">
               <label for="distance_in_limited_speed">Shundan xarakat tezligi chegaralangan oraliqda (km)</label>
@@ -318,13 +318,13 @@
                   <td>{{ table.whereForm ? table.whereForm.name  : '' }} {{ table.whereTo ? table.whereTo.name  : '' }}</td>
                   <td>{{ table.start_speedometer }}</td>
                   <td>{{ table.end_speedometer }}</td>
-                  <td>{{ table.distance_from_start_station }}</td>
-                  <td>{{ table.distance_between_station }}</td>
+                  <td>{{ table.distance_from_start_station }} </td>
+                  <td>{{ table.distance_between_station }} </td>
                   <td>{{ table.distance_in_limited_speed }} </td>
                   <td>{{ table.spendtime_between_station }} </td>
                   <td>{{ table.spendtime_between_limited_space }}</td>
                   <td>{{ table.spendtime_to_stay_station == 0 ? '00:00:00':table.spendtime_to_stay_station}} </td>
-                  <td>{{ table.speed_between_station }}</td>
+                  <td>{{ table.speed_between_station }} </td>
                   <td>{{ table.speed_between_limited_space }}</td>
                   <td class="detail_td">
                     <span v-for="(detail) in table.details">
@@ -340,9 +340,9 @@
                 </tr>
                 <tr>
                   <td colspan="7" scope="row">Ortacha tezlik = {{technic_speed}} km/soat</td>
-                  <td colspan="1" scope="row">{{total_spendtime_between_station}}</td>
+                  <td colspan="1" scope="row">{{total_spendtime_between_station}} </td>
                   <td colspan="1" scope="row"></td>
-                  <td colspan="1" scope="row">{{total_spendtime_to_stay_station}}</td>
+                  <td colspan="1" scope="row">{{total_spendtime_to_stay_station}} </td>
                   <td colspan="5" scope="row">Qatnov tezlik = {{traffic_speed}} km/soat</td>
                 </tr>
               </tbody>
@@ -568,17 +568,18 @@ export default {
 
         this.tableTwoData = [];
         dataTable.forEach((element, index)=>{
+            element.nextDay = element.nextDay != undefined  ? element.nextDay : false;
             if(index == 0){
                 element.distance_from_start_station = parseFloat(element.end_speedometer - element.start_speedometer).toFixed(1);
             }else{
                 element.distance_from_start_station = parseFloat(element.end_speedometer - this.tableTwoData[0].start_speedometer).toFixed(1);
-                let result_spendtime_to_stay_station = this.calcTimeToTime(this.tableTwoData[this.tableTwoData.length - 1].end_time, element.start_time);
+                let result_spendtime_to_stay_station = this.calcTimeToTime(this.tableTwoData[this.tableTwoData.length - 1].end_time, element.start_time, false);
                 element.spendtime_between_station = result_spendtime_to_stay_station;
                 this.tableTwoData[ this.tableTwoData.length - 1].spendtime_to_stay_station = result_spendtime_to_stay_station;
 
             } //else
             element.distance_between_station = (element.end_speedometer - element.start_speedometer).toFixed(1);
-            let result_spendtime_between_station = this.calcTimeToTime(element.start_time, element.end_time);
+            let result_spendtime_between_station = this.calcTimeToTime(element.start_time, element.end_time, element.nextDay);
             element.spendtime_between_station = result_spendtime_between_station;
             this.tableTwoData.push(element);
         })
@@ -690,9 +691,12 @@ export default {
     removePerson(index) {
       this.timingDetails.persons.splice(index, 1);
     },
-    calcTimeToTime(start, end){
+    calcTimeToTime(start, end, nextday = false){
         let starttime = new Date(start)
         let endtime = new Date(end)
+        if(nextday){
+          endtime.setDate(endtime.getDate() + 1)
+        }
         let elapsed = endtime.getTime() - starttime.getTime()
         let ms = elapsed % 1000;
         elapsed = (elapsed - ms) / 1000;
