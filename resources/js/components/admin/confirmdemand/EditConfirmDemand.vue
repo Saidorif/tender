@@ -3,7 +3,7 @@
     <Loader v-if="laoding"/>
     <div class="card card_with_tabs">
       <div class="card-header">
-          <h4 class="title_user">
+        <h4 class="title_user">
             <i class="peIcon fas fa-clipboard-check"></i>
             Подтвердить талаб
         </h4>
@@ -224,6 +224,10 @@
             <label for="text">Текст</label>
             <textarea id="text" class="form-control" v-model="form.holiday_days" disabled></textarea>
           </div>
+          <div class="btn_gruops mt-5 d-flex justify-content-end">
+              <button class="btn btn-danger mr-3" style="height:auto;" @click.prevent="rejectDmand()" >Rad etish</button>
+              <button class="btn btn-success" @click.prevent="activeDmand()">Tasdiqlash</button>
+          </div>
         </div>
       </div>
     </div>
@@ -247,29 +251,15 @@ export default {
       laoding: true
     };
   },
-  async mounted(){
-    await this.actionDemandShow(this.$route.params.comfirmdemandId);
-    let data ={
-      generate:0,
-      id:this.$route.params.comfirmdemandId
-    }
-    await this.actionDemand(data);
-    this.laoding = false
-        if(this.getDemand.success){
-            this.form = this.getDemand.result
-        }else{
-            toast.fire({
-                type: 'error',
-                icon: 'error',
-                title: this.getDemand.message,
-            })
-        }
+    async mounted(){
+        await this.actionDemandShow(this.$route.params.confirmdemandId);
+        this.laoding = false
     },
   computed: {
     ...mapGetters("confirmdemand", ["getDemands","getShowDemand","getDemandConfirmMassage"]),
   },
   methods: {
-    ...mapActions("confirmdemand", ["actionRejectDemand","actionDemandShow","actionActivateDemand"]),
+    ...mapActions("confirmdemand", ["actionRejectDemand","actionDemandShow","actionActivateDemand", ]),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
@@ -281,6 +271,40 @@ export default {
         return 'Mavsumiy';
       }
     },
+    async activeDmand(){
+        await this.actionActivateDemand(this.$route.params.confirmdemandId);
+        if(this.getDemandConfirmMassage.error){
+            toast.fire({
+                type: "error",
+                icon: "error",
+                title: this.getDemandConfirmMassage.message,
+            });
+        }else{
+            toast.fire({
+                type: "success",
+                icon: "success",
+                title: this.getDemandConfirmMassage.message,
+            });
+            this.$router.push("/crm/confirm-confirmdemand");
+        }
+    },
+    async rejectDmand(){
+        await this.actionRejectDemand(this.$route.params.confirmdemandId);
+        if(this.getDemandConfirmMassage.error){
+            toast.fire({
+                type: "error",
+                icon: "error",
+                title: this.getDemandConfirmMassage.message,
+            });
+        }else{
+            toast.fire({
+                type: "success",
+                icon: "success",
+                title: this.getDemandConfirmMassage.message,
+            });
+            this.$router.push("/crm/confirm-confirmdemand");
+        }
+    }
   },
 };
 </script>

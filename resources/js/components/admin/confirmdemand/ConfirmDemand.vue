@@ -15,8 +15,6 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Направления</th>
-							<th scope="col">Тариф</th>
-							<th scope="col">Сумма багажа</th>
 							<th scope="col">Статус</th>
 							<th scope="col">Действия</th>
 						</tr>
@@ -24,19 +22,13 @@
 					<tbody>
 						<tr v-for="(direct,index) in getDemands.data">
 							<td scope="row">{{index + 1}}</td>
-							<td>
-								<template v-if="direct.created_by">
-									{{direct.created_by.region ? direct.created_by.region.name : ''}}
-								</template>
-							</td>
-							<td>{{direct.name}}</td>
-							<td>{{direct.pass_number}}</td>
-							<td>{{direct.year}}</td>
+							<td>{{direct.stations_from_name}} - {{direct.stations_to_name}}</td>
+							<td>{{direct.status}}</td>
 							<td>
 								<router-link
 									tag="button"
 									class="btn_transparent"
-									:to='`/crm/confirm-demand/edit/${direct.id}`'
+									:to='`/crm/confirm-confirmdemand/edit/${direct.id}`'
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>

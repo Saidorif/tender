@@ -185,20 +185,11 @@
 	        	<!-- From Name -->
 				<div v-if="checkedGrafik">
 				  	<div class="table-responsive" v-if="fromItems.length">
-				  		<!-- <div class="d-flex justify-content-center">
-				  			<h4>{{fromName}}</h4>
-				  		</div> -->
 					  	<table class="table table-bordered">
-					  		<!-- <thead>
-					  			<tr>
-					  				<th>№</th>
-					  				<th v-for="(item,index) in fromFirstItems.reys_times" colspan="2">{{item.where.name}}</th>
-					  			</tr>
-					  		</thead> -->
                             <thead>
 								<tr>
 									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-									<th  scope="col"  :colspan="fromFirstItems.reys_times.length * 2" style="text-align: center;">{{fromName}} томондан </th>
+									<th  scope="col"  :colspan="fromFirstItems.reys_times.length * 2" style="text-align: center;" @click.prevent="chooseFromSide(fromItems)">{{fromName}} томондан  </th>
 								</tr>
                                 <tr>
                                     <th colspan="2" v-for="(item, index) in fromFirstItems.reys_times" style="text-align: center;">
@@ -233,16 +224,7 @@
 				  	</div>
 				  	<!-- To Name -->
 				  	<div class="table-responsive" v-if="fromItems.length">
-				  		<!-- <div class="d-flex justify-content-center">
-				  			<h4>{{toName}}</h4>
-				  		</div> -->
 					  	<table class="table table-bordered">
-					  		<!-- <thead>
-					  			<tr>
-					  				<th>№</th>
-					  				<th v-for="(item,index) in  toFirstItems.reys_times" colspan="2">{{item.where.name}}</th>
-					  			</tr>
-					  		</thead> -->
                           	<thead>
 								<tr>
 									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
@@ -322,14 +304,6 @@
                                                     </template>
                                                 </tr>
                                         </thead>
-							  			<!-- <thead>
-								  			<tr>
-								  				<th>№</th>
-								  				<th v-for="(item,index) in item.reyses[0].reys_times" colspan="2">
-									  				{{item.where.name}}
-									  			</th>
-								  			</tr>
-								  		</thead> -->
 								  		<tbody>
 								  			<tr v-for="(reys,key) in item.reyses">
 								  				<td>{{key+1}}</td>
@@ -454,9 +428,12 @@
 		    			directions:item.directions,
 		    			reyses:item.reyses,
 		    			text:this.text,
-		    		} 
+		    		}
 		    	})
 		    },
+            chooseFromSide(items){
+                console.log(items)
+            },
 		    addLot(){
 		    	if (this.allItems.length > 0) {
 			    	if (this.checked) {
