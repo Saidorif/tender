@@ -189,7 +189,7 @@
                             <thead>
 								<tr>
 									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-									<th  scope="col"  :colspan="fromFirstItems.reys_times.length * 2" style="text-align: center;" @click.prevent="chooseFromSide(fromItems)">{{fromName}} томондан  </th>
+									<th  scope="col"  class="headar_th" :colspan="fromFirstItems.reys_times.length * 2" style="text-align: center;cursor:pointer;" :class="{'selected': this.choosenFromItems.length}" @click.prevent="chooseFromSide(fromItems)">{{fromName}} томондан  </th>
 								</tr>
                                 <tr>
                                     <th colspan="2" v-for="(item, index) in fromFirstItems.reys_times" style="text-align: center;">
@@ -206,7 +206,6 @@
 					  		<tbody>
 					  			<tr
 					  				v-for="(items,index) in fromItems"
-					  				@click.prevent="chooseFromItem(items,index)"
 					  				:class="activeFromClass(items)"
 				  				>
 					  				<td>
@@ -227,8 +226,8 @@
 					  	<table class="table table-bordered">
                           	<thead>
 								<tr>
-									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-									<th  scope="col"  :colspan="toFirstItems.reys_times.length * 2" style="text-align: center;">{{toName}} томондан </th>
+									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar ss</th>
+									<th  scope="col"  :colspan="toFirstItems.reys_times.length * 2" style="text-align: center;cursor:pointer;"   class="headar_th" :class="{'selected': this.choosenToItems.length}" @click.prevent="chooseToSide(toItems)">{{toName}} томондан </th>
 								</tr>
                                 <tr>
                                     <th colspan="2" v-for="(item, index) in toFirstItems.reys_times" style="text-align: center;">
@@ -245,7 +244,6 @@
 					  		<tbody>
 					  			<tr
 					  				v-for="(items,index) in  toItems"
-					  				@click.prevent="chooseToItem(items,index)"
 					  				:class="activeToClass(items)"
 				  				>
 					  				<td>
@@ -431,9 +429,6 @@
 		    		}
 		    	})
 		    },
-            chooseFromSide(items){
-                console.log(items)
-            },
 		    addLot(){
 		    	if (this.allItems.length > 0) {
 			    	if (this.checked) {
@@ -623,6 +618,24 @@
 		    		return 'pending'
 		    	}
 		    },
+            chooseFromSide(items){
+                if(this.choosenFromItems.length){
+                    this.choosenFromItems = []
+                }else{
+                    items.forEach((item)=>{
+                        this.choosenFromItems.push(item)
+                    })
+                }
+            },
+            chooseToSide(items){
+                if(this.choosenToItems.length){
+                    this.choosenToItems = []
+                }else{
+                    items.forEach((item)=>{
+                        this.choosenToItems.push(item)
+                    })
+                }
+            },
 		    chooseFromItem(value,index){
 		    	if (value.status == 'active') {
 			    	if (this.choosenFromItems.some(data => data.id === value.id)){
@@ -651,6 +664,7 @@
 				    	}
 			    	}
 		    	}
+                console.log(this.choosenFromItems)
 		    },
 		    chooseToItem(value,index){
 		    	if (value.status == 'active') {
@@ -787,4 +801,9 @@
 	    cursor: pointer;
 	    font-size: 20px;
 	}
+    .headar_th:hover,
+    .selected{
+        background: #c8d3f2 !important;
+    }
+
 </style>
