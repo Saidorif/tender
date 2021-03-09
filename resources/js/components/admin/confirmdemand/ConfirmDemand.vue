@@ -28,7 +28,7 @@
 								<router-link
 									tag="button"
 									class="btn_transparent"
-									:to='`/crm/confirm-confirmdemand/edit/${direct.id}`'
+									:to='`/crm/confirm-confirmdemand/edit/${direct.direction_id}`'
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
