@@ -162,7 +162,7 @@ class TenderController extends Controller
                 if(!$the_direction->requirement){
                     return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$the_direction->name]);
                 }
-                if(!$the_direction->requirement->status != 'completed'){
+                if($the_direction->requirement->status != 'completed'){
                     return response()->json(['error' => true, 'message' => 'Требование не подтвержден '.$the_direction->name]);
                 }
                 if($the_direction->titul_status != 'completed'){
@@ -674,26 +674,30 @@ class TenderController extends Controller
                     $result[$key][$k] = $balls;
                     continue;
                 }
+                $direction_name = '';
+                //2.Tarif
+                $app_tarif = (int)$app->tarif;//Taklif
+                $appBallArray['app_tarif'] = $app_tarif;
+                
+                $appBallArray = [];
+                $result[$key][$k]['name'] = $direction_name;
+                $result[$key][$k]['company_name'] = $app->user->company_name;
+                $result[$key][$k]['fio'] = $app->user->getFio();
+                $result[$key][$k]['user'] = $app->user;
+                //prepare array for store
+                $appBallArray['direction_ids'] = $direction_ids;
+                $appBallArray['name'] = $direction_name;
+                $appBallArray['company_name'] = $app->user->company_name;
+                $appBallArray['user_id'] = $app->user->id;
+                $appBallArray['app_id'] = $app->id;
+                $appBallArray['lot_id'] = $lot->id;
                 foreach($direction_ids as $value){
-                    $appBallArray = [];
                     $direction = Direction::find($value);
                     if(!$direction->requirement){
                         return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$direction->name]);
                     }
-                    $result[$key][$k]['name'] = $direction->name;
-                    $result[$key][$k]['company_name'] = $app->user->company_name;
-                    $result[$key][$k]['fio'] = $app->user->getFio();
-                    $result[$key][$k]['user'] = $app->user;
-                    //prepare array for store
-                    $appBallArray['direction_ids'] = $direction_ids;
-                    $appBallArray['name'] = $direction->name;
-                    $appBallArray['company_name'] = $app->user->company_name;
-                    $appBallArray['user_id'] = $app->user->id;
-                    $appBallArray['app_id'] = $app->id;
-                    $appBallArray['lot_id'] = $lot->id;
-                    //2.Tarif
-                    $app_tarif = (int)$app->tarif;//Taklif
-                    $appBallArray['app_tarif'] = $app_tarif;
+                    $direction_name .= ' '.$direction->name;
+                    
                     //Agar shahar yonalish bolsa
                     if($direction->type_id == 1){
                         $tender_tarif = (int)$direction->regionFrom->tarifcity->first()->tarif;
