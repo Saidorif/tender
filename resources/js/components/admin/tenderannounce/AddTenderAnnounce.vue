@@ -801,6 +801,7 @@
 	    cursor: pointer;
 	    font-size: 20px;
 	}
+
     .headar_th:hover,
     .selected{
         background: #c8d3f2 !important;
