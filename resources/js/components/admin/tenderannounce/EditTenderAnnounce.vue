@@ -46,11 +46,7 @@
 				    	>
 					  </div>
 					  <div class="form-group col-lg-4 form_btn d-flex justify-content-end">
-<!-- 						<button v-if="checked" type="button" class="btn btn-secondary mr-3" @click="addToAllItems">
-							<i class="fas fa-plus"></i>
-							Добавить
-						</button>
- -->					<button type="button" class="btn btn-secondary mr-3" @click="openModal">
+					<button type="button" class="btn btn-secondary mr-3" @click="openModal">
 							<i class="fas fa-plus"></i>
 							Добавить лот
 						</button>
@@ -73,14 +69,6 @@
 		                        <a href="#" class="btn btn-outline-danger"  @click.prevent="removeEditLot(t_lots.id)">
 		                            <i class="fas fa-trash text-danger lot_remove"></i>
 		                        </a>
-			            <!--         <button
-			                        type="button"
-			                        class="btn btn-info btn_save_category"
-			                        @click.prevent="getEditId(t_lots.id)"
-			                    >
-			                        <i class="far fa-share-square text-light"></i>
-			                        <span class="text-light">Отправить заявку</span>
-			                    </button> -->
 		                        </div>
 
 		                </div>
@@ -153,14 +141,6 @@
 	                                                    </template>
 	                                                </tr>
 					  							</thead>
-					                            <!-- <thead>
-					                                <tr>
-					                                <th>№</th>
-					                                <th v-for="(item,index) in items.reysesTo[0].reys_times" colspan="2">
-					                                    {{item.where.name}}
-					                                </th>
-					                                </tr>
-					                            </thead> -->
 					                            <tbody>
 					                                <tr
 					                                v-for="(reys,key) in items.reysesTo"
@@ -224,14 +204,6 @@
                                                     </template>
                                                 </tr>
                                         </thead>
-							  			<!-- <thead>
-								  			<tr>
-								  				<th>№</th>
-								  				<th v-for="(item,index) in item.reyses[0].reys_times" colspan="2">
-									  				{{item.where.name}}
-									  			</th>
-								  			</tr>
-								  		</thead> -->
 								  		<tbody>
 								  			<tr v-for="(reys,key) in item.reyses" >
 								  				<td>{{key+1}}</td>
@@ -313,14 +285,11 @@
 	        	<!-- From Name -->
 				<div v-if="checkedGrafik">
 				  	<div class="table-responsive" v-if="fromItems.length">
-				  		<!-- <div class="d-flex justify-content-center">
-				  			<h4>{{fromName}}</h4>
-				  		</div> -->
 					  	<table class="table table-bordered">
                             <thead>
 								<tr>
 									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-									<th  scope="col"  :colspan="fromFirstItems.reys_times.length * 2" style="text-align: center;">{{fromName}} томондан </th>
+									<th  scope="col"  :colspan="fromFirstItems.reys_times.length * 2" style="text-align: center;" class="headar_th" :class="{'selected': this.choosenFromItems.length}" @click.prevent="chooseFromSide(fromItems)">{{fromName}} томондан </th>
 								</tr>
                                 <tr>
                                     <th colspan="2" v-for="(item, index) in fromFirstItems.reys_times" style="text-align: center;">
@@ -334,16 +303,9 @@
                                     </template>
                                 </tr>
 				  			</thead>
-					  		<!-- <thead>
-					  			<tr>
-					  				<th>№</th>
-					  				<th v-for="(item,index) in fromFirstItems.reys_times" colspan="2">{{item.where.name}}</th>
-					  			</tr>
-					  		</thead> -->
 					  		<tbody>
 					  			<tr
 					  				v-for="(items,index) in fromItems"
-					  				@click.prevent="chooseFromItem(items,index)"
 					  				:class="activeFromClass(items)"
 				  				>
 					  				<td>
@@ -361,20 +323,11 @@
 				  	</div>
 				  	<!-- To Name -->
 				  	<div class="table-responsive" v-if="fromItems.length">
-				  		<!-- <div class="d-flex justify-content-center">
-				  			<h4>{{toName}}</h4>
-				  		</div> -->
 					  	<table class="table table-bordered">
-					  		<!-- <thead>
-					  			<tr>
-					  				<th>№</th>
-					  				<th v-for="(item,index) in  toFirstItems.reys_times" colspan="2">{{item.where.name}}</th>
-					  			</tr>
-					  		</thead> -->
                             <thead>
 								<tr>
 									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-									<th  scope="col"  :colspan="toFirstItems.reys_times.length * 2" style="text-align: center;">{{toName}} томондан </th>
+									<th  scope="col"  :colspan="toFirstItems.reys_times.length * 2" style="text-align: center;"  class="headar_th" :class="{'selected': this.choosenToItems.length}" @click.prevent="chooseToSide(toItems)">{{toName}} томондан </th>
 								</tr>
                                 <tr>
                                     <th colspan="2" v-for="(item, index) in toFirstItems.reys_times" style="text-align: center;">
@@ -391,7 +344,6 @@
 					  		<tbody>
 					  			<tr
 					  				v-for="(items,index) in  toItems"
-					  				@click.prevent="chooseToItem(items,index)"
 					  				:class="activeToClass(items)"
 				  				>
 					  				<td>
@@ -433,14 +385,6 @@
 				  		    	</div>
 							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
 								  <table class="table table-bordered table-hover">
-							  			<!-- <thead>
-								  			<tr>
-								  				<th>№</th>
-								  				<th v-for="(item,index) in item.reyses[0].reys_times" colspan="2">
-									  				{{item.where.name}}
-									  			</th>
-								  			</tr>
-								  		</thead> -->
                                         <thead>
                                                 <tr>
                                                     <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
@@ -597,7 +541,7 @@
 		    			directions:item.directions,
 		    			reyses:item.reyses,
 		    			text:this.text,
-		    		} 
+		    		}
 		    	})
 		    },
 		    addLot(){
@@ -827,6 +771,24 @@
 		    	}else{
 		    		return 'pending'
 		    	}
+            },
+            chooseFromSide(items){
+                if(this.choosenFromItems.length){
+                    this.choosenFromItems = []
+                }else{
+                    items.forEach((item)=>{
+                        this.choosenFromItems.push(item)
+                    })
+                }
+            },
+            chooseToSide(items){
+                if(this.choosenToItems.length){
+                    this.choosenToItems = []
+                }else{
+                    items.forEach((item)=>{
+                        this.choosenToItems.push(item)
+                    })
+                }
             },
 		    chooseFromItem(value,index){
 		    	if (value.status == 'active') {
@@ -1098,4 +1060,11 @@
 .hide_reys{
     display: none !important;
 }
+    .headar_th:hover,
+    .selected{
+        background: #c8d3f2 !important;
+    }
+        .headar_th{
+        cursor: pointer;
+    }
 </style>
