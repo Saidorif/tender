@@ -254,6 +254,7 @@ export default {
     async mounted(){
         await this.actionDemandShow(this.$route.params.confirmdemandId);
         this.laoding = false
+        this.form = this.getShowDemand
     },
   computed: {
     ...mapGetters("confirmdemand", ["getDemands","getShowDemand","getDemandConfirmMassage"]),
