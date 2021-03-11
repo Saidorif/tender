@@ -69,7 +69,7 @@ class DirectionController extends Controller
 
     public function getTarifByNumber(Request $request)
     {
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'number'  => 'required|string',
         ]);
 
@@ -148,7 +148,7 @@ class DirectionController extends Controller
 
     public function findForUsers(Request $request)
     {
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'region_from_id'  => 'required|integer',
             'region_to_id'  => 'nullable|integer',
             'area_from_id'  => 'nullable|integer',
@@ -183,13 +183,13 @@ class DirectionController extends Controller
 
     public function directionInfoForUsers(Request $request, $id)
     {
-        
+
         return response()->json($result);
     }
-    
+
     public function find(Request $request)
     {
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'name'  => 'required|string',
         ]);
 
@@ -262,7 +262,7 @@ class DirectionController extends Controller
         $region_ids = Region::pluck('id');
         $area_ids = Area::pluck('id');
         $user = $request->user();
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             // 'pass_number'  => 'required|string|unique:directions,pass_number',
             'pass_number'  => 'required|string',
             'from_type'  => 'required|string',
@@ -372,7 +372,7 @@ class DirectionController extends Controller
         }
         $region_ids = Region::pluck('id');
         $area_ids = Area::pluck('id');
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'pass_number'  => 'required|string|unique:directions,pass_number,'.$direction->id,
             'from_type'  => 'required|string',
             'to_type'  => 'required|string',
@@ -614,7 +614,7 @@ class DirectionController extends Controller
     //Store direction tarifs
     public function storeTarif(Request $request,$id)
     {
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'summa'  => 'required|integer',
             'summa_bagaj'  => 'required|integer',
         ]);
@@ -629,7 +629,7 @@ class DirectionController extends Controller
         $passport_tarif = PassportTarif::create($inputs);
         return response()->json(['success' => true, 'message' => 'Passport tarif created successfully']);
     }
-    
+
     //List direction tarifs
     public function listTarif(Request $request)
     {
@@ -667,11 +667,11 @@ class DirectionController extends Controller
         // }
         return response()->json(['success' => true, 'result' => $result]);
     }
-    
+
     //Direction tarifs approve
     public function listTarifApprove(Request $request)
     {
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'tarif_id'  => 'required|integer',
         ]);
 
@@ -701,7 +701,7 @@ class DirectionController extends Controller
 
     public function schedule(Request $request,$id)
     {
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'data'  => 'required|array',
             'data.count_bus'  => 'required|integer',
             'data.reys_from_count'  => 'required|integer',
@@ -846,7 +846,7 @@ class DirectionController extends Controller
 
     public function requirement(Request $request,$id)
     {
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'generate'  => 'nullable|boolean',
         ]);
 
@@ -936,7 +936,7 @@ class DirectionController extends Controller
             'schedule_begin_to'             => $reysesFrom->first()->reysTimes->first()->start,//Nukus томондан
             'schedule_end_time'             => '-',//Сўнги рейс (ишни тугалланиш) вақти
             'schedule_end_from'             => $reysesTo->last()->reysTimes->first()->start,//Toshkent томондан
-            'schedule_end_to'               => $reysesFrom->last()->reysTimes->first()->start,//Nukus томондан 
+            'schedule_end_to'               => $reysesFrom->last()->reysTimes->first()->start,//Nukus томондан
             'station_intervals'             => '',
             'reys_time'                     => (int)$the_reys_time_hour .':'. $the_reys_time_minut,
             'reys_from_value'               => '00:00',
@@ -959,7 +959,7 @@ class DirectionController extends Controller
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'direction_id' => 'required|integer',
             'auto_type' => 'nullable|integer',
             'auto_type_name' => 'nullable|string',
@@ -1041,7 +1041,7 @@ class DirectionController extends Controller
             ->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
-    
+
     public function titulEdit(Request $request,$id)
     {
         $result = Direction::with([
@@ -1062,7 +1062,7 @@ class DirectionController extends Controller
         }
         return response()->json(['success' => true, 'result' => $result]);
     }
-    
+
     public function titulActivate(Request $request,$id)
     {
         $user = $request->user();
@@ -1078,7 +1078,7 @@ class DirectionController extends Controller
         $result->save();
         return response()->json(['success' => true, 'message' => 'Titul activated']);
     }
-    
+
     public function titulReject(Request $request,$id)
     {
         $user = $request->user();
@@ -1091,7 +1091,7 @@ class DirectionController extends Controller
         $result->save();
         return response()->json(['success' => true, 'message' => 'Titul rejected']);
     }
-    
+
     public function titulApprove(Request $request,$id)
     {
         $user = $request->user();
@@ -1121,7 +1121,7 @@ class DirectionController extends Controller
             ->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
-    
+
     public function xronomEdit(Request $request,$id)
     {
         $result = Direction::with([
@@ -1158,7 +1158,7 @@ class DirectionController extends Controller
         $result->save();
         return response()->json(['success' => true, 'message' => 'Xronometraj activated']);
     }
-    
+
     public function xronomReject(Request $request,$id)
     {
         $user = $request->user();
@@ -1201,7 +1201,7 @@ class DirectionController extends Controller
             ->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
-    
+
     public function sxemaEdit(Request $request,$id)
     {
         $result = Direction::with([
@@ -1238,7 +1238,7 @@ class DirectionController extends Controller
         $result->save();
         return response()->json(['success' => true, 'message' => 'Sxema activated']);
     }
-    
+
     public function sxemaReject(Request $request,$id)
     {
         $user = $request->user();
@@ -1281,7 +1281,7 @@ class DirectionController extends Controller
             ->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
-    
+
     public function xjadvalEdit(Request $request,$id)
     {
         $result = Direction::with([
@@ -1318,7 +1318,7 @@ class DirectionController extends Controller
         $result->save();
         return response()->json(['success' => true, 'message' => 'Schedule activated']);
     }
-    
+
     public function xjadvalReject(Request $request,$id)
     {
         $user = $request->user();
@@ -1355,14 +1355,14 @@ class DirectionController extends Controller
             ->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
-    
+
     public function dirReqEdit(Request $request,$id)
     {
         $result = Direction::with(['type'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Requirement not found']);
         }
-        return response()->json(['success' => true, 'result' => $result]);
+        return response()->json(['success' => true, 'result' => $result->requirement]);
     }
 
     public function dirReqActivate(Request $request,$id)
@@ -1380,7 +1380,7 @@ class DirectionController extends Controller
         $result->requirement->save();
         return response()->json(['success' => true, 'message' => 'Requirement activated']);
     }
-    
+
     public function dirReqReject(Request $request,$id)
     {
         $user = $request->user();
@@ -1436,7 +1436,7 @@ class DirectionController extends Controller
         }
         return response()->json(['success' => true, 'message' => 'File uploaded successfully']);
     }
-    
+
     public function sxemaFile(Request $request)
     {
         $validator = Validator::make($request->all(),[
@@ -1464,5 +1464,5 @@ class DirectionController extends Controller
         }
         return response()->json(['success' => true, 'message' => 'File uploaded successfully']);
     }
-    
+
 }
