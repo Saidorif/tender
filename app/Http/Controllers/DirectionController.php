@@ -1358,7 +1358,7 @@ class DirectionController extends Controller
     
     public function dirReqEdit(Request $request,$id)
     {
-        $result = DirectionReq::with(['type'])->find($id);
+        $result = Direction::with(['type'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Requirement not found']);
         }
