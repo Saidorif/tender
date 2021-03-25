@@ -246,7 +246,7 @@
             <router-link class="nav-link" to="/crm/oldcontract">
               <i class="peIcon fas fa-file-alt"></i>
               <p>
-                Старые котракты 
+                Старые контракты 
               </p>
             </router-link>
           </li>

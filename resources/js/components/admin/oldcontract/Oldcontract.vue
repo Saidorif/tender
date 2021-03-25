@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon fas fa-file-alt"></i>
-				    Старые котракты 
+				    Старые контракты 
 				</h4>
 				 <!-- v-if="$can('store', 'RegionController')" -->
 				<router-link class="btn btn-primary" to="/crm/oldcontract/add">
