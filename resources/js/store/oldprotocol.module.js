@@ -5,6 +5,7 @@ const state = {
 	oldprotocollist: [],
 	message: [],
 	oldprotocol: [],
+	oldprotocolfind: [],
 };
 
 const getters = {
@@ -20,10 +21,22 @@ const getters = {
 	getOldprotocol(state){
 		return state.oldprotocol
 	},
+	getOldprotocolFind(state){
+		return state.oldprotocolfind
+	},
 };
 
 
 const actions = {
+	async actionOldprotocolFind({commit},page){
+		try {
+			const oldprotocol =  await OldprotocolService.findoldprotocol(page);
+			await commit('setOldprotocolFind',oldprotocol.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionOldprotocolList({commit},page){
 		try {
 			const oldprotocol =  await OldprotocolService.oldprotocolList(page);
@@ -81,6 +94,9 @@ const actions = {
 };
 
 const mutations = {
+	setOldprotocolFind(state, oldprotocolfind){
+		state.oldprotocolfind = oldprotocolfind
+	},
 	setOldprotocolList(state, oldprotocollist){
 		state.oldprotocollist = oldprotocollist
 	},

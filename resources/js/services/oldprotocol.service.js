@@ -16,6 +16,9 @@ const OldprotocolService = {
 	updateoldprotocol(data){
 		return ApiService.post(`/api/protocol/update/${data.id}`,data.items)
 	},
+	findoldprotocol(data){
+		return ApiService.post(`/api/protocol/find`,data)
+	},
 	deleteoldprotocol(id){
 		return ApiService.delete(`/api/protocol/destroy/${id}`)
 	},
