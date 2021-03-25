@@ -47,6 +47,12 @@
 			              		:class="isRequired(form.file) ? 'isRequired' : ''"
 			              		@change="changePhoto($event)"
 		              		>
+		              		<small v-if="fileName">
+		              			<a :href="fileName" download>
+		              				<i class="fas fa-download"></i>
+		              				Скачать файл
+		              			</a>
+		              		</small>
 			          	</div>
 					  	<div class="form-group col-lg-3 form_btn">
 						  	<button type="submit" class="btn btn-primary btn_save_category">
@@ -77,7 +83,8 @@
 					file:'',
 				},
 				requiredInput:false,
-				laoding: true
+				laoding: true,
+				fileName:''
 			}
 		},
 		computed:{
@@ -102,7 +109,12 @@
 		    },
 		    changePhoto(event){
 				this.form.file = event.target.files[0];
-				
+				let file = event.target.files[0]
+		    	let reader = new FileReader();
+				reader.onload = event => {
+					this.fileName = event.target.result;
+				};
+				reader.readAsDataURL(file);
 				// if(
 				// 	event.target.files[0]['type'] ==='image/png' || 
 				// 	event.target.files[0]['type'] ==='image/jpeg' || 
