@@ -16,30 +16,44 @@ class Contract extends Model
         'date',
         'exp_date',
         'contract_period',
+        'region_id',
+        'direction_ids',
+        'protocol_id',
+        'type',
+        'file',
+    ];
+
+    protected $casts = [
+        'direction_ids' => 'array'
     ];
 
     public function lot()
     {
         return $this->belongsTo(\App\TenderLot::class,'lot_id');
     }
-    
+
     public function tender()
     {
         return $this->belongsTo(\App\Tender::class,'tender_id');
     }
-    
+
     public function app()
     {
         return $this->belongsTo(\App\Application::class,'app_id')->with('carsWith');
     }
-    
+
     public function user()
     {
         return $this->belongsTo(\App\User::class,'user_id');
     }
-    
+
     public function ball()
     {
         return $this->belongsTo(\App\ApplicationBall::class,'app_ball_id');
+    }
+
+    public function protocol()
+    {
+        return $this->belongsTo(\App\Protocol::class,'protocol_id');
     }
 }

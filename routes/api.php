@@ -270,8 +270,10 @@ Route::group([
             Route::post('setting/update','SettingController@update');
 
             //Contract
-            Route::get('contract','ContractController@index');
+            Route::post('contract','ContractController@index');
+            Route::post('contract/store','ContractController@store');
             Route::get('contract/edit/{id}','ContractController@edit');
+            Route::post('contract/update/{id}','ContractController@update');
 
             //Region CRUD
             Route::post('region', 'RegionController@index');

@@ -16,14 +16,19 @@ class CreateContractsTable extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->integer('app_id');
-            $table->integer('app_ball_id');
-            $table->integer('tender_id');
-            $table->integer('lot_id');
+            $table->integer('app_id')->nullable();
+            $table->integer('app_ball_id')->nullable();
+            $table->integer('tender_id')->nullable();
+            $table->integer('lot_id')->nullable();
+            $table->string('type')->default('new');
             $table->string('number');
             $table->date('date');
             $table->date('exp_date');
             $table->tinyInteger('contract_period');
+            $table->integer('region_id');
+            $table->string('direction_ids');
+            $table->integer('protocol_id');
+            $table->string('file');
             $table->timestamps();
         });
     }
