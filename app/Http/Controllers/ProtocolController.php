@@ -11,13 +11,13 @@ class ProtocolController extends Controller
 {
     public function index(Request $request)
     {
-        $result = Protocol::orderBy('id','DESC')->paginate(12);
+        $result = Protocol::with(['region'])->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true,'result' => $result]);
     }
 
     public function edit(Request $request,$id)
     {
-        $protocol = Protocol::find($id);
+        $protocol = Protocol::with(['region'])->find($id);
         if(!$protocol){
             return response()->json(['error' => true,'message' => 'Протокол не найден']);
         }
@@ -28,7 +28,7 @@ class ProtocolController extends Controller
     public function list(Request $request)
     {
         $user = $request->user();
-        $protocol = Protocol::where(['region_id' => $user->region_id])->orderBy('id','DESC')->get();
+        $protocol = Protocol::with(['region'])->where(['region_id' => $user->region_id])->orderBy('id','DESC')->get();
         return response()->json(['success' => true,'result' => $protocol]);
     }
 
