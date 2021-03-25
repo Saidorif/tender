@@ -89,6 +89,9 @@ const UserService = {
 	},
 	changePass(data){
 		return ApiService.post(`/api/change-password`,data);
+	},
+	userFind(data){
+		return ApiService.post(`/api/user/find`,data);
 	}
 };
 
