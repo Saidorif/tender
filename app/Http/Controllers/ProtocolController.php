@@ -60,7 +60,7 @@ class ProtocolController extends Controller
 
     public function update(Request $request,$id)
     {
-        $inputs = $request->all();
+        $inputs = $request->only('number','date');
         $validator = Validator::make($inputs,[
             'number' => 'required|string',
             'date' => 'required|string',
@@ -79,6 +79,10 @@ class ProtocolController extends Controller
         //Upload file
         if($request->hasFile('file')){
             $file = $request->file('file');
+            $ext = $file->getClientOriginalExtension();
+            if($ext != 'pdf' || $ext != 'docx' || $ext != 'xlsx'){
+                return response()->json(['error' => true, 'message' => 'File must be pdf,docx,xlsx']);
+            }
             $path = 'public/'.date('Y-m-d');
             $file_name = time().'.'.$file->getClientOriginalExtension();
             Storage::disk('local')->putFileAs($path, $file,$file_name);
