@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file-alt"></i>
-				    Изменить старый котракт
+				    Изменить старый контракт
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/oldcontract">
 					<span class="peIcon pe-7s-back"></span> 
