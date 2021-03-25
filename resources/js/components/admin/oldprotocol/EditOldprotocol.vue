@@ -48,7 +48,7 @@
 			              		@change="changePhoto($event)"
 		              		>
 		              		<small>
-		              			<a :href="photoImg(form.file)" download>
+		              			<a :href="fileName" download>
 		              				<i class="fas fa-download"></i>
 		              				Скачать файл
 		              			</a>
@@ -84,7 +84,8 @@
 					file:'',
 				},
 				requiredInput:false,
-				laoding: true
+				laoding: true,
+				fileName: '',
 			}
 		},
 		computed:{
@@ -94,19 +95,24 @@
 			await this.actionEditOldprotocol(this.$route.params.oldprotocolId)
 			this.laoding = false
 			this.form = this.getOldprotocol
+			this.fileName = this.getOldprotocol.file;
 		},
 		methods:{
 			...mapActions('oldprotocol',['actionUpdateOldprotocol','actionEditOldprotocol']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
-		    photoImg(img) {
-		    	if (this.getOldprotocol.file == this.form.file) {
-			        return this.form.file;
-		    	}
-		    },
+		    getType(obj){
+			  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+			},
 		    changePhoto(event){
 		    	this.form.file = event.target.files[0];
+		    	let file = event.target.files[0]
+		    	let reader = new FileReader();
+				reader.onload = event => {
+					this.fileName = event.target.result;
+				};
+				reader.readAsDataURL(file);
 				// let file = event.target.files[0];
 				// if(
 				// 	event.target.files[0]['type'] ==='image/png' || 
