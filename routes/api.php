@@ -53,6 +53,15 @@ Route::group([
             Route::get('carrier/edit/{id}', 'UserController@carrierEdit');
             Route::post('carrier/update/{id}', 'UserController@carrierUpdate');
 
+            //Protocol
+            Route::post('protocol','ProtocolController@index');
+            Route::post('protocol/store','ProtocolController@store');
+            Route::post('protocol/find','ProtocolController@find');
+            Route::get('protocol/list','ProtocolController@list');
+            Route::get('protocol/edit/{id}','ProtocolController@edit');
+            Route::post('protocol/update/{id}','ProtocolController@update');
+            Route::delete('protocol/destroy/{id}','ProtocolController@destroy');
+
             //Payment model
             Route::post('payment', 'PaymentController@index');
             Route::post('payment/store', 'PaymentController@store');
@@ -90,7 +99,7 @@ Route::group([
 
             // Complaint
             Route::post('complaint', 'ComplaintController@index');
-            Route::get('complaint/count', 'ComplaintController@count');            
+            Route::get('complaint/count', 'ComplaintController@count');
             Route::post('complaint/update/{id}', 'ComplaintController@update')->where('id', '[0-9]+');
             Route::get('complaint/edit/{id}', 'ComplaintController@edit')->where('id', '[0-9]+');
             // Route::delete('complaint/destroy/{id}', 'ComplaintController@destroy')->where('id', '[0-9]+');
@@ -103,7 +112,7 @@ Route::group([
             Route::get('employee/edit/{id}', 'EmployeeController@edit');
             Route::post('employee/update/{id}', 'EmployeeController@update');
             Route::delete('employee/destroy/{id}', 'EmployeeController@destroy');
-            
+
             //TarifCity CRUD
             Route::get('tarifcity', 'TarifCityController@index');
             Route::post('tarifcity/store', 'TarifCityController@store');
@@ -225,27 +234,27 @@ Route::group([
             Route::get('titul/activate/{id}', 'DirectionController@titulActivate');
             Route::get('titul/reject/{id}', 'DirectionController@titulReject');
             Route::get('titul/edit/{id}', 'DirectionController@titulEdit');
-            
+
             Route::get('xronom', 'DirectionController@xronom');
             Route::get('xronom/approve/{id}', 'DirectionController@xronomApprove');
             Route::get('xronom/activate/{id}', 'DirectionController@xronomActivate');
             Route::get('xronom/reject/{id}', 'DirectionController@xronomReject');
             Route::get('xronom/edit/{id}', 'DirectionController@xronomEdit');
             Route::post('xronom/filestore', 'DirectionController@xronomFile');
-            
+
             Route::get('sxema', 'DirectionController@sxema');
             Route::get('sxema/approve/{id}', 'DirectionController@sxemaApprove');
             Route::get('sxema/activate/{id}', 'DirectionController@sxemaActivate');
             Route::get('sxema/reject/{id}', 'DirectionController@sxemaReject');
             Route::get('sxema/edit/{id}', 'DirectionController@sxemaEdit');
             Route::post('sxema/filestore', 'DirectionController@sxemaFile');
-            
+
             Route::get('xjadval', 'DirectionController@xjadval');
             Route::get('xjadval/approve/{id}', 'DirectionController@xjadvalApprove');
             Route::get('xjadval/activate/{id}', 'DirectionController@xjadvalActivate');
             Route::get('xjadval/reject/{id}', 'DirectionController@xjadvalReject');
             Route::get('xjadval/edit/{id}', 'DirectionController@xjadvalEdit');
-            
+
             Route::get('dirreq', 'DirectionController@dirReq');
             Route::get('dirreq/edit/{id}', 'DirectionController@dirReqEdit');
             Route::get('dirreq/approve/{id}', 'DirectionController@dirReqApprove');
@@ -262,8 +271,10 @@ Route::group([
             Route::post('setting/update','SettingController@update');
 
             //Contract
-            Route::get('contract','ContractController@index');
+            Route::post('contract','ContractController@index');
+            Route::post('contract/store','ContractController@store');
             Route::get('contract/edit/{id}','ContractController@edit');
+            Route::post('contract/update/{id}','ContractController@update');
 
             //Region CRUD
             Route::post('region', 'RegionController@index');
@@ -271,7 +282,7 @@ Route::group([
             Route::get('region/edit/{id}', 'RegionController@edit');
             Route::post('region/update/{id}', 'RegionController@update');
             Route::delete('region/destroy/{id}', 'RegionController@destroy');
-            
+
             //ConditionalSignController CRUD
             Route::post('conditionalsign', 'ConditionalSignController@index');
             Route::get('conditionalsign/list', 'ConditionalSignController@list');
@@ -279,7 +290,7 @@ Route::group([
             Route::get('conditionalsign/edit/{id}', 'ConditionalSignController@edit');
             Route::post('conditionalsign/update/{id}', 'ConditionalSignController@update');
             Route::delete('conditionalsign/destroy/{id}', 'ConditionalSignController@destroy');
-            
+
             //Area CRUD
             Route::post('area', 'AreaController@index');
             Route::post('area/store', 'AreaController@store');

@@ -92,6 +92,16 @@ import Station from './components/admin/station/Station'
 import AddStation from './components/admin/station/AddStation'
 import EditStation from './components/admin/station/EditStation'
 
+// Oldprotocol
+import Oldprotocol from './components/admin/oldprotocol/Oldprotocol'
+import AddOldprotocol from './components/admin/oldprotocol/AddOldprotocol'
+import EditOldprotocol from './components/admin/oldprotocol/EditOldprotocol'
+
+// Oldcontract
+import Oldcontract from './components/admin/oldcontract/Oldcontract'
+import AddOldcontract from './components/admin/oldcontract/AddOldcontract'
+import EditOldcontract from './components/admin/oldcontract/EditOldcontract'
+
 // Client
 import Client from './components/admin/client/Client'
 import AddClient from './components/admin/client/AddClient'
@@ -454,6 +464,54 @@ const router = new Router({
 						action:'edit',
 						subject:'ActionController'
 					}
+				},
+				{
+					path:'oldprotocol',
+					component:Oldprotocol,
+					// meta:{
+					// 	action:'index',
+					// 	subject:'ActionController'
+					// }
+				},
+				{
+					path:'oldprotocol/add',
+					component:AddOldprotocol,
+					// meta:{
+					// 	action:'store',
+					// 	subject:'ActionController'
+					// }
+				},
+				{
+					path:'oldprotocol/edit/:oldprotocolId',
+					component:EditOldprotocol,
+					// meta:{
+					// 	action:'edit',
+					// 	subject:'ActionController'
+					// }
+				},
+				{
+					path:'oldcontract',
+					component:Oldcontract,
+					// meta:{
+					// 	action:'index',
+					// 	subject:'ActionController'
+					// }
+				},
+				{
+					path:'oldcontract/add',
+					component:AddOldcontract,
+					// meta:{
+					// 	action:'store',
+					// 	subject:'ActionController'
+					// }
+				},
+				{
+					path:'oldcontract/edit/:oldcontractId',
+					component:EditOldcontract,
+					// meta:{
+					// 	action:'edit',
+					// 	subject:'ActionController'
+					// }
 				},
 				{
 					path:'region',

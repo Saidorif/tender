@@ -2,7 +2,8 @@ import {UserService} from "../services/user.service";
 
 const state = {
 	message: {},
-	profile:[]
+	profile:[],
+	userfindList:[],
 };
 
 const getters = {
@@ -11,11 +12,23 @@ const getters = {
 	},
 	getProfile(state){
 		return state.profile
-	}
+	},
+	getUserfindList(state){
+		return state.userfindList
+	},
 };
 
 
 const actions = {
+	async ActionUserFind({commit}, data){
+		try {
+			let sendData = await UserService.userFind(data);
+			await commit('setUserFind',sendData.data.result)
+			return true
+		}catch(e){
+			return false
+		}
+	},
 	async ActionUpdatePassword({commit}, data){
 		try {
 			let sendData = await UserService.updatePassword(data);
@@ -69,6 +82,9 @@ const mutations = {
 	},
 	setProfile(state, data){
 		state.profile = data
+	},
+	setUserFind(state, data){
+		state.userfindList = data
 	}
 };
 

@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../daz.loc/.idea/daz.loc.iml" filepath="$PROJECT_DIR$/../daz.loc/.idea/daz.loc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../e-crm.loc/.idea/e-crm.loc.iml" filepath="$PROJECT_DIR$/../e-crm.loc/.idea/e-crm.loc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../e-test.loc/.idea/e-test.loc.iml" filepath="$PROJECT_DIR$/../e-test.loc/.idea/e-test.loc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../pcms.loc/.idea/pcms.loc.iml" filepath="$PROJECT_DIR$/../pcms.loc/.idea/pcms.loc.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/tender.loc.iml" filepath="$PROJECT_DIR$/.idea/tender.loc.iml" />
       <module fileurl="file://$PROJECT_DIR$/../tm.loc/.idea/tm.loc.iml" filepath="$PROJECT_DIR$/../tm.loc/.idea/tm.loc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../tyol.loc/.idea/tyol.loc.iml" filepath="$PROJECT_DIR$/../tyol.loc/.idea/tyol.loc.iml" />
     </modules>
   </component>
 </project>

@@ -183,7 +183,7 @@ class DirectionController extends Controller
 
     public function directionInfoForUsers(Request $request, $id)
     {
-
+        $result = [];
         return response()->json($result);
     }
 
