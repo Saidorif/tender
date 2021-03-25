@@ -28,7 +28,7 @@ class ProtocolController extends Controller
     public function find(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'number'    => 'required|string|min:3',
+            'number'    => 'required|string',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);

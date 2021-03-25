@@ -67,6 +67,7 @@ class ContractController extends Controller
         //Store cars
         if(!empty($inputs['cars'])){
             foreach ($inputs['cars'] as $car){
+                //$car['direction_id']
                 $contractCar = $car;
             }
         }
