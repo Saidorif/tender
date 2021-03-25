@@ -21,6 +21,7 @@ class Contract extends Model
         'protocol_id',
         'type',
         'file',
+        'created_by',
     ];
 
     protected $casts = [

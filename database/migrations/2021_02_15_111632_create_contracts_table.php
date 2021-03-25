@@ -16,6 +16,7 @@ class CreateContractsTable extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
+            $table->integer('created_by');
             $table->integer('app_id')->nullable();
             $table->integer('app_ball_id')->nullable();
             $table->integer('tender_id')->nullable();

@@ -27,6 +27,7 @@ class ContractController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
+            'user_id' => 'required|integer',
             'number' => 'required|string',
             'date' => 'required|date',
             'exp_date' => 'required|date',
@@ -35,6 +36,12 @@ class ContractController extends Controller
             'direction_ids.*' => 'required|integer',
             'protocol_id' => 'required|integer',
             'file' => 'required|file|mimes:pdf',
+            'cars' => 'required|array',
+            'cars.*.auto_number' => 'required|string',
+            'cars.*.bustype_id' => 'required|integer',
+            'cars.*.busmodel_id' => 'required|integer',
+            'cars.*.tclass_id' => 'required|integer',
+            'cars.*.busmarka_id' => 'required|integer',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
@@ -42,7 +49,7 @@ class ContractController extends Controller
         $user = $request->user();
         $inputs = $request->all();
         $inputs['region_id'] = $user->region_id;
-        $inputs['user_id'] = $user->id;
+        $inputs['created_by'] = $user->id;
         $inputs['type'] = 'old';
         //Upload file
         if($request->hasFile('file')){
@@ -57,6 +64,12 @@ class ContractController extends Controller
             $inputs['file'] = 'storage/'.date('Y-m-d').'/'.$file_name;
         }
         $contract = Contract::create($inputs);
+        //Store cars
+        if(!empty($inputs['cars'])){
+            foreach ($inputs['cars'] as $car){
+                $contractCar = $car;
+            }
+        }
         return response()->json(['success' => true, 'message' => 'Контракт создан']);
     }
 
@@ -67,6 +80,7 @@ class ContractController extends Controller
             return response()->json(['error' => true, 'message' => 'Контракт не найден']);
         }
         $validator = Validator::make($request->all(),[
+            'user_id' => 'required|integer',
             'number' => 'required|string',
             'date' => 'required|date',
             'exp_date' => 'required|date',
@@ -82,7 +96,7 @@ class ContractController extends Controller
         $inputs = $request->all();
         unset($inputs['file']);
         $inputs['region_id'] = $user->region_id;
-        $inputs['user_id'] = $user->id;
+        $inputs['created_by'] = $user->id;
         $inputs['type'] = 'old';
         //Upload file
         if($request->hasFile('file')){

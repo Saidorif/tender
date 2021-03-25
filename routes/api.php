@@ -56,6 +56,7 @@ Route::group([
             //Protocol
             Route::post('protocol','ProtocolController@index');
             Route::post('protocol/store','ProtocolController@store');
+            Route::post('protocol/find','ProtocolController@find');
             Route::get('protocol/list','ProtocolController@list');
             Route::get('protocol/edit/{id}','ProtocolController@edit');
             Route::post('protocol/update/{id}','ProtocolController@update');

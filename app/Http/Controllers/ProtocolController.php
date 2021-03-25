@@ -25,6 +25,23 @@ class ProtocolController extends Controller
         return response()->json(['success' => true,'result' => $protocol]);
     }
 
+    public function find(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'number'    => 'required|string|min:3',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inputs = $request->all();
+        $user = $request->user();
+        $query = Protocol::query()
+                    ->where('number','LIKE','%'.$inputs['number'].'%')
+                    ->where('region_id','=',$user->region_id);
+        $result = $query->with('region')->get();
+        return response()->json(['success' => true,'result' => $result]);
+    }
+
     public function list(Request $request)
     {
         $user = $request->user();
