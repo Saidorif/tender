@@ -47,6 +47,12 @@
 			              		:class="isRequired(form.file) ? 'isRequired' : ''"
 			              		@change="changePhoto($event)"
 		              		>
+		              		<small>
+		              			<a :href="photoImg(form.file)" download>
+		              				<i class="fas fa-download"></i>
+		              				Скачать файл
+		              			</a>
+		              		</small>
 			          	</div>
 					  	<div class="form-group col-lg-3 form_btn">
 						  	<button type="submit" class="btn btn-primary btn_save_category">
@@ -63,13 +69,16 @@
 <script>
 	import { mapGetters , mapActions } from 'vuex'
 	import Loader from '../../Loader'
+	import DatePicker from "vue2-datepicker";
 	export default{
 		components:{
-			Loader
+			Loader,
+			DatePicker,
 		},
 		data(){
 			return{
 				form:{
+					id:'',
 					number:'',
 					date:'',
 					file:'',
@@ -92,13 +101,9 @@
 	    		return this.requiredInput && input === '';
 		    },
 		    photoImg(img) {
-		    	// if (img) {
-			    //   if (img.length > 100) {
-			    //     return img;
-			    //   } else {
-			    //     return '/offer/'+img;
-			    //   }
-		    	// }
+		    	if (this.getOldprotocol.file == this.form.file) {
+			        return this.form.file;
+		    	}
 		    },
 		    changePhoto(event){
 		    	this.form.file = event.target.files[0];
@@ -137,7 +142,11 @@
 					formData.append('number',this.form.number)
 		    		formData.append('date',this.form.date)
 		    		formData.append('file',this.form.file)
-					await this.actionUpdateOldprotocol(formData)
+		    		let data = {
+		    			id:this.form.id,
+		    			items:formData
+		    		}
+					await this.actionUpdateOldprotocol(data)
 					if (this.getMassage.success) {
 						toast.fire({
 					    	type: 'success',
