@@ -8,7 +8,7 @@
 				    Добавить старый контракт
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/oldcontract">
-					<span class="peIcon pe-7s-back"></span> 
+					<span class="peIcon pe-7s-back"></span>
 					Назад
 				</router-link>
 		  	</div>
@@ -17,13 +17,13 @@
 					<div class="row">
 					  	<div class="form-group col-md-3">
 						    <label for="number">Номер контракта</label>
-						    <input 
-						    	type="text" 
-						    	class="form-control input_style" 
-						    	id="number" 
+						    <input
+						    	type="text"
+						    	class="form-control input_style"
+						    	id="number"
 						    	placeholder="Номер контракта"
 						    	v-model="form.number"
-						    	:class="isRequired(form.number) ? 'isRequired' : ''"  
+						    	:class="isRequired(form.number) ? 'isRequired' : ''"
 					    	>
 					  	</div>
 					  	<div class="form-group col-md-3">
@@ -109,11 +109,11 @@
 			          	</div>
 					  	<div class="form-group col-md-4">
 			              	<label for="date">Файл</label>
-			              	<input 
-			              		type="file" 
-			              		name="file"  
-			              		id="file" 
-			              		class="form-control input_style"  
+			              	<input
+			              		type="file"
+			              		name="file"
+			              		id="file"
+			              		class="form-control input_style"
 			              		:class="isRequired(form.file) ? 'isRequired' : ''"
 			              		@change="changePhoto($event)"
 		              		>
@@ -140,8 +140,8 @@
 								selectLabel="Нажмите Enter, чтобы выбрать"
 								deselectLabel="Нажмите Enter, чтобы удалить"
 								:option="[{name: 'Otash', id: 1}]"
-								@select="dispatchAction"
 								@remove="removeDirect"
+                                :multiple="true"
 								>
 								<span slot="noResult">По вашему запросу ничего не найдено</span>
 								<span slot="noOptions">Cписок пустой</span>
@@ -155,7 +155,7 @@
 						  	<button type="submit" class="btn btn-primary">
 						  		<i class="fas fa-save"></i>
 							  	Сохранить
-							</button>	
+							</button>
 				  	  	</div>
 					</div>
 				</form>
@@ -188,7 +188,7 @@
 				},
 				direction_ids:{},
 				protocol_values: {},
-				directionvalues: {},
+				directionvalues: null,
 				user_values: {},
 				findDirectionList: [],
 				findProtocolList: [],
@@ -201,6 +201,11 @@
 				fileName: '',
 			}
 		},
+        watch:{
+            directionvalues: function(newQuestion, oldQuestion){
+                this.form.direction_ids = newQuestion.map(item => item.id);
+            },
+        },
 		computed:{
 			...mapGetters('oldcontract',[
 				'getMassage',
@@ -245,10 +250,6 @@
 		    	this.form.direction_ids=[]
 		    	this.direction_ids={}
 				this.findDirectionList = []
-		    },
-		    async dispatchAction(data){
-				this.directionvalues = data;
-				this.form.direction_ids = data.id;
 		    },
 			removeProtocol(){
 		    	this.form.protocol_id=''
@@ -340,5 +341,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>
