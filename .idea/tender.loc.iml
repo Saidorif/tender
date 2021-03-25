@@ -117,5 +117,10 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="tm.loc" />
+    <orderEntry type="module" module-name="e-test.loc" />
+    <orderEntry type="module" module-name="e-crm.loc" />
+    <orderEntry type="module" module-name="daz.loc" />
+    <orderEntry type="module" module-name="tyol.loc" />
+    <orderEntry type="module" module-name="pcms.loc" />
   </component>
 </module>
