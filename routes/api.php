@@ -54,7 +54,7 @@ Route::group([
             Route::post('carrier/update/{id}', 'UserController@carrierUpdate');
 
             //Protocol
-            Route::get('protocol','ProtocolController@index');
+            Route::post('protocol','ProtocolController@index');
             Route::post('protocol/store','ProtocolController@store');
             Route::get('protocol/list','ProtocolController@list');
             Route::get('protocol/edit/{id}','ProtocolController@edit');
