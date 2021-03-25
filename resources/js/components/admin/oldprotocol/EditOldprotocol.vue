@@ -47,6 +47,12 @@
 			              		:class="isRequired(form.file) ? 'isRequired' : ''"
 			              		@change="changePhoto($event)"
 		              		>
+		              		<small>
+		              			<a :href="fileName" download>
+		              				<i class="fas fa-download"></i>
+		              				Скачать файл
+		              			</a>
+		              		</small>
 			          	</div>
 					  	<div class="form-group col-lg-3 form_btn">
 						  	<button type="submit" class="btn btn-primary btn_save_category">
@@ -63,19 +69,23 @@
 <script>
 	import { mapGetters , mapActions } from 'vuex'
 	import Loader from '../../Loader'
+	import DatePicker from "vue2-datepicker";
 	export default{
 		components:{
-			Loader
+			Loader,
+			DatePicker,
 		},
 		data(){
 			return{
 				form:{
+					id:'',
 					number:'',
 					date:'',
 					file:'',
 				},
 				requiredInput:false,
-				laoding: true
+				laoding: true,
+				fileName: '',
 			}
 		},
 		computed:{
@@ -85,23 +95,24 @@
 			await this.actionEditOldprotocol(this.$route.params.oldprotocolId)
 			this.laoding = false
 			this.form = this.getOldprotocol
+			this.fileName = this.getOldprotocol.file;
 		},
 		methods:{
 			...mapActions('oldprotocol',['actionUpdateOldprotocol','actionEditOldprotocol']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
-		    photoImg(img) {
-		    	// if (img) {
-			    //   if (img.length > 100) {
-			    //     return img;
-			    //   } else {
-			    //     return '/offer/'+img;
-			    //   }
-		    	// }
-		    },
+		    getType(obj){
+			  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+			},
 		    changePhoto(event){
 		    	this.form.file = event.target.files[0];
+		    	let file = event.target.files[0]
+		    	let reader = new FileReader();
+				reader.onload = event => {
+					this.fileName = event.target.result;
+				};
+				reader.readAsDataURL(file);
 				// let file = event.target.files[0];
 				// if(
 				// 	event.target.files[0]['type'] ==='image/png' || 
@@ -137,7 +148,11 @@
 					formData.append('number',this.form.number)
 		    		formData.append('date',this.form.date)
 		    		formData.append('file',this.form.file)
-					await this.actionUpdateOldprotocol(formData)
+		    		let data = {
+		    			id:this.form.id,
+		    			items:formData
+		    		}
+					await this.actionUpdateOldprotocol(data)
 					if (this.getMassage.success) {
 						toast.fire({
 					    	type: 'success',

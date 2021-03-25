@@ -19,19 +19,23 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
+							<th scope="col">Регион</th>
+							<th scope="col">Номер протокола</th>
+							<th scope="col">Сана</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="(reg,index) in getOldprotocols.data">
-							<td scope="row">{{reg.id}}</td>
-							<td>{{reg.name}}</td>
+						<tr v-for="(item,index) in getOldprotocols.data">
+							<td scope="row">{{item.id}}</td>
+							<td>{{item.region ? item.region.name : ''}}</td>
+							<td>{{item.number}}</td>
+							<td>{{item.date}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/oldprotocol/edit/${reg.id}`'>
+								<router-link tag="button" class="btn_transparent" :to='`/crm/oldprotocol/edit/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteOldprotocol(reg.id)">
+								<button class="btn_transparent" @click="deleteOldprotocol(item.id)">
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>
