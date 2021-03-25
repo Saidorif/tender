@@ -32,7 +32,7 @@ class UserController extends Controller
     public function find(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'    => 'required|string|min:3',
+            'name'    => 'required|string',
         ]);
 
         if($validator->fails()){
