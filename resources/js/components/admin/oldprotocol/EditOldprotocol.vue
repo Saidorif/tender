@@ -101,38 +101,43 @@
 		    	// }
 		    },
 		    changePhoto(event){
-				let file = event.target.files[0];
-				if(
-					event.target.files[0]['type'] ==='image/png' || 
-					event.target.files[0]['type'] ==='image/jpeg' || 
-					event.target.files[0]['type'] ==='image/jpg'
-				){
-					if (file.size > 1048576) {
-						swal.fire({
-							type: 'error',
-							title: 'Ошибка',
-							text:'Размер изображения больше лимита',
-						})
-					}else{
-						let reader = new FileReader();
-						reader.onload = event => {
-							this.form.file = event.target.result;
-						};
-						reader.readAsDataURL(file);
+		    	this.form.file = event.target.files[0];
+				// let file = event.target.files[0];
+				// if(
+				// 	event.target.files[0]['type'] ==='image/png' || 
+				// 	event.target.files[0]['type'] ==='image/jpeg' || 
+				// 	event.target.files[0]['type'] ==='image/jpg'
+				// ){
+				// 	if (file.size > 1048576) {
+				// 		swal.fire({
+				// 			type: 'error',
+				// 			title: 'Ошибка',
+				// 			text:'Размер изображения больше лимита',
+				// 		})
+				// 	}else{
+				// 		let reader = new FileReader();
+				// 		reader.onload = event => {
+				// 			this.form.file = event.target.result;
+				// 		};
+				// 		reader.readAsDataURL(file);
 						
-					}
-				}else{
-					swal.fire({
-						type: 'error',
-						title: 'Ошибка',
-						text:'Картинка должна быть только png,jpg,jpeg!',
-					})
-				}
+				// 	}
+				// }else{
+				// 	swal.fire({
+				// 		type: 'error',
+				// 		title: 'Ошибка',
+				// 		text:'Картинка должна быть только png,jpg,jpeg!',
+				// 	})
+				// }
 			},
 			async saveOldprotocol(){
 		    	if (this.form.number != '' && this.form.date != '' && this.form.file != ''){
 					this.laoding = true
-					await this.actionUpdateOldprotocol(this.form)
+					let formData = new FormData();
+					formData.append('number',this.form.number)
+		    		formData.append('date',this.form.date)
+		    		formData.append('file',this.form.file)
+					await this.actionUpdateOldprotocol(formData)
 					if (this.getMassage.success) {
 						toast.fire({
 					    	type: 'success',
