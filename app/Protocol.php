@@ -13,4 +13,14 @@ class Protocol extends Model
         'date',
         'file'
     ];
+
+    public function region()
+    {
+        return $this->belongsTo(\App\Region::class,'region_id');
+    }
+
+    public function creater()
+    {
+        return $this->belongsTo(\App\User::class,'created_by');
+    }
 }

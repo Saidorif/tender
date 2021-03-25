@@ -11,13 +11,13 @@ class ProtocolController extends Controller
 {
     public function index(Request $request)
     {
-        $result = Protocol::orderBy('id','DESC')->paginate(12);
+        $result = Protocol::with(['region'])->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true,'result' => $result]);
     }
 
     public function edit(Request $request,$id)
     {
-        $protocol = Protocol::find($id);
+        $protocol = Protocol::with(['region'])->find($id);
         if(!$protocol){
             return response()->json(['error' => true,'message' => 'Протокол не найден']);
         }
@@ -28,7 +28,7 @@ class ProtocolController extends Controller
     public function list(Request $request)
     {
         $user = $request->user();
-        $protocol = Protocol::where(['region_id' => $user->region_id])->orderBy('id','DESC')->get();
+        $protocol = Protocol::with(['region'])->where(['region_id' => $user->region_id])->orderBy('id','DESC')->get();
         return response()->json(['success' => true,'result' => $protocol]);
     }
 
@@ -60,7 +60,7 @@ class ProtocolController extends Controller
 
     public function update(Request $request,$id)
     {
-        $inputs = $request->all();
+        $inputs = $request->only('number','date');
         $validator = Validator::make($inputs,[
             'number' => 'required|string',
             'date' => 'required|string',
@@ -79,6 +79,10 @@ class ProtocolController extends Controller
         //Upload file
         if($request->hasFile('file')){
             $file = $request->file('file');
+            $ext = $file->getClientOriginalExtension();
+            if($ext != 'pdf' || $ext != 'docx' || $ext != 'xlsx'){
+                return response()->json(['error' => true, 'message' => 'File must be pdf,docx,xlsx']);
+            }
             $path = 'public/'.date('Y-m-d');
             $file_name = time().'.'.$file->getClientOriginalExtension();
             Storage::disk('local')->putFileAs($path, $file,$file_name);
