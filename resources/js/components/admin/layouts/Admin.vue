@@ -241,6 +241,15 @@
               </p>
             </router-link>
           </li>
+           <!-- v-if="$can('index', 'PaymentController')" -->
+          <li class="nav-item">
+            <router-link class="nav-link" to="/crm/oldcontract">
+              <i class="peIcon fas fa-file-alt"></i>
+              <p>
+                Старые котракты 
+              </p>
+            </router-link>
+          </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/crm/setting">
               <i class="peIcon fas fa-cog"></i>
