@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ContractCar;
 use Illuminate\Http\Request;
 use App\Contract;
 use Illuminate\Support\Facades\Storage;
@@ -11,13 +12,13 @@ class ContractController extends Controller
 {
     public function index(Request $request)
     {
-        $contracts = Contract::orderBy('id','DESC')->with('user')->paginate(12);
+        $contracts = Contract::orderBy('id','DESC')->with(['user','cars'])->paginate(12);
         return response()->json(['success' => true, 'result' => $contracts]);
     }
 
     public function edit(Request $request,$id)
     {
-        $contract = Contract::with(['user','lot','app'])->find($id);
+        $contract = Contract::with(['user','lot','app','cars'])->find($id);
         if(!$contract){
             return response()->json(['error' => true, 'message' => 'Контракт не найден']);
         }
@@ -67,8 +68,9 @@ class ContractController extends Controller
         //Store cars
         if(!empty($inputs['cars'])){
             foreach ($inputs['cars'] as $car){
-                //$car['direction_id']
-                $contractCar = $car;
+                $car['contract_id'] = $contract->id;
+                $car['user_id'] = $inputs['user_id'];
+                $contractCar = ContractCar::create($car);
             }
         }
         return response()->json(['success' => true, 'message' => 'Контракт создан']);
@@ -89,6 +91,12 @@ class ContractController extends Controller
             'direction_ids' => 'required|array',
             'direction_ids.*' => 'required|integer',
             'protocol_id' => 'required|integer',
+            'cars' => 'required|array',
+            'cars.*.auto_number' => 'required|string',
+            'cars.*.bustype_id' => 'required|integer',
+            'cars.*.busmodel_id' => 'required|integer',
+            'cars.*.tclass_id' => 'required|integer',
+            'cars.*.busmarka_id' => 'required|integer',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
@@ -112,6 +120,32 @@ class ContractController extends Controller
             $inputs['file'] = 'storage/'.date('Y-m-d').'/'.$file_name;
         }
         $contract->update($inputs);
+        //Store cars
+        if(!empty($inputs['cars'])){
+            foreach ($inputs['cars'] as $car){
+                $car['contract_id'] = $contract->id;
+                $car['user_id'] = $inputs['user_id'];
+                if(!empty($car['id'])){
+                    $contractCar = ContractCar::find($car['id']);
+                    if($contractCar){
+                        $contractCar->update($car);
+                    }
+                }else{
+                    $contractCar = ContractCar::create($car);
+                }
+            }
+        }
         return response()->json(['success' => true, 'message' => 'Контракт обновлен']);
+    }
+
+    public function destroy(Request $request,$id)
+    {
+        $contract = Contract::find($id);
+        if(!$contract){
+            return response()->json(['error' => true, 'message' => 'Контракт не найден']);
+        }
+        $contract->cars()->delete();
+        $contract->delete();
+        return response()->json(['success' => true, 'message' => 'Контракт удален']);
     }
 }

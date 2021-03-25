@@ -57,4 +57,9 @@ class Contract extends Model
     {
         return $this->belongsTo(\App\Protocol::class,'protocol_id');
     }
+
+    public function cars()
+    {
+        return $this->hasMany(\App\ContractCar::class,'contract_id')->with(['bustype','busmodel','busmarka','tclass','user']);
+    }
 }
