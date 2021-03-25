@@ -2,22 +2,22 @@ import ApiService from './api.service'
 
 const OldprotocolService = {
 	oldprotocolList(){
-		return ApiService.get(`/api/oldprotocol/list`)
+		return ApiService.get(`/api/protocol/list`)
 	},
 	alloldprotocols(page){
-		return ApiService.post(`/api/oldprotocol?page=${page}`)
+		return ApiService.post(`/api/protocol?page=${page}`)
 	},
 	addoldprotocol(data){
-		return ApiService.post(`/api/oldprotocol/store`,data)
+		return ApiService.post(`/api/protocol/store`,data)
 	},
 	editoldprotocol(id){
-		return ApiService.get(`/api/oldprotocol/edit/${id}`)
+		return ApiService.get(`/api/protocol/edit/${id}`)
 	},
 	updateoldprotocol(data){
-		return ApiService.post(`/api/oldprotocol/update/${data.id}`,data)
+		return ApiService.post(`/api/protocol/update/${data.id}`,data)
 	},
 	deleteoldprotocol(id){
-		return ApiService.delete(`/api/oldprotocol/destroy/${id}`)
+		return ApiService.delete(`/api/protocol/destroy/${id}`)
 	},
 };
 
