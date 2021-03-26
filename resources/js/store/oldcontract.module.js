@@ -78,6 +78,15 @@ const actions = {
 			return false
 		}
 	},
+	async actionDeleteOldcontractCar({commit},id){
+		try {
+			const oldcontract =  await OldcontractService.deleteoldcontractcar(id);
+			await commit('setMessage',oldcontract.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 };
 
 const mutations = {

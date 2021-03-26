@@ -19,6 +19,9 @@ const OldcontractService = {
 	deleteoldcontract(id){
 		return ApiService.delete(`/api/contract/destroy/${id}`)
 	},
+	deleteoldcontractcar(id){
+		return ApiService.delete(`/api/contract/car-destroy/${id}`)
+	},
 };
 
 export { OldcontractService };

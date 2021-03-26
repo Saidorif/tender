@@ -331,7 +331,20 @@
 			await this.actionEditOldcontract(this.$route.params.oldcontractId)
 			this.form = this.getOldcontract
 			this.user_values = this.getOldcontract.user
+			this.protocol_values = this.getOldcontract.protocol
 			this.cars = this.getOldcontract.cars
+			if(this.cars.length == 0){
+				this.cars = [{
+					bustype_id:'',
+					busmarka_id:'',
+					busmodel_id:'',
+					tclass_id:'',
+				   	auto_number:'',
+				}]
+			}
+			this.directionvalues = this.getOldcontract.direction_ids.map((item,index)=>{
+				return item
+			})
 			this.getOldcontract.cars.forEach(async (car,index)=>{
 				if (car){
 		    		let data = {
@@ -359,6 +372,7 @@
 				'actionEditOldcontract',
 				'actionUpdateOldcontract',
 				'actionOldprotocolFind',
+				'actionDeleteOldcontractCar',
 			]),
 			...mapActions('oldprotocol',[
 				'actionOldprotocolFind',
@@ -384,9 +398,24 @@
 					}
 				}
 			},
-			removeCarFromServer(id){
+			async removeCarFromServer(id){
 				if(confirm("Вы действительно хотите удалить?")){
-					console.log(id)
+					await this.actionDeleteOldcontractCar(id)
+					await this.actionEditOldcontract(this.$route.params.oldcontractId)
+					this.cars = this.getOldcontract.cars
+					this.getOldcontract.cars.forEach(async (car,index)=>{
+						if (car){
+				    		let data = {
+				    			'bustype_id':car.bustype_id,
+		                    }
+		                    this.laoding = true
+		                    await this.actionBusclassFind(data)
+		                    car.getBusclassFindList = this.getBusclassFindList
+			                await this.actionBusmodelFindList(car);
+			                this.laoding = false
+			                car.getBusmodelFindList = this.getBusmodelFindList
+				    	}
+					})
 				}
 			},
 			async selectClass(car){
