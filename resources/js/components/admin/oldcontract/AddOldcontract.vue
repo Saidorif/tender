@@ -72,7 +72,7 @@
 								<span slot="noOptions">Cписок пустой</span>
 							</multiselect>
 				  	    </div>
-			          	<div class="form-group col-md-4">
+			          	<div class="form-group col-md-3">
 						    <label for="protocol_id">Протокол рақами</label>
 						    <multiselect
 								:value="protocol_values"
@@ -96,7 +96,7 @@
 								<span slot="noOptions">Cписок пустой</span>
 							</multiselect>
 				  	    </div>
-					  	<div class="form-group col-md-4">
+					  	<div class="form-group col-md-3">
 			              	<label for="contract_period">Контракт периоди</label>
 			              	<select class="form-control input_style" v-model="form.contract_period">
 			              		<option value="" selected disabled>Контракт периоди танланг!</option>
@@ -107,7 +107,7 @@
 			              		<option value="5">5 йил</option>
 			              	</select>
 			          	</div>
-					  	<div class="form-group col-md-4">
+					  	<div class="form-group col-md-3">
 			              	<label for="date">Файл</label>
 			              	<input
 			              		type="file"
@@ -124,14 +124,14 @@
 		              			</a>
 		              		</small>
 			          	</div>
-			          	<div class="form-group col-md-6">
-						    <label for="marshrut">Йўналиш рақами ва номи</label>
+			          	<div class="form-group col-md-3">
+						    <label for="marshrut">Направления</label>
 						    <multiselect
 								:value="directionvalues"
 								:options="findDirectionList"
 								@search-change="value => findDirection(value)"
 								v-model="directionvalues"
-		                        placeholder="Йўналиш рақами ва номи"
+		                        placeholder="Направления"
 		                        :searchable="true"
 		                        track-by="id"
 		                        label="name"
@@ -147,10 +147,93 @@
 								<span slot="noOptions">Cписок пустой</span>
 							</multiselect>
 				  		</div>
-					  	<div class="form-group col-lg-12 d-flex justify-content-end">
-						  	<button type="button" class="btn btn-info mr-3" @click.prevent="addDirection">
+				  		<div class="ml-3 d-flex justify-content-center w-100 border pt-2 mb-4">
+							<h4>Мои автомобили</h4>
+						</div>
+					  	<div class="form-group col-lg-12">
+					  		<div class="row" v-for="(car,index) in cars">
+					        	<div class="item_index">
+					        		{{index+1}})
+				        		</div>
+					        	<div class="form-group col-md-1">
+								    <label for="auto_number">Номер Авто</label>
+								    <input
+								    	type="text"
+								    	class="form-control input_style"
+								    	id="auto_number"
+								    	v-mask="'********'"
+								    	placeholder="Авто №"
+								    	v-model="car.auto_number"
+								    	:class="isRequired(car.auto_number) ? 'isRequired' : ''"
+							    	>
+							  	</div>
+							  	<div class="form-group col-md-3">
+								    <label for="bustype_id">Категория Авто</label>
+								    <select
+									    class="form-control input_style"
+								    	id="bustype_id"
+								    	placeholder="Номер Авто"
+								    	v-model="car.bustype_id"
+								    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''"
+			                            @change="selectClass(car)"
+								    >
+								    	<option value="" selected disabled>Выберите категорию авто!</option>
+								    	<option
+								    		:value="busType.id"
+								    		v-for="(busType,index) in getTypeofbusList"
+								    		data-toggle="tooltip" data-placement="right" title="Tooltip on right"
+							    		>{{busType.name}}</option>
+								    </select>
+							  	</div>
+			                    <div class="form-group col-md-2">
+								    <label for="tclass_id">Класс Авто</label>
+								    <select
+									    class="form-control input_style"
+								    	id="tclass_id"
+								    	placeholder="Номер Авто"
+								    	v-model="car.tclass_id"
+								    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
+								    >
+								    	<option value="" selected disabled>Выберите класс авто!</option>
+								    	<option :value="busClass.id" v-for="(busClass,index) in car.getBusclassFindList">{{busClass.name}}</option>
+								    </select>
+							  	</div>
+							  	<div class="form-group col-md-2">
+								    <label for="busmarka_id">Марка Авто</label>
+								    <select
+									    class="form-control input_style"
+								    	id="busmarka_id"
+								    	placeholder="Номер Авто"
+								    	v-model="car.busmarka_id"
+								    	:class="isRequired(car.busmarka_id) ? 'isRequired' : ''"
+								    	@change="selectCarMarka(car)"
+								    >
+								    	<option value="" selected disabled>Выберите марку авто!</option>
+								    	<option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
+								    </select>
+							  	</div>
+							  	<div class="form-group col-md-2">
+								    <label for="busmodel_id">Модель Авто</label>
+								    <select
+									    class="form-control input_style"
+								    	id="busmodel_id"
+								    	placeholder="Номер Авто"
+								    	v-model="car.busmodel_id"
+								    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
+								    >
+								    	<option value="" selected disabled>Выберите модель авто!</option>
+								    	<option :value="item.id" v-for="(item,index) in car.getBusmodelFindList">{{item.name}}</option>
+								    </select>
+							  	</div>
+							  	<div class="form-group col-md-1 trash_car_item" @click.prevent="removeCarItem(index)" v-if="index!=0">
+							  		<i class="fas fa-trash-alt"></i>
+							  	</div>	
+					        </div>
+				  	  	</div>
+					  	<div class="form-group col-lg-12 d-flex justify-content-end align-items-center">
+						  	<button type="button" class="btn btn-info mr-3" @click.prevent="addCarItem">
 						  		<i class="fas fa-plus"></i>
-							  	Добавить направление
+							  	Добавить авто
 							</button>
 						  	<button type="submit" class="btn btn-primary">
 						  		<i class="fas fa-save"></i>
@@ -181,11 +264,21 @@
 					date:'',
 					exp_date:'',
 					direction_ids:[],
+					cars:[],
 					protocol_id:'',
 					user_id:'',
 					contract_period:'',
 					file:'',
 				},
+				cars:[
+					{
+						bustype_id:'',
+						busmarka_id:'',
+						busmodel_id:'',
+						tclass_id:'',
+					   	auto_number:'',
+					},
+				],
 				direction_ids:{},
 				protocol_values: {},
 				directionvalues: null,
@@ -207,6 +300,10 @@
             },
         },
 		computed:{
+			...mapGetters('typeofbus',['getTypeofbusList']),
+            ...mapGetters('busmodel',['getBusmodelList', 'getBusmodelFindList']),
+			...mapGetters('busclass',['getBusclassFindList']),
+            ...mapGetters("busbrand", ["getBusBrandList"]),
 			...mapGetters('oldcontract',[
 				'getMassage',
 				'getOldprotocolFind',
@@ -221,10 +318,17 @@
 				'getDirectionFindList',
 			]),
 		},
-		mounted(){
+		async mounted(){
+			await this.actionTypeofbusList()
+			await this.actionBusmodelList()
+            await this.actionBusBrandList()
 			this.laoding = false
 		},
 		methods:{
+			...mapActions('typeofbus',['actionTypeofbusList']),
+			...mapActions('busmodel',['actionBusmodelList', 'actionBusmodelListByBrand', 'actionBusmodelFindList']),
+			...mapActions('busclass',['actionBusclassFind']),
+            ...mapActions("busbrand",["actionBusBrandList"]),
 			...mapActions('oldcontract',[
 				'actionAddOldcontract',
 				'actionOldprotocolFind',
@@ -236,6 +340,44 @@
 				'ActionUserFind',
 			]),
 			...mapActions('direction',['actionDirectionFind']),
+			addCarItem(){
+				let car = {
+					bustype_id:'',
+					busmarka_id:'',
+					busmodel_id:'',
+					tclass_id:'',
+				   	auto_number:'',
+				}
+				this.cars.push(car)
+			},
+			removeCarItem(index){
+				if(index != 0){
+					if(confirm("Вы действительно хотите удалить?")){
+						Vue.delete(this.cars,index)
+					}
+				}
+			},
+			async selectClass(car){
+		    	car.tclass_id = ''
+		    	car.busmarka_id = ''
+		    	car.busmodel_id = ''
+		    	if (car) {
+		    		let data = {
+		    			'bustype_id':car.bustype_id,
+                    }
+                    this.laoding = true
+                    await this.actionBusclassFind(data)
+                    car.getBusclassFindList = this.getBusclassFindList
+                    this.laoding = false
+		    	}
+		    },
+		    async selectCarMarka(car){
+                car.busmodel_id = ''
+                this.laoding = true
+                await this.actionBusmodelFindList(car);
+                this.laoding = false
+                car.getBusmodelFindList = this.getBusmodelFindList
+            },
 		    async findDirection(value){
 		      if(value != ''){
 		        this.isDirectionLoading = true
@@ -301,38 +443,66 @@
 			    //   }
 		    	// }
 		    },
-		    addDirection(){
-
-		    },
 		    changePhoto(event){
-				this.form.file = event.target.files[0];
-				let file = event.target.files[0]
-		    	let reader = new FileReader();
-				reader.onload = event => {
-					this.fileName = event.target.result;
-				};
-				reader.readAsDataURL(file);
+		      	if (event.target.files[0]["type"] === "application/pdf"){
+					let file = event.target.files[0]
+			    	this.form.file = event.target.files[0];
+			        let reader = new FileReader();
+					reader.onload = event => {
+						this.fileName = event.target.result;
+					};
+					reader.readAsDataURL(file);
+		      	}else{
+			        swal.fire({
+		          		type: "error",
+		          		icon: "error",
+		          		title: "Ошибка",
+		          		text: "Картинка должна быть только pdf!"
+			        });
+		      		this.form.file = ''
+		      	}
 			},
 			async saveOldcontract(){
-		    	if (this.form.number != '' && this.form.date != '' && this.form.file != ''){
-		    		let formData = new FormData();
-		    		formData.append('number',this.form.number)
-		    		formData.append('date',this.form.date)
-		    		formData.append('file',this.form.file)
+		    	if (this.form.number != '' && this.form.date != '' && this.form.file != '' && this.form.contract_period != '' && this.form.user_id != '' && this.form.protocol_id != '' && this.form.exp_date != ''){
+		    		if(this.form.direction_ids.length > 0){
+			    		let formData = new FormData();
+			    		formData.append('number',this.form.number)
+			    		formData.append('date',this.form.date)
+			    		formData.append('exp_date',this.form.exp_date)
+			    		formData.append('protocol_id',this.form.protocol_id)
+			    		formData.append('user_id',this.form.user_id)
+			    		formData.append('file',this.form.file)
+			    		formData.append('contract_period',this.form.contract_period)
+			    		this.form.direction_ids.forEach((item,index)=>{
+				    		formData.append('direction_ids['+index+"]",item)
+			    		})
+			    		this.cars.forEach((item,index)=>{
+				    		formData.append('cars['+index+"][bustype_id]",item.bustype_id)
+				    		formData.append('cars['+index+"][busmarka_id]",item.busmarka_id)
+				    		formData.append('cars['+index+"][busmodel_id]",item.busmodel_id)
+				    		formData.append('cars['+index+"][tclass_id]",item.tclass_id)
+				    		formData.append('cars['+index+"][auto_number]",item.auto_number)
+			    		})
 
-
-					this.laoding = true
-					await this.actionAddOldcontract(formData)
-					if(this.getMassage.success){
+						this.laoding = true
+						await this.actionAddOldcontract(formData)
+						if(this.getMassage.success){
+							toast.fire({
+						    	type: 'success',
+						    	icon: 'success',
+								title: this.getMassage.message,
+						    })
+							this.$router.push("/crm/oldcontract");
+							this.requiredInput = false
+						}
+						this.laoding = false
+		    		}else{
 						toast.fire({
-					    	type: 'success',
-					    	icon: 'success',
-							title: this.getMassage.message,
-					    })
-						this.$router.push("/crm/oldcontract");
-						this.requiredInput = false
-					}
-					this.laoding = false
+							type: "error",
+							icon: "error",
+							title: 'Выберите направление!'
+					 	});		    			
+		    		}
 				}else{
 					this.requiredInput = true
 				}
@@ -341,5 +511,17 @@
 	}
 </script>
 <style scoped>
-
+	.btn_save{
+		margin-top: 40px;
+	}
+	.item_index{
+	    margin: 30px 0 0 30px;
+    	font-size: 23px;
+	}
+	.trash_car_item{
+		margin: 30px 0 0 30px;
+    	font-size: 23px;
+    	color:#c73838;
+    	cursor:pointer;
+	}
 </style>
