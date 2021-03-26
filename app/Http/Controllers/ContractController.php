@@ -12,13 +12,13 @@ class ContractController extends Controller
 {
     public function index(Request $request)
     {
-        $contracts = Contract::orderBy('id','DESC')->with(['user','cars'])->paginate(12);
+        $contracts = Contract::orderBy('id','DESC')->with(['user','cars','protocol','region'])->paginate(12);
         return response()->json(['success' => true, 'result' => $contracts]);
     }
 
     public function edit(Request $request,$id)
     {
-        $contract = Contract::with(['user','lot','app','cars'])->find($id);
+        $contract = Contract::with(['user','cars','protocol','region'])->find($id);
         if(!$contract){
             return response()->json(['error' => true, 'message' => 'Контракт не найден']);
         }
@@ -147,5 +147,15 @@ class ContractController extends Controller
         $contract->cars()->delete();
         $contract->delete();
         return response()->json(['success' => true, 'message' => 'Контракт удален']);
+    }
+
+    public function carDestroy(Request $request,$id)
+    {
+        $contractCar = ContractCar::find($id);
+        if(!$contractCar){
+            return response()->json(['error' => true, 'message' => 'Автомобиль не найден']);
+        }
+        $contractCar->delete();
+        return response()->json(['success' => true, 'message' => 'Автомобиль удален']);
     }
 }
