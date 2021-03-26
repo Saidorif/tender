@@ -58,8 +58,24 @@ class Contract extends Model
         return $this->belongsTo(\App\Protocol::class,'protocol_id');
     }
 
+    public function region()
+    {
+        return $this->belongsTo(\App\Region::class,'region_id');
+    }
+
     public function cars()
     {
         return $this->hasMany(\App\ContractCar::class,'contract_id')->with(['bustype','busmodel','busmarka','tclass','user']);
+    }
+
+    public function getDirectionIdsAttribute($value)
+    {
+        $d_ids = json_decode($value,true);
+        $result = [];
+        foreach ($d_ids as $key => $id) {
+            $direction = Direction::where(['id' => $id])->with('type')->first();
+            $result[] = $direction;
+        }
+        return $result;
     }
 }

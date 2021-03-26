@@ -276,6 +276,7 @@ Route::group([
             Route::get('contract/edit/{id}','ContractController@edit');
             Route::post('contract/update/{id}','ContractController@update');
             Route::delete('contract/destroy/{id}','ContractController@destroy');
+            Route::delete('contract/car-destroy/{id}','ContractController@carDestroy');
 
             //Region CRUD
             Route::post('region', 'RegionController@index');
