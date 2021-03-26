@@ -20,8 +20,13 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Регион</th>
-							<th scope="col">Номер протокола</th>
-							<th scope="col">Сана</th>
+							<th scope="col">Направления</th>
+							<th scope="col">Название Компании</th>
+							<th scope="col">Номер контракта</th>
+							<th scope="col">Протокол рақами</th>
+							<th scope="col">Контракт тузилган сана</th>
+							<th scope="col">Амал қилиш муддати</th>
+							<th scope="col">Контракт периоди</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
@@ -29,8 +34,13 @@
 						<tr v-for="(item,index) in getOldcontracts.data">
 							<td scope="row">{{item.id}}</td>
 							<td>{{item.region ? item.region.name : ''}}</td>
+							<td>Направления</td>
 							<td>{{item.number}}</td>
+							<td>{{item.user ? item.user.company_name : ''}}</td>
+							<td>{{item.protocol ? item.protocol.number : ''}}</td>
 							<td>{{item.date}}</td>
+							<td>{{item.exp_date}}</td>
+							<td>{{getPeriod(item.contract_period)}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/oldcontract/edit/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
@@ -74,6 +84,9 @@
 				this.laoding = true
 				await this.actionOldcontracts(page)
 				this.laoding = false
+			},
+			getPeriod(item){
+				return item+' йил'
 			},
 			async deleteOldcontract(id){
 				if(confirm("Вы действительно хотите удалить?")){
