@@ -306,7 +306,7 @@
             ...mapGetters("busbrand", ["getBusBrandList"]),
 			...mapGetters('oldcontract',[
 				'getMassage',
-				'getOldprotocolFind',
+				'getOldcontractFind',
 			]),
 			...mapGetters('oldprotocol',[
 				'getOldprotocolFind',
