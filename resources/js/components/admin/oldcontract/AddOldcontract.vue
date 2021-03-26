@@ -340,15 +340,34 @@
 				'ActionUserFind',
 			]),
 			...mapActions('direction',['actionDirectionFind']),
+			checkCar(){
+				let result = false
+				this.cars.forEach((car,index)=>{
+					if(car.bustype_id != '' && car.busmarka_id != '' && car.busmodel_id != '' && car.tclass_id != '' && car.auto_number != ''){
+						result = true
+					}else{
+						result = false
+					}
+				})
+				return result
+			},
 			addCarItem(){
-				let car = {
-					bustype_id:'',
-					busmarka_id:'',
-					busmodel_id:'',
-					tclass_id:'',
-				   	auto_number:'',
+				if(this.checkCar()){
+					let car = {
+						bustype_id:'',
+						busmarka_id:'',
+						busmodel_id:'',
+						tclass_id:'',
+					   	auto_number:'',
+					}
+					this.cars.push(car)
+				}else{
+					toast.fire({
+				    	type: 'error',
+				    	icon: 'error',
+						title: 'Заполните все поля авто!',
+				    })
 				}
-				this.cars.push(car)
 			},
 			removeCarItem(index){
 				if(index != 0){
@@ -465,37 +484,45 @@
 			async saveOldcontract(){
 		    	if (this.form.number != '' && this.form.date != '' && this.form.file != '' && this.form.contract_period != '' && this.form.user_id != '' && this.form.protocol_id != '' && this.form.exp_date != ''){
 		    		if(this.form.direction_ids.length > 0){
-			    		let formData = new FormData();
-			    		formData.append('number',this.form.number)
-			    		formData.append('date',this.form.date)
-			    		formData.append('exp_date',this.form.exp_date)
-			    		formData.append('protocol_id',this.form.protocol_id)
-			    		formData.append('user_id',this.form.user_id)
-			    		formData.append('file',this.form.file)
-			    		formData.append('contract_period',this.form.contract_period)
-			    		this.form.direction_ids.forEach((item,index)=>{
-				    		formData.append('direction_ids['+index+"]",item)
-			    		})
-			    		this.cars.forEach((item,index)=>{
-				    		formData.append('cars['+index+"][bustype_id]",item.bustype_id)
-				    		formData.append('cars['+index+"][busmarka_id]",item.busmarka_id)
-				    		formData.append('cars['+index+"][busmodel_id]",item.busmodel_id)
-				    		formData.append('cars['+index+"][tclass_id]",item.tclass_id)
-				    		formData.append('cars['+index+"][auto_number]",item.auto_number)
-			    		})
+		    			if(this.checkCar()){
+		    				let formData = new FormData();
+				    		formData.append('number',this.form.number)
+				    		formData.append('date',this.form.date)
+				    		formData.append('exp_date',this.form.exp_date)
+				    		formData.append('protocol_id',this.form.protocol_id)
+				    		formData.append('user_id',this.form.user_id)
+				    		formData.append('file',this.form.file)
+				    		formData.append('contract_period',this.form.contract_period)
+				    		this.form.direction_ids.forEach((item,index)=>{
+					    		formData.append('direction_ids['+index+"]",item)
+				    		})
+				    		this.cars.forEach((item,index)=>{
+					    		formData.append('cars['+index+"][bustype_id]",item.bustype_id)
+					    		formData.append('cars['+index+"][busmarka_id]",item.busmarka_id)
+					    		formData.append('cars['+index+"][busmodel_id]",item.busmodel_id)
+					    		formData.append('cars['+index+"][tclass_id]",item.tclass_id)
+					    		formData.append('cars['+index+"][auto_number]",item.auto_number)
+				    		})
 
-						this.laoding = true
-						await this.actionAddOldcontract(formData)
-						if(this.getMassage.success){
+							this.laoding = true
+							await this.actionAddOldcontract(formData)
+							if(this.getMassage.success){
+								toast.fire({
+							    	type: 'success',
+							    	icon: 'success',
+									title: this.getMassage.message,
+							    })
+								this.$router.push("/crm/oldcontract");
+								this.requiredInput = false
+							}
+							this.laoding = false
+		    			}else{
 							toast.fire({
-						    	type: 'success',
-						    	icon: 'success',
-								title: this.getMassage.message,
+						    	type: 'error',
+						    	icon: 'error',
+								title: 'Заполните все поля авто!',
 						    })
-							this.$router.push("/crm/oldcontract");
-							this.requiredInput = false
-						}
-						this.laoding = false
+		    			}
 		    		}else{
 						toast.fire({
 							type: "error",
