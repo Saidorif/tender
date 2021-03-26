@@ -295,7 +295,6 @@
 				findProtocolList: [],
 				findUserList: [],
 				requiredInput:false,
-				checkCar:false,
 				laoding: true,
 				isDirectionLoading: false,
 				isProtocolLoading: false,
@@ -307,17 +306,6 @@
             directionvalues: function(newQuestion, oldQuestion){
                 this.form.direction_ids = newQuestion.map(item => item.id);
             },
-            cars:{
-            	handler(){
-					this.cars.forEach((car,index)=>{
-						if(car.bustype_id != '' && car.busmarka_id != '' && car.busmodel_id != '' && car.tclass_id != '' && car.auto_number != ''){
-							this.checkCar = true
-						}else{
-							this.checkCar = false
-						}
-					})
-            	}
-            }
         },
 		computed:{
 			...mapGetters('typeofbus',['getTypeofbusList']),
@@ -393,15 +381,19 @@
 				'ActionUserFind',
 			]),
 			...mapActions('direction',['actionDirectionFind']),
-			addCarItem(){
+			checkCar(){
+				let result = false
 				this.cars.forEach((car,index)=>{
 					if(car.bustype_id != '' && car.busmarka_id != '' && car.busmodel_id != '' && car.tclass_id != '' && car.auto_number != ''){
-						this.checkCar = true
+						result = true
 					}else{
-						this.checkCar = false
+						result = false
 					}
 				})
-				if(this.checkCar){
+				return result
+			},
+			addCarItem(){
+				if(this.checkCar()){
 					let car = {
 						bustype_id:'',
 						busmarka_id:'',
@@ -430,19 +422,32 @@
 					await this.actionDeleteOldcontractCar(id)
 					await this.actionEditOldcontract(this.$route.params.oldcontractId)
 					this.cars = this.getOldcontract.cars
-					this.getOldcontract.cars.forEach(async (car,index)=>{
-						if (car){
-				    		let data = {
-				    			'bustype_id':car.bustype_id,
-		                    }
-		                    this.laoding = true
-		                    await this.actionBusclassFind(data)
-		                    car.getBusclassFindList = this.getBusclassFindList
-			                await this.actionBusmodelFindList(car);
-			                this.laoding = false
-			                car.getBusmodelFindList = this.getBusmodelFindList
-				    	}
-					})
+					if(this.cars.length > 0){
+						this.getOldcontract.cars.forEach(async (car,index)=>{
+							if (car){
+					    		let data = {
+					    			'bustype_id':car.bustype_id,
+			                    }
+			                    this.laoding = true
+			                    await this.actionBusclassFind(data)
+			                    car.getBusclassFindList = this.getBusclassFindList
+				                await this.actionBusmodelFindList(car);
+				                this.laoding = false
+				                car.getBusmodelFindList = this.getBusmodelFindList
+					    	}
+						})
+					}else{
+						if(this.cars.length == 0){
+							let car = {
+								bustype_id:'',
+								busmarka_id:'',
+								busmodel_id:'',
+								tclass_id:'',
+							   	auto_number:'',
+							}
+							this.cars.push(car)
+						}
+					}
 				}
 			},
 			async selectClass(car){
@@ -553,7 +558,7 @@
 			async saveOldcontract(){
 		    	if (this.form.number != '' && this.form.date != '' && this.form.file != '' && this.form.contract_period != '' && this.form.user_id != '' && this.form.protocol_id != '' && this.form.exp_date != ''){
 		    		if(this.form.direction_ids.length > 0){
-		    			if(this.checkCar){
+		    			if(this.checkCar()){
 				    		let formData = new FormData();
 				    		formData.append('id',this.form.id)
 				    		formData.append('number',this.form.number)
