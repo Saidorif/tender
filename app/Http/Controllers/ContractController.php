@@ -125,8 +125,8 @@ class ContractController extends Controller
             foreach ($inputs['cars'] as $car){
                 $car['contract_id'] = $contract->id;
                 $car['user_id'] = $inputs['user_id'];
-                if(!empty($car['id'])){
-                    $contractCar = ContractCar::find($car['id']);
+                if(!empty($car['id']) && is_int((int)$car['id']) && $car['id'] != 'undefined' ){
+                    $contractCar = ContractCar::find((int)$car['id']);
                     if($contractCar){
                         $contractCar->update($car);
                     }
