@@ -32,6 +32,8 @@ Route::group([
     Route::post('find-direction/{id}', 'DirectionController@directionInfoForUsers');
     Route::group(['middleware' => 'jwt.auth'], function(){
         Route::group(['middleware' => 'permit'], function(){
+            // For integration
+            Route::post('integration/get-directions','DirectionController@getDirections');
 
             //Client accesses
             Route::post('getaccess/index', 'ClientAccessController@index');

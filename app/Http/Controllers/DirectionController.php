@@ -67,6 +67,45 @@ class DirectionController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function getDirections(Request $request)
+    {
+        $user = $request->user();
+        $inputs = $request->all();
+        $builder = Direction::query();
+        //по региону!
+        if(!empty($inputs['region_id'])){
+            $region = $inputs['region_id'];
+            // $builder->where(['region_from_id' => $inputs['region_id'],'region_to_id' => $inputs['region_id']]);
+            $builder->whereHas('createdBy', function ($query) use ($region){
+                $query->where('region_id',$region);
+            });
+        }
+        //по типу маршрута! bus or taxi
+        if(!empty($inputs['dir_type'])){
+            $builder->where(['dir_type' => $inputs['dir_type']]);
+        }
+        //по типу авто
+        if(!empty($inputs['type_id'])){
+            $builder->where(['type_id' => $inputs['type_id']]);
+        }
+        //по рентабельности
+        if(!empty($inputs['profitability'])){
+            $builder->where(['profitability' => $inputs['profitability']]);
+        }
+        //по номеру
+        if(!empty($inputs['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$inputs['pass_number'].'%');
+        }
+        //по дата открытия
+        if(!empty($inputs['year'])){
+            $from_year = $inputs['year'].'-01-01';
+            $to_year = $inputs['year'].'-12-31';
+            $builder->whereBetween('year',[$from_year, $to_year]);
+        }
+        $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])->orderByDesc('id')->paginate(20);
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function getTarifByNumber(Request $request)
     {
         $validator = Validator::make($request->all(), [
