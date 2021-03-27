@@ -79,13 +79,12 @@ class DirectionController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
-    public function getDirectionByRegion(Request$request){
+    public function getDirectionByRegion(Request $request){
         $user = $request->user();
         $inputs = $request->all();
         $builder = Direction::query();
         // по региону!
         $region = $inputs['region_id'];
-        // $builder->where(['region_from_id' => $inputs['region_id'],'region_to_id' => $inputs['region_id']]);
         $builder->whereHas('createdBy', function ($query) use ($region){
             $query->where('region_id',$region);
         });
