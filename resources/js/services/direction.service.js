@@ -22,6 +22,9 @@ const DirectService = {
 	deleteCarDirection(id){
 		return ApiService.delete(`/api/direction/car/destroy/${id}`)
 	},
+	apiDirection(){
+		return ApiService.post(`/api/integration/get-directions`)
+	},
 };
 
 export { DirectService };

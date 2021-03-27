@@ -5,6 +5,7 @@ const state = {
 	message: [],
 	direction: [],
 	directionFindList: [],
+	apiDirections: [],
 };
 
 const getters = {
@@ -20,10 +21,22 @@ const getters = {
 	getDirectionFindList(state){
 		return state.directionFindList
 	},
+	getApiDirections(state){
+		return state.apiDirections
+	},
 };
 
 
 const actions = {
+	async actionApiDirection({commit}){
+		try {
+			const directions =  await DirectService.apiDirection();
+			await commit('setApiDirections',directions.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionCarDeleteDirection({commit},id){
 		try {
 			const directions =  await DirectService.deleteCarDirection(id);
@@ -90,6 +103,9 @@ const actions = {
 };
 
 const mutations = {
+	setApiDirections(state, apiDirections){
+		state.apiDirections = apiDirections
+	},
 	setDirections(state, directions){
 		state.directions = directions
 	},

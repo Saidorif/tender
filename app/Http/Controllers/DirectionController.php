@@ -18,6 +18,7 @@ use App\User;
 use Validator;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
+use DB;
 
 class DirectionController extends Controller
 {
@@ -69,17 +70,25 @@ class DirectionController extends Controller
 
     public function getDirections(Request $request)
     {
+        $result = DB::select('SELECT r.id,COUNT(r.id) count_by_region,MAX(r.name) region_name FROM regions r
+        left join  (
+            SELECT d.year year,d.name direction_name,u.region_id region_id FROM `directions` d
+            left join users u on d.created_by = u.id
+        ) d on r.id = d.region_id
+        group BY r.id');
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
+    public function getDirectionByRegion(Request$request){
         $user = $request->user();
         $inputs = $request->all();
         $builder = Direction::query();
-        //по региону!
-        if(!empty($inputs['region_id'])){
-            $region = $inputs['region_id'];
-            // $builder->where(['region_from_id' => $inputs['region_id'],'region_to_id' => $inputs['region_id']]);
-            $builder->whereHas('createdBy', function ($query) use ($region){
-                $query->where('region_id',$region);
-            });
-        }
+        // по региону!
+        $region = $inputs['region_id'];
+        // $builder->where(['region_from_id' => $inputs['region_id'],'region_to_id' => $inputs['region_id']]);
+        $builder->whereHas('createdBy', function ($query) use ($region){
+            $query->where('region_id',$region);
+        });
         //по типу маршрута! bus or taxi
         if(!empty($inputs['dir_type'])){
             $builder->where(['dir_type' => $inputs['dir_type']]);

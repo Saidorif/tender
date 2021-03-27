@@ -121,5 +121,10 @@ class User extends Authenticatable implements JWTSubject
     public function contracts()
     {
         return $this->hasMany(\App\Contract::class,'user_id');
+    }    
+    
+    public function direction()
+    {
+        return $this->hasMany(\App\Direction::class,'created_by');
     }
 }
