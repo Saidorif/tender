@@ -7,8 +7,7 @@
 			    	<i  class="peIcon fas fa-file-alt"></i>
 				    Старые контракты 
 				</h4>
-				 <!-- v-if="$can('store', 'RegionController')" -->
-				<router-link class="btn btn-primary" to="/crm/oldcontract/add">
+				<router-link class="btn btn-primary" to="/crm/oldcontract/add" v-if="$can('store', 'ContractController')">
 					<i class="fas fa-plus"></i> 
 					Добавить
 				</router-link>
@@ -42,10 +41,19 @@
 							<td>{{item.exp_date}}</td>
 							<td>{{getPeriod(item.contract_period)}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/oldcontract/edit/${item.id}`'>
+								<router-link 
+									tag="button" 
+									class="btn_transparent" 
+									:to='`/crm/oldcontract/edit/${item.id}`'
+									v-if="$can('edit', 'ContractController')"
+								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteOldcontract(item.id)">
+								<button 
+									class="btn_transparent" 
+									@click="deleteOldcontract(item.id)"
+								 	v-if="$can('destroy', 'ContractController')"
+								>
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>

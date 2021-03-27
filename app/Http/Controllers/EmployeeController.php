@@ -89,7 +89,12 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
-        $role_ids = Role::where('name','!=','admin')->pluck('id');
+        $role_ids = [];
+        if($request->user()->role_id == 1){
+            $role_ids = Role::pluck('id');
+        } else{
+            $role_ids = Role::where('name','!=','admin')->pluck('id');
+        }
         $validator = Validator::make($request->all(), [
             'name'         => 'required|string',
             'middlename'         => 'required|string',

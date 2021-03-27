@@ -468,50 +468,50 @@ const router = new Router({
 				{
 					path:'oldprotocol',
 					component:Oldprotocol,
-					// meta:{
-					// 	action:'index',
-					// 	subject:'ActionController'
-					// }
+					meta:{
+						action:'index',
+						subject:'ProtocolController'
+					}
 				},
 				{
 					path:'oldprotocol/add',
 					component:AddOldprotocol,
-					// meta:{
-					// 	action:'store',
-					// 	subject:'ActionController'
-					// }
+					meta:{
+						action:'store',
+						subject:'ProtocolController'
+					}
 				},
 				{
 					path:'oldprotocol/edit/:oldprotocolId',
 					component:EditOldprotocol,
-					// meta:{
-					// 	action:'edit',
-					// 	subject:'ActionController'
-					// }
+					meta:{
+						action:'edit',
+						subject:'ProtocolController'
+					}
 				},
 				{
 					path:'oldcontract',
 					component:Oldcontract,
-					// meta:{
-					// 	action:'index',
-					// 	subject:'ActionController'
-					// }
+					meta:{
+						action:'index',
+						subject:'ContractController'
+					}
 				},
 				{
 					path:'oldcontract/add',
 					component:AddOldcontract,
-					// meta:{
-					// 	action:'store',
-					// 	subject:'ActionController'
-					// }
+					meta:{
+						action:'store',
+						subject:'ContractController'
+					}
 				},
 				{
 					path:'oldcontract/edit/:oldcontractId',
 					component:EditOldcontract,
-					// meta:{
-					// 	action:'edit',
-					// 	subject:'ActionController'
-					// }
+					meta:{
+						action:'edit',
+						subject:'ContractController'
+					}
 				},
 				{
 					path:'region',

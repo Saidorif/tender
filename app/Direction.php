@@ -161,6 +161,6 @@ class Direction extends Model
     public function getModeratorAttribute()
     {
         return $this->createdBy->region->name;
-    }
+    }    
     
 }

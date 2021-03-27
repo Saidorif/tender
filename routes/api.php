@@ -34,6 +34,7 @@ Route::group([
         Route::group(['middleware' => 'permit'], function(){
             // For integration
             Route::post('integration/get-directions','DirectionController@getDirections');
+            Route::post('integration/get-direction-byregion','DirectionController@getDirectionByRegion');
 
             //Client accesses
             Route::post('getaccess/index', 'ClientAccessController@index');

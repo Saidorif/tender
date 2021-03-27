@@ -16,5 +16,10 @@ class Region extends Model
     public function tarifcity()
     {
         return $this->hasMany(\App\TarifCity::class,'region_id');
+    }    
+
+    public function userDirection()
+    {
+        return $this->hasMany(\App\User::class,'region_id')->withCount('direction');
     }
 }

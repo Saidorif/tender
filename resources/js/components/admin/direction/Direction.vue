@@ -334,13 +334,13 @@
             this.laoding = false
 		},
 		computed:{
-			...mapGetters('direction', ['getDirections','getMassage']),
+			...mapGetters('direction', ['getDirections','getMassage','getApiDirections']),
 			...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
 			...mapGetters("region", ["getRegionList"]),
 			...mapGetters('typeofbus', ['getTypeofbusList']),
 		},
 		methods:{
-			...mapActions('direction',['actionDirections','actionDeleteDirection']),
+			...mapActions('direction',['actionDirections','actionDeleteDirection','actionApiDirection']),
 			...mapActions("region", ["actionRegionList"]),
 			...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
 			...mapActions('typeofbus',['actionTypeofbusList']),
