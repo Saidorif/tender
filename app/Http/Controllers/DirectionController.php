@@ -52,7 +52,7 @@ class DirectionController extends Controller
         }
         if(!empty($inputs['from_date']) || !empty($inputs['to_date'])){
             // if(!empty($inputs['from_date']) && empty($inputs['to_date'])){
-                $builder->where('year','>=',$inputs['from_date']);
+                $builder->where('year','<=',$inputs['from_date']);
             // }
             // else if(!empty($inputs['to_date']) && empty($inputs['from_date'])){
             //     $builder->where('year','<=',$inputs['to_date']);
