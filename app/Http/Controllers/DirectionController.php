@@ -50,11 +50,15 @@ class DirectionController extends Controller
         if(!empty($inputs['pass_number'])){
             $builder->where('pass_number','LIKE', '%'.$inputs['pass_number'].'%');
         }
-        //по дата открытия
-        if(!empty($inputs['year'])){
-            $from_year = $inputs['year'].'-01-01';
-            $to_year = $inputs['year'].'-12-31';
-            $builder->whereBetween('year',[$from_year, $to_year]);
+        if(empty($inputs['from_date']) || empty($inputs['to_date'])){
+            if(!empty($inputs['from_date']) && empty($inputs['to_date'])){
+                $builder->where('year','>=',$inputs['from_date']);
+            }
+            else if(!empty($inputs['to_date']) && empty($inputs['from_date'])){
+                $builder->where('year','<=',$inputs['to_date']);
+            }else if(!empty($inputs['to_date']) && !empty($inputs['from_date'])){
+                $builder->whereBetween('year',[$inputs['from_date'], $inputs['to_date']]);
+            }
         }
         if($user->role->name == 'admin'){
             $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])->orderByDesc('id')->paginate(20);
