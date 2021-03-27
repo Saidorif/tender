@@ -22,6 +22,23 @@ class ControllerActionSeeder extends Seeder
                 'activate',
                 'destroy',
             ],
+            'ProtocolController' => [
+                'index',
+                'store',
+                'find',
+                'list',
+                'edit',
+                'update',
+                'destroy',
+            ],
+            'ContractController' => [
+                'index',
+                'store',
+                'carDestroy',
+                'edit',
+                'update',
+                'destroy',
+            ],
             'FileController' => [
                 'store',
                 'destroy',
@@ -198,6 +215,7 @@ class ControllerActionSeeder extends Seeder
                 'update',
                 'destroy',
                 'deleteDirectionCar',
+                'getDirections',
             ],
             'IntegrationController' => [
                 'adliya',
