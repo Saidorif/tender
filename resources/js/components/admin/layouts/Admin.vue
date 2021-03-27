@@ -232,8 +232,7 @@
               </p>
             </router-link>
           </li>
-           <!-- v-if="$can('index', 'PaymentController')" -->
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('index', 'ProtocolController')">
             <router-link class="nav-link" to="/crm/oldprotocol">
               <i class="peIcon fas fa-file"></i>
               <p>
@@ -241,9 +240,8 @@
               </p>
             </router-link>
           </li>
-           <!-- v-if="$can('index', 'PaymentController')" -->
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/oldcontract">
+          <li class="nav-item" v-if="$can('index', 'ContractController')">
+            <router-link class="nav-link" to="/crm/oldcontract"> 
               <i class="peIcon fas fa-file-alt"></i>
               <p>
                 Старые контракты 

@@ -7,8 +7,7 @@
 			    	<i  class="peIcon pe-7s-box1"></i>
 				    Старые протоколы 
 				</h4>
-				 <!-- v-if="$can('store', 'RegionController')" -->
-				<router-link class="btn btn-primary" to="/crm/oldprotocol/add">
+				<router-link class="btn btn-primary" to="/crm/oldprotocol/add" v-if="$can('store', 'ProtocolController')">
 						<i class="fas fa-plus"></i> 
 					Добавить
 				</router-link>
@@ -32,10 +31,19 @@
 							<td>{{item.number}}</td>
 							<td>{{item.date}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/oldprotocol/edit/${item.id}`'>
+								<router-link 
+									tag="button" 
+									class="btn_transparent" 
+									:to='`/crm/oldprotocol/edit/${item.id}`'
+									v-if="$can('edit', 'ProtocolController')"
+								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteOldprotocol(item.id)">
+								<button 
+									class="btn_transparent" 
+									@click="deleteOldprotocol(item.id)"
+									v-if="$can('destroy', 'ProtocolController')"
+								>
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>
