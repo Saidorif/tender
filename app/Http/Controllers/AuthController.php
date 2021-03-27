@@ -43,11 +43,12 @@ class AuthController extends Controller
         if(!$user){
             return response()->json(['error' => true, 'message' => 'Неверные учетные данные']);
         }
+        $exp_date = config()->get('jwt.ttl');
         if(Hash::check($credentials['password'], $user->password)){
             $payloads = ['role' => $user->role_id];
             if($user->status == 'active'){
                 $token = JWTAuth::attempt($credentials, $payloads);
-                return response()->json(['success' => true, 'token' => $token]);
+                return response()->json(['success' => true, 'token' => $token, 'exp_date' => $exp_date]);
             }else{
                 return response()->json(['error' => true, 'message' => 'Вы неактивен']);
             }
