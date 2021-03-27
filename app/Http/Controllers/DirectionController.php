@@ -50,7 +50,7 @@ class DirectionController extends Controller
         if(!empty($inputs['pass_number'])){
             $builder->where('pass_number','LIKE', '%'.$inputs['pass_number'].'%');
         }
-        if(empty($inputs['from_date']) || empty($inputs['to_date'])){
+        if(!empty($inputs['from_date']) || !empty($inputs['to_date'])){
             if(!empty($inputs['from_date']) && empty($inputs['to_date'])){
                 $builder->where('year','>=',$inputs['from_date']);
             }
