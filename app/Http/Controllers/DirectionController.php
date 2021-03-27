@@ -51,14 +51,14 @@ class DirectionController extends Controller
             $builder->where('pass_number','LIKE', '%'.$inputs['pass_number'].'%');
         }
         if(!empty($inputs['from_date']) || !empty($inputs['to_date'])){
-            if(!empty($inputs['from_date']) && empty($inputs['to_date'])){
+            // if(!empty($inputs['from_date']) && empty($inputs['to_date'])){
                 $builder->where('year','>=',$inputs['from_date']);
-            }
-            else if(!empty($inputs['to_date']) && empty($inputs['from_date'])){
-                $builder->where('year','<=',$inputs['to_date']);
-            }else if(!empty($inputs['to_date']) && !empty($inputs['from_date'])){
-                $builder->whereBetween('year',[$inputs['from_date'], $inputs['to_date']]);
-            }
+            // }
+            // else if(!empty($inputs['to_date']) && empty($inputs['from_date'])){
+            //     $builder->where('year','<=',$inputs['to_date']);
+            // }else if(!empty($inputs['to_date']) && !empty($inputs['from_date'])){
+            //     $builder->whereBetween('year',[$inputs['from_date'], $inputs['to_date']]);
+            // }
         }
         if($user->role->name == 'admin'){
             $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])->orderByDesc('id')->paginate(20);
