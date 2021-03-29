@@ -98,7 +98,7 @@
 				  	    </div>
 					  	<div class="form-group col-md-3">
 			              	<label for="contract_period">Контракт периоди</label>
-			              	<select class="form-control input_style" v-model="form.contract_period">
+			              	<select class="form-control input_style" v-model="form.contract_period" :class="isRequired(form.contract_period) ? 'isRequired' : ''">
 			              		<option value="" selected disabled>Контракт периоди танланг!</option>
 			              		<option value="1">1 йил</option>
 			              		<option value="2">2 йил</option>
