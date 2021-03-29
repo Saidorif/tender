@@ -122,5 +122,6 @@
     <orderEntry type="module" module-name="daz.loc" />
     <orderEntry type="module" module-name="tyol.loc" />
     <orderEntry type="module" module-name="pcms.loc" />
+    <orderEntry type="module" module-name="gupft.loc" />
   </component>
 </module>

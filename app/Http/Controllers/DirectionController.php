@@ -70,12 +70,35 @@ class DirectionController extends Controller
 
     public function getDirections(Request $request)
     {
-        $result = DB::select('SELECT r.id,COUNT(r.id) count_by_region,MAX(r.name) region_name FROM regions r
+        $inputs = $request->all();
+        $profitability = ' ';
+        $dir_type = ' ';
+        $years = ' ';
+        if(!empty($inputs['profitability'])){
+            $profitability .= 'WHERE d.profitability = '.'"'.$inputs['profitability'].'"';
+        }
+        if(!empty($inputs['dir_type'])){
+            if(!empty($inputs['profitability']) || !empty($inputs['year'])){
+                $dir_type .= 'AND d.dir_type = '.'"'.$inputs['dir_type'].'"';
+            }else{
+                $dir_type .= 'WHERE d.dir_type = '.'"'.$inputs['dir_type'].'"';
+            }
+        }
+        if(!empty($inputs['year'])){
+            $from_year = $inputs['year'].'-01-01';
+            $to_year = $inputs['year'].'-12-31';
+            if(!empty($inputs['profitability']) || !empty($inputs['year'])){
+                $years .= 'AND d.year BETWEEN '.'"'.$from_year.'" AND '.'"'.$to_year.'"';
+            }else{
+                $years .= 'WHERE d.year BETWEEN '.'"'.$from_year.'" AND '.'"'.$to_year.'"';
+            }
+        }
+        $result = DB::select("SELECT r.id,COUNT(r.id) count_by_region,MAX(r.name) region_name FROM regions r
         left join  (
             SELECT d.year year,d.name direction_name,u.region_id region_id FROM `directions` d
-            left join users u on d.created_by = u.id
+            left join users u on d.created_by = u.id $profitability $dir_type $years
         ) d on r.id = d.region_id
-        group BY r.id');
+        group BY r.id");
         return response()->json(['success' => true, 'result' => $result]);
     }
 
