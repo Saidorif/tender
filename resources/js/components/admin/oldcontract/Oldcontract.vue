@@ -20,8 +20,8 @@
 							<th scope="col">№</th>
 							<th scope="col">Регион</th>
 							<th scope="col">Направления</th>
-							<th scope="col">Название Компании</th>
 							<th scope="col">Номер контракта</th>
+							<th scope="col">Название Компании</th>
 							<th scope="col">Протокол рақами</th>
 							<th scope="col">Контракт тузилган сана</th>
 							<th scope="col">Амал қилиш муддати</th>
@@ -33,7 +33,11 @@
 						<tr v-for="(item,index) in getOldcontracts.data">
 							<td scope="row">{{item.id}}</td>
 							<td>{{item.region ? item.region.name : ''}}</td>
-							<td>Направления</td>
+							<td>
+								<ul class="list-inline" v-if="item.direction_ids.length > 0">
+								    <li v-for="(direct,key) in item.direction_ids">{{direct.name}}</li>
+								</ul>
+							</td>
 							<td>{{item.number}}</td>
 							<td>{{item.user ? item.user.company_name : ''}}</td>
 							<td>{{item.protocol ? item.protocol.number : ''}}</td>
