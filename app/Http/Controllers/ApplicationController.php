@@ -107,6 +107,7 @@ class ApplicationController extends Controller
         $validator = Validator::make($request->all(),[
             'auto_number' => 'required|string',
             'app_id' => 'required|integer',
+            'direction_id' => 'required|integer',
             'tender_id' => 'nullable|integer',
             'bustype_id' => 'required|integer',
             'busmodel_id' => 'required|integer',
@@ -207,14 +208,18 @@ class ApplicationController extends Controller
         }
         $validator = Validator::make($request->all(),[
             'tender_id' => 'required|integer',
-            'tarif' => 'required|integer',
+            'tarif' => 'required|array',
+            'tarif.*.direction_id' => 'required|integer',
+            'tarif.*.summa' => 'required|integer',
             'status' => 'nullable|string',
             'daily_technical_job' => 'nullable|boolean',
             'daily_medical_job' => 'nullable|boolean',
             'hours_rule' => 'nullable|boolean',
             'videoregistrator' => 'nullable|boolean',
             'gps' => 'nullable|boolean',
-            'qty_reys' => 'required|integer',
+            'qty_reys' => 'required|array',
+            'qty_reys.*.direction_id' => 'required|integer',
+            'qty_reys.*.qty' => 'required|integer',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
@@ -240,9 +245,9 @@ class ApplicationController extends Controller
         if($application->tarif < 1 ){
             return response()->json(['error' => true, 'message' => 'Пожалуйста, заполните тариф']);
         }
-        if($application->qty_reys < 1 ){
-            return response()->json(['error' => true, 'message' => 'Пожалуйста, заполните количество рейсов']);
-        }
+//        if($application->qty_reys < 1 ){
+//            return response()->json(['error' => true, 'message' => 'Пожалуйста, заполните количество рейсов']);
+//        }
         //check for direction cars count
         $lot = $application->lots;
         $requirement_cars_count = 0;
@@ -306,7 +311,7 @@ class ApplicationController extends Controller
                 // }
             }
         }
-        
+
         // if($car->status == 'rejected' || $car->status == 'accepted'){
         //     return response()->json(['error' => true, 'message' => 'Статус автотранспорта уже изменен']);
         // }

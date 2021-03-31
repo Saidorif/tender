@@ -43,7 +43,7 @@ class ApplicationBall extends Model
     ];
 
     protected $casts = [
-        'direction_ids' => 'array',
+        //'direction_ids' => 'array',
         'app_categories' => 'array',
         'lot_categories' => 'array',
         'app_models' => 'array',
@@ -70,7 +70,7 @@ class ApplicationBall extends Model
         }
         return $result;
     }
-    
+
     public function getLotCategoriesAttribute($value)
     {
         $d_ids = json_decode($value,true);
@@ -81,7 +81,7 @@ class ApplicationBall extends Model
         }
         return $result;
     }
-    
+
     public function getAppModelsAttribute($value)
     {
         $d_ids = json_decode($value,true);
@@ -92,7 +92,7 @@ class ApplicationBall extends Model
         }
         return $result;
     }
-    
+
     public function getLotModelsAttribute($value)
     {
         $d_ids = json_decode($value,true);

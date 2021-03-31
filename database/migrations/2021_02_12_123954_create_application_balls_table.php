@@ -16,7 +16,7 @@ class CreateApplicationBallsTable extends Migration
         Schema::create('application_balls', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->string('direction_ids');
+            $table->bigInteger('direction_ids');
             $table->string('company_name')->nullable();
             $table->string('name')->nullable();
             $table->integer('app_id');

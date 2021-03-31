@@ -24,7 +24,11 @@ class Application extends Model
         'contract_time',
     ];
 
-    protected $casts = ['direction_ids' => 'array'];
+    protected $casts = [
+        'direction_ids' => 'array',
+        'tarif' => 'array',
+        'qty_reys' => 'array',
+    ];
 
     public function user()
     {
@@ -62,6 +66,33 @@ class Application extends Model
 
     public function balls()
     {
-        return $this->hasMany(\App\ApplicationBall::class,'app_id')->with('user');
+        return $this->hasOne(\App\ApplicationBall::class,'app_id')->with('user');
+    }
+
+    public function getCars($value)
+    {
+        return UserCar::where(['app_id' => $this->id,'direction_id' => $value])->get();
+    }
+
+    public function getQtyOfDirection($value)
+    {
+        $reyses = $this->qty_reys;
+        foreach ($reyses as $reys) {
+            if($value == $reys['direction_id']){
+                return $reys['qty'];
+            }
+        }
+        return false;
+    }
+
+    public function getTarifOfDirection($value)
+    {
+        $tarifs = $this->tarif;
+        foreach ($tarifs as $tarif) {
+            if($value == $tarif['direction_id']){
+                return $tarif['summa'];
+            }
+        }
+        return false;
     }
 }

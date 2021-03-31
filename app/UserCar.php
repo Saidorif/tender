@@ -10,6 +10,7 @@ class UserCar extends Model
         'user_id',
         'tender_id',
         'app_id',
+        'direction_id',
         'status',
         'auto_number',
         'bustype_id',
@@ -69,7 +70,7 @@ class UserCar extends Model
     {
         return $this->hasOne(\App\GaiCar::class,'pPlateNumber','auto_number');
     }
-    
+
     public function adliya()
     {
         return $this->hasOne(\App\AdliyaCar::class,'auto_number','auto_number');
