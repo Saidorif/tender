@@ -55,7 +55,7 @@ class ProtocolController extends Controller
         $validator = Validator::make($inputs,[
             'number' => 'required|string',
             'date' => 'required|string',
-            'file' => 'required|file|mimes:pdf,docx,doc,xls,xlsx',
+            'file' => 'required|file|mimes:pdf,docx,doc,xls,xlsx,PDF',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
@@ -97,7 +97,7 @@ class ProtocolController extends Controller
         if($request->hasFile('file')){
             $file = $request->file('file');
             $ext = $file->getClientOriginalExtension();
-            if($ext != 'pdf' || $ext != 'docx' || $ext != 'xlsx'){
+            if($ext != 'pdf' || $ext != 'PDF' || $ext != 'docx' || $ext != 'xlsx'){
                 return response()->json(['error' => true, 'message' => 'File must be pdf,docx,xlsx']);
             }
             $path = 'public/'.date('Y-m-d');

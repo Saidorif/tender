@@ -36,7 +36,7 @@ class ContractController extends Controller
             'direction_ids' => 'required|array',
             'direction_ids.*' => 'required|integer',
             'protocol_id' => 'required|integer',
-            'file' => 'required|file|mimes:pdf',
+            'file' => 'required|file|mimes:pdf,PDF',
             'cars' => 'required|array',
             'cars.*.auto_number' => 'required|string',
             'cars.*.bustype_id' => 'required|integer',
@@ -111,7 +111,7 @@ class ContractController extends Controller
         if($request->hasFile('file')){
             $file = $request->file('file');
             $ext = $file->getClientOriginalExtension();
-            if($ext != 'pdf'){
+            if($ext != 'pdf' || $ext != 'PDF'){
                 return response()->json(['error' => true, 'message' => 'File must be pdf']);
             }
             $path = 'public/'.date('Y-m-d');
