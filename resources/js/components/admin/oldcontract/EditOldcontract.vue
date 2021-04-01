@@ -118,7 +118,7 @@
 			              		@change="changePhoto($event)"
 		              		>
 		              		<small>
-		              			<a :href="fileName" download>
+		              			<a :href="'/'+fileName" download>
 		              				<i class="fas fa-download"></i>
 		              				Скачать файл
 		              			</a>
