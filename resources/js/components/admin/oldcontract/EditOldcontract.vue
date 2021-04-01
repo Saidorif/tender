@@ -330,6 +330,7 @@
 		async mounted(){
 			await this.actionEditOldcontract(this.$route.params.oldcontractId)
 			this.form = this.getOldcontract
+			this.fileName = this.getOldcontract.file
 			this.user_values = this.getOldcontract.user
 			this.protocol_values = this.getOldcontract.protocol
 			this.cars = this.getOldcontract.cars
