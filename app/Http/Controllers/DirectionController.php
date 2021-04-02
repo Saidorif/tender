@@ -898,11 +898,11 @@ class DirectionController extends Controller
         $reysesTo   = Reys::where(['direction_id' => $id,'type' => 'to','status' => 'active'])->get();
 
         foreach ($reysesFrom as $key => $reys_from) {
-            //$reys_times = $reys_from->reysTimes;
+            $reys_times = $reys_from->reysTimes;
             $result['whereFrom'][] = $reys_from;
         }
         foreach ($reysesTo as $reys_to) {
-            //$reys_times = $reys_to->reysTimes;
+            $reys_times = $reys_to->reysTimes;
             $result['whereTo'][] = $reys_to;
         }
         return response()->json([
