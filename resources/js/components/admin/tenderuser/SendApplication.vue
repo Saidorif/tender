@@ -304,6 +304,7 @@
 								<thead>
 									<tr>
 										<th>№</th>
+										<th>Йўналиш номи</th>
 										<th>Номер Авто</th>
 										<th>Категория Авто</th>
 										<th>Класс Авто</th>
@@ -319,6 +320,7 @@
 									<template v-for="(car,index) in cars_with">
 										<tr>
 											<td>{{index+1}}</td>
+											<td>{{car.direction.name}}</td>
 											<td>{{car.auto_number}}</td>
 											<td>{{car.bustype.name}}</td>
 											<td>{{car.tclass.name}}</td>
@@ -337,7 +339,7 @@
 											</td>
 										</tr>
 										<tr v-if="showBtn == index">
-											<td colspan="10">
+											<td colspan="11">
 												<table class="table table-bordered" v>
 											  		<thead>
 											  			<tr>
@@ -425,7 +427,7 @@
 										</tr>
 									</template>
 										<tr>
-											<td colspan="7">
+											<td colspan="8">
 												Итоги:
 											</td>
 											<td>
