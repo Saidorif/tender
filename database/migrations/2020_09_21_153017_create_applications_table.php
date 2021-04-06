@@ -28,7 +28,6 @@ class CreateApplicationsTable extends Migration
             $table->string('videoregistrator')->nullable();
             $table->string('gps')->nullable();
             $table->string('qr_code')->nullable();
-            $table->string('qty_reys')->nullable();
             $table->tinyInteger('contract_time')->nullable();
             $table->timestamps();
         });

@@ -31,7 +31,6 @@ class CreateDirectionsTable extends Migration
             $table->string('to_type')->default('region');
             $table->date('year');
             $table->double('distance',15,2)->default(0)->nullable();
-            $table->double('tarif',15,2)->default(0)->nullable();
             $table->bigInteger('type_id');
             $table->text('from_where');
             $table->string('seasonal');
