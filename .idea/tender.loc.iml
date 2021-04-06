@@ -123,5 +123,6 @@
     <orderEntry type="module" module-name="tyol.loc" />
     <orderEntry type="module" module-name="pcms.loc" />
     <orderEntry type="module" module-name="gupft.loc" />
+    <orderEntry type="module" module-name="tester.loc" />
   </component>
 </module>
