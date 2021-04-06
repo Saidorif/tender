@@ -75,4 +75,9 @@ class UserCar extends Model
     {
         return $this->hasOne(\App\AdliyaCar::class,'auto_number','auto_number');
     }
+
+    public function direction()
+    {
+        return $this->belongsTo(\App\Direction::class,'direction_id');
+    }
 }

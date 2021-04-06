@@ -124,5 +124,6 @@
     <orderEntry type="module" module-name="pcms.loc" />
     <orderEntry type="module" module-name="gupft.loc" />
     <orderEntry type="module" module-name="tester.loc" />
+    <orderEntry type="module" module-name="quiz.loc" />
   </component>
 </module>
