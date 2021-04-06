@@ -26,12 +26,12 @@ class ApplicationController extends Controller
     {
         $user = $request->user();
         if($user->role->name == 'admin'){
-            $result = Application::orderBy('id', 'DESC')->with(['user','carsWith','lots','attachment','direction'])->where(['tender_id' => $id])->paginate(12);
+            $result = Application::orderBy('id', 'DESC')->with(['user','carsWith','lots','attachment'])->where(['tender_id' => $id])->paginate(12);
         }else{
             //grab the user ids in this region
             $user_ids = User::where(['region_id' => $user->region_id,'role_id' => 9])->pluck('id')->toArray();
             $result = Application::orderBy('id', 'DESC')
-                            ->with(['user','carsWith','lots','attachment','direction'])
+                            ->with(['user','carsWith','lots','attachment'])
                             ->whereIn('user_id', $user_ids)
                             ->where(['tender_id' => $id])
                             ->paginate(12);
@@ -190,7 +190,7 @@ class ApplicationController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $application = Application::with(['user','carsWith','tender','attachment','lots','direction'])->find($id);
+        $application = Application::with(['user','carsWith','tender','attachment','lots'])->find($id);
         if(!$application){
             return response()->json(['error' => true, 'message' => 'Заявка не найдено']);
         }
