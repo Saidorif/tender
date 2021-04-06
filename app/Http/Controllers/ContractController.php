@@ -248,6 +248,11 @@ class ContractController extends Controller
         if(!$contract){
             return response()->json(['error' => true, 'message' => 'Контракт не найден']);
         }
+        foreach($contract->direction_ids as $direction){
+            $direction->status = 'active';
+            $direction->contract_id = null;
+            $direction->save();
+        }
         $contract->cars()->delete();
         $contract->delete();
         return response()->json(['success' => true, 'message' => 'Контракт удален']);
@@ -325,6 +330,8 @@ class ContractController extends Controller
             $direction->contract_id = $contract->id;
             $direction->save();
         }
+        $contract->status = 'completed';
+        $contract->save();
         return response()->json(['success' => true,'message' => 'Контракт активирован']);
     }
 }
