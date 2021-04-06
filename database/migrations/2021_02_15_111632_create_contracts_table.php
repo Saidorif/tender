@@ -30,6 +30,7 @@ class CreateContractsTable extends Migration
             $table->string('direction_ids');
             $table->integer('protocol_id');
             $table->string('file');
+            $table->string('status');
             $table->timestamps();
         });
     }

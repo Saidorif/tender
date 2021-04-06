@@ -277,6 +277,7 @@ Route::group([
             Route::post('contract','ContractController@index');
             Route::post('contract/store','ContractController@store');
             Route::get('contract/edit/{id}','ContractController@edit');
+            Route::get('contract/activate/{id}','ContractController@activate');
             Route::post('contract/update/{id}','ContractController@update');
             Route::delete('contract/destroy/{id}','ContractController@destroy');
             Route::delete('contract/car-destroy/{id}','ContractController@carDestroy');

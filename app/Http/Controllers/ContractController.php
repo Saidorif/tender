@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\ContractCar;
+use App\Direction;
+use App\TenderLot;
 use Illuminate\Http\Request;
 use App\Contract;
 use Illuminate\Support\Facades\Storage;
@@ -52,6 +54,57 @@ class ContractController extends Controller
         $inputs['region_id'] = $user->region_id;
         $inputs['created_by'] = $user->id;
         $inputs['type'] = 'old';
+        $the_direction_err = [];
+        foreach ($inputs['direction_ids'] as $d_id){
+            $the_direction = Direction::find((int)$d_id);
+            if(!$the_direction){
+                $the_direction_err[] = 'Направление с ID = '.$d_id.' не существует';
+            }
+            if($the_direction->status == 'approved'){
+                $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+            }
+            if($the_direction->contract_id != null ){
+                $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+            }
+            if($the_direction->status == 'busy' || $the_direction->reys_status == 'all' ){
+                $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+            }
+            if($the_direction->reys_status == 'custom' ){
+                $tenderLot = TenderLot::whereJsonContains('reys_id',$d_id)->first();
+                if($tenderLot){
+                    $the_direction_err[] = 'Направление с этими рейcами уже используется';
+                }
+            }
+            if($the_direction->type_id != 1 && $the_direction->tarif == 0){
+                $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
+            }
+            if(!$the_direction->requirement){
+                return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$the_direction->name]);
+            }
+            if($the_direction->requirement->status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'Требование не подтвержден '.$the_direction->name]);
+            }
+            if($the_direction->titul_status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'Титул не подтвержден '.$the_direction->name]);
+            }
+            if($the_direction->xronom_status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'Хронометраж не подтвержден '.$the_direction->name]);
+            }
+            if($the_direction->sxema_status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'Схема не подтвержден '.$the_direction->name]);
+            }
+            if($the_direction->xjadval_status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'График движения не подтвержден '.$the_direction->name]);
+            }
+            if($user->role->name != 'admin'){
+                if($the_direction->region_from_id != $user->region_id || $the_direction->region_to_id != $user->region_id ){
+                    $the_direction_err[] = 'Нельзя добавить ... Направление в другом регионе';
+                }
+            }
+        }
+        if(count($the_direction_err)){
+            return response()->json(['error' => true, 'message' => $the_direction_err]);
+        }
         //Upload file
         if($request->hasFile('file')){
             $file = $request->file('file');
@@ -107,6 +160,57 @@ class ContractController extends Controller
         $inputs['region_id'] = $user->region_id;
         $inputs['created_by'] = $user->id;
         $inputs['type'] = 'old';
+        $the_direction_err = [];
+        foreach ($inputs['direction_ids'] as $d_id){
+            $the_direction = Direction::find((int)$d_id);
+            if(!$the_direction){
+                $the_direction_err[] = 'Направление с ID = '.$d_id.' не существует';
+            }
+            if($the_direction->status == 'approved'){
+                $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+            }
+            if($the_direction->contract_id != null ){
+                $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+            }
+            if($the_direction->status == 'busy' || $the_direction->reys_status == 'all' ){
+                $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+            }
+            if($the_direction->reys_status == 'custom' ){
+                $tenderLot = TenderLot::whereJsonContains('reys_id',$d_id)->first();
+                if($tenderLot){
+                    $the_direction_err[] = 'Направление с этими рейcами уже используется';
+                }
+            }
+            if($the_direction->type_id != 1 && $the_direction->tarif == 0){
+                $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
+            }
+            if(!$the_direction->requirement){
+                return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$the_direction->name]);
+            }
+            if($the_direction->requirement->status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'Требование не подтвержден '.$the_direction->name]);
+            }
+            if($the_direction->titul_status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'Титул не подтвержден '.$the_direction->name]);
+            }
+            if($the_direction->xronom_status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'Хронометраж не подтвержден '.$the_direction->name]);
+            }
+            if($the_direction->sxema_status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'Схема не подтвержден '.$the_direction->name]);
+            }
+            if($the_direction->xjadval_status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'График движения не подтвержден '.$the_direction->name]);
+            }
+            if($user->role->name != 'admin'){
+                if($the_direction->region_from_id != $user->region_id || $the_direction->region_to_id != $user->region_id ){
+                    $the_direction_err[] = 'Нельзя добавить ... Направление в другом регионе';
+                }
+            }
+        }
+        if(count($the_direction_err)){
+            return response()->json(['error' => true, 'message' => $the_direction_err]);
+        }
         //Upload file
         if($request->hasFile('file')){
             $file = $request->file('file');
@@ -157,5 +261,70 @@ class ContractController extends Controller
         }
         $contractCar->delete();
         return response()->json(['success' => true, 'message' => 'Автомобиль удален']);
+    }
+
+    public function activate(Request $request,$id)
+    {
+        $contract = Contract::find($id);
+        if(!$contract){
+            return response()->json(['error' => true, 'message' => 'Контракт не найден']);
+        }
+        if($contract->status == 'completed'){
+            return response()->json(['error' => true, 'message' => 'Контракт уже активирован']);
+        }
+        $the_direction_err = [];
+        $user = $request->user();
+        foreach($contract->direction_ids as $the_direction){
+            if($the_direction->status == 'approved'){
+                $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+            }
+            if($the_direction->contract_id != null ){
+                $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+            }
+            if($the_direction->status == 'busy' || $the_direction->reys_status == 'all' ){
+                $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+            }
+            if($the_direction->reys_status == 'custom' ){
+                $tenderLot = TenderLot::whereJsonContains('reys_id',$the_direction->id)->first();
+                if($tenderLot){
+                    $the_direction_err[] = 'Направление с этими рейcами уже используется';
+                }
+            }
+            if($the_direction->type_id != 1 && $the_direction->tarif == 0){
+                $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
+            }
+            if(!$the_direction->requirement){
+                return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$the_direction->name]);
+            }
+            if($the_direction->requirement->status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'Требование не подтвержден '.$the_direction->name]);
+            }
+            if($the_direction->titul_status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'Титул не подтвержден '.$the_direction->name]);
+            }
+            if($the_direction->xronom_status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'Хронометраж не подтвержден '.$the_direction->name]);
+            }
+            if($the_direction->sxema_status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'Схема не подтвержден '.$the_direction->name]);
+            }
+            if($the_direction->xjadval_status != 'completed'){
+                return response()->json(['error' => true, 'message' => 'График движения не подтвержден '.$the_direction->name]);
+            }
+            if($user->role->name != 'admin'){
+                if($the_direction->region_from_id != $user->region_id || $the_direction->region_to_id != $user->region_id ){
+                    $the_direction_err[] = 'Нельзя добавить ... Направление в другом регионе';
+                }
+            }
+        }
+        if(count($the_direction_err)){
+            return response()->json(['error' => true, 'message' => $the_direction_err]);
+        }
+        foreach($contract->direction_ids as $direction){
+            $direction->status = 'busy';
+            $direction->contract_id = $contract->id;
+            $direction->save();
+        }
+        return response()->json(['success' => true,'message' => 'Контракт активирован']);
     }
 }

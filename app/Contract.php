@@ -22,6 +22,7 @@ class Contract extends Model
         'type',
         'file',
         'created_by',
+        'status',
     ];
 
     protected $casts = [
