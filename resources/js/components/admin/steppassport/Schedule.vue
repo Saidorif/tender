@@ -314,8 +314,8 @@ export default {
       this.form.count_bus = this.getSchedule.whereFrom[0].count_bus
       this.form.reys_from_count = this.getSchedule.whereFrom[0].reys_from_count
       this.form.reys_to_count = this.getSchedule.whereFrom[0].reys_to_count
-      this.form.whereFrom.from = this.titulData.timing_with[0].whereForm;
-      this.form.whereTo.from =  this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
+      this.form.whereFrom.from = this.titulData.timing_with.length ? this.titulData.timing_with[0].whereForm : [];
+      this.form.whereTo.from =  this.titulData.timing_with.length ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo : [];
       this.form.whereFrom.reyses.forEach((p_item)=>{
           p_item['bus_order'] = p_item[0].bus_order
       })
@@ -324,7 +324,7 @@ export default {
       })
     }else{
       this.form.whereFrom.where = this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
-      this.form.whereTo.where = this.titulData.timing_with[0].whereForm;
+      this.form.whereTo.where = this.titulData.timing_with.length ? this.titulData.timing_with[0].whereForm : [];
       this.form.whereFrom.from = this.titulData.timing_with[0].whereForm;
       this.form.whereTo.from =  this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
       let stationsLeng = this.titulData.timing_with.length;

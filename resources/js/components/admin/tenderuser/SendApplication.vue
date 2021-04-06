@@ -6,7 +6,7 @@
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
 				    Отправить заявку
-				</h4> 
+				</h4>
 				<div class="">
 	                <h4 class="title_user" v-if="direction_ids.length > 0" v-for="(item,index) in direction_ids">
 	                	{{index+1}}) {{  item.name }}
@@ -28,6 +28,47 @@
 						<h2><em>Название организации:</em> <b>{{form.user ? form.user.company_name : ''}}</b></h2>
 					</div>
 				</div>
+				<div class="row" v-if="form.tarif && form.tarif.length" v-for="(item,index) in direction_ids">
+					<div class="col-md-3">
+                        <label >Йўналиш номи</label>
+                        <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	placeholder="Тариф"
+                            :value="item.name"
+					    	disabled>
+					</div>
+					<div class="form-group col-md-3">
+					    <label for="tarif">Тариф (Йул хаққи)</label>
+					    <div class="d-flex align-items-center">
+					    	<input
+					    	type="number"
+					    	class="form-control input_style"
+					    	id="tarif"
+					    	placeholder="Тариф"
+					    	v-model="form.tarif[index].summa"
+					    	:class="isRequiredData(form.tarif[index].summa) ? 'isRequired' : ''"
+					    	:disabled="makeDisabled">
+						</div>
+				  	</div>
+				  	<div class="form-group col-md-3">
+					    <label for="qty_reys">Количество рейсов</label>
+					    <input
+					    	type="number"
+					    	class="form-control input_style"
+					    	id="qty_reys"
+					    	placeholder="Количество рейсов"
+					    	v-model="form.qty_reys[index].qty"
+					    	:class="isRequiredData(form.qty_reys[index].qty) ? 'isRequired' : ''"
+					    	:disabled="makeDisabled">
+					</div>
+                    <div class="form-group col-md-3 btn_save d-flex justify-content-end" v-if="!makeDisabled">
+					  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal(item)">
+					  		<i class="fas fa-plus"></i>
+						  	Добавить авто
+					  	</button>
+				    </div>
+				</div>
 		  		<form enctype="multipart/form-data">
 					<div class="row">
 						<div class="form-group col-md-3 d-flex align-items-center mt-4">
@@ -41,38 +82,12 @@
 					  			<i class="pe-7s-angle-down-circle"></i>
 					  		</button>
 					  	</div>
-					  	<div class="form-group col-md-4">
-						    <label for="tarif">Тариф</label>
-						    <div class="d-flex align-items-center">
-						    	<span class="road_price">Йул хаққи:</span>
-						    	<input
-						    	type="number"
-						    	class="form-control input_style"
-						    	id="tarif"
-						    	placeholder="Тариф"
-						    	v-model="form.tarif"
-						    	:class="isRequiredData(form.tarif) ? 'isRequired' : ''"
-						    	:disabled="makeDisabled"
-					    	></div>
-				  	  	</div>
-				  	  	<div class="form-group col-md-3">
-						    <label for="qty_reys">Количество рейсов</label>
-						    <input
-						    	type="number"
-						    	class="form-control input_style"
-						    	id="qty_reys"
-						    	placeholder="Количество рейсов"
-						    	v-model="form.qty_reys"
-						    	:class="isRequiredData(form.qty_reys) ? 'isRequired' : ''"
-						    	:disabled="makeDisabled"
-					    	>
-					  	</div>
-				  	  	<div class="form-group col-md-2 btn_save d-flex justify-content-end" v-if="!makeDisabled">
+				  	  	<!-- <div class="form-group col-md-2 btn_save d-flex justify-content-end" v-if="!makeDisabled">
 					  	  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal">
 						  		<i class="fas fa-plus"></i>
 							  	Добавить авто
 					      	</button>
-				      	</div>
+				      	</div> -->
 					</div>
 					<div class="row" v-if="showDirections">
 						<div class="col-md-12">
@@ -414,7 +429,7 @@
 												Итоги:
 											</td>
 											<td>
-												{{countCapacity}} 
+												{{countCapacity}}
 											</td>
 											<td>
 												{{countSeatQty}}
@@ -491,9 +506,6 @@
 				  	</div>
                     <div class="form-group col-md-3">
 					    <label for="tclass_id">Класс Авто</label>
-					    <!-- <div class="form-control input_style">
-					    	{{getTClassName(car.tclass_id)}}
-					    </div> -->
 					    <select
 						    class="form-control input_style"
 					    	id="tclass_id"
@@ -854,19 +866,20 @@
                 laoding: true,
 				form:{
 					direction_ids:[],
-					tarif:'',
+					tarif:[],
+					qty_reys:[],
 					direction_id:'',
 					daily_medical_job:0,
 					daily_technical_job:0,
 					videoregistrator:0,
 					gps:0,
-					qty_reys:'',
                     hours_rule:0,
 				},
 				car:{
                     app_id: null,
 					bustype_id:'',
 					busmarka_id:'',
+					direction_id:'',
 					busmodel_id:'',
 					tclass_id:'',
 					capacity:'',
@@ -960,6 +973,7 @@
 						// this.form = this.getApplication
 						this.direction_ids = this.getApplication.tender.direction_ids
 						this.lots = this.getApplication.tender.tenderlots
+
 						if (this.getApplication.qr_code){
 				          this.makeDisabled = true
 						}else{
@@ -1008,8 +1022,20 @@
 				this.direction_ids = this.getApplication.tender.direction_ids
 	            this.lots = this.getApplication.tender.tenderlots
 	            this.car.app_id = this.$route.params.userapplicationId;
+                console.log(this.getApplication)
+                this.form.tarif = this.getApplication.tarif.length ? this.getApplication.tarif : []
+                this.form.qty_reys = this.getApplication.qty_reys.length ? this.getApplication.qty_reys : []
+                if(!this.form.tarif.length){
+                    this.getApplication.tender.direction_ids.forEach((item)=>{
+                        let tarif_data = {direction_id: item.id, summa: ''};
+                        let qty_data = {direction_id: item.id, qty: ''};
+                        this.form.tarif.push(tarif_data)
+                        this.form.qty_reys.push(qty_data)
+                    })
+                }
+
             }else{
-				this.$router.push('/notfound')            	
+				this.$router.push('/notfound')
             }
 		},
 		methods:{
@@ -1184,9 +1210,10 @@
                     this.showBtn = index
                 }
 			},
-			defaultValuesOfCar(){
+			defaultValuesOfCar(dir){
 				this.car.app_id = this.$route.params.userapplicationId
 		    	this.car.bustype_id = ''
+		    	this.car.direction_id = dir.id
 		    	this.car.tclass_id = ''
 		    	this.car.busmarka_id = ''
 		    	this.car.busmodel_id = ''
@@ -1221,9 +1248,9 @@
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
-		    openModal(){
+		    openModal(dir){
 		    	$('#myModal').modal('show')
-		    	this.defaultValuesOfCar()
+		    	this.defaultValuesOfCar(dir)
 		    },
 		    removeDirectionFromList(data){
 		    	this.direction_ids = {}
@@ -1357,7 +1384,18 @@
 		    			check = false
 		    		}
 		    	}
-		    	if(this.form.tarif != '' && this.form.tarif != null && this.form.qty_reys != '' && this.form.qty_reys != null){
+                this.requiredDataInput = false
+                this.form.tarif.forEach((item)=>{
+                    if(item.summa == ''){
+                        this.requiredDataInput = true
+                    }
+                })
+                this.form.qty_reys.forEach((item)=>{
+                    if(item.qty == ''){
+                        this.requiredDataInput = true
+                    }
+                })
+		    	if(!this.requiredDataInput && this.form.qty_reys != '' && this.form.qty_reys != null){
 			    	if (check) {
 	                    this.laoding = true
 				    	await this.actionUpdateApplication(this.form)
