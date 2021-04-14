@@ -11,7 +11,13 @@ class TarifCityController extends Controller
 {
     public function index(Request $request)
     {
-        $result = TarifCity::with('region')->paginate(20);
+        $user = $request->user();
+        $role_name = $user->role->name;
+        if($role_name == 'admin'){
+            $result = TarifCity::with('region')->paginate(20);
+        }else{
+            $result = TarifCity::with('region')->where(['region_id' => $user->region_id])->paginate(20);
+        }
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -32,15 +38,19 @@ class TarifCityController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'region_id'  => 'required|integer',
-            'tarif'  => 'required|numeric|between:1,9999999.99',
-            'tarif_bagaj'  => 'nullable|numeric|between:1,9999999.99',
+            'tarif'  => 'required|numeric',
+            'tarif_bagaj'  => 'nullable|numeric',
             'file'  => 'required|file',
         ]);
 
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $user = $request->user();
+        if($user->role->name != 'admin'){
+            return response()->json(['error' => true,'message' => 'You are not admin']);
         }
         $inputs = $request->all();
         //Upload file
@@ -62,10 +72,16 @@ class TarifCityController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Тариф не найден']);
         }
-        $validator = Validator::make($request->all(), [            
+        $user = $request->user();
+        if($user->role->name != 'admin'){
+            if($user->region_id != $result->region_id){
+                return response()->json(['error' => true,'message' => 'You are not allowed']);
+            }
+        }
+        $validator = Validator::make($request->all(), [
             'region_id'  => 'required|integer',
-            'tarif'  => 'required|numeric|between:1,9999999.99',
-            'tarif_bagaj'  => 'nullable|numeric|between:1,9999999.99',
+            'tarif'  => 'required|numeric',
+            'tarif_bagaj'  => 'nullable|numeric',
             'file'  => 'nullable|file',
         ]);
 
@@ -91,6 +107,10 @@ class TarifCityController extends Controller
         $result = TarifCity::find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Тариф не найден']);
+        }
+        $user = $request->user();
+        if($user->role->name != 'admin'){
+            return response()->json(['error' => true,'message' => 'You are not allowed']);
         }
         $result->delete();
 
