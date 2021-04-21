@@ -10,7 +10,7 @@
 					</h4>
 	            	<div class="add_user_btn">
 		                <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-		            		Количество <b>{{ getPassportList.total }} шт.</b> 
+		            		Количество <b>{{ getPassportList.total }} шт.</b>
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
@@ -24,7 +24,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="region_id">Сортировать по региону!</label>
 			                    <select
-			                      id="region_id"	
+			                      id="region_id"
 			                      class="form-control input_style"
 			                      v-model="filter.region_id"
 			                    >
@@ -35,7 +35,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="dir_type">Сортировать по типу маршрута!</label>
 			                    <select
-			                      id="dir_type"	
+			                      id="dir_type"
 			                      class="form-control input_style"
 			                      v-model="filter.dir_type"
 			                    >
@@ -47,7 +47,7 @@
               				<div class="form-group col-lg-3">
 				  				<label for="type_id">Сортировать по локацию маршрута!</label>
 			                    <select
-			                      id="type_id"	
+			                      id="type_id"
 			                      class="form-control input_style"
 			                      v-model="filter.type_id"
 			                    >
@@ -61,9 +61,9 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="range">Сортировать!</label>
 				  				<select
-			                      id="range"	
+			                      id="range"
 			                      class="form-control input_style"
-			                      v-model="range"	
+			                      v-model="range"
 			                      @change="rangeChange"
 			                    >
 			                      <option value="" selected >Выберите локацию маршрута!</option>
@@ -80,9 +80,9 @@
 							  		<i class="fas fa-search"></i>
 								  	найти
 							  	</button>
-					  	  	</div>	
+					  	  	</div>
 				  		</div>
-				  	</div>	
+				  	</div>
 			  	</transition>
 		  	</div>
 		  	<div class="card-body">
@@ -170,7 +170,7 @@
 			}
 		},
 		async mounted(){
-            await this.actionPortTarifList({page:this.page,item:this.filter});
+            await this.actionPortTarifList({page:this.page,items:this.filter});
             await this.actionRegionList()
 			await this.actionTypeofdirectionList()
             this.laoding = false
@@ -236,8 +236,7 @@
 
 			},
 			async getResults(page = 1){
-				this.page = page
-				await this.actionPortTarifList({page:page,item:this.filter})
+				await this.actionPortTarifList({page:page,items:this.filter})
 			},
 			// getStatusName(status){
 			// 	if(status == 'pending'){
