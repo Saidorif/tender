@@ -114,9 +114,9 @@ class ContractController extends Controller
         if($request->hasFile('file')){
             $file = $request->file('file');
             $ext = $file->getClientOriginalExtension();
-            if($ext != 'pdf' || $ext != 'PDF'){
-                return response()->json(['error' => true, 'message' => 'File must be pdf']);
-            }
+//            if($ext != 'pdf' || $ext != 'PDF'){
+//                return response()->json(['error' => true, 'message' => 'File must be pdf']);
+//            }
             $path = 'public/'.date('Y-m-d');
             $file_name = time().'.'.$file->getClientOriginalExtension();
             Storage::disk('local')->putFileAs($path, $file,$file_name);
@@ -221,9 +221,9 @@ class ContractController extends Controller
         if($request->hasFile('file')){
             $file = $request->file('file');
             $ext = $file->getClientOriginalExtension();
-            if($ext != 'pdf' || $ext != 'PDF'){
-                return response()->json(['error' => true, 'message' => 'File must be pdf']);
-            }
+//            if($ext != 'pdf' || $ext != 'PDF'){
+//                return response()->json(['error' => true, 'message' => 'File must be pdf']);
+//            }
             $path = 'public/'.date('Y-m-d');
             $file_name = time().'.'.$file->getClientOriginalExtension();
             Storage::disk('local')->putFileAs($path, $file,$file_name);
