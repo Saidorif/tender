@@ -1024,9 +1024,16 @@
 				this.direction_ids = this.getApplication.tender.direction_ids
 	            this.lots = this.getApplication.tender.tenderlots
 	            this.car.app_id = this.$route.params.userapplicationId;
-                console.log(this.getApplication)
-                this.form.tarif = this.getApplication.tarif.length ? this.getApplication.tarif : []
-                this.form.qty_reys = this.getApplication.qty_reys.length ? this.getApplication.qty_reys : []
+                if(this.getApplication.tarif){
+                    this.form.tarif = this.getApplication.tarif.length ? this.getApplication.tarif : []
+                }else{
+                    this.form.tarif  =  []
+                }
+                if(this.getApplication.qty_reys){
+                    this.form.qty_reys = this.getApplication.qty_reys.length ? this.getApplication.qty_reys : []
+                }else{
+                    this.form.qty_reys  =  []
+                }
                 if(!this.form.tarif.length){
                     this.getApplication.tender.direction_ids.forEach((item)=>{
                         let tarif_data = {direction_id: item.id, summa: ''};
