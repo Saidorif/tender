@@ -31,14 +31,14 @@ class TenderLot extends Model
 
     public function apps()
     {
-        return $this->hasMany(\App\Application::class, 'lot_id');
+        return $this->hasMany(\App\Application::class, 'lot_id')->where('status','=','accepted');
     }
-    
+
     public function contract()
     {
         return $this->hasOne(\App\Contract::class, 'lot_id');
     }
-    
+
     public function tender()
     {
         return $this->belongsTo(\App\Tender::class, 'tender_id');
