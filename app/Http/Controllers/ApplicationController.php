@@ -141,12 +141,15 @@ class ApplicationController extends Controller
         }
         $dir_cars = DirectionCar::whereIn('direction_id',$tender_lot->getDirection())->pluck('bustype_id')->toArray();
         $bus_types = [];
-        foreach($dir_cars as $d_car){
-            if($d_car != $inputs['bustype_id']){
-                $bus_types[] = $inputs['bustype_id'];
-            }
-        }
-        if(count($bus_types) > 0){
+//        foreach($dir_cars as $d_car){
+//            if($d_car != $inputs['bustype_id']){
+//                $bus_types[] = $inputs['bustype_id'];
+//            }
+//        }
+//        if(count($bus_types) > 0){
+//            return response()->json(['error' => true, 'message' => 'Категория Авто не совпадает']);
+//        }
+        if(!in_array($inputs['bustype_id'],$dir_cars)){
             return response()->json(['error' => true, 'message' => 'Категория Авто не совпадает']);
         }
 
