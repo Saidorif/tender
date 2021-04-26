@@ -152,7 +152,7 @@ class ApplicationController extends Controller
         if(!in_array($inputs['bustype_id'],$dir_cars)){
             return response()->json(['error' => true, 'message' => 'Категория Авто не совпадает']);
         }
-
+    
         $inputs['user_id'] = $user->id;
         $inputs['auto_number'] = strtoupper($inputs['auto_number']);
         //Check for if the car already in use

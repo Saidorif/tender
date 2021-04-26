@@ -11,7 +11,23 @@ class ProtocolController extends Controller
 {
     public function index(Request $request)
     {
-        $result = Protocol::with(['region'])->orderBy('id','DESC')->paginate(12);
+        $builder = Protocol::query();
+        $user = $request->user();
+        $params = $request->all();
+        if(!empty($params['date'])){
+            $builder->where('date','=',$params['date']);
+        }
+        if(!empty($params['number'])){
+            $builder->where('number','LIKE','%'.$params['number'].'%');
+        }
+        if(!empty($params['region_id'])){
+            if($user->role->name == 'admin' || $user->role->name == 'resmoderator'){
+                $builder->where('region_id','=',$params['region_id']);
+            }
+        }else{
+            $builder->where('region_id','=',$user->region_id);
+        }
+        $result = $builder->with(['region'])->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true,'result' => $result]);
     }
 
