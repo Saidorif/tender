@@ -4,8 +4,8 @@ const OldprotocolService = {
 	oldprotocolList(){
 		return ApiService.get(`/api/protocol/list`)
 	},
-	alloldprotocols(page){
-		return ApiService.post(`/api/protocol?page=${page}`)
+	alloldprotocols(data){
+		return ApiService.post(`/api/protocol?page=${data.page}`, data.items)
 	},
 	addoldprotocol(data){
 		return ApiService.post(`/api/protocol/store`,data)

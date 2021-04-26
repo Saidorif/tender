@@ -401,7 +401,7 @@
 		      if(value != ''){
 		        this.isDirectionLoading = true
 		        await setTimeout(async ()=>{
-                    await this.actionDirectionFind({name: value})
+                    await this.actionDirectionFind({name: value, type: 'contract'})
 			        this.findDirectionList = this.getDirectionFindList
 		        this.isDirectionLoading = false
 		        },1000)

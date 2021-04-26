@@ -228,12 +228,12 @@
 							  	<template v-if="car.id">
 								  	<div class="form-group col-md-1 trash_car_item" @click.prevent="removeCarFromServer(car.id)">
 								  		<i class="fas fa-trash-alt"></i>
-								  	</div>	
+								  	</div>
 							  	</template>
 							  	<template v-else>
 								  	<div class="form-group col-md-1 trash_car_item" @click.prevent="removeCarItem(index)" v-if="index!=0">
 								  		<i class="fas fa-trash-alt"></i>
-								  	</div>	
+								  	</div>
 							  	</template>
 					        </div>
 				  	  	</div>
@@ -476,7 +476,7 @@
 		      if(value != ''){
 		        this.isDirectionLoading = true
 		        await setTimeout(async ()=>{
-                    await this.actionDirectionFind({name: value})
+                    await this.actionDirectionFind({name: value,  type: 'contract'})
 			        this.findDirectionList = this.getDirectionFindList
 		        this.isDirectionLoading = false
 		        },1000)
@@ -608,7 +608,7 @@
 							type: "error",
 							icon: "error",
 							title: 'Выберите направление!'
-					 	});		    			
+					 	});
 		    		}
 				}else{
 					this.requiredInput = true
