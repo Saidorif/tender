@@ -33,7 +33,12 @@ class ProtocolController extends Controller
 
     public function edit(Request $request,$id)
     {
-        $protocol = Protocol::with(['region'])->find($id);
+        $user = $request->user();
+        if($user->role->name == 'admin' || $user->role->name == 'resmoderator'){
+            $protocol = Protocol::with(['region'])->find($id);
+        }else{
+            $protocol = Protocol::where('region_id','=',$user->region_id)->with(['region'])->find($id);
+        }
         if(!$protocol){
             return response()->json(['error' => true,'message' => 'Протокол не найден']);
         }

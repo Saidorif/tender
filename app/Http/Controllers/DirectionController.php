@@ -261,18 +261,28 @@ class DirectionController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'  => 'required|string',
+            'type'  => 'nullable|string',
         ]);
 
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $user = $request->user();
-        $builder = Direction::query();
+        $builder = Direction::query()->with(['createdBy']);
         if($user->role->name != 'admin'){
             $builder->where(['region_from_id' => $user->region_id]);
         }
         $builder->where('name','LIKE', '%'.$request->input('name').'%');
         $builder->orWhere('pass_number','LIKE', '%'.$request->input('name').'%');
+        if(!empty($request->input('type'))){
+            $type = $request->input('type');
+            if($type == 'contract'){
+                $region = $user->region_id;
+                $builder->whereHas('createdBy', function ($query) use ($region){
+                    $query->where('region_id',$region);
+                });
+            }
+        }
         $result = $builder->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
