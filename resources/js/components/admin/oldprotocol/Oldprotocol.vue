@@ -58,13 +58,13 @@
                 </select>
               </div>
               <div class="form-group col-lg-3">
-                <label for="year">Сортировать по дате</label>
+                <label for="date">Сортировать по дате</label>
                 <date-picker
                   lang="ru"
-                  type="year"
-                  format="YYYY"
+                  type="date"
+                  format="YYYY-MM-DD"
                   valueType="format"
-                  v-model="filter.year"
+                  v-model="filter.date"
                   placeholder="Выберите дату!"
                   class="input_style"
                 ></date-picker>
@@ -155,7 +155,7 @@ export default {
     return {
       filter: {
         region_id: "",
-        year: "",
+        date: "",
         number: "",
       },
       laoding: true,
@@ -164,7 +164,7 @@ export default {
   },
   async mounted() {
     let page = 1;
-    await this.actionOldprotocols(page);
+    await this.actionOldprotocols({page: page, items: this.filter});
     await this.actionRegionList();
     this.laoding = false;
   },
@@ -180,7 +180,7 @@ export default {
     ...mapActions("region", ["actionRegionList"]),
     async search(){
 		let page = 1
-		if( this.filter.region_id != '' || this.filter.year != '' || this.filter.number != ''){
+		if( this.filter.region_id != '' || this.filter.date != '' || this.filter.number != ''){
 			let data = {
 				page:page,
 				items:this.filter
@@ -190,17 +190,17 @@ export default {
 	},
 	async clear(){
 			this.filter.region_id = ''
-			this.filter.year = ''
+			this.filter.date = ''
 			this.filter.number = ''
             let page  = 1
-            await this.actionDirections({page: page,items:this.filter})
+            await this.actionOldprotocols({page: page,items:this.filter})
 	},
     toggleFilter() {
       this.filterShow = !this.filterShow;
     },
     async getResults(page = 1) {
       this.laoding = true;
-      await this.actionOldprotocols(page);
+      await this.actionOldprotocols({page: page,items:this.filter});
       this.laoding = false;
     },
     async deleteOldprotocol(id) {
