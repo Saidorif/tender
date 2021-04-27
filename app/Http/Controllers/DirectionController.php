@@ -51,6 +51,10 @@ class DirectionController extends Controller
         if(!empty($inputs['pass_number'])){
             $builder->where('pass_number','LIKE', '%'.$inputs['pass_number'].'%');
         }
+        //по наименованию
+        if(!empty($inputs['name'])){
+            $builder->where('name','LIKE', '%'.$inputs['name'].'%');
+        }
         //по дата открытия
         if(!empty($inputs['year'])){
             $from_year = $inputs['year'].'-01-01';
@@ -268,7 +272,7 @@ class DirectionController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $user = $request->user();
-        $builder = Direction::query()->with(['createdBy']);
+        $builder = Direction::query();//->with(['createdBy']);
         if($user->role->name != 'admin'){
             $builder->where(['region_from_id' => $user->region_id]);
         }
@@ -278,6 +282,9 @@ class DirectionController extends Controller
             $type = $request->input('type');
             if($type == 'contract'){
                 $region = $user->region_id;
+//                $u_region_ids = User::where(['region_id' => $region])->where('role_id','!=',9)->get()->pluck(['id'])->toArray();
+//                return $u_region_ids;
+//                $builder->whereIn('created_by',$u_region_ids);
                 $builder->whereHas('createdBy', function ($query) use ($region){
                     $query->where('region_id',$region);
                 });
