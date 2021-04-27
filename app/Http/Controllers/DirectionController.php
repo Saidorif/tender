@@ -752,12 +752,12 @@ class DirectionController extends Controller
             });
         }
         //по номеру
-        if(!empty($inputs['pass_number'])){
-            $builder->where('pass_number','LIKE', '%'.$inputs['pass_number'].'%');
+        if(!empty($params['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$params['pass_number'].'%');
         }
         //по наименованию
-        if(!empty($inputs['name'])){
-            $builder->where('name','LIKE', '%'.$inputs['name'].'%');
+        if(!empty($params['name'])){
+            $builder->where('name','LIKE', '%'.$params['name'].'%');
         }
         $result = $builder->paginate(20);
         return response()->json(['success' => true, 'result' => $result]);
