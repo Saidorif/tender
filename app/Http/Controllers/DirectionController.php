@@ -728,7 +728,6 @@ class DirectionController extends Controller
             $builder->whereHas('createdBy', function ($query) use ($region){
                 $query->where('region_id',$region);
             });
-            // $builder->where(['region_from_id' => $params['region_id']])->orWhere(['region_to_id' => $params['region_id']]);
         }
         if(!empty($params['type_id'])){
             $builder->where(['type_id' => $params['type_id']]);
@@ -746,12 +745,21 @@ class DirectionController extends Controller
                 return $query->orderBy('summa','ASC');
             });
         }
+        if(!empty($params['status'])){
+            $status = $params['status'];
+            $builder->whereHas('passport_tarif', function ($query) use ($status) {
+                return $query->where('status','=',$status);
+            });
+        }
+        //по номеру
+        if(!empty($inputs['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$inputs['pass_number'].'%');
+        }
+        //по наименованию
+        if(!empty($inputs['name'])){
+            $builder->where('name','LIKE', '%'.$inputs['name'].'%');
+        }
         $result = $builder->paginate(20);
-        // $result = [];
-        // foreach($directions as $key => $dir){
-        //     $passport_tarifs = $dir->passport_tarif;
-        //     $result[$key] = ['name' => $dir->name,'tarifs' => $passport_tarifs];
-        // }
         return response()->json(['success' => true, 'result' => $result]);
     }
 
