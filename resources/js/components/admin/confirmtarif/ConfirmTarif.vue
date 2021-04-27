@@ -71,6 +71,26 @@
 			                      <option value="max" >По возрастанию</option>
 								</select>
               				</div>
+                            <div class="form-group col-lg-3">
+				  				<label for="dir_name">Наименования  маршрута</label>
+                                  <input class="form-control input_style" placeholder="Поиск по наименования маршрута" type="text" v-model="filter.name" id="dir_name">
+              				</div>
+                            <div class="form-group col-lg-2">
+				  				<label for="bypass_number">Номер направления</label>
+                                  <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
+              				</div>
+                            <div class="form-group col-lg-2">
+				  				<label for="status">По статусу</label>
+			                    <select
+			                      id="status"
+			                      class="form-control input_style"
+			                      v-model="filter.status"
+			                    >
+			                      <option value="" selected >Выберите статус!</option>
+			                      <option value="approved"  >Потвержден</option>
+			                      <option value="pending"  >Не потвержден</option>
+			                    </select>
+              				</div>
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
@@ -162,6 +182,9 @@
 					dir_type:'',
 					max:false,
 					min:false,
+                    name: '',
+                    pass_number: '',
+                    status: '',
 	            },
 				range:'',
 				page:1,
@@ -210,7 +233,7 @@
 				}
 			},
 			async search(){
-				if(this.filter.region_id != '' || this.filter.type_id != ''  || this.filter.dir_type != '' || this.filter.max || this.filter.min ){
+				if(this.filter.status != '' || this.filter.pass_number != '' || this.filter.name != '' || this.filter.region_id != '' || this.filter.type_id != ''  || this.filter.dir_type != '' || this.filter.max || this.filter.min ){
 					let data = {
 						page:this.page,
 						items:this.filter
@@ -225,6 +248,9 @@
 					this.filter.region_id = ''
 					this.filter.type_id = ''
 					this.filter.dir_type = ''
+					this.filter.status = ''
+					this.filter.pass_number = ''
+					this.filter.name = ''
 					this.filter.min = false
 					this.filter.max = false
 					this.range = ''

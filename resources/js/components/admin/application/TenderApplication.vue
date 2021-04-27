@@ -79,7 +79,6 @@
 		async mounted(){
 			let page = 1;
             await this.actionApplications(page)
-            console.log(this.getApplications)
             this.laoding = false
 		},
 		computed:{

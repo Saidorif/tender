@@ -342,7 +342,6 @@ export default {
     ...mapActions("direction", ["actionDirectionFind"]),
     ...mapActions("passportTab", ["actionGetScheduleTable"]),
     async getEditId(id) {
-        console.log(this.getUserEditApplication)
       let data = {
         tender_id: this.$route.params.tenderuserId,
         lot_id: id,
