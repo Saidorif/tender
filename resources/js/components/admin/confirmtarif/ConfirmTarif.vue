@@ -112,6 +112,7 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Направления</th>
+							<th scope="col">Номер направление</th>
 							<th scope="col">Тариф</th>
 							<th scope="col">Сумма багажа</th>
 							<th scope="col">Статус</th>
@@ -122,6 +123,7 @@
 						<tr v-for="(item,index) in getPassportList.data">
 							<td scope="row">{{item.id}}</td>
 							<td scope="row">{{item.name}}</td>
+							<td scope="row">{{item.pass_number}}</td>
                             <td style="padding:0;">
                                 <ul class="table_item_list">
                                     <li v-for="(ch_item,ch_index) in item.passport_tarif" >
@@ -244,22 +246,19 @@
 				}
 			},
 			async clear(){
-				if(this.filter.region_id != '' || this.filter.type_id != '' || this.filter.dir_type != '' || this.filter.max || this.filter.min){
-					this.filter.region_id = ''
-					this.filter.type_id = ''
-					this.filter.dir_type = ''
-					this.filter.status = ''
-					this.filter.pass_number = ''
-					this.filter.name = ''
-					this.filter.min = false
-					this.filter.max = false
-					this.range = ''
-                    let page  = 1
-                    this.laoding = true
-                    await this.actionPortTarifList({page: page,items:this.filter})
-                    this.laoding = false
-				}
-
+				this.filter.region_id = ''
+				this.filter.type_id = ''
+				this.filter.dir_type = ''
+				this.filter.status = ''
+				this.filter.pass_number = ''
+				this.filter.name = ''
+				this.filter.min = false
+				this.filter.max = false
+				this.range = ''
+                let page  = 1
+                this.laoding = true
+                await this.actionPortTarifList({page: page,items:this.filter})
+                this.laoding = false
 			},
 			async getResults(page = 1){
 				await this.actionPortTarifList({page:page,items:this.filter})
