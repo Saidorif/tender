@@ -662,7 +662,7 @@ export default {
     },
     addCar(){
       if(this.cars.length == 0){
-        let bType = this.cars_with.length > 0 ? this.cars_with[0].bustype_id : '' 
+        let bType = this.cars_with.length > 0 ? this.cars_with[0].bustype_id : ''
         this.cars.push({
           bustype_id:bType,
           tclass_id:'',
@@ -694,8 +694,6 @@ export default {
           });
         }
       }
-      console.log(this.cars_with)
-      console.log(this.cars)
     },
     isRequired(input) {
       return this.requiredInput && input === "";

@@ -39,7 +39,6 @@ const actions = {
 	},
 	async actionBusmodelFindList({commit},data){
 		try {
-            console.log(data)
 			const types =  await BusModelService.busmodelfind(data);
 			await commit('setBusmodelFindList',types.data.result)
 			return true

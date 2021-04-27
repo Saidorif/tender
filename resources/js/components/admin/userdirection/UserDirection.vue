@@ -279,7 +279,6 @@
 			await this.actionTypeofbusList()
 			await this.actionTypeofdirectionList()
             this.laoding = false
-            console.log(this.getDirections)
 		},
 		computed:{
 			...mapGetters('direction', ['getDirections','getMassage']),
