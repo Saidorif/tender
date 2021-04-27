@@ -23,7 +23,11 @@
 						<tr v-for="(direct,index) in getDemands.data">
 							<td scope="row">{{index + 1}}</td>
 							<td>{{direct.stations_from_name}} - {{direct.stations_to_name}}</td>
-							<td>{{direct.status}}</td>
+							<td>{{direct.status}}
+                                <div class="badge" :class="getStatusClass(direct.status)">
+	                                {{direct.status == 'completed' ? 'подтвержден' : 'не подтвержден'}}
+                                </div>
+                            </td>
 							<td>
 								<router-link
 									tag="button"
@@ -79,7 +83,7 @@
 			getStatusClass(status){
 				if(status == 'pending'){
 					return 'badge-warning'
-				}else if(status == 'approved'){
+				}else if(status == 'completed'){
 					return 'badge-success'
 				}
 			},

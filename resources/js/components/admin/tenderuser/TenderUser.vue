@@ -102,7 +102,7 @@
 								<router-link tag="button" class="btn_transparent" :to='`/crm/tenderuser/edit/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button class="btn_transparent" @click="deleteRegion(item.id)">
+								<button class="btn_transparent" v-if="$can('destroy', 'TenderController')"  @click="deleteRegion(item.id)">
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button>
 							</td>
