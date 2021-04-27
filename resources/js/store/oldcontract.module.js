@@ -42,6 +42,15 @@ const actions = {
 			return false
 		}
 	},
+	async actionContractActivate({commit},payload){
+		try {
+			const oldcontract =  await OldcontractService.contractActivate(payload);
+			await commit('setMessage',oldcontract.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionAddOldcontract({commit},payload){
 		try {
 			const oldcontract =  await OldcontractService.addoldcontract(payload);
