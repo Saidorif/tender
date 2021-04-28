@@ -1130,7 +1130,7 @@
                 if(this.cars_with.length){
                     let date_time = []
                     this.cars_with.forEach((item)=>{
-                        date_time.push(item.date)
+                        date_time.push(parseInt(item.date))
                     })
                     let calcAvr = date_time.reduce((a,b) => a + b, 0) / date_time.length;
                     let curYear = new Date().getFullYear()
