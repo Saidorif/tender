@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DirectionReq;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Validation\Rule;
@@ -152,7 +153,12 @@ class ApplicationController extends Controller
         if(!in_array($inputs['bustype_id'],$dir_cars)){
             return response()->json(['error' => true, 'message' => 'Категория Авто не совпадает']);
         }
-    
+        // Get auto_trans_count from requirements
+        $dir_reqs = DirectionReq::whereIn('direction_id',$application->direction_ids)->first();//->auto_trans_count;
+        if($application->cars->count() >= $dir_reqs->auto_trans_count){
+            return response()->json(['error' => true, 'message' => 'Вы уже добавили достаточно машин']);
+        }
+
         $inputs['user_id'] = $user->id;
         $inputs['auto_number'] = strtoupper($inputs['auto_number']);
         //Check for if the car already in use
