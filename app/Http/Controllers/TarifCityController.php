@@ -49,10 +49,12 @@ class TarifCityController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $user = $request->user();
-        if($user->role->name != 'admin'){
-            return response()->json(['error' => true,'message' => 'You are not admin']);
-        }
         $inputs = $request->all();
+        if($inputs['region_id'] != $user->region_id){
+            if($user->role->name != 'admin'){
+                return response()->json(['error' => true,'message' => 'You are not admin']);
+            }
+        }
         //Upload file
         if($request->hasFile('file')){
             $path = public_path('tarif');
@@ -73,11 +75,6 @@ class TarifCityController extends Controller
             return response()->json(['error' => true, 'message' => 'Тариф не найден']);
         }
         $user = $request->user();
-        if($user->role->name != 'admin'){
-            if($user->region_id != $result->region_id){
-                return response()->json(['error' => true,'message' => 'You are not allowed']);
-            }
-        }
         $validator = Validator::make($request->all(), [
             'region_id'  => 'required|integer',
             'tarif'  => 'required|numeric',
@@ -89,6 +86,11 @@ class TarifCityController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+        if($inputs['region_id'] != $user->region_id){
+            if($user->role->name != 'admin'){
+                return response()->json(['error' => true,'message' => 'You are not admin']);
+            }
+        }
         //Upload file
         if($request->hasFile('file')){
             $path = public_path('tarif');
