@@ -12,5 +12,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="tm.loc" />
     <orderEntry type="module" module-name="quiz.loc" />
+    <orderEntry type="module" module-name="quatro.loc" />
+    <orderEntry type="module" module-name="book.loc" />
   </component>
 </module>
