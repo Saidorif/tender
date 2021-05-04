@@ -29,6 +29,7 @@ class CreateApplicationsTable extends Migration
             $table->string('gps')->nullable();
             $table->string('qr_code')->nullable();
             $table->tinyInteger('contract_time')->nullable();
+            $table->double('total_ball',15,2)->default(0);
             $table->timestamps();
         });
     }

@@ -645,7 +645,8 @@ class TenderController extends Controller
             $result = Tender::whereIn('created_by', $created_by_users)
                             ->with(['tenderlots'])
                             ->withCount(['tenderlots','tenderapps'])
-                            ->where(['status' => 'completed','status' => 'approved'])
+                            ->where(['status' => 'completed'])
+                            ->orWhere(['status' => 'approved'])
                             ->where('time','<', date('Y-m-d H:m:s'))
                             ->paginate(12);
         }
@@ -665,7 +666,7 @@ class TenderController extends Controller
             $applications = $lot->apps;
             $direction_ids = $lot->getDirection();
             foreach($applications as $k => $app){
-                if($app->balls){
+                if(count($app->balls) > 0){
                     $balls = $app->balls;
                     if($lot->contract != null){
                         if($balls->app_id == $lot->contract->app_id){
@@ -997,6 +998,8 @@ class TenderController extends Controller
                     $result[$key][$k]['appBallArray'] = $appBallArray;
                     $appBallArray['details'] = $result;
                     $applicationBall = ApplicationBall::create($appBallArray);
+                    $app->total_ball += $applicationBall->total_ball;
+                    $app->save();
                 }
             }
             $items[] = $result;

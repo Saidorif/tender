@@ -141,20 +141,14 @@ class ApplicationController extends Controller
             return response()->json(['error' => true, 'message' => 'Лот не найден']);
         }
         $dir_cars = DirectionCar::whereIn('direction_id',$tender_lot->getDirection())->pluck('bustype_id')->toArray();
-        $bus_types = [];
-//        foreach($dir_cars as $d_car){
-//            if($d_car != $inputs['bustype_id']){
-//                $bus_types[] = $inputs['bustype_id'];
-//            }
-//        }
-//        if(count($bus_types) > 0){
-//            return response()->json(['error' => true, 'message' => 'Категория Авто не совпадает']);
-//        }
         if(!in_array($inputs['bustype_id'],$dir_cars)){
             return response()->json(['error' => true, 'message' => 'Категория Авто не совпадает']);
         }
         // Get auto_trans_count from requirements
-        $dir_reqs = DirectionReq::whereIn('direction_id',$application->direction_ids)->first();//->auto_trans_count;
+        $dir_reqs = DirectionReq::where('direction_id',$inputs['direction_id'])->first();//->auto_trans_count;
+        if(!$dir_reqs){
+            return response()->json(['error' => true, 'message' => 'Направления не найден']);
+        }
         if($application->cars->count() >= $dir_reqs->auto_trans_count){
             return response()->json(['error' => true, 'message' => 'Вы уже добавили достаточно машин']);
         }

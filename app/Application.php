@@ -22,6 +22,7 @@ class Application extends Model
         'qr_code',
         'tender_status',
         'contract_time',
+        'total_ball',
     ];
 
     protected $casts = [
@@ -66,7 +67,7 @@ class Application extends Model
 
     public function balls()
     {
-        return $this->hasOne(\App\ApplicationBall::class,'app_id')->with('user');
+        return $this->hasMany(\App\ApplicationBall::class,'app_id')->with('user');
     }
 
     public function getCars($value)
