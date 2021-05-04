@@ -978,11 +978,8 @@ class DirectionController extends Controller
         }else{
             $tarif_city = 0;
         }
-        $result = [];
         $from_name = $direction->from_where['name'];
-        $from_id   = $direction->from_where['id'];
         $to_name   = $direction->timing->last()->whereTo['name'];
-        $to_id     = $direction->timing->last()->whereTo['id'];
         $ptimings  = $direction->timing->toArray();
         $reysesFrom = Reys::where(['direction_id' => $id,'type' => 'from','status' => 'active'])->get();
         $reysesTo   = Reys::where(['direction_id' => $id,'type' => 'to','status' => 'active'])->get();
@@ -993,11 +990,6 @@ class DirectionController extends Controller
         $the_reys_time = array_sum(array_column($ptimings, 'spendtime_between_station')) + array_sum(array_column($ptimings, 'spendtime_to_stay_station'));
         $the_reys_time_hour = $the_reys_time / 60;
         $the_reys_time_minut = ($the_reys_time - (int)$the_reys_time_hour * 60 );
-        //remove dublicate classess from direction cars
-        // $direction_cars_with = [];
-        // foreach($direction->carsWith as $the_car){
-        //     $direction_cars_with[$the_car->tclass_id] = $the_car;
-        // }
         $data = [
             'direction_id'                  => $direction->id,
             'dir_type'                      => $direction->dir_type,
