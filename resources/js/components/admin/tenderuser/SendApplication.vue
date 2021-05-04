@@ -97,7 +97,7 @@
 						  		</div>
 							  	<div class="choosenItemsTable">
 							  		<ul v-for="(items,index) in direction_ids">
-							  			<h3><em>{{index+1}})</em> <strong>Маршрут</strong>: <em>{{items.name}}</em></h3>
+							  			<h3><em>{{index+1}})</em> <strong>Маршрут</strong>: <em>{{items.name}}</em> <small>({{ items.reys_status == 'all' ? "To'liq" : "Qisman" }})</small> </h3>
 						  		    	<template>
 								  		    <li class="mb-2">
 								  		    	<h4><em>Со стороны:</em>  <b>{{items.reysesFrom[0].where.name}}</b></h4>
@@ -1046,6 +1046,7 @@
             }else{
 				this.$router.push('/notfound')
             }
+            console.log(this.direction_ids)
 		},
 		methods:{
 			...mapActions('application',[
