@@ -355,21 +355,21 @@
                     <tr>
                       <td>3</td>
                       <td>
-                        Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган 
+                        Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
                       </td>
                       <td>{{ballItems.hours_rule}}</td>
                     </tr>
                     <tr>
                       <td>4</td>
                       <td>
-                        Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор ўрнатилган  
+                        Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор ўрнатилган
                       </td>
                       <td>{{ballItems.videoregistrator}}</td>
                     </tr>
                     <tr>
                       <td>5</td>
                       <td>
-                        Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш тизимига уланган 
+                        Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш тизимига уланган
                       </td>
                       <td>{{ballItems.gps}}</td>
                     </tr>
@@ -409,8 +409,8 @@ export default {
   },
   async mounted() {
     await this.actionCompletedTendersShow(this.$route.params.tenderId);
-    $('#userModal').modal({backdrop: 'static',keyboard: true, show: false}); 
-    $('#ballModal').modal({backdrop: 'static',keyboard: true, show: false}); 
+    $('#userModal').modal({backdrop: 'static',keyboard: true, show: false});
+    $('#ballModal').modal({backdrop: 'static',keyboard: true, show: false});
     this.laoding = false
   },
   methods: {
