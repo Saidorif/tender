@@ -248,4 +248,17 @@ class UserController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Статус успешно изменен']);
     }
+
+    public function updateUserData(Request $request)
+    {
+        $clients = [];
+        foreach ($clients as $item){
+            $user = User::where(['inn' => $item])->first();
+            if($user){
+                $user->region_id = $item['region_id'];
+                $user->area_id = $item['area_id'];
+                $user->save();
+            }
+        }
+    }
 }

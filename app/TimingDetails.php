@@ -15,6 +15,7 @@ class TimingDetails extends Model
         'persons',
         'technic_speed',
         'traffic_speed',
+        'vars',
     ];
 
     protected $casts = [
