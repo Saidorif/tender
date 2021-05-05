@@ -74,7 +74,7 @@
 			                    	>{{busType.name}}</option>
 			                    </select>
               				</div>
-				  			<div class="form-group col-lg-3">
+				  			<div class="form-group col-lg-2">
 				  				<label for="profitability">Сортировать по рентабельности!</label>
 			                    <select
 			                      id="profitability"
@@ -101,7 +101,7 @@
 				                  >{{item.name }} {{item.type}}</option>
 			                    </select>
               				</div>
-				  			<div class="form-group col-lg-3">
+				  			<div class="form-group col-lg-2">
 				  				<label for="dir_type">Сортировать по типу маршрута!</label>
 			                    <select
 			                      id="dir_type"
@@ -113,7 +113,7 @@
                       			  <option value="taxi">Йўналиши тахи йуналиши</option>
 			                    </select>
               				</div>
-				  			<div class="form-group col-lg-3">
+				  			<div class="form-group col-lg-2">
 				  				<label for="year">Сортировать по дате открытия!</label>
 				  				<date-picker
 					                lang="ru"
@@ -122,6 +122,10 @@
 					                placeholder="Выберите дату!"
 					                class="input_style"
 				              	></date-picker>
+              				</div>
+                            <div class="form-group col-lg-3">
+				  				<label for="dir_name">Наименования  маршрута</label>
+                                  <input class="form-control input_style" placeholder="Поиск по наименования маршрута" type="text" v-model="filter.name" id="dir_name">
               				</div>
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
@@ -319,6 +323,7 @@
 					profitability:'',
                     year:'',
                     pass_number: '',
+                    name: '',
 				},
 				filterShow:false,
 				laoding: true
@@ -356,7 +361,7 @@
             },
 			async search(){
 				let page = 1
-				if(this.filter.pass_number != '' || this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
+				if(this.filter.name != '' || this.filter.pass_number != '' || this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
 					let data = {
 						page:page,
 						items:this.filter

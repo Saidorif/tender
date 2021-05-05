@@ -14,13 +14,18 @@ class ContractController extends Controller
 {
     public function index(Request $request)
     {
-        $contracts = Contract::orderBy('id','DESC')->with(['user','cars','protocol','region'])->paginate(12);
+        $user = $request->user();
+        $contracts = Contract::orderBy('id','DESC')
+                        ->with(['user','cars','protocol','region'])
+                        ->where(['region_id' => $user->region_id])
+                        ->paginate(12);
         return response()->json(['success' => true, 'result' => $contracts]);
     }
 
     public function edit(Request $request,$id)
     {
-        $contract = Contract::with(['user','cars','protocol','region'])->find($id);
+        $user = $request->user();
+        $contract = Contract::with(['user','cars','protocol','region'])->where(['region_id' => $user->region_id])->find($id);
         if(!$contract){
             return response()->json(['error' => true, 'message' => 'Контракт не найден']);
         }
@@ -109,9 +114,9 @@ class ContractController extends Controller
         if($request->hasFile('file')){
             $file = $request->file('file');
             $ext = $file->getClientOriginalExtension();
-            if($ext != 'pdf'){
-                return response()->json(['error' => true, 'message' => 'File must be pdf']);
-            }
+//            if($ext != 'pdf' || $ext != 'PDF'){
+//                return response()->json(['error' => true, 'message' => 'File must be pdf']);
+//            }
             $path = 'public/'.date('Y-m-d');
             $file_name = time().'.'.$file->getClientOriginalExtension();
             Storage::disk('local')->putFileAs($path, $file,$file_name);
@@ -131,7 +136,8 @@ class ContractController extends Controller
 
     public function update(Request $request,$id)
     {
-        $contract = Contract::with(['user','lot','app'])->find($id);
+        $user = $request->user();
+        $contract = Contract::with(['user','lot','app'])->where(['region_id' => $user->region_id])->find($id);
         if(!$contract){
             return response()->json(['error' => true, 'message' => 'Контракт не найден']);
         }
@@ -215,9 +221,9 @@ class ContractController extends Controller
         if($request->hasFile('file')){
             $file = $request->file('file');
             $ext = $file->getClientOriginalExtension();
-            if($ext != 'pdf' || $ext != 'PDF'){
-                return response()->json(['error' => true, 'message' => 'File must be pdf']);
-            }
+//            if($ext != 'pdf' || $ext != 'PDF'){
+//                return response()->json(['error' => true, 'message' => 'File must be pdf']);
+//            }
             $path = 'public/'.date('Y-m-d');
             $file_name = time().'.'.$file->getClientOriginalExtension();
             Storage::disk('local')->putFileAs($path, $file,$file_name);
@@ -244,7 +250,8 @@ class ContractController extends Controller
 
     public function destroy(Request $request,$id)
     {
-        $contract = Contract::find($id);
+        $user = $request->user();
+        $contract = Contract::where(['region_id' => $user->region_id])->find($id);
         if(!$contract){
             return response()->json(['error' => true, 'message' => 'Контракт не найден']);
         }

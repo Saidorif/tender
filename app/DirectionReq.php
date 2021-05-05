@@ -59,7 +59,12 @@ class DirectionReq extends Model
 
     public function type()
     {
-        return $this->belongsTo(\App\DirectionType::class,'direction_id');
+        return $this->direction();
+    }
+
+    public function direction()
+    {
+        return $this->belongsTo(\App\Direction::class,'direction_id');
     }
 
     public function getAutoModelClassAttribute($value)
@@ -70,7 +75,7 @@ class DirectionReq extends Model
             foreach ($d_ids as $key => $id) {
                 $tclass = DirectionCar::with(['marka','model','bustype','tclass'])->where(['id' => $id])->first();
                 $result[] = $tclass;
-            }         
+            }
         }
         return $result;
     }

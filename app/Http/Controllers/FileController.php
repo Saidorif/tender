@@ -33,45 +33,45 @@ class FileController extends Controller {
         $createdFiles = [];
 
         // foreach ($files as $key => $file) {
-            if ( $file->isValid() ) {
-                $filename = md5(microtime()).'.'.$file->getClientOriginalExtension();
-                $uploadsDir = public_path('uploads');
-                $firstPath = array_diff(scandir($uploadsDir), array('..', '.'));
-                $secondPath = array_diff(scandir($uploadsDir.'/'.end($firstPath)), array('..', '.'));
-                $currentPath = $uploadsDir.'/'.end($firstPath).'/'.end($secondPath);
+        if ( $file->isValid() ) {
+            $filename = md5(microtime()).'.'.$file->getClientOriginalExtension();
+            $uploadsDir = public_path('uploads/uploads');
+            $firstPath = array_diff(scandir($uploadsDir), array('..', '.'));
+            $secondPath = array_diff(scandir($uploadsDir.'/'.end($firstPath)), array('..', '.'));
+            $currentPath = $uploadsDir.'/'.end($firstPath).'/'.end($secondPath);
 
-                $currentDir = scandir($currentPath);
-                if(count($currentDir) < 1000)
-                    $file->move($currentPath, $filename);
-                else {
-                    $totalDirs = count( scandir($uploadsDir.'/'.end($firstPath)) );
+            $currentDir = scandir($currentPath);
+            if(count($currentDir) < 1000)
+                $file->move($currentPath, $filename);
+            else {
+                $totalDirs = count( scandir($uploadsDir.'/'.end($firstPath)) );
 
-                    if($totalDirs < 10001){
-                        $newDir = str_pad($totalDirs - 1, 4, "0", STR_PAD_LEFT);
-                        $currentPath = $uploadsDir.'/'.end($firstPath).'/'.$newDir;
-                    }
-                    else {
-                        $totalDirs = count( scandir($uploadsDir) );
-                        $newDir = str_pad($totalDirs - 1, 4, "0", STR_PAD_LEFT);
-                        $currentPath = $uploadsDir.'/'.$newDir.'/0001';
-                    }
-                    mkdir($currentPath, 0755, true);
-
-                    $file->move($currentPath, $filename);
+                if($totalDirs < 10001){
+                    $newDir = str_pad($totalDirs - 1, 4, "0", STR_PAD_LEFT);
+                    $currentPath = $uploadsDir.'/'.end($firstPath).'/'.$newDir;
                 }
+                else {
+                    $totalDirs = count( scandir($uploadsDir) );
+                    $newDir = str_pad($totalDirs - 1, 4, "0", STR_PAD_LEFT);
+                    $currentPath = $uploadsDir.'/'.$newDir.'/0001';
+                }
+                mkdir($currentPath, 0755, true);
 
-                $fileObj = new File;
-                $fileObj->user_id = $request->user()->id;
-                $fileObj->app_id = $inputs['app_id'];
-                $fileObj->hash = $filename;
-                $fileObj->original_name = $file->getClientOriginalName();
-                $fileObj->path = substr($currentPath, strpos($currentPath, 'uploads'));
-                $fileObj->mime_type = $file->getClientMimeType();
-                $fileObj->save();
-                $createdFiles['id'] = $fileObj->id;
-                $createdFiles['path'] = $fileObj->path.'/'.$fileObj->hash;
-            }   
-        // }   
+                $file->move($currentPath, $filename);
+            }
+
+            $fileObj = new File;
+            $fileObj->user_id = $request->user()->id;
+            $fileObj->app_id = $inputs['app_id'];
+            $fileObj->hash = $filename;
+            $fileObj->original_name = $file->getClientOriginalName();
+            $fileObj->path = substr($currentPath, strpos($currentPath, 'uploads/uploads'));
+            $fileObj->mime_type = $file->getClientMimeType();
+            $fileObj->save();
+            $createdFiles['id'] = $fileObj->id;
+            $createdFiles['path'] = $fileObj->path.'/'.$fileObj->hash;
+        }
+        // }
 
         return response()->json([
             'success'=>true,
@@ -83,7 +83,7 @@ class FileController extends Controller {
     public function uploadFile(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'photo' => 'mimes:jpeg,jpg'         
+            'photo' => 'mimes:jpeg,jpg'
         ]);
 
         if ($validator->fails()) {
@@ -130,8 +130,8 @@ class FileController extends Controller {
                     );
 
                     return response()->json(['status'=>'success','file'=>$data_file]);
-                }   
-            }   
+                }
+            }
         }
 
     }

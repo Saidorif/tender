@@ -140,14 +140,14 @@ class Direction extends Model
 
     public function requirement()
     {
-        return $this->hasOne(\App\DirectionReq::class,'direction_id')->with(['type']);
+        return $this->hasOne(\App\DirectionReq::class,'direction_id')->with(['direction']);
     }
-    
+
     public function passport_tarif()
     {
         return $this->hasMany(\App\PassportTarif::class,'direction_id');
     }
-    
+
     public function getPTarifFull()
     {
         return \App\PassportTiming::where(['direction_id' => $this->id])->get()->last()->distance_from_start_station * $this->tarif;
@@ -157,10 +157,10 @@ class Direction extends Model
     {
         return $this->belongsTo(\App\User::class,'created_by')->with('region');
     }
-    
+
     public function getModeratorAttribute()
     {
         return $this->createdBy->region->name;
-    }    
-    
+    }
+
 }

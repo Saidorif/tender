@@ -7,10 +7,13 @@
 			    	<i class="peIcon fas fa-file-alt"></i>
 				    Изменить старый контракт
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/oldcontract">
-					<span class="peIcon pe-7s-back"></span>
-					Назад
-				</router-link>
+                <div class="d-flex">
+                    <button type="button" class="btn btn-success mr-2" @click="activeContract">Активировать</button>
+                    <router-link class="btn btn-primary back_btn" to="/crm/oldcontract">
+                        <span class="peIcon pe-7s-back"></span>
+                        Назад
+                    </router-link>
+                </div>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveOldcontract" enctype="multipart/form-data">
@@ -228,12 +231,12 @@
 							  	<template v-if="car.id">
 								  	<div class="form-group col-md-1 trash_car_item" @click.prevent="removeCarFromServer(car.id)">
 								  		<i class="fas fa-trash-alt"></i>
-								  	</div>	
+								  	</div>
 							  	</template>
 							  	<template v-else>
 								  	<div class="form-group col-md-1 trash_car_item" @click.prevent="removeCarItem(index)" v-if="index!=0">
 								  		<i class="fas fa-trash-alt"></i>
-								  	</div>	
+								  	</div>
 							  	</template>
 					        </div>
 				  	  	</div>
@@ -374,6 +377,7 @@
 				'actionUpdateOldcontract',
 				'actionOldprotocolFind',
 				'actionDeleteOldcontractCar',
+                'actionContractActivate',
 			]),
 			...mapActions('oldprotocol',[
 				'actionOldprotocolFind',
@@ -476,7 +480,7 @@
 		      if(value != ''){
 		        this.isDirectionLoading = true
 		        await setTimeout(async ()=>{
-                    await this.actionDirectionFind({name: value})
+                    await this.actionDirectionFind({name: value,  type: 'contract'})
 			        this.findDirectionList = this.getDirectionFindList
 		        this.isDirectionLoading = false
 		        },1000)
@@ -556,6 +560,33 @@
 		      		this.form.file = ''
 		      	}
 			},
+            async activeContract(){
+                await this.actionContractActivate(this.$route.params.oldcontractId);
+				if(this.getMassage.success){
+					toast.fire({
+						type: 'success',
+						icon: 'success',
+						title: this.getMassage.message,
+					})
+					this.$router.push("/crm/oldcontract");
+				}else{
+					if(Array.isArray(this.getMassage.message) ){
+						this.getMassage.message.forEach((item)=>{
+		    				toast.fire({
+						    	type: 'error',
+						    	icon: 'error',
+								title: item,
+						    })
+						})
+					}else{
+						toast.fire({
+							type: 'error',
+							icon: 'error',
+							title: this.getMassage.message,
+						})
+					}
+				}
+            },
 			async saveOldcontract(){
 		    	if (this.form.number != '' && this.form.date != '' && this.form.file != '' && this.form.contract_period != '' && this.form.user_id != '' && this.form.protocol_id != '' && this.form.exp_date != ''){
 		    		if(this.form.direction_ids.length > 0){
@@ -608,7 +639,7 @@
 							type: "error",
 							icon: "error",
 							title: 'Выберите направление!'
-					 	});		    			
+					 	});
 		    		}
 				}else{
 					this.requiredInput = true

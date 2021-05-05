@@ -7,6 +7,9 @@ const OldcontractService = {
 	alloldcontracts(page){
 		return ApiService.post(`/api/contract?page=${page}`)
 	},
+	contractActivate(id){
+		return ApiService.get(`/api/contract/activate/${id}`)
+	},
 	addoldcontract(data){
 		return ApiService.post(`/api/contract/store`,data)
 	},

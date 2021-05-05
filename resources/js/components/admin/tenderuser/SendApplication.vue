@@ -97,7 +97,7 @@
 						  		</div>
 							  	<div class="choosenItemsTable">
 							  		<ul v-for="(items,index) in direction_ids">
-							  			<h3><em>{{index+1}})</em> <strong>Маршрут</strong>: <em>{{items.name}}</em></h3>
+							  			<h3><em>{{index+1}})</em> <strong>Маршрут</strong>: <em>{{items.name}}</em> <small>({{ items.reys_status == 'all' ? "To'liq" : "Qisman" }})</small> </h3>
 						  		    	<template>
 								  		    <li class="mb-2">
 								  		    	<h4><em>Со стороны:</em>  <b>{{items.reysesFrom[0].where.name}}</b></h4>
@@ -1024,9 +1024,16 @@
 				this.direction_ids = this.getApplication.tender.direction_ids
 	            this.lots = this.getApplication.tender.tenderlots
 	            this.car.app_id = this.$route.params.userapplicationId;
-                console.log(this.getApplication)
-                this.form.tarif = this.getApplication.tarif.length ? this.getApplication.tarif : []
-                this.form.qty_reys = this.getApplication.qty_reys.length ? this.getApplication.qty_reys : []
+                if(this.getApplication.tarif){
+                    this.form.tarif = this.getApplication.tarif.length ? this.getApplication.tarif : []
+                }else{
+                    this.form.tarif  =  []
+                }
+                if(this.getApplication.qty_reys){
+                    this.form.qty_reys = this.getApplication.qty_reys.length ? this.getApplication.qty_reys : []
+                }else{
+                    this.form.qty_reys  =  []
+                }
                 if(!this.form.tarif.length){
                     this.getApplication.tender.direction_ids.forEach((item)=>{
                         let tarif_data = {direction_id: item.id, summa: ''};
@@ -1039,6 +1046,7 @@
             }else{
 				this.$router.push('/notfound')
             }
+            console.log(this.direction_ids)
 		},
 		methods:{
 			...mapActions('application',[
@@ -1123,7 +1131,7 @@
                 if(this.cars_with.length){
                     let date_time = []
                     this.cars_with.forEach((item)=>{
-                        date_time.push(item.date)
+                        date_time.push(parseInt(item.date))
                     })
                     let calcAvr = date_time.reduce((a,b) => a + b, 0) / date_time.length;
                     let curYear = new Date().getFullYear()

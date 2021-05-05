@@ -17,6 +17,7 @@
 							<th scope="col">Направления</th>
 							<th scope="col">Тариф</th>
 							<th scope="col">Сумма багажа</th>
+							<th scope="col">Дата</th>
 							<th scope="col">Статус</th>
 							<th scope="col">Действия</th>
 						</tr>
@@ -32,6 +33,11 @@
 							<td>{{direct.name}}</td>
 							<td>{{direct.pass_number}}</td>
 							<td>{{direct.year}}</td>
+							<td>
+                                <div class="badge" :class="getStatusClass(direct.titul_status)">
+	                                {{direct.titul_status == 'completed' ? 'подтвержден' : 'не подтвержден'}}
+                                </div>
+                            </td>
 							<td>
 								<router-link
 									tag="button"
@@ -87,7 +93,7 @@
 			getStatusClass(status){
 				if(status == 'pending'){
 					return 'badge-warning'
-				}else if(status == 'approved'){
+				}else if(status == 'completed'){
 					return 'badge-success'
 				}
 			},

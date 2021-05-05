@@ -664,7 +664,6 @@
 				    	}
 			    	}
 		    	}
-                console.log(this.choosenFromItems)
 		    },
 		    chooseToItem(value,index){
 		    	if (value.status == 'active') {

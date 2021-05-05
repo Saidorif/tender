@@ -51,6 +51,10 @@ class DirectionController extends Controller
         if(!empty($inputs['pass_number'])){
             $builder->where('pass_number','LIKE', '%'.$inputs['pass_number'].'%');
         }
+        //по наименованию
+        if(!empty($inputs['name'])){
+            $builder->where('name','LIKE', '%'.$inputs['name'].'%');
+        }
         //по дата открытия
         if(!empty($inputs['year'])){
             $from_year = $inputs['year'].'-01-01';
@@ -265,18 +269,31 @@ class DirectionController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name'  => 'required|string',
+            'type'  => 'nullable|string',
         ]);
 
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $user = $request->user();
-        $builder = Direction::query();
+        $builder = Direction::query();//->with(['createdBy']);
         if($user->role->name != 'admin'){
             $builder->where(['region_from_id' => $user->region_id]);
         }
         $builder->where('name','LIKE', '%'.$request->input('name').'%');
         $builder->orWhere('pass_number','LIKE', '%'.$request->input('name').'%');
+        if(!empty($request->input('type'))){
+            $type = $request->input('type');
+            if($type == 'contract'){
+                $region = $user->region_id;
+//                $u_region_ids = User::where(['region_id' => $region])->where('role_id','!=',9)->get()->pluck(['id'])->toArray();
+//                return $u_region_ids;
+//                $builder->whereIn('created_by',$u_region_ids);
+                $builder->whereHas('createdBy', function ($query) use ($region){
+                    $query->where('region_id',$region);
+                });
+            }
+        }
         $result = $builder->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
@@ -715,7 +732,6 @@ class DirectionController extends Controller
             $builder->whereHas('createdBy', function ($query) use ($region){
                 $query->where('region_id',$region);
             });
-            // $builder->where(['region_from_id' => $params['region_id']])->orWhere(['region_to_id' => $params['region_id']]);
         }
         if(!empty($params['type_id'])){
             $builder->where(['type_id' => $params['type_id']]);
@@ -733,12 +749,21 @@ class DirectionController extends Controller
                 return $query->orderBy('summa','ASC');
             });
         }
+        if(!empty($params['status'])){
+            $status = $params['status'];
+            $builder->whereHas('passport_tarif', function ($query) use ($status) {
+                return $query->where('status','=',$status);
+            });
+        }
+        //по номеру
+        if(!empty($params['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$params['pass_number'].'%');
+        }
+        //по наименованию
+        if(!empty($params['name'])){
+            $builder->where('name','LIKE', '%'.$params['name'].'%');
+        }
         $result = $builder->paginate(20);
-        // $result = [];
-        // foreach($directions as $key => $dir){
-        //     $passport_tarifs = $dir->passport_tarif;
-        //     $result[$key] = ['name' => $dir->name,'tarifs' => $passport_tarifs];
-        // }
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -957,11 +982,8 @@ class DirectionController extends Controller
         }else{
             $tarif_city = 0;
         }
-        $result = [];
         $from_name = $direction->from_where['name'];
-        $from_id   = $direction->from_where['id'];
         $to_name   = $direction->timing->last()->whereTo['name'];
-        $to_id     = $direction->timing->last()->whereTo['id'];
         $ptimings  = $direction->timing->toArray();
         $reysesFrom = Reys::where(['direction_id' => $id,'type' => 'from','status' => 'active'])->get();
         $reysesTo   = Reys::where(['direction_id' => $id,'type' => 'to','status' => 'active'])->get();
@@ -972,11 +994,6 @@ class DirectionController extends Controller
         $the_reys_time = array_sum(array_column($ptimings, 'spendtime_between_station')) + array_sum(array_column($ptimings, 'spendtime_to_stay_station'));
         $the_reys_time_hour = $the_reys_time / 60;
         $the_reys_time_minut = ($the_reys_time - (int)$the_reys_time_hour * 60 );
-        //remove dublicate classess from direction cars
-        // $direction_cars_with = [];
-        // foreach($direction->carsWith as $the_car){
-        //     $direction_cars_with[$the_car->tclass_id] = $the_car;
-        // }
         $data = [
             'direction_id'                  => $direction->id,
             'dir_type'                      => $direction->dir_type,

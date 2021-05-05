@@ -200,7 +200,6 @@ import Loader from '../../Loader'
 			await this.actionTarif(this.$route.params.directionId);
 			this.titulData = this.getDirection
 			this.laoding = false
-            console.log(this.getTarif)
 		},
 		computed:{
 			...mapGetters("direction", ["getDirection"]),
