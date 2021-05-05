@@ -445,7 +445,7 @@ export default {
     this.titulData = this.getDirection
     this.timingDetails = this.titulData.timing_details.length ? this.titulData.timing_details[0] : this.timingDetails
     if(this.titulData.timing_with.length){
-        this.fullTableInfo = JSON.parse(this.titulData.timing_with[0].vars)
+        this.fullTableInfo = JSON.parse(this.timingDetails.vars)
         this.calcTableData();
         this.calctechnic_speed();
     }else{
