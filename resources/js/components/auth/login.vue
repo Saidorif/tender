@@ -133,8 +133,8 @@ export default {
       await this.actionAreaByRegion({ region_id: this.signUp.region_id });
     },
     confirmPassword() {
-      if (this.signUp.password && this.signUp.confirm_password) {
-        if (this.signUp.password != this.signUp.confirm_password) {
+      if (this.signUp.password && this.signUp.confirm_password){
+        if (this.signUp.password != this.signUp.confirm_password){
           this.checkPassword = true;
         } else {
           this.checkPassword = false;
@@ -143,11 +143,11 @@ export default {
     },
     async onLogin() {
       this.$Progress.start();
-      if (this.form.email != "" && this.form.password != "") {
+      if (this.form.email != "" && this.form.password != ""){
         this.laoding = true
         await this.login(this.form);
         await this.authenticationErrorCode;
-        if (!this.authenticationErrorCode) {
+        if(!this.authenticationErrorCode){
           toast.fire({
             type: "success",
             icon: "success",
@@ -160,12 +160,12 @@ export default {
           // },100)
           //   this.$router.push("/crm/dashboard");
           this.requiredLoginInput = false;
-        } else {
+        }else{
           this.errorMsg = this.authenticationError;
           this.$Progress.fail();
         }
         this.laoding = false
-      } else {
+      }else{
         this.requiredLoginInput = true;
       }
     },
