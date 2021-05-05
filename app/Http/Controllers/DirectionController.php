@@ -205,10 +205,14 @@ class DirectionController extends Controller
     public function list(Request $request)
     {
         $user = $request->user();
+        $region = $user->region_id;
         if($user->role->name == 'admin'){
             $result = Direction::all();
         }else{
-            $result = Direction::where(['region_from_id' => $user->region_id,'region_to_id' => $user->region_id])->get(20);
+            // $result = Direction::where(['region_from_id' => $user->region_id,'region_to_id' => $user->region_id])->get(20);
+            $result = Direction::whereHas('createdBy', function ($query) use ($region){
+                $query->where('region_id',$region);
+            })->get(20);
         }
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
