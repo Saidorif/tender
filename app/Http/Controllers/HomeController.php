@@ -24,8 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //$users = User::all();
-        $baseUrl = 'http://'.$_SERVER['HTTP_HOST'].'/';
+        $port = 80;
+        if($_SERVER['SERVER_ADDR'] == '10.10.5.20'){
+            $port = 7071;
+        }
+        $baseUrl = 'http://'.$_SERVER['HTTP_HOST'].':'.$port.'/';
         return view('welcome',compact('baseUrl'));
     }
 }
