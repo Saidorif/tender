@@ -36,87 +36,119 @@
                   </thead>
                   <tbody>
                       <tr v-for="(directions, d_index) in lots">
-                          <td>{{d_index+1}}</td>
-                          <td><router-link :to="'/crm/stepuser/titul-tab/'+directions[0].id"> {{directions[0].name}}</router-link>
+                          <td>{{d_index+1}} </td>
+                          <td>
+                                <template v-for="(p_item,p_index) in directions">
+                                    <p v-for="(s_item,s_index) in p_item">
+                                        <router-link :to="'/crm/stepuser/titul-tab/'+s_item.direction_ids">
+                                            <b>{{s_item.name != null ? s_item.name : ''}}</b>
+                                        </router-link>
+                                    </p>
+                                </template>
+                              <!-- <router-link :to="'/crm/stepuser/titul-tab/'+directions[0].id">
+                                {{directions[0].name}}
+                              </router-link> -->
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                <a href="#" @click.prevent="openModal(item.user)">
-                                  <b>{{item.company_name != null ? item.company_name : 'noname'}}</b>
-                                </a>
+                                <template v-for="(p_item,p_index) in directions">
+                                    <li v-for="(s_item,s_index) in p_item">
+                                        <a href="#" @click.prevent="openModal(s_item.user)">
+                                            <b>{{s_item.company_name != null ? s_item.company_name : 'noname'}}</b>
+                                        </a>
+                                    </li>
+                                </template>
+                            </ul>
+                          </td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(p_item,index) in directions">
+                                  <p v-for="(s_item,s_index) in p_item">
+                                    {{s_item.years_ball}}
+                                  </p>
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                {{item.years_ball}}
+                              <li v-for="(p_item,index) in directions">
+                                <p v-for="(s_item,s_index) in p_item">
+                                    {{s_item.capacity_ball}}
+                                  </p>
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                {{item.capacity_ball}}
+                              <li v-for="(p_item,index) in directions">
+                                <p v-for="(s_item,s_index) in p_item">
+                                    {{s_item.categories_ball}}
+                                </p>
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                {{item.categories_ball}}
+                              <li v-for="(p_item,index) in directions">
+                                <p v-for="(s_item,s_index) in p_item">
+                                    {{s_item.models_ball}}
+                                </p>
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                {{item.models_ball}}
+                              <li v-for="(p_item,index) in directions">
+                                <p v-for="(s_item,s_index) in p_item">
+                                  {{s_item.reys_ball}}
+                                </p>
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                {{item.reys_ball}}
+                              <li v-for="(p_item,index) in directions">
+                                <p v-for="(s_item,s_index) in p_item">
+                                    {{s_item.tarif_ball}}
+                                </p>
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                {{item.tarif_ball}}
+                              <li v-for="(p_item,index) in directions">
+                                <p v-for="(s_item,s_index) in p_item">
+                                  {{s_item.cars_ball}}
+                                </p>
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                {{item.cars_ball}}
+                              <li v-for="(p_item,index) in directions">
+                                    <p v-for="(s_item,s_index) in p_item">
+                                      {{s_item.tadbirlar_rejasi_ball}}
+                                    </p>
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                {{item.tadbirlar_rejasi_ball}}
+                              <li v-for="(p_item,index) in directions">
+                                    <p v-for="(s_item,s_index) in p_item">
+                                      {{s_item.total_ball}}
+                                    </p>
                               </li>
                             </ul>
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                {{item.total_ball}}
-                              </li>
-                            </ul>
-                          </td>
-                          <td class="without_padding">
-                            <ul class="list-inline">
-                              <li v-for="(item,index) in directions">
-                                <a href="" @click.prevent="ballItem(item)" class="h4">
-                                  <i class="fas fa-expand-arrows-alt"></i>
-                                </a>
+                              <li v-for="(p_item,index) in directions">
+                                    <p v-for="(s_item,s_index) in p_item">
+                                        <a href="#" @click.prevent="ballItem(s_item)" class="h4">
+                                            <i class="fas fa-expand-arrows-alt"></i>
+                                        </a>
+                                    </p>
                               </li>
                             </ul>
                           </td>
@@ -135,13 +167,15 @@
                             </ul>
                           </td> -->
                           <td class="without_padding">
-                            <template v-for="(item,index) in directions">
-                              <router-link class="" tag="a" :to="{path:`/crm/contract/${item.contract.id}`,query:{TID:$route.params.tenderId}}" v-if="item.contract">
-                                <b>
-                                  <i class="fas fa-file-alt"></i>
-                                  Контракт
-                                </b>
-                              </router-link>
+                            <template v-for="(p_item,index) in directions">
+                                <p v-for="(s_item,s_index) in p_item">
+                                    <router-link class="" tag="a" :to="{path:`/crm/contract/${s_item.contract.id}`,query:{TID:$route.params.tenderId}}" v-if="s_item.contract">
+                                        <b>
+                                        <i class="fas fa-file-alt"></i>
+                                        Контракт
+                                        </b>
+                                    </router-link>
+                                </p>
                             </template>
                           </td>
                       </tr>
@@ -412,6 +446,7 @@ export default {
     $('#userModal').modal({backdrop: 'static',keyboard: true, show: false});
     $('#ballModal').modal({backdrop: 'static',keyboard: true, show: false});
     this.laoding = false
+    console.log(this.getTender)
   },
   methods: {
     ...mapActions("completedtender", [

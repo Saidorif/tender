@@ -203,6 +203,7 @@ Route::group([
             Route::post('timing/store/{id}', 'PassportTimingController@store');
             Route::get('timing/list', 'PassportTimingController@list');
             Route::get('timing/edit/{id}', 'PassportTimingController@edit');
+            Route::get('timing/merge', 'PassportTimingController@mergeVars');
             Route::delete('timing/destroy/{id}', 'PassportTimingController@destroy');
 
             //SchemaDetails

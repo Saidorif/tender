@@ -107,7 +107,7 @@ class PassportTimingController extends Controller
                 'end_time' => Carbon::parse($value['end_time'])->format('Y-m-d H:i:s'),
                 'region_from_id' => $value['region_from_id']['id'],
                 'region_to_id' => $value['region_to_id']['id'],
-                'vars' => $request->input('vars'),
+                //'vars' => $request->input('vars'),
                 'area_from_id' => $value['area_from_id']['id'],
                 'area_to_id' => $value['area_to_id']['id'],
                 'station_to_id' => $value['station_to_id']['id'],
@@ -138,6 +138,7 @@ class PassportTimingController extends Controller
             'persons' => $timing['persons'],
             'technic_speed' => $request->input('technic_speed'),
             'traffic_speed' => $request->input('traffic_speed'),
+            'vars' => $request->input('vars'),
         ]);
         if(count($direction->timing) > 0){
             $direction->distance = $direction->timing->last()->distance_from_start_station;
@@ -166,5 +167,23 @@ class PassportTimingController extends Controller
         // $result->delete();
 
         return response()->json(['success' => true, 'message' => 'Хронометраж удален']);
+    }
+
+    public function mergeVars(Request $request)
+    {
+        $t_details = TimingDetails::all();
+        $counter = 0;
+        foreach ($t_details as $detail){
+            $var = PassportTiming::where(['direction_id' => $detail->direction_id])->first();
+            if($var){
+                $detail->vars = $var->vars;
+                $detail->save();
+                //Update ptiming
+                $var->vars = null;
+                $var->save();
+                $counter++;
+            }
+        }
+        return response()->json(['counter' => $counter]);
     }
 }

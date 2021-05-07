@@ -23,6 +23,7 @@ class CreateTimingDetailsTable extends Migration
             $table->string('technic_speed');
             $table->string('traffic_speed');
             $table->text('persons');
+            $table->longText('vars')->nullable();
             $table->timestamps();
         });
     }
