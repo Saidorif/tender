@@ -233,6 +233,14 @@
               </p>
             </router-link>
           </li>
+          <li class="nav-item" v-if="$can('userIndex', 'ApplicationController')">
+            <router-link class="nav-link" to="/crm/user/application">
+              <i class="peIcon fas fa-file"></i>
+              <p>
+                Мои Заявки
+              </p>
+            </router-link>
+          </li>
           <li class="nav-item" v-if="$can('index', 'PaymentController')">
             <router-link class="nav-link" to="/crm/payment">
               <i class="peIcon fas fa-money-bill-alt"></i>
