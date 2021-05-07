@@ -4,6 +4,9 @@ const ApplicationService = {
 	applicationList(){
 		return ApiService.get(`/api/application/list`)
 	},
+	UserApplications(page){
+		return ApiService.post(`/api/application/user?page=`+page)
+	},
 	Applications(page){
 		return ApiService.post(`/api/application?page=`+page)
 	},

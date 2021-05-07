@@ -20,6 +20,7 @@ import TenderApplication from './components/admin/application/TenderApplication'
 import Application from './components/admin/application/Application'
 import AddApplication from './components/admin/application/AddApplication'
 import EditApplication from './components/admin/application/EditApplication'
+import UserApplication from './components/admin/application/UserApplication'
 
 // Employee
 import Employee from './components/admin/employee/Employee'
@@ -295,6 +296,14 @@ const router = new Router({
 					component:TenderApplication,
 					meta:{
 						action:'index',
+						subject:'ApplicationController'
+					}
+				},
+				{
+					path:'user/application',
+					component:UserApplication,
+					meta:{
+						action:'userIndex',
 						subject:'ApplicationController'
 					}
 				},

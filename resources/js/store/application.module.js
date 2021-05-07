@@ -12,9 +12,13 @@ const state = {
 	gai: [],
 	adliya: [],
 	active: [],
+	userapps: {},
 };
 
 const getters = {
+	getUserApps(state){
+		return state.userapps
+	},
 	getShowApplications(state){
 		return state.showapplications
 	},
@@ -52,6 +56,15 @@ const getters = {
 
 
 const actions = {
+	async actionUserApps({commit},payload){
+		try {
+			const applications =  await ApplicationService.UserApplications(payload);
+			await commit('setUserApps',applications.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionShowApplications({commit},payload){
 		try {
 			const applications =  await ApplicationService.showapplication(payload);
@@ -199,6 +212,9 @@ const actions = {
 };
 
 const mutations = {
+	setUserApps(state, userapps){
+		state.userapps = userapps
+	},
 	setShowapplications(state, showapplications){
 		state.showapplications = showapplications
 	},
