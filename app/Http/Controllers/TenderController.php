@@ -15,6 +15,7 @@ use App\ApplicationBall;
 use App\DirectionCar;
 use Carbon\Carbon;
 use Illuminate\Validation\Rule;
+use DB;
 
 class TenderController extends Controller
 {
@@ -620,37 +621,48 @@ class TenderController extends Controller
         $params = $request->all();
         //Grab user ids working in this region
         $created_by_users = User::where(['region_id' => $user->region_id])->pluck('id')->toArray();
-        if($user->role->name == 'admin'){
+        $role_name = $user->role->name;
+        if($role_name == 'admin'){
             $builder = Tender::query()->where('time','<', Carbon::now());
-            if(!empty($params['region_id'])){
-                $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
-                $builder->whereIn('created_by', $users_region);
-            }
-            if(!empty($params['time'])){
-                $from_time = $params['time'].' 00:00:00';
-                $to_time = $params['time'].' 23:59:59';
-                $builder->whereBetween('time', [$from_time,$to_time]);
-            }
-            if(!empty($params['status']) && $params['status'] == true){
-                $builder->where('status','=','completed');
+            if(!empty($params['region_id']) || !empty($params['time']) || !empty($params['status'])){
+                if(!empty($params['region_id'])){
+                    $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
+                    $builder->whereIn('created_by', $users_region);
+                }
+                if(!empty($params['time'])){
+                    $from_time = $params['time'].' 00:00:00';
+                    $to_time = $params['time'].' 23:59:59';
+                    $builder->whereBetween('time', [$from_time,$to_time]);
+                }
+                if(!empty($params['status']) && $params['status'] == true){
+                    $builder->where('status','=','completed');
+                }else{
+                    $builder->where(['status' => 'completed'])->orWhere(['status' => 'approved']);
+                }
+                if(!empty($params['no_lots']) && $params['no_lots'] == true){
+                    $tender_ids = Application::all()->pluck('tender_id')->toArray();
+                    $builder->whereNotIn('id',$tender_ids);
+                }
+                $result = $builder->with(['tenderlots'])->withCount(['tenderlots','tenderapps'])->paginate(12);
             }else{
-                $builder->where(['status' => 'completed'])->orWhere(['status' => 'approved']);
+                $result = DB::table('tenders')
+                    ->select('tenders.*',DB::raw('count(tender_lots.id) as tenderlots_count,count(applications.id) as tenderapps_count'))
+                    ->where('tenders.time','<', Carbon::now())
+                    ->leftJoin('tender_lots','tenders.id','tender_lots.tender_id')
+                    ->leftJoin('applications','tenders.id','applications.tender_id')
+                    ->groupBy('tenders.id')
+                    //->with(['tenderlots'])
+                    //->withCount(['tenderlots','tenderapps'])
+                    ->paginate(12);
             }
-            if(!empty($params['no_lots']) && $params['no_lots'] == true){
-                $tender_ids = Application::all()->pluck('tender_id')->toArray();
-                $builder->whereNotIn('id',$tender_ids);
-            }
-            $result = $builder->with(['tenderlots'])->withCount(['tenderlots','tenderapps'])->paginate(12);
         }else{
-            //$result = Tender::whereIn('created_by', $created_by_users)
-            $result = Tender::with(['tenderlots'])
-                            ->leftJoin('users','tenders.created_by','users.id')
-                            ->where('users.region_id','=',$user->region_id)
-                            ->withCount(['tenderlots','tenderapps'])
-                            ->where(['status' => 'completed'])
-                            ->orWhere(['status' => 'approved'])
-                            ->where('time','<', date('Y-m-d H:m:s'))
-                            ->paginate(12);
+            $result = Tender::whereIn('created_by', $created_by_users)
+                ->with(['tenderlots'])
+                ->withCount(['tenderlots','tenderapps'])
+                ->where(['status' => 'completed'])
+                ->orWhere(['status' => 'approved'])
+                ->where('time','<', date('Y-m-d H:m:s'))
+                ->paginate(12);
         }
         return response()->json(['success' => true, 'result' => $result]);
     }

@@ -134,6 +134,7 @@ Route::group([
 
             //Application CRUD
             Route::post('application', 'ApplicationController@index');
+            Route::post('application/user', 'ApplicationController@userIndex');
             Route::post('application/car/store', 'ApplicationController@carStore');
             Route::delete('application/car/destroy/{id}', 'ApplicationController@carDestroy');
             Route::post('application/car/setstatus', 'ApplicationController@setStatus');

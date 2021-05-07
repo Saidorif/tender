@@ -304,7 +304,8 @@
                   <b>{{ form.tarif }}</b>
                 </td>
               </tr>
-              <tr v-if="getDemand.result.direction && getDemand.result.direction.type_id != 1">
+              <!-- v-if="getDemand.result.direction && getDemand.result.direction.type_id != 1" -->
+              <tr v-if="getDemand.type && getDemand.type.id != 1">
                 <td>
                   1 км. учун йўл тариф (шаҳар атрофи, шаҳарлараро йўналишлар
                   учун)
