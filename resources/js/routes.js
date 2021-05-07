@@ -52,6 +52,11 @@ import Region from './components/admin/region/Region'
 import AddRegion from './components/admin/region/AddRegion'
 import EditRegion from './components/admin/region/EditRegion'
 
+// Comission
+import Comission from './components/admin/comission/Comission'
+import AddComission from './components/admin/comission/AddComission'
+import EditComission from './components/admin/comission/EditComission'
+
 // Direction
 import Direction from './components/admin/direction/Direction'
 import AddDirection from './components/admin/direction/AddDirection'
@@ -536,6 +541,31 @@ const router = new Router({
 						action:'edit',
 						subject:'RegionController'
 					}
+				},
+				// comission
+				{
+					path:'comission',
+					component:Comission,
+					// meta:{
+					// 	action:'index',
+					// 	subject:'ComissionController'
+					// }
+				},
+				{
+					path:'comission/add',
+					component:AddComission,
+					// meta:{
+					// 	action:'store',
+					// 	subject:'ComissionController'
+					// }
+				},
+				{
+					path:'comission/edit/:comissionId',
+					component:EditComission,
+					// meta:{
+					// 	action:'edit',
+					// 	subject:'ComissionController'
+					// }
 				},
 				{
 					path:'area',

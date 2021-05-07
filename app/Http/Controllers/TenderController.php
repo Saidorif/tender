@@ -642,8 +642,10 @@ class TenderController extends Controller
             }
             $result = $builder->with(['tenderlots'])->withCount(['tenderlots','tenderapps'])->paginate(12);
         }else{
-            $result = Tender::whereIn('created_by', $created_by_users)
-                            ->with(['tenderlots'])
+            //$result = Tender::whereIn('created_by', $created_by_users)
+            $result = Tender::with(['tenderlots'])
+                            ->leftJoin('users','tenders.created_by','users.id')
+                            ->where('users.region_id','=',$user->region_id)
                             ->withCount(['tenderlots','tenderapps'])
                             ->where(['status' => 'completed'])
                             ->orWhere(['status' => 'approved'])

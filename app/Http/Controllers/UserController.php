@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Validator;
 use Hash;
@@ -251,14 +252,24 @@ class UserController extends Controller
 
     public function updateUserData(Request $request)
     {
-        $clients = [];
-        foreach ($clients as $item){
-            $user = User::where(['inn' => $item])->first();
-            if($user){
-                $user->region_id = $item['region_id'];
-                $user->area_id = $item['area_id'];
-                $user->save();
+        try {
+            $users_json = file_get_contents(__DIR__.'/users.json');
+            $clients = json_decode($users_json,true);
+            if(!empty($clients['result'])){
+                foreach ($clients['result'] as $item){
+                    if($item['inn'] != null){
+                        $user = User::where(['inn' => $item['inn']])->first();
+                        if($user){
+                            $user->region_id = $item['region_id'];
+                            $user->area_id = $item['area_id'];
+                            $user->save();
+                        }
+                    }
+                }
             }
+        }catch (\Throwable $throwable){
+            throw $throwable;
         }
+        return response()->json(['clients' => $clients]);
     }
 }

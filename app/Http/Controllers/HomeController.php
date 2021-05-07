@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -24,7 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('home',compact('users'));
+        $port = 80;
+        if($_SERVER['SERVER_ADDR'] == '10.10.5.20'){
+            $port = 7071;
+        }
+        $baseUrl = 'http://'.$_SERVER['HTTP_HOST'].':'.$port.'/';
+        return view('welcome',compact('baseUrl'));
     }
 }
