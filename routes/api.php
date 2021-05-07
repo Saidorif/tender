@@ -133,10 +133,10 @@ Route::group([
             Route::delete('directiontype/destroy/{id}', 'DirectionTypeController@destroy');
 
             //Application CRUD
-            Route::post('application', 'ApplicationController@index');
+            Route::post('application', 'ar/destroy/Controller@index');
             Route::post('application/user', 'ApplicationController@userIndex');
             Route::post('application/car/store', 'ApplicationController@carStore');
-            Route::delete('application/car/destroy/{id}', 'ApplicationController@carDestroy');
+            Route::delete('application/c{id}', 'ApplicationController@carDestroy');
             Route::post('application/car/setstatus', 'ApplicationController@setStatus');
             Route::post('application/store', 'ApplicationController@store');
             Route::post('application/tender/store', 'ApplicationController@storeFromTenders');

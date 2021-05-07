@@ -23,13 +23,6 @@ class ApplicationController extends Controller
         return response()->json(['success' => true, 'result' => $tenders]);
     }
 
-    public function userIndex(Request $request)
-    {
-        $user = $request->user();
-        $result = Application::where(['user_id' => $user->id])->paginate(12);
-        return response()->json(['success' => true, 'result' => $result]);
-    }
-
     public function show(Request $request,$id)
     {
         $user = $request->user();
@@ -39,10 +32,10 @@ class ApplicationController extends Controller
             //grab the user ids in this region
             $user_ids = User::where(['region_id' => $user->region_id,'role_id' => 9])->pluck('id')->toArray();
             $result = Application::orderBy('id', 'DESC')
-                            ->with(['user','carsWith','lots','attachment'])
-                            ->whereIn('user_id', $user_ids)
-                            ->where(['tender_id' => $id])
-                            ->paginate(12);
+                ->with(['user','carsWith','lots','attachment'])
+                ->whereIn('user_id', $user_ids)
+                ->where(['tender_id' => $id])
+                ->paginate(12);
         }
         return response()->json(['success' => true, 'result' => $result]);
     }
@@ -156,8 +149,18 @@ class ApplicationController extends Controller
         if(!$dir_reqs){
             return response()->json(['error' => true, 'message' => 'Направления не найден']);
         }
-        if($application->cars->count() >= $dir_reqs->auto_trans_count){
-            return response()->json(['error' => true, 'message' => 'Вы уже добавили достаточно машин']);
+        $lot = $application->lots;
+        $requirement_cars_count = 0;
+        $the_direction = Direction::find($inputs['direction_id']);
+        if($the_direction->reys_status == 'all'){
+            $requirement_cars_count = $dir_reqs->auto_trans_count;
+        }
+        elseif($the_direction->reys_status == 'custom'){
+            $requirement_cars_count = $dir_reqs->auto_trans_count_from;
+        }
+        $the_cars_count = UserCar::where(['app_id' => $application->id,'direction_id' => $inputs['direction_id']])->get()->count();
+        if($requirement_cars_count <= $the_cars_count){
+            return response()->json(['error' => true, 'message' => 'Вы уже добавили достаточно машин на эту направлению']);
         }
 
         $inputs['user_id'] = $user->id;
