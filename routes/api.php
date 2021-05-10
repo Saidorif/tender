@@ -146,6 +146,10 @@ Route::group([
             Route::post('application/update/{id}', 'ApplicationController@update');
             Route::get('application/activate/{id}', 'ApplicationController@activate');
 
+            //ApplicationFile
+            Route::post('appfile','AppfileController@index');
+            Route::post('appfile/store','AppfileController@store');
+
             //Bus Type CRUD
             Route::post('bustype', 'BusTypeController@index');
             Route::post('bustype/store', 'BusTypeController@store');
