@@ -169,9 +169,13 @@
                           <i class="fas fa-minus-circle"></i>
                           Отказ
                         </button>
-                        <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)" v-if="form.tender_status == 'active'">
+                        <button type="button" class="btn btn-success mb-2" @click.prevent="activeCar(car_items.id)" v-if="form.tender_status == 'active'">
                           <i class="fas fa-check-circle"></i>
                           Подтвердить
+                        </button>
+                        <button type="button" class="btn btn-info" @click.prevent="openFileModal(car_items.id)">
+                          <i class="fas fa-check-circle"></i>
+                          Файлы
                         </button>
                       </div>
                     </td>
@@ -333,6 +337,45 @@
               </div>
             </div>
           </div>
+          <!-- File Modal start-->
+          <div class="modal fade" id="exampleFileModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleFileModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>Файлы</strong></h5>
+                  <button type="button" class="close" @click.prevent="closeModal">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form enctype="multipart/form-data">
+                    <div class="row">
+                      <div class="form-group cl-md-2">
+                        <img :src="myFileName" width="50">
+                      </div>
+                      <div class="form-group cl-md-2">
+                        <label for="fileAuto">Файл</label>
+                        <input
+                          type="file"
+                          ref="fileupload"
+                          class="form-control"
+                          id="fileAuto"
+                          @change="changeFile($event)"
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" @click.prevent="closeFileModal">Закрыть</button>
+                  <button type="button" class="btn btn-success" @click.prevent="saveAllFiles">
+                    <i class="fas fa-save"></i>
+                    Сохранить
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -375,6 +418,8 @@ export default {
       natariusItem:{},
       gaiItem:{},
       company_name:'',
+      myFile:'',
+      myFileName:'',
     };
   },
   watch:{
@@ -447,12 +492,43 @@ export default {
       $("#exampleModalCenter").modal('show')
       this.carItem = item
     },
+    closeFileModal(){
+      $('#exampleFileModalCenter').modal('hide')
+    },
+    openFileModal(item){
+      $("#exampleFileModalCenter").modal('show')
+    },
+    saveAllFiles(){
+      console.log('files')
+    },
     removeFile(){
       this.carItem.file = ''
     },
     changePhoto(event){
       let file = event.target.files[0];
       this.carItem.file = file
+    },
+    changeFile(event){
+      let file = event.target.files[0];
+      this.myFile = file
+      if(event.target.files[0]['type'].includes('image')){
+        if (file.size > 1048576){
+            swal.fire({
+              type: 'error',
+              title: 'Ошибка',
+              text:'Размер изображения больше лимита',
+            })
+        }else{
+            let reader = new FileReader();
+            reader.onload = event=> {
+              this.myFileName = event.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+      }else{
+        console.log(false)
+      }
+      console.log(this.myFile)
     },
     closeModal(){
       this.carItem.id = ''
