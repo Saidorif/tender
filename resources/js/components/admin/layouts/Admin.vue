@@ -53,15 +53,6 @@
               </p>
             </router-link>
           </li>
-           <!-- v-if="$can('profile', 'ComissionController')" -->
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/comission">
-              <i class="peIcon pe-7s-user"></i>
-              <p>
-                Comission
-              </p>
-            </router-link>
-          </li>
           <li class="nav-item" v-if="$can('index', 'ClientAccessController')">
             <router-link class="nav-link" to="/crm/apply">
               <i class="peIcon fas fa-vote-yea"></i>
