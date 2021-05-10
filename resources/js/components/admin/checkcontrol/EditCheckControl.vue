@@ -148,20 +148,20 @@
                       <span v-html="checkBox(car_items.station_announce)"></span>
                     </td>
                     <td>
-                        <h2 class="text-primary text-center" v-if="car_items.gai">
-                          <i class="fas fa-file-alt" @click.prevent="showGai(car_items)"></i>
-                        </h2>
-                        <h2 class="text-secondary text-center" v-else>
-                          <i class="fas fa-file-alt"></i>
-                        </h2>
+                      <h2 class="text-primary text-center" v-if="car_items.gai">
+                        <i class="fas fa-file-alt" @click.prevent="showGai(car_items)"></i>
+                      </h2>
+                      <h2 class="text-secondary text-center" v-else>
+                        <i class="fas fa-file-alt"></i>
+                      </h2>
                     </td>
                     <td>
-                        <h2 class="text-primary text-center" v-if="car_items.adliya">
-                          <i class="fas fa-file-alt" @click.prevent="showAdliya(car_items.adliya)"></i>
-                        </h2>
-                        <h2 class="text-secondary text-center" v-else>
-                          <i class="fas fa-file-alt"></i>
-                        </h2>
+                      <h2 class="text-primary text-center" v-if="car_items.adliya">
+                        <i class="fas fa-file-alt" @click.prevent="showAdliya(car_items.adliya)"></i>
+                      </h2>
+                      <h2 class="text-secondary text-center" v-else>
+                        <i class="fas fa-file-alt"></i>
+                      </h2>
                     </td>
                     <td>
                       <div class="col-lg-12 d-flex flex-column">
