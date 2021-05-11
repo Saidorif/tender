@@ -28,6 +28,15 @@ const getters = {
 
 
 const actions = {
+	async actionAppTarget({commit},payload){
+		try {
+			const types =  await CheckControlSerivce.apptarget(payload);
+			await commit('setStatusMessage',types.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionControlFiles({commit},payload){
 		try {
 			const types =  await CheckControlSerivce.appFiles(payload);

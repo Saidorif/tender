@@ -37,15 +37,15 @@
                 </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="openModal()" >
+                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('daily_technical_job')" >
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('daily_technical_job')" v-if="form.tender_status == 'active'">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('daily_technical_job')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -63,15 +63,15 @@
                 </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="openModal()" >
+                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('daily_medical_job')" >
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('daily_medical_job')" v-if="form.tender_status == 'active'">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('daily_medical_job')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -89,15 +89,15 @@
                 </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="openModal()" >
+                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('hours_rule')" >
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('hours_rule')" v-if="form.tender_status == 'active'">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('hours_rule')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -115,15 +115,15 @@
                 </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="openModal()" >
+                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('videoregistrator')" >
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('videoregistrator')" v-if="form.tender_status == 'active'">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('videoregistrator')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -141,15 +141,15 @@
                 </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="openModal(1)" >
+                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('gps')" >
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('gps')" v-if="form.tender_status == 'active'">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('gps')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -430,11 +430,13 @@
                 <div class="modal-body">
                   <form enctype="multipart/form-data">
                     <div class="row">
-                      <div class="form-group cl-md-2" v-for="(f,index) in getControlFiles">
-                        <img :src='"/"+f.file' width="50">
+                      <div class="form-group col-md-2 file_width" v-for="(f,index) in getControlFiles">
+                        <img :src='"/"+f.file'>
                       </div>
-                      <div class="form-group cl-md-2">
-                        <label for="fileAuto">Файл</label>
+                      <div class="form-group col-md-2">
+                        <label for="fileAuto">
+                          Файл
+                        </label>
                         <input
                           type="file"
                           ref="fileupload"
@@ -522,6 +524,7 @@ export default {
   methods: {
     ...mapActions("checkcontrol", [
       "actionAppCars",
+      "actionAppTarget",
       'actionStatusMessage',
       'actionCloseLot',
       'actionCheckLicense',
@@ -571,6 +574,36 @@ export default {
       $("#exampleModalCenter").modal('show')
       this.carItem = item
     },
+    async rejectTargetModal(target){
+      if(confirm("Вы действительно хотите отказаться?")){
+        let data = {
+          target:target,
+          app_id:Number(this.$route.params.appId),
+          status:0,
+        }
+        await this.actionAppTarget(data);
+        if (this.getStatusMessage.success) {
+          await this.actionAppCars(this.$route.params.appId);
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getStatusMessage.message
+          });
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getStatusMessage.message
+          });
+        }
+      }
+    },  
+    activeTargetCar(target){
+
+    }, 
+    openFileTargetModal(target){
+
+    },
     closeFileModal(){
       $('#exampleFileModalCenter').modal('hide')
       this.carId = ''
@@ -585,9 +618,6 @@ export default {
         car_id:this.carId.toString(),
       }
       await this.actionControlFiles(data)
-    },
-    saveAllFiles(){
-      console.log('files')
     },
     removeFile(){
       this.carItem.file = ''
@@ -779,6 +809,21 @@ export default {
 };
 </script>
 <style scoped>
+.cursor_plus{
+  cursor: pointer;
+}
+.hidden{
+  display: none;
+}
+.file_width{
+  height: 100px;
+  overflow: hidden;
+}
+.file_width img{
+  width: 100%;
+  height: 100%;
+  border: 1px solid #f3dddd;
+}
 .wd12{
   width: 12%;
 }
