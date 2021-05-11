@@ -23,7 +23,7 @@ const CheckControlSerivce = {
 		return ApiService.post(`/api/appfile/store`,data)
 	},
 	appFileRemove(id){
-		// return ApiService.post(`/api/appfile/store/${id}`,id)
+		return ApiService.delete(`/api/file/destroy/${id}`)
 	},
 	apptarget(data){
 		return ApiService.post(`/api/application/addition-status`,data)

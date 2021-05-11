@@ -457,6 +457,10 @@
                     <div class="row">
                       <div class="form-group col-md-2 file_width" v-for="(f,index) in getControlFiles">
                         <img :src='"/"+f.file'>
+                        <button class="btn btn-danger" type="button" @click.prevent="removeCarFile(f.id)">
+                          <i class="fas fa-trash"></i>
+                          удалить
+                        </button>
                       </div>
                       <div class="form-group col-md-2">
                         <label for="targetFile">
@@ -669,6 +673,24 @@ export default {
         }
       }
     }, 
+    async removeCarFile(id){
+      if(confirm("Вы действительно хотите удалить?")){
+        await this.actionControlRemoveFile(id)
+        if(this.getStatusMessage.success){
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getStatusMessage.message
+          });
+          let data = {
+            app_id:this.$route.params.appId,
+            type:this.carType,
+            car_id:this.carId,
+          }
+          await this.actionControlFiles(data)
+        }
+      }
+    },
     closeFileModal(){
       $('#exampleFileModalCenter').modal('hide')
       this.carId = ''
@@ -883,12 +905,17 @@ export default {
 }
 .file_width{
   height: 100px;
-  overflow: hidden;
 }
 .file_width img{
   width: 100%;
   height: 100%;
   border: 1px solid #f3dddd;
+}
+.file_width button{
+  width: 101px;
+  border-radius: 0;
+  padding: 0;
+  height: 24px;
 }
 .wd12{
   width: 12%;
