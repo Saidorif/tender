@@ -5,6 +5,7 @@ const state = {
     appcars: [],
     statuscar: [],
     statusLicense: [],
+    controlFiles: [],
 };
 
 const getters = {
@@ -20,10 +21,31 @@ const getters = {
 	getStatusLicense(state){
 		return state.statusLicense
     },
+	getControlFiles(state){
+		return state.controlFiles
+    },
 };
 
 
 const actions = {
+	async actionControlFiles({commit},payload){
+		try {
+			const types =  await CheckControlSerivce.appFiles(payload);
+			await commit('setControlFiles',types.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionControlStoreFile({commit},payload){
+		try {
+			const types =  await CheckControlSerivce.appFileStore(payload);
+			await commit('setStatusMessage',types.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionCheckLicense({commit},inn){
 		try {
 			const types =  await CheckControlSerivce.checkLicense(inn);
@@ -83,6 +105,9 @@ const mutations = {
 	},
 	setAppCars(state, appcars){
 		state.appcars = appcars
+	},
+	setControlFiles(state, controlFiles){
+		state.controlFiles = controlFiles
 	},
 };
 

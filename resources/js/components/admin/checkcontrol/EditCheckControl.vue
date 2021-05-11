@@ -35,6 +35,22 @@
                 <th>
                   <span v-html="checkBox(form.daily_technical_job)"></span>
                 </th>
+                <th>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-danger" @click.prevent="openModal()" >
+                      <i class="fas fa-minus-circle"></i>
+                      Отказ
+                    </button>
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                      <i class="fas fa-check-circle"></i>
+                      Подтвердить
+                    </button>
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                      <i class="fas fa-check-circle"></i>
+                      Файлы
+                    </button>
+                  </div>
+                </th>
               </tr>
               <tr>
                 <th>2</th>
@@ -44,6 +60,22 @@
                 </th>
                 <th>
                   <span v-html="checkBox(form.daily_medical_job)"></span>
+                </th>
+                <th>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-danger" @click.prevent="openModal()" >
+                      <i class="fas fa-minus-circle"></i>
+                      Отказ
+                    </button>
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                      <i class="fas fa-check-circle"></i>
+                      Подтвердить
+                    </button>
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                      <i class="fas fa-check-circle"></i>
+                      Файлы
+                    </button>
+                  </div>
                 </th>
               </tr>
               <tr>
@@ -55,6 +87,22 @@
                 <th>
                   <span v-html="checkBox(form.hours_rule)"></span>
                 </th>
+                <th>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-danger" @click.prevent="openModal()" >
+                      <i class="fas fa-minus-circle"></i>
+                      Отказ
+                    </button>
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                      <i class="fas fa-check-circle"></i>
+                      Подтвердить
+                    </button>
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                      <i class="fas fa-check-circle"></i>
+                      Файлы
+                    </button>
+                  </div>
+                </th>
               </tr>
               <tr>
                 <th>4</th>
@@ -65,6 +113,22 @@
                 <th>
                   <span v-html="checkBox(form.videoregistrator)"></span>
                 </th>
+                <th>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-danger" @click.prevent="openModal()" >
+                      <i class="fas fa-minus-circle"></i>
+                      Отказ
+                    </button>
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                      <i class="fas fa-check-circle"></i>
+                      Подтвердить
+                    </button>
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                      <i class="fas fa-check-circle"></i>
+                      Файлы
+                    </button>
+                  </div>
+                </th>
               </tr>
               <tr>
                 <th>5</th>
@@ -74,6 +138,22 @@
                 </th>
                 <th>
                   <span v-html="checkBox(form.gps)"></span>
+                </th>
+                <th>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-danger" @click.prevent="openModal(1)" >
+                      <i class="fas fa-minus-circle"></i>
+                      Отказ
+                    </button>
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                      <i class="fas fa-check-circle"></i>
+                      Подтвердить
+                    </button>
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                      <i class="fas fa-check-circle"></i>
+                      Файлы
+                    </button>
+                  </div>
                 </th>
               </tr>
             </thead>
@@ -343,15 +423,15 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLongTitle"><strong>Файлы</strong></h5>
-                  <button type="button" class="close" @click.prevent="closeModal">
+                  <button type="button" class="close" @click.prevent="closeFileModal">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
                   <form enctype="multipart/form-data">
                     <div class="row">
-                      <div class="form-group cl-md-2">
-                        <img :src="myFileName" width="50">
+                      <div class="form-group cl-md-2" v-for="(f,index) in getControlFiles">
+                        <img :src='"/"+f.file' width="50">
                       </div>
                       <div class="form-group cl-md-2">
                         <label for="fileAuto">Файл</label>
@@ -360,7 +440,7 @@
                           ref="fileupload"
                           class="form-control"
                           id="fileAuto"
-                          @change="changeFile($event)"
+                          @change="changeCarFile($event)"
                         />
                       </div>
                     </div>
@@ -368,10 +448,6 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" @click.prevent="closeFileModal">Закрыть</button>
-                  <button type="button" class="btn btn-success" @click.prevent="saveAllFiles">
-                    <i class="fas fa-save"></i>
-                    Сохранить
-                  </button>
                 </div>
               </div>
             </div>
@@ -419,6 +495,7 @@ export default {
       gaiItem:{},
       company_name:'',
       myFile:'',
+      carId:'',
       myFileName:'',
     };
   },
@@ -432,7 +509,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("checkcontrol",["getAppCars",'getStatusMessage','getStatusLicense']),
+    ...mapGetters("checkcontrol",["getAppCars",'getStatusMessage','getStatusLicense','getControlFiles']),
     getCompanyName(){
       return this.company_name  ? this.company_name : 'Без название'
     },
@@ -447,7 +524,9 @@ export default {
       "actionAppCars",
       'actionStatusMessage',
       'actionCloseLot',
-      'actionCheckLicense'
+      'actionCheckLicense',
+      'actionControlFiles',
+      'actionControlStoreFile',
     ]),
     showGai(item){
       this.gaiItem = item
@@ -494,9 +573,18 @@ export default {
     },
     closeFileModal(){
       $('#exampleFileModalCenter').modal('hide')
+      this.carId = ''
+      this.myFile = ''
     },
-    openFileModal(item){
+    async openFileModal(item){
       $("#exampleFileModalCenter").modal('show')
+      this.carId = item
+      let data = {
+        app_id:this.$route.params.appId,
+        type:'car',
+        car_id:this.carId.toString(),
+      }
+      await this.actionControlFiles(data)
     },
     saveAllFiles(){
       console.log('files')
@@ -508,7 +596,7 @@ export default {
       let file = event.target.files[0];
       this.carItem.file = file
     },
-    changeFile(event){
+    async changeCarFile(event){
       let file = event.target.files[0];
       this.myFile = file
       if(event.target.files[0]['type'].includes('image')){
@@ -519,16 +607,31 @@ export default {
               text:'Размер изображения больше лимита',
             })
         }else{
-            let reader = new FileReader();
-            reader.onload = event=> {
-              this.myFileName = event.target.result;
-            }
-            reader.readAsDataURL(file);
+          let reader = new FileReader();
+          reader.onload = event=> {
+            this.myFileName = event.target.result;
+          }
+          reader.readAsDataURL(file);
+          let formData = new FormData();
+          formData.append('file',this.myFile)
+          formData.append('app_id',this.$route.params.appId)
+          formData.append('type','car')
+          formData.append('car_id',this.carId)
+          await this.actionControlStoreFile(formData)
+          if(this.getStatusMessage.success){
+            toast.fire({
+              type: "success",
+              icon: "success",
+              title: this.getStatusMessage.message
+            });
+            this.myFile = ''
+          }
+          await this.actionControlFiles(formData)
         }
       }else{
         console.log(false)
       }
-      console.log(this.myFile)
+     
     },
     closeModal(){
       this.carItem.id = ''
