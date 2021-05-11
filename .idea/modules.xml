@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../book.loc/.idea/book.loc.iml" filepath="$PROJECT_DIR$/../book.loc/.idea/book.loc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../daz.loc/.idea/daz.loc.iml" filepath="$PROJECT_DIR$/../daz.loc/.idea/daz.loc.iml" />
       <module fileurl="file://$PROJECT_DIR$/../quatro.loc/.idea/quatro.loc.iml" filepath="$PROJECT_DIR$/../quatro.loc/.idea/quatro.loc.iml" />
       <module fileurl="file://$PROJECT_DIR$/../quiz.loc/.idea/quiz.loc.iml" filepath="$PROJECT_DIR$/../quiz.loc/.idea/quiz.loc.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/tender.loc.iml" filepath="$PROJECT_DIR$/.idea/tender.loc.iml" />

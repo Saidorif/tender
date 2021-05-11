@@ -145,6 +145,7 @@ Route::group([
             Route::get('application/show/{id}', 'ApplicationController@show');
             Route::post('application/update/{id}', 'ApplicationController@update');
             Route::get('application/activate/{id}', 'ApplicationController@activate');
+            Route::post('application/addition-status', 'ApplicationController@setAdditionStatus');
 
             //ApplicationFile
             Route::post('appfile','AppfileController@index');

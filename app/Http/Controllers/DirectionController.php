@@ -520,7 +520,7 @@ class DirectionController extends Controller
         if($inputs['from_type'] == 'area'){
             $from_name = $direction->areaFrom->name;
         }
-        if($inputs['from_type'] == 'station'){
+        if($inputs['from_type'] == 'station' && $direction->stationFrom != null){
             $from_name = $direction->stationFrom->name;
         }
         if($inputs['to_type'] == 'region'){
@@ -529,7 +529,7 @@ class DirectionController extends Controller
         if($inputs['to_type'] == 'area'){
             $to_name = $direction->areaTo->name;
         }
-        if($inputs['to_type'] == 'station'){
+        if($inputs['to_type'] == 'station' && $direction->stationTo != null){
             $to_name = $direction->stationTo->name;
         }
         $direction->update([

@@ -341,4 +341,25 @@ class ApplicationController extends Controller
         $car->update($inputs);
         return response()->json(['success' => true, 'message' => 'Статус автотранспорта изменен']);
     }
+
+    public function setAdditionStatus(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'app_id' => 'required|integer',
+            'target' => ['required',Rule::in(['daily_technical_job_status','daily_medical_job_status','hours_rule_status','videoregistrator_status','gps_status']),],
+            'status' => ['required',Rule::in([0,1]),],
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $user = $request->user();
+        $inputs = $request->all();
+        $application = Application::find($inputs['app_id']);
+        if(!$application){
+            return response()->json(['error' => true, 'message' => 'Заявка не найдено']);
+        }
+        $application->{$inputs['target']} = $inputs['status'];
+        $application->save();
+        return response()->json(['success' => true, 'message' => 'Действие выполнено']);
+    }
 }
