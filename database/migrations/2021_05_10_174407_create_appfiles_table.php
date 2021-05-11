@@ -19,6 +19,7 @@ class CreateAppfilesTable extends Migration
             $table->string('type')->index();
             $table->integer('car_id')->index()->nullable();
             $table->string('file');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

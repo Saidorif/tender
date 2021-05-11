@@ -38,7 +38,7 @@ class AppfileController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['status'=>'error','message'=>$validator->messages()], 400);
+            return response()->json(['error'=>true,'message'=>$validator->messages()], 400);
         }
 
         $file = $request->file('file');
@@ -49,5 +49,15 @@ class AppfileController extends Controller
         $inputs['file'] = 'storage/'.date('Y-m-d').'/'.$file_name;
         $appFile = Appfile::create($inputs);
         return response()->json(['success' => true,'message' => 'File created successfully']);
+    }
+
+    public function destroy(Request $request,$id)
+    {
+        $appFile = Appfile::find($id);
+        if(!$appFile){
+            return response()->json(['error' => true,'message' => 'File not found']);
+        }
+        $appFile->delete();
+        return response()->json(['success' => true,'message' => 'File deleted successfully']);
     }
 }
