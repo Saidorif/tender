@@ -459,14 +459,16 @@
                         <img :src='"/"+f.file'>
                       </div>
                       <div class="form-group col-md-2">
-                        <label for="fileAuto">
-                          Файл
+                        <label for="targetFile">
+                          <div class="file_width">
+                            <img src="/f.png" alt="">
+                          </div>
                         </label>
                         <input
                           type="file"
                           ref="fileupload"
-                          class="form-control"
-                          id="fileAuto"
+                          class="hidden"
+                          id="targetFile"
                           @change="changeCarFile($event)"
                         />
                       </div>
@@ -549,6 +551,7 @@ export default {
   },
   methods: {
     ...mapActions("checkcontrol", [
+      "actionControlRemoveFile",
       "actionAppCars",
       "actionAppTarget",
       'actionStatusMessage',

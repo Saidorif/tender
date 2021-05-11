@@ -28,6 +28,15 @@ const getters = {
 
 
 const actions = {
+	async actionControlRemoveFile({commit},id){
+		try {
+			const types =  await CheckControlSerivce.appFileRemove(id);
+			await commit('setStatusMessage',types.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionAppTarget({commit},payload){
 		try {
 			const types =  await CheckControlSerivce.apptarget(payload);
