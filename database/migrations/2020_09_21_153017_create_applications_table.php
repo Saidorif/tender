@@ -30,6 +30,11 @@ class CreateApplicationsTable extends Migration
             $table->string('qr_code')->nullable();
             $table->tinyInteger('contract_time')->nullable();
             $table->double('total_ball',15,2)->default(0);
+            $table->tinyInteger('daily_technical_job_status')->nullable();
+            $table->tinyInteger('daily_medical_job_status')->nullable();
+            $table->tinyInteger('hours_rule_status')->nullable();
+            $table->tinyInteger('videoregistrator_status')->nullable();
+            $table->tinyInteger('gps_status')->nullable();
             $table->timestamps();
         });
     }
