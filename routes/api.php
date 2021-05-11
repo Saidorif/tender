@@ -150,6 +150,7 @@ Route::group([
             //ApplicationFile
             Route::post('appfile','AppfileController@index');
             Route::post('appfile/store','AppfileController@store');
+            Route::delete('appfile/destroy/{id}','AppfileController@destroy');
 
             //Bus Type CRUD
             Route::post('bustype', 'BusTypeController@index');
