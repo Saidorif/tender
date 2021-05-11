@@ -131,7 +131,7 @@ class ApplicationController extends Controller
         }
         $user = $request->user();
         $inputs = $request->all();
-        //check for bustype_id is equal
+
         $application = Application::find($inputs['app_id']);
         if(!$application){
             return response()->json(['error' => true, 'message' => 'Заявка не найдена']);
@@ -140,9 +140,15 @@ class ApplicationController extends Controller
         if(!$tender_lot){
             return response()->json(['error' => true, 'message' => 'Лот не найден']);
         }
+        //check for bustype_id is equal
         $dir_cars = DirectionCar::whereIn('direction_id',$tender_lot->getDirection())->pluck('bustype_id')->toArray();
         if(!in_array($inputs['bustype_id'],$dir_cars)){
             return response()->json(['error' => true, 'message' => 'Категория Авто не совпадает']);
+        }
+        //check for tclass_id is equal
+        $dir_klass = DirectionCar::whereIn('direction_id',$tender_lot->getDirection())->pluck('tclass_id')->toArray();
+        if(!in_array($inputs['tclass_id'],$dir_klass)){
+            return response()->json(['error' => true, 'message' => 'Класс Авто не совпадает']);
         }
         // Get auto_trans_count from requirements
         $dir_reqs = DirectionReq::where('direction_id',$inputs['direction_id'])->first();//->auto_trans_count;
