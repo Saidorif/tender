@@ -32,7 +32,7 @@
                   Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан
                   ўтказиш учун барча шароитлар яратилган
                 </th>
-                <th>
+                <th class="text-center">
                   <span v-html="checkBox(form.daily_technical_job)"></span>
                 </th>
                 <th class="text-center">
@@ -63,7 +63,7 @@
                   Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча
                   шароитлар яратилган
                 </th>
-                <th>
+                <th class="text-center">
                   <span v-html="checkBox(form.daily_medical_job)"></span>
                 </th>
                 <th class="text-center">
@@ -94,7 +94,7 @@
                   Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча
                   ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
                 </th>
-                <th>
+                <th class="text-center">
                   <span v-html="checkBox(form.hours_rule)"></span>
                 </th>
                 <th class="text-center">
@@ -125,7 +125,7 @@
                   Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор
                   ўрнатилган
                 </th>
-                <th>
+                <th class="text-center">
                   <span v-html="checkBox(form.videoregistrator)"></span>
                 </th>
                 <th class="text-center">
@@ -156,7 +156,7 @@
                   Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш
                   тизимига уланган
                 </th>
-                <th>
+                <th class="text-center">
                   <span v-html="checkBox(form.gps)"></span>
                 </th>
                 <th class="text-center">
