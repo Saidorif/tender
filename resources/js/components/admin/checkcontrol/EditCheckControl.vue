@@ -35,17 +35,22 @@
                 <th>
                   <span v-html="checkBox(form.daily_technical_job)"></span>
                 </th>
+                <th class="text-center">
+                  <div class="badge" :class="targetStatusClass(form.daily_technical_job_status)">
+                    {{targetStatusName(form.daily_technical_job_status)}}
+                  </div>
+                </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('daily_technical_job')" >
+                    <button type="button" class="btn btn-danger mr-3" @click.prevent="rejectTargetModal('daily_technical_job_status')"  v-if="form.daily_technical_job == null">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('daily_technical_job')" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3" @click.prevent="activeTargetCar('daily_technical_job_status')" v-if="form.daily_technical_job == null">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('daily_technical_job')">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('daily_technical_job_status')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -61,17 +66,22 @@
                 <th>
                   <span v-html="checkBox(form.daily_medical_job)"></span>
                 </th>
+                <th class="text-center">
+                  <div class="badge" :class="targetStatusClass(form.daily_medical_job_status)">
+                    {{targetStatusName(form.daily_medical_job_status)}}
+                  </div>
+                </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('daily_medical_job')" >
+                    <button type="button" class="btn btn-danger mr-3" @click.prevent="rejectTargetModal('daily_medical_job_status')" v-if="form.daily_medical_job_status == null">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('daily_medical_job')" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3" @click.prevent="activeTargetCar('daily_medical_job_status')" v-if="form.daily_medical_job_status == null">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('daily_medical_job')">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('daily_medical_job_status')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -87,17 +97,22 @@
                 <th>
                   <span v-html="checkBox(form.hours_rule)"></span>
                 </th>
+                <th class="text-center">
+                  <div class="badge" :class="targetStatusClass(form.hours_rule_status)">
+                    {{targetStatusName(form.hours_rule_status)}}
+                  </div>
+                </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('hours_rule')" >
+                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('hours_rule_status')" v-if="form.hours_rule_status == null">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('hours_rule')" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('hours_rule_status')" v-if="form.hours_rule_status == null">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('hours_rule')">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('hours_rule_status')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -113,17 +128,22 @@
                 <th>
                   <span v-html="checkBox(form.videoregistrator)"></span>
                 </th>
+                <th class="text-center">
+                  <div class="badge" :class="targetStatusClass(form.videoregistrator_status)">
+                    {{targetStatusName(form.videoregistrator_status)}}
+                  </div>
+                </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('videoregistrator')" >
+                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('videoregistrator_status')" v-if="form.videoregistrator_status == null">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('videoregistrator')" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('videoregistrator_status')" v-if="form.videoregistrator_status == null">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('videoregistrator')">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('videoregistrator_status')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -139,17 +159,22 @@
                 <th>
                   <span v-html="checkBox(form.gps)"></span>
                 </th>
+                <th class="text-center">
+                  <div class="badge" :class="targetStatusClass(form.gps_status)">
+                    {{targetStatusName(form.gps_status)}}
+                  </div>
+                </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('gps')" >
+                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('gps_status')" v-if="form.gps_status == null">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('gps')" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('gps_status')" v-if="form.gps_status == null">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('gps')">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('gps_status')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -531,6 +556,24 @@ export default {
       'actionControlFiles',
       'actionControlStoreFile',
     ]),
+    targetStatusClass(name){
+      if(name == 1){
+        return 'badge-success'
+      }else if(name == 0){
+        return 'badge-danger'
+      }else{
+        return 'badge-secondary'
+      }
+    },
+    targetStatusName(name){
+      if(name == 1){
+        return 'Подтверждено'
+      }else if(name == 0){
+        return 'Отказано'
+      }else{
+        return 'В ожидании'
+      }
+    },
     showGai(item){
       this.gaiItem = item
       $('#gaiModal').modal('show')
@@ -598,8 +641,29 @@ export default {
         }
       }
     },  
-    activeTargetCar(target){
-
+    async activeTargetCar(target){
+      if(confirm("Вы действительно хотите подтвердить?")){
+        let data = {
+          target:target,
+          app_id:Number(this.$route.params.appId),
+          status:1,
+        }
+        await this.actionAppTarget(data);
+        if (this.getStatusMessage.success) {
+          await this.actionAppCars(this.$route.params.appId);
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getStatusMessage.message
+          });
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getStatusMessage.message
+          });
+        }
+      }
     }, 
     openFileTargetModal(target){
 
