@@ -50,7 +50,7 @@
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('daily_technical_job_status')">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal('','daily_technical_job')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -81,7 +81,7 @@
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('daily_medical_job_status')">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal('','daily_medical_job')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -112,7 +112,7 @@
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('hours_rule_status')">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal('','hours_rule')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -143,7 +143,7 @@
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('videoregistrator_status')">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal('','videoregistrator')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -174,7 +174,7 @@
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileTargetModal('gps_status')">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal('','gps')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -278,7 +278,7 @@
                           <i class="fas fa-check-circle"></i>
                           Подтвердить
                         </button>
-                        <button type="button" class="btn btn-info" @click.prevent="openFileModal(car_items.id)">
+                        <button type="button" class="btn btn-info" @click.prevent="openFileModal(car_items.id,'car')">
                           <i class="fas fa-check-circle"></i>
                           Файлы
                         </button>
@@ -524,6 +524,7 @@ export default {
       myFile:'',
       carId:'',
       myFileName:'',
+      carType:'',
     };
   },
   watch:{
@@ -571,7 +572,7 @@ export default {
       }else if(name == 0){
         return 'Отказано'
       }else{
-        return 'В ожидании'
+        return 'Непроверено'
       }
     },
     showGai(item){
@@ -665,21 +666,19 @@ export default {
         }
       }
     }, 
-    openFileTargetModal(target){
-
-    },
     closeFileModal(){
       $('#exampleFileModalCenter').modal('hide')
       this.carId = ''
       this.myFile = ''
     },
-    async openFileModal(item){
+    async openFileModal(item,type){
       $("#exampleFileModalCenter").modal('show')
-      this.carId = item
+      this.carId = item != '' ? item.toString() : ''
+      this.carType = type
       let data = {
         app_id:this.$route.params.appId,
-        type:'car',
-        car_id:this.carId.toString(),
+        type:type,
+        car_id:this.carId,
       }
       await this.actionControlFiles(data)
     },
@@ -709,7 +708,7 @@ export default {
           let formData = new FormData();
           formData.append('file',this.myFile)
           formData.append('app_id',this.$route.params.appId)
-          formData.append('type','car')
+          formData.append('type',this.carType)
           formData.append('car_id',this.carId)
           await this.actionControlStoreFile(formData)
           if(this.getStatusMessage.success){
