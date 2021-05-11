@@ -32,20 +32,25 @@
                   Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан
                   ўтказиш учун барча шароитлар яратилган
                 </th>
-                <th>
+                <th class="text-center">
                   <span v-html="checkBox(form.daily_technical_job)"></span>
+                </th>
+                <th class="text-center">
+                  <div class="badge" :class="targetStatusClass(form.daily_technical_job_status)">
+                    {{targetStatusName(form.daily_technical_job_status)}}
+                  </div>
                 </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="openModal()" >
+                    <button type="button" class="btn btn-danger mr-3" @click.prevent="rejectTargetModal('daily_technical_job_status')"  v-if="form.daily_technical_job == null">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3" @click.prevent="activeTargetCar('daily_technical_job_status')" v-if="form.daily_technical_job == null">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal('','daily_technical_job')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -58,20 +63,25 @@
                   Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча
                   шароитлар яратилган
                 </th>
-                <th>
+                <th class="text-center">
                   <span v-html="checkBox(form.daily_medical_job)"></span>
+                </th>
+                <th class="text-center">
+                  <div class="badge" :class="targetStatusClass(form.daily_medical_job_status)">
+                    {{targetStatusName(form.daily_medical_job_status)}}
+                  </div>
                 </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="openModal()" >
+                    <button type="button" class="btn btn-danger mr-3" @click.prevent="rejectTargetModal('daily_medical_job_status')" v-if="form.daily_medical_job_status == null">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3" @click.prevent="activeTargetCar('daily_medical_job_status')" v-if="form.daily_medical_job_status == null">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal('','daily_medical_job')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -84,20 +94,25 @@
                   Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча
                   ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
                 </th>
-                <th>
+                <th class="text-center">
                   <span v-html="checkBox(form.hours_rule)"></span>
+                </th>
+                <th class="text-center">
+                  <div class="badge" :class="targetStatusClass(form.hours_rule_status)">
+                    {{targetStatusName(form.hours_rule_status)}}
+                  </div>
                 </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="openModal()" >
+                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('hours_rule_status')" v-if="form.hours_rule_status == null">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('hours_rule_status')" v-if="form.hours_rule_status == null">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal('','hours_rule')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -110,20 +125,25 @@
                   Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор
                   ўрнатилган
                 </th>
-                <th>
+                <th class="text-center">
                   <span v-html="checkBox(form.videoregistrator)"></span>
+                </th>
+                <th class="text-center">
+                  <div class="badge" :class="targetStatusClass(form.videoregistrator_status)">
+                    {{targetStatusName(form.videoregistrator_status)}}
+                  </div>
                 </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="openModal()" >
+                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('videoregistrator_status')" v-if="form.videoregistrator_status == null">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('videoregistrator_status')" v-if="form.videoregistrator_status == null">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal('','videoregistrator')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -136,20 +156,25 @@
                   Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш
                   тизимига уланган
                 </th>
-                <th>
+                <th class="text-center">
                   <span v-html="checkBox(form.gps)"></span>
+                </th>
+                <th class="text-center">
+                  <div class="badge" :class="targetStatusClass(form.gps_status)">
+                    {{targetStatusName(form.gps_status)}}
+                  </div>
                 </th>
                 <th>
                   <div class="d-flex justify-content-center align-items-center">
-                    <button type="button" class="btn btn-danger" @click.prevent="openModal(1)" >
+                    <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('gps_status')" v-if="form.gps_status == null">
                       <i class="fas fa-minus-circle"></i>
                       Отказ
                     </button>
-                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeCar(1)" v-if="form.tender_status == 'active'">
+                    <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('gps_status')" v-if="form.gps_status == null">
                       <i class="fas fa-check-circle"></i>
                       Подтвердить
                     </button>
-                    <button type="button" class="btn btn-info" @click.prevent="openFileModal(1)">
+                    <button type="button" class="btn btn-info" @click.prevent="openFileModal('','gps')">
                       <i class="fas fa-check-circle"></i>
                       Файлы
                     </button>
@@ -253,7 +278,7 @@
                           <i class="fas fa-check-circle"></i>
                           Подтвердить
                         </button>
-                        <button type="button" class="btn btn-info" @click.prevent="openFileModal(car_items.id)">
+                        <button type="button" class="btn btn-info" @click.prevent="openFileModal(car_items.id,'car')">
                           <i class="fas fa-check-circle"></i>
                           Файлы
                         </button>
@@ -430,11 +455,13 @@
                 <div class="modal-body">
                   <form enctype="multipart/form-data">
                     <div class="row">
-                      <div class="form-group cl-md-2" v-for="(f,index) in getControlFiles">
-                        <img :src='"/"+f.file' width="50">
+                      <div class="form-group col-md-2 file_width" v-for="(f,index) in getControlFiles">
+                        <img :src='"/"+f.file'>
                       </div>
-                      <div class="form-group cl-md-2">
-                        <label for="fileAuto">Файл</label>
+                      <div class="form-group col-md-2">
+                        <label for="fileAuto">
+                          Файл
+                        </label>
                         <input
                           type="file"
                           ref="fileupload"
@@ -497,6 +524,7 @@ export default {
       myFile:'',
       carId:'',
       myFileName:'',
+      carType:'',
     };
   },
   watch:{
@@ -522,12 +550,31 @@ export default {
   methods: {
     ...mapActions("checkcontrol", [
       "actionAppCars",
+      "actionAppTarget",
       'actionStatusMessage',
       'actionCloseLot',
       'actionCheckLicense',
       'actionControlFiles',
       'actionControlStoreFile',
     ]),
+    targetStatusClass(name){
+      if(name == 1){
+        return 'badge-success'
+      }else if(name == 0){
+        return 'badge-danger'
+      }else{
+        return 'badge-secondary'
+      }
+    },
+    targetStatusName(name){
+      if(name == 1){
+        return 'Подтверждено'
+      }else if(name == 0){
+        return 'Отказано'
+      }else{
+        return 'Непроверено'
+      }
+    },
     showGai(item){
       this.gaiItem = item
       $('#gaiModal').modal('show')
@@ -571,23 +618,69 @@ export default {
       $("#exampleModalCenter").modal('show')
       this.carItem = item
     },
+    async rejectTargetModal(target){
+      if(confirm("Вы действительно хотите отказаться?")){
+        let data = {
+          target:target,
+          app_id:Number(this.$route.params.appId),
+          status:0,
+        }
+        await this.actionAppTarget(data);
+        if (this.getStatusMessage.success) {
+          await this.actionAppCars(this.$route.params.appId);
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getStatusMessage.message
+          });
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getStatusMessage.message
+          });
+        }
+      }
+    },  
+    async activeTargetCar(target){
+      if(confirm("Вы действительно хотите подтвердить?")){
+        let data = {
+          target:target,
+          app_id:Number(this.$route.params.appId),
+          status:1,
+        }
+        await this.actionAppTarget(data);
+        if (this.getStatusMessage.success) {
+          await this.actionAppCars(this.$route.params.appId);
+          toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getStatusMessage.message
+          });
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getStatusMessage.message
+          });
+        }
+      }
+    }, 
     closeFileModal(){
       $('#exampleFileModalCenter').modal('hide')
       this.carId = ''
       this.myFile = ''
     },
-    async openFileModal(item){
+    async openFileModal(item,type){
       $("#exampleFileModalCenter").modal('show')
-      this.carId = item
+      this.carId = item != '' ? item.toString() : ''
+      this.carType = type
       let data = {
         app_id:this.$route.params.appId,
-        type:'car',
-        car_id:this.carId.toString(),
+        type:type,
+        car_id:this.carId,
       }
       await this.actionControlFiles(data)
-    },
-    saveAllFiles(){
-      console.log('files')
     },
     removeFile(){
       this.carItem.file = ''
@@ -615,7 +708,7 @@ export default {
           let formData = new FormData();
           formData.append('file',this.myFile)
           formData.append('app_id',this.$route.params.appId)
-          formData.append('type','car')
+          formData.append('type',this.carType)
           formData.append('car_id',this.carId)
           await this.actionControlStoreFile(formData)
           if(this.getStatusMessage.success){
@@ -779,6 +872,21 @@ export default {
 };
 </script>
 <style scoped>
+.cursor_plus{
+  cursor: pointer;
+}
+.hidden{
+  display: none;
+}
+.file_width{
+  height: 100px;
+  overflow: hidden;
+}
+.file_width img{
+  width: 100%;
+  height: 100%;
+  border: 1px solid #f3dddd;
+}
 .wd12{
   width: 12%;
 }

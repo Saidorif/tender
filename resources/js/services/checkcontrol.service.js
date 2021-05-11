@@ -22,6 +22,9 @@ const CheckControlSerivce = {
 	appFileStore(data){
 		return ApiService.post(`/api/appfile/store`,data)
 	},
+	apptarget(data){
+		return ApiService.post(`/api/application/addition-status`,data)
+	},
 };
 
 export { CheckControlSerivce };
