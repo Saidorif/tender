@@ -455,14 +455,14 @@
                 <div class="modal-body">
                   <form enctype="multipart/form-data">
                     <div class="row">
-                      <div class="form-group col-md-2 file_width" v-for="(f,index) in getControlFiles">
+                      <div class="form-group col-md-2 file_width mb40" v-for="(f,index) in getControlFiles">
                         <img :src='"/"+f.file'>
                         <button class="btn btn-danger" type="button" @click.prevent="removeCarFile(f.id)">
                           <i class="fas fa-trash"></i>
                           удалить
                         </button>
                       </div>
-                      <div class="form-group col-md-2">
+                      <div class="form-group col-md-2 mb40">
                         <label for="targetFile">
                           <div class="file_width">
                             <img src="/f.png" alt="">
@@ -902,6 +902,9 @@ export default {
 }
 .hidden{
   display: none;
+}
+.mb40{
+  margin-bottom: 50px;
 }
 .file_width{
   height: 100px;
