@@ -1021,7 +1021,8 @@
 	            this.form = this.getApplication
 				this.cars_with = this.getApplication.cars_with
 				this.files = this.getApplication.attachment
-				this.direction_ids = this.getApplication.tender.direction_ids
+				// this.direction_ids = this.getApplication.tender.direction_ids
+				this.direction_ids = this.getApplication.lots.direction_id
 	            this.lots = this.getApplication.tender.tenderlots
 	            this.car.app_id = this.$route.params.userapplicationId;
                 if(this.getApplication.tarif){
@@ -1035,7 +1036,13 @@
                     this.form.qty_reys  =  []
                 }
                 if(!this.form.tarif.length){
-                    this.getApplication.tender.direction_ids.forEach((item)=>{
+                    // this.getApplication.tender.direction_ids.forEach((item)=>{
+                    //     let tarif_data = {direction_id: item.id, summa: ''};
+                    //     let qty_data = {direction_id: item.id, qty: ''};
+                    //     this.form.tarif.push(tarif_data)
+                    //     this.form.qty_reys.push(qty_data)
+                    // })
+                    this.getApplication.lots.direction_id.forEach((item)=>{
                         let tarif_data = {direction_id: item.id, summa: ''};
                         let qty_data = {direction_id: item.id, qty: ''};
                         this.form.tarif.push(tarif_data)
