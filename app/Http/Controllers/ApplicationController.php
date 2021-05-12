@@ -73,12 +73,17 @@ class ApplicationController extends Controller
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не найдено']);
         }
+        $lot = TenderLot::find($inputs['lot_id']);
+        if(!$lot){
+            return response()->json(['error' => true, 'message' => 'Лот не найден']);
+        }
         if($tender->status != 'completed'){
             return response()->json(['error' => true, 'message' => 'Объявление о тендере не подтвержден']);
         }
         if($tender->time < now()){
             return response()->json(['error' => true, 'message' => 'Объявление о тендере завершен']);
         }
+
         $user = $request->user();
         //Check for if already sent application to this lot
         $the_old_app = Application::where(['lot_id' => $inputs['lot_id'],'user_id' => $user->id])->first();
@@ -90,11 +95,7 @@ class ApplicationController extends Controller
             return response()->json(['error' => true, 'message' => 'Пожалуйста, оплатите регистрационный сбор ('.$user->balance.')']);
         }
         $inputs['user_id'] = $user->id;
-        $direction_ids = [];
-        foreach($tender->direction_ids as $key => $direction){
-            $direction_ids[] = $direction['id'];
-        }
-        $inputs['direction_ids'] = $direction_ids;
+        $inputs['direction_ids'] = $lot->getDirection();
         $application = Application::create($inputs);
         return response()->json([
             'success' => true,
