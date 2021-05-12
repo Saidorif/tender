@@ -973,7 +973,8 @@
 			    		this.cars_with = this.getApplication.cars_with
 						this.files = this.getApplication.attachment
 						// this.form = this.getApplication
-						this.direction_ids = this.getApplication.tender.direction_ids
+						// this.direction_ids = this.getApplication.tender.direction_ids
+						this.direction_ids = this.getApplication.lots.direction_id
 						this.lots = this.getApplication.tender.tenderlots
 
 						if (this.getApplication.qr_code){
@@ -1053,7 +1054,6 @@
             }else{
 				this.$router.push('/notfound')
             }
-            console.log(this.direction_ids)
 		},
 		methods:{
 			...mapActions('application',[
@@ -1423,11 +1423,6 @@
 					            title: this.getMassage.message
 				          	});
 				    		await this.actionEditApplication(this.$route.params.userapplicationId)
-                            if(this.getApplication.tarif){
-                                    this.form.tarif = this.getApplication.tarif.length ? this.getApplication.tarif : []
-                                }else{
-                                    this.form.tarif  =  []
-                            }
 	                    }else{
 	                    	toast.fire({
 					            type: "error",
