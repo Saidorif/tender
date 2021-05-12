@@ -1423,6 +1423,11 @@
 					            title: this.getMassage.message
 				          	});
 				    		await this.actionEditApplication(this.$route.params.userapplicationId)
+                            if(this.getApplication.tarif){
+                                    this.form.tarif = this.getApplication.tarif.length ? this.getApplication.tarif : []
+                                }else{
+                                    this.form.tarif  =  []
+                            }
 	                    }else{
 	                    	toast.fire({
 					            type: "error",
