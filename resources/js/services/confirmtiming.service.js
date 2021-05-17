@@ -1,7 +1,7 @@
 import ApiService from './api.service'
 
 const ConfirmTimingSerivce = {
-	xronoms(){
+	xronoms(page){
 		return ApiService.get(`/api/xronom?page=${page}`)
 	},
 	xronomShow(id){
