@@ -35,6 +35,13 @@ class DirectionController extends Controller
                 $query->where('region_id',$region);
             });
         }
+        if(!empty($inputs['bustype_id'])){
+            $bustype_id = $inputs['bustype_id'];
+            // $builder->where(['region_from_id' => $inputs['region_id'],'region_to_id' => $inputs['region_id']]);
+            $builder->whereHas('cars', function ($query) use ($bustype_id){
+                $query->where('bustype_id',$bustype_id);
+            });
+        }
         //по типу маршрута! bus or taxi
         if(!empty($inputs['dir_type'])){
             $builder->where(['dir_type' => $inputs['dir_type']]);
@@ -276,9 +283,13 @@ class DirectionController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $user = $request->user();
-        $builder = Direction::query();//->with(['createdBy']);
+        $builder = Direction::query()->with(['createdBy']);
         if($user->role->name != 'admin'){
-            $builder->where(['region_from_id' => $user->region_id]);
+            //$builder->where(['region_from_id' => $user->region_id]);
+            $region = $user->region_id;
+            $builder->whereHas('createdBy', function ($query) use ($region){
+                $query->where('region_id',$region);
+            });
         }
         $builder->where('name','LIKE', '%'.$request->input('name').'%');
         $builder->orWhere('pass_number','LIKE', '%'.$request->input('name').'%');
@@ -1120,16 +1131,26 @@ class DirectionController extends Controller
 
     public function titul(Request $request)
     {
-        $result = Direction::with([
+        $params = $request->all();
+        $builder = Direction::query()->with([
             'regionTo',
             'regionFrom',
             'areaFrom',
             'areaTo',
             'createdBy'
-            ])
-            ->where(['titul_status' => 'pending'])
-            ->orWhere(['titul_status' => 'completed'])
-            ->paginate(12);
+        ]);
+        if(!empty($params['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$params['pass_number'].'%');
+        }
+        if(!empty($params['name'])){
+            $builder->where('name','LIKE', '%'.$params['name'].'%');
+        }
+        if(!empty($params['status'])){
+            $builder->where(['titul_status' => $params['status']]);
+        }else{
+            $builder->where(['titul_status' => 'pending'])->orWhere(['titul_status' => 'completed']);
+        }
+        $result = $builder->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 

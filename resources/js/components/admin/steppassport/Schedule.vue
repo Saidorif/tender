@@ -13,7 +13,7 @@
         >
           <div class="row col-md-12">
             <div class="form-group col-xl-3 col-md-6">
-              <label for="reys_to_count" v-if="this.titulData">Reyslar soni {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
+              <label for="reys_to_count" v-if="this.titulData">Reyslar soni {{ this.titulData.timing_with && this.titulData.timing_with.length  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
               <input
                 type="number"
                 v-model.number="form.reys_to_count"
@@ -23,7 +23,7 @@
               />
             </div>
             <div class="form-group col-xl-3 col-md-6" v-if="this.titulData">
-              <label for="reys_from_count">Reyslar soni  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
+              <label for="reys_from_count">Reyslar soni  {{ this.titulData.timing_with && this.titulData.timing_with.length  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
               <input
                 type="number"
                 v-model.number="form.reys_from_count"
@@ -52,7 +52,7 @@
           <div class="col-md-4">
             <p>
               Qatnov yo'l masofasi
-              <b v-if="titulData.timing_with"
+              <b v-if="titulData.timing_with && titulData.timing_with.length"
                 >{{
                   titulData.timing_with[titulData.timing_with.length - 1]
                     .distance_from_start_station
@@ -323,10 +323,10 @@ export default {
           p_item['bus_order'] = p_item[0].bus_order
       })
     }else{
-      this.form.whereFrom.where = this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
+      this.form.whereFrom.where = this.titulData.timing_with.length ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo : [];
       this.form.whereTo.where = this.titulData.timing_with.length ? this.titulData.timing_with[0].whereForm : [];
-      this.form.whereFrom.from = this.titulData.timing_with[0].whereForm;
-      this.form.whereTo.from =  this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo;
+      this.form.whereFrom.from = this.titulData.timing_with.length ? this.titulData.timing_with[0].whereForm : [];
+      this.form.whereTo.from = this.titulData.timing_with.length ?  this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo : [];
       let stationsLeng = this.titulData.timing_with.length;
       this.titulData.timing_with.forEach((item, i) => {
         this.form.whereTo.stations.push(item.whereForm)

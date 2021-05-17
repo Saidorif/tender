@@ -255,6 +255,9 @@ class ContractController extends Controller
         if(!$contract){
             return response()->json(['error' => true, 'message' => 'Контракт не найден']);
         }
+        if(!$contract->status == 'completed'){
+            return response()->json(['error' => true, 'message' => 'Контракт уже активирован']);
+        }
         foreach($contract->direction_ids as $direction){
             $direction->status = 'active';
             $direction->contract_id = null;
