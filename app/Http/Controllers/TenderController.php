@@ -677,7 +677,7 @@ class TenderController extends Controller
         $items = [];
         foreach($tender_lots as $key => $lot){
             $result = [];
-            $applications = $lot->apps;
+            $applications = $lot->apps()->where('status','=','accepted')->get();
             $direction_ids = $lot->getDirection();
             foreach($applications as $k => $app){
                 if(count($app->balls) > 0){
@@ -846,12 +846,13 @@ class TenderController extends Controller
                     //6.Transport kategoriyasiga mosligi
                     //7.Transport modelining mosligi
                     $tender_cars = $direction->cars;
+                    $the_tender_cars = $direction->cars()->groupBy('bustype_id')->get();
                     $tender_cars_categories = array_unique($direction->cars()->pluck('bustype_id')->toArray());
                     $app_categoriya = 0;
                     $app_model = 0;
                     $m1 = false;
                     $ggg = [];
-                    foreach ($tender_cars as $t_car) {
+                    foreach ($the_tender_cars as $t_car) {
                         if($t_car->bustype_id == 1){
                             $m1 = true;
                         }
@@ -862,47 +863,55 @@ class TenderController extends Controller
                             //6.Transport kategoriyasiga mosligi 3 ball
                             if (in_array($a_car->bustype_id,$tender_cars_categories)) {
                                 //agar avtotransport qatnashchining mulki bolsa 1.15 qoshiladi
-                                if ($a_car->gai) {
-                                    $app_categoriya += 3.45;
-                                    $ggg[] = [
-                                        'ball' => 3.45,
-                                        'car' => $a_car->id,
-                                        'type' => 'if',
-                                    ];
-                                }else {
-                                    $app_categoriya += 3;
-                                    $ggg[] = [
-                                        'ball' => 3,
-                                        'car' => $a_car->id,
-                                        'type' => 'else',
-                                    ];
+                                if(!$m1){
+                                    if ($a_car->gai) {
+                                        $app_categoriya += 3.45;
+                                        $ggg[] = [
+                                            'ball' => 3.45,
+                                            'car' => $a_car->id,
+                                            'type' => 'if',
+                                        ];
+                                    }else {
+                                        $app_categoriya += 3;
+                                        $ggg[] = [
+                                            'ball' => 3,
+                                            'car' => $a_car->id,
+                                            'type' => 'else',
+                                        ];
+                                    }
                                 }
                                 //7.Transport modelining mosligi
                                 foreach ($t_car->bustype->tclass as $t_class) {
-                                    if ($t_class->id == $a_car->tclass_id) {
-                                        $percent = 1;
-                                        if ($a_car->gai) {
-                                            $percent = 1.15;
-                                        }
-                                        //А класс (матиз, дамас)
-                                        if ($a_car->tclass_id == 4) {
-                                            $app_model += 2 * $percent;
-                                        }
-                                        //В Класс
-                                        if ($a_car->tclass_id == 6) {
-                                            $app_model += 3 * $percent;
-                                        }
-                                        //C Класс
-                                        if ($a_car->tclass_id == 7) {
-                                            $app_model += 4 * $percent;
-                                        }
-                                        //D Класс
-                                        if ($a_car->tclass_id == 8) {
-                                            $app_model += 5 * $percent;
-                                        }
-                                        //M Класс
-                                        if ($a_car->tclass_id == 9) {
-                                            $app_model += 4 * $percent;
+                                    if($m1) {
+                                        if ($t_class->id == $a_car->tclass_id) {
+                                            $percent = 1;
+                                            if ($a_car->gai) {
+                                                $percent = 1.15;
+                                            }
+                                            //А класс (матиз, дамас)
+                                            if ($a_car->tclass_id == 1) {
+                                                $app_model += 2 * $percent;
+                                            }
+                                            //В Класс
+                                            if ($a_car->tclass_id == 2) {
+                                                $app_model += 3 * $percent;
+                                            }
+                                            //C Класс
+                                            if ($a_car->tclass_id == 3) {
+                                                $app_model += 4 * $percent;
+                                            }
+                                            //D Класс
+                                            if ($a_car->tclass_id == 4) {
+                                                $app_model += 5 * $percent;
+                                            }
+                                            //M Класс
+                                            if ($a_car->tclass_id == 5) {
+                                                $app_model += 4 * $percent;
+                                            }
+                                            //E Класс
+                                            if ($a_car->tclass_id == 13) {
+                                                $app_model += 2 * $percent;
+                                            }
                                         }
                                     }
                                 }
@@ -913,6 +922,7 @@ class TenderController extends Controller
                     $app_model = round($app_model / (int)$direction->requirement->schedules,2);
                     //6-izox: Barcha ballar qoshiladi va talab etilgan avtotransportlar soniga bolinadi
 
+                    //return $app_categoriya;
                     $app_categoriya  = round($app_categoriya / (int)$direction->requirement->schedules,2);
                     $appBallArray['app_categories'] = array_unique($app->getCars($value)->pluck('bustype_id')->toArray());
                     $appBallArray['lot_categories'] = $tender_cars->pluck('bustype_id')->toArray();
@@ -1018,9 +1028,9 @@ class TenderController extends Controller
             }
             $items[] = $result;
         }
-        if($return){
-            return $items;
-        }
+//        if($return){
+//            return $items;
+//        }
         return response()->json(['success' => true, 'result' => $items]);
     }
 
