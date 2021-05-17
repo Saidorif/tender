@@ -23,4 +23,9 @@ class Protocol extends Model
     {
         return $this->belongsTo(\App\User::class,'created_by');
     }
+
+    public function contracts()
+    {
+        return $this->hasMany(\App\Contract::class,'protocol_id');
+    }
 }
