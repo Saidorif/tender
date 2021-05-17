@@ -1131,16 +1131,26 @@ class DirectionController extends Controller
 
     public function titul(Request $request)
     {
-        $result = Direction::with([
+        $params = $request->all();
+        $builder = Direction::query()->with([
             'regionTo',
             'regionFrom',
             'areaFrom',
             'areaTo',
             'createdBy'
-            ])
-            ->where(['titul_status' => 'pending'])
-            ->orWhere(['titul_status' => 'completed'])
-            ->paginate(12);
+        ]);
+        if(!empty($params['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$params['pass_number'].'%');
+        }
+        if(!empty($params['name'])){
+            $builder->where('name','LIKE', '%'.$params['name'].'%');
+        }
+        if(!empty($params['status'])){
+            $builder->where(['titul_status' => $params['status']]);
+        }else{
+            $builder->where(['titul_status' => 'pending'])->orWhere(['titul_status' => 'completed']);
+        }
+        $result = $builder->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
