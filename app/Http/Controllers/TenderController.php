@@ -677,7 +677,7 @@ class TenderController extends Controller
         $items = [];
         foreach($tender_lots as $key => $lot){
             $result = [];
-            $applications = $lot->apps;
+            $applications = $lot->apps()->where('status','=','accepted');
             $direction_ids = $lot->getDirection();
             foreach($applications as $k => $app){
                 if(count($app->balls) > 0){
@@ -846,12 +846,13 @@ class TenderController extends Controller
                     //6.Transport kategoriyasiga mosligi
                     //7.Transport modelining mosligi
                     $tender_cars = $direction->cars;
+                    $the_tender_cars = $direction->cars()->groupBy('bustype_id')->get();
                     $tender_cars_categories = array_unique($direction->cars()->pluck('bustype_id')->toArray());
                     $app_categoriya = 0;
                     $app_model = 0;
                     $m1 = false;
                     $ggg = [];
-                    foreach ($tender_cars as $t_car) {
+                    foreach ($the_tender_cars as $t_car) {
                         if($t_car->bustype_id == 1){
                             $m1 = true;
                         }
@@ -885,23 +886,23 @@ class TenderController extends Controller
                                             $percent = 1.15;
                                         }
                                         //А класс (матиз, дамас)
-                                        if ($a_car->tclass_id == 4) {
+                                        if ($a_car->tclass_id == 1) {
                                             $app_model += 2 * $percent;
                                         }
                                         //В Класс
-                                        if ($a_car->tclass_id == 6) {
+                                        if ($a_car->tclass_id == 2) {
                                             $app_model += 3 * $percent;
                                         }
                                         //C Класс
-                                        if ($a_car->tclass_id == 7) {
+                                        if ($a_car->tclass_id == 3) {
                                             $app_model += 4 * $percent;
                                         }
                                         //D Класс
-                                        if ($a_car->tclass_id == 8) {
+                                        if ($a_car->tclass_id == 4) {
                                             $app_model += 5 * $percent;
                                         }
                                         //M Класс
-                                        if ($a_car->tclass_id == 9) {
+                                        if ($a_car->tclass_id == 5) {
                                             $app_model += 4 * $percent;
                                         }
                                     }
@@ -913,6 +914,7 @@ class TenderController extends Controller
                     $app_model = round($app_model / (int)$direction->requirement->schedules,2);
                     //6-izox: Barcha ballar qoshiladi va talab etilgan avtotransportlar soniga bolinadi
 
+                    //return $app_categoriya;
                     $app_categoriya  = round($app_categoriya / (int)$direction->requirement->schedules,2);
                     $appBallArray['app_categories'] = array_unique($app->getCars($value)->pluck('bustype_id')->toArray());
                     $appBallArray['lot_categories'] = $tender_cars->pluck('bustype_id')->toArray();
@@ -1017,9 +1019,6 @@ class TenderController extends Controller
                 }
             }
             $items[] = $result;
-        }
-        if($return){
-            return $items;
         }
         return response()->json(['success' => true, 'result' => $items]);
     }
