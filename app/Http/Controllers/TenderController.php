@@ -677,7 +677,7 @@ class TenderController extends Controller
         $items = [];
         foreach($tender_lots as $key => $lot){
             $result = [];
-            $applications = $lot->apps()->where('status','=','accepted');
+            $applications = $lot->apps()->where('status','=','accepted')->get();
             $direction_ids = $lot->getDirection();
             foreach($applications as $k => $app){
                 if(count($app->balls) > 0){
@@ -863,47 +863,55 @@ class TenderController extends Controller
                             //6.Transport kategoriyasiga mosligi 3 ball
                             if (in_array($a_car->bustype_id,$tender_cars_categories)) {
                                 //agar avtotransport qatnashchining mulki bolsa 1.15 qoshiladi
-                                if ($a_car->gai) {
-                                    $app_categoriya += 3.45;
-                                    $ggg[] = [
-                                        'ball' => 3.45,
-                                        'car' => $a_car->id,
-                                        'type' => 'if',
-                                    ];
-                                }else {
-                                    $app_categoriya += 3;
-                                    $ggg[] = [
-                                        'ball' => 3,
-                                        'car' => $a_car->id,
-                                        'type' => 'else',
-                                    ];
+                                if(!$m1){
+                                    if ($a_car->gai) {
+                                        $app_categoriya += 3.45;
+                                        $ggg[] = [
+                                            'ball' => 3.45,
+                                            'car' => $a_car->id,
+                                            'type' => 'if',
+                                        ];
+                                    }else {
+                                        $app_categoriya += 3;
+                                        $ggg[] = [
+                                            'ball' => 3,
+                                            'car' => $a_car->id,
+                                            'type' => 'else',
+                                        ];
+                                    }
                                 }
                                 //7.Transport modelining mosligi
                                 foreach ($t_car->bustype->tclass as $t_class) {
-                                    if ($t_class->id == $a_car->tclass_id) {
-                                        $percent = 1;
-                                        if ($a_car->gai) {
-                                            $percent = 1.15;
-                                        }
-                                        //А класс (матиз, дамас)
-                                        if ($a_car->tclass_id == 1) {
-                                            $app_model += 2 * $percent;
-                                        }
-                                        //В Класс
-                                        if ($a_car->tclass_id == 2) {
-                                            $app_model += 3 * $percent;
-                                        }
-                                        //C Класс
-                                        if ($a_car->tclass_id == 3) {
-                                            $app_model += 4 * $percent;
-                                        }
-                                        //D Класс
-                                        if ($a_car->tclass_id == 4) {
-                                            $app_model += 5 * $percent;
-                                        }
-                                        //M Класс
-                                        if ($a_car->tclass_id == 5) {
-                                            $app_model += 4 * $percent;
+                                    if($m1) {
+                                        if ($t_class->id == $a_car->tclass_id) {
+                                            $percent = 1;
+                                            if ($a_car->gai) {
+                                                $percent = 1.15;
+                                            }
+                                            //А класс (матиз, дамас)
+                                            if ($a_car->tclass_id == 1) {
+                                                $app_model += 2 * $percent;
+                                            }
+                                            //В Класс
+                                            if ($a_car->tclass_id == 2) {
+                                                $app_model += 3 * $percent;
+                                            }
+                                            //C Класс
+                                            if ($a_car->tclass_id == 3) {
+                                                $app_model += 4 * $percent;
+                                            }
+                                            //D Класс
+                                            if ($a_car->tclass_id == 4) {
+                                                $app_model += 5 * $percent;
+                                            }
+                                            //M Класс
+                                            if ($a_car->tclass_id == 5) {
+                                                $app_model += 4 * $percent;
+                                            }
+                                            //E Класс
+                                            if ($a_car->tclass_id == 13) {
+                                                $app_model += 2 * $percent;
+                                            }
                                         }
                                     }
                                 }
@@ -1020,6 +1028,9 @@ class TenderController extends Controller
             }
             $items[] = $result;
         }
+//        if($return){
+//            return $items;
+//        }
         return response()->json(['success' => true, 'result' => $items]);
     }
 
