@@ -63,7 +63,7 @@
 		},
 		async mounted(){
 			let page = 1;
-            await this.actionConditionalSigns()
+            await this.actionConditionalSigns(page)
             this.laoding = false
 		},
 		computed:{

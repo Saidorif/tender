@@ -1,8 +1,8 @@
 import ApiService from './api.service'
 
 const ConfirmDemandSerivce = {
-	demands(){
-		return ApiService.get(`/api/dirreq`)
+	demands(page){
+		return ApiService.get(`/api/dirreq?page=${page}`)
 	},
 	demandShow(id){
 		return ApiService.get(`/api/dirreq/edit/${id}`)
