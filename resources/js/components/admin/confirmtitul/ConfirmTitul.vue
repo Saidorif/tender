@@ -70,7 +70,7 @@
 		},
 		async mounted(){
             let page = 1;
-            await this.actionTituls();
+            await this.actionTituls(page);
             this.laoding = false
 		},
 		computed:{
