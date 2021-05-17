@@ -1,8 +1,8 @@
 import ApiService from './api.service'
 
 const ConfirmSchemeSerivce = {
-	schemes(){
-		return ApiService.get(`/api/sxema`)
+	schemes(page){
+		return ApiService.get(`/api/sxema?page=${page}`)
 	},
 	schemeShow(id){
 		return ApiService.get(`/api/sxema/edit/${id}`)

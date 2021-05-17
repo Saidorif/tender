@@ -20,9 +20,9 @@ const getters = {
 
 
 const actions = {
-	async actionSchedules({commit}){
+	async actionSchedules({commit},page){
 		try {
-			const types =  await ConfirmScheduleSerivce.schedules();
+			const types =  await ConfirmScheduleSerivce.schedules(page);
 			await commit('setSchedule',types.data.result)
 			return true
 		} catch (error) {

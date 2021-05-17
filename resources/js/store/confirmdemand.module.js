@@ -20,9 +20,9 @@ const getters = {
 
 
 const actions = {
-	async actionDemands({commit}){
+	async actionDemands({commit},page){
 		try {
-			const types =  await ConfirmDemandSerivce.demands();
+			const types =  await ConfirmDemandSerivce.demands(page);
 			await commit('setDemand',types.data.result)
 			return true
 		} catch (error) {

@@ -77,7 +77,7 @@
 		},
 		async mounted(){
 			let page = 1;
-            await this.actionBusclasses()
+            await this.actionBusclasses(page)
             this.laoding = false
 		},
 		computed:{

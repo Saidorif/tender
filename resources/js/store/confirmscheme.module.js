@@ -20,9 +20,9 @@ const getters = {
 
 
 const actions = {
-	async actionSchemes({commit}){
+	async actionSchemes({commit},page){
 		try {
-			const types =  await ConfirmSchemeSerivce.schemes();
+			const types =  await ConfirmSchemeSerivce.schemes(page);
 			await commit('setScheme',types.data.result)
 			return true
 		} catch (error) {

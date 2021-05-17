@@ -18,7 +18,7 @@
         <div id="app">
             <Master/>
         </div>
-        <script src="{{ $baseUrl. 'js/app.js?version=0.0.43' }}"></script>
+        <script src="{{ $baseUrl. 'js/app.js?version=0.0.44' }}"></script>
         <script src="{{ $baseUrl. 'js/fancybox.js' }}"></script>
         <script src="{{ $baseUrl. 'js/print.js' }}"></script>
     </body>

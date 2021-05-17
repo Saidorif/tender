@@ -60,7 +60,7 @@
 		},
 		async mounted(){
             let page = 1;
-            await this.actionDemands();
+            await this.actionDemands(page);
             this.laoding = false
 		},
 		computed:{
