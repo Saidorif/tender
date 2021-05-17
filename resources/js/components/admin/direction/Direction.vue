@@ -30,17 +30,6 @@
                                   <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
               				</div>
 				  			<div class="form-group col-lg-2">
-				  				<label for="region_id">Сортировать по региону!</label>
-			                    <select
-			                      id="region_id"
-			                      class="form-control input_style"
-			                      v-model="filter.region_id"
-			                    >
-			                      <option value="" selected >Выберите регион!</option>
-			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
-			                    </select>
-              				</div>
-				  			<div class="form-group col-lg-2">
 				  				<label for="status">По статусу закрепления!</label>
 			                    <select
 			                      id="status"
@@ -49,79 +38,6 @@
 			                    >
 			                      <option value="" selected >Выберите статус закрепления!</option>
 			                    </select>
-              				</div>
-				  			<div class="form-group col-lg-3">
-				  				<label for="status">По статусу размещения!</label>
-			                    <select
-			                      id="status"
-			                      class="form-control input_style"
-			                      v-model="filter.status"
-			                    >
-			                      <option value="" selected >Выберите статус размещения!</option>
-			                    </select>
-              				</div>
-				  			<div class="form-group col-lg-3">
-				  				<label for="bustype_id">Сортировать по типу авто!</label>
-			                    <select
-			                      id="bustype_id"
-			                      class="form-control input_style"
-			                      v-model="filter.bustype_id"
-			                    >
-			                      <option value="" selected >Выберите тип авто!</option>
-			                      <option
-				                      :value="busType.id"
-				                      v-for="(busType,index) in getTypeofbusList"
-			                    	>{{busType.name}}</option>
-			                    </select>
-              				</div>
-				  			<div class="form-group col-lg-2">
-				  				<label for="profitability">Сортировать по рентабельности!</label>
-			                    <select
-			                      id="profitability"
-			                      class="form-control input_style"
-			                      v-model="filter.profitability"
-			                    >
-			                      <option value="" selected >Выберите рентабельность!</option>
-			                      <option value="profitable">Рентабельный</option>
-					              <option value="unprofitable">Нерентабельный</option>
-					              <option value="middle">Средный</option>
-			                    </select>
-              				</div>
-				  			<div class="form-group col-lg-3">
-				  				<label for="type_id">Сортировать по локацию маршрута!</label>
-			                    <select
-			                      id="type_id"
-			                      class="form-control input_style"
-			                      v-model="filter.type_id"
-			                    >
-			                      <option value="" selected >Выберите локацию маршрута!</option>
-			                      <option
-					                  :value="item.id"
-					                  v-for="(item,index) in getTypeofdirectionList"
-				                  >{{item.name }} {{item.type}}</option>
-			                    </select>
-              				</div>
-				  			<div class="form-group col-lg-2">
-				  				<label for="dir_type">Сортировать по типу маршрута!</label>
-			                    <select
-			                      id="dir_type"
-			                      class="form-control input_style"
-			                      v-model="filter.dir_type"
-			                    >
-			                      <option value="" selected >Выберите тип маршрута!</option>
-			                      <option value="bus">Автобус йуналиши</option>
-                      			  <option value="taxi">Йўналиши тахи йуналиши</option>
-			                    </select>
-              				</div>
-				  			<div class="form-group col-lg-2">
-				  				<label for="year">Сортировать по дате открытия!</label>
-				  				<date-picker
-					                lang="ru"
-					                type="year" format="YYYY" valueType="format"
-					                v-model="filter.year"
-					                placeholder="Выберите дату!"
-					                class="input_style"
-				              	></date-picker>
               				</div>
                             <div class="form-group col-lg-3">
 				  				<label for="dir_name">Наименования  маршрута</label>
@@ -316,12 +232,7 @@
 		data(){
 			return{
 				filter:{
-					region_id:'',
-					dir_type:'',
-					bustype_id:'',
-					type_id:'',
-					profitability:'',
-                    year:'',
+                    status:'',
                     pass_number: '',
                     name: '',
 				},
