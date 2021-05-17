@@ -13,7 +13,7 @@
         >
           <div class="row col-md-12">
             <div class="form-group col-xl-3 col-md-6">
-              <label for="reys_to_count" v-if="this.titulData">Reyslar soni {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
+              <label for="reys_to_count" v-if="this.titulData">Reyslar soni {{ this.titulData.timing_with && this.titulData.timing_with.length  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
               <input
                 type="number"
                 v-model.number="form.reys_to_count"
@@ -23,7 +23,7 @@
               />
             </div>
             <div class="form-group col-xl-3 col-md-6" v-if="this.titulData">
-              <label for="reys_from_count">Reyslar soni  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
+              <label for="reys_from_count">Reyslar soni  {{ this.titulData.timing_with && this.titulData.timing_with.length  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
               <input
                 type="number"
                 v-model.number="form.reys_from_count"
