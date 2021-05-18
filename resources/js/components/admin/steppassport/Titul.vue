@@ -8,6 +8,9 @@
         <div class="card-body">
         <form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
           <div class="row">
+            <div class="col-12 d-flex justify-content-end mb-2">
+                <button type="button" class="btn btn-warning" @click="printDoc('prindDiv')"><i  class="fas fa-print mr-2"></i>Chop etish</button>
+            </div>
             <div class="form-group col-xl-3 col-md-6">
               <label for="type_id">Yo'nalish klasifikatsiyasi</label>
               <select
@@ -358,6 +361,47 @@
             </div>
           </div>
         </form>
+        <div id="prindDiv">
+          <p style="margin:0px;text-align:right;font-size:15px;">Тасдиқлайман</p>
+          <p style="margin:0px;text-align:right;font-size:15px;">ФИШ</p>
+          <p style="margin:0px;text-align:right;font-size:15px;">Лавозими</p>
+          <p style="margin:0px;text-align:right;font-size:15px;">Сана</p>
+          <h2 style="margin:0px;text-align:center;font-size:19px;font-weight:bold;">
+            ПАСПОРТ МЕЖДУГОРОДНОГО <br>
+            (МЕЖОБЛАСТНОГО, МЕЖДУНАРОДНОГО) <br>
+            МАРШРУТА  № <u style="text-decoration: underline;padding-bottom:2px;">{{form.pass_number}}</u>
+          </h2>
+          <div style="text-align:center;margin-top:10px">
+            <p style="border-bottom:1px solid #000;padding-bottom:2px;margin:0px;text-align:left;font-size:15px;">"{{form.pass_number}} - {{ getDirection.name }}"</p>
+            <small  style="font-size:13px;">(наименование маршрута)</small>
+          </div>
+          <div style="display:flex;align-items: flex-end;justify-content:space-between;margin-top:10px;">
+                <p style="font-size:16px;margin:0px;">Йўналиш <br> классификацияси </p>
+                <div style="text-align:center;width:75%;">
+                    <p style="border-bottom:1px solid #000;padding-bottom:2px;margin:0px;text-align:left;font-size:15px;">{{form.dir_type == 'bus' ? 'Автобус йуналиши' : 'Йўналиши тахи йуналиши'}}</p>
+                    <small  style="font-size:13px;">(автобусный, маршрутное такси, экспрессный, скорый)</small>
+                </div>
+          </div>
+          <div style="display:flex;align-items: flex-end;justify-content:space-between;margin-top:10px;">
+                <p style="font-size:16px;margin:0px;">Йўналиш очилиш санаси </p>
+                <div style="text-align:center;width:75%;">
+                    <p style="border-bottom:1px solid #000;padding-bottom:2px;margin:0px;text-align:left;font-size:15px;">{{ form.year }} й.</p>
+                </div>
+          </div>
+          <div style="display:flex;align-items: flex-end;justify-content:space-between;margin-top:10px;">
+                <p style="font-size:16px;margin:0px;">Йўналиш мавсумийлиги </p>
+                <div style="text-align:center;width:75%;">
+                    <p style="border-bottom:1px solid #000;padding-bottom:2px;margin:0px;text-align:left;font-size:15px;">{{ form.seasonal == 'always' ? 'Доимий' : 'Мавсумий' }}</p>
+                </div>
+          </div>
+          <div style="display:flex;align-items: flex-end;margin-top:10px;">
+                <p style="font-size:16px;margin:0px;">Йўналиш узунлиги: </p>
+                <div style="text-align:center;width:auto;margin-left:20px;">
+                    <p style="border-bottom:1px solid #000;padding-bottom:2px;margin:0px;text-align:left;font-size:15px;padding-left:15px;padding-right:30px;">{{form.distance}} км.</p>
+                </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
@@ -433,7 +477,7 @@ export default {
         this.form.region_to.region_id = this.getDirection.region_to_id ? this.getDirection.region_to_id : '';
         this.form.region_to.area_id = this.getDirection.area_to_id ? this.getDirection.area_to_id : '';
         this.form.region_to.station_id = this.getDirection.station_to_id ? this.getDirection.station_to_id : '';
-        this.form.year = this.getDirection.year.toString();
+        this.form.year = this.$g.getDate(this.getDirection.year);
         this.form.from_type = this.getDirection.from_type;
         this.form.to_type = this.getDirection.to_type;
         this.form.from_where.id = this.getDirection.from_where.id;
@@ -563,7 +607,7 @@ export default {
     this.form.region_to.region_id = this.getDirection.region_to_id ? this.getDirection.region_to_id : '';
     this.form.region_to.area_id = this.getDirection.area_to_id ? this.getDirection.area_to_id : '';
     this.form.region_to.station_id = this.getDirection.station_to_id ? this.getDirection.station_to_id : '';
-    this.form.year = this.getDirection.year.toString();
+    this.form.year = this.$g.getDate(this.getDirection.year);
     // if (this.getDirection.from_type) {
     //   this.form.from_type = this.getDirection.from_type;
     // }else{
@@ -599,6 +643,21 @@ export default {
     ...mapActions("busbrand", ["actionBusBrandList"]),
     ...mapActions("busmodel", ["actionBusmodelFindList"]),
     ...mapActions('confirmtitul',['actionApproveTitul']),
+    printDoc(elem){
+      var mywindow = window.open('', 'PRINT');
+      mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+      mywindow.document.write('</head><body >');
+      mywindow.document.write(document.getElementById(elem).innerHTML);
+      mywindow.document.write('</body></html>');
+
+      mywindow.document.close(); // necessary for IE >= 10
+      mywindow.focus(); // necessary for IE >= 10*/
+
+      mywindow.print();
+      mywindow.close();
+
+      return true;
+    },
     async sendToActivate(){
       await this.actionApproveTitul(this.$route.params.directionId)
       if (this.getTitulMassage.success){
@@ -825,7 +884,8 @@ export default {
         arr[1] = this.toChoosenName
       }
       return arr
-    }
+    },
+
   },
 };
 </script>
@@ -838,5 +898,8 @@ export default {
   .car_index{
     margin-top: 35px;
     margin-left: 15px;
+  }
+  #prindDiv{
+      display: none;
   }
 </style>
