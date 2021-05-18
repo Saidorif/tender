@@ -7,7 +7,7 @@ const BusclassService = {
 	busclasseFind(data){
 		return ApiService.post(`/api/tclass/find`,data)
 	},
-	busclasses(page){
+	busclassess(page){
 		return ApiService.post(`/api/tclass?page=${page}`)
 	},
 	addbusclass(data){

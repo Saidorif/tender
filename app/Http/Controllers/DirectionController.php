@@ -292,7 +292,8 @@ class DirectionController extends Controller
             });
         }
         $builder->where('name','LIKE', '%'.$request->input('name').'%');
-        $builder->orWhere('pass_number','LIKE', '%'.$request->input('name').'%');
+        //$builder->orWhere('pass_number','LIKE', '%'.$request->input('name').'%');
+        $builder->orWhere('pass_number','=', $request->input('name'));
         if(!empty($request->input('type'))){
             $type = $request->input('type');
             if($type == 'contract'){
@@ -475,7 +476,8 @@ class DirectionController extends Controller
         $region_ids = Region::pluck('id');
         $area_ids = Area::pluck('id');
         $validator = Validator::make($request->all(), [
-            'pass_number'  => 'required|string|unique:directions,pass_number,'.$direction->id,
+            //'pass_number'  => 'required|string|unique:directions,pass_number,'.$direction->id,
+            'pass_number'  => 'required|string',
             'from_type'  => 'required|string',
             'to_type'  => 'required|string',
             'tarif'  => 'nullable|integer',
@@ -738,8 +740,17 @@ class DirectionController extends Controller
         $builder = Direction::query()->with(['passport_tarif']);
         $params = $request->all();
         $region = null;
+        $user = $request->user();
         if(!empty($params['region_id'])){
-            $region = $params['region_id'];
+            if($user->role->name == 'admin'){
+                $region = $params['region_id'];
+                $builder->whereHas('createdBy', function ($query) use ($region){
+                    $query->where('region_id',$region);
+                });
+            }
+        }
+        else{
+            $region = $user->region_id;
             $builder->whereHas('createdBy', function ($query) use ($region){
                 $query->where('region_id',$region);
             });
@@ -1051,6 +1062,7 @@ class DirectionController extends Controller
             'transports_capacity'           => '',
             'transports_seats'              => '',
             'minimum_bal'                   => '',
+            'text'                          => '',
         ];
         return response()->json(['success' => true, 'result' => $data,'type' => $direction->type]);
     }
@@ -1105,6 +1117,7 @@ class DirectionController extends Controller
             'transports_capacity' => 'nullable|integer',
             'transports_seats' => 'nullable|integer',
             'minimum_bal' => 'nullable|integer',
+            'text' => 'nullable|string',
         ]);
 
         if($validator->fails()){
@@ -1211,7 +1224,7 @@ class DirectionController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Titul not found']);
         }
-        if($result->titul_status != 'active'){
+        if($result->titul_status == 'pending'){
             return response()->json(['error' => true, 'message' => 'Titul is '.$result->titul_status]);
         }
         $result->titul_status = 'pending';
@@ -1221,16 +1234,36 @@ class DirectionController extends Controller
 
     public function xronom(Request $request)
     {
-        $result = Direction::with([
+        $params = $request->all();
+        $builder = Direction::query()->with([
             'regionTo',
             'regionFrom',
             'areaFrom',
             'areaTo',
             'createdBy'
-            ])
-            ->where(['xronom_status' => 'pending'])
-            ->orWhere(['xronom_status' => 'completed'])
-            ->paginate(12);
+        ]);
+        if(!empty($params['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$params['pass_number'].'%');
+        }
+        if(!empty($params['name'])){
+            $builder->where('name','LIKE', '%'.$params['name'].'%');
+        }
+        if(!empty($params['status'])){
+            $builder->where(['xronom_status' => $params['status']]);
+        }else{
+            $builder->where(['xronom_status' => 'pending'])->orWhere(['xronom_status' => 'completed']);
+        }
+        $result = $builder->paginate(12);
+//        $result = Direction::with([
+//            'regionTo',
+//            'regionFrom',
+//            'areaFrom',
+//            'areaTo',
+//            'createdBy'
+//            ])
+//            ->where(['xronom_status' => 'pending'])
+//            ->orWhere(['xronom_status' => 'completed'])
+//            ->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1291,7 +1324,7 @@ class DirectionController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Xronometraj not found']);
         }
-        if($result->xronom_status != 'active'){
+        if($result->xronom_status == 'pending'){
             return response()->json(['error' => true, 'message' => 'Xronometraj is '.$result->xronom_status]);
         }
         $result->xronom_status = 'pending';
@@ -1301,16 +1334,36 @@ class DirectionController extends Controller
 
     public function sxema(Request $request)
     {
-        $result = Direction::with([
+        $params = $request->all();
+        $builder = Direction::query()->with([
             'regionTo',
             'regionFrom',
             'areaFrom',
             'areaTo',
             'createdBy'
-            ])
-            ->where(['sxema_status' => 'pending'])
-            ->orWhere(['sxema_status' => 'completed'])
-            ->paginate(12);
+        ]);
+        if(!empty($params['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$params['pass_number'].'%');
+        }
+        if(!empty($params['name'])){
+            $builder->where('name','LIKE', '%'.$params['name'].'%');
+        }
+        if(!empty($params['status'])){
+            $builder->where(['sxema_status' => $params['status']]);
+        }else{
+            $builder->where(['sxema_status' => 'pending'])->orWhere(['sxema_status' => 'completed']);
+        }
+        $result = $builder->paginate(12);
+//        $result = Direction::with([
+//            'regionTo',
+//            'regionFrom',
+//            'areaFrom',
+//            'areaTo',
+//            'createdBy'
+//            ])
+//            ->where(['sxema_status' => 'pending'])
+//            ->orWhere(['sxema_status' => 'completed'])
+//            ->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1371,7 +1424,7 @@ class DirectionController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Sxema not found']);
         }
-        if($result->sxema_status != 'active'){
+        if($result->sxema_status == 'pending'){
             return response()->json(['error' => true, 'message' => 'Sxema is '.$result->sxema_status]);
         }
         $result->sxema_status = 'pending';
@@ -1381,16 +1434,26 @@ class DirectionController extends Controller
 
     public function xjadval(Request $request)
     {
-        $result = Direction::with([
+        $params = $request->all();
+        $builder = Direction::query()->with([
             'regionTo',
             'regionFrom',
             'areaFrom',
             'areaTo',
             'createdBy'
-            ])
-            ->where(['xjadval_status' => 'pending'])
-            ->orWhere(['xjadval_status' => 'completed'])
-            ->paginate(12);
+        ]);
+        if(!empty($params['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$params['pass_number'].'%');
+        }
+        if(!empty($params['name'])){
+            $builder->where('name','LIKE', '%'.$params['name'].'%');
+        }
+        if(!empty($params['status'])){
+            $builder->where(['xjadval_status' => $params['status']]);
+        }else{
+            $builder->where(['xjadval_status' => 'pending'])->orWhere(['xjadval_status' => 'completed']);
+        }
+        $result = $builder->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1451,7 +1514,7 @@ class DirectionController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Schedule not found']);
         }
-        if($result->xjadval_status != 'active'){
+        if($result->xjadval_status == 'pending'){
             return response()->json(['error' => true, 'message' => 'Schedule is '.$result->xjadval_status]);
         }
         $result->xjadval_status = 'pending';

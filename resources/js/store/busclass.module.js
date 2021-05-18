@@ -48,7 +48,7 @@ const actions = {
 	},
 	async actionBusclasses({commit},page){
 		try {
-			const types =  await BusclassService.busclasses(page);
+			const types =  await BusclassService.busclassess(page);
 			await commit('setBusclasses',types.data.result)
 			return true
 		} catch (error) {

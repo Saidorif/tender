@@ -141,25 +141,25 @@ class TenderController extends Controller
                     $the_direction_err[] = 'Направление с ID = '.$item['direction_id'].' не существует';
                 }
                 if($the_direction->status == 'approved'){
-                    $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+                    $the_direction_err[] = 'Невозможно добавить... Направление уже используется - '.$the_direction->name;
                 }
                 if($the_direction->contract_id != null ){
-                    $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+                    $the_direction_err[] = 'Невозможно добавить... Направление уже используется - '.$the_direction->name;
                 }
                 if($the_direction->status == 'busy' || $the_direction->reys_status == 'all' ){
-                    $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+                    $the_direction_err[] = 'Невозможно добавить... Направление уже используется - '.$the_direction->name;
                 }
                 if($the_direction->reys_status == 'custom' ){
                     $tenderLot = TenderLot::whereJsonContains('reys_id',$item['reys_id'])->first();
                     if($tenderLot){
-                        $the_direction_err[] = 'Направление с этими рейcами уже используется';
+                        $the_direction_err[] = 'Направление с этими рейcами уже используется - '.$the_direction->name;
                     }
                 }
                 // if($the_direction->tender_id != null || $the_direction->lot_id != null ){
                 //     $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
                 // }
                 if($the_direction->type_id != 1 && $the_direction->tarif == 0){
-                    $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
+                    $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле - '.$the_direction->name;
                 }
                 if(!$the_direction->requirement){
                     return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$the_direction->name]);
@@ -310,13 +310,13 @@ class TenderController extends Controller
                         $the_direction_err[] = 'Направление с ID = '.$item['direction_id'].' не существует';
                     }
                     if($the_direction->status == 'approved'){
-                        $the_direction_err[] = 'Невозможно добавить... Направление уже используется';
+                        $the_direction_err[] = 'Невозможно добавить... Направление уже используется - '.$the_direction->name;
                     }
                     if($the_direction->tarif == 0){
-                        $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле';
+                        $the_direction_err[] = 'Тариф направления равен нулю. Пожалуйста, заполните поле - '.$the_direction->name;
                     }
                     if(!$the_direction->requirement){
-                        return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$the_direction->name]);
+                        return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении - '.$the_direction->name]);
                     }
                     if($user->role->name != 'admin'){
                         if($the_direction->region_from_id != $user->region_id || $the_direction->region_to_id != $user->region_id ){

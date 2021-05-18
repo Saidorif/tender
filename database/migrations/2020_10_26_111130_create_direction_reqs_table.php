@@ -55,12 +55,14 @@ class CreateDirectionReqsTable extends Migration
             $table->string('tarif')->nullable();
             $table->string('tarif_one_km')->nullable();
             $table->string('tarif_full_km')->nullable();
+            $table->string('tarif_full_km')->nullable();
             $table->string('tarif_city')->nullable();
             $table->string('transports_capacity')->nullable();
             $table->string('transports_seats')->nullable();
             $table->string('minimum_bal')->nullable();
             $table->string('status')->default('active')->nullable();
             $table->integer('approver')->nullable();
+            $table->text('text')->nullable();
             $table->timestamps();
         });
     }
