@@ -1,8 +1,8 @@
 import ApiService from './api.service'
 
 const ConfirmTitulSerivce = {
-	tituls(page){
-		return ApiService.get(`/api/titul?page=${page}`)
+	tituls(data){
+		return ApiService.post(`/api/titul?page=${data.page}`,data.items)
 	},
 	titulShow(id){
 		return ApiService.get(`/api/titul/edit/${id}`)
