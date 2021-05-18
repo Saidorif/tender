@@ -8,7 +8,7 @@
 				    Добавить старый протокол
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/oldprotocol">
-					<span class="peIcon pe-7s-back"></span> 
+					<span class="peIcon pe-7s-back"></span>
 					Назад
 				</router-link>
 		  	</div>
@@ -17,13 +17,13 @@
 					<div class="row">
 					  	<div class="form-group col-md-3">
 						    <label for="number">Номер протокола</label>
-						    <input 
-						    	type="text" 
-						    	class="form-control input_style" 
-						    	id="number" 
+						    <input
+						    	type="text"
+						    	class="form-control input_style"
+						    	id="number"
 						    	placeholder="Номер протокола"
 						    	v-model="form.number"
-						    	:class="isRequired(form.number) ? 'isRequired' : ''"  
+						    	:class="isRequired(form.number) ? 'isRequired' : ''"
 					    	>
 					  	</div>
 					  	<div class="form-group col-md-3">
@@ -39,11 +39,11 @@
 			          	</div>
 					  	<div class="form-group col-md-3">
 			              	<label for="date">Файл</label>
-			              	<input 
-			              		type="file" 
-			              		name="file"  
-			              		id="file" 
-			              		class="form-control input_style"  
+			              	<input
+			              		type="file"
+			              		name="file"
+			              		id="file"
+			              		class="form-control input_style"
 			              		:class="isRequired(form.file) ? 'isRequired' : ''"
 			              		@change="changePhoto($event)"
 		              		>
@@ -58,7 +58,7 @@
 						  	<button type="submit" class="btn btn-primary btn_save_category">
 						  		<i class="fas fa-save"></i>
 							  	Сохранить
-							</button>	
+							</button>
 				  	  	</div>
 					</div>
 				</form>
@@ -116,8 +116,8 @@
 				};
 				reader.readAsDataURL(file);
 				// if(
-				// 	event.target.files[0]['type'] ==='image/png' || 
-				// 	event.target.files[0]['type'] ==='image/jpeg' || 
+				// 	event.target.files[0]['type'] ==='image/png' ||
+				// 	event.target.files[0]['type'] ==='image/jpeg' ||
 				// 	event.target.files[0]['type'] ==='image/jpg'
 				// ){
 				// 	if (file.size > 1048576) {
@@ -132,7 +132,7 @@
 				// 			this.form.file = event.target.result;
 				// 		};
 				// 		reader.readAsDataURL(file);
-						
+
 				// 	}
 				// }else{
 				// 	swal.fire({
@@ -148,8 +148,6 @@
 		    		formData.append('number',this.form.number)
 		    		formData.append('date',this.form.date)
 		    		formData.append('file',this.form.file)
-
-
 					this.laoding = true
 					await this.actionAddOldprotocol(formData)
 					if(this.getMassage.success){
@@ -160,7 +158,13 @@
 					    })
 						this.$router.push("/crm/oldprotocol");
 						this.requiredInput = false
-					}
+					}else{
+                      	toast.fire({
+					    	type: 'error',
+					    	icon: 'error',
+							title: this.getMassage.message.file[0],
+					    })
+                    }
 					this.laoding = false
 				}else{
 					this.requiredInput = true
@@ -170,5 +174,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

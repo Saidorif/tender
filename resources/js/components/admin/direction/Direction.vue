@@ -381,6 +381,7 @@
 					this.filter.profitability = ''
 					this.filter.bustype_id = ''
 					this.filter.pass_number = ''
+					this.filter.name = ''
                     let page  = 1
                     this.laoding = true
                     localStorage.setItem("dir_f",  JSON.stringify(this.filter))

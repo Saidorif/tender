@@ -111,12 +111,11 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Ф.И.О</th>
 							<th scope="col">Название компании</th>
 							<th scope="col">ИНН</th>
 							<th scope="col">Область</th>
 							<th scope="col">Регион/Город</th>
-							<th scope="col">E-mail</th>
+							<th scope="col">Статус</th>
 							<th scope="col">Телефон</th>
 							<th scope="col">Действия</th>
 						</tr>
@@ -124,12 +123,14 @@
 					<tbody>
 						<tr v-for="(item,index) in getClients.data">
 							<td scope="row">{{item.id}}</td>
-							<td>{{item.surname}} {{item.name}} {{item.middlename}}</td>
 							<td>{{item.company_name}}</td>
 							<td>{{item.inn}}</td>
 							<td>{{item.region ? item.region.name : ''}}</td>
 							<td>{{item.area ? item.area.name : ''}}</td>
-							<td>{{item.email}}</td>
+							<td>
+                                <span v-if="item.status == 'active'" class="alert alert-success" style="padding:2px;" >Активный</span>
+                                <span v-if="item.status == 'inactive'" class="alert alert-danger" style="padding:2px;">Неактивный</span>
+                            </td>
 							<td>{{item.phone}}</td>
 							<td>
 								<router-link

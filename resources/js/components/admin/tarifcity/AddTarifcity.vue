@@ -12,7 +12,7 @@
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveTarifcity" >
 					<div class="row">
-					  <div class="form-group col-md-3">
+					  <!-- <div class="form-group col-md-3">
 					    <label for="region_id">Region</label>
 					    <select
 					    	class="form-control input_style"
@@ -22,7 +22,7 @@
 					    	<option value="" selected disabled>choose option</option>
 					    	<option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 					    </select>
-					  </div>
+					  </div> -->
 					  <div class="form-group col-md-3">
 					    <label for="name">Tarif</label>
 					    <input
@@ -103,10 +103,9 @@
                 this.form.file = file
             },
 			async saveTarifcity(){
-		    	if (this.form.tarif != '' && this.form.region_id != '' && this.form.file != ''){
+		    	if (this.form.tarif != '' && this.form.file != ''){
                     let formData = new FormData();
                     formData.append('file', this.form.file);
-                    formData.append('region_id', this.form.region_id);
                     formData.append('tarif', this.form.tarif);
                     formData.append('tarif_bagaj', this.form.tarif_bagaj);
                     this.laoding = true
