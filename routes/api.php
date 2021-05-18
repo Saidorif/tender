@@ -240,7 +240,7 @@ Route::group([
             Route::delete('direction/car/destroy/{id}', 'DirectionController@deleteDirectionCar');
 
             //Approve titul xronometraj...
-            Route::get('titul', 'DirectionController@titul');
+            Route::post('titul', 'DirectionController@titul');
             Route::get('titul/approve/{id}', 'DirectionController@titulApprove');
             Route::get('titul/activate/{id}', 'DirectionController@titulActivate');
             Route::get('titul/reject/{id}', 'DirectionController@titulReject');
