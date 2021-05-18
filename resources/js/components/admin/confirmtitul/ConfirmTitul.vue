@@ -45,7 +45,7 @@
 				  				<label for="dir_name">Наименования  маршрута</label>
                               	<input class="form-control input_style" placeholder="Поиск по наименования маршрута" type="text" v-model="filter.name" id="dir_name">
               				</div>
-						  	<div class="col-lg-5 form-group d-flex justify-content-end align-items-center">
+						  	<div class="col-lg-5 form-group d-flex justify-content-end align-items-center mb-4">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
 								  	сброс
@@ -144,6 +144,27 @@
 	            	items:this.filter
 	            }
 				await this.actionTituls(data)
+			},
+			async search(){
+				let page = 1
+				let data = {
+	            	page:page,
+	            	items:this.filter
+	            }
+				await this.actionTituls(data)
+			},
+			async clear(){
+				this.filter.pass_number = ''
+				this.filter.status = ''
+				this.filter.name = ''
+                let page  = 1
+                this.laoding = true
+                let data = {
+	            	page:page,
+	            	items:this.filter
+	            }
+				await this.actionTituls(data)
+                this.laoding = false
 			},
 			toggleFilter(){
 				this.filterShow = !this.filterShow
