@@ -27,7 +27,10 @@ class ApplicationController extends Controller
     {
         $user = $request->user();
         if($user->role->name == 'admin'){
-            $result = Application::orderBy('id', 'DESC')->with(['user','carsWith','lots','attachment'])->where(['tender_id' => $id])->paginate(12);
+            $result = Application::orderBy('id', 'DESC')
+                            ->with(['user','carsWith','lots','attachment'])
+                            ->where(['tender_id' => $id,'status' => 'accepted'])
+                            ->paginate(12);
         }else{
             //grab the user ids in this region
             $user_ids = User::where(['region_id' => $user->region_id,'role_id' => 9])->pluck('id')->toArray();

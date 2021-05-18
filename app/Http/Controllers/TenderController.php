@@ -622,8 +622,8 @@ class TenderController extends Controller
         $created_by_users = User::where(['region_id' => $user->region_id])->pluck('id')->toArray();
         $role_name = $user->role->name;
         if($role_name == 'admin'){
-            $builder = Tender::query()->where('time','<', now());
             if(!empty($params['region_id']) || !empty($params['time']) || !empty($params['status'])){
+                $builder = Tender::query()->where('time','<', now());
                 if(!empty($params['region_id'])){
                     $users_region = User::where(['region_id' => $params['region_id']])->pluck('id')->toArray();
                     $builder->whereIn('created_by', $users_region);
@@ -644,17 +644,17 @@ class TenderController extends Controller
                 }
                 $result = $builder->with(['tenderlots'])->withCount(['tenderlots','tenderapps'])->paginate(12);
             }else{
-                $result = DB::table('tenders')
-                    ->select('tenders.*',DB::raw('count(tender_lots.id) as tenderlots_count,count(applications.id) as tenderapps_count'))
-                    ->where('tenders.time','<', Carbon::now())
-                    ->leftJoin('tender_lots','tenders.id','tender_lots.tender_id')
-                    ->leftJoin('applications','tenders.id','applications.tender_id')
-                    ->groupBy('tenders.id')
-                    //->with(['tenderlots'])
-                    //->withCount(['tenderlots','tenderapps'])
+                $result = Tender::with(['tenderlots'])
+                    //->select('tenders.*',DB::raw('count(tender_lots.id) as tenderlots_count,count(applications.id) as tenderapps_count'))
+                    //->where('tenders.time','<', Carbon::now())
+                    //->leftJoin('tender_lots','tenders.id','tender_lots.tender_id')
+                    //->leftJoin('applications','tenders.id','applications.tender_id')
+                    //->groupBy('tenders.id')
+                    ->withCount(['tenderlots','tenderapps'])
                     ->paginate(12);
             }
-        }else{
+        }
+        else{
             $result = Tender::whereIn('created_by', $created_by_users)
                 ->with(['tenderlots'])
                 ->withCount(['tenderlots','tenderapps'])

@@ -80,7 +80,7 @@ class TarifCityController extends Controller
         }
         $user = $request->user();
         $validator = Validator::make($request->all(), [
-            'region_id'  => 'required|integer',
+            'region_id'  => 'nullable|integer',
             'tarif'  => 'required|numeric',
             'tarif_bagaj'  => 'nullable|numeric',
             'file'  => 'nullable|file',
@@ -90,10 +90,14 @@ class TarifCityController extends Controller
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $inputs = $request->all();
-        if($inputs['region_id'] != $user->region_id){
-            if($user->role->name != 'admin'){
-                return response()->json(['error' => true,'message' => 'You are not admin']);
+        if(!empty($inputs['region_id'])){
+            if($inputs['region_id'] != $user->region_id){
+                if($user->role->name != 'admin'){
+                    return response()->json(['error' => true,'message' => 'You are not admin']);
+                }
             }
+        }else{
+            $inputs['region_id'] = $user->region_id;
         }
         //Upload file
         if($request->hasFile('file')){
