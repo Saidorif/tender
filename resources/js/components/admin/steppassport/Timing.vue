@@ -6,6 +6,11 @@
         <PassportTab/>
       </div>
       <div class="card-body">
+            <div class="col-12 d-flex justify-content-end align-items-start mb-2">
+                <span class="alert alert-success mr-2" v-if="getDirection.xronom_status == 'active'" style="padding:6px 20px;">Подтвержден</span>
+                <span class="alert alert-warning mr-2" v-if="getDirection.xronom_status == 'pending'" style="padding:6px 20px;">В ожидании</span>
+                <span class="alert alert-danger mr-2" v-if="getDirection.xronom_status == 'inactive'" style="padding:6px 20px;">Не подтвержден</span>
+            </div>
         <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="row tabRow">
           <h2>{{getDirection.name}} bo'yicha boshlang'ich ma'lumot  </h2>
           <div class="col-xl-12 tabs_block">

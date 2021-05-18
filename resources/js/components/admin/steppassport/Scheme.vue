@@ -6,6 +6,11 @@
         <PassportTab/>
       </div>
       <div class="card-body">
+                      <div class="col-12 d-flex justify-content-end align-items-start mb-2">
+                <span class="alert alert-success mr-2" v-if="getDirection.sxema_status == 'active'" style="padding:6px 20px;">Подтвержден</span>
+                <span class="alert alert-warning mr-2" v-if="getDirection.sxema_status == 'pending'" style="padding:6px 20px;">В ожидании</span>
+                <span class="alert alert-danger mr-2" v-if="getDirection.sxema_status == 'inactive'" style="padding:6px 20px;">Не подтвержден</span>
+            </div>
         <div class="row tabRow">
           <h1 v-if="titulData.type">Avtobus qatnov yoli tasviri {{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
           <div class="map_scheme" v-if="schemeData.length">
