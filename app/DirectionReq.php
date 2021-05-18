@@ -53,6 +53,7 @@ class DirectionReq extends Model
         'minimum_bal',
         'status',
         'approver',
+        'text',
     ];
 
     protected $casts = ['auto_model_class' => 'array'];

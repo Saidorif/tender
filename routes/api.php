@@ -55,6 +55,7 @@ Route::group([
             Route::post('carrier', 'UserController@carrier');
             Route::get('carrier/edit/{id}', 'UserController@carrierEdit');
             Route::post('carrier/update/{id}', 'UserController@carrierUpdate');
+            Route::post('carrier/data-update', 'UserController@updateUserData');
 
             //Protocol
             Route::post('protocol','ProtocolController@index');
@@ -260,7 +261,7 @@ Route::group([
             Route::get('sxema/edit/{id}', 'DirectionController@sxemaEdit');
             Route::post('sxema/filestore', 'DirectionController@sxemaFile');
 
-            Route::get('xjadval', 'DirectionController@xjadval');
+            Route::post('xjadval', 'DirectionController@xjadval');
             Route::get('xjadval/approve/{id}', 'DirectionController@xjadvalApprove');
             Route::get('xjadval/activate/{id}', 'DirectionController@xjadvalActivate');
             Route::get('xjadval/reject/{id}', 'DirectionController@xjadvalReject');
