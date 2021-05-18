@@ -92,7 +92,7 @@
                 :class="isRequired(form.seat_from) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-4">
+            <!-- <div class="form-group col-md-4">
               <label for="seat_to">Количество сидящих (по)</label>
               <input
                 type="number"
@@ -102,7 +102,7 @@
                 v-model="form.seat_to"
                 :class="isRequired(form.seat_to) ? 'isRequired' : ''"
               />
-            </div>
+            </div> -->
             <div class="form-group col-md-4">
               <label for="stay_from">Пассажировместимость </label>
               <input
@@ -114,7 +114,7 @@
                 :class="isRequired(form.stay_from) ? 'isRequired' : ''"
               />
             </div>
-            <div class="form-group col-md-4">
+            <!-- <div class="form-group col-md-4">
               <label for="stay_to">Пассажировместимость (по)</label>
               <input
                 type="number"
@@ -124,7 +124,7 @@
                 v-model="form.stay_to"
                 :class="isRequired(form.stay_to) ? 'isRequired' : ''"
               />
-            </div>
+            </div> -->
             <div class="form-group col-lg-10">
               <label for="stay_from">Комментарии </label>
               <textarea
