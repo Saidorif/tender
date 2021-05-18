@@ -1221,16 +1221,36 @@ class DirectionController extends Controller
 
     public function xronom(Request $request)
     {
-        $result = Direction::with([
+        $params = $request->all();
+        $builder = Direction::query()->with([
             'regionTo',
             'regionFrom',
             'areaFrom',
             'areaTo',
             'createdBy'
-            ])
-            ->where(['xronom_status' => 'pending'])
-            ->orWhere(['xronom_status' => 'completed'])
-            ->paginate(12);
+        ]);
+        if(!empty($params['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$params['pass_number'].'%');
+        }
+        if(!empty($params['name'])){
+            $builder->where('name','LIKE', '%'.$params['name'].'%');
+        }
+        if(!empty($params['status'])){
+            $builder->where(['xronom_status' => $params['status']]);
+        }else{
+            $builder->where(['xronom_status' => 'pending'])->orWhere(['xronom_status' => 'completed']);
+        }
+        $result = $builder->paginate(12);
+//        $result = Direction::with([
+//            'regionTo',
+//            'regionFrom',
+//            'areaFrom',
+//            'areaTo',
+//            'createdBy'
+//            ])
+//            ->where(['xronom_status' => 'pending'])
+//            ->orWhere(['xronom_status' => 'completed'])
+//            ->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1301,16 +1321,36 @@ class DirectionController extends Controller
 
     public function sxema(Request $request)
     {
-        $result = Direction::with([
+        $params = $request->all();
+        $builder = Direction::query()->with([
             'regionTo',
             'regionFrom',
             'areaFrom',
             'areaTo',
             'createdBy'
-            ])
-            ->where(['sxema_status' => 'pending'])
-            ->orWhere(['sxema_status' => 'completed'])
-            ->paginate(12);
+        ]);
+        if(!empty($params['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$params['pass_number'].'%');
+        }
+        if(!empty($params['name'])){
+            $builder->where('name','LIKE', '%'.$params['name'].'%');
+        }
+        if(!empty($params['status'])){
+            $builder->where(['sxema_status' => $params['status']]);
+        }else{
+            $builder->where(['sxema_status' => 'pending'])->orWhere(['sxema_status' => 'completed']);
+        }
+        $result = $builder->paginate(12);
+//        $result = Direction::with([
+//            'regionTo',
+//            'regionFrom',
+//            'areaFrom',
+//            'areaTo',
+//            'createdBy'
+//            ])
+//            ->where(['sxema_status' => 'pending'])
+//            ->orWhere(['sxema_status' => 'completed'])
+//            ->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1381,16 +1421,26 @@ class DirectionController extends Controller
 
     public function xjadval(Request $request)
     {
-        $result = Direction::with([
+        $params = $request->all();
+        $builder = Direction::query()->with([
             'regionTo',
             'regionFrom',
             'areaFrom',
             'areaTo',
             'createdBy'
-            ])
-            ->where(['xjadval_status' => 'pending'])
-            ->orWhere(['xjadval_status' => 'completed'])
-            ->paginate(12);
+        ]);
+        if(!empty($params['pass_number'])){
+            $builder->where('pass_number','LIKE', '%'.$params['pass_number'].'%');
+        }
+        if(!empty($params['name'])){
+            $builder->where('name','LIKE', '%'.$params['name'].'%');
+        }
+        if(!empty($params['status'])){
+            $builder->where(['xjadval_status' => $params['status']]);
+        }else{
+            $builder->where(['xjadval_status' => 'pending'])->orWhere(['xjadval_status' => 'completed']);
+        }
+        $result = $builder->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
