@@ -349,6 +349,7 @@ export default {
       this.laoding = true
       await this.actionUserEditApplication(data);
       this.laoding = false
+      console.log(this.getUserEditApplication)
       if (this.getUserEditApplication.success){
         this.$router.push(
           "/crm/application/user/" + this.getUserEditApplication.result.id
@@ -358,8 +359,9 @@ export default {
           icon: 'error',
           title: this.getUserEditApplication.message,
           text: '',
-          footer: `<a href="/crm/application/user/${this.getUserEditApplication.result}"><b>Продолжить</b></a>`
         });
+        // footer: `<a href="/crm/application/user/${this.getUserEditApplication.result}"><b>Продолжить</b></a>`
+
         // toast.fire({
         //   type: "error",
         //   icon: "error",

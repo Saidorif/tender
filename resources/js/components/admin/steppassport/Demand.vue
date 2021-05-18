@@ -37,8 +37,8 @@
                 <td width="50%"><b>Автотранспорт воситаси категорияси</b></td>
                 <td>
                   <template v-if="form.auto_model_class">
-                    <div v-for="(item, index) in form.auto_model_class">
-                      {{ item.bustype ? item.bustype.name : '' }}
+                    <div v-for="(item, index) in form.auto_model_class" >
+                      {{ item && item.bustype ? item.bustype.name : '' }}
                     </div>
                   </template>
                 </td>
@@ -52,7 +52,7 @@
                   <template v-if="form.auto_model_class">
                     <div v-for="(item, index) in form.auto_model_class">
                       <!-- {{ item.model ? item.model.name : '' }} -->
-                      {{ item.tclass ? item.tclass.name : '' }}
+                      {{ item && item.tclass ? item.tclass.name : '' }}
                     </div>
                   </template>
                 </td>

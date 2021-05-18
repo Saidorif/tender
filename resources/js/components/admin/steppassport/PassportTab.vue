@@ -34,15 +34,10 @@
         },
 		data(){
 			return{
-                thisDir: {},
 			}
 		},
 		mounted(){
-            let that = this;
-            setTimeout( function (params) {
-                that.thisDir = that.getDirection
-                console.log(that.thisDir)
-            }, 1000)
+
 		},
 		computed:{
             ...mapGetters("direction", ["getDirection",'getMassage']),
