@@ -75,7 +75,7 @@
 		},
 		async mounted(){
 			let page = 1;
-            await this.actionBusmodels()
+            await this.actionBusmodels(page)
             this.laoding = false
 		},
 		computed:{
