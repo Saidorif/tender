@@ -136,6 +136,9 @@ class ProtocolController extends Controller
         if(!$protocol){
             return response()->json(['error' => true,'message' => 'Протокол не найден']);
         }
+        if(count($protocol->contracts) > 0){
+            return response()->json(['error' => true,'message' => 'Протокол уже используется']);
+        }
         $user = $request->user();
         $protocol->delete();
         return response()->json(['success' => true,'message' => 'Протокол удален']);

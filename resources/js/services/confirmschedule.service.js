@@ -1,8 +1,8 @@
 import ApiService from './api.service'
 
 const ConfirmScheduleSerivce = {
-	schedules(page){
-		return ApiService.get(`/api/xjadval?page=${page}`)
+	schedules(data){
+		return ApiService.post(`/api/xjadval?page=${data.page}`,data.items)
 	},
 	scheduleShow(id){
 		return ApiService.get(`/api/xjadval/edit/${id}`)
