@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\AdliyaCar;
 use App\DirectionReq;
+use App\GaiCar;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Validation\Rule;
@@ -179,6 +181,22 @@ class ApplicationController extends Controller
         $the_old_car = UserCar::where(['auto_number' => $inputs['auto_number']])->first();
         if($the_old_car){
             return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
+        }
+
+        //Check for GAI CAR
+        $gai_car = GaiCar::where(['pPlateNumber' => $inputs['auto_number']])->first();
+        $adliya_car = AdliyaCar::where(['auto_number' => $inputs['auto_number']])->first();
+        if(!$gai_car && !$adliya_car){
+            return response()->json(['error' => true, 'message' => 'Автомобиль не проверен']);
+        }
+        //Check for made year
+        if($gai_car){
+            if($gai_car->pMadeofYear != $inputs['date']){
+                return response()->json(['error' => true, 'message' => 'Год выпуска автомобиля не совпадает']);
+            }
+            if($gai_car->user_id != $user->id){
+                return response()->json(['error' => true, 'message' => 'Владелец автомобиля не соответствует']);
+            }
         }
         $result = UserCar::create($inputs);
         return response()->json([
