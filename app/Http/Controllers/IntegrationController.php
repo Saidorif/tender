@@ -333,7 +333,7 @@ class IntegrationController extends Controller
                                 "pTypeOfAuto" => $the_result['pVehicleType'],
                                 "pTechnicalStatus" => $the_result['pVehicleColor'],
                                 "pAdressOfClient" => $the_result['pDivision'],
-                                "status" => 'pending',
+                                "status" => 'accepted',
                             ]);
                         }
                         return response()->json(['success' => true,'result' => $gai_car]);

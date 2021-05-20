@@ -1022,6 +1022,7 @@ class TenderController extends Controller
                         $appBallArray['cars_ball'] =$result[$key][$k]['avto_qulayliklar_ball'];
                         $result[$key][$k]['appBallArray'] = $appBallArray;
                         $appBallArray['details'] = $result;
+                        $appBallArray['reys_status'] = $direction->reys_status;
                         $applicationBall = ApplicationBall::create($appBallArray);
                         $app->total_ball += $applicationBall->total_ball;
                         $app->save();
