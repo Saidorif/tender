@@ -137,7 +137,7 @@ Route::group([
             Route::post('application', 'ApplicationController@index');
             Route::post('application/user', 'ApplicationController@userIndex');
             Route::post('application/car/store', 'ApplicationController@carStore');
-            Route::delete('application/car/{id}', 'ApplicationController@carDestroy');
+            Route::delete('application/car/destroy/{id}', 'ApplicationController@carDestroy');
             Route::post('application/car/setstatus', 'ApplicationController@setStatus');
             Route::post('application/store', 'ApplicationController@store');
             Route::post('application/tender/store', 'ApplicationController@storeFromTenders');
@@ -275,7 +275,9 @@ Route::group([
 
             //Integration
             Route::post('adliya','IntegrationController@adliya');
-            Route::post('gai/vehicle','IntegrationController@getVehicleInfo');
+            //Route::post('gai/vehicle','IntegrationController@getVehicleInfo');
+            Route::post('gai/vehicle','IntegrationController@getAutoInfo');
+            Route::post('gai/auto-info','IntegrationController@getAutoInfo');
             Route::get('get-license-list/{inn}','IntegrationController@getLicenseList');
             Route::get('check-license/{auto_number}','IntegrationController@checkLicense');
 

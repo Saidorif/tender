@@ -81,6 +81,17 @@
 					  		    			<span>{{item.directions.name}}</span>
 					  		    		</template>
 								  	</button>
+                                    <router-link
+                                        target="_blank"
+                                        class="btn btn-success mr-2"
+                                        :to='`/crm/direction/edit/${item.directions.id}`'
+                                        v-if="$can('edit', 'DirectionController')"
+                                    >
+                                        <i class="pe_icon far fa-eye"></i>
+                                    </router-link>
+                                    <button class="btn btn-danger" @click.prevent="removeDir(lot_key, index)">
+                                        <i class="pe_icon fas fa-trash" ></i>
+                                    </button>
 				  		    	</div>
 							  	<div class="collapse" :id="'collapseExample'+index" v-if="item.reyses.length > 0">
 								  	<table class="table table-bordered table-hover">
@@ -154,6 +165,7 @@
 	                        :searchable="true"
 	                        track-by="id"
 	                        label="name"
+                            :custom-label="customLabel"
 	                        :max="3"
 							:loading="isLoading"
 							selectLabel="Нажмите Enter, чтобы выбрать"
@@ -164,6 +176,24 @@
 							>
 							<span slot="noResult">По вашему запросу ничего не найдено</span>
 							<span slot="noOptions">Cписок пустой</span>
+                            <template slot="option" slot-scope="props">
+                                <table class="table table-bordered" style="margin:0;padding:0px;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width:50px;">Рақами</th>
+                                            <th scope="col" style="width:100px;">Номи</th>
+                                            <!-- <th scope="col"  style="width:50px;">Очилган санаси</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="width:50px;">{{props.option.pass_number}}</td>
+                                            <td>{{props.option.name}}</td>
+                                            <!-- <td>{{props.option.year}}</td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </template>
 						</multiselect>
 				  	</div>
 				  	<div class="form-group col-md-2 check_box_with_label" v-if="direction_ids && Object.keys(direction_ids).length > 0">
@@ -420,6 +450,11 @@
 			...mapActions("passportTab", [
 		      "actionGetScheduleTable",
 		    ]),
+            customLabel ({ name, pass_number }) {
+                if(name){
+                    return `${name} – ${pass_number}`
+                }
+            },
 		    addTextToAllItems(items){
 		    	return items.map((item,index)=>{
 		    		return {
@@ -430,6 +465,7 @@
 		    	})
 		    },
 		    addLot(){
+
 		    	if (this.allItems.length > 0) {
 			    	if (this.checked) {
 			    		if (this.allItems.length > 1) {
@@ -471,6 +507,7 @@
 			    		}
 			    	}
 		    	}
+                console.log(this.allLotes)
 		    },
 		    defaultValuesOfCar(){
 		    	this.choosenFromItems = []
@@ -500,6 +537,9 @@
 		    	this.direction_ids={}
 				this.findList = []
 		    },
+            removeDir(dir_ind, ind){
+                this.allLotes[dir_ind].splice(ind, 1);
+            },
 		    async dispatchAction(data){
 				this.form.direction_ids = data.id;
 				this.laoding = true

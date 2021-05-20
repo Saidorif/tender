@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use SimpleXMLElement;
 use Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
@@ -27,7 +28,7 @@ class IntegrationController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
-        $inputs = $request->all();        
+        $inputs = $request->all();
         $user = $request->user();
         $inputs['pID'] = Str::uuid();
         $inputs['pResource'] = 1;
@@ -52,7 +53,7 @@ class IntegrationController extends Controller
             $client = new \GuzzleHttp\Client();
             $response = $client->post('10.190.0.162:8085/notary_mintrans_service/search', [
                 'auth' => [
-                    'mintrans', 
+                    'mintrans',
                     'qP7N1_gEc6'
                 ],
                 'headers' => ['Content-Type' => 'application/json', 'Accept' => 'application/json'],
@@ -118,7 +119,7 @@ class IntegrationController extends Controller
                 $client = new \GuzzleHttp\Client();
                 $response = $client->post('http://10.190.0.77:9090/api/GetVehicleShortInfo', [
                     'headers' => [
-                        'Content-Type' => 'application/json', 
+                        'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                         'Authorization' => "Bearer {$gai->token}"
                     ],
@@ -200,7 +201,7 @@ class IntegrationController extends Controller
             $client = new \GuzzleHttp\Client();
             $response = $client->get('http://10.10.10.118/services/api/tender/get-org-data/'.$inn, [
                 'auth' => [
-                    'tenderuser', 
+                    'tenderuser',
                     'b2d672d1127974cdb3f5e7890cd5dafc2657bcb125c2212a5e9fd7a890c42724'
                 ]
             ]);
@@ -239,7 +240,7 @@ class IntegrationController extends Controller
             $client = new \GuzzleHttp\Client();
             $response = $client->get('http://10.10.10.118/services/api/tender/get-auto-data/'.$auto_number, [
                 'auth' => [
-                    'tenderuser', 
+                    'tenderuser',
                     'b2d672d1127974cdb3f5e7890cd5dafc2657bcb125c2212a5e9fd7a890c42724'
                 ]
             ]);
@@ -254,5 +255,103 @@ class IntegrationController extends Controller
             throw $th;
             return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
         }
+    }
+
+    public function getAutoInfo(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'app_id' => 'required',
+            'pTexpassportSery' => 'required|string',
+            'pTexpassportNumber' => 'required|string',
+            'auto_number' => 'required|string',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $user = $request->user();
+        $inputs = $request->all();
+        $inputs['pRequestID'] = Str::uuid();
+        $inputs['pPlateNumber'] = $inputs['auto_number'];
+        $inputs = array_map('strtoupper', $inputs);
+        $client = new \GuzzleHttp\Client();
+        $query = '<x:Envelope
+            xmlns:x="http://schemas.xmlsoap.org/soap/envelope/"
+            xmlns:get="urn:megaware:/mediate/ips/MOI/GetVehicleinfoVLPrefillMIP/GetVehicleinfoVLPrefillMIP.wsdl">
+            <x:Header/>
+            <x:Body>
+                <get:VLPrefillMIP>
+                    <get:pRequestID>'.$inputs['pRequestID'].'</get:pRequestID>
+                    <get:pTexpassportSery>'.$inputs['pTexpassportSery'].'</get:pTexpassportSery>
+                    <get:pTexpassportNumber>'.$inputs['pTexpassportNumber'].'</get:pTexpassportNumber>
+                    <get:pPlateNumber>'.$inputs['pPlateNumber'].'</get:pPlateNumber>
+                    <get:pVinNumber></get:pVinNumber>
+                    <get:applicantPinpp></get:applicantPinpp>
+                    <get:pStir></get:pStir>
+                </get:VLPrefillMIP>
+            </x:Body>
+        </x:Envelope>';
+        try {
+            $response = $client->post('https://ips.gov.uz/mediate/ips/MOI/GetVehicleinfoVLPrefillMIP?wsdl', [
+                'headers' => ['Content-Type' => 'text/xml', 'charset' => 'utf-8','SOAPAction' => '/mediate/ips/MOI/GetVehicleinfoVLPrefillMIP'],
+                'body' => $query
+            ]);
+            $data_resp = $response->getBody()->getContents();
+            $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $data_resp);
+            $xml = new SimpleXMLElement($response);
+            $body = $xml->xpath('//envBody')[0];
+            $result = json_decode(json_encode((array)$body), TRUE);
+            if(!empty($result['n1VLPrefillMIPResponse'])){
+                if(!empty($result['n1VLPrefillMIPResponse']['VLPrefillMIPResult'])){
+                    $resp_code = (int)$result['n1VLPrefillMIPResponse']['VLPrefillMIPResult']['pResult'];
+                    if($resp_code){
+                        $the_result = $result['n1VLPrefillMIPResponse']['VLPrefillMIPResult']['vehicleInfoResult']['anyType'];
+                        $inn = $result['n1VLPrefillMIPResponse']['VLPrefillMIPResult']['pOwnerInn'];
+                        //Check for inn
+                        if($user->inn != $inn){
+                            return response()->json(['error' => true, 'message' => 'ИНН автомобиля не совпадает с вашим ИНН']);
+                        }
+                        //Check for made year
+                        if($the_result['pYear'] != $inputs['date']){
+                            return response()->json(['error' => true, 'message' => 'Год выпуска автомобиля не совпадает']);
+                        }
+                        $the_old_gai_car = GaiCar::where(['pPlateNumber' => $inputs['pPlateNumber']])->first();
+                        if($the_old_gai_car){
+                            return response()->json(['success' => true, 'result' => $the_old_gai_car]);
+                        }else{
+                            $gai_car = GaiCar::create([
+                                'user_id' => $user->id,
+                                'app_id' => $inputs['app_id'],
+                                'pTexpassportSery' => $inputs['pTexpassportSery'],
+                                'pTexpassportNumber' => $inputs['pTexpassportNumber'],
+                                'pPlateNumber' => $inputs['pPlateNumber'],
+                                "pVehicleId" => $the_result['pVehicleId'],
+                                "pMarka" => $the_result['pModel'],
+                                "pMadeofYear" => $the_result['pYear'],
+                                "pNumberofplace" => $the_result['pSeats'],
+                                "pWeightAuto" => $the_result['pFullWeight'],
+                                "pNameOfClient" => $result['n1VLPrefillMIPResponse']['VLPrefillMIPResult']['pOwner'],
+                                "pTypeOfAuto" => $the_result['pVehicleType'],
+                                "pTechnicalStatus" => $the_result['pVehicleColor'],
+                                "pAdressOfClient" => $the_result['pDivision'],
+                                "status" => 'pending',
+                            ]);
+                        }
+                        return response()->json(['success' => true,'result' => $gai_car]);
+                    }
+                    else{
+                        return response()->json(['error' => true,'message' => $result['n1VLPrefillMIPResponse']['VLPrefillMIPResult']['pComment']]);
+                    }
+                }
+                else{
+                    return response()->json(['error' => true,'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
+                }
+            }
+            else{
+                return response()->json(['error' => true,'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
+            }
+        }catch (\Throwable $th) {
+            return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
+        }
+        return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
     }
 }

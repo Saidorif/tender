@@ -26,10 +26,10 @@ class Tender extends Model
     {
         return $this->hasMany(\App\TenderLot::class,'tender_id');
     }
-    
+
     public function tenderapps()
     {
-        return $this->hasMany(\App\Application::class,'tender_id');
+        return $this->hasMany(\App\Application::class,'tender_id')->where('status','=','accepted');;
     }
 
 
@@ -68,7 +68,7 @@ class Tender extends Model
                 $reysesTo   = Reys::with(['reysTimes'])->where(['direction_id' => $value->id,'type' => 'to','status' => 'active'])->get();
                 $value->reysesFrom = $reysesFrom;
                 $value->reysesTo = $reysesTo;
-            };            
+            };
         }
         return $result;
     }

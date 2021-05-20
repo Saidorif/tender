@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\AdliyaCar;
 use App\DirectionReq;
+use App\GaiCar;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Validation\Rule;
@@ -27,7 +29,10 @@ class ApplicationController extends Controller
     {
         $user = $request->user();
         if($user->role->name == 'admin'){
-            $result = Application::orderBy('id', 'DESC')->with(['user','carsWith','lots','attachment'])->where(['tender_id' => $id])->paginate(12);
+            $result = Application::orderBy('id', 'DESC')
+                            ->with(['user','carsWith','lots','attachment'])
+                            ->where(['tender_id' => $id,'status' => 'accepted'])
+                            ->paginate(12);
         }else{
             //grab the user ids in this region
             $user_ids = User::where(['region_id' => $user->region_id,'role_id' => 9])->pluck('id')->toArray();
@@ -88,7 +93,7 @@ class ApplicationController extends Controller
         //Check for if already sent application to this lot
         $the_old_app = Application::where(['lot_id' => $inputs['lot_id'],'user_id' => $user->id])->first();
         if($the_old_app){
-            return response()->json(['error' => true, 'message' => 'Вы уже отправляли заявку на этот лот','result' => $the_old_app->id]);
+            return response()->json(['error' => true, 'message' => 'Вы уже отправляли заявку на этот лот','result' => $the_old_app->id,'type' => 'old']);
         }
         $salary = getAppFee();
         if($user->balance < $salary){
@@ -176,6 +181,22 @@ class ApplicationController extends Controller
         $the_old_car = UserCar::where(['auto_number' => $inputs['auto_number']])->first();
         if($the_old_car){
             return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
+        }
+
+        //Check for GAI CAR
+        $gai_car = GaiCar::where(['pPlateNumber' => $inputs['auto_number']])->first();
+        $adliya_car = AdliyaCar::where(['auto_number' => $inputs['auto_number']])->first();
+        if(!$gai_car && !$adliya_car){
+            return response()->json(['error' => true, 'message' => 'Автомобиль не проверен']);
+        }
+        //Check for made year
+        if($gai_car){
+            if($gai_car->pMadeofYear != $inputs['date']){
+                return response()->json(['error' => true, 'message' => 'Год выпуска автомобиля не совпадает']);
+            }
+            if($gai_car->user_id != $user->id){
+                return response()->json(['error' => true, 'message' => 'Владелец автомобиля не соответствует']);
+            }
         }
         $result = UserCar::create($inputs);
         return response()->json([
