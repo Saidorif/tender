@@ -45,17 +45,16 @@
                                         </router-link>
                                     </p>
                                 </template>
-                              <!-- <router-link :to="'/crm/stepuser/titul-tab/'+directions[0].id">
-                                {{directions[0].name}}
-                              </router-link> -->
                           </td>
                           <td class="without_padding">
                             <ul class="list-inline">
                                 <template v-for="(p_item,p_index) in directions">
                                     <li v-for="(s_item,s_index) in p_item">
-                                        <a href="#" @click.prevent="openModal(s_item.user)">
-                                            <b>{{s_item.company_name != null ? s_item.company_name : 'noname'}}</b>
-                                        </a>
+                                        <p>
+                                            <a href="#" @click.prevent="openModal(s_item.user)">
+                                                <b>{{s_item.company_name != null ? s_item.company_name : 'noname'}}</b>
+                                            </a>
+                                        </p>
                                     </li>
                                 </template>
                             </ul>
