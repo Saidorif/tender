@@ -30,6 +30,7 @@
                           <th>Qoshimcha qulayliklar mavjudligi</th>
                           <th>Tadbirlar rejasi</th>
                           <th>Набранные баллы</th>
+                          <th>Сумма баллов</th>
                           <th>Подробнее</th>
                           <th>Контракты</th>
                       </tr>
@@ -137,6 +138,13 @@
                                     <p v-for="(s_item,s_index) in p_item">
                                       {{s_item.total_ball}}
                                     </p>
+                              </li>
+                            </ul>
+                          </td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(p_item,index) in directions" style="margin:20px 0 30px 0;">
+                                  {{summBall(p_item)}} 
                               </li>
                             </ul>
                           </td>
@@ -467,6 +475,15 @@ export default {
       $('#ballModal').modal('hide')
       this.ballItems = {}
     },
+    summBall(items){
+      let count = 0
+      if(items){
+        items.forEach((item,index)=>{
+          count += Number(item.total_ball)
+        })
+      }
+      return count
+    }
   },
 };
 </script>
