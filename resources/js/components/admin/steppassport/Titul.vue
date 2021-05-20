@@ -16,7 +16,7 @@
             >
               <span
                 class="alert alert-success mr-2"
-                v-if="getDirection.titul_status == 'active'"
+                v-if="getDirection.titul_status == 'completed'"
                 style="padding: 6px 20px"
                 >Подтвержден</span
               >
@@ -28,14 +28,14 @@
               >
               <span
                 class="alert alert-danger mr-2"
-                v-if="getDirection.titul_status == 'inactive'"
+                v-if="getDirection.titul_status == 'active'"
                 style="padding: 6px 20px"
                 >Не подтвержден</span
               >
               <button
                 type="button"
                 class="btn btn-warning"
-                @click="printDoc('prindDiv')"
+                @click="$g.printDoc('prindDiv')"
               >
                 <i class="fas fa-print mr-2"></i>Chop etish
               </button>
@@ -807,11 +807,9 @@
                   font-size: 15px;
                 "
               >
-                dsa
+                {{getDirection.created_by.name}} {{getDirection.created_by.surname}} {{getDirection.created_by.middlename}}
               </p>
-              <small style="font-size: 13px"
-                >(ФИШ, лавозим)</small
-              >
+              <small style="font-size: 13px">(ФИШ, лавозим)</small>
             </div>
           </div>
         </div>
@@ -1098,20 +1096,6 @@ export default {
     ...mapActions("busbrand", ["actionBusBrandList"]),
     ...mapActions("busmodel", ["actionBusmodelFindList"]),
     ...mapActions("confirmtitul", ["actionApproveTitul"]),
-    printDoc(elem) {
-      var mywindow = window.open("", "PRINT");
-      mywindow.document.write(
-        "<html><head><title>" + document.title + "</title>"
-      );
-      mywindow.document.write("</head><body >");
-      mywindow.document.write(document.getElementById(elem).innerHTML);
-      mywindow.document.write("</body></html>");
-      mywindow.document.close(); // necessary for IE >= 10
-      mywindow.focus(); // necessary for IE >= 10*/
-      mywindow.print();
-      mywindow.close();
-      return true;
-    },
     async sendToActivate() {
       await this.actionApproveTitul(this.$route.params.directionId);
       if (this.getTitulMassage.success) {
@@ -1353,6 +1337,6 @@ export default {
   margin-left: 15px;
 }
 #prindDiv {
-  /* display: none; */
+  display: none;
 }
 </style>
