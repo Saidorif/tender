@@ -721,11 +721,11 @@ class TenderController extends Controller
                                 $app_tarif_ball = 3;
                             }
                             //Agar taklif talabdan 10 - 20% dan past bolsa
-                            if($tarif_foizda >= 10 && $tarif_foizda <= 20){
+                            elseif($tarif_foizda >= 10 && $tarif_foizda <= 20){
                                 $app_tarif_ball = 4;
                             }
                             //Agar taklif talabdan 21%  va undan past bolsa
-                            if($tarif_foizda >= 21){
+                            elseif($tarif_foizda >= 21){
                                 $app_tarif_ball = 5;
                             }
                         }else{
@@ -1022,6 +1022,7 @@ class TenderController extends Controller
                         $appBallArray['cars_ball'] =$result[$key][$k]['avto_qulayliklar_ball'];
                         $result[$key][$k]['appBallArray'] = $appBallArray;
                         $appBallArray['details'] = $result;
+                        $appBallArray['reys_status'] = $direction->reys_status;
                         $applicationBall = ApplicationBall::create($appBallArray);
                         $app->total_ball += $applicationBall->total_ball;
                         $app->save();

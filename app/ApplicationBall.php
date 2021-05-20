@@ -40,6 +40,7 @@ class ApplicationBall extends Model
         'cars_ball',
         'total_ball',
         'status',
+        'reys_status',
     ];
 
     protected $casts = [
