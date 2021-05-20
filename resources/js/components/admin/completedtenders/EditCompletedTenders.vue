@@ -20,6 +20,7 @@
                       <tr>
                           <th>№</th>
                           <th width="15%">Направления</th>
+                          <th width="15%">Статус</th>
                           <th width="15%">Перевозчики отправившие предложении</th>
                           <th>Avto ishlab chiqarilgan yildan boshlab necha yil otgani</th>
                           <th>Yolovchilar sigimi</th>
@@ -30,6 +31,7 @@
                           <th>Qoshimcha qulayliklar mavjudligi</th>
                           <th>Tadbirlar rejasi</th>
                           <th>Набранные баллы</th>
+                          <th>Сумма баллов</th>
                           <th>Подробнее</th>
                           <th>Контракты</th>
                       </tr>
@@ -37,6 +39,18 @@
                   <tbody>
                       <tr v-for="(directions, d_index) in lots">
                           <td>{{d_index+1}} </td>
+                          <td>
+                                <template v-for="(p_item,p_index) in directions">
+                                    <p v-for="(s_item,s_index) in p_item">
+                                        <router-link :to="'/crm/stepuser/titul-tab/'+s_item.direction_ids">
+                                            <b>{{s_item.name != null ? s_item.name : ''}}</b>
+                                            <small class="badge badge-primary" v-if="s_item.reys_status">
+                                              {{getStatus(s_item.reys_status)}}
+                                            </small>
+                                        </router-link>
+                                    </p>
+                                </template>
+                          </td>
                           <td>
                                 <template v-for="(p_item,p_index) in directions">
                                     <p v-for="(s_item,s_index) in p_item">
@@ -137,6 +151,13 @@
                                     <p v-for="(s_item,s_index) in p_item">
                                       {{s_item.total_ball}}
                                     </p>
+                              </li>
+                            </ul>
+                          </td>
+                          <td class="without_padding">
+                            <ul class="list-inline">
+                              <li v-for="(p_item,index) in directions" style="margin:20px 0 30px 0;">
+                                  {{summBall(p_item)}} 
                               </li>
                             </ul>
                           </td>
@@ -451,6 +472,13 @@ export default {
     ...mapActions("completedtender", [
       "actionCompletedTendersShow",
     ]),
+    getStatus(status){
+      if(status == 'all'){
+        return 'Полнoе направлениe'
+      }else if(status == 'custom'){
+        return 'Часть направления'
+      }
+    },
     closeUserModal(){
       $('#userModal').modal('hide')
       this.userItem = {}
@@ -467,6 +495,15 @@ export default {
       $('#ballModal').modal('hide')
       this.ballItems = {}
     },
+    summBall(items){
+      let count = 0
+      if(items){
+        items.forEach((item,index)=>{
+          count += Number(item.total_ball)
+        })
+      }
+      return count
+    }
   },
 };
 </script>
