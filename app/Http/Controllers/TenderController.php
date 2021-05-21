@@ -746,7 +746,7 @@ class TenderController extends Controller
                                 $app_tarif_ball = 2;
                             }
                             //Agar taklif talabga mos bolsa
-                            if($tarif_foizda <= 9 && $tarif_foizda >= 0){
+                            if($tarif_foizda <= 9 && $tarif_foizda >= -4){
                                 $app_tarif_ball = 3;
                             }
                             //Agar taklif talabdan 10 - 20% dan past bolsa
@@ -927,7 +927,7 @@ class TenderController extends Controller
                         $app_categoriya  = round($app_categoriya / (int)$direction->requirement->schedules,2);
                         $appBallArray['app_categories'] = array_unique($app->getCars($value)->pluck('bustype_id')->toArray());
                         $appBallArray['lot_categories'] = $tender_cars->pluck('bustype_id')->toArray();
-                        $appBallArray['categories_ball'] = $app_categoriya;
+                        $appBallArray['categories_ball'] = round($app_categoriya,2);
                         $appBallArray['app_models'] = array_unique($app->getCars($value)->pluck('tclass_id')->toArray());
                         $appBallArray['lot_models'] = $tender_cars->pluck('tclass_id')->toArray();
                         $appBallArray['models_ball'] = $app_model;
