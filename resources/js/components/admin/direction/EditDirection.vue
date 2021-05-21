@@ -8,9 +8,16 @@
         <div class="card-body">
         <form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
             <div class="col-12 d-flex justify-content-end align-items-start mb-2">
-                <span class="alert alert-success mr-2" v-if="getDirection.titul_status == 'active'" style="padding:6px 20px;">Подтвержден</span>
+                <span class="alert alert-success mr-2" v-if="getDirection.titul_status == 'completed'" style="padding:6px 20px;">Подтвержден</span>
                 <span class="alert alert-warning mr-2" v-if="getDirection.titul_status == 'pending'" style="padding:6px 20px;">В ожидании</span>
-                <span class="alert alert-danger mr-2" v-if="getDirection.titul_status == 'inactive'" style="padding:6px 20px;">Не подтвержден</span>
+                <span class="alert alert-danger mr-2" v-if="getDirection.titul_status == 'active'" style="padding:6px 20px;">Не подтвержден</span>
+                              <button
+                type="button"
+                class="btn btn-warning"
+                @click="$g.printDoc('prindDiv')"
+              >
+                <i class="fas fa-print mr-2"></i>Chop etish
+              </button>
             </div>
           <div class="row">
             <div class="form-group col-xl-3 col-md-6">
@@ -363,6 +370,334 @@
             </div>
           </div>
         </form>
+                <div id="prindDiv">
+          <p style="margin: 0px; text-align: right; font-size: 15px">
+            Тасдиқлайман
+          </p>
+          <p style="margin: 0px; text-align: right; font-size: 15px">ФИШ</p>
+          <p style="margin: 0px; text-align: right; font-size: 15px">
+            Лавозими
+          </p>
+          <p style="margin: 0px; text-align: right; font-size: 15px">Сана</p>
+          <h2
+            style="
+              margin: 0px;
+              text-align: center;
+              font-size: 19px;
+              font-weight: bold;
+            "
+          >
+            ПАСПОРТ МЕЖДУГОРОДНОГО <br />
+            (МЕЖОБЛАСТНОГО, МЕЖДУНАРОДНОГО) <br />
+            МАРШРУТА №
+            <u style="text-decoration: underline; padding-bottom: 2px">{{
+              form.pass_number
+            }}</u>
+          </h2>
+          <div style="text-align: center; margin-top: 10px">
+            <p
+              style="
+                border-bottom: 1px solid #000;
+                padding-bottom: 2px;
+                margin: 0px;
+                text-align: left;
+                font-size: 15px;
+              "
+            >
+              "{{ form.pass_number }} - {{ getDirection.name }}"
+            </p>
+            <small style="font-size: 13px">(наименование маршрута)</small>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: flex-end;
+              justify-content: space-between;
+              margin-top: 10px;
+            "
+          >
+            <p style="font-size: 16px; margin: 0px">
+              Йўналиш <br />
+              классификацияси
+            </p>
+            <div style="text-align: center; width: 75%">
+              <p
+                style="
+                  border-bottom: 1px solid #000;
+                  padding-bottom: 2px;
+                  margin: 0px;
+                  text-align: left;
+                  font-size: 15px;
+                "
+              >
+                {{
+                  form.dir_type == "bus"
+                    ? "Автобус йуналиши"
+                    : "Йўналиши тахи йуналиши"
+                }}
+              </p>
+              <small style="font-size: 13px"
+                >(автобусный, маршрутное такси, экспрессный, скорый)</small
+              >
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: flex-end;
+              justify-content: space-between;
+              margin-top: 10px;
+            "
+          >
+            <p style="font-size: 16px; margin: 0px">Йўналиш очилиш санаси</p>
+            <div style="text-align: center; width: 75%">
+              <p
+                style="
+                  border-bottom: 1px solid #000;
+                  padding-bottom: 2px;
+                  margin: 0px;
+                  text-align: left;
+                  font-size: 15px;
+                "
+              >
+                {{ form.year }} й.
+              </p>
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: flex-end;
+              justify-content: space-between;
+              margin-top: 10px;
+            "
+          >
+            <p style="font-size: 16px; margin: 0px">Йўналиш мавсумийлиги</p>
+            <div style="text-align: center; width: 75%">
+              <p
+                style="
+                  border-bottom: 1px solid #000;
+                  padding-bottom: 2px;
+                  margin: 0px;
+                  text-align: left;
+                  font-size: 15px;
+                "
+              >
+                {{ form.seasonal == "always" ? "Доимий" : "Мавсумий" }}
+              </p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-end; margin-top: 10px">
+            <p style="font-size: 16px; margin: 0px">Йўналиш узунлиги:</p>
+            <div style="text-align: center; width: auto; margin-left: 20px">
+              <p
+                style="
+                  border-bottom: 1px solid #000;
+                  padding-bottom: 2px;
+                  margin: 0px;
+                  text-align: left;
+                  font-size: 15px;
+                  padding-left: 15px;
+                  padding-right: 30px;
+                "
+              >
+                {{ form.distance }} км.
+              </p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-end; margin-top: 10px">
+            <p style="font-size: 16px; margin: 0px">Йўл ҳаққи :</p>
+            <div style="text-align: center; width: auto; margin-left: 20px">
+              <p
+                style="
+                  border-bottom: 1px solid #000;
+                  padding-bottom: 2px;
+                  margin: 0px;
+                  text-align: left;
+                  font-size: 15px;
+                  padding-left: 15px;
+                  padding-right: 30px;
+                "
+              >
+                {{ form.tarif }} сўм.
+              </p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-end; margin-top: 10px">
+            <p style="font-size: 16px; margin: 0px">
+              Йўналиш паспортига киритилган <br />
+              ўзгаришлар ҳақида маъломот
+            </p>
+            <div style="text-align: center; width: 50%; margin-left: 20px">
+              <p
+                style="
+                  border-bottom: 1px solid #000;
+                  padding-bottom: 2px;
+                  margin: 0px;
+                  text-align: left;
+                  font-size: 15px;
+                  padding-left: 15px;
+                  padding-right: 30px;
+                "
+              ></p>
+            </div>
+          </div>
+          <p
+            style="
+              border-bottom: 1px solid #000;
+              padding-bottom: 2px;
+              margin: 0px;
+              text-align: left;
+              font-size: 15px;
+              padding-left: 15px;
+              padding-right: 30px;
+            "
+          >
+            &nbsp;
+          </p>
+          <p
+            style="
+              border-bottom: 1px solid #000;
+              padding-bottom: 2px;
+              margin: 0px;
+              text-align: left;
+              font-size: 15px;
+              padding-left: 15px;
+              padding-right: 30px;
+            "
+          >
+            &nbsp;
+          </p>
+          <p
+            style="
+              border-bottom: 1px solid #000;
+              padding-bottom: 2px;
+              margin: 0px;
+              text-align: left;
+              font-size: 15px;
+              padding-left: 15px;
+              padding-right: 30px;
+            "
+          >
+            &nbsp;
+          </p>
+          <p
+            style="
+              padding-bottom: 2px;
+              margin: 0px;
+              text-align: left;
+              font-size: 15px;
+              margin-top: 10px;
+            "
+          >
+            Жадвал бўйича харакат таркиби (автотранспорт воситалари сони)
+            <u>&nbsp;{{ cars_with.length }} &nbsp;</u> дона.
+          </p>
+          <div style="display: flex; align-items: flex-end; margin-top: 10px">
+            <p style="font-size: 16px; margin: 0px">
+              Категория и класс автотранспорта
+            </p>
+            <div
+              style="text-align: center; width: 50%; margin-left: 20px"
+              v-if="cars_with.length"
+            >
+              <p
+                style="
+                  border-bottom: 1px solid #000;
+                  padding-bottom: 2px;
+                  margin: 0px;
+                  text-align: left;
+                  font-size: 15px;
+                  padding-left: 15px;
+                  padding-right: 30px;
+                "
+              >
+                <template v-for="(car, index) in cars_with">
+                  {{ car.bustype.name }} <br />
+                </template>
+              </p>
+              <p
+                style="
+                  border-bottom: 1px solid #000;
+                  padding-bottom: 2px;
+                  margin: 0px;
+                  text-align: left;
+                  font-size: 15px;
+                  padding-left: 15px;
+                  padding-right: 30px;
+                "
+              >
+                <template v-for="(car, index) in cars_with">
+                  {{ car.tclass ? car.tclass.name : "" }} <br />
+                </template>
+              </p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-end; margin-top: 10px">
+            <p style="font-size: 16px; margin: 0px">
+              Бошланғич ва охирги <br />
+              тўхташ бекатлари
+            </p>
+            <div style="text-align: center; width: 70%; margin-left: 20px">
+              <p
+                style="
+                  border-bottom: 1px solid #000;
+                  padding-bottom: 2px;
+                  margin: 0px;
+                  text-align: left;
+                  font-size: 15px;
+                  padding-left: 15px;
+                  padding-right: 30px;
+                "
+              >
+                <span v-if="getDirection.station_from_id">
+                    {{getDirection.station_from.name}}
+                </span>
+                <span v-else-if="getDirection.area_from_id">
+                    {{getDirection.area_from_with.name}}
+                </span>
+                <span v-else-if="getDirection.region_from_id">
+                    {{getDirection.region_from_with.name}}
+                </span>
+                <span v-if="getDirection.station_to_id">
+                    {{getDirection.station_to.name}}
+                </span>
+                <span v-else-if="getDirection.area_to_id">
+                    {{getDirection.area_to_with.name}}
+                </span>
+                <span v-else-if="getDirection.region_to_id">
+                    {{getDirection.region_to_with.name}}
+                </span>
+              </p>
+            </div>
+          </div>
+                    <div
+            style="
+              display: flex;
+              align-items: flex-start;
+              justify-content: space-between;
+              margin-top: 10px;
+            "
+          >
+            <p style="font-size: 16px; margin: 0px">
+              Паспорт тузувчи
+            </p>
+            <div style="text-align: center; width: 75%">
+              <p
+                style="
+                  border-bottom: 1px solid #000;
+                  padding-bottom: 2px;
+                  margin: 0px;
+                  text-align: left;
+                  font-size: 15px;
+                "
+              >
+                {{getDirection.created_by.name}} {{getDirection.created_by.surname}} {{getDirection.created_by.middlename}}
+              </p>
+              <small style="font-size: 13px">(ФИШ, лавозим)</small>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -844,4 +1179,7 @@ export default {
     margin-top: 35px;
     margin-left: 15px;
   }
+  #prindDiv {
+    display: none;
+    }
 </style>
