@@ -799,6 +799,7 @@
             </p>
             <div style="text-align: center; width: 75%">
               <p
+                v-if="getDirection.created_by"
                 style="
                   border-bottom: 1px solid #000;
                   padding-bottom: 2px;
