@@ -355,11 +355,18 @@ export default {
           "/crm/application/user/" + this.getUserEditApplication.result.id
         );
       }else{
-        swal.fire({
-          icon: 'error',
-          title: this.getUserEditApplication.message,
-          text: '',
-        });
+          if(this.getUserEditApplication.type){
+            this.$router.push(
+                "/crm/application/user/" + this.getUserEditApplication.result
+            );
+          }else{
+            swal.fire({
+                icon: 'error',
+                title: this.getUserEditApplication.message,
+                text: '',
+            });
+          }
+
         // footer: `<a href="/crm/application/user/${this.getUserEditApplication.result}"><b>Продолжить</b></a>`
 
         // toast.fire({
