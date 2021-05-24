@@ -15,5 +15,7 @@
     <orderEntry type="module" module-name="quatro.loc" />
     <orderEntry type="module" module-name="book.loc" />
     <orderEntry type="module" module-name="daz.loc" />
+    <orderEntry type="module" module-name="gtkservice.loc" />
+    <orderEntry type="module" module-name="mhr.loc" />
   </component>
 </module>

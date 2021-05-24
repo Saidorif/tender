@@ -25,6 +25,13 @@ class ApplicationController extends Controller
         return response()->json(['success' => true, 'result' => $tenders]);
     }
 
+    public function userIndex(Request $request)
+    {
+        $user = $request->user();
+        $tenders = Application::where(['user_id' => $user->id])->paginate(12);
+        return response()->json(['success' => true, 'result' => $tenders]);
+    }
+
     public function show(Request $request,$id)
     {
         $user = $request->user();
