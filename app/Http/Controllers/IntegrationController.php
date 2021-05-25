@@ -264,6 +264,7 @@ class IntegrationController extends Controller
             'pTexpassportSery' => 'required|string',
             'pTexpassportNumber' => 'required|string',
             'auto_number' => 'required|string',
+            'date' => 'required|date_format:"Y"',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
