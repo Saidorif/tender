@@ -291,7 +291,7 @@ class IntegrationController extends Controller
             </x:Body>
         </x:Envelope>';
         try {
-            $response = $client->post('https://10.190.2.36/mediate/ips/MOI/GetVehicleinfoVLPrefillMIP?wsdl', [
+            $response = $client->post('https://ips.gov.uz/mediate/ips/MOI/GetVehicleinfoVLPrefillMIP?wsdl', [
                 'headers' => ['Content-Type' => 'text/xml', 'charset' => 'utf-8','SOAPAction' => '/mediate/ips/MOI/GetVehicleinfoVLPrefillMIP'],
                 'body' => $query
             ]);
