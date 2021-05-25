@@ -351,7 +351,7 @@ class IntegrationController extends Controller
                 return response()->json(['error' => true,'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
             }
         }catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
             return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
         }
         return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
