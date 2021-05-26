@@ -466,7 +466,6 @@ export default {
     $('#userModal').modal({backdrop: 'static',keyboard: true, show: false});
     $('#ballModal').modal({backdrop: 'static',keyboard: true, show: false});
     this.laoding = false
-    console.log(this.getTender)
   },
   methods: {
     ...mapActions("completedtender", [
