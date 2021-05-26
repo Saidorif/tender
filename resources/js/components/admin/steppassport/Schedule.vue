@@ -7,9 +7,16 @@
       </div>
       <div class="card-body">
         <div class="col-12 d-flex justify-content-end align-items-start mb-2">
-            <span class="alert alert-success mr-2" v-if="getDirection.xjadval_status == 'active'" style="padding:6px 20px;">Подтвержден</span>
+            <span class="alert alert-success mr-2" v-if="getDirection.xjadval_status == 'completed'" style="padding:6px 20px;">Подтвержден</span>
             <span class="alert alert-warning mr-2" v-if="getDirection.xjadval_status == 'pending'" style="padding:6px 20px;">В ожидании</span>
-            <span class="alert alert-danger mr-2" v-if="getDirection.xjadval_status == 'inactive'" style="padding:6px 20px;">Не подтвержден</span>
+            <span class="alert alert-danger mr-2" v-if="getDirection.xjadval_status == 'active'" style="padding:6px 20px;">Не подтвержден</span>
+            <button
+                type="button"
+                class="btn btn-warning"
+                @click="$g.printDoc('prindDiv')"
+              >
+                <i class="fas fa-print mr-2"></i>Chop etish
+            </button>
         </div>
         <form
           @submit.prevent.enter="saveData"
@@ -78,7 +85,7 @@
             >
               <thead>
                 <tr>
-                  <th scope="col" rowspan="5">Qatnovlar</th>
+                  <th  scope="col" rowspan="5">Qatnovlar</th>
                   <th scope="col" :colspan="form.whereTo.stations.length * 2">
                     {{form.whereTo.where.name}} томондан
                   </th>
@@ -202,6 +209,97 @@
             </div>
           </div>
         </form>
+        <div id="prindDiv">
+            <p style="margin: 0px; text-align: right; font-size: 15px">
+                Тасдиқлайман
+            </p>
+            <p style="margin: 0px; text-align: right; font-size: 15px">ФИШ</p>
+            <p style="margin: 0px; text-align: right; font-size: 15px">
+                Лавозими
+            </p>
+            <p style="margin: 0px; text-align: right; font-size: 15px">Сана</p>
+            <p style="margin: 0px; text-align: center; font-size: 16px">Йўналиш рақами ва номи йўналишининг (вилоятлараро ва халқаро)</p>
+            <p style="margin: 0px; text-align: center; font-size: 16px;margin-bottom:10px;">ҲАРАКАТ ЖАДВАЛИ </p>
+            <p style="margin: 0px; text-align: center; font-size: 16px"><i>{{form.whereTo.where.name}} томондан</i></p>
+            <table style="border-collapse: collapse;margin-bottom:20px;">
+              <thead>
+                <tr>
+                    <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" rowspan="3">
+                        Рейс <br> (қатнов) <br> сони
+                    </th>
+                    <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" rowspan="1" colspan="2">Йўналишнинг <br> бошланғич <br> манзили</th>
+                    <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" rowspan="1"  :colspan="form.whereTo.stations.length * 2 - 4">Оралиқ бекатлари</th>
+                    <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" rowspan="1" colspan="2">Йўналишнинг <br> охирги  манзили </th>
+                </tr>
+                <tr>
+                  <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" colspan="2" v-for="(item, index) in form.whereTo.stations">
+                    {{ item.name }}
+                  </th>
+                </tr>
+                <tr>
+                  <template v-for="(item, index) in form.whereTo.stations">
+                    <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;">келиш <br> вақти</th>
+                    <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;">жўнаш <br> вақти</th>
+                  </template>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(p_item, p_index) in form.whereTo.reyses">
+                  <td style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;">{{ p_index + 1 }}</td>
+                  <template v-for="(ch_item, ch_index) in p_item">
+                    <td style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" colspan="1">
+                      {{ch_item.end}}
+                    </td>
+                    <td style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" colspan="1">
+                        {{ch_item.start}}
+                    </td>
+                  </template>
+
+                </tr>
+              </tbody>
+            </table>
+            <p style="margin: 0px; text-align: center; font-size: 16px"><i>{{form.whereFrom.where.name}} томондан</i></p>
+            <table style="border-collapse: collapse;margin-bottom:20px;width:100%;">
+              <thead>
+                <tr>
+                    <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" rowspan="3">
+                        Рейс <br> (қатнов) <br> сони
+                    </th>
+                    <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" rowspan="1" colspan="2">Йўналишнинг <br> бошланғич <br> манзили</th>
+                    <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" rowspan="1"  :colspan="form.whereFrom.stations.length * 2 - 4">Оралиқ бекатлари</th>
+                    <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" rowspan="1" colspan="2">Йўналишнинг <br> охирги манзили </th>
+                </tr>
+                <tr>
+                  <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" colspan="2" v-for="(item, index) in form.whereFrom.stations">
+                    {{ item.name }}
+                  </th>
+                </tr>
+                <tr>
+                  <template v-for="(item, index) in form.whereFrom.stations">
+                    <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;">келиш <br> вақти</th>
+                    <th style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;">жўнаш <br> вақти</th>
+                  </template>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(p_item, p_index) in form.whereFrom.reyses">
+                  <td style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;">{{ p_index + 1 }}</td>
+                  <template v-for="(ch_item, ch_index) in p_item">
+                    <td style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" colspan="1">
+                      {{ch_item.end}}
+                    </td>
+                    <td style="padding: 0.25rem;font-size:13px;border: 1px solid #292666;text-align:center;" colspan="1">
+                        {{ch_item.start}}
+                    </td>
+                  </template>
+                </tr>
+              </tbody>
+            </table>
+            <p style="margin: 0px;text-align: left;font-size: 13px;">Рейс (қатнов)лар сони:</p>
+            <p style="margin: 0px;text-align: left;font-size: 13px;">{{form.whereTo.where.name}} томондан - {{ form.reys_to_count }}  </p>
+            <p style="margin: 0px;text-align: left;font-size: 13px;">{{form.whereFrom.where.name}} томондан - {{ form.reys_from_count }} </p>
+            <p style="margin: 0px;text-align: left;font-size: 13px;">Қатновчи автомобиллар сони   - {{ form.count_bus }} </p>
+        </div>
       </div>
     </div>
   </div>
@@ -238,7 +336,7 @@ export default {
         reys_from_count: '',
       },
       requiredInput: false,
-      laoding: true
+      laoding: true,
     };
   },
   watch: {
@@ -504,5 +602,7 @@ th{
 th:hover .trashTable{
   opacity: 1;
 }
-
+#prindDiv{
+    display: none;
+}
 </style>

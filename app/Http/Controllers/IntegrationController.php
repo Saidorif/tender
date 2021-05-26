@@ -264,6 +264,7 @@ class IntegrationController extends Controller
             'pTexpassportSery' => 'required|string',
             'pTexpassportNumber' => 'required|string',
             'auto_number' => 'required|string',
+            'date' => 'required|date_format:"Y"',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
@@ -350,6 +351,7 @@ class IntegrationController extends Controller
                 return response()->json(['error' => true,'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
             }
         }catch (\Throwable $th) {
+            throw $th;
             return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
         }
         return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);

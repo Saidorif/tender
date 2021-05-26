@@ -333,6 +333,7 @@ class DirectionController extends Controller
                 'stationTo',
                 'carsWith',
                 'schemaDetails',
+                'createdBy',
             ])->find($id);
         }else{
             $result = Direction::with([
@@ -347,6 +348,7 @@ class DirectionController extends Controller
                 'stationTo',
                 'carsWith',
                 'schemaDetails',
+                'createdBy',
             ])->whereHas('createdBy', function ($query) use ($region){
                 $query->where('region_id',$region);
             })

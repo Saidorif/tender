@@ -7,9 +7,9 @@
       </div>
       <div class="card-body">
         <div class="col-12 d-flex justify-content-end align-items-start mb-2"  v-if="getDemand.result">
-            <span class="alert alert-success mr-2" v-if="getDemand.result.status == 'active'" style="padding:6px 20px;">Подтвержден</span>
+            <span class="alert alert-success mr-2" v-if="getDemand.result.status == 'completed'" style="padding:6px 20px;">Подтвержден</span>
             <span class="alert alert-warning mr-2" v-if="getDemand.result.status == 'pending'" style="padding:6px 20px;">В ожидании</span>
-            <span class="alert alert-danger mr-2" v-if="getDemand.result.status == 'inactive'" style="padding:6px 20px;">Не подтвержден</span>
+            <span class="alert alert-danger mr-2" v-if="getDemand.result.status == 'active'" style="padding:6px 20px;">Не подтвержден</span>
         </div>
         <div class="row">
           <div class="form-group col-lg-12">
