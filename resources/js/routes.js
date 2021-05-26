@@ -1073,6 +1073,10 @@ const router = new Router({
 				{
 					path:'confirm-timing',
 					component:ConfirmTiming,
+					meta:{
+						action:'xronom',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'confirm-timing/add',
@@ -1081,6 +1085,10 @@ const router = new Router({
 				{
 					path:'confirm-timing/edit/:confirmtimingId',
 					component:EditConfirmTiming,
+					meta:{
+						action:'xronomEdit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'confirm-tarif',
@@ -1101,6 +1109,10 @@ const router = new Router({
 				{
 					path:'confirm-scheme',
 					component:ConfirmScheme,
+					meta:{
+						action:'sxema',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'confirm-scheme/add',
@@ -1109,10 +1121,18 @@ const router = new Router({
 				{
 					path:'confirm-scheme/edit/:confirmschemeId',
 					component:EditConfirmScheme,
+					meta:{
+						action:'sxemaEdit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'confirm-schedule',
 					component:ConfirmSchedule,
+					meta:{
+						action:'xjadval',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'confirm-schedule/add',
@@ -1121,22 +1141,42 @@ const router = new Router({
 				{
 					path:'confirm-schedule/edit/:confirmscheduleId',
 					component:EditConfirmSchedule,
+					meta:{
+						action:'xjadvalEdit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'confirm-titul',
 					component:ConfirmTitul,
+					meta:{
+						action:'titul',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'confirm-titul/add',
 					component:AddConfirmTitul,
+					meta:{
+						action:'titul',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'confirm-titul/edit/:confirmtitulId',
 					component:EditConfirmTitul,
+					meta:{
+						action:'titulEdit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'confirm-confirmdemand',
 					component:ConfirmDemand,
+					meta:{
+						action:'dirReq',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'confirm-confirmdemand/add',
@@ -1145,6 +1185,10 @@ const router = new Router({
 				{
 					path:'confirm-confirmdemand/edit/:confirmdemandId',
 					component:EditConfirmDemand,
+					meta:{
+						action:'dirReqEdit',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'payment',

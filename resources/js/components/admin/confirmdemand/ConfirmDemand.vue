@@ -23,7 +23,7 @@
 						<tr v-for="(direct,index) in getDemands.data">
 							<td scope="row">{{index + 1}}</td>
 							<td>{{direct.stations_from_name}} - {{direct.stations_to_name}}</td>
-							<td>{{direct.status}}
+							<td>
                                 <div class="badge" :class="getStatusClass(direct.status)">
 	                                {{direct.status == 'completed' ? 'подтвержден' : 'не подтвержден'}}
                                 </div>
