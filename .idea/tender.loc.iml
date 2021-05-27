@@ -17,5 +17,6 @@
     <orderEntry type="module" module-name="daz.loc" />
     <orderEntry type="module" module-name="gtkservice.loc" />
     <orderEntry type="module" module-name="mhr.loc" />
+    <orderEntry type="module" module-name="book.loc" />
   </component>
 </module>
