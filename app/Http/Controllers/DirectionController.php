@@ -1147,6 +1147,7 @@ class DirectionController extends Controller
     public function titul(Request $request)
     {
         $params = $request->all();
+        $user = $request->user();
         $builder = Direction::query()->with([
             'regionTo',
             'regionFrom',
@@ -1164,6 +1165,12 @@ class DirectionController extends Controller
             $builder->where(['titul_status' => $params['status']]);
         }else{
             $builder->where(['titul_status' => 'pending'])->orWhere(['titul_status' => 'completed']);
+        }
+        if($user->role->name != 'admin'){
+            $region = $user->region_id;
+            $builder->whereHas('createdBy', function ($query) use ($region){
+                $query->where('region_id',$region);
+            });
         }
         $result = $builder->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
@@ -1237,6 +1244,7 @@ class DirectionController extends Controller
     public function xronom(Request $request)
     {
         $params = $request->all();
+        $user = $request->user();
         $builder = Direction::query()->with([
             'regionTo',
             'regionFrom',
@@ -1255,17 +1263,13 @@ class DirectionController extends Controller
         }else{
             $builder->where(['xronom_status' => 'pending'])->orWhere(['xronom_status' => 'completed']);
         }
+        if($user->role->name != 'admin'){
+            $region = $user->region_id;
+            $builder->whereHas('createdBy', function ($query) use ($region){
+                $query->where('region_id',$region);
+            });
+        }
         $result = $builder->paginate(12);
-//        $result = Direction::with([
-//            'regionTo',
-//            'regionFrom',
-//            'areaFrom',
-//            'areaTo',
-//            'createdBy'
-//            ])
-//            ->where(['xronom_status' => 'pending'])
-//            ->orWhere(['xronom_status' => 'completed'])
-//            ->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1337,6 +1341,7 @@ class DirectionController extends Controller
     public function sxema(Request $request)
     {
         $params = $request->all();
+        $user = $request->user();
         $builder = Direction::query()->with([
             'regionTo',
             'regionFrom',
@@ -1355,17 +1360,13 @@ class DirectionController extends Controller
         }else{
             $builder->where(['sxema_status' => 'pending'])->orWhere(['sxema_status' => 'completed']);
         }
+        if($user->role->name != 'admin'){
+            $region = $user->region_id;
+            $builder->whereHas('createdBy', function ($query) use ($region){
+                $query->where('region_id',$region);
+            });
+        }
         $result = $builder->paginate(12);
-//        $result = Direction::with([
-//            'regionTo',
-//            'regionFrom',
-//            'areaFrom',
-//            'areaTo',
-//            'createdBy'
-//            ])
-//            ->where(['sxema_status' => 'pending'])
-//            ->orWhere(['sxema_status' => 'completed'])
-//            ->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1437,6 +1438,7 @@ class DirectionController extends Controller
     public function xjadval(Request $request)
     {
         $params = $request->all();
+        $user = $request->user();
         $builder = Direction::query()->with([
             'regionTo',
             'regionFrom',
@@ -1454,6 +1456,12 @@ class DirectionController extends Controller
             $builder->where(['xjadval_status' => $params['status']]);
         }else{
             $builder->where(['xjadval_status' => 'pending'])->orWhere(['xjadval_status' => 'completed']);
+        }
+        if($user->role->name != 'admin'){
+            $region = $user->region_id;
+            $builder->whereHas('createdBy', function ($query) use ($region){
+                $query->where('region_id',$region);
+            });
         }
         $result = $builder->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
@@ -1526,10 +1534,22 @@ class DirectionController extends Controller
 
     public function dirReq(Request $request)
     {
-        $result = DirectionReq::with(['type'])
-            ->where(['status' => 'pending'])
-            ->orWhere(['status' => 'completed'])
-            ->paginate(12);
+//        $result = DirectionReq::with(['type'])
+//            ->where(['status' => 'pending'])
+//            ->orWhere(['status' => 'completed'])
+//            ->paginate(12);
+        $params = $request->all();
+        $user = $request->user();
+        $builder = DirectionReq::query()->select('directions.created_by','direction_reqs.*')->with([
+            'type',
+        ]);
+        $builder->leftJoin('directions','directions.id','direction_reqs.direction_id');
+        $builder->where(['direction_reqs.status' => 'pending'])->orWhere(['direction_reqs.status' => 'completed']);
+        if($user->role->name != 'admin'){
+            $user_ids = User::whereNotIn('role_id',[1,9])->where('region_id','=',$user->region_id)->get()->pluck('id')->toArray();
+            $builder->whereIn('directions.created_by',$user_ids);
+        }
+        $result = $builder->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
