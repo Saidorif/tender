@@ -322,7 +322,16 @@
               </tr>
               <tr v-else>
                 <td>Йўл кира ҳаққи (шаҳар йўналишлар учун)</td>
-                <td>{{ form.tarif_city }} сум</td>
+                <td v-if="getDemand.type && getDemand.type.id == 1 && getDemand.dir_type == 'taxi'">
+                  <input
+                    type="number"
+                    v-model="form.tarif_city"
+                    class="form-control"
+                  /> сум
+                </td>
+                <td v-else>
+                  {{ form.tarif_city }} сум
+                </td>
               </tr>
               <!-- 3 end -->
               <!-- 3 s -->
