@@ -1001,7 +1001,7 @@ class DirectionController extends Controller
         if(count($direction->schedule) < 1){
             return response()->json(['error' => true,'message' => 'Пожалуйста, добавьте список расписания']);
         }
-        if(count($direction->regionFrom->tarifcity) > 0){
+        if(count($direction->regionFrom->tarifcity) > 0 && $direction->dir_type == 'bus'){
             $tarif_city = $direction->regionFrom->tarifcity->first()->tarif;
         }else{
             $tarif_city = 0;

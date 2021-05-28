@@ -713,7 +713,12 @@ class TenderController extends Controller
                         $appBallArray['app_tarif'] = $app_tarif;
                         //Agar shahar yonalish bolsa
                         if($direction->type_id == 1){
-                            $tender_tarif = (int)$direction->regionFrom->tarifcity->first()->tarif;
+                            if($direction->dir_type == 'bus'){
+                                $tender_tarif = (int)$direction->regionFrom->tarifcity->first()->tarif;
+                            }
+                            elseif($direction->dir_type == 'taxi'){
+                                $tender_tarif = (int)$direction->requirement->tarif_city;
+                            }
                             $tarif_foizda = round(100 - ((100*$app_tarif)/$tender_tarif));
                             $app_tarif_ball = 0;
                             //Agar taklif talabga mos bolsa
