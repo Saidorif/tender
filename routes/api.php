@@ -17,7 +17,7 @@ Route::group([
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
-    Route::post('register', 'UserController@register');
+    //Route::post('register', 'UserController@register');
     Route::get('region/list', 'RegionController@list');
     Route::get('area/user-list', 'AreaController@userList');
     Route::post('area/regionby', 'AreaController@regionby');
