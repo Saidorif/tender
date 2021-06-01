@@ -114,20 +114,22 @@ export default {
     },
     changePhoto(event){
       let file = event.target.files[0];
-      if (file.size > 1048576){
-          swal.fire({
-            type: 'error',
-            title: 'Ошибка',
-            text:'Размер изображения не должно быть больше 1мб',
-          })
-      }else{
-          let reader = new FileReader();
-          reader.onload = event=> {
-            this.form.file = event.target.result;
-            this.fileName = file.name;
-            this.errorFile = false
-          };
-          reader.readAsDataURL(file);
+      if(event.target.files[0]['type'] ==='image/png' || event.target.files[0]['type'] ==='image/jpeg' || event.target.files[0]['type'] ==='image/jpg'){
+        if (file.size > 1048576){
+            swal.fire({
+              type: 'error',
+              title: 'Ошибка',
+              text:'Размер изображения не должно быть больше 1мб',
+            })
+        }else{
+            let reader = new FileReader();
+            reader.onload = event=> {
+              this.form.file = event.target.result;
+              this.fileName = file.name;
+              this.errorFile = false
+            };
+            reader.readAsDataURL(file);
+        }
       }
     },
     back(){
