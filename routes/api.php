@@ -50,6 +50,7 @@ Route::group([
 
             //User model
             Route::post('user/find', 'UserController@find');
+            Route::get('user/set-region', 'UserController@setRegions');
             Route::get('profile', 'UserController@profile');
             Route::post('change-password', 'UserController@changePasword');
             Route::post('carrier', 'UserController@carrier');

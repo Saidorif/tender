@@ -272,4 +272,75 @@ class UserController extends Controller
         }
         return response()->json(['clients' => $clients]);
     }
+
+    public function setRegions(Request $request)
+    {
+        //EIIS		tender		mustbe
+        //1703		2		4	Андижон вилояти
+        //1726		14		1	Тошкент ш.
+        //1727		11		2	Тошкент вилояти
+        //1706		3		5	Бухоро вилояти
+        //1730		12		13	Фарғона вилояти
+        //1714		7		9	Наманган вилояти
+        //1724		10		11	Сирдарё вилояти
+        //1708		4		6	Жиззах вилояти
+        //1718		8		10	Самарқанд вилояти
+        //1710		5		7	Қашқадарё вилояти
+        //1722		9		12	Сурхондарё вилояти
+        //1712		6		8	Навоий вилояти
+        //1733		13		14	Хоразм вилояти
+        //1735		1		3	Қорақалпоғистон Республикаси
+
+        $users = User::where(['role_id' => 9])->get();
+        $counter = 0;
+        foreach ($users as $user){
+            $region_id = $user->region_id;
+                if($user->region_id == 2){
+                    $region_id = 4;
+                }
+                elseif($user->region_id == 14){
+                    $region_id = 1;
+                }
+                elseif($user->region_id == 11){
+                    $region_id = 2;
+                }
+                elseif($user->region_id == 3){
+                    $region_id = 5;
+                }
+                elseif($user->region_id == 12){
+                    $region_id = 13;
+                }
+                elseif($user->region_id == 7){
+                    $region_id = 9;
+                }
+                elseif($user->region_id == 10){
+                    $region_id = 11;
+                }
+                elseif($user->region_id == 4){
+                    $region_id = 6;
+                }
+                elseif($user->region_id == 8){
+                    $region_id = 10;
+                }
+                elseif($user->region_id == 5){
+                    $region_id = 7;
+                }
+                elseif($user->region_id == 9){
+                    $region_id = 12;
+                }
+                elseif($user->region_id == 6){
+                    $region_id = 8;
+                }
+                elseif($user->region_id == 13){
+                    $region_id = 14;
+                }
+                elseif($user->region_id == 1){
+                    $region_id = 3;
+                }
+                $user->region_id = $region_id;
+                $user->save();
+                $counter++;
+        }
+        return response()->json(['success' => true, 'message' => $counter.' Users region updated']);
+    }
 }
