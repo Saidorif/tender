@@ -13,19 +13,21 @@ use Illuminate\Support\Str;
 
 class ClientAccessController extends Controller
 {
-    
+
     public function index(Request $request)
     {
         $params = $request->all();
+        $user = $request->user();
+        $user_ids = User::where(['role_id' => 9,'region_id' => $user->region_id])->get()->pluck('id')->toArray();
+        $builder = ClientAccess::query();
         if(!empty($params['inn'])){
-            $clientAccess = ClientAccess::where(['inn' => $params['inn']])->orderBy('status','DESC')->paginate(12);
-        }else{
-            $clientAccess = ClientAccess::orderBy('status','DESC')->paginate(12);
+            $builder->where(['inn' => $params['inn']]);
         }
+        $clientAccess = $builder->whereIn('user_id',$user_ids)->orderBy('status','DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $clientAccess]);
     }
 
-    
+
     public function activate(Request $request)
     {
         $validator = Validator::make($request->all(),[
@@ -89,7 +91,7 @@ class ClientAccessController extends Controller
         return response()->json(['success' => true, 'message' => 'Client Accesses deleted']);
     }
 
-    
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -110,7 +112,7 @@ class ClientAccessController extends Controller
             $sub = substr($request->file, 0,$strpos);
             $ex = explode('/',$sub)[1];
             $name = time().".".$ex;
-    
+
             $img = Image::make($request->file);
             $img_path = public_path()."/uploads/";
             $img->save($img_path.$name);
