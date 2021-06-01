@@ -9,6 +9,8 @@
 					     Перевозчики
 					</h4>
 					<div class="add_user_btn">
+                        <span  class="alert alert-info" style="margin: 0px 15px 0px auto;">
+		            		Количество <b >{{getClients.total}}  шт.</b></span>
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
 			            	Филтр
