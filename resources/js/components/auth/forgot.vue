@@ -400,11 +400,11 @@
                       <b>Пароль не совпадает</b>
                     </small>
                   </div>
-                  <div class="input-group mt-4">
+                  <!-- <div class="input-group mt-4">
                     <button type="submit" class="btn btn-primary btn-block">
                       Зарегистрироваться
                     </button>
-                  </div>
+                  </div> -->
                 </div>
               </form>
         </div>
