@@ -224,6 +224,7 @@ Route::group([
 
             //Direction CRUD
             Route::post('direction', 'DirectionController@index');
+            Route::post('direction/sync', 'DirectionController@syncDirection');
             Route::post('direction/store', 'DirectionController@store');
             Route::get('direction/list', 'DirectionController@list');
             Route::post('direction/find', 'DirectionController@find');

@@ -320,14 +320,14 @@
                   сум)
                 </td>
               </tr>
-              <tr v-else>
+              <tr v-if="getDemand.type && getDemand.type.id == 1">
                 <td>Йўл кира ҳаққи (шаҳар йўналишлар учун)</td>
-                <td v-if="getDemand.type && getDemand.type.id == 1 && getDemand.dir_type == 'taxi'">
+                <td v-if='form.dir_type == "taxi"' class="d-flex align-items-center">
                   <input
                     type="number"
                     v-model="form.tarif_city"
-                    class="form-control"
-                  /> сум
+                    class="form-control w-50"
+                  /> <span class="ml-2"><h5>сум</h5></span>
                 </td>
                 <td v-else>
                   {{ form.tarif_city }} сум

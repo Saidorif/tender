@@ -231,6 +231,13 @@ class DirectionController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function syncDirection(Request $request)
+    {
+        $user = $request->user();
+        $result['directions'] = Direction::all();
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function findForUsers(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -1061,6 +1068,7 @@ class DirectionController extends Controller
             'tarif_one_km'                  => $direction->tarif,
             'tarif_full_km'                  => $direction->getPTarifFull(),
             'tarif_city'                    => $tarif_city,
+            'type'                          => $direction->type,
             'transports_capacity'           => '',
             'transports_seats'              => '',
             'minimum_bal'                   => '',
