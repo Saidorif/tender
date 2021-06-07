@@ -24,7 +24,7 @@ class GaiCar extends Model
         "status",
     ];
 
-    protected  $casts = ['pWeightAuto'=>'array'];
+    protected  $casts = ['pWeightAuto'=>'array','pNumberofplace' => 'array'];
 
     public function user()
     {

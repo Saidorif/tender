@@ -46,9 +46,11 @@ class TenderCheck extends Command
     {
         $tenders = Tender::where(['status' => 'completed'])->get();
         $this->info('Completed tenders count '.$tenders->count());
-        $tenderlots = TenderLot::whereIn('tender_id',$tenders->pluck('id')->toArray())->get();
+        $tenderlots = TenderLot::whereIn('tender_id',$tenders->pluck('id')->toArray())->where(['status' => 'pending'])->get();
         $this->info('Tenderlots count '.$tenderlots->count());
         foreach($tenderlots as $lot){
+            $this->info('**********************************************************************');
+            $this->info('Checking tender : '.$lot->tender->address.' at : '.$lot->tender->time);
             $applicationBallss = 0;
             $applicationBall = Application::orderBy('total_ball','DESC')
                                     ->where(['lot_id' => $lot->id,'status' => 'accepted'])
@@ -80,19 +82,19 @@ class TenderCheck extends Command
                 $this->info('Cars with license '.$cars_license);
                 // 0. Check Application is winner or not
                 if($cars_count == $cars_accepted && $cars_count == $cars_license){
-                    $this->info('('.$applicationBall->company_name.') is winner');
+                    $this->info('('.$user->company_name.') is winner');
                     // 1. Change application and app_balls status
                     $application->status = 'winnner';
                     $application->tender_status = 'winnner';
-                    //$application->save();
+                    $application->save();
                     $applicationBall->status = 'winner';
-                    //$applicationBall->save();
+                    $applicationBall->save();
                     $this->info('Application Ball changed to winner');
                     //Change other application balls to rejected
                     $app_balls = ApplicationBall::where(['lot_id' => $lot->id,'status' => 'active'])->get();
                     foreach($app_balls as $ball){
                         $ball->status = 'rejected';
-                        //$ball->save();
+                        $ball->save();
                     }
                     $this->info('Other balls changed to rejected');
                     //Change other applications to rejected
@@ -100,11 +102,11 @@ class TenderCheck extends Command
                     foreach($apps as $a){
                         $a->status = 'rejected';
                         $a->tender_status = 'rejected';
-                        //$a->save();
+                        $a->save();
                     }
                     // 2. Change lot status
                     $lot->status = 'completed';
-                    //$lot->save();
+                    $lot->save();
 
                     // 3. Generate contract
                     $contract_date = Carbon::parse($lot->tender->time)->format('Y-m-d');
@@ -119,27 +121,44 @@ class TenderCheck extends Command
                         'exp_date' => Carbon::parse($lot->tender->time)->addYears($application->contract_time),
                         'contract_period' => $application->contract_time,
                     ];
-                    //$contract = Contract::create($contractArray);
+                    $contract = Contract::create($contractArray);
 
                     // 4. Change direction status
                     $direction_ids = $lot->getDirection();
                     $directions = Direction::whereIn('id', $direction_ids)->get();
                     foreach($directions as $dir){
                         $dir->status = 'busy';
-                        //$dir->contract_id = $contract->id;
-                        //$dir->save();
+                        $dir->contract_id = $contract->id;
+                        $dir->save();
                     }
 
                 }
                 if($cars_rejected > 0){
-                    $this->info('('.$applicationBall->company_name.') is rejected. Accepted cars '.$cars_accepted.' Rejected cars '. $cars_rejected.')');
+                    $this->info('('.$user->company_name.') is rejected. Accepted cars '.$cars_accepted.' Rejected cars '. $cars_rejected.')');
                     // 1. Change application status to rejected
                     $application->status = 'rejected';
                     $application->tender_status = 'rejected';
-                    //$application->save();
+                    $application->save();
                     $applicationBall->status = 'rejected';
-                    //$applicationBall->save();
+                    $applicationBall->save();
                 }
+            }else{
+                $this->info('No applications received. Changing directions status to "free to use"');
+                // 1. Change directions status
+                $direction_ids = $lot->getDirection();
+                $directions = Direction::whereIn('id', $direction_ids)->get();
+                foreach($directions as $dir){
+                    $this->info('ID: '.$dir->id.' - '.$dir->name.' changed.');
+                    $dir->status = 'active';
+                    $dir->contract_id = null;
+                    $dir->tender_id = null;
+                    $dir->lot_id = null;
+                    $dir->reys_status = null;
+                    $dir->save();
+                }
+                // 2. Change lot status
+                $lot->status = 'completed';
+                $lot->save();
             }
             //$this->info('Application balls : ');
         }
