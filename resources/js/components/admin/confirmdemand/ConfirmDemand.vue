@@ -125,7 +125,11 @@
 		methods:{
             ...mapActions('confirmdemand',['actionDemands','actionActivateDemand']),
 			async getResults(page = 1){
-				await this.actionDemands(page)
+				let data = {
+	            	page:page,
+	            	items:this.filter
+	            }
+				await this.actionDemands(data)
 			},
 			async search(){
 				let page = 1
