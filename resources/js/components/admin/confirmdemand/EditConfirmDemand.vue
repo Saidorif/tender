@@ -222,7 +222,7 @@
           </table>
           <div class="text_place">
             <label for="text">Текст</label>
-            <textarea id="text" class="form-control" v-model="form.holiday_days" disabled></textarea>
+            <textarea id="text" class="form-control" v-model="form.text" disabled></textarea>
           </div>
           <div class="btn_gruops mt-5 d-flex justify-content-end">
               <button class="btn btn-danger mr-3" style="height:auto;" @click.prevent="rejectDmand()" >Rad etish</button>
