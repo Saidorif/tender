@@ -10,7 +10,7 @@
 					</h4>
 	            	<div class="add_user_btn">
 		                <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-		            		Количество направления <b>{{ getDirections.total }} шт.</b>
+		            		Количество направления <b>{{ getDirectionUsers.total }} шт.</b>
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
@@ -121,7 +121,7 @@
                         </tr>
 					</thead>
 					<tbody>
-						<tr v-for="(direct,index) in getDirections.data">
+						<tr v-for="(direct,index) in getDirectionUsers.data">
 							<td scope="row">{{index + 1}}</td>
 							<td>
 								<template v-if="direct.created_by">
@@ -154,7 +154,7 @@
 							</td>
 						</tr>
 					</tbody>
-					<pagination :limit="4" :data="getDirections" @pagination-change-page="getResults"></pagination>
+					<pagination :limit="4" :data="getDirectionUsers" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
 		  </div>
@@ -272,22 +272,22 @@
 			}
 		},
 		async mounted(){
-            let page = 1;
-            this.filter = localStorage.getItem("dir_f") ? JSON.parse(localStorage.getItem("dir_f")) : this.filter
-			await this.actionDirections({page:page,items:this.filter})
+      let page = 1;
+      this.filter = localStorage.getItem("dir_f") ? JSON.parse(localStorage.getItem("dir_f")) : this.filter
+			await this.actionDirectionUsers({page:page,items:this.filter})
 			await this.actionRegionList()
 			await this.actionTypeofbusList()
 			await this.actionTypeofdirectionList()
             this.laoding = false
 		},
 		computed:{
-			...mapGetters('direction', ['getDirections','getMassage']),
+			...mapGetters('direction', ['getMassage','getDirectionUsers']),
 			...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
 			...mapGetters("region", ["getRegionList"]),
 			...mapGetters('typeofbus', ['getTypeofbusList']),
 		},
 		methods:{
-			...mapActions('direction',['actionDirections','actionDeleteDirection']),
+			...mapActions('direction',['actionDeleteDirection','actionDirectionUsers']),
 			...mapActions("region", ["actionRegionList"]),
 			...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
 			...mapActions('typeofbus',['actionTypeofbusList']),
@@ -296,7 +296,7 @@
                 this.userItem = item
             },
 			async getResults(page = 1){
-				await this.actionDirections({page:page,items:this.filter})
+				await this.actionDirectionUsers({page:page,items:this.filter})
 			},
 			toggleFilter(){
 				this.filterShow = !this.filterShow
@@ -310,7 +310,7 @@
                     }
                     localStorage.setItem("dir_f",  JSON.stringify(this.filter))
 					this.laoding = true
-					await this.actionDirections(data)
+					await this.actionDirectionUsers(data)
 					this.laoding = false
 				}
 			},
@@ -326,7 +326,7 @@
                     let page  = 1
                     this.laoding = true
                     localStorage.setItem("dir_f",  JSON.stringify(this.filter))
-                    await this.actionDirections({page: page,items:this.filter})
+                    await this.actionDirectionUsers({page: page,items:this.filter})
                     this.laoding = false
 				// }
 
@@ -336,7 +336,7 @@
 					let page = 1
 					this.laoding = true
 					await this.actionDeleteDirection(id)
-					await this.actionDirections({page: page,items:this.filter})
+					await this.actionDirectionUsers({page: page,items:this.filter})
 					this.laoding = false
 					toast.fire({
 				    	type: 'success',

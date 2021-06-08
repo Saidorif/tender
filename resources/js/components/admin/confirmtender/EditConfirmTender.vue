@@ -466,29 +466,29 @@ export default {
 		// 	}
 		// }
     },
-		    getLengthReys(reys, elem){
-                let count = 0;
-                if(reys.reys_status){
-                    reys.reysesFrom.forEach((item,index)=>{
-                        if(elem.reys_id.includes(item.id)){
-                            count++
-                        }
-		    		})
-		    		reys.reysesTo.forEach((item,index)=>{
-                        if(elem.reys_id.includes(item.id)){
-                            count++
-                        }
-		    		})
-                }else{
-		    		reys.reysesFrom.forEach((item,index)=>{
-		    				count++
-		    		})
-		    		reys.reysesTo.forEach((item,index)=>{
-		    				count++
-		    		})
+    getLengthReys(reys, elem){
+        let count = 0;
+        if(reys.reys_status){
+            reys.reysesFrom.forEach((item,index)=>{
+                if(elem.reys_id.includes(item.id)){
+                    count++
                 }
-		    	return count;
-		    },
+    		})
+    		reys.reysesTo.forEach((item,index)=>{
+                if(elem.reys_id.includes(item.id)){
+                    count++
+                }
+    		})
+        }else{
+    		reys.reysesFrom.forEach((item,index)=>{
+    				count++
+    		})
+    		reys.reysesTo.forEach((item,index)=>{
+    				count++
+    		})
+        }
+    	return count;
+    },
     isRequired(input) {
       return this.requiredInput && input === "";
     },

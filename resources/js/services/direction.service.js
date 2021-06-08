@@ -7,6 +7,9 @@ const DirectService = {
 	directs(data){
 		return ApiService.post(`/api/direction?page=${data.page}`,data.items)
 	},
+	directUsers(data){
+		return ApiService.post(`/api/direction-user?page=${data.page}`,data.items)
+	},
 	addDirection(data){
 		return ApiService.post(`/api/direction/store`,data)
 	},
