@@ -1551,10 +1551,6 @@ class DirectionController extends Controller
 
     public function dirReq(Request $request)
     {
-//        $result = DirectionReq::with(['type'])
-//            ->where(['status' => 'pending'])
-//            ->orWhere(['status' => 'completed'])
-//            ->paginate(12);
         $params = $request->all();
         $user = $request->user();
         $builder = DirectionReq::query()->select('directions.created_by','direction_reqs.*')->with([
@@ -1565,6 +1561,15 @@ class DirectionController extends Controller
         if($user->role->name != 'admin'){
             $user_ids = User::whereNotIn('role_id',[1,9])->where('region_id','=',$user->region_id)->get()->pluck('id')->toArray();
             $builder->whereIn('directions.created_by',$user_ids);
+        }
+        if(!empty($params['pass_number'])){
+            $builder->where('directions.pass_number','LIKE', '%'.$params['pass_number'].'%');
+        }
+        if(!empty($params['name'])){
+            $builder->where('directions.name','LIKE', '%'.$params['name'].'%');
+        }
+        if(!empty($params['status'])){
+            $builder->where(['status' => $params['status']]);
         }
         $result = $builder->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
