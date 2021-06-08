@@ -2,6 +2,7 @@ import {DirectService} from "../services/direction.service";
 
 const state = {
 	directions: {},
+	directionusers: {},
 	message: [],
 	direction: [],
 	directionFindList: [],
@@ -11,6 +12,9 @@ const state = {
 const getters = {
 	getDirections(state){
 		return state.directions
+	},
+	getDirectionUsers(state){
+		return state.directionusers
 	},
 	getMassage(state){
 		return state.message
@@ -64,6 +68,15 @@ const actions = {
 			return false
 		}
 	},
+	async actionDirectionUsers({commit},payload){
+		try {
+			const directions =  await DirectService.directUsers(payload);
+			await commit('setDirectionUsers',directions.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionAddDirection({commit},payload){
 		try {
 			const directions =  await DirectService.addDirection(payload);
@@ -108,6 +121,9 @@ const mutations = {
 	},
 	setDirections(state, directions){
 		state.directions = directions
+	},
+	setDirectionUsers(state, directionusers){
+		state.directionusers = directionusers
 	},
 	setMessage(state, message){
 		state.message = message
