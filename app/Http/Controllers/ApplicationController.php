@@ -171,6 +171,10 @@ class ApplicationController extends Controller
         $lot = $application->lots;
         $requirement_cars_count = 0;
         $the_direction = Direction::find($inputs['direction_id']);
+        if(!$the_direction){
+            return response()->json(['error' => true, 'message' => 'Направления не найден']);
+        }
+        $requirement_cars_count = $dir_reqs->auto_trans_count;
         if($the_direction->reys_status == 'all'){
             $requirement_cars_count = $dir_reqs->auto_trans_count;
         }
