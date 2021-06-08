@@ -79,6 +79,15 @@ class DirectionController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function userIndex(Request $request)
+    {
+        $user = $request->user();
+        $inputs = $request->all();
+        $builder = Direction::query();
+        $result = $builder->with(['regionTo','regionFrom','areaFrom','areaTo','createdBy'])->orderByDesc('id')->paginate(20);
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function getDirections(Request $request)
     {
         $inputs = $request->all();
