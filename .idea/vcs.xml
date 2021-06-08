@@ -4,6 +4,7 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../daz.loc" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../mhr.loc" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../pcms.loc" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../quiz.loc" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../tm.loc" vcs="Git" />
   </component>

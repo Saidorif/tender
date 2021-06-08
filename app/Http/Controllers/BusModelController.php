@@ -12,7 +12,21 @@ class BusModelController extends Controller
 {
     public function index(Request $request)
     {
-        $result = BusModel::with(['bustype','marka','tclass'])->paginate(12);
+        $params = $request->all();
+        $builder = BusModel::query()->with(['bustype','marka','tclass']);
+        if(!empty($params['model_id'])){
+            $builder->where(['id' => $params['model_id']]);
+        }
+        if(!empty($params['busmarka_id'])){
+            $builder->where(['busmarka_id' => $params['busmarka_id']]);
+        }
+        if(!empty($params['bustype_id'])){
+            $builder->where(['bustype_id' => $params['bustype_id']]);
+        }
+        if(!empty($params['tclass_id'])){
+            $builder->where(['tclass_id' => $params['tclass_id']]);
+        }
+        $result = $builder->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 

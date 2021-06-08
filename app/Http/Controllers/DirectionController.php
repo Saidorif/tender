@@ -1000,7 +1000,7 @@ class DirectionController extends Controller
             }
         }
         if($request->input('generate') == 0 && $direction->requirement){
-            return response()->json(['success' => true, 'result' => $direction->requirement]);
+            return response()->json(['success' => true, 'result' => $direction->requirement,'type' => $direction->type]);
         }
         if(count($direction->cars) < 1){
             return response()->json(['error' => true,'message' => 'Пожалуйста, добавьте автомобили в список титулов']);
