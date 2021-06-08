@@ -200,14 +200,14 @@
               </li>
             </ul>
           </li>
-             <li class="nav-item">
-                <router-link class="nav-link" to="/crm/completed-tenders-user">
-                  <p>
-                    Завершенные тендеры
-                     <small style="padding:2px 6px;background: #74b303;border-radius:3px;">user</small>
-                  </p>
-                </router-link>
-              </li>
+          <li class="nav-item" v-if="$can('completedTenders', 'TenderController')">
+            <router-link class="nav-link" to="/crm/completed-tenders-user">
+              <p>
+                Завершенные тендеры
+                 <small style="padding:2px 6px;background: #74b303;border-radius:3px;">user</small>
+              </p>
+            </router-link>
+          </li>
           <li class="nav-item" v-if="$can('index', 'PositionController')">
             <router-link class="nav-link" to="/crm/position">
               <i class="peIcon pe-7s-graph1"></i>
@@ -257,7 +257,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/crm/setting">
+            <router-link class="nav-link" to="/crm/setting"  v-if="$can('index', 'SettingController')">
               <i class="peIcon fas fa-cog"></i>
               <p>
                 Настройка системы
@@ -306,7 +306,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treevie">
+          <li class="nav-item has-treevie" v-if="$can('index', 'AllSettingController')">
             <a href="#" class="nav-link">
               <i class="peIcon fas fa-cogs" style="font-size: 20px;"></i>
               <p>
