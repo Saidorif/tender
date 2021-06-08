@@ -62,8 +62,8 @@ class TenderLot extends Model
             $reys_ids_from = $reysesFrom->pluck('id')->toArray();
             $reys_ids_to = $reysesTo->pluck('id')->toArray();
             //Compare selected reys_id property with reys_ids array (if in array has selected reyses)
-            $reyses_arr_from = is_array($this->reys_id) ? array_intersect($this->reys_id,$reys_ids_from) : $reys_ids_from;
-            $reyses_arr_to = is_array($this->reys_id) ? array_intersect($this->reys_id,$reys_ids_to) : $reys_ids_to;
+            $reyses_arr_from = array_intersect($this->reys_id,$reys_ids_from);
+            $reyses_arr_to = array_intersect($this->reys_id,$reys_ids_to);
             //if reys ids selected set status true else false
             $value->reys_status = [
                 'from' => count($reyses_arr_from) ? true : false,
