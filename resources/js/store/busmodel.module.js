@@ -55,9 +55,9 @@ const actions = {
 			return false
 		}
 	},
-	async actionBusmodels({commit},page){
+	async actionBusmodels({commit},payload){
 		try {
-			const types =  await BusModelService.busmodels(page);
+			const types =  await BusModelService.busmodels(payload);
 			await commit('setBusmodels',types.data.result)
 			return true
 		} catch (error) {

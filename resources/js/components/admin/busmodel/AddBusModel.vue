@@ -71,7 +71,7 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <label for="busmodel_id">Модель автобуса</label>
+              <label for="name">Модель автобуса</label>
               <input
                 type="text"
                 class="form-control input_style"

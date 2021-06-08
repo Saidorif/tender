@@ -4,8 +4,8 @@ const BusModelService = {
 	busmodelList(){
 		return ApiService.get(`/api/busmodel/list`)
 	},
-	busmodels(page){
-		return ApiService.post(`/api/busmodel?page=${page}`)
+	busmodels(data){
+		return ApiService.post(`/api/busmodel?page=${data.page}`,data.items)
 	},
 	busmodelfind(data){
 		return ApiService.post(`/api/busmodel/find`, data)
