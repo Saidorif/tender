@@ -1569,7 +1569,7 @@ class DirectionController extends Controller
             $builder->where('directions.name','LIKE', '%'.$params['name'].'%');
         }
         if(!empty($params['status'])){
-            $builder->where(['status' => $params['status']]);
+            $builder->where(['direction_reqs.status' => $params['status']]);
         }
         $result = $builder->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
