@@ -703,6 +703,10 @@ const router = new Router({
 				{
 					path:'direction-user',
 					component:UserDirection,
+					meta:{
+						action:'userIndex',
+						subject:'DirectionController'
+					}
 				},
 				{
 					path:'direction',

@@ -77,7 +77,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item" v-if="$can('index', 'DirectionController')">
+          <li class="nav-item" v-if="$can('userIndex', 'DirectionController')">
             <router-link class="nav-link" to="/crm/direction-user">
               <i class="peIcon fas fa-route"></i>
               <p>

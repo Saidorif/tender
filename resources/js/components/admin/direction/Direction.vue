@@ -157,18 +157,18 @@
 							<th scope="col">Год создания</th>
 							<th scope="col">Действия</th>
 						</tr> -->
-                        <tr>
-                            <th scope="col">№</th>
-                            <th>Регион</th>
-                            <th>Номер и наименования маршрута</th>
-                            <th>Наименования организации </th>
-                            <th>Срок действитвия контракта </th>
-                            <th>Статус</th>
-                            <th>Йўналиши тури</th>
-                            <th>Дата открытия</th>
-                            <th>Потверждения</th>
-                            <th scope="col">Действия</th>
-                        </tr>
+          <tr>
+              <th scope="col">№</th>
+              <th>Регион</th>
+              <th>Номер и наименования маршрута</th>
+              <th>Наименования организации </th>
+              <th>Срок действитвия контракта </th>
+              <th>Статус</th>
+              <th>Йўналиши тури</th>
+              <th>Дата открытия</th>
+              <th>Потверждения</th>
+              <th scope="col">Действия</th>
+          </tr>
 					</thead>
 					<tbody>
 						<tr v-for="(direct,index) in getDirections.data">
@@ -180,15 +180,16 @@
 							</td>
 							<td><b>{{direct.pass_number}}</b> - {{direct.name}}</td>
 							<td>
-                                <a href="#" @click.prevent="openModal(direct)">
-                                  <b></b>
-                                </a>
-                            </td>
+                <a href="#" @click.prevent="openModal(direct)">
+                  <b></b>
+                </a>
+              </td>
 							<td></td>
 							<td>
-                                <span class="alert alert-danger pt-1 pb-1" v-if="direct.status == 'active'"> Неразмещен в тендер</span>
-                                <span class="alert alert-success pt-1 pb-1" v-if="direct.status == 'busy'"> Размещен в тендер</span>
-                            </td>
+                <span class="alert pt-1 pb-1" :class="getStatusClass(direct)"> 
+                	{{getStatusname(direct)}}
+                </span>
+              </td>
 							<td>{{direct.dir_type == 'taxi' ? 'Йўналишли тахи йуналиши' : 'Автобус йуналиши'}}</td>
 							<td>{{direct.year}}</td>
 							<td>{{ checkApprove(direct) }}</td>
@@ -355,10 +356,24 @@
 			toggleFilter(){
 				this.filterShow = !this.filterShow
 			},
-            openModal(item){
-                $('#userModal').modal('show')
-                this.userItem = item
-            },
+			getStatusname(item){
+				if(item.status == 'active'){
+					return 'Неразмещен в тендер'
+				}else if(item.status == 'busy'){
+					return 'Размещен в тендер'
+				}	
+			},
+			getStatusClass(item){
+				if(item.status == 'active'){
+					return 'alert-danger'
+				}else if(item.status == 'busy'){
+					return 'alert-success'
+				}
+			},
+      openModal(item){
+          $('#userModal').modal('show')
+          this.userItem = item
+      },
 			async search(){
 				let page = 1
 				if(this.filter.name != '' || this.filter.pass_number != '' || this.filter.region_id != '' || this.filter.dir_type != '' || this.filter.type_id != '' || this.filter.year != '' || this.filter.profitability != '' || this.filter.bustype_id != ''){
