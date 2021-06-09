@@ -28,8 +28,15 @@ class ApplicationController extends Controller
     public function userIndex(Request $request)
     {
         $user = $request->user();
-        $tenders = Application::where(['user_id' => $user->id])->paginate(12);
+        $tenders = Application::where(['user_id' => $user->id])->with(['user','carsWith','lots','attachment'])->paginate(12);
         return response()->json(['success' => true, 'result' => $tenders]);
+    }
+
+    public function userShow(Request $request,$id)
+    {
+        $user = $request->user();
+        $application = Application::where(['user_id' => $user->id,'id' => $id])->with(['user','carsWith','lots','attachment'])->first();
+        return response()->json(['success' => true, 'result' => $application]);
     }
 
     public function show(Request $request,$id)

@@ -146,6 +146,7 @@ Route::group([
             Route::get('application/list', 'ApplicationController@list');
             Route::get('application/edit/{id}', 'ApplicationController@edit');
             Route::get('application/show/{id}', 'ApplicationController@show');
+            Route::get('application/user/show/{id}', 'ApplicationController@userShow');
             Route::post('application/update/{id}', 'ApplicationController@update');
             Route::get('application/activate/{id}', 'ApplicationController@activate');
             Route::post('application/addition-status', 'ApplicationController@setAdditionStatus');
