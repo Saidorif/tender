@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tender;
 use Illuminate\Http\Request;
 use App\Direction;
 use App\TimingDetails;
@@ -526,6 +527,13 @@ class DirectionController extends Controller
         }
         $inputs = $request->all();
         $user = $request->user();
+        //Check for in use in tenders
+        $tender = Tender::whereJsonContains('direction_ids',[$direction->id])->first();
+        if($tender){
+            if($tender->time > date('Y-m-d H:m:s') || $tender->status == 'pending' || $tender->status == 'completed'){
+                return response()->json(['error' => true,'message' => 'Направление уже используется']);
+            }
+        }
         //Check for pass number is unique in the region
         $users_in_region = User::where(['region_id' => $user->region_id,'role_id' => $user->role_id])->pluck('id')->toArray();
         $dir_with_pass_number = Direction::where(['pass_number' => $inputs['pass_number']])->where('id','!=',$direction->id)->whereIn('created_by',$users_in_region)->first();
@@ -868,6 +876,13 @@ class DirectionController extends Controller
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
+        //Check for in use in tenders
+        $tender = Tender::whereJsonContains('direction_ids',[$direction->id])->first();
+        if($tender){
+            if($tender->time > date('Y-m-d H:m:s') || $tender->status == 'pending' || $tender->status == 'completed'){
+                return response()->json(['error' => true,'message' => 'Направление уже используется']);
+            }
+        }
         $schedules = $direction->schedule;
         foreach ($schedules as $key => $value) {
             $value->status = 'inactive';
@@ -995,6 +1010,13 @@ class DirectionController extends Controller
         $direction = Direction::find($id);
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
+        }
+        //Check for in use in tenders
+        $tender = Tender::whereJsonContains('direction_ids',[$direction->id])->first();
+        if($tender){
+            if($tender->time > date('Y-m-d H:m:s') || $tender->status == 'pending' || $tender->status == 'completed'){
+                return response()->json(['error' => true,'message' => 'Направление уже используется']);
+            }
         }
         $tender_lot = TenderLot::whereJsonContains('direction_id', [$direction->id])->first();
         //if generate true recalculate requirement
@@ -1142,10 +1164,12 @@ class DirectionController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
-        //Check if direction added to lot
-        $tender_lot = TenderLot::whereJsonContains('direction_id',[$direction->id])->first();
-        if($tender_lot){
-            return response()->json(['error' => true, 'message' => 'Направление уже используется']);
+        //Check for in use in tenders
+        $tender = Tender::whereJsonContains('direction_ids',[$direction->id])->first();
+        if($tender){
+            if($tender->time > date('Y-m-d H:m:s') || $tender->status == 'pending' || $tender->status == 'completed'){
+                return response()->json(['error' => true,'message' => 'Направление уже используется']);
+            }
         }
 
         $inputs = $request->all();

@@ -20,6 +20,9 @@ class IntegrationController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'app_id' => 'required|integer',
+            'pTexpassportSery' => 'required|string',
+            'pTexpassportNumber' => 'required|string',
+            'date' => 'required|date_format:"Y"',
             'cars' => 'required|array',
             'cars.pDateNatarius' => 'required|date',
             'cars.pNumberNatarius' => 'required|string',
@@ -36,7 +39,7 @@ class IntegrationController extends Controller
         $inputs['cars']['pDateNatarius'] = Carbon::parse($inputs['cars']['pDateNatarius'])->format('d.m.Y');
         $inputs['cars']['pAutoNumber'] = $inputs['cars']['auto_number'];
         $body = [];
-        $body['pINN'] = $user->inn;
+        $body['pINN'] = '308065134';//$user->inn;
         // !empty($inputs['pPinfl']) ? $body['pPinfl'] = $inputs['pPinfl'] : $body['pPinfl'] = '';
         $body['pType'] = $inputs['pType'];
         $body['pID'] = $inputs['pID'];
@@ -65,6 +68,21 @@ class IntegrationController extends Controller
                 if($the_old_adliya_car){
                     return response()->json(['success' => true, 'result' => $the_old_adliya_car]);
                 }else{
+                    //GAI check made year
+                    $post = [
+                        'app_id' => $inputs['app_id'],
+                        'pTexpassportSery' => $inputs['pTexpassportSery'],
+                        'pTexpassportNumber' => $inputs['pTexpassportNumber'],
+                        'auto_number' => $inputs['cars']['auto_number'],
+                        'date' => $inputs['date'],
+                    ];
+                    $gai_data = $this->getAutoInfoFromGai($post);
+                    if($gai_data){
+                        //Check for made year
+                        if($gai_data['pYear'] != $inputs['date']){
+                            return response()->json(['error' => true, 'message' => 'Год выпуска автомобиля не совпадает']);
+                        }
+                    }
                     $adliya_car = AdliyaCar::create([
                         "user_id" => $user->id,
                         "app_id" => $inputs['app_id'],
@@ -355,5 +373,62 @@ class IntegrationController extends Controller
             return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
         }
         return response()->json(['error' => true, 'message' => 'Что-то пошло не так. Пожалуйста, повторите попытку позже']);
+    }
+
+    public function getAutoInfoFromGai($inputs = [])
+    {
+        $inputs['pRequestID'] = Str::uuid();
+        $inputs['pPlateNumber'] = $inputs['auto_number'];
+        $inputs = array_map('strtoupper', $inputs);
+        $client = new \GuzzleHttp\Client();
+        $query = '<x:Envelope
+            xmlns:x="http://schemas.xmlsoap.org/soap/envelope/"
+            xmlns:get="urn:megaware:/mediate/ips/MOI/GetVehicleinfoVLPrefillMIP/GetVehicleinfoVLPrefillMIP.wsdl">
+            <x:Header/>
+            <x:Body>
+                <get:VLPrefillMIP>
+                    <get:pRequestID>'.$inputs['pRequestID'].'</get:pRequestID>
+                    <get:pTexpassportSery>'.$inputs['pTexpassportSery'].'</get:pTexpassportSery>
+                    <get:pTexpassportNumber>'.$inputs['pTexpassportNumber'].'</get:pTexpassportNumber>
+                    <get:pPlateNumber>'.$inputs['pPlateNumber'].'</get:pPlateNumber>
+                    <get:pVinNumber></get:pVinNumber>
+                    <get:applicantPinpp></get:applicantPinpp>
+                    <get:pStir></get:pStir>
+                </get:VLPrefillMIP>
+            </x:Body>
+        </x:Envelope>';
+        try {
+            $response = $client->post('https://ips.gov.uz/mediate/ips/MOI/GetVehicleinfoVLPrefillMIP?wsdl', [
+                'headers' => ['Content-Type' => 'text/xml', 'charset' => 'utf-8','SOAPAction' => '/mediate/ips/MOI/GetVehicleinfoVLPrefillMIP'],
+                'body' => $query
+            ]);
+            $data_resp = $response->getBody()->getContents();
+            $response = preg_replace("/(<\/?)(\w+):([^>]*>)/", "$1$2$3", $data_resp);
+            $xml = new SimpleXMLElement($response);
+            $body = $xml->xpath('//envBody')[0];
+            $result = json_decode(json_encode((array)$body), TRUE);
+            if(!empty($result['n1VLPrefillMIPResponse'])){
+                if(!empty($result['n1VLPrefillMIPResponse']['VLPrefillMIPResult'])){
+                    $resp_code = (int)$result['n1VLPrefillMIPResponse']['VLPrefillMIPResult']['pResult'];
+                    if($resp_code){
+                        $the_result = $result['n1VLPrefillMIPResponse']['VLPrefillMIPResult']['vehicleInfoResult']['anyType'];
+                        $inn = $result['n1VLPrefillMIPResponse']['VLPrefillMIPResult']['pOwnerInn'];
+                        return $the_result;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }catch (\Throwable $th) {
+            return false;
+        }
+        return false;
     }
 }
