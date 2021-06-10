@@ -1011,13 +1011,6 @@ class DirectionController extends Controller
         if(!$direction){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }
-        //Check for in use in tenders
-        $tender = Tender::whereJsonContains('direction_ids',[$direction->id])->first();
-        if($tender){
-            if($tender->time > date('Y-m-d H:m:s') || $tender->status == 'pending' || $tender->status == 'completed'){
-                return response()->json(['error' => true,'message' => 'Направление уже используется']);
-            }
-        }
         $tender_lot = TenderLot::whereJsonContains('direction_id', [$direction->id])->first();
         //if generate true recalculate requirement
         if($request->input('generate') == 1){
@@ -1026,6 +1019,13 @@ class DirectionController extends Controller
                 $tender_lot = TenderLot::whereJsonContains('direction_id',[$direction->id])->first();
                 if($tender_lot){
                     return response()->json(['error' => true, 'message' => 'Направление уже используется','result' => $direction->requirement]);
+                }
+                //Check for in use in tenders
+                $tender = Tender::whereJsonContains('direction_ids',[$direction->id])->first();
+                if($tender){
+                    if($tender->time > date('Y-m-d H:m:s') || $tender->status == 'pending' || $tender->status == 'completed'){
+                        return response()->json(['error' => true,'message' => 'Направление уже используется']);
+                    }
                 }
                 $direction->requirement->delete();
             }
