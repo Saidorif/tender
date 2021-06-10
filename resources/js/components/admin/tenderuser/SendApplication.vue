@@ -495,7 +495,7 @@
 					    	placeholder="Номер Авто"
 					    	v-model="car.bustype_id"
 					    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''"
-                            @change="selectClass(car.bustype_id)"
+                            @change="selectBustype(car.bustype_id)"
 					    >
 					    	<option value="" selected disabled>Выберите категорию авто!</option>
 					    	<option
@@ -514,6 +514,7 @@
 					    	placeholder="Номер Авто"
 					    	v-model="car.tclass_id"
 					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
+					    	@change="selectClass(car.tclass_id)"
 					    >
 					    	<option value="" selected disabled>Выберите класс авто!</option>
 					    	<option :value="busClass.id" v-for="(busClass,index) in getBusclassFindList">{{busClass.name}}</option>
@@ -1323,7 +1324,7 @@
 		        },1000)
 		      }
 		    },
-		    async selectClass(bustype_id){
+		    async selectBustype(bustype_id){
 		    	this.car.tclass_id = ''
 		    	this.car.busmarka_id = ''
 		    	this.car.busmodel_id = ''
@@ -1336,6 +1337,10 @@
                     this.laoding = false
 			    	// this.tclasses = this.getBusclassFindList
 		    	}
+		    },
+		    async selectClass(tclass_id){
+		    	this.car.busmarka_id = ''
+		    	this.car.busmodel_id = ''
 		    },
 		    async selectFindClass(bustype_id){
                 this.car.tclass_id = ''
