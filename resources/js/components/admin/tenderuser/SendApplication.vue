@@ -762,6 +762,28 @@
 				                  :class="isRequired(car.pDateNatarius) ? 'isRequired' : ''"
 				                ></date-picker>
 						  	</div>
+						  	<div class="form-group col-md-6">
+							    <label for="pTexpassportSery">Серия техпаспорта</label>
+							    <input
+							    	type="text"
+							    	class="form-control input_style"
+							    	id="pTexpassportSery"
+							    	placeholder="Серия техпаспорта"
+							    	v-model="car.pTexpassportSery"
+							    	:class="isRequired(car.pTexpassportSery) ? 'isRequired' : ''"
+						    	>
+						  	</div> 
+				    		<div class="form-group col-md-6">
+							    <label for="pTexpassportNumber">Номер техпаспорта</label>
+							    <input
+							    	type="number"
+							    	class="form-control input_style"
+							    	id="pTexpassportNumber"
+							    	placeholder="Номер техпаспорта"
+							    	v-model="car.pTexpassportNumber"
+							    	:class="isRequired(car.pTexpassportNumber) ? 'isRequired' : ''"
+						    	>
+						  	</div>
 				    	</div>
 				    </div>
 		        </div>
@@ -999,8 +1021,8 @@
 						this.car.pNumberNatarius=''
 						this.car.pDateNatarius=''
 					}else if(this.car.owner_type == 'rent'){
-						this.car.pTexpassportSery=''
-						this.car.pTexpassportNumber=''
+						// this.car.pTexpassportSery=''
+						// this.car.pTexpassportNumber=''
 					}
 				},deep:true
 			},
@@ -1356,11 +1378,14 @@
                         await this.actionGaiVehicle(this.car)
                         this.laoding = false
 		    		}else if(this.car.owner_type == 'rent'){
-		    			if (this.car.pDateNatarius != '' && this.car.pNumberNatarius != '') {
+		    			if (this.car.pDateNatarius != '' && this.car.pNumberNatarius != '' && this.car.pTexpassportSery != '' && this.car.pTexpassportNumber != '') {
 			    			let car = {
 			    				'pDateNatarius':this.car.pDateNatarius,
 			    				'pNumberNatarius':this.car.pNumberNatarius,
 			    				'auto_number':this.car.auto_number,
+			    				'pTexpassportSery':this.car.pTexpassportSery,
+			    				'pTexpassportNumber':this.car.pTexpassportNumber,
+			    				'date':this.car.date,
 			    			}
 			    			let data = {
 			    				'cars':car,
