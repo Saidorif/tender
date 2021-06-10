@@ -271,7 +271,7 @@ class ApplicationController extends Controller
     public function edit(Request $request, $id)
     {
         $application = Application::with(['user','carsWith','tender','attachment','lots'])->find($id);
-        if($application->tender->time > date('Y-m-d H:m:s')){
+        if($application->tender->time > date('Y-m-d H:m:s') && $application->status == 'accepted'){
             return response()->json(['error' => true, 'message' => 'Tender is not complete yet']);
         }
         if(!$application){
