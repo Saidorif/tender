@@ -22,7 +22,7 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Адрес</th>
+							<th scope="col">Направления</th>
 							<th scope="col">Статус</th>
 							<th scope="col">Дата</th>
 							<th scope="col">Действия</th>
@@ -31,18 +31,24 @@
 					<tbody>
 						<tr v-for="(reg,index) in getUserApps.data">
 							<td scope="row">{{reg.id}}</td>
-							<td scope="row">{{reg.address}}</td>
+							<td scope="row">
+								<ul v-if="reg.lots" class="list-inline">
+									<template v-if="reg.lots.direction_id">
+										<li v-for="(direct,index) in reg.lots.direction_id">{{direct.name}}</li>
+									</template>
+								</ul>
+							</td>
 							<td scope="row">
 								<div class="badge " :class="getStatusClass(reg.status)">
 									{{getStatusName(reg.status)}}
 								</div>
 							</td>
-							<td scope="row">{{reg.time}}</td>
+							<td scope="row">{{reg.lots ? reg.lots.time : ''}}</td>
 							<td>
 								<router-link
 									tag="button"
 									class="btn_transparent"
-									:to='`/crm/application/${reg.id}`'
+									:to='`/crm/user/application/${reg.id}`'
 									v-if="$can('index', 'ApplicationController')"
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>

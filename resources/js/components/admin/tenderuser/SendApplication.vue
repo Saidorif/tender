@@ -560,7 +560,9 @@
 		                  valueType="format"
 		                  class="input_style"
 		                  :class="isRequired(car.date) ? 'isRequired' : ''"
+                          :disabled="car.bustype_id ==''"
                           :disabled-date="notBeforeYear"
+                          @input="checkDate(car.date)"
 		                ></date-picker>
 				  	</div>
 				  	<div class="form-group col-md-3">
@@ -1130,8 +1132,20 @@
 		    		return 'edit-pending'
 		    	}
             },
+            checkDate(date){
+            	let currentYear = new Date().getFullYear()
+            	if(date >= 1971 && date <= currentYear){
+            		this.notBeforeYear(date)
+            	}else{
+            		this.car.date = ''
+            	}
+            },
             notBeforeYear(date){
-                let beforeYear = new Date(new Date().getFullYear() - 14, 0, 1)
+            	let numberYear = 14;
+            	if(this.car.bustype_id != 3){
+            		numberYear = 50;
+            	}
+                let beforeYear = new Date(new Date().getFullYear() - numberYear, 0, 1)
                 return  date > new Date() || date < beforeYear
             },
             calcTimeContract(){
