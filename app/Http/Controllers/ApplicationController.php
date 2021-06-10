@@ -328,6 +328,22 @@ class ApplicationController extends Controller
         if($requirement_cars_count > $application->cars->count()){
             return response()->json(['error' => true, 'message' => 'Пожалуйста, добавьте ещё '.($requirement_cars_count - $application->cars->count()).' машин']);
         }
+        //Qoshimcha qulayliklar belgilanmagan bolsa statuslarni rad etish (0) ga ozgartirib chiqish
+        if(!$application->daily_technical_job){
+            $application->daily_technical_job_status = 0;
+        }
+        if(!$application->daily_medical_job){
+            $application->daily_medical_job_status = 0;
+        }
+        if(!$application->hours_rule){
+            $application->hours_rule_status = 0;
+        }
+        if(!$application->videoregistrator){
+            $application->videoregistrator_status = 0;
+        }
+        if(!$application->gps){
+            $application->gps_status = 0;
+        }
         $text = $application->user->company_name."\n";
         $text .= "ДАТА: ".$application->tender->time."\n";
         $the_file = time().'_'.$application->id;
