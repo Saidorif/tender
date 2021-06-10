@@ -216,6 +216,12 @@ class ApplicationController extends Controller
                 return response()->json(['error' => true, 'message' => 'Владелец автомобиля не соответствует']);
             }
         }
+        //Check for made year for category (M1,M2,M3)
+        $the_year = date('Y') - $inputs['date'];
+        if($inputs['bustype_id'] == 3 && $the_year > 14){
+            return response()->json(['error' => true, 'message' => 'Год выпуска автомобиля не должно быть больше от '.$the_year]);
+        }
+
         $result = UserCar::create($inputs);
         return response()->json([
             'success' => true,
