@@ -21,6 +21,7 @@ import Application from './components/admin/application/Application'
 import AddApplication from './components/admin/application/AddApplication'
 import EditApplication from './components/admin/application/EditApplication'
 import UserApplication from './components/admin/application/UserApplication'
+import EditUserApplication from './components/admin/application/EditUserApplication'
 
 // Employee
 import Employee from './components/admin/employee/Employee'
@@ -306,6 +307,14 @@ const router = new Router({
 						action:'userIndex',
 						subject:'ApplicationController'
 					}
+				},
+				{
+					path:'user/application/:userapplicationId',
+					component:EditUserApplication,
+					// meta:{
+					// 	action:'userShow',
+					// 	subject:'ApplicationController'
+					// }
 				},
 				{
 					path:'application/:tenderAppId',
