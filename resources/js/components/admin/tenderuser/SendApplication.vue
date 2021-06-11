@@ -1298,12 +1298,11 @@
 					return false
 				}
 		    },
-
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
 		    openModal(dir){
-		    	$('#myModal').modal('show')
+		    	$('#myModal').modal('show');
 		    	this.defaultValuesOfCar(dir)
 		    },
 		    removeDirectionFromList(data){
@@ -1328,7 +1327,7 @@
 		    	this.car.tclass_id = ''
 		    	this.car.busmarka_id = ''
 		    	this.car.busmodel_id = ''
-		    	if (bustype_id) {
+		    	if(bustype_id){
 		    		let data = {
 		    			'bustype_id':bustype_id,
                     }
@@ -1353,15 +1352,15 @@
 		    	this.car.busmarka_id = ''
 		    	this.car.busmodel_id = ''
 		    	this.bus_marks = this.tclasses.filter((item,index)=>{
-		    		if (item.id == tclass_id) {
-		    			return item
+		    		if(item.id == tclass_id){
+		    			return item;
 		    		}
 		    	})
 		    },
 		    async selectModel(marka_id){
 		    	this.car.busmodel_id = ''
 		    	this.bus_models = this.bus_marks.filter((item,index)=>{
-		    		if (item.marka.id == marka_id) {
+		    		if (item.marka.id == marka_id){
 		    			return item
 		    		}
 		    	})
