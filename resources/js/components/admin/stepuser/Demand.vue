@@ -33,19 +33,15 @@
                 <td width="50%"><b>Автотранспорт воситаси моделининг класси</b></td>
                 <td>
                   <div v-for="(item,index) in form.auto_model_class">
-                      <!-- {{ item.model ? item.model.name : '' }} -->
-                      {{ item.tclass ? item.tclass.name : '' }}
+                    <!-- {{ item.model ? item.model.name : '' }} -->
+                    {{ item.tclass ? item.tclass.name : '' }}
                   </div>
                 </td>
               </tr>
               <tr>
                 <td>3</td>
                 <td width="50%"><b>Йуналишнинг тури</b></td>
-                <td>
-                  <template v-if="form.dir_type">
-                      {{form.dir_type == 'bus' ? 'Автобус йуналиши' : "Йўналиши тахи йуналиши"}}
-                  </template>
-                </td>
+                <td>{{type.name}}</td>
               </tr>
               <tr>
                 <td rowspan="3">4</td>
@@ -256,6 +252,7 @@ export default {
   data(){
     return{
       form:{},
+      type:{},
       laoding: true
     };
   },
@@ -267,15 +264,16 @@ export default {
     }
     await this.actionDemand(data);
     this.laoding = false
-        if(this.getDemand.success){
-            this.form = this.getDemand.result
-        }else{
-            toast.fire({
-                type: 'error',
-                icon: 'error',
-                title: this.getDemand.message,
-            })
-        }
+    if(this.getDemand.success){
+        this.form = this.getDemand.result
+        this.type = this.getDemand.type
+    }else{
+        toast.fire({
+            type: 'error',
+            icon: 'error',
+            title: this.getDemand.message,
+        })
+    }
     },
   computed: {
     ...mapGetters("direction", ["getDirection"]),
