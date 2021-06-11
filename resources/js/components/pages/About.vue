@@ -4,24 +4,9 @@
     <Header/>
     <div class="container about_block">
       <div class="col-md-12">
-        <h2 class="title" align="center" v-html="$t('about_tender.title')">
-
-        </h2>
-        <p class="sub_title">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos doloribus esse facere id adipisci quae recusandae, quibusdam officia vitae praesentium ipsum neque iusto sint, dolorum magnam natus vel illum architecto!
-        </p>
-        <p class="sub_title">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae dolore autem error, consequatur saepe a eius officia sed minus debitis ratione illum cum? Esse nostrum nihil totam natus. Natus et debitis at impedit fugiat labore consequuntur saepe quibusdam officiis tenetur, hic, ab ipsa adipisci quisquam porro atque! Odit nam, odio saepe adipisci cupiditate provident quod ipsam aperiam et totam alias voluptas ducimus impedit, amet eos. Earum maxime ipsum, sunt vitae veritatis minima ipsa cumque consequatur, eos harum molestias mollitia iure voluptates, voluptatibus at architecto unde temporibus magnam animi ullam. Consequuntur sapiente nisi velit eligendi, tempora beatae et facere laborum eaque!
-        </p>
-        <p class="sub_title">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae dolore autem error, consequatur saepe a eius officia sed minus debitis ratione illum cum? Esse nostrum nihil totam natus. Natus et debitis at impedit fugiat labore consequuntur saepe quibusdam officiis tenetur, hic, ab ipsa adipisci quisquam porro atque! Odit nam, odio saepe adipisci cupiditate provident quod ipsam aperiam et totam alias voluptas ducimus impedit, amet eos. Earum maxime ipsum, sunt vitae veritatis minima ipsa cumque consequatur, eos harum molestias mollitia iure voluptates, voluptatibus at architecto unde temporibus magnam animi ullam. Consequuntur sapiente nisi velit eligendi, tempora beatae et facere laborum eaque!
-        </p>
-        <p class="sub_title">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae dolore autem error, consequatur saepe a eius officia sed minus debitis ratione illum cum? Esse nostrum nihil totam natus. Natus et debitis at impedit fugiat labore consequuntur saepe quibusdam officiis tenetur, hic, ab ipsa adipisci quisquam porro atque! Odit nam, odio saepe adipisci cupiditate provident quod ipsam aperiam et totam alias voluptas ducimus impedit, amet eos. Earum maxime ipsum, sunt vitae veritatis minima ipsa cumque consequatur, eos harum molestias mollitia iure voluptates, voluptatibus at architecto unde temporibus magnam animi ullam. Consequuntur sapiente nisi velit eligendi, tempora beatae et facere laborum eaque!
-        </p>
-        <p class="sub_title">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae dolore autem error, consequatur saepe a eius officia sed minus debitis ratione illum cum? Esse nostrum nihil totam natus. Natus et debitis at impedit fugiat labore consequuntur saepe quibusdam officiis tenetur, hic, ab ipsa adipisci quisquam porro atque! Odit nam, odio saepe adipisci cupiditate provident quod ipsam aperiam et totam alias voluptas ducimus impedit, amet eos. Earum maxime ipsum, sunt vitae veritatis minima ipsa cumque consequatur, eos harum molestias mollitia iure voluptates, voluptatibus at architecto unde temporibus magnam animi ullam. Consequuntur sapiente nisi velit eligendi, tempora beatae et facere laborum eaque!
-        </p>
+        <h2 class="title" align="center" v-html="$t('about_tender.title')"></h2>
+        <div class="sub_title">{{$t('about_tender.sub_title')}}</div>
+        <div class="sub_title">{{$t('about_tender.content')}}</div>
       </div>
     </div>
   </div>

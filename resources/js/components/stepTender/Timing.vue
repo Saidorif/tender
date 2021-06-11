@@ -8,24 +8,24 @@
                 <thead>
                     <tr>
                     <th scope="col" rowspan="2">№</th>
-                    <th scope="col" rowspan="2">Oraliq toxtash bekatlari</th>
-                    <th scope="col" colspan="2">Masofa ulagich ko'rsatkichlari</th>
-                    <th scope="col" colspan="3">Masofa (km)</th>
-                    <th scope="col" colspan="3">Sariflanadigon vaqt (minut)</th>
-                    <th scope="col" colspan="2">Ortacha texnik tezlik (km/soat)</th>
-                    <th rowspan="2">Qatnov yol xaqidagi malumotlar</th>
+                    <th scope="col" rowspan="2">{{$('Oraliq toʼxtash bekatlari')}}</th>
+                    <th scope="col" colspan="2">{{$('Masofa ulagich koʼrsatkichlari')}}</th>
+                    <th scope="col" colspan="3">{{$('Masofa (km)')}}</th>
+                    <th scope="col" colspan="3">{{$('Sariflanadigan vaqt (daqiqa)')}} </th>
+                    <th scope="col" colspan="2">{{$('Oʼrtacha texnik tezlik (km/soat)')}} </th>
+                    <th rowspan="2">{{$('Qatnov yoʼl xaqidagi maʼlumotlar')}} </th>
                     </tr>
                     <tr>
-                    <th>Jonash vaqtida</th>
-                    <th>Kelgan vaqtida</th>
-                    <th>Boshlangich bekatdan</th>
-                    <th>Bekatlar oraligida</th>
-                    <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
-                    <th>Bekatlar oralig'idagi xarakat</th>
-                    <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
-                    <th>Oraliq bekatda toxtash uchun</th>
-                    <th>Bekatlar oralig'idagi xarakat</th>
-                    <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
+                    <th>{{$('Joʼnash vaqtida')}}</th>
+                    <th>{{$('Kelgan vaqtida')}} </th>
+                    <th>{{$('Boshlangʼich bekatdan')}}</th>
+                    <th>{{$('Bekatlar oraligʼida')}}</th>
+                    <th>{{$('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
+                    <th>{{$('Bekatlar oraligʼidagi xarakat')}} </th>
+                    <th>{{$('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
+                    <th>{{$('Oraliq bekatda toʼxtash uchun')}}</th>
+                    <th>{{$('Bekatlar oraligʼidagi xarakat')}}</th>
+                    <th>{{$('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,21 +50,21 @@
                     </td>
                     </tr>
                     <tr>
-                    <td colspan="8" scope="row">Ortacha tezlik = {{technic_speed}} km/soat</td>
-                    <td colspan="8" scope="row">Qatnov tezlik = {{traffic_speed}} km/soat</td>
+                    <td colspan="8" scope="row">{{$('Oʼrtacha tezlik')}} = {{technic_speed}} {{$('km/soat')}}</td>
+                    <td colspan="8" scope="row">{{$('Qatnov tezlik')}} = {{traffic_speed}} {{$('km/soat')}}</td>
                     </tr>
                 </tbody>
                 </table>
             </div>
             <div class="table_footer" v-if="tableData.length">
                 <div class="col-xl-6 col-lg-6">
-                    <p>Qatnov yoli xarakat xafsizligiga:  {{timingDetails.conclusion}}</p>
-                    <p>Olchov otkazilgan kun:  {{timingDetails.date}} yil</p>
-                    <p>Xronametraj otkazilgan avtomobil rusumi va davlat raqami:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
+                    <p>{{$('Qatnov yoʼli xarakat xafsizligiga')}}:  {{timingDetails.conclusion}}</p>
+                    <p>{{$('Oʼlchov oʼtkazilgan kun')}}:  {{timingDetails.date}} {{$('yil')}}</p>
+                    <p>{{$('Xronametraj oʼtkazilgan avtomobil rusumi va davlat raqami')}}:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
                 </div>
                 <div class="col-xl-4 col-lg-6 right_item">
                     <div>
-                    <p>Olchov <br> qatnashchilari <br>  imzolari:</p>
+                    <p>{{$('Oʼlchov qatnashchilari imzolari')}}:</p>
                     </div>
                     <div>
                     <p  v-for="(person,index) in timingDetails.persons">{{person.name.charAt(0)}}.{{person.surname}}</p>

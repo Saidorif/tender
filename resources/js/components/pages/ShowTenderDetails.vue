@@ -15,13 +15,13 @@
               <form>
                 <div class="row">
                   <div class="form-group col-xl-2 col-md-6">
-                    <label for="name">Дата тердера</label>
+                    <label for="name">{{ $t("Terderning sanasi") }}</label>
                     <div class="form-control input_style">
                       {{ form.time }}
                     </div>
                   </div>
                   <div class="form-group col-xl-3 col-md-6">
-                    <label for="address">Адрес</label>
+                    <label for="address">{{ $t("Manzil") }}</label>
                     <div class="form-control input_style">
                       {{ form.address }}
                     </div>
@@ -30,21 +30,21 @@
               </form>
               <div class="table-responsive">
                 <div class="d-flex justify-content-center">
-                  <h4>Лоты</h4>
+                  <h4>{{ $t("Lotlar") }}</h4>
                 </div>
                 <div
                   class="card cardtender"
                   v-for="(lot, index) of form.tenderlots"
                 >
                   <div class="card-header">
-                    <h4 class="lot_n"><em>Лот №</em> {{ index + 1 }}</h4>
+                    <h4 class="lot_n"><em>{{ $t("Lot") }} №</em> {{ index + 1 }}</h4>
                     <button
                       type="button"
                       class="btn btn-info btn_save_category"
                       @click="sendRequset()"
                     >
                       <i class="far fa-share-square text-light"></i>
-                      <span class="text-light">Отправить заявку</span>
+                      <span class="text-light">{{ $t("Soʼrovnoma yuborish") }}</span>
                     </button>
                   </div>
                   <div class="card-body" v-if="lot.direction_id.length">
@@ -74,17 +74,17 @@
                         <table class="table table-bordered">
                           <thead>
                             <tr>
-                              <th scope="col" rowspan="5">Qatnovlar</th>
+                              <th scope="col" rowspan="5">{{ $t("Qatnovlar") }}</th>
                               <th scope="col" :colspan="diritem.reysesFrom[0].stations.length * 2" style="text-align:center;">
-                                {{diritem.reysesFrom[0].from ? diritem.reysesFrom[0].from.name: ""}} томондан
+                                {{diritem.reysesFrom[0].from ? diritem.reysesFrom[0].from.name: ""}} {{ $t("tomondan") }}
                               </th>
-                              <th scope="col" rowspan="3">Reys ischinligi</th>
+                              <th scope="col" rowspan="3"> {{ $t("Reys ischinligi") }}</th>
                             </tr>
                             <tr><th colspan="2" v-for="stat of diritem.reysesTo[0].stations">{{stat.name}}</th></tr>
                             <tr >
                                 <template v-for="stat of diritem.reysesTo[0].stations">
-                                    <th>Прибытие</th>
-                                    <th>Отправление</th>
+                                    <th>{{ $t("Kelish") }}</th>
+                                    <th>{{ $t("Chiqish") }}</th>
                                 </template>
                             </tr>
                           </thead>
@@ -116,17 +116,17 @@
                         <table class="table table-bordered">
                           <thead>
                             <tr>
-                              <th scope="col" rowspan="5">Qatnovlar</th>
+                              <th scope="col" rowspan="5">{{ $t("Qatnovlar") }}</th>
                               <th scope="col" :colspan="diritem.reysesFrom[0].stations.length * 2" style="text-align:center;">
-                                {{diritem.reysesTo[0].from ? diritem.reysesTo[0].from.name: ""}} томондан
+                                {{diritem.reysesTo[0].from ? diritem.reysesTo[0].from.name: ""}}{{ $t("tomondan") }}
                               </th>
-                              <th scope="col" rowspan="3">Reys ischinligi</th>
+                              <th scope="col" rowspan="3">{{ $t("Reys ischinligi") }}</th>
                             </tr>
                             <tr><th colspan="2" v-for="stat of diritem.reysesFrom[0].stations">{{stat.name}}</th></tr>
                             <tr >
                                 <template v-for="stat of diritem.reysesFrom[0].stations">
-                                    <th>Прибытие</th>
-                                    <th>Отправление</th>
+                                    <th>{{ $t("Kelish") }}</th>
+                                    <th>{{ $t("Chiqish") }}</th>
                                 </template>
                             </tr>
                           </thead>
