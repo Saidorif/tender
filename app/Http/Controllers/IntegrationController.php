@@ -20,10 +20,10 @@ class IntegrationController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'app_id' => 'required|integer',
-            'pTexpassportSery' => 'required|string',
-            'pTexpassportNumber' => 'required|string',
-            'date' => 'required|date_format:"Y"',
             'cars' => 'required|array',
+            'cars.pTexpassportSery' => 'required|string',
+            'cars.pTexpassportNumber' => 'required|string',
+            'cars.date' => 'required|date_format:"Y"',
             'cars.pDateNatarius' => 'required|date',
             'cars.pNumberNatarius' => 'required|string',
             'cars.auto_number' => 'required|string',
@@ -39,7 +39,7 @@ class IntegrationController extends Controller
         $inputs['cars']['pDateNatarius'] = Carbon::parse($inputs['cars']['pDateNatarius'])->format('d.m.Y');
         $inputs['cars']['pAutoNumber'] = $inputs['cars']['auto_number'];
         $body = [];
-        $body['pINN'] = '308065134';//$user->inn;
+        $body['pINN'] = $user->inn;
         // !empty($inputs['pPinfl']) ? $body['pPinfl'] = $inputs['pPinfl'] : $body['pPinfl'] = '';
         $body['pType'] = $inputs['pType'];
         $body['pID'] = $inputs['pID'];
@@ -71,15 +71,15 @@ class IntegrationController extends Controller
                     //GAI check made year
                     $post = [
                         'app_id' => $inputs['app_id'],
-                        'pTexpassportSery' => $inputs['pTexpassportSery'],
-                        'pTexpassportNumber' => $inputs['pTexpassportNumber'],
+                        'pTexpassportSery' => $inputs['cars']['pTexpassportSery'],
+                        'pTexpassportNumber' => $inputs['cars']['pTexpassportNumber'],
                         'auto_number' => $inputs['cars']['auto_number'],
-                        'date' => $inputs['date'],
+                        'date' => $inputs['cars']['date'],
                     ];
                     $gai_data = $this->getAutoInfoFromGai($post);
                     if($gai_data){
                         //Check for made year
-                        if($gai_data['pYear'] != $inputs['date']){
+                        if($gai_data['pYear'] != $inputs['cars']['date']){
                             return response()->json(['error' => true, 'message' => 'Год выпуска автомобиля не совпадает']);
                         }
                     }

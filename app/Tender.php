@@ -29,7 +29,7 @@ class Tender extends Model
 
     public function tenderapps()
     {
-        return $this->hasMany(\App\Application::class,'tender_id')->where('status','=','accepted');;
+        return $this->hasMany(\App\Application::class,'tender_id')->where('status','=','accepted');
     }
 
 

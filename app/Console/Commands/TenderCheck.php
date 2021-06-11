@@ -44,7 +44,7 @@ class TenderCheck extends Command
      */
     public function handle()
     {
-        $tenders = Tender::where(['status' => 'completed'])->get();
+        $tenders = Tender::where(['status' => 'completed'])->where('time','<',date('Y-m-d H:m:s'))->get();
         $this->info('Completed tenders count '.$tenders->count());
         $tenderlots = TenderLot::whereIn('tender_id',$tenders->pluck('id')->toArray())->where(['status' => 'pending'])->get();
         $this->info('Tenderlots count '.$tenderlots->count());
@@ -77,6 +77,7 @@ class TenderCheck extends Command
                     }
                 }
                 $this->info('Application which earn high ball ('.$user->company_name.') '.$application->total_ball);
+                $this->info('All cars '.$cars_count);
                 $this->info('Accepted cars '.$cars_accepted);
                 $this->info('Rejected cars '.$cars_rejected);
                 $this->info('Cars with license '.$cars_license);
@@ -159,6 +160,32 @@ class TenderCheck extends Command
                 // 2. Change lot status
                 $lot->status = 'completed';
                 $lot->save();
+            }
+            //Check if all applications are rejected
+            $rejected_apps = 0;
+            $all_apps = Application::orderBy('total_ball','DESC')
+                ->where(['lot_id' => $lot->id])
+                ->where('status','!=','active')
+                ->get();
+            foreach ($all_apps as $a_app){
+                if($a_app->status == 'rejected'){
+                    $rejected_apps++;
+                }
+            }
+            if(count($all_apps) == $rejected_apps){
+                $this->info('All applications are rejected. Change directions status tu "free-to-use"');
+                // 1. Change directions status
+                $direction_ids = $lot->getDirection();
+                $directions = Direction::whereIn('id', $direction_ids)->get();
+                foreach($directions as $dir){
+                    $this->info('ID: '.$dir->id.' - '.$dir->name.' changed.');
+                    $dir->status = 'active';
+                    $dir->contract_id = null;
+                    $dir->tender_id = null;
+                    $dir->lot_id = null;
+                    $dir->reys_status = null;
+                    $dir->save();
+                }
             }
             //$this->info('Application balls : ');
         }

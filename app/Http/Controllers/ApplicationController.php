@@ -21,7 +21,9 @@ class ApplicationController extends Controller
 {
     public function index(Request $request)
     {
-        $tenders = Tender::where(['status' => 'completed'])->where('time','<',now())->paginate(12);
+        $tenders = Tender::where(['status' => 'completed'])
+                    //->where('time','<',now())
+                    ->paginate(12);
         return response()->json(['success' => true, 'result' => $tenders]);
     }
 
@@ -42,19 +44,32 @@ class ApplicationController extends Controller
     public function show(Request $request,$id)
     {
         $user = $request->user();
+        $tender = Tender::find($id);
+        if(!$tender){
+            return response()->json(['error' => true, 'message' => 'Tender not found']);
+        }
         if($user->role->name == 'admin'){
             $result = Application::orderBy('id', 'DESC')
-                            ->with(['user','carsWith','lots','attachment'])
-                            ->where(['tender_id' => $id,'status' => 'accepted'])
-                            ->paginate(12);
+                ->with(['carsWith','lots'])
+                ->select('id','status','lot_id','tender_id')
+                ->where(['tender_id' => $id,'status' => 'accepted'])
+                ->paginate(12);
         }else{
             //grab the user ids in this region
             $user_ids = User::where(['region_id' => $user->region_id,'role_id' => 9])->pluck('id')->toArray();
             $result = Application::orderBy('id', 'DESC')
-                ->with(['user','carsWith','lots','attachment'])
+                ->with(['carsWith','lots'])
+                ->select('id','status','lot_id','tender_id')
                 ->whereIn('user_id', $user_ids)
                 ->where(['tender_id' => $id])
                 ->paginate(12);
+        }
+        if($tender->time > date('Y-m-d H:m:s')){
+            $result->map(function ($item) {
+                $item->unsetRelation('carsWith');
+                $item->cars_with = [];
+                return $item;
+            });
         }
         return response()->json(['success' => true, 'result' => $result]);
     }
@@ -256,6 +271,9 @@ class ApplicationController extends Controller
     public function edit(Request $request, $id)
     {
         $application = Application::with(['user','carsWith','tender','attachment','lots'])->find($id);
+        if($application->tender->time > date('Y-m-d H:m:s') && $application->status == 'accepted'){
+            return response()->json(['error' => true, 'message' => 'Tender is not complete yet']);
+        }
         if(!$application){
             return response()->json(['error' => true, 'message' => 'Заявка не найдено']);
         }
@@ -327,6 +345,22 @@ class ApplicationController extends Controller
         }
         if($requirement_cars_count > $application->cars->count()){
             return response()->json(['error' => true, 'message' => 'Пожалуйста, добавьте ещё '.($requirement_cars_count - $application->cars->count()).' машин']);
+        }
+        //Qoshimcha qulayliklar belgilanmagan bolsa statuslarni rad etish (0) ga ozgartirib chiqish
+        if(!$application->daily_technical_job){
+            $application->daily_technical_job_status = 0;
+        }
+        if(!$application->daily_medical_job){
+            $application->daily_medical_job_status = 0;
+        }
+        if(!$application->hours_rule){
+            $application->hours_rule_status = 0;
+        }
+        if(!$application->videoregistrator){
+            $application->videoregistrator_status = 0;
+        }
+        if(!$application->gps){
+            $application->gps_status = 0;
         }
         $text = $application->user->company_name."\n";
         $text .= "ДАТА: ".$application->tender->time."\n";
