@@ -5,7 +5,7 @@
     <div class="container about_block">
       <div class="col-md-12">
         <h2 align="center" class="title">
-          <span>Yo'nalish</span> tarifni bilish
+          <span>{{ $t('Yoʼnalish') }} </span> {{ $t('tarifni bilish') }}
         </h2>
         <div class="input-group input_group_with_label">
           <input
@@ -14,9 +14,9 @@
             class="form-control"
             v-model="form.number"
           />
-          <label for="number">Marshurut raqami</label>
+          <label for="number"> {{ $t('Marshrut raqami') }}</label>
           <button @click="checkAuto()" class="btn_login ml-2">
-            <i class="fas fa-search"></i> Qidirish
+            <i class="fas fa-search"></i> {{ $t('Qidirish') }}
           </button>
         </div>
         <div class="alert alert-danger" v-if="errorText">{{ errorText }}</div>
@@ -28,20 +28,20 @@
           <div class="d-flex align-items-center w-50 justify-content-between">
             <h4>{{ t_index + 1 }})</h4>
             <div class="">
-              Сумма: <b>{{ t_item.tarif.summa }}</b>
+              {{ $t('Miqdor') }} : <b>{{ t_item.tarif.summa }}</b>
             </div>
             <div class="">
-              Сумма багажа: <b>{{ t_item.tarif.summa_bagaj }}</b>
+              {{ $t('Bagaj miqdori') }}: <b>{{ t_item.tarif.summa_bagaj }}</b>
             </div>
             <div class="">
-              Дата тарифа: <b>{{ t_item.tarif.created_at }}</b>
+              {{ $t('Tarif sanasi') }}: <b>{{ t_item.tarif.created_at }}</b>
             </div>
           </div>
           <table class="table table-bordered">
             <thead>
               <tr>
                 <th>№ т/р</th>
-                <th>Бошлангич ва оралик охирги бекатлар номи</th>
+                <th>{{ $t('Boshlangʼich va oraliq oxirgi bekatlar nomi') }}</th>
                 <template
                   :colspan="statinsName.length"
                   v-for="(item) in statinsName"

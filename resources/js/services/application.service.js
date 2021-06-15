@@ -19,6 +19,9 @@ const ApplicationService = {
 	showapplication(data){
 		return ApiService.get(`/api/application/show/${data.id}?page=${data.page}`)
 	},
+	usershowapplication(id){
+		return ApiService.get(`/api/application/user/show/${id}`)
+	},
 	updateapplication(data){
 		return ApiService.post(`/api/application/update/${data.id}`,data)
 	},

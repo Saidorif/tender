@@ -5,7 +5,7 @@
     <div class="container tender_block">
       <div class="col-md-12">
         <h2 class="title" align="center" v-html="$t('conducted_tenders.title')"></h2>
-        <p class="sub_title">Bu bo'limda siz bo'lib o'tadigan tenderlar royxati bilan tanishasiz</p>
+        <p class="sub_title">{{ $t('Bu boʼlimda siz boʼlib oʼtadigan tenderlar royxati bilan tanishasiz') }} </p>
         <div class="tenders_list">
             <!-- tender_card -->
             <div class="tender_card" v-for="item of getTenderIndex.data" v-if="getTenderIndex.data.length">
@@ -15,27 +15,27 @@
                 </div>
                 <div class="tender_card_body">
                     <div class="card_item">
-                        <h6>Address</h6>
+                        <h6>{{ $t('Manzil') }} </h6>
                         <p>{{item.address}}</p>
                     </div>
                     <div class="card_item">
-                        <h6>Tender tugash vaqti</h6>
+                        <h6>{{ $t('Tender tugash vaqti') }}</h6>
                         <p>{{item.time}}	</p>
                     </div>
                     <div class="card_item">
-                        <h6>Lotlar soni</h6>
+                        <h6>{{ $t('Lotlar soni') }}</h6>
                         <p>{{item.tenderlots.length}}</p>
                     </div>
                     <div class="card_item">
-                        <h6>Yo'nalish turi</h6>
-                        <p>{{item.direction_ids[0].dir_type == 'bus' ? "Avtobus yo'nalishi" : "Taxi yo'nalishi"}}</p>
+                        <h6>{{ $t('Yoʼnalish turi') }}</h6>
+                        <p>{{item.direction_ids[0].dir_type == 'bus' ? $t('Avtobus yoʼnalishi') : $t('Taxi yoʼnalishi') }}</p>
                     </div>
                 </div>
                 <!-- <router-link  :to="'/u/show-tender-details/'+item.id" class="tender_card_footer" >Batafsil</router-link> -->
-                <a  role="button" class="tender_card_footer" @click.prevent="showTenderDetails(item)" >Batafsil</a>
+                <a  role="button" class="tender_card_footer" @click.prevent="showTenderDetails(item)" >{{$t('Batafsil')}}</a>
             </div>
             <div class="d-flex justify-content-center w-100 pt-5 pb-5" v-if="getTenderIndex.data && !getTenderIndex.data.length">
-                <p class="alert alert-info" >Faol tenderlar mavjud emas</p>
+                <p class="alert alert-info" >{{$t('Faol tenderlar mavjud emas')}}</p>
             </div>
         </div>
       </div>

@@ -5,22 +5,22 @@
     <div class="container tender_block">
       <ul class="nav nav-tabs " id="myTab" role="tablist">
         <li class="nav-item">
-          <router-link :to='`/u/titul-tab/${$route.params.directionId}`' >Titul</router-link>
+          <router-link :to='`/u/titul-tab/${$route.params.directionId}`' >{{$t('Titul')}}</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to='`/u/timing-tab/${$route.params.directionId}`'>Xronametraj</router-link>
+          <router-link :to='`/u/timing-tab/${$route.params.directionId}`'>{{$t('Xronametraj')}}</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to='`/u/scheme-tab/${$route.params.directionId}`'>Sxema</router-link>
+          <router-link :to='`/u/scheme-tab/${$route.params.directionId}`'>{{$t('Sxema')}}</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to='`/u/schedule-tab/${$route.params.directionId}`'>Xarkatlanish jadvali</router-link>
+          <router-link :to='`/u/schedule-tab/${$route.params.directionId}`'>{{$t('Xarkatlanish jadvali')}}</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to='`/u/tarif-tab/${$route.params.directionId}`'>Tarif</router-link>
+          <router-link :to='`/u/tarif-tab/${$route.params.directionId}`'>{{$t('Tarif')}}</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to='`/u/demand-tab/${$route.params.directionId}`'>Talab</router-link>
+          <router-link :to='`/u/demand-tab/${$route.params.directionId}`'>{{$t('Talab')}}</router-link>
         </li>
       </ul>
     </div>

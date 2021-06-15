@@ -2,23 +2,23 @@
   <div class="countdown" v-if="defineDate">
     <div class="block">
       <p class="digit">{{ days | two_digits }}</p>
-      <p class="text">день</p>
+      <p class="text">{{$t('kun')}}</p>
     </div>
     <div class="block">
       <p class="digit">{{ hours | two_digits }}</p>
-      <p class="text">час</p>
+      <p class="text">{{$t('soat')}}</p>
     </div>
     <div class="block">
       <p class="digit">{{ minutes | two_digits }}</p>
-      <p class="text">минут</p>
+      <p class="text">{{$t('daqiqa')}}</p>
     </div>
     <div class="block">
       <p class="digit">{{ seconds | two_digits }}</p>
-      <p class="text">секунд</p>
+      <p class="text">{{$t('soniya')}}</p>
     </div>
   </div>
   <div v-else>
-  	<div class='btn btn-color'>Завершено!</div>
+  	<div class='btn btn-color'>{{$t('Yakunlangan')}}</div>
   </div>
 </template>
 <script>
@@ -30,7 +30,7 @@
 			  }
 		  	if (value.toString().length <= 1) {
 			    return `0${value}`;
-		  	}	
+		  	}
 		  	return value;
 		  }
 		},

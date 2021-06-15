@@ -6,7 +6,7 @@
             <div class="row col-md-12">
             <div class="form-group col-xl-3 col-md-6">
                 <label for="reys_to_count" v-if="this.titulData">
-                Reyslar soni {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan
+                 {{$t('Reyslar soni')}}  {{ this.titulData.timing_with  ? this.titulData.timing_with[0].whereForm.name : '' }} {{$t('tomondan')}}
                 </label>
                 <div class="form-control input_style">
                 {{form.reys_to_count}}
@@ -14,42 +14,40 @@
             </div>
             <div class="form-group col-xl-3 col-md-6" v-if="this.titulData">
                 <label for="reys_from_count">
-                Reyslar soni  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan
+               {{$t('Reyslar soni')}}  {{ this.titulData.timing_with  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} {{$t('tomondan')}}
                 </label>
                 <div class="form-control input_style">
                 {{form.reys_from_count}}
                 </div>
             </div>
             <div class="form-group col-xl-3 col-md-6">
-                <label for="count_bus">Qatnovchi avtomobillar soni </label>
+                <label for="count_bus">{{$t('Qatnovchi avtomobillar soni')}}  </label>
                 <div class="form-control input_style">
                 {{form.count_bus}}
                 </div>
             </div>
             </div>
             <h2 v-if="titulData.type">
-            {{ titulData.type.type }} - {{ titulData.pass_number }} - sonli "{{
+            {{ titulData.type.type }} - {{ titulData.pass_number }} - {{$t('sonli')}} "{{
                 titulData.name
-            }}"Avtobus yo'nalishi qatnov yo'li masofasini va xarakat vaqtini
-            olchash qaydnomasi
+            }}" {{$t('Avtobus yoʼnalishi qatnov yoʼli masofasini va xarakat vaqtini olchash qaydnomasi')}}
             </h2>
             <div class="col-md-4">
             <p>
-                Qatnov yo'l masofasi
+                 {{$t('Qatnov yoʼl masofasi')}}
                 <b v-if="titulData.timing_with"
                 >{{
                     titulData.timing_with[titulData.timing_with.length - 1]
                     .end_speedometer
                 }}
-                km</b
-                >
+                 {{$t('km')}}</b>
             </p>
             </div>
             <div class="col-md-4">
-            <p>Qatnovchi avtomobillar soni {{ form.count_bus }}</p>
+            <p> {{$t('Qatnovchi avtomobillar soni')}} {{ form.count_bus }}</p>
             </div>
             <div class="col-md-4">
-            <p>Yolkira xaqqi so'm</p>
+            <p>{{$t('Yoʼlkira xaqqi soʼm')}} </p>
             </div>
             <div class="table-responsive" v-if="form.whereTo">
             <table
@@ -57,11 +55,11 @@
             >
                 <thead>
                 <tr>
-                    <th scope="col" rowspan="5">Qatnovlar</th>
+                    <th scope="col" rowspan="5">{{$t('Qatnovlar')}}</th>
                     <th scope="col" :colspan="form.whereTo.stations.length * 2">
                     {{form.whereTo.where.name}}
                     </th>
-                    <th scope="col" rowspan="3">Reys ischinligi</th>
+                    <th scope="col" rowspan="3">{{$t('Reys ischinligi')}}</th>
                 </tr>
                 <tr>
                     <th
@@ -73,8 +71,8 @@
                 </tr>
                 <tr>
                     <template v-for="(item, index) in form.whereTo.stations">
-                    <th>Прибытие</th>
-                    <th>Отправление</th>
+                    <th>{{$t('Kelish')}} </th>
+                    <th>{{$t('Chiqish')}} </th>
                     </template>
                 </tr>
                 </thead>
@@ -106,11 +104,11 @@
             <table  class="table table-bordered text-center table-hover table-striped">
                 <thead>
                 <tr>
-                    <th scope="col" rowspan="5">Qatnovlar</th>
+                    <th scope="col" rowspan="5">{{$t('Qatnovlar')}}</th>
                     <th scope="col" :colspan="form.whereFrom.stations.length * 2">
                     {{form.whereFrom.where.name}}
                     </th>
-                    <th scope="col" rowspan="3">Reys ischinligi</th>
+                    <th scope="col" rowspan="3">{{$t('Reys ischinligi')}}</th>
                 </tr>
                 <tr>
                     <th colspan="2" v-for="(item, index) in form.whereFrom.stations" >
@@ -119,8 +117,8 @@
                 </tr>
                 <tr>
                     <template v-for="(item, index) in form.whereFrom.stations">
-                    <th>Прибытие</th>
-                    <th>Отправление</th>
+                    <th>{{$t('Kelish')}}</th>
+                    <th>{{$t('Chiqish')}}</th>
                     </template>
                 </tr>
                 </thead>

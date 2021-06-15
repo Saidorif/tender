@@ -5,8 +5,8 @@
     <div class="card-body login-card-body">
       <div class="form_content jv_login_block">
         <div class="flagbg">
-          <h6>Tender platformasiga kirish.</h6>
-          <p> Agar siz ra'yxatdan o'tmagan bo'lsangiz iltimos, ro'yxatdan o'ting.</p>
+          <h6>{{$t('Tender platformasiga kirish.')}} </h6>
+          <p> {{$t('Agar siz roʼyxatdan oʼtmagan boʼlsangiz iltimos, roʼyxatdan oʼting.')}}</p>
         </div>
         <div class="jv_form_block">
           <div class="logo_login">
@@ -14,34 +14,34 @@
           </div>
           <form enctype="multipart/form-data">
             <div  class="input-group input_group_with_label">
-              <input  
+              <input
               type="number"
               class="form-control"
               v-model="form.inn"
               :class="isRequired(form.inn) ? 'isRequired' : ''"
               v-mask="'999999999'"
               @input="checkUser"
-              id="STIR"> 
-              <label  for="STIR">STIR</label>
+              id="STIR">
+              <label  for="STIR">{{$t('INN')}}</label>
             </div>
             <div  class="form-group" v-if="showBtn">
-              <label for="file" class="form-control-label">File</label>
-              <input  
+              <label for="file" class="form-control-label">{{$t('Fayl')}}</label>
+              <input
                 type="file"
                 class="form-control"
                 @change="changePhoto($event)"
-              > 
+              >
             </div>
             <div class="d-flex justify-content-between align-items-center">
                 <div class="btn_register_block">
                   <button type="button" class="btn_bd_blue" @click.prevent="back">
                     <i class="fas fa-chevron-circle-left"></i>
-                    Назад
+                    {{$t('Orqaga')}}
                   </button>
                 </div>
                 <button type="button" class="btn_login" v-if="showBtn" @click.prevent="send">
                   <i class="fas fa-envelope-open-text"></i>
-                  Jo'natish
+                  {{$t('Joʼnatish')}}
                 </button>
             </div>
           </form>

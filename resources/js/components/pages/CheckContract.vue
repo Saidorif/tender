@@ -20,7 +20,7 @@
               </div>
                 <button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
                     <i class="fas fa-search"></i>
-                    Найти
+                    {{$t('Qidirish')}}
                 </button>
         </div>
         <div class="table-responsive mt-5">
@@ -29,11 +29,11 @@
                     <tr>
                         <th>№</th>
                         <th>{{$t('conducted_tenders.table.direction_name')}}</th>
-                        <th>Tashuvchi nomi</th>
+                        <th>{{$t('Tashuvchi nomi')}}</th>
                         <th>{{$t('conducted_tenders.table.company_name')}}</th>
-                        <th>Kontract muddati</th>
-                        <th>Litsenziya raqami</th>
-                        <th>Litsenziya muddati</th>
+                        <th>{{$t('Shartnoma muddati')}}</th>
+                        <th>{{$t('Litsenziya raqami')}}</th>
+                        <th>{{$t('Litsenziya muddati')}}</th>
                     </tr>
                 </thead>
                 <tbody>

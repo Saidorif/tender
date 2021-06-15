@@ -5,32 +5,32 @@
     <div class="card-body login-card-body">
       <div class="form_content jv_login_block">
         <div class="flagbg">
-          <h6>Tender platformasiga kirish.</h6>
-          <p> Agar siz ra'yxatdan o'tmagan bo'lsangiz iltimos, ro'yxatdan o'ting.</p>
+          <h6>{{$t('Tender platformasiga kirish.')}}</h6>
+          <p>{{$t('Agar siz roʼyxatdan oʼtmagan boʼlsangiz iltimos, roʼyxatdan oʼting.')}} </p>
         </div>
         <div class="jv_form_block">
           <div class="logo_login">
             <img  src="img/logoUz.png" alt="">
           </div>
           <div class="login_alert" v-if="errorMsg">
-            <i class="fas fa-exclamation-circle mr-2"></i> Неверный логин или пароль
+            <i class="fas fa-exclamation-circle mr-2"></i> {{$t('Parol yoki e-pochta noʼtoʼgʼri')}}
           </div>
           <form @submit.enter.prevent="onLogin">
             <div  class="input-group input_group_with_label">
               <input  type="email" id="useremail" class="form-control" v-model="form.email" :class="isLoginRequired(form.email) ? 'isRequired' : ''">
-              <label  for="useremail">Email</label>
+              <label  for="useremail">{{$t('Email')}}</label>
             </div>
             <div  class="input-group input_group_with_label mb-5">
               <input  type="password" id="userpassword" class="form-control" v-model="form.password" :class="isLoginRequired(form.password) ? 'isRequired' : ''">
-              <label  for="userpassword">Parol</label>
+              <label  for="userpassword">{{$t('Parol')}}</label>
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn_register_block">
-                <router-link to="/send-apply" tag="a" class="btn_forgot text-success">Получить доступ!</router-link>
+                <router-link to="/send-apply" tag="a" class="btn_forgot text-success">{{$t('Kirish huquqini olish')}}!</router-link>
                 <!-- <router-link to="/register" class="btn_bd_blue">Ro'yxatdan o'tish</router-link> -->
               </div>
                 <button type="submit" class="btn_login">
-                  Kirish
+                  {{$t('Kirish')}}
                 </button>
             </div>
           </form>

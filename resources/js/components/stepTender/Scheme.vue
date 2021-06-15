@@ -3,7 +3,7 @@
         <Loader v-if="laoding"/>
         <PassportTab/>
         <div class="card-body container">
-            <h1 v-if="titulData.type">Avtobus qatnov yoli tasviri {{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
+            <h1 v-if="titulData.type">{{$('Avtobus qatnov yoʼli tasviri')}} {{titulData.type.type}} - {{titulData.pass_number}} - {{$('sonli')}} "{{titulData.name}}" </h1>
             <div class="map_scheme" v-if="schemeData.length">
                 <div class="mid_line"></div>
                 <template v-for="(p_item,p_index) in schemeData">
@@ -63,55 +63,55 @@
                 </template>
             </div>
             <div class="road_signs col-xl-6">
-                <h6>Shatrli belgilar</h6>
+                <h6>{{$('Shartli belgilar')}}</h6>
                 <ul>
                 <li>
                     <div class="icon_item bdn">
                         <div class="cicle_item"></div>
                     </div>
-                    <span>Avtostansiya</span>
+                    <span>{{$('Avtostansiya')}}</span>
                 </li>
                 <li>
                     <div class="icon_item bdn">
                         <div class="sm_cicle_item"></div>
                     </div>
-                    <span>To'xtash joylari</span>
+                    <span>{{$('Toʼxtash joylari')}}</span>
                 </li>
                 <li>
                     <div class="icon_item">
                     <img src="/img/tr_tracks.jpg" width="30" />
                     </div>
-                    <span>Temir yo'lni kesib o'tish joylari</span>
+                    <span>{{$('Temir yoʼlni kesib oʼtish joylari')}} </span>
                 </li>
                 <li>
                     <div class="icon_item">
                     <img src="/img/bridge.png" width="30" />
                     </div>
-                    <span>Kesishgan yol ustidan otkazilgan kondalang yollar</span>
+                    <span>{{$('Kesishgan yoʼl ustidan oʼtkazilgan kondalang yoʼllar')}}</span>
                 </li>
                 <li>
                     <div class="icon_item">
                     <img src="/img/eat.png" width="30" />
                     </div>
-                    <span>Ovqatlanish joylari</span>
+                    <span>{{$('Ovqatlanish joylari')}}</span>
                 </li>
                 <li>
                     <div class="icon_item">
                     <img src="/img/hotel.png" width="30" />
                     </div>
-                    <span>Dam olish joylari</span>
+                    <span>{{$('Dam olish joylari')}} </span>
                 </li>
                 <li>
                     <div class="icon_item">
                     <img src="/img/danger.png" width="30" />
                     </div>
-                    <span> Harkatlanish uchun xafli bo'lgan yo'l uchastkalari</span>
+                    <span>{{$('Harkatlanish uchun xafli boʼlgan yoʼl uchastkalari')}}</span>
                 </li>
                 </ul>
             </div>
             <div class="row col-md-12"  v-if="agreedData.length">
                 <div class="form-group col-md-3 agree_item" v-for="(p_item,p_index) in agreedData">
-                <h6>"Kelishilgan"</h6>
+                <h6>"{{$('Kelishilgan')}}"</h6>
                 <p>{{p_item.organ }} {{ p_item.job}}:</p>
                 <p><span></span>{{p_item.fio }}. {{ p_item.date}}</p>
                 <p></p>

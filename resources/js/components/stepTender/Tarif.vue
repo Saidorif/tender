@@ -4,26 +4,26 @@
 	    <PassportTab/>
 	  	<div class="card-body container">
 				<div class="tarif_column">
-			  		<h1>Yo'l kira haqi jadvali {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
+			  		<h1>{{$t('Yoʼl kira haqi jadvali')}} {{titulData.pass_number}} - {{$('sonli')}} "{{titulData.name}}" </h1>
 			  		<div class="table-responsive">
 				  		<div class="table-responsive" v-for="(t_item,t_index) in getTarif">
 				  			<div class="d-flex align-items-center w-50 justify-content-between">
 				  				<h4>{{t_index+1}})</h4>
 				  				<div class="">
-				  					Сумма: <b>{{t_item.tarif.summa}}</b>
+				  					{{$('Miqdor')}}: <b>{{t_item.tarif.summa}}</b>
 				  				</div>
 				  				<div class="">
-				  					Сумма багажа: <b>{{t_item.tarif.summa_bagaj}}</b>
+				  					{{$('Bagaj miqdori')}}: <b>{{t_item.tarif.summa_bagaj}}</b>
 				  				</div>
 				  				<div class="">
-				  					Дата тарифа: <b>{{t_item.tarif.created_at}}</b>
+				  					{{$('Tarif sanasi')}}: <b>{{t_item.tarif.created_at}}</b>
 				  				</div>
 				  			</div>
 					  		<table class="table table-bordered ">
 					  			<thead>
 					  				<tr>
 					  					<th>№ т/р</th>
-					  					<th>Бошлангич ва оралик охирги бекатлар номи</th>
+					  					<th>{{$('Boshlangʼich va oraliq oxirgi bekatlar nomi')}}</th>
 					  					<template :colspan="titulData.timing_with.length" v-for="(item,index) in titulData.timing_with">
 						  					<th>
 							  					{{item.whereTo.name}}
@@ -44,7 +44,7 @@
 					  								<b>{{item.tarif_bagaj}}</b>
 					  							</div>
 					  							<div class="tarifs tarif_bagaj">
-					  								<b>{{item.distance_test}}KM</b>
+					  								<b>{{item.distance_test}}{{$('km')}}</b>
 					  							</div>
 					  						</td>
 					  						<template v-else >
