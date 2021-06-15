@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="card-body">
-        <div class="form-group col-md-12 table table-responsive mb-4">
+        <div class="form-group col-md-12 table table-responsive mb-4" v-if="showCarInfos">
           <div class="d-flex justify-content-center text-center">
             <h4 class="app_title">
               Йўналишларда ишлаётганда ҳаракатланиш хавфсизлигини таъминлаш бўйича қатнашчи томонидан амалга оширилган тадбирлар режаси қуйидагича баҳоланади
@@ -26,8 +26,7 @@
           </div>
           <table class="table table-bordered">
             <thead>
-              <tr>
-                <th width="1%">1</th>
+              <tr v-if="form.daily_technical_job == 1">
                 <th width="50%">
                   Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан
                   ўтказиш учун барча шароитлар яратилган
@@ -37,7 +36,7 @@
                 </th>
                 <th class="text-center">
                   <div class="badge" :class="targetStatusClass(form.daily_technical_job_status)">
-                    {{targetStatusName(form.daily_technical_job_status)}}
+                    {{targetStatusName(form.daily_technical_job_status)}} 
                   </div>
                 </th>
                 <th>
@@ -57,8 +56,7 @@
                   </div>
                 </th>
               </tr>
-              <tr>
-                <th>2</th>
+              <tr v-if="form.daily_medical_job == 1">
                 <th width="50%">
                   Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча
                   шароитлар яратилган
@@ -68,7 +66,7 @@
                 </th>
                 <th class="text-center">
                   <div class="badge" :class="targetStatusClass(form.daily_medical_job_status)">
-                    {{targetStatusName(form.daily_medical_job_status)}}
+                    {{targetStatusName(form.daily_medical_job_status)}} 
                   </div>
                 </th>
                 <th>
@@ -88,8 +86,7 @@
                   </div>
                 </th>
               </tr>
-              <tr>
-                <th>3</th>
+              <tr v-if="form.hours_rule == 1">
                 <th width="50%">
                   Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча
                   ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
@@ -119,8 +116,7 @@
                   </div>
                 </th>
               </tr>
-              <tr>
-                <th>4</th>
+              <tr v-if="form.videoregistrator == 1">
                 <th width="50%">
                   Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор
                   ўрнатилган
@@ -150,8 +146,7 @@
                   </div>
                 </th>
               </tr>
-              <tr>
-                <th>5</th>
+              <tr v-if="form.gps == 1">
                 <th width="50%">
                   Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш
                   тизимига уланган
@@ -181,7 +176,7 @@
                   </div>
                 </th>
               </tr>
-            </thead>
+            </thead> 
           </table>
         </div>
         <div class="accordion" id="accordionExample" v-if="cars.length > 0">
@@ -547,6 +542,13 @@ export default {
     getCompanyName(){
       return this.company_name  ? this.company_name : 'Без название'
     },
+    showCarInfos(){
+      if(this.form.daily_technical_job == 1 || this.form.daily_medical_job == 1 || this.form.hours_rule == 1 || this.form.videoregistrator == 1 || this.form.gps == 1){
+        return true
+      }else{
+        return false
+      }
+    }
   },
   async mounted(){
     await this.actionAppCars(this.$route.params.appId);

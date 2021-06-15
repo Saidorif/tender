@@ -311,10 +311,10 @@ const router = new Router({
 				{
 					path:'user/application/:userapplicationId',
 					component:EditUserApplication,
-					// meta:{
-					// 	action:'userShow',
-					// 	subject:'ApplicationController'
-					// }
+					meta:{
+						action:'userShow',
+						subject:'ApplicationController'
+					}
 				},
 				{
 					path:'application/:tenderAppId',

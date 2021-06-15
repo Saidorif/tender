@@ -4,6 +4,7 @@ const state = {
 	applications: {},
 	applicationlist: [],
 	showapplications: {},
+	usershowapplications: [],
 	message: [],
 	addmessage: [],
 	application: [],
@@ -16,6 +17,9 @@ const state = {
 };
 
 const getters = {
+	getUserShowApp(state){
+		return state.usershowapplications
+	},
 	getUserApps(state){
 		return state.userapps
 	},
@@ -56,6 +60,15 @@ const getters = {
 
 
 const actions = {
+	async actionUserShowApp({commit},id){
+		try {
+			const applications =  await ApplicationService.usershowapplication(id);
+			await commit('setUserShowApp',applications.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionUserApps({commit},payload){
 		try {
 			const applications =  await ApplicationService.UserApplications(payload);
@@ -212,6 +225,9 @@ const actions = {
 };
 
 const mutations = {
+	setUserShowApp(state, usershowapplications){
+		state.usershowapplications = usershowapplications
+	},
 	setUserApps(state, userapps){
 		state.userapps = userapps
 	},
