@@ -880,7 +880,7 @@ class DirectionController extends Controller
         $tender = Tender::whereJsonContains('direction_ids',[$direction->id])->first();
         if($tender){
             if($tender->time > date('Y-m-d H:m:s') || $tender->status == 'pending' || $tender->status == 'completed'){
-                return response()->json(['error' => true,'message' => 'Направление уже используется']);
+                //return response()->json(['error' => true,'message' => 'Направление уже используется']);
             }
         }
         $schedules = $direction->schedule;
