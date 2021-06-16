@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Проверка авто
+				    {{$t('Avtomobilni tekshrish')}}
 				</h4>
 		  	</div>
 		  	<div class="card-body">
@@ -14,22 +14,22 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название компании</th>
-							<th scope="col">Статус</th>
-							<th scope="col">Количество авто</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tashkilot nomi')}}</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Avtomobillar soni')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="(item,index) in getCheckContolsList">
 							<td scope="row">{{index+1}}</td>
-							<td>{{item.user.company_name ? item.user.company_name : 'Без название'}}</td>
+							<td>{{item.user.company_name ? item.user.company_name : $t('Nomi yoʼq')}}</td>
 							<td>
                                 <div class="badge" :class="getStatusClass(item.status)">
 									{{getStatusName(item.status)}}
 								</div>
                             </td>
-							<td>{{item.cars_count}} шт</td>
+							<td>{{item.cars_count}} {{$t('ta')}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/checkauto/show/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
