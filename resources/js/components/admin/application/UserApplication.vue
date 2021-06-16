@@ -49,7 +49,7 @@
 									tag="button"
 									class="btn_transparent"
 									:to='`/crm/user/application/${reg.id}`'
-									v-if="$can('index', 'ApplicationController')"
+									v-if="$can('userShow', 'ApplicationController')"
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>

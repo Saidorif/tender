@@ -49,7 +49,7 @@ class TenderController extends Controller
         }
         else{
             // $tenders = Tender::whereIn('created_by', $created_by_users)->with(['tenderlots'])->paginate(12);
-            $tenders = Tender::with(['tenderlots'])->where('time','>',date('Y-m-d H:m:s'))->paginate(12);
+            $tenders = Tender::with(['tenderlots'])->whereNotNull('approved_by')->where('time','>',date('Y-m-d H:m:s'))->paginate(12);
         }
         return response()->json(['success' => true,'result' => $tenders]);
     }

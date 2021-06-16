@@ -52,6 +52,7 @@ import { setting } from "./setting.module"
 import { confirmdemand } from "./confirmdemand.module"
 import { oldprotocol } from "./oldprotocol.module"
 import { oldcontract } from "./oldcontract.module"
+import { certificate } from "./certificate.module"
 
 import { TokenService } from './../services/storage.service'
 
@@ -111,6 +112,7 @@ const store = new Vuex.Store(
             confirmdemand,
             oldprotocol,
             oldcontract,
+            certificate,
 		},
 		state:{
 			rules:[],

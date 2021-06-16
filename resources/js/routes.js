@@ -28,6 +28,11 @@ import Employee from './components/admin/employee/Employee'
 import AddEmployee from './components/admin/employee/AddEmployee'
 import EditEmployee from './components/admin/employee/EditEmployee'
 
+// certificate
+import Certificate from './components/admin/certificate/Certificate'
+import AddCertificate from './components/admin/certificate/AddCertificate'
+import EditCertificate from './components/admin/certificate/EditCertificate'
+
 // Role
 import Role from './components/admin/role/Role'
 import AddRole from './components/admin/role/AddRole'
@@ -311,10 +316,10 @@ const router = new Router({
 				{
 					path:'user/application/:userapplicationId',
 					component:EditUserApplication,
-					// meta:{
-					// 	action:'userShow',
-					// 	subject:'ApplicationController'
-					// }
+					meta:{
+						action:'userShow',
+						subject:'ApplicationController'
+					}
 				},
 				{
 					path:'application/:tenderAppId',
@@ -363,6 +368,30 @@ const router = new Router({
 						action:'edit',
 						subject:'EmployeeController'
 					}
+				},
+				{
+					path:'certificate',
+					component:Certificate,
+					// meta:{
+					// 	action:'index',
+					// 	subject:'CertificateController'
+					// }
+				},
+				{
+					path:'certificate/add',
+					component:AddCertificate,
+					// meta:{
+					// 	action:'store',
+					// 	subject:'CertificateController'
+					// }
+				},
+				{
+					path:'certificate/edit/:certificateId',
+					component:EditCertificate,
+					// meta:{
+					// 	action:'edit',
+					// 	subject:'CertificateController'
+					// }
 				},
 				{
 					path:'client',
