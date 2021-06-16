@@ -60,7 +60,7 @@
             <div class="form-group col-lg-3 form_btn">
               <button type="submit" class="btn btn-primary">
                 <i class="fas fa-save"></i>
-                Сохранить
+                {{$t('Saqlash')}}
               </button>
             </div>
           </div>

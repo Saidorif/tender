@@ -13,21 +13,21 @@
 					<div class="row">
 					  <div class="form-group col-md-9">
 					    <label for="salary">Стоимость заявки</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="salary" 
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="salary"
 					    	placeholder="Стоимость заявки..."
 					    	v-model="form.salary"
-					    	:class="isRequired(form.salary) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.salary) ? 'isRequired' : ''"
 				    	>
 					  </div>
-					 
+
 					  <div class="form-group col-lg-3 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
-						  	Сохранить
-						</button>	
+						  	{{$t('Saqlash')}}
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -91,5 +91,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

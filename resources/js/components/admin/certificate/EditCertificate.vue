@@ -5,32 +5,31 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Изменить Область
+				     {{$t('Guvoxnomani tahrirlash')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/certificate">
-					<span class="peIcon pe-7s-back"></span> 
-					Назад
+					<span class="peIcon pe-7s-back"></span>
+						{{$t('Orqaga')}}
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveCertificate" >
 					<div class="row">
 					  <div class="form-group col-md-9">
-					    <label for="name">Область</label>
-					    <input 
-					    	type="text" 
-					    	class="form-control input_style" 
-					    	id="name" 
-					    	placeholder="Область"
+					    <label for="name">{{$t('Nomi')}}</label>
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="name"
 					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"  
+					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-lg-3 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
-						  	Сохранить
-						</button>	
+						  	{{$t('Saqlash')}}
+						</button>
 				  	  </div>
 					</div>
 				</form>
@@ -89,5 +88,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

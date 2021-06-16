@@ -327,11 +327,9 @@ class IntegrationController extends Controller
                         $the_result = $result['n1VLPrefillMIPResponse']['VLPrefillMIPResult']['vehicleInfoResult']['anyType'];
                         $inn = $result['n1VLPrefillMIPResponse']['VLPrefillMIPResult']['pOwnerInn'];
                         //Check for inn
-                        if(!empty($inputs['lizing'])){
-                            if($inputs['lizing'] == 0){
-                                if($user->inn != $inn){
-                                    return response()->json(['error' => true, 'message' => 'ИНН автомобиля не совпадает с вашим ИНН']);
-                                }
+                        if(!(int)$inputs['lizing']){
+                            if($user->inn != $inn){
+                                return response()->json(['error' => true, 'message' => 'ИНН автомобиля не совпадает с вашим ИНН']);
                             }
                         }
                         //Check for made year

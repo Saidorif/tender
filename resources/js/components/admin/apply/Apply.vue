@@ -5,11 +5,11 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-vote-yea"></i>
-				    Доступ
+				    {{ $t('Kirish') }}
 				</h4>
 				<button class="btn btn-info" @click="applyActive" :disabled="getApplies.data && getApplies.data.length > 0 ? false : true">
 		    		<i class="fas fa-user-check"></i>
-		    		Активировать
+                    {{ $t('Faollashtirish') }}
 		    	</button>
 		  	</div>
 		  	<div class="card-body">
@@ -21,11 +21,11 @@
 			            	  	<label><vs-checkbox v-model="allChecked" @change="allCheckbox"></vs-checkbox></label>
 			            	  </th>
 				              <th scope="col">№</th>
-				              <th scope="col">ИНН</th>
-				              <th scope="col">Статус</th>
-				              <th scope="col">E-mail</th>
-				              <th scope="col">Дата поступления</th>
-				              <th scope="col">Изображение</th>
+				              <th scope="col">{{ $t('INN') }}</th>
+				              <th scope="col">{{ $t('Holati') }}</th>
+				              <th scope="col">{{ $t('Email') }}</th>
+				              <th scope="col">{{ $t('Kelib tushgan sana') }}</th>
+				              <th scope="col">{{ $t('Rasm') }}</th>
 				            </tr>
 			          	</thead>
 			          	<tbody>

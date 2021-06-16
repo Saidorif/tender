@@ -16,7 +16,7 @@
           {{statusText}}
         </button>
         <router-link class="btn btn-primary back_btn" to="/crm/client">
-          <span class="peIcon pe-7s-back"></span> Назад
+          <span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}
         </router-link>
       </div>
       <form role="form" @submit.prevent.enter="sendEmployee" enctype="multipart/form-data">

@@ -5,7 +5,7 @@
 			    <h4 class="title_user">Разрешения для <span class="roleName">{{rolName}}</span></h4>
 			    <router-link class="btn btn-primary back_btn" to="/crm/role">
 			    	<span class="peIcon pe-7s-back"></span>
-				    Назад
+				    {{$t('Orqaga')}}
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -37,7 +37,7 @@
 		  			<div class="row">
 		  				<div class="col-lg-12 col-md-12 btnPermit">
 					  		<button type="submit" class="btn btn-outline-primary btnPermit" @click.prevent="save">
-					  			Сохранить
+					  			{{$t('Saqlash')}}
 					  		</button>
 				  		</div>
 	  				</div>

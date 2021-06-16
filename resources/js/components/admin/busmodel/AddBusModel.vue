@@ -5,17 +5,17 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-bus"></i>
-          Добавить Модель автобуса
+          {{$t('Avtomobil rusumi qoʼshish')}}
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/busmodel"
-          ><span class="peIcon pe-7s-back"></span> Назад</router-link
+          ><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link
         >
       </div>
       <div class="card-body">
         <form @submit.prevent.enter="saveType">
           <div class="row">
             <div class="form-group col-md-4">
-              <label for="bustype_id">Категория автобуса</label>
+              <label for="bustype_id">{{$t('Avtobus toifasi')}}</label>
               <select
                 class="form-control input_style"
                 v-model="form.bustype_id"
@@ -23,7 +23,7 @@
                 @change="selectTypeBus()"
               >
                 <option value="" selected disabled>
-                  Выберите категория автобус!
+                  {{$t('Avtobus toifasi tanlang')}}!
                 </option>
                 <option
                   :value="item.id"
@@ -34,7 +34,7 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <label for="name">Название класса</label>
+              <label for="name">{{$t('Avtomobil sinfi nomi')}}</label>
 
               <select
                 class="form-control input_style"
@@ -42,7 +42,7 @@
                 :class="isRequired(form.tclass_id) ? 'isRequired' : ''"
               >
                 <option value="" selected disabled>
-                  Выберите тип автобус!
+                  {{$t('Avtomobil sinfini tanlang')}}!
                 </option>
                 <option
                   :value="item.id"
@@ -53,14 +53,14 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <label for="busmodel_id">Марка автобуса</label>
+              <label for="busmodel_id">{{$t('Avtobus markasi')}}</label>
               <select
                 class="form-control input_style"
                 v-model="form.busmarka_id"
                 :class="isRequired(form.busmarka_id) ? 'isRequired' : ''"
               >
                 <option value="" selected disabled>
-                  Выберите тип автобус!
+                 {{$t('Avtobus markasini tanlang')}}!
                 </option>
                 <option
                   :value="item.id"
@@ -71,23 +71,21 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <label for="name">Модель автобуса</label>
+              <label for="name">{{$t('Avtomobil rusumi')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="name"
-                placeholder="Название класса"
                 v-model="form.name"
                 :class="isRequired(form.name) ? 'isRequired' : ''"
               />
             </div>
             <div class="form-group col-md-4">
-              <label for="seat_from">Количество сидящих</label>
+              <label for="seat_from">{{$t('Oʼrindiqlar soni')}}</label>
               <input
                 type="number"
                 class="form-control input_style"
                 id="seat_from"
-                placeholder="Количество сидящих"
                 v-model="form.seat_from"
                 :class="isRequired(form.seat_from) ? 'isRequired' : ''"
               />
@@ -104,12 +102,11 @@
               />
             </div> -->
             <div class="form-group col-md-4">
-              <label for="stay_from">Пассажировместимость </label>
+              <label for="stay_from">{{$t('capacity')}} </label>
               <input
                 type="number"
                 class="form-control input_style"
                 id="stay_from"
-                placeholder="Пассажировместимость"
                 v-model="form.stay_from"
                 :class="isRequired(form.stay_from) ? 'isRequired' : ''"
               />
@@ -126,12 +123,11 @@
               />
             </div> -->
             <div class="form-group col-lg-10">
-              <label for="stay_from">Комментарии </label>
+              <label for="stay_from">{{$t('Izoh')}} </label>
               <textarea
                 type="number"
                 class="form-control input_style"
                 id="stay_from"
-                placeholder="Комментарии"
                 v-model="form.desc"
                 :class="isRequired(form.desc) ? 'isRequired' : ''"
               ></textarea>
@@ -141,7 +137,7 @@
             >
               <button type="submit" class="btn btn-primary btn_save_category">
                 <i class="fas fa-save"></i>
-                Сохранить
+                {{$t('Saqlash')}}
               </button>
             </div>
           </div>

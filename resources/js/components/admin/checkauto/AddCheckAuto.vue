@@ -5,9 +5,9 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-clipboard-check"></i>
-				    Подтвердить авто
+				    {{$t('Avtomobilni tasdiqlang')}}
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/action"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/action"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveAction" >
@@ -60,7 +60,7 @@
 					  <div class="form-group col-lg-3 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
-						  	Сохранить
+						  	{{$t('Saqlash')}}
 						</button>
 				  	  </div>
 					</div>

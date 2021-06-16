@@ -42,6 +42,10 @@ Route::group([
             Route::post('getaccess/activate', 'ClientAccessController@activate');
             Route::post('getaccess/delete', 'ClientAccessController@destroy');
 
+            //Certificates
+            Route::post('certificate','ApplicationController@certificates');
+            Route::get('certificate/{id}','ApplicationController@certificateShow');
+
             //Dashboard
             Route::get('dashboard', 'DashboardController@index');
 
