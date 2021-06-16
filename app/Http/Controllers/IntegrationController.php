@@ -282,6 +282,7 @@ class IntegrationController extends Controller
             'pTexpassportSery' => 'required|string',
             'pTexpassportNumber' => 'required|string',
             'auto_number' => 'required|string',
+            'lizing' => 'required|integer',
             'date' => 'required|date_format:"Y"',
         ]);
         if($validator->fails()){
@@ -326,8 +327,12 @@ class IntegrationController extends Controller
                         $the_result = $result['n1VLPrefillMIPResponse']['VLPrefillMIPResult']['vehicleInfoResult']['anyType'];
                         $inn = $result['n1VLPrefillMIPResponse']['VLPrefillMIPResult']['pOwnerInn'];
                         //Check for inn
-                        if($user->inn != $inn){
-                            return response()->json(['error' => true, 'message' => 'ИНН автомобиля не совпадает с вашим ИНН']);
+                        if(!empty($inputs['lizing'])){
+                            if($inputs['lizing'] == 0){
+                                if($user->inn != $inn){
+                                    return response()->json(['error' => true, 'message' => 'ИНН автомобиля не совпадает с вашим ИНН']);
+                                }
+                            }
                         }
                         //Check for made year
                         if($the_result['pYear'] != $inputs['date']){
