@@ -7,7 +7,7 @@
 			    	<i class="peIcon fas fa-comment"></i>
 				    Добавить вариант обращения
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/complaint-list-user"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/complaint-list-user"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveComplt" >
@@ -27,7 +27,7 @@
 					  <div class="form-group col-lg-3 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
-						  	Сохранить
+						  	{{$t('Saqlash')}}
 						</button>
 				  	  </div>
 					</div>

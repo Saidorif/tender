@@ -109,7 +109,7 @@
             </div>
             <div class="col-12 d-flex justify-content-end">
               <button type="submit" class="btn btn-primary">
-                <i class="fas fa-save"></i> Сохранить
+                <i class="fas fa-save"></i> {{$t('Saqlash')}}
               </button>
             </div>
           </div>
@@ -146,7 +146,7 @@
             </div>
             <div class="col-12 d-flex justify-content-end">
               <button type="submit" class="btn btn-primary">
-                <i class="fas fa-save"></i> Сохранить
+                <i class="fas fa-save"></i> {{$t('Saqlash')}}
               </button>
             </div>
           </div>

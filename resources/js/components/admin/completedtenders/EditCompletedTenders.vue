@@ -9,7 +9,7 @@
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/completed-tenders">
           <span class="peIcon pe-7s-back"></span>
-          Назад
+          {{$t('Orqaga')}}
         </router-link>
       </div>
       <div class="card-body">
@@ -157,7 +157,7 @@
                           <td class="without_padding">
                             <ul class="list-inline">
                               <li v-for="(p_item,index) in directions" style="margin:20px 0 30px 0;">
-                                  {{summBall(p_item)}} 
+                                  {{summBall(p_item)}}
                               </li>
                             </ul>
                           </td>

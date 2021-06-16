@@ -7,7 +7,7 @@
 			    	<i class="peIcon fas fa-money-bill-alt"></i>
 				    Добавить Платеж
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/payment"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/payment"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="savePayment" >
@@ -72,7 +72,7 @@
 					  <div class="form-group col-xl-2 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
-						  	Сохранить
+						  	{{$t('Saqlash')}}
 						</button>
 				  	  </div>
 					</div>

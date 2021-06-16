@@ -23,7 +23,7 @@
     </ul>
     <!-- <router-link class="btn btn-primary back_btn" to="/crm/direction">
       <span class="peIcon pe-7s-back"></span>
-      Назад
+      {{$t('Orqaga')}}
     </router-link> -->
   </div>
 </template>

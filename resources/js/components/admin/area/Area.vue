@@ -5,9 +5,9 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon pe-7s-box1"></i>
-				    Area
+				    {{$t('Tuman')}}
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/area/add"><i class="fas fa-plus"></i> Добавить</router-link>
+				<router-link class="btn btn-primary" to="/crm/area/add"><i class="fas fa-plus"></i> {{$t('Tuman qoʼshish')}}</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -15,9 +15,9 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
-							<th scope="col">Регион</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Nomi')}} </th>
+							<th scope="col">{{$t('Viloyat')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

@@ -72,7 +72,7 @@
           </div>
           <form @submit.prevent.enter="sendFile"  enctype="multipart/form-data" class="col-md-6 d-flex flex-wrap">
             <input type="file" accept="application/pdf" id="file" ref="file" @change="handleFileUpload()" required name="file" class="form-control" style="width:60%;border-radius:0px;height: 41px;" >
-            <button type="submit" class="btn btn-primary btn_save_category" style="width: 210px;border-radius:0px;height: 41px;">Сохранить файл</button>
+            <button type="submit" class="btn btn-primary btn_save_category" style="width: 210px;border-radius:0px;height: 41px;">{{$t('Saqlash')}} файл</button>
             <a v-if="getDirection.sxema_file" :href="getDirection.sxema_file" download="" class="btn btn-info btn_save_category">Скачать файл</a>
           </form>
           <div class="row col-md-12"  v-if="agreedData.length">
@@ -134,7 +134,7 @@
                 <div class="col-md-6 form_btn d-flex justify-content-end">
                     <button type="submit" class="btn btn-primary btn_save_category" @click.prevent="saveData">
                     <i class="fas fa-save"></i>
-                    Сохранить
+                    {{$t('Saqlash')}}
                     </button>
                 </div>
                 </div>

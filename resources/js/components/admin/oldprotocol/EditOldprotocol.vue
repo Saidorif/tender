@@ -8,8 +8,8 @@
 				    Изменить старый протокол
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/oldprotocol">
-					<span class="peIcon pe-7s-back"></span> 
-					Назад
+					<span class="peIcon pe-7s-back"></span>
+					{{$t('Orqaga')}}
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -17,13 +17,13 @@
 					<div class="row">
 					  	<div class="form-group col-md-3">
 						    <label for="number">Номер протокола</label>
-						    <input 
-						    	type="text" 
-						    	class="form-control input_style" 
-						    	id="number" 
+						    <input
+						    	type="text"
+						    	class="form-control input_style"
+						    	id="number"
 						    	placeholder="Номер протокола"
 						    	v-model="form.number"
-						    	:class="isRequired(form.number) ? 'isRequired' : ''"  
+						    	:class="isRequired(form.number) ? 'isRequired' : ''"
 					    	>
 					  	</div>
 					  	<div class="form-group col-md-3">
@@ -39,11 +39,11 @@
 			          	</div>
 					  	<div class="form-group col-md-3">
 			              	<label for="date">Файл</label>
-			              	<input 
-			              		type="file" 
-			              		name="file"  
-			              		id="file" 
-			              		class="form-control input_style"  
+			              	<input
+			              		type="file"
+			              		name="file"
+			              		id="file"
+			              		class="form-control input_style"
 			              		:class="isRequired(form.file) ? 'isRequired' : ''"
 			              		@change="changePhoto($event)"
 		              		>
@@ -57,8 +57,8 @@
 					  	<div class="form-group col-lg-3 form_btn">
 						  	<button type="submit" class="btn btn-primary btn_save_category">
 						  		<i class="fas fa-save"></i>
-							  	Сохранить
-							</button>	
+							  	{{$t('Saqlash')}}
+							</button>
 				  	  	</div>
 					</div>
 				</form>
@@ -115,8 +115,8 @@
 				reader.readAsDataURL(file);
 				// let file = event.target.files[0];
 				// if(
-				// 	event.target.files[0]['type'] ==='image/png' || 
-				// 	event.target.files[0]['type'] ==='image/jpeg' || 
+				// 	event.target.files[0]['type'] ==='image/png' ||
+				// 	event.target.files[0]['type'] ==='image/jpeg' ||
 				// 	event.target.files[0]['type'] ==='image/jpg'
 				// ){
 				// 	if (file.size > 1048576) {
@@ -131,7 +131,7 @@
 				// 			this.form.file = event.target.result;
 				// 		};
 				// 		reader.readAsDataURL(file);
-						
+
 				// 	}
 				// }else{
 				// 	swal.fire({
@@ -171,5 +171,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

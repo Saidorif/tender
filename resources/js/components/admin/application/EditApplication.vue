@@ -5,9 +5,9 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Отправить Заявку
+				    {{$t('Arizani yuborish')}}
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/application"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/application"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}} </router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveApplication" >
@@ -18,26 +18,26 @@
 									class="form-group"
 									:class="direction_ids && Object.keys(direction_ids).length > 0 ? ' col-md-10' : ' col-md-12'"
 								>
-								    <label for="marshrut">Маршрут</label>
+								    <label for="marshrut">{{$t('Marshrut')}}</label>
 								    <multiselect
 										:value="direction_ids"
 										:options="findList"
 										@search-change="value => findDirection(value)"
 										v-model="direction_ids"
-				                        placeholder="Выберите маршрут"
+				                        :placeholder="$t('Marshrutni tanlang')"
 				                        :searchable="true"
 				                        track-by="id"
 				                        label="name"
 				                        :max="3"
 										:loading="isLoading"
-										selectLabel="Нажмите Enter, чтобы выбрать"
-										deselectLabel="Нажмите Enter, чтобы удалить"
+										:selectLabel="$t('Tanlash uchun Enter tugmasini bosing')"
+										:deselectLabel="$t('Oʼchirish uchun Enter tugmasini bosing')"
 										:option="[{name: 'Otash', id: 1}]"
 										@select="dispatchAction"
 										@remove="removeDirectionFromList"
 										>
-										<span slot="noResult">По вашему запросу ничего не найдено</span>
-										<span slot="noOptions">Cписок пустой</span>
+										<span slot="noResult">{{$t('Sizning qidirgan maʼlumot topilmadi.')}}</span>
+										<span slot="noOptions">{{$t('Royxat boʼsh')}}</span>
 									</multiselect>
 								</div>
 							  	<div class="form-group col-md-2 btn_show" v-if="direction_ids && Object.keys(direction_ids).length > 0">
@@ -46,18 +46,17 @@
 								  		class="btn btn-outline-info"
 							  		>
 							  			<i class="fas fa-eye"></i>
-							  			Посмотреть
+							  			{{$t('Koʼrish')}}
 							  		</button>
 						  	  	</div>
 							</div>
 					  	</div>
 					  	<div class="form-group col-md-3">
-						    <label for="tarif">Тариф</label>
+						    <label for="tarif">{{$t('Tarif')}}</label>
 						    <input
 						    	type="number"
 						    	class="form-control input_style"
 						    	id="tarif"
-						    	placeholder="Тариф"
 						    	v-model="form.tarif"
 						    	:class="isRequired(form.tarif) ? 'isRequired' : ''"
 					    	>
@@ -65,104 +64,96 @@
 				  	  	<div class="form-group col-md-2 btn_save d-flex justify-content-end">
 						  	  <button type="button" class="btn btn-secondary mr-3" @click.prevent="addCar">
 							  		<i class="fas fa-plus"></i>
-								  	Добавить авто
+								  	{{$t('Avtomobil qoʼshish')}}
 						      </button>
 				      	</div>
 					</div>
 					<div class="row">
 					  <div class="form-group col-md-3">
-					    <label for="auto_number">Номер Авто</label>
+					    <label for="auto_number">{{$t('Avtomobil raqami')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="auto_number"
-					    	placeholder="Номер Авто"
 					    	v-model="form.car.auto_number"
 					    	:class="isRequired(form.car.auto_number) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="bustype_id">Тип Авто</label>
+					    <label for="bustype_id">{{$t('Avtomobil turi')}}</label>
 					    <select
 						    class="form-control input_style"
 					    	id="bustype_id"
-					    	placeholder="Номер Авто"
 					    	v-model="form.car.bustype_id"
 					    	:class="isRequired(form.car.bustype_id) ? 'isRequired' : ''"
 					    	@change="selectClass(form.car.bustype_id, form.car.busmodel_id)"
 					    >
-					    	<option value="" selected disabled>Выберите тип авто!</option>
+					    	<option value="" selected disabled>{{$t('Avtomobil turini tanlang')}}!</option>
 					    	<option :value="busType.id" v-for="(busType,index) in getTypeofbusList">{{busType.name}}</option>
 					    </select>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="busmodel_id">Модель Авто</label>
+					    <label for="busmodel_id">{{$t('Avtomobil rusumi')}}</label>
 					    <select
 						    class="form-control input_style"
 					    	id="busmodel_id"
-					    	placeholder="Номер Авто"
 					    	v-model="form.car.busmodel_id"
 					    	:class="isRequired(form.car.busmodel_id) ? 'isRequired' : ''"
 					    	@change="selectClass(form.car.bustype_id, form.car.busmodel_id)"
 					    >
-					    	<option value="" selected disabled>Выберите модель авто!</option>
+					    	<option value="" selected disabled>{{$t('Avtomobil rusumini tanlang')}}!</option>
 					    	<option :value="busmodel.id" v-for="(busmodel,index) in getBusmodelList">{{busmodel.name}}</option>
 					    </select>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="tclass_id">Класс Авто</label>
+					    <label for="tclass_id">{{$t('Avtomobil sinfi')}}</label>
 					    <select
 						    class="form-control input_style"
 					    	id="tclass_id"
-					    	placeholder="Номер Авто"
 					    	v-model="form.car.tclass_id"
 					    	:class="isRequired(form.car.tclass_id) ? 'isRequired' : ''"
 
 					    >
-					    	<option value="" selected disabled>Выберите класс авто!</option>
+					    	<option value="" selected disabled>{{$t('Avtomobil sinfini tanlang')}}!</option>
 					    	<option :value="busClass.id" v-for="(busClass,index) in form.car.tclasses">{{busClass.name}}</option>
 					    </select>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="date">Дата выпуска</label>
+					    <label for="date">{{$t('Ishlab chiqarilgan sana')}}</label>
 					    <input
 					    	type="date"
 					    	class="form-control input_style"
 					    	id="date"
-					    	placeholder="Вместимость"
 					    	v-model="form.car.date"
 					    	:class="isRequired(form.car.date) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="capacity">Вместимость</label>
+					    <label for="capacity">{{$t('capacity')}}</label>
 					    <input
 					    	type="number"
 					    	class="form-control input_style"
 					    	id="capacity"
-					    	placeholder="Вместимость"
 					    	v-model="form.car.capacity"
 					    	:class="isRequired(form.car.capacity) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="seat_qty">Количество сидящих</label>
+					    <label for="seat_qty">{{$t('Oʼrindiqlar soni')}}</label>
 					    <input
 					    	type="number"
 					    	class="form-control input_style"
 					    	id="seat_qty"
-					    	placeholder="Количество сидящих"
 					    	v-model="form.car.seat_qty"
 					    	:class="isRequired(form.car.seat_qty) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="qty_reys">Количество рейсов</label>
+					    <label for="qty_reys">{{$t('Reyslar (qatnovlar) soni')}}</label>
 					    <input
 					    	type="number"
 					    	class="form-control input_style"
 					    	id="qty_reys"
-					    	placeholder="Количество рейсов"
 					    	v-model="form.car.qty_reys"
 					    	:class="isRequired(form.car.qty_reys) ? 'isRequired' : ''"
 				    	>
@@ -172,21 +163,21 @@
 					  		<thead>
 					  			<tr>
 					  				<th width="1%">1</th>
-					  				<th width="50%">Кондиционер (климат-назорати тизими)</th>
+					  				<th width="50%">{{$t('Sovutgich (iqlim-nazorati tizimi)')}}</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="form.car.conditioner">
 					  				</th>
 					  			</tr>
 					  			<tr>
 					  				<th>2</th>
-					  				<th width="50%">Интернет</th>
+					  				<th width="50%">{{$t('Internet')}}</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="form.car.internet">
 					  				</th>
 					  			</tr>
 					  			<tr>
 					  				<th>3</th>
-					  				<th width="50%">Биохожатхона</th>
+					  				<th width="50%">{{$t('Bioxojatxona')}}</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="form.car.bio_toilet">
 					  				</th>
@@ -194,8 +185,7 @@
 					  			<tr>
 					  				<th>4</th>
 					  				<th width="50%">
-					  					Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган
-					  					гурухларига мослашганлиги
+                                        {{$t('Аvtobusning nogironlarga va aholining boshqa xarakatlanishi cheklangan guruxlariga moslashganligi')}}
 					  				</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="form.car.bus_adapted">
@@ -204,7 +194,7 @@
 					  			<tr>
 					  				<th>5</th>
 					  				<th width="50%">
-					  					Телефон қувватлагичлари
+					  					{{$t('Telefon quvvatlagichlari')}}
 					  				</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="form.car.telephone_power">
@@ -213,7 +203,7 @@
 					  			<tr>
 					  				<th>6</th>
 					  				<th width="50%">
-					  					Хар бир ўриндиқда монитор (планшет)
+                                        {{$t('Xar bir oʼrindiqda monitor (planshet)')}}
 					  				</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="form.car.monitor">
@@ -222,7 +212,7 @@
 					  			<tr>
 					  				<th>7</th>
 					  				<th width="50%">
-					  					Бекатларни эълон қилиш
+                                        {{$t('Bekatlarni eʼlon qilish')}}
 					  				</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="form.car.station_announce">
@@ -233,14 +223,13 @@
 					  </div>
 					  <hr>
 					  	<div class="form-group col-md-12 table table-responsive">
-						  	<h4>Тадбирлар режаси</h4>
+						  	<h4>{{$t('Tadbirlar rejasi')}}</h4>
 						  	<table class="table table-bordered">
 						  		<thead>
 						  			<tr>
 						  				<th width="1%">1</th>
 						  				<th width="50%">
-						  					Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан
-						  					ўтказиш учун барча шароитлар яратилган
+                                            {{$t('Аvtotransport vositalarini xar kuni reysdan oldingi texnik koʼrikdan oʼtkazish uchun barcha sharoitlar yaratilgan')}}
 						  				</th>
 						  				<th>
 						  					<input type="checkbox" name="" value="1" v-model="form.daily_technical_job">
@@ -249,8 +238,7 @@
 						  			<tr>
 						  				<th>2</th>
 						  				<th width="50%">
-						  					Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча
-						  					шароитлар яратилган
+                                            {{$t('Haydovchilarni har kungi tibbiy koʼrikdan oʼtkazish uchun barcha sharoitlar yaratilgan')}}
 						  				</th>
 						  				<th>
 						  					<input type="checkbox" name="" value="1" v-model="form.daily_medical_job">
@@ -259,8 +247,7 @@
 						  			<tr>
 						  				<th>3</th>
 						  				<th width="50%">
-						  					Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча
-						  					ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
+                                            {{$t('Taklif etilgan avtotransport vositalari sonidan kelib chiqib barcha haydovchilariga 30 soatlik dastur boʼyicha yoʼl harakati qoidalarini oʼrgatilgan')}}
 						  				</th>
 						  				<th>
 						  					<input type="checkbox" name="" value="1" v-model="form.hours_rule">
@@ -269,8 +256,7 @@
 						  			<tr>
 						  				<th>4</th>
 						  				<th width="50%">
-						  					Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор
-						  					ўрнатилган
+                                            {{$t('Taklif etilgan barcha avtotransport vositalarining old oynalariga videoregistrator oʼrnatilgan')}}
 						  				</th>
 						  				<th>
 						  					<input type="checkbox" name="" value="1" v-model="form.videoregistrator">
@@ -279,8 +265,7 @@
 						  			<tr>
 						  				<th>5</th>
 						  				<th width="50%">
-						  					Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш
-						  					тизимига уланган
+                                            {{$t('Taklif etilgan barcha avtotransport vositalarini GPS rejimida masofadan kuzatish tizimiga ulangan')}}
 						  				</th>
 						  				<th>
 						  					<input type="checkbox" name="" value="1" v-model="form.gps">
@@ -294,15 +279,15 @@
 								<thead>
 									<tr>
 										<th>№</th>
-										<th>Номер Авто</th>
-										<th>Тип Авто</th>
-										<th>Модель Авто</th>
-										<th>Класс Авто</th>
-										<th>Дата выпуска</th>
-										<th>Вместимость</th>
-										<th>Количество сидящих</th>
-										<th>Количество рейсов</th>
-										<th>Действия</th>
+										<th>{{$t('Avtomobil raqami')}}</th>
+										<th>{{$t('Avtomobil turi')}}</th>
+										<th>{{$t('Avtomobil rusumi')}}</th>
+										<th>{{$t('Avtomobil sinfi')}}</th>
+										<th>{{$t('Ishlab chiqarilgan sana')}}</th>
+										<th>{{$t('capacity')}}</th>
+										<th>{{$t('Oʼrindiqlar soni')}}</th>
+										<th>{{$t('Reyslar soni')}}</th>
+										<th>{{$t('Tahrirlash')}}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -331,11 +316,11 @@
 					  	<div class="form-group col-lg-12 d-flex justify-content-end">
 						  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
 						  		<i class="fas fa-save"></i>
-							  	Сохранить
+							  	{{$t('Saqlash')}}
 							</button>
 						  	<button type="button" class="btn btn-primary btn_save_category">
 						  		<i class="far fa-share-square"></i>
-							  	Отправить
+							  	{{$t('Yuborish')}}
 							</button>
 				  	  	</div>
 					</div>
