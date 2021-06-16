@@ -9,7 +9,7 @@
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/confirm-schedule">
           <span class="peIcon pe-7s-back"></span>
-          Назад
+          {{$t('Orqaga')}}
         </router-link>
       </div>
       <div class="card-body">
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group col-md-3" v-if="titulData">
               <label for="reys_from_count" v-if="titulData.timing_with && titulData.timing_with.length">
-                Reyslar soni  
+                Reyslar soni
                 {{ titulData.timing_with[0].whereTo  ? titulData.timing_with[titulData.timing_with.length - 1].whereTo.name : '' }} tomondan
               </label>
               <div class="form-control input_style">

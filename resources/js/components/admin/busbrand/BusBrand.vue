@@ -5,10 +5,10 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-bus"></i>
-				    Марка автобуса
+				    {{$t('Avtobus markasi')}}
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/busbrand/add">
-					<i class="fas fa-plus"></i> Добавить
+					<i class="fas fa-plus"></i> {{$t('Qoʼshish')}}
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -17,8 +17,8 @@
 						<thead>
 							<tr>
 								<th scope="col">№</th>
-								<th scope="col">Название</th>
-								<th scope="col">Действия</th>
+								<th scope="col">{{$t('Marka nomi')}}</th>
+								<th scope="col">{{$t('Tahrirlash')}}</th>
 							</tr>
 						</thead>
 						<tbody>

@@ -307,7 +307,7 @@
                 <td width="50%"><b>Тариф</b></td>
                 <td>
                   <b>{{ form.tarif }}</b>
-                </td> 
+                </td>
               </tr>
               <!-- v-if="getDemand.result.direction && getDemand.result.direction.type_id != 1" -->
               <tr v-if="getDemand.type && getDemand.type.id != 1">
@@ -415,7 +415,7 @@
               @click.prevent="saveData"
             >
               <i class="fas fa-save"></i>
-              Сохранить
+              {{$t('Saqlash')}}
             </button>
           </div>
         </div>

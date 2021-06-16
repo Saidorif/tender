@@ -7,7 +7,7 @@
 			    	<i class="peIcon fas fa-sign"></i>
 				    Добавить условный символ
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/conditionalsign"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/conditionalsign"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveSign" >
@@ -49,7 +49,7 @@
 					  <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
-						  	Сохранить
+						  	{{$t('Saqlash')}}
 						</button>
 				  	  </div>
 					</div>

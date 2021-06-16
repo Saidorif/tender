@@ -18,7 +18,7 @@
 					</span>
 					<router-link class="btn btn-primary back_btn" :to='`/crm/application/${$route.query.tId}`'>
 						<span class="peIcon pe-7s-back"></span>
-						Назад
+						{{$t('Orqaga')}}
 					</router-link>
 				</div>
 		  	</div>
@@ -452,7 +452,7 @@
                             </div>
 						  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
 						  		<i class="fas fa-save"></i>
-							  	Сохранить
+							  	{{$t('Saqlash')}}
 							</button>
 						  	<button type="button" class="btn btn-primary btn_save_category" @click.prevent="activate">
 						  		<i class="far fa-share-square"></i>
@@ -773,7 +773,7 @@
 							    	v-model="car.pTexpassportSery"
 							    	:class="isRequired(car.pTexpassportSery) ? 'isRequired' : ''"
 						    	>
-						  	</div> 
+						  	</div>
 				    		<div class="form-group col-md-6">
 							    <label for="pTexpassportNumber">Номер техпаспорта</label>
 							    <input
@@ -796,7 +796,7 @@
 		        </button>
 		        <button type="button" class="btn btn-primary" @click.prevent="addCar">
 		        	<i class="fas fa-save"></i>
-		        	Сохранить
+		        	{{$t('Saqlash')}}
 		        </button>
 		      </div>
 		    </div>

@@ -7,7 +7,7 @@
           <i  class="peIcon fas fa-users"></i></i>Редактировать cотрудник
         </h3>
         <router-link class="btn btn-primary back_btn" to="/crm/employee">
-          <span class="peIcon pe-7s-back"></span> Назад
+          <span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}
         </router-link>
       </div>
       <form role="form" @submit.prevent.enter="sendEmployee" enctype="multipart/form-data">
@@ -173,7 +173,7 @@
           </div>
           <div class="col-12 d-flex justify-content-end">
             <button type="submit" class="btn btn-primary">
-              <i class="fas fa-save"></i> Сохранить
+              <i class="fas fa-save"></i> {{$t('Saqlash')}}
             </button>
           </div>
         </div>

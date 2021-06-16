@@ -5,10 +5,10 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-bus-alt"></i>
-				    Класс автобуса
+				    {{$t('Avtomobil sinfi')}}
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/busclass/add">
-					<i class="fas fa-plus"></i> Добавить
+					<i class="fas fa-plus"></i> {{$t('Qoʼshish')}}
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -17,14 +17,14 @@
 						<thead>
 							<tr>
 								<th scope="col">№</th>
-								<th scope="col">Название класса</th>
-								<th scope="col">Тип автобуса</th>
+								<th scope="col">{{$t('Avtomobil sinfi nomi')}}</th>
+								<th scope="col">{{$t('Avtobus toifasi')}}</th>
 								<!-- <th scope="col">Модель автобуса</th> -->
 								<!-- <th scope="col">Количество сидящих</th> -->
 								<!-- <th scope="col">Количество сидящих (по)</th> -->
 								<!-- <th scope="col">Пассажировместимость</th> -->
 								<!-- <th scope="col">Пассажировместимость (по)</th> -->
-								<th scope="col">Действия</th>
+								<th scope="col">{{$t('Tahrirlash')}}</th>
 							</tr>
 						</thead>
 						<tbody>

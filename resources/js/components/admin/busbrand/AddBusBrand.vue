@@ -5,20 +5,19 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-bus"></i>
-				    Добавить Марка автобуса
+                     {{$t('Avtobus markasini qoʼshing')}}
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/busbrand"><span class="peIcon pe-7s-back"></span> Назад</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/busbrand"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveType" >
 					<div class="row">
 					  <div class="form-group col-md-3">
-					    <label for="name">Название марка</label>
+					    <label for="name"> {{$t('Marka nomi')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="name"
-					    	placeholder="Название"
 					    	v-model="form.name"
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
@@ -26,7 +25,7 @@
 					  <div class="form-group col-lg-3 d-flex justify-content-end saveBtn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
-						  	Сохранить
+						  	{{$t('Saqlash')}}
 						</button>
 				  	  </div>
 					</div>

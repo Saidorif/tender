@@ -229,7 +229,7 @@
        <!--    <div class="btn_send d-flex justify-content-end">
             <button type="button" class="btn btn-primary" @click.prevent="saveData">
               <i class="fas fa-save"></i>
-              Сохранить
+              {{$t('Saqlash')}}
             </button>
           </div> -->
         </div>

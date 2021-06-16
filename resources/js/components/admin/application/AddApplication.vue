@@ -172,14 +172,14 @@
 					  			</tr>
 					  			<tr>
 					  				<th>2</th>
-					  				<th width="50%">Интернет</th>
+					  				<th width="50%">{{$t('Internet')}}</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="item.internet">
 					  				</th>
 					  			</tr>
 					  			<tr>
 					  				<th>3</th>
-					  				<th width="50%">Биохожатхона</th>
+					  				<th width="50%">{{$t('Bioxojatxona')}}</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="item.bio_toilet">
 					  				</th>
@@ -187,8 +187,7 @@
 					  			<tr>
 					  				<th>4</th>
 					  				<th width="50%">
-					  					Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган
-					  					гурухларига мослашганлиги
+                                        {{$t('Аvtobusning nogironlarga va aholining boshqa xarakatlanishi cheklangan guruxlariga moslashganligi')}}
 					  				</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="item.bus_adapted">
@@ -197,7 +196,7 @@
 					  			<tr>
 					  				<th>5</th>
 					  				<th width="50%">
-					  					Телефон қувватлагичлари
+					  					{{$t('Telefon quvvatlagichlari')}}
 					  				</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="item.telephone_power">
@@ -206,7 +205,7 @@
 					  			<tr>
 					  				<th>6</th>
 					  				<th width="50%">
-					  					Хар бир ўриндиқда монитор (планшет)
+                                        {{$t('Xar bir oʼrindiqda monitor (planshet)')}}
 					  				</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="item.monitor">
@@ -215,7 +214,7 @@
 					  			<tr>
 					  				<th>7</th>
 					  				<th width="50%">
-					  					Бекатларни эълон қилиш
+                                        {{$t('Bekatlarni eʼlon qilish')}}
 					  				</th>
 					  				<th>
 					  					<input type="checkbox" value="1" v-model="item.station_announce">
@@ -227,14 +226,13 @@
 					  <hr>
 					</template>
 					  	<div class="form-group col-md-12 table table-responsive">
-						  	<h4>Тадбирлар режаси</h4>
+						  	<h4> {{$t('Tadbirlar rejasi')}}</h4>
 						  	<table class="table table-bordered">
 						  		<thead>
 						  			<tr>
 						  				<th width="1%">1</th>
 						  				<th width="50%">
-						  					Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан
-						  					ўтказиш учун барча шароитлар яратилган
+                                            {{$t('Аvtotransport vositalarini xar kuni reysdan oldingi texnik koʼrikdan oʼtkazish uchun barcha sharoitlar yaratilgan')}}
 						  				</th>
 						  				<th>
 						  					<input type="checkbox" name="" value="1">
@@ -243,8 +241,7 @@
 						  			<tr>
 						  				<th>2</th>
 						  				<th width="50%">
-						  					Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча
-						  					шароитлар яратилган
+                                            {{$t('Haydovchilarni har kungi tibbiy koʼrikdan oʼtkazish uchun barcha sharoitlar yaratilgan')}}
 						  				</th>
 						  				<th>
 						  					<input type="checkbox" name="" value="1">
@@ -253,9 +250,8 @@
 						  			<tr>
 						  				<th>3</th>
 						  				<th width="50%">
-						  					Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча
-						  					ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
-						  				</th>
+                                            {{$t('Taklif etilgan avtotransport vositalari sonidan kelib chiqib barcha haydovchilariga 30 soatlik dastur boʼyicha yoʼl harakati qoidalarini oʼrgatilgan')}}
+                                        </th>
 						  				<th>
 						  					<input type="checkbox" name="" value="1">
 						  				</th>
@@ -263,8 +259,7 @@
 						  			<tr>
 						  				<th>4</th>
 						  				<th width="50%">
-						  					Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор
-						  					ўрнатилган
+                                            {{$t('Taklif etilgan barcha avtotransport vositalarining old oynalariga videoregistrator oʼrnatilgan')}}
 						  				</th>
 						  				<th>
 						  					<input type="checkbox" name="" value="1">
@@ -273,8 +268,7 @@
 						  			<tr>
 						  				<th>5</th>
 						  				<th width="50%">
-						  					Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш
-						  					тизимига уланган
+                                              {{$t('Taklif etilgan barcha avtotransport vositalarini GPS rejimida masofadan kuzatish tizimiga ulangan')}}
 						  				</th>
 						  				<th>
 						  					<input type="checkbox" name="" value="1">
@@ -288,15 +282,15 @@
 								<thead>
 									<tr>
 										<th>№</th>
-										<th>Номер Авто</th>
-										<th>Тип Авто</th>
-										<th>Модель Авто</th>
-										<th>Класс Авто</th>
-										<th>Дата выпуска</th>
-										<th>Вместимость</th>
-										<th>Количество сидящих</th>
-										<th>Количество рейсов</th>
-										<th>Действия</th>
+										<th>{{$t('Avtomobil raqami')}}</th>
+										<th>{{$t('Avtomobil turi')}}</th>
+										<th>{{$t('Avtomobil rusumi')}}</th>
+										<th>{{$t('Avtomobil sinfi')}}</th>
+										<th>{{$t('Ishlab chiqarilgan sana')}}</th>
+										<th>{{$t('capacity')}}</th>
+										<th>{{$t('Oʼrindiqlar soni')}}</th>
+										<th>{{$t('Reyslar (qatnovlar) soni')}}</th>
+										<th>{{$t('Tahrirlash')}}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -325,11 +319,11 @@
 					  	<div class="form-group col-lg-12 d-flex justify-content-end">
 						  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
 						  		<i class="fas fa-save"></i>
-							  	Сохранить
+							  	{{$t('Saqlash')}}
 							</button>
 						  	<button type="button" class="btn btn-primary btn_save_category">
 						  		<i class="far fa-share-square"></i>
-							  	Отправить
+							  	{{$t('Yuborish')}}
 							</button>
 				  	  	</div>
 					</div>

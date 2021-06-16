@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Заявки
+				     {{$t('Arizalar')}}
 				</h4>
 	<!-- 			<button type="button" class="btn btn-primary" @click.prevent="getEditId">
 					<i class="fas fa-plus"></i>
@@ -22,10 +22,10 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Адрес</th>
-							<th scope="col">Статус</th>
-							<th scope="col">Дата</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Manzil')}}</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Sana')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

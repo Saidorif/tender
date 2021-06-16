@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-file"></i>
-          Проверка заявку
+          {{$t('Arizani tekshirish')}}
         </h4>
         <h3 class="ml-5">
           <b>{{getCompanyName}}</b>
@@ -13,7 +13,7 @@
         <div class="d-flex align-items-center">
           <router-link class="btn btn-primary back_btn" to="/crm/user/application">
             <span class="peIcon pe-7s-back"></span>
-            Назад
+            {{$t('Orqaga')}}
           </router-link>
         </div>
       </div>
@@ -21,7 +21,7 @@
         <div class="form-group col-md-12 table table-responsive mb-4">
           <div class="d-flex justify-content-center text-center">
             <h4 class="app_title">
-              Йўналишларда ишлаётганда ҳаракатланиш хавфсизлигини таъминлаш бўйича қатнашчи томонидан амалга оширилган тадбирлар режаси қуйидагича баҳоланади
+                {{$t('Yoʼnalishlarda ishlayotganda harakatlanish xavfsizligini taʼminlash boʼyicha qatnashchi tomonidan amalga oshirilgan tadbirlar rejasi quyidagicha baholanadi')}}
             </h4>
           </div>
           <table class="table table-bordered">
@@ -29,8 +29,7 @@
               <tr>
                 <th width="1%">1</th>
                 <th width="50%">
-                  Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан
-                  ўтказиш учун барча шароитлар яратилган
+                    {{$t('Аvtotransport vositalarini xar kuni reysdan oldingi texnik koʼrikdan oʼtkazish uchun barcha sharoitlar yaratilgan')}}
                 </th>
                 <th class="text-center">
                   <span v-html="checkBox(form.daily_technical_job)"></span>
@@ -44,15 +43,15 @@
                   <div class="d-flex justify-content-center align-items-center">
                     <button type="button" class="btn btn-danger mr-3" @click.prevent="rejectTargetModal('daily_technical_job_status')"  v-if="form.daily_technical_job == null">
                       <i class="fas fa-minus-circle"></i>
-                      Отказ
+                      {{$t('Rad etish')}}
                     </button>
                     <button type="button" class="btn btn-success mr-3" @click.prevent="activeTargetCar('daily_technical_job_status')" v-if="form.daily_technical_job == null">
                       <i class="fas fa-check-circle"></i>
-                      Подтвердить
+                      {{$t('Tasdiqlash')}}
                     </button>
                     <button type="button" class="btn btn-info" @click.prevent="openFileModal('','daily_technical_job')">
                       <i class="fas fa-check-circle"></i>
-                      Файлы
+                      {{$t('Fayllar')}}
                     </button>
                   </div>
                 </th>
@@ -60,8 +59,7 @@
               <tr>
                 <th>2</th>
                 <th width="50%">
-                  Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча
-                  шароитлар яратилган
+                    {{$t('Haydovchilarni har kungi tibbiy koʼrikdan oʼtkazish uchun barcha sharoitlar yaratilgan')}}
                 </th>
                 <th class="text-center">
                   <span v-html="checkBox(form.daily_medical_job)"></span>
@@ -75,15 +73,15 @@
                   <div class="d-flex justify-content-center align-items-center">
                     <button type="button" class="btn btn-danger mr-3" @click.prevent="rejectTargetModal('daily_medical_job_status')" v-if="form.daily_medical_job_status == null">
                       <i class="fas fa-minus-circle"></i>
-                      Отказ
+                      {{$t('Rad etish')}}
                     </button>
                     <button type="button" class="btn btn-success mr-3" @click.prevent="activeTargetCar('daily_medical_job_status')" v-if="form.daily_medical_job_status == null">
                       <i class="fas fa-check-circle"></i>
-                      Подтвердить
+                      {{$t('Tasdiqlash')}}
                     </button>
                     <button type="button" class="btn btn-info" @click.prevent="openFileModal('','daily_medical_job')">
                       <i class="fas fa-check-circle"></i>
-                      Файлы
+                      {{$t('Fayllar')}}
                     </button>
                   </div>
                 </th>
@@ -91,8 +89,7 @@
               <tr>
                 <th>3</th>
                 <th width="50%">
-                  Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча
-                  ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
+                    {{$t('Taklif etilgan avtotransport vositalari sonidan kelib chiqib barcha haydovchilariga 30 soatlik dastur boʼyicha yoʼl harakati qoidalarini oʼrgatilgan')}}
                 </th>
                 <th class="text-center">
                   <span v-html="checkBox(form.hours_rule)"></span>
@@ -106,15 +103,15 @@
                   <div class="d-flex justify-content-center align-items-center">
                     <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('hours_rule_status')" v-if="form.hours_rule_status == null">
                       <i class="fas fa-minus-circle"></i>
-                      Отказ
+                      {{$t('Rad etish')}}
                     </button>
                     <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('hours_rule_status')" v-if="form.hours_rule_status == null">
                       <i class="fas fa-check-circle"></i>
-                      Подтвердить
+                       {{$t('Tasdiqlash')}}
                     </button>
                     <button type="button" class="btn btn-info" @click.prevent="openFileModal('','hours_rule')">
                       <i class="fas fa-check-circle"></i>
-                      Файлы
+                      {{$t('Fayllar')}}
                     </button>
                   </div>
                 </th>
@@ -122,8 +119,7 @@
               <tr>
                 <th>4</th>
                 <th width="50%">
-                  Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор
-                  ўрнатилган
+                    {{$t('Taklif etilgan barcha avtotransport vositalarining old oynalariga videoregistrator oʼrnatilgan')}}
                 </th>
                 <th class="text-center">
                   <span v-html="checkBox(form.videoregistrator)"></span>
@@ -137,15 +133,15 @@
                   <div class="d-flex justify-content-center align-items-center">
                     <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('videoregistrator_status')" v-if="form.videoregistrator_status == null">
                       <i class="fas fa-minus-circle"></i>
-                      Отказ
+                      {{$t('Rad etish')}}
                     </button>
                     <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('videoregistrator_status')" v-if="form.videoregistrator_status == null">
                       <i class="fas fa-check-circle"></i>
-                      Подтвердить
+                      {{$t('Tasdiqlash')}}
                     </button>
                     <button type="button" class="btn btn-info" @click.prevent="openFileModal('','videoregistrator')">
                       <i class="fas fa-check-circle"></i>
-                      Файлы
+                      {{$t('Fayllar')}}
                     </button>
                   </div>
                 </th>
@@ -153,8 +149,7 @@
               <tr>
                 <th>5</th>
                 <th width="50%">
-                  Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш
-                  тизимига уланган
+                  {{$t('Taklif etilgan barcha avtotransport vositalarini GPS rejimida masofadan kuzatish tizimiga ulangan')}}
                 </th>
                 <th class="text-center">
                   <span v-html="checkBox(form.gps)"></span>
@@ -168,15 +163,15 @@
                   <div class="d-flex justify-content-center align-items-center">
                     <button type="button" class="btn btn-danger" @click.prevent="rejectTargetModal('gps_status')" v-if="form.gps_status == null">
                       <i class="fas fa-minus-circle"></i>
-                      Отказ
+                       {{$t('Rad etish')}}
                     </button>
                     <button type="button" class="btn btn-success mr-3 ml-3" @click.prevent="activeTargetCar('gps_status')" v-if="form.gps_status == null">
                       <i class="fas fa-check-circle"></i>
-                      Подтвердить
+                      {{$t('Tasdiqlash')}}
                     </button>
                     <button type="button" class="btn btn-info" @click.prevent="openFileModal('','gps')">
                       <i class="fas fa-check-circle"></i>
-                      Файлы
+                      {{$t('Fayllar')}}
                     </button>
                   </div>
                 </th>
@@ -186,30 +181,30 @@
         </div>
         <div class="accordion" id="accordionExample" v-if="cars.length > 0">
           <div class="d-flex justify-content-center">
-            <h4>Автомобили</h4>
+            <h4>{{$t('Avtomobillar')}}</h4>
           </div>
           <div class="card-body">
-            <h3><strong>Вводные данные</strong></h3>
+            <h3><strong>{{$t('Kiritilgan maʼlumotalar')}} </strong></h3>
             <div class=" table-responsive table">
               <table class="table table-hover table-bordered text-center">
                 <thead>
                   <tr>
                     <th>№</th>
-                    <th>Статус</th>
-                    <th>Номер авто</th>
-                    <th>Количество рейсов</th>
-                    <th>Вместимость</th>
-                    <th>Количество сидящих</th>
-                    <th>Кондиционер (климат-назорати тизими)</th>
-                    <th>Интернет</th>
-                    <th>Биохожатхона</th>
-                    <th>Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган мослашганлиги</th>
-                    <th>Телефон қувватлагичлари</th>
-                    <th>Хар бир ўриндиқда монитор (планшет)</th>
-                    <th>Бекатларни эълон қилиш аудио тизими</th>
-                    <th>ГАИ маълумоти</th>
-                    <th>Нотариус маълумоти</th>
-                    <th class="wd12">Назорат</th>
+                    <th>{{$t('Holati')}}</th>
+                    <th>{{$t('Avtomobil raqami')}}</th>
+                    <th>{{$t('Reyslar soni')}}</th>
+                    <th>{{$t('capacity')}} </th>
+                    <th>{{$t('Oʼrindiqlar soni')}}</th>
+                    <th>{{$t('Sovutgich (iqlim-nazorati tizimi)')}}</th>
+                    <th>{{$t('Internet')}} </th>
+                    <th>{{$t('Bioxojatxona')}} </th>
+                    <th>{{$t('Аvtobusning nogironlarga va aholining boshqa xarakatlanishi cheklangan guruxlariga moslashganligi')}} </th>
+                    <th>{{$t('Telefon quvvatlagichlari')}}</th>
+                    <th>{{$t('Xar bir oʼrindiqda monitor (planshet)')}}</th>
+                    <th>{{$t('Bekatlarni eʼlon qilish audio tizimi')}} </th>
+                    <th>{{$t('GAI maʼlumoti')}}</th>
+                    <th>{{$t('Natarius maʼlumoti')}}</th>
+                    <th class="wd12">{{$t('Nazorat')}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -272,15 +267,15 @@
                       <div class="col-lg-12 d-flex flex-column">
                         <button type="button" class="btn btn-danger mb-2" @click.prevent="openModal(car_items)" >
                           <i class="fas fa-minus-circle"></i>
-                          Отказ
+                          {{$t('Rad etish')}}
                         </button>
                         <button type="button" class="btn btn-success mb-2" @click.prevent="activeCar(car_items.id)" v-if="form.tender_status == 'active'">
                           <i class="fas fa-check-circle"></i>
-                          Подтвердить
+                          {{$t('Tasdiqlash')}}
                         </button>
                         <button type="button" class="btn btn-info" @click.prevent="openFileModal(car_items.id,'car')">
                           <i class="fas fa-check-circle"></i>
-                          Файлы
+                          {{$t('Fayllar')}}
                         </button>
                       </div>
                     </td>
@@ -294,44 +289,44 @@
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>ГАИ данные</strong></h5>
+                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>{{$t('GAI maʼlumotilari')}}</strong></h5>
                   <button type="button" class="close" @click.prevent="closeGaiModal">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <h3><strong>ГАИ данные</strong></h3>
+                  <h3><strong>{{$t('GAI maʼlumotilari')}}</strong></h3>
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th>Авто тартиб раками</th>
-                        <th>Киритилган маълумот</th>
-                        <th>ГАИ маълумоти</th>
+                        <th>{{$t('Аvtomobil tartib raqami')}}</th>
+                        <th>{{$t('Kiritilgan maʼlumot')}}</th>
+                        <th>{{$t('GAI maʼlumoti')}}</th>
                       </tr>
                     </thead>
                     <tbody>
                         <tr>
-                          <td><b>Давлат раками</b></td>
+                          <td><b>{{$t('Davlat raqami')}}</b></td>
                           <td>{{gaiItem.auto_number}}</td>
                           <td>{{gaiItem.gai ? gaiItem.gai.pNameOfClient : ''}}</td>
                         </tr>
                         <tr>
-                          <td><b>Авто йили</b></td>
+                          <td><b>{{$t('Avtomobil yili')}}</b></td>
                           <td>{{gaiItem.date}}</td>
                           <td>{{gaiItem.gai ? gaiItem.gai.pMadeofYear : ''}}</td>
                         </tr>
                         <tr>
-                          <td><b>Авто тури</b></td>
+                          <td><b>{{$t('Avtomobil turi')}}</b></td>
                           <td>{{gaiItem.bustype ? gaiItem.bustype.name : ''}}</td>
                           <td>{{gaiItem.gai ? gaiItem.gai.pTypeOfAuto : ''}}</td>
                         </tr>
                         <tr>
-                          <td><b>Модель</b></td>
+                          <td><b>{{$t('Avtomobil rusumi')}}</b></td>
                           <td>{{gaiItem.busmodel ? gaiItem.busmodel.name : ''}}</td>
                           <td>{{gaiItem.gai ? gaiItem.gai.pMarka : ''}}</td>
                         </tr>
                         <tr>
-                          <td><b>Сиғими</b></td>
+                          <td><b>{{$t('capacity')}}</b></td>
                           <td>{{gaiItem.capacity}}</td>
                           <td>{{gaiItem.gai ? gaiItem.gai.pNumberofplace : ''}}</td>
                         </tr>
@@ -339,7 +334,7 @@
                   </table>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" @click.prevent="closeGaiModal">Закрыть</button>
+                  <button type="button" class="btn btn-secondary" @click.prevent="closeGaiModal">{{$t('Yopish')}}</button>
                 </div>
               </div>
             </div>
@@ -349,22 +344,22 @@
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>Минюст данные</strong></h5>
+                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>{{$t('Minyust maʼlumotilari')}}</strong></h5>
                   <button type="button" class="close" @click.prevent="closeNatariusModal">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <h3><strong>Минюст данные</strong></h3>
+                  <h3><strong>{{$t('Minyust maʼlumotilari')}}</strong></h3>
                   <table class="table table-hover table-bordered">
                     <thead>
                       <tr>
-                        <th>Номер Авто</th>
-                        <th>Хозяин</th>
-                        <th>ИНН</th>
-                        <th>Дата нотариального действия</th>
-                        <th>Номер реестра нотариального действия</th>
-                        <th>Срок нотариального действия</th>
+                        <th>{{$t('Avtomobil raqami')}}</th>
+                        <th>{{$t('Avtomobil egasi')}}</th>
+                        <th>{{$t('INN')}}</th>
+                        <th>{{$t('Notarius hujjat sanasi')}}</th>
+                        <th>{{$t('Notarius hujjat reestr raqami')}}</th>
+                        <th>{{$t('Notarius hujjati muddati')}}</th>
                       </tr>
                     </thead>
                     <tbody v-if="natariusItem">
@@ -380,7 +375,7 @@
                   </table>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" @click.prevent="closeNatariusModal">Закрыть</button>
+                  <button type="button" class="btn btn-secondary" @click.prevent="closeNatariusModal">{{$t('Yopish')}}</button>
                 </div>
               </div>
             </div>
@@ -390,7 +385,7 @@
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>Примечания</strong></h5>
+                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>{{$t('Izohlar')}}</strong></h5>
                   <button type="button" class="close" @click.prevent="closeModal">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -407,11 +402,11 @@
                           v-model="carItem.technical_status"
                           :disabled="form.tender_status != 'active'"
                         >
-                        Автотранспорт воситаси техник соз ҳолатда
+                        {{$t('Avtotransport vositasi texnik soz holatda')}}
                       </label>
                     </div>
                     <div class="form-group">
-                      <label for="textAuto">Текст</label>
+                      <label for="textAuto">{{$t('Matn')}}</label>
                       <textarea
                         class="form-control"
                         id="textAuto"
@@ -420,7 +415,7 @@
                       ></textarea>
                     </div>
                     <div class="form-group">
-                      <label for="fileAuto">Файл</label>
+                      <label for="fileAuto">{{$t('Fayl')}}</label>
                       <input
                         type="file"
                         ref="fileupload"
@@ -433,10 +428,10 @@
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Закрыть</button>
+                  <button type="button" class="btn btn-secondary" @click.prevent="closeModal">{{$t('Yopish')}}</button>
                   <button type="button" class="btn btn-success" @click.prevent="denyCar" v-if="form.tender_status == 'active'">
                     <i class="fas fa-save"></i>
-                    Сохранить
+                    {{$t('Saqlash')}}
                   </button>
                 </div>
               </div>
@@ -447,7 +442,7 @@
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>Файлы</strong></h5>
+                  <h5 class="modal-title" id="exampleModalLongTitle"><strong>{{$t('Fayllar')}}</strong></h5>
                   <button type="button" class="close" @click.prevent="closeFileModal">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -459,7 +454,7 @@
                         <img :src='"/"+f.file'>
                         <button class="btn btn-danger" type="button" @click.prevent="removeCarFile(f.id)">
                           <i class="fas fa-trash"></i>
-                          удалить
+                          {{$t('Oʼchirish')}}
                         </button>
                       </div>
                       <div class="form-group col-md-2 mb40">
@@ -480,7 +475,7 @@
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" @click.prevent="closeFileModal">Закрыть</button>
+                  <button type="button" class="btn btn-secondary" @click.prevent="closeFileModal">{{$t('Yopish')}}</button>
                 </div>
               </div>
             </div>
@@ -648,7 +643,7 @@ export default {
           });
         }
       }
-    },  
+    },
     async activeTargetCar(target){
       if(confirm("Вы действительно хотите подтвердить?")){
         let data = {
@@ -672,7 +667,7 @@ export default {
           });
         }
       }
-    }, 
+    },
     async removeCarFile(id){
       if(confirm("Вы действительно хотите удалить?")){
         await this.actionControlRemoveFile(id)
@@ -747,7 +742,7 @@ export default {
           await this.actionControlFiles(formData)
         }
       }else{}
-     
+
     },
     closeModal(){
       this.carItem.id = ''

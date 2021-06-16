@@ -203,7 +203,7 @@
               <div class="col-md-6 form_btn d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary btn_save_category">
                   <i class="fas fa-save"></i>
-                  Сохранить
+                  {{$t('Saqlash')}}
                 </button>
               </div>
             </div>

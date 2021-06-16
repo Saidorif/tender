@@ -8,7 +8,7 @@
           Редактировать категория  автобуса
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/typeofbus"
-          ><span class="peIcon pe-7s-back"></span> Назад</router-link
+          ><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link
         >
       </div>
       <div class="card-body">
@@ -39,7 +39,7 @@
             <div class="form-group col-lg-3 d-flex justify-content-end saveBtn">
               <button type="submit" class="btn btn-primary btn_save_category">
                 <i class="fas fa-save"></i>
-                Сохранить
+                {{$t('Saqlash')}}
               </button>
             </div>
           </div>

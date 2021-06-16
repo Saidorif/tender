@@ -13,7 +13,7 @@
         <div class="d-flex align-items-center">
           <router-link class="btn btn-primary back_btn" to="/crm/check-control">
             <span class="peIcon pe-7s-back"></span>
-            Назад
+            {{$t('Orqaga')}}
           </router-link>
         </div>
       </div>
@@ -436,7 +436,7 @@
                   <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Закрыть</button>
                   <button type="button" class="btn btn-success" @click.prevent="denyCar" v-if="form.tender_status == 'active'">
                     <i class="fas fa-save"></i>
-                    Сохранить
+                    {{$t('Saqlash')}}
                   </button>
                 </div>
               </div>
@@ -648,7 +648,7 @@ export default {
           });
         }
       }
-    },  
+    },
     async activeTargetCar(target){
       if(confirm("Вы действительно хотите подтвердить?")){
         let data = {
@@ -672,7 +672,7 @@ export default {
           });
         }
       }
-    }, 
+    },
     async removeCarFile(id){
       if(confirm("Вы действительно хотите удалить?")){
         await this.actionControlRemoveFile(id)
@@ -749,7 +749,7 @@ export default {
       }else{
         console.log(false)
       }
-     
+
     },
     closeModal(){
       this.carItem.id = ''

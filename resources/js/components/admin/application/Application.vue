@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Заявки
+                    {{$t('Arizalar')}}
 				</h4>
 	<!-- 			<button type="button" class="btn btn-primary" @click.prevent="getEditId">
 					<i class="fas fa-plus"></i>
@@ -13,7 +13,7 @@
 				</button> -->
 				<router-link class="btn btn-primary" to="/crm/tender/application">
 					<span class="peIcon pe-7s-back"></span>
-						Назад
+						{{$t('Orqaga')}}
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -22,12 +22,12 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Маршруты</th>
-							<th scope="col">Статус</th>
-							<th scope="col">Количество автотранспорта</th>
-							<th scope="col">Дата</th>
-							<th scope="col">Осталось</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Marshrutlar')}}</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Avtotransport vositalari soni')}}</th>
+							<th scope="col">{{$t('Sana')}}</th>
+							<th scope="col">{{$t('Qolgan')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

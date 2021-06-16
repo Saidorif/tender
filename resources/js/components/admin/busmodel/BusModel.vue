@@ -6,19 +6,19 @@
 		  		<div class="header_title mb-2">
 				    <h4 class="title_user">
 				    	<i class="peIcon fas fa-bus"></i>
-					    Модель автобуса
+					    {{$t('Avtomobil rusumi')}}
 					</h4>
 		          	<div class="add_user_btn">
 			            <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-			          		Количество модель <b>{{ getBusmodels.total }} шт.</b>
+			          		{{ $t('Avtomobil rusumi miqdori') }} <b>{{ getBusmodels.total }} {{$t('ta')}}.</b>
 			          	</span>
 			            <button type="button" class="btn btn-info toggleFilter mr-3" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
-			            	Филтр
+			            	{{ $t('Saralash') }}
 						</button>
 						<router-link class="btn btn-primary" to="/crm/busmodel/add">
 							<i class="fas fa-plus"></i>
-							Добавить
+							{{ $t('Qoʼshish') }}
 						</router-link>
 		            </div>
 	          	</div>
@@ -26,13 +26,13 @@
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
 				  			<div class="form-group col-lg-3">
-				  				<label for="model_id">Сортировать по моделу авто!</label>
+				  				<label for="model_id">{{ $t('Avtomobil rusumi boʼyicha saralash') }}!</label>
 			                    <select
 			                      id="model_id"
 			                      class="form-control input_style"
 			                      v-model="filter.model_id"
 			                    >
-			                      <option value="" selected >Выберите моделу авто!</option>
+			                      <option value="" selected >{{ $t('Avtomobil rusumini tanlang') }}!</option>
 			                      <option
 				                      :value="busType.id"
 				                      v-for="(busType,index) in getBusmodelList"
@@ -40,13 +40,13 @@
 			                    </select>
 	          				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="bustype_id">Сортировать по типу авто!</label>
+				  				<label for="bustype_id">{{ $t('Avtomobil turi boʼyicha saralash') }}!</label>
 			                    <select
 			                      id="bustype_id"
 			                      class="form-control input_style"
 			                      v-model="filter.bustype_id"
 			                    >
-			                      <option value="" selected >Выберите тип авто!</option>
+			                      <option value="" selected >{{ $t('Avtomobil turini tanlang') }}!</option>
 			                      <option
 				                      :value="busType.id"
 				                      v-for="(busType,index) in getTypeofbusList"
@@ -54,13 +54,13 @@
 			                    </select>
 	          				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="tclass_id">Сортировать по классу авто!</label>
+				  				<label for="tclass_id">{{ $t('Avtomobil sinfi boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="tclass_id"
 			                      class="form-control input_style"
 			                      v-model="filter.tclass_id"
 			                    >
-			                      <option value="" selected >Выберите класс авто!</option>
+			                      <option value="" selected >{{ $t('Avtomobil sinfini tanlang')}}!</option>
 			                      <option
 				                      :value="busType.id"
 				                      v-for="(busType,index) in getBusclassList"
@@ -68,13 +68,13 @@
 			                    </select>
 	          				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="busmarka_id">Сортировать по марку авто!</label>
+				  				<label for="busmarka_id">{{ $t('Avtobus markasi boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="busmarka_id"
 			                      class="form-control input_style"
 			                      v-model="filter.busmarka_id"
 			                    >
-			                      <option value="" selected >Выберите марку авто!</option>
+			                      <option value="" selected >{{ $t('Avtobus markasini tanlang')}}!</option>
 			                      <option
 				                      :value="busType.id"
 				                      v-for="(busType,index) in getBusBrandList"
@@ -84,11 +84,11 @@
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
-								  	сброс
+								  	{{$t('Tozalash')}}
 							  	</button>
 							  	<button type="button" class="btn btn-primary ml-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
-								  	найти
+								  	{{$t('Qidirish')}}
 							  	</button>
 					  	  	</div>
 				  		</div>
@@ -101,15 +101,15 @@
 						<thead>
 							<tr>
 								<th scope="col">№</th>
-								<th scope="col">Марка</th>
-								<th scope="col">Категория автобуса</th>
-								<th scope="col">Модель </th>
-								<th scope="col">Название класса </th>
-								<th scope="col">Количество сидящих</th>
+								<th scope="col">{{$t('Avtobus markasi')}}</th>
+								<th scope="col">{{$t('Avtobus toifasi')}}</th>
+								<th scope="col">{{$t('Avtomobil rusumi')}} </th>
+								<th scope="col">{{$t('Avtomobil sinfi nomi')}} </th>
+								<th scope="col">{{$t('Oʼrindiqlar soni')}}</th>
 								<!-- <th scope="col">Количество сидящих (по)</th> -->
-								<th scope="col">Пассажировместимость</th>
+								<th scope="col">{{$t('capacity')}}</th>
 								<!-- <th scope="col">Пассажировместимость (по)</th> -->
-								<th scope="col">Действия</th>
+								<th scope="col">{{$t('Tahrirlash')}}</th>
 							</tr>
 						</thead>
 						<tbody>
