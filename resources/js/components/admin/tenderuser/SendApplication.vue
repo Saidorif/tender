@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Отправить заявку sdfdsds
+				    Отправить заявку 
 				</h4>
 				<div class="">
 	                <h4 class="title_user" v-if="direction_ids.length > 0" v-for="(item,index) in direction_ids">
@@ -1415,7 +1415,7 @@
 	    			this.car.seat_qty != ''
     			)
 		    	{
-		    		if (this.car.owner_type == 'owner'){
+		    		if(this.car.owner_type == 'owner'){
                         this.car.app_id = this.$route.params.userapplicationId
                         this.laoding = true
                         await this.actionGaiVehicle(this.car)
@@ -1427,7 +1427,12 @@
                         await this.actionGaiVehicle(this.car)
                         this.laoding = false
 		    		}else if(this.car.owner_type == 'rent'){
-		    			if (this.car.pDateNatarius != '' && this.car.pNumberNatarius != '' && this.car.pTexpassportSery != '' && this.car.pTexpassportNumber != '') {
+		    			if  (
+		    					this.car.pDateNatarius != '' && 
+		    					this.car.pNumberNatarius != '' && 
+		    					this.car.pTexpassportSery != '' && 
+		    					this.car.pTexpassportNumber != ''
+	    					){
 			    			let car = {
 			    				'pDateNatarius':this.car.pDateNatarius,
 			    				'pNumberNatarius':this.car.pNumberNatarius,
