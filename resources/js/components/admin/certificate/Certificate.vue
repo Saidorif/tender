@@ -1,0 +1,91 @@
+<template>
+	<div class="certificate">
+		<Loader v-if="laoding"/>
+		<div class="card">
+		  	<div class="card-header">
+			    <h4 class="title_user">
+			    	<i  class="peIcon fas fa-file"></i>
+				    Certificate  
+				</h4>
+				<!-- v-if="$can('store', 'CertificateController')" -->
+		  	</div>
+		  	<div class="card-body">
+			  <div class="table-responsive">
+				<table class="table table-bordered text-center table-hover table-striped">
+					<thead>
+						<tr>
+							<th scope="col">№</th>
+							<th scope="col">Название</th>
+							<th scope="col">Действия</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="(reg,index) in getCertificates.data">
+							<td scope="row">{{reg.id}}</td>
+							<td>{{reg.name}}</td>
+							<td>
+								<!-- v-if="$can('edit', 'CertificateController')" -->
+								<router-link  tag="button" class="btn_transparent" :to='`/crm/region/edit/${reg.id}`'>
+									<i class="pe_icon pe-7s-edit editColor"></i>
+								</router-link>
+								<!-- v-if="$can('destroy', 'CertificateController')"  -->
+								<button class="btn_transparent" @click="deleteCertificate(reg.id)">
+									<i class="pe_icon pe-7s-trash trashColor"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+					<pagination :limit="4" :data="getCertificates" @pagination-change-page="getResults"></pagination>
+				</table>
+			  </div>
+		  </div>
+	  	</div>
+	</div>
+</template>
+<script>
+	import { mapGetters , mapActions } from 'vuex'
+	import Loader from '../../Loader'
+	export default{
+		components:{
+			Loader
+		},
+		data(){
+			return{
+				laoding: true
+			}
+		},
+		async mounted(){
+			let page = 1;
+			await this.actionCertificates(page)
+			this.laoding = false
+		},
+		computed:{
+			...mapGetters('certificate',['getCertificates','getMassage'])
+		},
+		methods:{
+			...mapActions('certificate',['actionCertificates','actionDeleteCertificate']),
+			async getResults(page = 1){ 
+				this.laoding = true
+				await this.actionCertificates(page)
+				this.laoding = false
+			},
+			async deleteCertificate(id){
+				if(confirm("Вы действительно хотите удалить?")){
+					let page = 1
+					this.laoding = true
+					await this.actionDeleteCertificate(id)
+					await this.actionCertificates(page)
+					this.laoding = false
+					toast.fire({
+				    	type: 'success',
+				    	icon: 'success',
+						title: 'Region удалено!',
+				    })
+				}
+			}
+		}
+	}
+</script>
+<style scoped>
+	
+</style>

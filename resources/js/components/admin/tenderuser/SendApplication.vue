@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Отправить заявку
+				    Отправить заявку sdfdsds
 				</h4>
 				<div class="">
 	                <h4 class="title_user" v-if="direction_ids.length > 0" v-for="(item,index) in direction_ids">
@@ -694,7 +694,7 @@
 			    				<label for="owner">Хозяин</label>
 		    					<input
 			  						type="radio"
-			  						name="gps"
+			  						name="owner"
 			  						value="owner"
 			  						id="owner"
 			  						v-model="car.owner_type"
@@ -704,15 +704,51 @@
 			    				<label for="rent">Аренда</label>
 		    					<input
 			  						type="radio"
-			  						name="gps"
+			  						name="rent"
 			  						value="rent"
 			  						id="rent"
+			  						v-model="car.owner_type"
+		  						>
+			    			</div>
+			    			<div class="form-group col-md-2">
+			    				<label for="lizing">Лизинг</label>
+		    					<input
+			  						type="radio"
+			  						name="lizing"
+			  						value="lizing"
+			  						id="lizing"
 			  						v-model="car.owner_type"
 		  						>
 			    			</div>
 			    		</div>
 				    </div>
 				    <div class="col-md-12" v-if="car.owner_type == 'owner'">
+				    	<div class="row">
+				    		<div class="form-group col-md-6">
+							    <label for="pTexpassportSery">Серия техпаспорта</label>
+							    <input
+							    	type="text"
+							    	class="form-control input_style"
+							    	id="pTexpassportSery"
+							    	placeholder="Серия техпаспорта"
+							    	v-model="car.pTexpassportSery"
+							    	:class="isRequired(car.pTexpassportSery) ? 'isRequired' : ''"
+						    	>
+						  	</div>
+				    		<div class="form-group col-md-6">
+							    <label for="pTexpassportNumber">Номер техпаспорта</label>
+							    <input
+							    	type="number"
+							    	class="form-control input_style"
+							    	id="pTexpassportNumber"
+							    	placeholder="Номер техпаспорта"
+							    	v-model="car.pTexpassportNumber"
+							    	:class="isRequired(car.pTexpassportNumber) ? 'isRequired' : ''"
+						    	>
+						  	</div>
+					  	</div>
+			    	</div>
+				    <div class="col-md-12" v-if="car.owner_type == 'lizing'">
 				    	<div class="row">
 				    		<div class="form-group col-md-6">
 							    <label for="pTexpassportSery">Серия техпаспорта</label>
@@ -1018,7 +1054,7 @@
 			},
 			'car.owner_type':{
 				handler(){
-					if (this.car.owner_type == 'owner') {
+					if (this.car.owner_type == 'owner' || this.car.owner_type == 'lizing') {
 						this.car.pNumberNatarius=''
 						this.car.pDateNatarius=''
 					}else if(this.car.owner_type == 'rent'){
