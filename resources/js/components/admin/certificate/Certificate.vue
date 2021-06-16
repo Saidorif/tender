@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon fas fa-file"></i>
-				    Certificate  
+				    {{$t('Guvoxnomalar')}}
 				</h4>
 				<!-- v-if="$can('store', 'CertificateController')" -->
 		  	</div>
@@ -15,8 +15,8 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Nomi')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -64,7 +64,7 @@
 		},
 		methods:{
 			...mapActions('certificate',['actionCertificates','actionDeleteCertificate']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				this.laoding = true
 				await this.actionCertificates(page)
 				this.laoding = false
@@ -87,5 +87,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>
