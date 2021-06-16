@@ -960,6 +960,7 @@
 					pDateNatarius:'',
 					pTexpassportSery:'',
 				  	pTexpassportNumber:'',
+				  	lizing:0,
 				   	auto_number:'',
 				},
 				tclasses:[],
@@ -1061,6 +1062,7 @@
 						// this.car.pTexpassportSery=''
 						// this.car.pTexpassportNumber=''
 					}
+					this.car.lizing = this.car.owner_type == 'lizing' ? 1 : 0;
 				},deep:true
 			},
 			'car.auto_number':{
@@ -1316,6 +1318,7 @@
 		    	this.car.bus_adapted = 0
 		    	this.car.telephone_power = 0
 		    	this.car.monitor = 0
+		    	this.car.lizing = 0
 		    	this.car.station_announce = 0
 		    	this.car.owner_type='owner'
 				this.car.pNumberNatarius=''
@@ -1414,6 +1417,12 @@
 		    	{
 		    		if (this.car.owner_type == 'owner'){
                         this.car.app_id = this.$route.params.userapplicationId
+                        this.laoding = true
+                        await this.actionGaiVehicle(this.car)
+                        this.laoding = false
+		    		}else if(this.car.owner_type == 'lizing'){
+		    			this.car.lizing = 1
+		    			this.car.app_id = this.$route.params.userapplicationId
                         this.laoding = true
                         await this.actionGaiVehicle(this.car)
                         this.laoding = false
