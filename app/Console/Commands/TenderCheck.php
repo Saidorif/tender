@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Certificate;
 use Illuminate\Console\Command;
 use App\Tender;
 use App\TenderLot;
@@ -81,6 +82,7 @@ class TenderCheck extends Command
                 $this->info('Accepted cars '.$cars_accepted);
                 $this->info('Rejected cars '.$cars_rejected);
                 $this->info('Cars with license '.$cars_license);
+
                 // 0. Check Application is winner or not
                 if($cars_count == $cars_accepted && $cars_count == $cars_license){
                     $this->info('('.$user->company_name.') is winner');
@@ -124,7 +126,32 @@ class TenderCheck extends Command
                     ];
                     $contract = Contract::create($contractArray);
 
-                    // 4. Change direction status
+                    //4. Generate certificate (GUVOHNOMA)
+                    foreach($application->cars  as $car){
+                        $number_seria = $this->generateCertificateNumber($application);
+                        $number = str_pad((int)$number_seria['number'],6,"0",STR_PAD_LEFT);
+                        $text = $application->user->company_name."\n";
+                        $text .= "ДАТА: ".$contract->exp_date."\n";
+                        $text .= "Гос номер: ".$car->auto_number."\n";
+                        $text .= "Номер: ".$number_seria['seria'].' '.$number."\n";
+                        $the_file = time().'_'.$application->id;
+                        $qrcode = \QrCode::encoding('UTF-8')->format('png')->size(200)->generate($text, public_path('qrcodes/'.$the_file.'.png'));
+                        $certificateArray = [
+                            'company_name' => $application->user->company_name,
+                            'contract_id' => $contract->id,
+                            'seria' => $number_seria['seria'],
+                            'number' => $number,
+                            'car_id' => $car->id,
+                            'direction_id' => $car->direction_id,
+                            'exp_date' => $contract->exp_date,
+                            'qr_code' => 'qrcodes/'.$the_file.'.png',
+                            'user_id' => $application->user_id,
+                        ];
+                        $certificate = Certificate::create($certificateArray);
+                        $last_certificate_number = (int)$certificate->number + 1;
+                    }
+
+                    // 5. Change direction status
                     $direction_ids = $lot->getDirection();
                     $directions = Direction::whereIn('id', $direction_ids)->get();
                     foreach($directions as $dir){
@@ -189,5 +216,33 @@ class TenderCheck extends Command
             }
             //$this->info('Application balls : ');
         }
+    }
+
+    public function generateCertificateNumber(Application $application)
+    {
+        $chars = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+        $last_certificate_number = 1;
+        $seria = 'AA';
+        $last_certificate = Certificate::orderBy('id','DESC')->first();
+        if($last_certificate){
+            if((int)$last_certificate->number >= 999999){
+                $last_certificate_number = 1;
+                $seria = $last_certificate->seria;
+                $this->info('Last sertificate number is over');
+                $last_seria_number = substr($seria,-1,1);
+                $next_char_index = array_search($last_seria_number,$chars) + 1;
+                $seria = 'A'.$chars[$next_char_index];
+                $this->info('Last seria '.$last_seria_number);
+                $this->info('Next char index '.$next_char_index);
+            }else{
+                $last_certificate_number = (int)$last_certificate->number + 1;
+                $seria = $last_certificate->seria;
+            }
+        }
+        $number = str_pad($last_certificate_number,6,"0",STR_PAD_LEFT);
+        return [
+            'number' => $last_certificate_number,
+            'seria' => $seria
+        ];
     }
 }

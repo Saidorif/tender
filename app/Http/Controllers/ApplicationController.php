@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AdliyaCar;
+use App\Certificate;
 use App\DirectionReq;
 use App\GaiCar;
 use Illuminate\Http\Request;
@@ -447,5 +448,20 @@ class ApplicationController extends Controller
         $application->{$inputs['target']} = $inputs['status'];
         $application->save();
         return response()->json(['success' => true, 'message' => 'Действие выполнено']);
+    }
+
+    public function certificates(Request $request)
+    {
+        $result = Certificate::with(['user','direction','car'])->orderBy('id','DESC')->paginate(12);
+        return response()->json(['success' => true,'result' => $result]);
+    }
+
+    public function certificateShow(Request $request,$id)
+    {
+        $result = Certificate::with(['user','direction','car'])->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Сертификат не найдено']);
+        }
+        return response()->json(['success' => true,'result' => $result]);
     }
 }
