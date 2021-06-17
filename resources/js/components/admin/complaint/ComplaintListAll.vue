@@ -6,15 +6,15 @@
 		  		<div class="header_title mb-2">
 				    <h4 class="title_user">
 				    	<i class="peIcon fas fa-comment"></i>
-					    Список обращения
+					    {{$t('Murojatlar roʼyxat')}}
 					</h4>
 	            	<div class="add_user_btn">
 	            		<span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-		            		Количество обращения <b>{{ getComplaintListAll.total }} шт.</b>
+		            		{{$t('Murojatlar soni')}} <b>{{ getComplaintListAll.total }} {{$t('ta')}}.</b>
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter mr-3" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
-			            	Филтр
+			            	{{$t('Saralash')}}
 						</button>
 		            </div>
 	            </div>
@@ -22,51 +22,50 @@
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
 				  			<div class="form-group col-xl-3 col-md-6">
-							    <label for="name">Направление</label>
+							    <label for="name">{{$t('Yoʼnalish')}}</label>
 							    <multiselect
 					                :value="values"
 					                :options="getDirectionFindList"
 					                @search-change="value => filterVariantList(value)"
 					                v-model="values"
-					                placeholder="Найдите направление!"
 					                :searchable="true"
 					                track-by="id"
 					                label="name"
 					                :max="3"
 					                :loading="isLoading"
-					                selectLabel="Нажмите Enter, чтобы выбрать"
-					                deselectLabel="Нажмите Enter, чтобы удалить"
+					                :selectLabel="$t('Tanlash uchun Enter tugmasini bosing')"
+					                :deselectLabel="$t('Oʼchirish uchun Enter tugmasini bosing')"
 					                :option="[{name: '', id: 1}]"
 					                @select="dispatchAction"
 				                >
-				                <span slot="noResult">По вашему запросу ничего не найдено</span>
-				                <span slot="noOptions">Cписок пустой</span>
+				                <span slot="noResult">{{$t('Hech qanday natija topilmadi')}}</span>
+				                <span slot="noOptions">{{$t('Royxat boʼsh')}}</span>
 				                </multiselect>
 						  	</div>
 				  			<div class="form-group col-xl-3 col-md-6">
-				  				<label for="region_id">Сортировать по региону!</label>
+				  				<label for="region_id">{{$t('Viloyat boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="region_id"
 			                      class="form-control input_style"
 			                      v-model="filter.region_id"
 			                    >
-			                      <option value="" selected >Выберите регион!</option>
+			                      <option value="" selected >{{$t('Viloyatni tanlang')}}!</option>
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-xl-3 col-md-6">
-				  				<label for="category_id">Сортировать по типу нарушения!</label>
+				  				<label for="category_id">{{$t('Qoida buzarlik boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="category_id"
 			                      class="form-control input_style"
 			                      v-model="filter.category_id"
 			                    >
-			                      <option value="" selected >Выберите тип нарушения!</option>
+			                      <option value="" selected >{{$t('Tanlang')}}!</option>
 			                      <option :value="item.id" v-for="(item,index) in getComplaintList">{{item.name}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-xl-3 col-md-6">
-				  				<label for="time">Сортировать по дате!</label>
+				  				<label for="time">{{$t('Sana boʼyicha saralash')}}!</label>
 				  				<date-picker
 					                lang="ru"
 					                type="date"
@@ -80,11 +79,11 @@
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
-								  	сброс
+								  	{{$t('Tozalash')}}
 							  	</button>
 							  	<button type="button" class="btn btn-primary ml-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
-								  	найти
+								  	{{$t('Qidirish')}}
 							  	</button>
 					  	  	</div>
 				  		</div>
@@ -97,13 +96,13 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Статус</th>
-							<th scope="col">Резултат</th>
-							<th scope="col">Ф.И.О (отправителя)</th>
-							<th scope="col">Телефон (отправителя)</th>
-							<th scope="col">Название направления</th>
-							<th scope="col">Номер направления</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Natija')}}</th>
+							<th scope="col">{{$t('Toʼliq ism (yuboruvchi)')}}</th>
+							<th scope="col">{{$t('Telefon')}}</th>
+							<th scope="col">{{$t('Tashkilot nomi')}}</th>
+							<th scope="col">{{$t('Yoʼnalish soni')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

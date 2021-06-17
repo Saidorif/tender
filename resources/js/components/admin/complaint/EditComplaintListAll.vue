@@ -5,14 +5,14 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-comment"></i>
-				    Добавить вариант обращения
+				     {{$('Tahrirlash')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/complaint-list"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
 		  	<div class="card-body">
 	  			<div class="row">
 			  		<div class="form-group col-md-4">
-					    <label for="name">Направление</label>
+					    <label for="name">{{$t('Yoʼnalish')}}</label>
 					    <multiselect
 			                :value="filter.name"
 			                :options="getDirectionFindList"
@@ -24,30 +24,30 @@
 			                label="name"
 			                :max="3"
 			                :loading="isLoading"
-			                selectLabel="Нажмите Enter, чтобы выбрать"
-			                deselectLabel="Нажмите Enter, чтобы удалить"
+					        :selectLabel="$t('Tanlash uchun Enter tugmasini bosing')"
+					        :deselectLabel="$t('Oʼchirish uchun Enter tugmasini bosing')"
 			                :option="[{name: '', id: 1}]"
 			                @select="dispatchAction"
 			                :disabled="btnShow"
 		                >
-		                <span slot="noResult">По вашему запросу ничего не найдено</span>
-		                <span slot="noOptions">Cписок пустой</span>
+		                <span slot="noResult">{{$t('Hech qanday natija topilmadi')}}</span>
+		                <span slot="noOptions">{{$t('Royxat boʼsh')}}</span>
 		                </multiselect>
 				  	</div>
 				  	<div class="form-group col-md-4">
-					    <label for="status">Резултат</label>
+					    <label for="status">{{$t('Natija')}}</label>
 					    <select
 					    	class="form-control input_style"
 					    	v-model="form.status"
 					    	:class="isRequired(form.status) ? 'isRequired' : ''"
 				    	>
-					    	<option value="" selected disabled>Выберите резултат!</option>
-					    	<option value="active">Не подтвержден</option>
-					    	<option value="completed">Подтвержден</option>
+					    	<option value="" selected disabled>{{$t('Tanlang')}}!</option>
+					    	<option value="active">{{$t('Tasdiqlanmagan')}} </option>
+					    	<option value="completed">{{$t('Tasdiqlangan')}}</option>
 					    </select>
 				  	</div>
 			  		<div class="form-group col-md-4 download_file">
-			  			<label for="file">Файл</label>
+			  			<label for="file">{{$t('Fayl')}}</label>
 					    <div class="input-group">
 			                <input
 			                  type="file"
@@ -65,17 +65,16 @@
 					     		download
 					     		v-if="getComplaintEditListAll.comment_file"
 				     		>
-						     	<b>Посмотреть <i class="fas fa-eye"></i></b>
+						     	<b>{{$t('Batafsil')}} <i class="fas fa-eye"></i></b>
 					     	</a>
 		              	</div>
 				  	</div>
 			  		<div class="form-group col-md-12">
-			  			<label for="file">Комментарий</label>
+			  			<label for="file">{{$t('Izohlar')}}</label>
 					    <div class="input-group">
 			                <textarea
 			                    v-model="form.comment"
 			                    class="form-control"
-			                    placeholder="Текст"
 			                    :disabled="btnShow"
 			                    :class="isRequired(form.comment) ? 'isRequired' : ''"
 		                    ></textarea>
@@ -85,35 +84,35 @@
 		  		<form>
 					<div class="row">
 					  <div class="form-group col-md-6">
-					    <label for="fio">Ф.И.О</label>
+					    <label for="fio">{{$t('F.I.Sh')}}</label>
 					    <div class="input_style input_text form-control">
 					     	{{getComplaintEditListAll.surname}}{{getComplaintEditListAll.name}}{{getComplaintEditListAll.middlename}}
 				     	</div>
 					  </div>
 					  <div class="form-group col-md-6">
-					    <label for="phone">Телефон</label>
+					    <label for="phone">{{$t('Telefon')}}</label>
 					    <div class="input_style input_text form-control">
 					     	{{getComplaintEditListAll.phone}}
 				     	</div>
 					  </div>
 					  <div class="form-group col-md-6">
-					    <label for="text">Сообщение</label>
+					    <label for="text">{{$t('Xabar')}}</label>
 					    <div class="input_style input_text form-control">
 					     	{{getComplaintEditListAll.text}}
 				     	</div>
 					  </div>
 					  <div class="form-group col-md-6">
-					    <label for="file">Файл</label>
+					    <label for="file">{{$t('Fayl')}}</label>
 				     	<a :href="getComplaintEditListAll.file" title="Скачать" class="donwload_text" download>
 						    <div class="input_style input_text form-control">
-						     	Посмотреть <i class="fas fa-eye"></i>
+						     	{{$t('Batafsil')}} <i class="fas fa-eye"></i>
 					     	</div>
 				     	</a>
 					  </div>
 					  <div class="form-group col-lg-12 d-flex justify-content-end">
 					  	<button type="submit" class="btn btn-primary btn_save_category" @click.prevent="connectComplt" v-if="btnShow">
 					  		<i class="far fa-plus-square"></i>
-						  	Прикрепить
+						  	{{$t('Biriktirish')}}
 						</button>
 					  	<button type="submit" class="btn btn-primary btn_save_category" @click.prevent="saveComplt" v-else>
 					  		<i class="fas fa-save"></i>
