@@ -7,6 +7,12 @@ const CertificateService = {
 	allcertificates(page){
 		return ApiService.post(`/api/certificate?page=${page}`)
 	},
+	allusercertificates(page){
+		return ApiService.post(`/api/certificate/user?page=${page}`)
+	},
+	editusercertificate(id){
+		return ApiService.get(`/api/certificate/user/${id}`)
+	},
 	addcertificate(data){
 		return ApiService.post(`/api/certificate/store`,data)
 	},

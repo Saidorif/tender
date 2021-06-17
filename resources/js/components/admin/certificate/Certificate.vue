@@ -34,10 +34,6 @@
 								<router-link  tag="button" class="btn_transparent" :to='`/crm/certificate/edit/${reg.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<!-- v-if="$can('destroy', 'CertificateController')"  -->
-								<button class="btn_transparent" @click="deleteCertificate(reg.id)">
-									<i class="pe_icon pe-7s-trash trashColor"></i>
-								</button>
 							</td>
 						</tr>
 					</tbody>

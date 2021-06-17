@@ -225,6 +225,14 @@
               </p>
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/crm/usercertificate">
+              <i class="peIcon fas fa-file"></i>
+              <p>
+                Мои cвидетельствa
+              </p>
+            </router-link>
+          </li>
           <li class="nav-item" v-if="$can('index', 'ApplicationController')">
             <router-link class="nav-link" to="/crm/tender/application">
               <i class="peIcon fas fa-file"></i>
