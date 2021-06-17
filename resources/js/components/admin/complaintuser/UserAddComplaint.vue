@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-comment"></i>
-				    Добавить вариант обращения
+				    {{$t('Yangi qoʼshish')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/complaint-list-user"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
@@ -13,12 +13,11 @@
 		  		<form @submit.prevent.enter="saveComplt" >
 					<div class="row">
 					  <div class="form-group col-md-9">
-					    <label for="usertext">Заголовок</label>
+					    <label for="usertext">{{$t('Sarlovxa')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="usertext"
-					    	placeholder="Заголовок"
 					    	v-model="form.text"
 					    	:class="isRequired(form.text) ? 'isRequired' : ''"
 				    	>

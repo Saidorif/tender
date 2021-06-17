@@ -168,14 +168,14 @@
                             :custom-label="customLabel"
 	                        :max="3"
 							:loading="isLoading"
-							selectLabel="Нажмите Enter, чтобы выбрать"
-							deselectLabel="Нажмите Enter, чтобы удалить"
+							:selectLabel="$t('Tanlash uchun Enter tugmasini bosing')"
+							:deselectLabel="$t('Oʼchirish uchun Enter tugmasini bosing')"
 							:option="[{name: 'Otash', id: 1}]"
 							@select="dispatchAction"
 							@remove="removeDirect"
 							>
-							<span slot="noResult">По вашему запросу ничего не найдено</span>
-							<span slot="noOptions">Cписок пустой</span>
+							<span slot="noResult">{{$t('Sizning qidirgan maʼlumot topilmadi.')}}</span>
+							<span slot="noOptions">{{$t('Royxat boʼsh')}}</span>
                             <template slot="option" slot-scope="props">
                                 <table class="table table-bordered" style="margin:0;padding:0px;">
                                     <thead>
