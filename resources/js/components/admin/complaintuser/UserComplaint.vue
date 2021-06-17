@@ -5,9 +5,9 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-comment"></i>
-				    Обращения
+				    {{$t('Murojat')}}
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/complaint-list-user/add"><i class="fas fa-plus"></i> Добавить</router-link>
+				<router-link class="btn btn-primary" to="/crm/complaint-list-user/add"><i class="fas fa-plus"></i> {{$t('Qoʼshish')}}</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -15,8 +15,8 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Заголовок</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Sarlovxa')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
