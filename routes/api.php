@@ -258,7 +258,7 @@ Route::group([
             Route::get('titul/reject/{id}', 'DirectionController@titulReject');
             Route::get('titul/edit/{id}', 'DirectionController@titulEdit');
 
-            Route::get('xronom', 'DirectionController@xronom');
+            Route::post('xronom', 'DirectionController@xronom');
             Route::get('xronom/approve/{id}', 'DirectionController@xronomApprove');
             Route::get('xronom/activate/{id}', 'DirectionController@xronomActivate');
             Route::get('xronom/reject/{id}', 'DirectionController@xronomReject');
