@@ -6,14 +6,14 @@
 		  		<div class="header_title">
 				    <h4 class="title_user">
 				    	<i  class="peIcon pe-7s-users"></i>
-					     Перевозчики
+					     {{$t('Tashuvchilar')}}
 					</h4>
 					<div class="add_user_btn">
                         <span  class="alert alert-info" style="margin: 0px 15px 0px auto;">
-		            		Количество <b >{{getClients.total}}  шт.</b></span>
+		            		{{$t('Soni')}}  <b >{{getClients.total}}   {{$t('ta')}}.</b></span>
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
-			            	Филтр
+			            	{{$t('Saralash')}}
 						</button>
 		            </div>
 		  		</div>
@@ -21,86 +21,81 @@
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
 				  			<div class="form-group col-lg-3">
-				                <label for="surname">Фамилия</label>
+				                <label for="surname">{{$t('Familiya')}}</label>
 				                <input
 				                  type="text"
 				                  class="form-control input_style"
 				                  id="surname"
-				                  placeholder="Фамилия"
 				                  v-model="filter.surname"
 				                />
 			              	</div>
 			              	<div class="form-group col-lg-3">
-				                <label for="name">Имя</label>
+				                <label for="name">{{$t('Ism')}}</label>
 				                <input
 				                  type="text"
 				                  class="form-control input_style"
 				                  id="name"
-				                  placeholder="Имя"
 				                  v-model="filter.name"
 				                />
 			              	</div>
 			              	<div class="form-group col-lg-3">
-				                <label for="middlename">Отчество</label>
+				                <label for="middlename">{{$t('Sharif')}}</label>
 				                <input
 				                  type="text"
 				                  class="form-control input_style"
 				                  id="middlename"
-				                  placeholder="Отчество"
 				                  v-model="filter.middlename"
 				                />
 			              	</div>
 			              	<div class="form-group col-lg-3">
-	  							<label for="inn">ИНН</label>
+	  							<label for="inn">{{$t('INN')}}</label>
 	  							<input
 	  								type="text"
 	  								class="form-control"
 	  								id="inn"
-	  								placeholder="ИНН..."
 	  								v-model="filter.inn"
   								>
 				  			</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="region_id">Область</label>
+				  				<label for="region_id">{{$t('Viloyat')}}</label>
 			                    <select
 			                      id="region_id"
 			                      class="form-control input_style"
 			                      v-model="filter.region_id"
 			                      @change="selectRegion()"
 			                    >
-			                      <option value="" selected disabled>Выберите область!</option>
+			                      <option value="" selected disabled>{{$t('Viloyatni tanlang')}}!</option>
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="area_id">Регион/Город!</label>
+				  				<label for="area_id">{{$t('Tuman/Shahar')}}!</label>
 			                    <select
 			                      id="area_id"
 			                      class="form-control input_style"
 			                      v-model="filter.area_id"
 			                    >
-			                      <option value="" selected disabled>Выберите регин или город!</option>
+			                      <option value="" selected disabled>{{$t('Tuman/Shahar tanlang')}}!</option>
 			                      <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
 			                    </select>
               				</div>
   					  		<div class="form-group col-lg-3">
-	  							<label for="company_name">Название компании</label>
+	  							<label for="company_name">{{$t('Tashkilot nomi')}}</label>
 	  							<input
 	  								type="text"
 	  								class="form-control"
 	  								id="company_name"
-	  								placeholder="Название компании..."
 	  								v-model="filter.company_name"
   								>
 				  			</div>
 						  	<div class="col-lg-3 form-group btn_search">
 							  	<button type="button" class="btn btn-primary mr-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
-								  	найти
+								  	{{$t('Qidirish')}}
 							  	</button>
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
-								  	сброс
+								  	{{$t('Tozalash')}}
 							  	</button>
 					  	  	</div>
 				  		</div>
@@ -113,13 +108,13 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название компании</th>
-							<th scope="col">ИНН</th>
-							<th scope="col">Область</th>
-							<th scope="col">Регион/Город</th>
-							<th scope="col">Статус</th>
-							<th scope="col">Телефон</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tashkilot nomi')}}</th>
+							<th scope="col">{{$t('INN')}}</th>
+							<th scope="col">{{$t('Viloyat')}}</th>
+							<th scope="col">{{$t('Tuman/Shahar')}}</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Telefon')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -130,8 +125,8 @@
 							<td>{{item.region ? item.region.name : ''}}</td>
 							<td>{{item.area ? item.area.name : ''}}</td>
 							<td>
-                                <span v-if="item.status == 'active'" class="alert alert-success" style="padding:2px;" >Активный</span>
-                                <span v-if="item.status == 'inactive'" class="alert alert-danger" style="padding:2px;">Неактивный</span>
+                                <span v-if="item.status == 'active'" class="alert alert-success" style="padding:2px;" >{{$t('Faol')}}</span>
+                                <span v-if="item.status == 'inactive'" class="alert alert-danger" style="padding:2px;">{{$t('Nofaol')}}</span>
                             </td>
 							<td>{{item.phone}}</td>
 							<td>

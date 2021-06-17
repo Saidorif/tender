@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Проверка тендеры
+				   {{$t('Tenderlarni tekshirish')}}
 				</h4>
 		  	</div>
 		  	<div class="card-body">
@@ -14,12 +14,12 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название компании</th>
-							<th scope="col">Дата тендера</th>
-							<th scope="col">Адрес тендера</th>
-							<th scope="col">Статус заявки</th>
-							<th scope="col">Количество авто</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tashkilot nomi')}}</th>
+							<th scope="col">{{$t('Tender sanasi')}}</th>
+							<th scope="col">{{$t('Tender manzili')}}</th>
+							<th scope="col">{{$t('Ariza holati')}}</th>
+							<th scope="col">{{$t('Avtomobillar soni')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}} </th>
 						</tr>
 					</thead>
 					<tbody>
@@ -38,7 +38,7 @@
 									{{getStatusName(item.tender_status)}}
 								</div>
                             </td>
-							<td>{{item.cars_count}} шт</td>
+							<td>{{item.cars_count}} {{$t('ta')}}</td>
 							<td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/check-control/show/${item.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
