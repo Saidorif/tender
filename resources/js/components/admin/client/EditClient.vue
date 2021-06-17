@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title title_user mb-0">
-          <i  class="peIcon pe-7s-users"></i></i>Добавить перевозчик
+          <i  class="peIcon pe-7s-users"></i> {{$t('Tashuvchi qoʼshish')}}
         </h3>
         <button
           type="button"
@@ -22,144 +22,131 @@
       <form role="form" @submit.prevent.enter="sendEmployee" enctype="multipart/form-data">
         <div class="card-body d-flex flex-wrap">
             <div class="form-group col-lg-6">
-              <label for="surname">Фамилия</label>
+              <label for="surname">{{$t('Familiya')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="surname"
-                placeholder="Фамилия"
                 v-model="form.surname"
                 disabled
               />
             </div>
             <div class="form-group col-lg-6">
-              <label for="name">Имя</label>
+              <label for="name">{{$t('Ism')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="name"
-                placeholder="Имя"
                 v-model="form.name"
                 disabled
               />
             </div>
             <div class="form-group col-lg-6">
-              <label for="middlename">Отчество</label>
+              <label for="middlename">{{$t('Sharif')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="middlename"
-                placeholder="Отчество"
                 v-model="form.middlename"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="company_name">Название компании</label>
+              <label for="company_name">{{$t('Tashkilot nomi')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="company_name"
-                placeholder="Название компании"
                 v-model="form.company_name"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="region">Область</label>
+              <label for="region">{{$t('Viloyat')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="region"
-                placeholder="Область.."
                 v-model="form.region.name"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="area">Регион/Город</label>
+              <label for="area">{{$t('Tuman/Shahar')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="area"
-                placeholder="Регион/Город.."
                 v-model="form.area.name"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="trusted_person">Уполномоченное лицо</label>
+              <label for="trusted_person">{{$t('Vakolatli shaxs')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="trusted_person"
-                placeholder="Уполномоченное лицо"
                 v-model="form.trusted_person"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="email">E-mail</label>
+              <label for="email">{{$t('Email')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="email"
-                placeholder="E-mail.."
                 v-model="form.email"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="inn">ИНН</label>
+              <label for="inn">{{$t('INN')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="inn"
-                placeholder="ИНН.."
                 v-model="form.inn"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="bank_number">Р/счет</label>
+              <label for="bank_number">{{$t('X/raqam')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="bank_number"
-                placeholder="Р/счет.."
                 v-model="form.bank_number"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="mfo">МФО</label>
+              <label for="mfo">{{$t('MFO')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="mfo"
-                placeholder="МФО.."
                 v-model="form.mfo"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="oked">ОКЕД</label>
+              <label for="oked">{{$t('OKED')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="oked"
-                placeholder="ОКЕД.."
                 v-model="form.oked"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="city">Адрес банка</label>
+              <label for="city">{{$t('Bankning manzili')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="city"
-                placeholder="Адрес банка.."
                 v-model="form.city"
                 disabled
               />
