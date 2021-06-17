@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-file"></i>
-          Автомобили
+           {{$t('Avtomobillar')}}
         </h4>
         <h3 class="ml-5">
           <b>{{getCompanyName}}</b>
@@ -13,7 +13,7 @@
         <div class="d-flex align-items-center">
           <button type="button" class="btn btn-info mr-3" @click.prevent="completeLot">
             <i class="fas fa-check"></i>
-            Закрыть лот
+            {{$t('Lotni yopish')}}
           </button>
           <router-link class="btn btn-primary back_btn" to="/crm/check-control">
             <span class="peIcon pe-7s-back"></span>
@@ -26,11 +26,11 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>Авто тартиб раками</th>
-                <th colspan="2">Киритилган маълумот</th>
-                <th>ГАИ маълумоти</th>
-                <th>Нотариус маълумоти</th>
-                <th colspan="2">Назорат</th>
+                <th>{{$t('Аvtomobil tartib raqami')}}</th>
+                <th colspan="2">{{$t('Kiritilgan maʼlumotalar')}}</th>
+                <th>{{$t('GAI maʼlumoti')}}</th>
+                <th>{{$t('Natarius maʼlumoti')}}</th>
+                <th colspan="2">{{$t('Nazorat')}}</th>
               </tr>
             </thead>
             <tbody>
@@ -47,7 +47,7 @@
                       </div>
                     </div>
                   </td>
-                  <td><b>Давлат раками</b></td>
+                  <td><b>{{$t('Davlat raqami')}}</b></td>
                   <td>{{car.auto_number}}</td>
                   <td>{{car.gai ? car.gai.pNameOfClient : ''}}</td>
                   <td rowspan="5">
@@ -62,32 +62,32 @@
                     <div class="d-flex flex-column">
                       <button type="button" class="btn btn-danger mb-2" @click.prevent="denyCar(car.id)">
                         <i class="fas fa-minus-circle"></i>
-                        Отказ
+                        {{$t('Rad etish')}}
                       </button>
                       <button type="button" class="btn btn-success" @click.prevent="activeCar(car.id)">
                         <i class="fas fa-check-circle"></i>
-                        Подтвердить
+                        {{$t('Tasdiqlash')}}
                       </button>
                     </div>
                   </td>
                 </tr>
                 <tr>
-                  <td><b>Авто йили</b></td>
+                  <td><b>{{$t('Avtomobil yili')}}</b></td>
                   <td>{{car.date}}</td>
                   <td>{{car.gai ? car.gai.pMadeofYear : ''}}</td>
                 </tr>
                 <tr>
-                  <td><b>Авто тури</b></td>
+                  <td><b>{{$t('Avtomobil turi')}}</b></td>
                   <td>{{car.bustype ? car.bustype.name : ''}}</td>
                   <td>{{car.gai ? car.gai.pTypeOfAuto : ''}}</td>
                 </tr>
                 <tr>
-                  <td><b>Модель</b></td>
+                  <td><b>{{$t('Avtomobil rusumi')}}</b></td>
                   <td>{{car.busmodel ? car.busmodel.name : ''}}</td>
                   <td>{{car.gai ? car.gai.pMarka : ''}}</td>
                 </tr>
                 <tr>
-                  <td><b>Сиғими</b></td>
+                  <td><b>{{$t('capacity')}}</b></td>
                   <td>{{car.capacity}}</td>
                   <td>{{car.gai ? car.gai.pNumberofplace : ''}}</td>
                 </tr>
@@ -102,22 +102,22 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle"><strong>Минюст данные</strong></h5>
+              <h5 class="modal-title" id="exampleModalLongTitle"><strong>{{$t('Adliya vazirligi maʼlumotlari')}}</strong></h5>
               <button type="button" class="close" @click.prevent="closeModal">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <h3><strong>Минюст данные</strong></h3>
+              <h3><strong>{{$t('Adliya vazirligi maʼlumotlari')}}</strong></h3>
               <table class="table table-hover table-bordered">
                 <thead>
                   <tr>
-                    <th>Номер Авто</th>
-                    <th>Хозяин</th>
-                    <th>ИНН</th>
-                    <th>Дата нотариального действия</th>
-                    <th>Номер реестра нотариального действия</th>
-                    <th>Срок нотариального действия</th>
+                    <th>{{$t('Avtomobil raqami')}}</th>
+                    <th>{{$t('Egasi')}}</th>
+                    <th>{{$t('INN')}}</th>
+                    <th>{{$t('Notarius hujjat sanasi')}}</th>
+                    <th>{{$t('Notarius hujjat reestr raqami')}}</th>
+                    <th>{{$t('Notarius hujjati muddati')}}</th>
                   </tr>
                 </thead>
                 <tbody v-if="modalItem">
@@ -133,7 +133,7 @@
               </table>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Закрыть</button>
+              <button type="button" class="btn btn-secondary" @click.prevent="closeModal">{{$t('Yopish')}}</button>
             </div>
           </div>
         </div>
