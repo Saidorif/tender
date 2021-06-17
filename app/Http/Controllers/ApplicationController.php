@@ -464,4 +464,35 @@ class ApplicationController extends Controller
         }
         return response()->json(['success' => true,'result' => $result]);
     }
+
+    public function userCertificates(Request $request)
+    {
+        $user = $request->user();
+        $result = Certificate::with(['user','direction','car'])
+                        ->orderBy('id','DESC')
+                        ->where('user_id','=',$user->id)
+                        ->paginate(12);
+        return response()->json(['success' => true,'result' => $result]);
+    }
+
+    public function userCertificateShow(Request $request,$id)
+    {
+        $user = $request->user();
+        $result = Certificate::with(['user','direction','car'])->where('user_id','=',$user->id)->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Сертификат не найдено']);
+        }
+        return response()->json(['success' => true,'result' => $result]);
+    }
+
+    public function userCars(Request $request)
+    {
+        $user = $request->user();
+        $result = UserCar::with(['user','direction','bustype','busmodel','busmarka','tclass'])
+            ->orderBy('id','DESC')
+            ->where('user_id','=',$user->id)
+            ->paginate(12);
+        return response()->json(['success' => true,'result' => $result]);
+    }
+
 }

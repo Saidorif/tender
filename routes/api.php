@@ -44,7 +44,10 @@ Route::group([
 
             //Certificates
             Route::post('certificate','ApplicationController@certificates');
+            Route::post('certificate/user','ApplicationController@userCertificates');
             Route::get('certificate/{id}','ApplicationController@certificateShow');
+            Route::get('certificate/user/{id}','ApplicationController@userCertificateShow');
+            Route::post('cars/user','ApplicationController@userCars');
 
             //Dashboard
             Route::get('dashboard', 'DashboardController@index');
