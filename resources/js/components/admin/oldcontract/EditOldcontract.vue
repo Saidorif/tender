@@ -64,15 +64,15 @@
 		                        label="company_name"
 		                        :max="3"
 								:loading="isUserLoading"
-								selectLabel="Нажмите Enter, чтобы выбрать"
-								deselectLabel="Нажмите Enter, чтобы удалить"
+								:selectLabel="$t('Tanlash uchun Enter tugmasini bosing')"
+								:deselectLabel="$t('Oʼchirish uchun Enter tugmasini bosing')"
 								:option="[{company_name: 'Otash', id: 1}]"
 								@select="dispatchUser"
 								@remove="removeUser"
 								:class="isRequired(form.user_id) ? 'isRequired' : ''"
 								>
-								<span slot="noResult">По вашему запросу ничего не найдено</span>
-								<span slot="noOptions">Cписок пустой</span>
+								<span slot="noResult">{{$t('Sizning qidirgan maʼlumot topilmadi.')}}</span>
+								<span slot="noOptions">{{$t('Royxat boʼsh')}}</span>
 							</multiselect>
 				  	    </div>
 			          	<div class="form-group col-md-3">
@@ -88,15 +88,15 @@
 		                        label="number"
 		                        :max="3"
 								:loading="isProtocolLoading"
-								selectLabel="Нажмите Enter, чтобы выбрать"
-								deselectLabel="Нажмите Enter, чтобы удалить"
+								:selectLabel="$t('Tanlash uchun Enter tugmasini bosing')"
+								:deselectLabel="$t('Oʼchirish uchun Enter tugmasini bosing')"
 								:option="[{number: 'Otash', id: 1}]"
 								@select="dispatchProtocol"
 								@remove="removeProtocol"
 								:class="isRequired(form.protocol_id) ? 'isRequired' : ''"
 								>
-								<span slot="noResult">По вашему запросу ничего не найдено</span>
-								<span slot="noOptions">Cписок пустой</span>
+								<span slot="noResult">{{$t('Sizning qidirgan maʼlumot topilmadi.')}}</span>
+								<span slot="noOptions">{{$t('Royxat boʼsh')}}</span>
 							</multiselect>
 				  	    </div>
 					  	<div class="form-group col-md-3">
@@ -140,14 +140,14 @@
 		                        label="name"
 		                        :max="3"
 								:loading="isDirectionLoading"
-								selectLabel="Нажмите Enter, чтобы выбрать"
-								deselectLabel="Нажмите Enter, чтобы удалить"
+								:selectLabel="$t('Tanlash uchun Enter tugmasini bosing')"
+								:deselectLabel="$t('Oʼchirish uchun Enter tugmasini bosing')"
 								:option="[{name: 'Otash', id: 1}]"
 								@remove="removeDirect"
                                 :multiple="true"
 								>
-								<span slot="noResult">По вашему запросу ничего не найдено</span>
-								<span slot="noOptions">Cписок пустой</span>
+								<span slot="noResult">{{$t('Sizning qidirgan maʼlumot topilmadi.')}}</span>
+								<span slot="noOptions">{{$t('Royxat boʼsh')}}</span>
 							</multiselect>
 				  		</div>
 				  		<div class="ml-3 d-flex justify-content-center w-100 border pt-2 mb-4">

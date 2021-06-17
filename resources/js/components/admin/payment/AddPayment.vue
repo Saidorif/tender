@@ -25,15 +25,15 @@
 	                        label="company_name"
 	                        :max="3"
 							:loading="isLoading"
-							selectLabel="Нажмите Enter, чтобы выбрать"
-							deselectLabel="Нажмите Enter, чтобы удалить"
+							:selectLabel="$t('Tanlash uchun Enter tugmasini bosing')"
+							:deselectLabel="$t('Oʼchirish uchun Enter tugmasini bosing')"
 							:option="[]"
 							:class="isRequired(form.inn) ? 'isRequired' : ''"
 							@select="dispatchAction"
 							@remove="removeInn"
 							>
-							<span slot="noResult">По вашему запросу ничего не найдено</span>
-							<span slot="noOptions">Cписок пустой</span>
+							<span slot="noResult">{{$t('Sizning qidirgan maʼlumot topilmadi.')}}</span>
+							<span slot="noOptions">{{$t('Royxat boʼsh')}}</span>
 						</multiselect>
 					  </div>
 					  <div class="form-group col-xl-2">

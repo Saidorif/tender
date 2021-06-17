@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon pe-7s-id"></i>
-				    Добавить Commission
+				    {{$t('Komissiya qoʼshish')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/comission"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
@@ -13,12 +13,11 @@
 		  		<form @submit.prevent.enter="saveComission" >
 					<div class="row">
 					  <div class="form-group col-md-9">
-					    <label for="name">Область</label>
+					    <label for="name">{{$t('Viloyat')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="name"
-					    	placeholder="Область"
 					    	v-model="form.name"
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>

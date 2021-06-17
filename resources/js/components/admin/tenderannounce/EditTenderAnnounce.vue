@@ -256,14 +256,14 @@
 	                        label="name"
 	                        :max="3"
 							:loading="isLoading"
-							selectLabel="Нажмите Enter, чтобы выбрать"
-							deselectLabel="Нажмите Enter, чтобы удалить"
+							:selectLabel="$t('Tanlash uchun Enter tugmasini bosing')"
+							:deselectLabel="$t('Oʼchirish uchun Enter tugmasini bosing')"
 							:option="[{name: 'Otash', id: 1}]"
 							@select="dispatchAction"
 							@remove="removeDirect"
 							>
-							<span slot="noResult">По вашему запросу ничего не найдено</span>
-							<span slot="noOptions">Cписок пустой</span>
+							<span slot="noResult">{{$t('Sizning qidirgan maʼlumot topilmadi.')}}</span>
+							<span slot="noOptions">{{$t('Royxat boʼsh')}}</span>
 						</multiselect>
 				  	</div>
 				  	<div class="form-group col-md-2 check_box_with_label" v-if="direction_ids && Object.keys(direction_ids).length > 0">

@@ -152,55 +152,50 @@
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="license_number">Номер лицензии</label>
+              <label for="license_number">{{$t('Litsenziya raqami')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="license_number"
-                placeholder="Номер лицензии.."
                 v-model="form.license_number"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="phone">Телефон</label>
+              <label for="phone">{{$t('Telefon')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="phone"
-                placeholder="Телефон.."
                 v-model="form.phone"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="license_type">Тип лицензии</label>
+              <label for="license_type">{{$t('Litsenziya turi')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="license_type"
-                placeholder="Тип лицензии.."
                 v-model="form.license_type"
                 disabled
               />
             </div>
             <div class="form-group col-md-6">
-              <label for="address">Адрес</label>
+              <label for="address">{{$t('Manzil')}}</label>
               <textarea
                 class="form-control input_style"
                 id="address"
-                placeholder="Адрес.."
                 v-model="form.address"
                 disabled
               ></textarea>
             </div>
             <div class="form-group col-md-6">
-              <label for="license_date">Дата лицензии</label>
+              <label for="license_date">{{$t('Letsenizya sanasi')}}</label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="license_date"
-                placeholder="Дата лицензии.."
                 v-model="form.license_date"
                 disabled
               />

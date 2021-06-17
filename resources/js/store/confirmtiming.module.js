@@ -20,9 +20,9 @@ const getters = {
 
 
 const actions = {
-	async actionTimings({commit},page){
+	async actionTimings({commit},payload){
 		try {
-			const types =  await ConfirmTimingSerivce.xronoms(page);
+			const types =  await ConfirmTimingSerivce.xronoms(payload);
 			await commit('setTiming',types.data.result)
 			return true
 		} catch (error) {

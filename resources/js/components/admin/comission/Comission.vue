@@ -5,11 +5,11 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon pe-7s-box1"></i>
-				    Commission 
+				    {{$t('Komissiya')}}
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/comission/add">
-					<i class="fas fa-plus"></i> 
-					Добавить
+					<i class="fas fa-plus"></i>
+					{{$t('Komissiya qoʼshish')}}
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -18,8 +18,8 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Nomi')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -65,7 +65,7 @@
 		},
 		methods:{
 			...mapActions('comission',['actionComissions','actionDeleteComission']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				this.laoding = true
 				await this.actionComissions(page)
 				this.laoding = false
@@ -88,5 +88,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>
