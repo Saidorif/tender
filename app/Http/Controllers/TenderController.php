@@ -1063,7 +1063,7 @@ class TenderController extends Controller
 //        if($return){
 //            return $items;
 //        }
-        return response()->json(['success' => true, 'result' => $items,'calculate' => $calculate]);
+        return response()->json(['success' => true, 'result' => $items,'calculate' => $calculate,'tender' => $tender]);
     }
 
     public function completedTendersBall(Request $request,$id,$inside = false)
