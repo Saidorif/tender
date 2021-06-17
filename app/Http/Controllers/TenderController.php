@@ -804,6 +804,7 @@ class TenderController extends Controller
                             $app_avto_years_total += $app_avto_years;
                         }
                         //Umumiy ballar talabdagi avtolar soniga bolinadi
+                        $talabdagi_son = (int)$direction->requirement->auto_trans_count;
                         if($app_avto_ball){
                             if($direction->reys_status == 'all'){
                                 $talabdagi_son = (int)$direction->requirement->auto_trans_count;

@@ -72,7 +72,7 @@ class ApplicationController extends Controller
                 return $item;
             });
         }
-        return response()->json(['success' => true, 'result' => $result]);
+        return response()->json(['success' => true, 'result' => $result,'tender' => $tender]);
     }
 
     public function store(Request $request)

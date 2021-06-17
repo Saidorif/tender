@@ -32,6 +32,9 @@ import EditEmployee from './components/admin/employee/EditEmployee'
 import Certificate from './components/admin/certificate/Certificate'
 import AddCertificate from './components/admin/certificate/AddCertificate'
 import EditCertificate from './components/admin/certificate/EditCertificate'
+// usercertificate
+import UserCertificate from './components/admin/certificate/UserCertificate'
+import EditUserCertificate from './components/admin/certificate/EditUserCertificate'
 
 // Role
 import Role from './components/admin/role/Role'
@@ -378,16 +381,24 @@ const router = new Router({
 					// }
 				},
 				{
-					path:'certificate/add',
-					component:AddCertificate,
+					path:'certificate/edit/:certificateId',
+					component:EditCertificate,
 					// meta:{
-					// 	action:'store',
+					// 	action:'edit',
 					// 	subject:'CertificateController'
 					// }
 				},
 				{
-					path:'certificate/edit/:certificateId',
-					component:EditCertificate,
+					path:'usercertificate',
+					component:UserCertificate,
+					// meta:{
+					// 	action:'index',
+					// 	subject:'CertificateController'
+					// }
+				},
+				{
+					path:'usercertificate/edit/:usercertificateId',
+					component:EditUserCertificate,
 					// meta:{
 					// 	action:'edit',
 					// 	subject:'CertificateController'
