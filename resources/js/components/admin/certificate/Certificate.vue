@@ -16,16 +16,22 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">{{$t('Nomi')}}</th>
+							<th scope="col">Moshina raqami</th>
+							<th scope="col">Guvoxnoma raqami </th>
+							<th scope="col">Guvoxnomani amal qilish muddati </th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="(reg,index) in getCertificates.data">
 							<td scope="row">{{reg.id}}</td>
-							<td>{{reg.name}}</td>
+							<td>{{reg.company_name}}</td>
+							<td>{{reg.car ? reg.car.auto_number : ''}}</td>
+							<td>{{reg.seria}}{{reg.number}}</td>
+							<td>{{reg.exp_date}}</td>
 							<td>
 								<!-- v-if="$can('edit', 'CertificateController')" -->
-								<router-link  tag="button" class="btn_transparent" :to='`/crm/region/edit/${reg.id}`'>
+								<router-link  tag="button" class="btn_transparent" :to='`/crm/certificate/edit/${reg.id}`'>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
 								<!-- v-if="$can('destroy', 'CertificateController')"  -->

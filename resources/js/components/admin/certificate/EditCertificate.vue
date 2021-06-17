@@ -13,26 +13,53 @@
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
-		  		<form @submit.prevent.enter="saveCertificate" >
-					<div class="row">
-					  <div class="form-group col-md-9">
-					    <label for="name">{{$t('Nomi')}}</label>
-					    <input
-					    	type="text"
-					    	class="form-control input_style"
-					    	id="name"
-					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"
-				    	>
-					  </div>
-					  <div class="form-group col-lg-3 form_btn">
-					  	<button type="submit" class="btn btn-primary btn_save_category">
-					  		<i class="fas fa-save"></i>
-						  	{{$t('Saqlash')}}
-						</button>
-				  	  </div>
-					</div>
-				</form>
+		  		<div>
+		  			O‘ZBEKISTON RESPUBLIKASI TRANSPORT VAZIRLIGI 
+		  		</div>
+		  		<div>
+					{{form.seria}}{{form.number}}-son {{form.direction ? form.direction.name : ''}}-nomli
+					yo‘nalishda qatnovlarni amalga oshirish huquqini tasdiqlovchi 
+		  		</div>
+		  		<div>
+		  			GUVOHNOMA
+		  		</div>
+		  		<div>
+					Ushbu guvohnoma {{form.company_name}} ga 
+	          		(tashuvchining nomi)
+		  		</div>
+		  		<div>
+					guvohnoma egasi____________________________dagi_________-sonli 
+					                                                           hartnoma sanasi va raqami)
+					shartnomaga asosan
+		  		</div>
+				<div>
+					guvohnoma raqami __________________ davlat raqami________________________
+		            (avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar)
+				</div>				
+				<div>
+					rusumi____________________________________________________bo‘lgan
+					(yo‘nalishda qatnovchi avtotransport vositasiga tegishli ma’lumotlar)
+				</div>
+				<div>
+					avtotransport vositasida
+					____- sonli_______________________________________yo‘nalishda
+                 	(yo‘nalish raqami va nomi)
+				</div>
+				<div>
+					__________________________________________________sanasigacha 
+	                          (guvohnomaning amal qilish muddati)
+				</div>
+				<div>
+					qatnovlarni amalga oshirish huquqiga egaligini tasdiqlaydi.
+				</div>
+				<div>
+				    <img :src='"/"+form.qr_code' alt="">          	
+              	</div>              
+              	<div>
+					{{form.seria}} {{form.number}}
+              	</div>
+
+
 		  	</div>
 	  	</div>
 	</div>

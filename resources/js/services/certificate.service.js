@@ -11,7 +11,7 @@ const CertificateService = {
 		return ApiService.post(`/api/certificate/store`,data)
 	},
 	editcertificate(id){
-		return ApiService.get(`/api/certificate/edit/${id}`)
+		return ApiService.get(`/api/certificate/${id}`)
 	},
 	updatecertificate(data){
 		return ApiService.post(`/api/certificate/update/${data.id}`,data)
