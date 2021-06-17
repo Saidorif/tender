@@ -28,7 +28,7 @@ const actions = {
 	async actionCompletedTendersShow({commit},id){
 		try {
 			const types =  await CompletedTendersSerivce.completedTendersShow(id);
-			await commit('setTender',types.data.result)
+			await commit('setTender',types.data)
 			return true
 		} catch (error) {
 			return false
