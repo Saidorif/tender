@@ -1586,11 +1586,14 @@ class DirectionController extends Controller
     {
         $params = $request->all();
         $user = $request->user();
-        $builder = DirectionReq::query()->select('directions.created_by','direction_reqs.*')->with([
+        $builder = DirectionReq::query()->select('directions.created_by','directions.name AS direction_name','directions.pass_number','direction_reqs.*')->with([
             'type',
         ]);
         $builder->leftJoin('directions','directions.id','direction_reqs.direction_id');
-        $builder->where(['direction_reqs.status' => 'pending'])->orWhere(['direction_reqs.status' => 'completed']);
+        $builder->where(function($q) {
+            $q->where(['direction_reqs.status' => 'pending'])->orWhere(['direction_reqs.status' => 'completed']);
+        });
+        //$builder->where(['direction_reqs.status' => 'pending'])->orWhere(['direction_reqs.status' => 'completed']);
         if($user->role->name != 'admin'){
             $user_ids = User::whereNotIn('role_id',[1,9])->where('region_id','=',$user->region_id)->get()->pluck('id')->toArray();
             $builder->whereIn('directions.created_by',$user_ids);
