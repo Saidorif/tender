@@ -175,7 +175,7 @@
               <!-- 3 s -->
               <tr>
                 <td :rowspan="form.tarif_city ? 3 : 2">15</td>
-                <td width="50%"><b>Тариф</b></td>
+                <td width="50%"><b>{{$t('Reyslar soni')}}</b></td>
                 <td><b>{{form.tarif}}</b></td>
               </tr>
               <tr>

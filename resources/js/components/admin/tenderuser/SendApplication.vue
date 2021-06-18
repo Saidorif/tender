@@ -34,7 +34,6 @@
                         <input
 					    	type="text"
 					    	class="form-control input_style"
-					    	placeholder="Тариф"
                             :value="item.name"
 					    	disabled>
 					</div>
@@ -45,19 +44,17 @@
 					    	type="number"
 					    	class="form-control input_style"
 					    	id="tarif"
-					    	placeholder="Тариф"
 					    	v-model="form.tarif[index].summa"
 					    	:class="isRequiredData(form.tarif[index].summa) ? 'isRequired' : ''"
 					    	:disabled="makeDisabled">
 						</div>
 				  	</div>
 				  	<div class="form-group col-md-3">
-					    <label for="qty_reys">Количество рейсов</label>
+					    <label for="qty_reys">{{$t('Reyslar soni')}}</label>
 					    <input
 					    	type="number"
 					    	class="form-control input_style"
 					    	id="qty_reys"
-					    	placeholder="Количество рейсов"
 					    	v-model="form.qty_reys[index].qty"
 					    	:class="isRequiredData(form.qty_reys[index].qty) ? 'isRequired' : ''"
 					    	:disabled="makeDisabled">
@@ -828,7 +825,7 @@
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-warning" data-dismiss="modal">
 		        	<i class="fas fa-times"></i>
-		        	Закрыть
+		        	{{$t('Yopish')}}
 		        </button>
 		        <button type="button" class="btn btn-primary" @click.prevent="addCar">
 		        	<i class="fas fa-save"></i>

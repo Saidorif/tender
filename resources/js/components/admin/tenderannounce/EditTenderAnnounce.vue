@@ -421,7 +421,7 @@
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-warning" data-dismiss="modal">
 		        	<i class="fas fa-times"></i>
-		        	Закрыть
+		        	{{$t('Yopish')}}
 		        </button>
 		        <button type="button" class="btn btn-primary" @click.prevent="addLot">
 		        	<i class="fas fa-plus"></i>

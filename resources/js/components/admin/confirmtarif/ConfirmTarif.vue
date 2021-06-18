@@ -113,7 +113,7 @@
 							<th scope="col">№</th>
 							<th scope="col">{{$t('Yoʼnalish')}}</th>
 							<th scope="col">Номер направление</th>
-							<th scope="col">Тариф</th>
+							<th scope="col">{{$t('Reyslar soni')}}</th>
 							<th scope="col">Сумма багажа</th>
 							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>

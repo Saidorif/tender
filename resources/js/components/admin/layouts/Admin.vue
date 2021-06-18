@@ -125,7 +125,7 @@
               <li class="nav-item" v-if="$can('listTarifApprove', 'DirectionController')">
                 <router-link class="nav-link" to="/crm/confirm-tarif">
                   <p>
-                    Тариф
+                    {{$t('Reyslar soni')}}
                   </p>
                 </router-link>
               </li>

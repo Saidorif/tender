@@ -19,7 +19,7 @@
             <p class="form-control input_style disabled">{{ form.time }}</p>
           </div>
           <div class="form-group col-md-3">
-            <label for="price">Тариф</label>
+            <label for="price">{{$t('Reyslar soni')}}</label>
             <p class="form-control input_style disabled">{{ form.price }}</p>
           </div>
           <div class="col-md-2 ml_auto">

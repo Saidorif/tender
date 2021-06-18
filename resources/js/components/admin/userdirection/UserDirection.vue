@@ -226,11 +226,11 @@
                       <td>{{userItem.license_number}}</td>
                     </tr>
                     <tr>
-                      <th>Тип лицензии</th>
+                      <th>{{$t('Litsenziya turi')}}</th>
                       <td>{{userItem.license_type}}</td>
                     </tr>
                     <tr>
-                      <th>Дата лицензии</th>
+                      <th>{{$t('Litsenziya sanasi')}}</th>
                       <td>{{userItem.license_date}}</td>
                     </tr>
                   </tbody>
@@ -238,7 +238,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click.prevent="closeUserModal">Закрыть</button>
+              <button type="button" class="btn btn-secondary" @click.prevent="closeUserModal">{{$t('Yopish')}}</button>
             </div>
           </div>
         </div>

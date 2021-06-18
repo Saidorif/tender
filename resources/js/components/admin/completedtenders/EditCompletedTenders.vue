@@ -292,11 +292,11 @@
                       <td>{{userItem.license_number}}</td>
                     </tr>
                     <tr>
-                      <th>Тип лицензии</th>
+                      <th>{{$t('Litsenziya turi')}}</th>
                       <td>{{userItem.license_type}}</td>
                     </tr>
                     <tr>
-                      <th>Дата лицензии</th>
+                      <th>{{$t('Litsenziya sanasi')}}</th>
                       <td>{{userItem.license_date}}</td>
                     </tr>
                   </tbody>
@@ -304,7 +304,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click.prevent="closeUserModal">Закрыть</button>
+              <button type="button" class="btn btn-secondary" @click.prevent="closeUserModal">{{$t('Yopish')}}</button>
             </div>
           </div>
         </div>
@@ -314,7 +314,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Баллы</h5>
+              <h5 class="modal-title" id="exampleModalLongTitle">{{$t('Ballar')}}</h5>
               <button type="button" class="close" @click.prevent="closeBallModal">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -325,23 +325,23 @@
                   <thead>
                     <tr>
                       <th>№</th>
-                      <th>Бахолаш мезонлари</th>
-                      <th>Киритилган таклиф</th>
-                      <th>Йуналиш талабида</th>
-                      <th>Хисобланган балл</th>
+                      <th>{{$t('Baxolash mezonlari')}}</th>
+                      <th>{{$t('Kiritilgan taklif')}}</th>
+                      <th>{{$t('Yoʼnalish talabida')}}</th>
+                      <th>{{$t('Hisoblangan ball')}}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>1</td>
-                      <td>Тариф</td>
+                      <td>{{$t('Tarif')}}</td>
                       <td>{{ballItems.app_tarif}}</td>
                       <td>{{ballItems.lot_tarif}}</td>
                       <td>{{ballItems.tarif_ball}}</td>
                     </tr>
                     <tr>
                       <td>2</td>
-                      <td>Количество рейсов</td>
+                      <td>{{$t('Reyslar soni')}}</td>
                       <td>{{ballItems.app_reys}}</td>
                       <td>{{ballItems.lot_reys}}</td>
                       <td>{{ballItems.reys_ball}}</td>
@@ -452,7 +452,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click.prevent="closeBallModal">Закрыть</button>
+              <button type="button" class="btn btn-secondary" @click.prevent="closeBallModal">{{$t('Yopish')}}</button>
             </div>
           </div>
         </div>

@@ -22,13 +22,12 @@
           <div class="add_to_table"></div>
           <div class="confirm_tarif_default">
             <div class="form-group">
-              <label for="summa" class="form-control-label">Тариф</label>
+              <label for="summa" class="form-control-label">{{$t('Reyslar soni')}}</label>
               <input
                 type="number"
                 id="summa"
                 class="form-control"
                 v-model="confirm.summa"
-                placeholder="тариф"
                 :class="isRequired(confirm.summa) ? 'isRequired' : ''"
               />
             </div>
