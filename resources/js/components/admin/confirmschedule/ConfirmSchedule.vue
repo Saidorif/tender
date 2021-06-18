@@ -14,7 +14,7 @@
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
-			            	Филтр
+			            	{{$t('Saralash')}}
 						</button>
 		            </div>
 	            </div>
@@ -44,11 +44,11 @@
 						  	<div class="col-lg-5 form-group d-flex justify-content-end align-items-center mb-4">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
-								  	сброс
+								  	{{$t('Tozalash')}}
 							  	</button>
 							  	<button type="button" class="btn btn-primary ml-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
-								  	найти
+								  	{{$t('Qidirish')}}
 							  	</button>
 					  	  	</div>
 				  		</div>
@@ -65,8 +65,8 @@
 							<th scope="col">Тариф</th>
 							<th scope="col">Сумма багажа</th>
 							<th scope="col">Дата</th>
-							<th scope="col">Статус</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

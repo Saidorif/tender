@@ -471,7 +471,7 @@
                     @click.prevent="addCar"
                   >
                     <i class="fas fa-plus"></i>
-                    Добавить авто
+                    {{$t('Qoʼshish')}} авто
                   </button>
                   <button
                     type="submit"

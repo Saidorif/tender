@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Добавить старый протокол
+				    {{$t('Qoʼshish')}} старый протокол
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/oldprotocol">
 					<span class="peIcon pe-7s-back"></span>

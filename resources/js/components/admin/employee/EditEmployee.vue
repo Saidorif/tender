@@ -135,7 +135,7 @@
                 </small>
               </div>
               <div class="form-group col-lg-6">
-                <label for="status">Статус</label>
+                <label for="status">{{$t('Holati')}}</label>
                 <select
                   class="form-control"
                   :class="isRequired(form.status) ? 'isRequired' : '' "

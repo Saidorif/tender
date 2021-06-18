@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-money-bill-alt"></i>
-				    Добавить Платеж
+				    {{$t('Qoʼshish')}} Платеж
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/payment"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
@@ -59,7 +59,7 @@
 				    	>
 					  </div>
 					  <div class="form-group col-md-2">
-					    <label for="status">Статус</label>
+					    <label for="status">{{$t('Holati')}}</label>
 					    <select
 					    	v-model="form.status"
 					    	:class="isRequired(form.status) ? 'isRequired' : ''"

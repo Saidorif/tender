@@ -243,7 +243,7 @@
 					  	<div class="form-group col-lg-12 d-flex justify-content-end align-items-center">
 						  	<button type="button" class="btn btn-info mr-3" @click.prevent="addCarItem">
 						  		<i class="fas fa-plus"></i>
-							  	Добавить авто
+							  	{{$t('Qoʼshish')}} авто
 							</button>
 						  	<button type="submit" class="btn btn-primary">
 						  		<i class="fas fa-save"></i>

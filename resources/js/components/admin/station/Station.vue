@@ -6,17 +6,17 @@
 		  		<div class="header_title mb-2">
 				    <h4 class="title_user">
 				    	<i  class="peIcon pe-7s-box1"></i>
-					    Автостанция 
+					    Автостанция
 					</h4>
 	            	<div class="add_user_btn">
 	            		<span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-		            		Количество aвтостанции <b>{{ getStations.total }} шт.</b> 
+		            		Количество aвтостанции <b>{{ getStations.total }} шт.</b>
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter mr-3" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
-			            	Филтр
+			            	{{$t('Saralash')}}
 						</button>
-						<router-link v-if="$can('store', 'StationController')" class="btn btn-primary" to="/crm/station/add"><i class="fas fa-plus"></i> Добавить</router-link>
+						<router-link v-if="$can('store', 'StationController')" class="btn btn-primary" to="/crm/station/add"><i class="fas fa-plus"></i> {{$t('Qoʼshish')}}</router-link>
 		            </div>
 	            </div>
 	            <transition name="slide">
@@ -25,7 +25,7 @@
 				  			<div class="form-group col-lg-3">
 				  				<label for="name">Название автостанции!</label>
 			                    <input
-			                      id="name"	
+			                      id="name"
 			                      class="form-control input_style"
 			                      v-model="filter.name"
 			                      placeholder="Название автостанции"
@@ -34,23 +34,23 @@
 				  			<div class="form-group col-lg-3" v-if="getUser.role_id == 1">
 				  				<label for="region_id">Область!</label>
 			                    <select
-			                      id="region_id"	
+			                      id="region_id"
 			                      class="form-control input_style"
 			                      v-model="filter.region_id"
 			                      @change="selectRegion"
 			                    >
-			                      <option value="" selected >Выберите регион!</option>
+			                      <option value="" selected >{{$t('Viloyatni tanlang')}}!</option>
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="area_id">Сортировать по региону!</label>
+				  				<label for="area_id">{{$t('Viloyat boʼyicha saralash')}}!</label>
 			                    <select
-			                      id="area_id"	
+			                      id="area_id"
 			                      class="form-control input_style"
 			                      v-model="filter.area_id"
 			                    >
-			                      <option value="" selected >Выберите регион!</option>
+			                      <option value="" selected >{{$t('Viloyatni tanlang')}}!</option>
 			                      <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
 			                    </select>
               				</div>
@@ -67,15 +67,15 @@
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
-								  	сброс
+								  	{{$t('Tozalash')}}
 							  	</button>
 							  	<button type="button" class="btn btn-primary ml-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
-								  	найти
+								  	{{$t('Qidirish')}}
 							  	</button>
-					  	  	</div>	
+					  	  	</div>
 				  		</div>
-				  	</div>	
+				  	</div>
 			  	</transition>
 		  	</div>
 		  	<div class="card-body">
@@ -88,7 +88,7 @@
 							<th scope="col">Области</th>
 							<th scope="col">Регион</th>
 							<th scope="col">Тип станции</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -161,7 +161,7 @@
 		      await this.actionAreaByRegion({ region_id: this.filter.region_id });
 		      this.filter.area_id = ''
 		    },
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				this.laoding = true
 				let data = {
 					page:page,
@@ -217,5 +217,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

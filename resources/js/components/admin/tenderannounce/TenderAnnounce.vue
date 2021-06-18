@@ -9,7 +9,7 @@
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/tenderannounce/add">
 					<i class="fas fa-plus"></i>
-					Добавить
+					{{$t('Qoʼshish')}}
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -21,10 +21,10 @@
 							<th scope="col">Лоты</th>
 							<th scope="col">Адрес</th>
 							<th scope="col">Регион</th>
-							<th scope="col">Дата тендера</th>
+							<th scope="col">{{$t('Tender sanasi')}}</th>
 							<th scope="col">Осталось</th>
-							<th scope="col">Статус</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

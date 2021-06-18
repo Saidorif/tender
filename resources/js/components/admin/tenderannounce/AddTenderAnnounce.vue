@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-bullhorn"></i>
-				    Добавить объявление тендера
+				    {{$t('Qoʼshish')}} объявление тендера
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/tenderannounce">
 					<span class="peIcon pe-7s-back"></span>
@@ -49,7 +49,7 @@
 					  <div class="form-group col-lg-4 form_btn d-flex justify-content-end">
  						<button type="button" class="btn btn-secondary mr-3" @click="openModal">
 							<i class="fas fa-plus"></i>
-							Добавить лот
+							{{$t('Qoʼshish')}} лот
 						</button>
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
@@ -361,7 +361,7 @@
 		        </button>
 		        <button type="button" class="btn btn-primary" @click.prevent="addLot">
 		        	<i class="fas fa-plus"></i>
-		        	Добавить в список
+		        	{{$t('Qoʼshish')}} в список
 		        </button>
 		      </div>
 		    </div>
@@ -502,7 +502,7 @@
 			    			toast.fire({
 								type: "error",
 								icon: "error",
-								title: 'Чтобы добавить болшее маршрутов откликните пакет!'
+								title: 'Чтобы добавит болшее маршрутов откликните пакет!'
 						 	});
 			    		}
 			    	}
@@ -630,7 +630,7 @@
 		    			toast.fire({
 					    	type: 'error',
 					    	icon: 'error',
-							title: 'Чтобы добавить болшее маршрутов откликните пакет!',
+							title: 'Чтобы добавит болшее маршрутов откликните пакет!',
 					    })
 		    		}
 		    	}

@@ -15,7 +15,7 @@
               @click.prevent="toggleFilter"
             >
               <i class="fas fa-filter"></i>
-              Филтр
+              {{$t('Saralash')}}
             </button>
             <router-link
               class="btn btn-primary"
@@ -23,7 +23,7 @@
               v-if="$can('store', 'ProtocolController')"
             >
               <i class="fas fa-plus"></i>
-              Добавить
+              {{$t('Qoʼshish')}}
             </router-link>
           </div>
         </div>
@@ -42,13 +42,13 @@
                 />
               </div>
               <div class="form-group col-lg-2">
-                <label for="region_id">Сортировать по региону!</label>
+                <label for="region_id">{{$t('Viloyat boʼyicha saralash')}}!</label>
                 <select
                   id="region_id"
                   class="form-control input_style"
                   v-model="filter.region_id"
                 >
-                  <option value="" selected>Выберите регион!</option>
+                  <option value="" selected>{{$t('Viloyatni tanlang')}}!</option>
                   <option
                     :value="item.id"
                     v-for="(item, index) in getRegionList"
@@ -76,7 +76,7 @@
                   @click.prevent="clear"
                 >
                   <i class="fas fa-times"></i>
-                  сброс
+                  {{$t('Tozalash')}}
                 </button>
                 <button
                   type="button"
@@ -84,7 +84,7 @@
                   @click.prevent="search"
                 >
                   <i class="fas fa-search"></i>
-                  найти
+                  {{$t('Qidirish')}}
                 </button>
               </div>
             </div>
@@ -103,7 +103,7 @@
                 <th scope="col">Регион</th>
                 <th scope="col">Номер протокола</th>
                 <th scope="col">Сана</th>
-                <th scope="col">Действия</th>
+                <th scope="col">{{$t('Tahrirlash')}}</th>
               </tr>
             </thead>
             <tbody>

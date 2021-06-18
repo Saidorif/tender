@@ -85,7 +85,7 @@
                   <p class="form-control input_style disabled">{{ form.user.phone }}</p>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="status">Статус</label>
+                  <label for="status">{{$t('Holati')}}</label>
                   <p class="form-control input_style disabled">{{ form.user.status == 'active' ? 'Активный' : 'Неактивный' }}</p>
                 </div>
               </div>
@@ -189,7 +189,7 @@
                       <a class="float-right">{{form.contracts_count}} шт</a>
                     </li>
                     <li class="list-group-item">
-                      <b>Статус:</b>
+                      <b>{{$t('Holati')}}:</b>
                       <a class="float-right"
                         ><div class="statusAlert alert-success" style="border-radius:6px;padding-left:5px; padding-right:5px;">
                           активный

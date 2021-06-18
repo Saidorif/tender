@@ -4,7 +4,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon pe-7s-box1"></i>
-				    Action 
+				    Action
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/action/add"><i class="fas fa-plus"></i> Add</router-link>
 		  	</div>
@@ -17,7 +17,7 @@
 							<th scope="col">Название</th>
 							<th scope="col">Controller</th>
 							<th scope="col">Code</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -59,12 +59,12 @@
 		},
 		methods:{
 			...mapActions('action',['actionActions']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionActions(page)
 			},
 		}
 	}
 </script>
 <style scoped>
-	
+
 </style>

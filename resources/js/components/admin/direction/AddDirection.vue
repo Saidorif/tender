@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-route"></i>
-          Добавить направление
+          {{$t('Qoʼshish')}} направление
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/direction">
           <span class="peIcon pe-7s-back"></span>
@@ -324,7 +324,7 @@
             <div class="form-group col-lg-12 form_btn d-flex justify-content-end">
               <button type="button" class="btn btn-info btn_save_category mr-3" @click.prevent="addCar">
                 <i class="fas fa-plus"></i>
-                Добавить авто
+                {{$t('Qoʼshish')}} авто
               </button>
               <button type="submit" class="btn btn-primary btn_save_category">
                 <i class="fas fa-save"></i>

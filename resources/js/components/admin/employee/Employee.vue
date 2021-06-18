@@ -11,9 +11,9 @@
 					<div class="add_user_btn">
 			            <button type="button" class="btn btn-info toggleFilter mr-2" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
-			            	Филтр
+			            	{{$t('Saralash')}}
 						</button>
-						<router-link class="btn btn-primary" to="/crm/employee/add"><i class="fas fa-plus"></i> Добавить</router-link>
+						<router-link class="btn btn-primary" to="/crm/employee/add"><i class="fas fa-plus"></i> {{$t('Qoʼshish')}}</router-link>
 		            </div>
 		  		</div>
 		    	<transition name="slide">
@@ -93,11 +93,11 @@
 						  	<div class="col-lg-3 form-group btn_search">
 							  	<button type="button" class="btn btn-primary mr-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
-								  	найти
+								  	{{$t('Qidirish')}}
 							  	</button>
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
-								  	сброс
+								  	{{$t('Tozalash')}}
 							  	</button>
 					  	  	</div>
 				  		</div>
@@ -116,8 +116,8 @@
 							<th scope="col">Рол</th>
 							<th scope="col">E-mail</th>
 							<th scope="col">Телефон</th>
-							<th scope="col">Статус</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

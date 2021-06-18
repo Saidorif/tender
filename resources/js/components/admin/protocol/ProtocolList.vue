@@ -15,7 +15,7 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Название</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -61,7 +61,7 @@
 		},
 		methods:{
 			// ...mapActions('conts',['actionConts']),
-			// async getResults(page = 1){ 
+			// async getResults(page = 1){
 			// 	this.laoding = true
 				// await this.actionConts(page)
 			// 	this.laoding = false
@@ -70,5 +70,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

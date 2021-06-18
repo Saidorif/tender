@@ -18,8 +18,8 @@
 							<th scope="col">Тариф</th>
 							<th scope="col">Сумма багажа</th>
 							<th scope="col">Дата</th>
-							<th scope="col">Статус</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

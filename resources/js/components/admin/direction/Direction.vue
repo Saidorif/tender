@@ -14,11 +14,11 @@
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
-			            	Филтр
+			            	{{$t('Saralash')}}
 						</button>
 						<router-link class="btn btn-primary" to="/crm/direction/add">
 							<i class="fas fa-plus"></i>
-							Добавить
+							{{$t('Qoʼshish')}}
 						</router-link>
 		            </div>
 	            </div>
@@ -30,34 +30,34 @@
                                   <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
               				</div>
 				  			<div class="form-group col-lg-2">
-				  				<label for="region_id">Сортировать по региону!</label>
+				  				<label for="region_id">{{$t('Viloyat boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="region_id"
 			                      class="form-control input_style"
 			                      v-model="filter.region_id"
 			                    >
-			                      <option value="" selected >Выберите регион!</option>
+			                      <option value="" selected >{{$t('Viloyatni tanlang')}}!</option>
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-2">
-				  				<label for="status">По статусу закрепления!</label>
+				  				<label for="status">По {{$t('Holati')}}у закрепления!</label>
 			                    <select
 			                      id="status"
 			                      class="form-control input_style"
 			                      v-model="filter.status"
 			                    >
-			                      <option value="" selected >Выберите статус закрепления!</option>
+			                      <option value="" selected >Выберите {{$t('Holati')}} закрепления!</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="status">По статусу размещения!</label>
+				  				<label for="status">По {{$t('Holati')}}у размещения!</label>
 			                    <select
 			                      id="status"
 			                      class="form-control input_style"
 			                      v-model="filter.status"
 			                    >
-			                      <option value="" selected >Выберите статус размещения!</option>
+			                      <option value="" selected >Выберите {{$t('Holati')}} размещения!</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
@@ -130,11 +130,11 @@
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
-								  	сброс
+								  	{{$t('Tozalash')}}
 							  	</button>
 							  	<button type="button" class="btn btn-primary ml-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
-								  	найти
+								  	{{$t('Qidirish')}}
 							  	</button>
 					  	  	</div>
 				  		</div>
@@ -155,7 +155,7 @@
 							<th scope="col"></th>
 							<th scope="col">Номер направления</th>
 							<th scope="col">Год создания</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr> -->
           <tr>
               <th scope="col">№</th>
@@ -163,11 +163,11 @@
               <th>Номер и наименования маршрута</th>
               <th>Наименования организации </th>
               <th>Срок действитвия контракта </th>
-              <th>Статус</th>
+              <th>{{$t('Holati')}}</th>
               <th>Йўналиши тури</th>
               <th>Дата открытия</th>
               <th>Потверждения</th>
-              <th scope="col">Действия</th>
+              <th scope="col">{{$t('Tahrirlash')}}</th>
           </tr>
 					</thead>
 					<tbody>
@@ -186,7 +186,7 @@
               </td>
 							<td></td>
 							<td>
-                <span class="alert pt-1 pb-1" :class="getStatusClass(direct)"> 
+                <span class="alert pt-1 pb-1" :class="getStatusClass(direct)">
                 	{{getStatusname(direct)}}
                 </span>
               </td>
@@ -361,7 +361,7 @@
 					return 'Неразмещен в тендер'
 				}else if(item.status == 'busy'){
 					return 'Размещен в тендер'
-				}	
+				}
 			},
 			getStatusClass(item){
 				if(item.status == 'active'){

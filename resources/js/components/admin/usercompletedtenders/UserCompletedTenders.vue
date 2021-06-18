@@ -13,13 +13,13 @@
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
 				  			<div class="form-group col-lg-3">
-				  				<label for="region_id">Сортировать по региону!</label>
+				  				<label for="region_id">{{$t('Viloyat boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="region_id"
 			                      class="form-control input_style"
 			                      v-model="filter.region_id"
 			                    >
-			                      <option value="" selected >Выберите регион!</option>
+			                      <option value="" selected >{{$t('Viloyatni tanlang')}}!</option>
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
@@ -46,11 +46,11 @@
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
-								  	сброс
+								  	{{$t('Tozalash')}}
 							  	</button>
 							  	<button type="button" class="btn btn-primary ml-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
-								  	найти
+								  	{{$t('Qidirish')}}
 							  	</button>
 					  	  	</div>
 				  		</div>
@@ -63,11 +63,11 @@
 						<thead>
 							<tr>
 								<th scope="col">№</th>
-								<th scope="col">Статус</th>
-								<th scope="col">Дата тендера</th>
+								<th scope="col">{{$t('Holati')}}</th>
+								<th scope="col">{{$t('Tender sanasi')}}</th>
 								<th scope="col">Обшее количество поступивших предложений</th>
 								<th scope="col">Обшее количество выставленных лотов</th>
-								<th scope="col">Действия</th>
+								<th scope="col">{{$t('Tahrirlash')}}</th>
 							</tr>
 						</thead>
 						<tbody>

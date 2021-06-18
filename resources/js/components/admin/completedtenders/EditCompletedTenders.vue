@@ -19,7 +19,7 @@
               <tr>
                 <th>Направления</th>
                 <th>Адрес тендера</th>
-                <th>Дата тендера</th>
+                <th>{{$t('Tender sanasi')}}</th>
               </tr>
             </thead>
             <tbody>
@@ -54,7 +54,7 @@
                   <tr>
                     <th>№</th>
                     <th width="15%">Направления</th>
-                    <th width="15%">Статус</th>
+                    <th width="15%">{{$t('Holati')}}</th>
                     <th width="15%">Перевозчики отправившие предложении</th>
                     <th>Avto ishlab chiqarilgan yildan boshlab necha yil otgani</th>
                     <th>Yolovchilar sigimi</th>

@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Отправить заявку 
+				    Отправить заявку
 				</h4>
 				<div class="">
 	                <h4 class="title_user" v-if="direction_ids.length > 0" v-for="(item,index) in direction_ids">
@@ -65,7 +65,7 @@
                     <div class="form-group col-md-3 btn_save d-flex justify-content-end" v-if="!makeDisabled">
 					  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal(item)">
 					  		<i class="fas fa-plus"></i>
-						  	Добавить авто
+						  	{{$t('Qoʼshish')}} авто
 					  	</button>
 				    </div>
 				</div>
@@ -85,7 +85,7 @@
 				  	  	<!-- <div class="form-group col-md-2 btn_save d-flex justify-content-end" v-if="!makeDisabled">
 					  	  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal">
 						  		<i class="fas fa-plus"></i>
-							  	Добавить авто
+							  	{{$t('Qoʼshish')}} авто
 					      	</button>
 				      	</div> -->
 					</div>
@@ -278,7 +278,7 @@
 				  				<div class="form-group col-md-2">
 						  			<button type="button" class="btn btn-info text-white" @click.prevent="addFile">
 					  					<i class="fas fa-plus"></i>
-					  					Добавить файл
+					  					{{$t('Qoʼshish')}} файл
 						  			</button>
 				  				</div>
 				  				<div class="form-group col-md-12" v-if="files.length > 0">
@@ -313,7 +313,7 @@
 										<th>Дата выпуска</th>
 										<th>Вместимость</th>
 										<th>Количество сидящих</th>
-										<th>Действия</th>
+										<th>{{$t('Tahrirlash')}}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -777,7 +777,7 @@
 				    <div class="col-md-12" v-if="car.owner_type == 'rent'">
 				    	<div class="row">
 				    		<div class="form-group col-md-6">
-							    <label for="pNumberNatarius">Номер реестра нотариального действия</label>
+							    <label for="pNumberNatarius">Номер реестра нотариального {{$t('Tahrirlash')}}</label>
 							    <input
 							    	type="text"
 							    	class="form-control input_style"
@@ -788,7 +788,7 @@
 						    	>
 						  	</div>
 				    		<div class="form-group col-md-6">
-							    <label for="pDateNatarius">Дата нотариального действия</label>
+							    <label for="pDateNatarius">Дата нотариального {{$t('Tahrirlash')}}</label>
 							    <date-picker
 				                  lang="ru"
 				                  type="date"
@@ -854,7 +854,7 @@
 			      		 		<b>Номер заявки №</b> {{form.id}}
 			      		 	</div>
 			      		 	<div>
-			      		 		<b>Дата тендера:</b> {{form.tender ? $g.getDate(form.tender.time) : ''}}
+			      		 		<b>{{$t('Tender sanasi')}}:</b> {{form.tender ? $g.getDate(form.tender.time) : ''}}
 			      		 	</div>
 			      		 	<div>
 			      		 		<b>Адрес:</b> {{form.tender ? form.tender.address : ''}}
@@ -1428,9 +1428,9 @@
                         this.laoding = false
 		    		}else if(this.car.owner_type == 'rent'){
 		    			if  (
-		    					this.car.pDateNatarius != '' && 
-		    					this.car.pNumberNatarius != '' && 
-		    					this.car.pTexpassportSery != '' && 
+		    					this.car.pDateNatarius != '' &&
+		    					this.car.pNumberNatarius != '' &&
+		    					this.car.pTexpassportSery != '' &&
 		    					this.car.pTexpassportNumber != ''
 	    					){
 			    			let car = {

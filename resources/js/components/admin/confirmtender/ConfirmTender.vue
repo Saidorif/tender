@@ -16,10 +16,10 @@
 							<th scope="col">№</th>
 							<th scope="col">Лоты</th>
 							<th scope="col">Адрес</th>
-							<th scope="col">Дата тендера</th>
+							<th scope="col">{{$t('Tender sanasi')}}</th>
 							<th scope="col">Осталось</th>
-							<th scope="col">Статус</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
