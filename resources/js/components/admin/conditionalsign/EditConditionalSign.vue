@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-sign"></i>
-				    {{$t('Qoʼshish')}} условный символ
+				    {{$t('Tahrirlash')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/conditionalsign"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
@@ -13,12 +13,11 @@
 		  		<form @submit.prevent.enter="saveSign" >
 					<div class="row">
 					  <div class="form-group col-md-8">
-					    <label for="name">Название</label>
+					    <label for="name">{{$t('Nomi')}} </label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="name"
-					    	placeholder="Название"
 					    	v-model="form.name"
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>

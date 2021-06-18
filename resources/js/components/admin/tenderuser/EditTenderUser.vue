@@ -16,7 +16,7 @@
         <form>
           <div class="row">
             <div class="form-group col-xl-2 col-md-6">
-              <label for="name">Дата тердера</label>
+              <label for="name">{{$t('Tender sanasi')}}</label>
               <div class="form-control input_style">
                 {{ form.time }}
               </div>
@@ -43,7 +43,7 @@
                         @click.prevent="getEditId(t_lots.id)"
                     >
                         <i class="far fa-share-square text-light"></i>
-                        <span class="text-light">Отправить заявку</span>
+                        <span class="text-light">{{$t('Yuvorish')}} заявку</span>
                     </button>
                 </div>
                 <div class="card-body">
@@ -68,7 +68,7 @@
                               <thead>
                 								<tr>
                 									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-                									<th  scope="col"  :colspan="items.reysesFrom[0].reys_times.length * 2" style="text-align: center;">{{items.reysesFrom[0].where.name}} томондан  </th>
+                									<th  scope="col"  :colspan="items.reysesFrom[0].reys_times.length * 2" style="text-align: center;">{{items.reysesFrom[0].where.name}} {{$t('tomondan')}}  </th>
                 								</tr>
                                 <tr>
                                     <th colspan="2" v-for="(item, index) in items.reysesFrom[0].stations" style="text-align: center;">
@@ -77,8 +77,8 @@
                                 </tr>
                                 <tr >
                                     <template v-for="(item, index) in items.reysesFrom[0].reys_times">
-                                        <th style="text-align: center;" >Прибытие</th>
-                                        <th style="text-align: center;">Отправление</th>
+                                        <th style="text-align: center;" >{{$t('Kelish')}}</th>
+                                        <th style="text-align: center;">{{$t('Chiqish')}}</th>
                                     </template>
                                 </tr>
               				  			</thead>
@@ -104,7 +104,7 @@
                               <thead>
                                   <tr>
                                       <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-                                      <th  scope="col"  :colspan="items.reysesTo[0].reys_times.length * 2" style="text-align: center;">{{items.reysesTo[0].where.name}} томондан </th>
+                                      <th  scope="col"  :colspan="items.reysesTo[0].reys_times.length * 2" style="text-align: center;">{{items.reysesTo[0].where.name}} {{$t('tomondan')}} </th>
                                   </tr>
                                   <tr>
                                       <th colspan="2" v-for="(item, index) in items.reysesTo[0].stations" style="text-align: center;">
@@ -113,8 +113,8 @@
                                   </tr>
                                   <tr >
                                       <template v-for="(item, index) in items.reysesTo[0].reys_times">
-                                          <th style="text-align: center;" >Прибытие</th>
-                                          <th style="text-align: center;">Отправление</th>
+                                          <th style="text-align: center;" >{{$t('Kelish')}}</th>
+                                          <th style="text-align: center;">{{$t('Chiqish')}}</th>
                                       </template>
                                   </tr>
                               </thead>
@@ -151,7 +151,7 @@
                 @click.prevent="getEditId(t_lots.id)"
               >
                 <i class="far fa-share-square text-light"></i>
-                <span class="text-light">Отправить заявку</span>
+                <span class="text-light">{{$t('Yuvorish')}} заявку</span>
               </button>
             </div>
             <ul v-for="(items,index) in t_lots.direction_id">

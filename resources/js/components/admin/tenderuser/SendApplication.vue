@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Отправить заявку
+				    {{$t('Yuvorish')}} заявку
 				</h4>
 				<div class="">
 	                <h4 class="title_user" v-if="direction_ids.length > 0" v-for="(item,index) in direction_ids">
@@ -304,12 +304,12 @@
 										<th>Йўналиш номи</th>
 										<th>Номер Авто</th>
 										<th>Категория Авто</th>
-										<th>Класс Авто</th>
+										<th>{{$t('Avtomobil sinfi')}}</th>
 										<th>Марка Авто</th>
 										<th>Модель Авто</th>
 										<th>Дата выпуска</th>
 										<th>Вместимость</th>
-										<th>Количество сидящих</th>
+										<th>{{$t('Oʼrindiqlar soni')}}</th>
 										<th>{{$t('Tahrirlash')}}</th>
 									</tr>
 								</thead>
@@ -453,7 +453,7 @@
 							</button>
 						  	<button type="button" class="btn btn-primary btn_save_category" @click.prevent="activate">
 						  		<i class="far fa-share-square"></i>
-							  	Отправить
+							  	{{$t('Yuvorish')}}
 							</button>
 				  	  	</div>
 					</div>
@@ -485,7 +485,7 @@
 				    	>
 				  	</div>
 				  	<div class="form-group col-md-3">
-					    <label for="bustype_id">Категория Авто</label>
+					    <label for="bustype_id">{{$t('Avtomobil turi')}}</label>
 					    <select
 						    class="form-control input_style"
 					    	id="bustype_id"
@@ -504,7 +504,7 @@
 					    <!-- @change="selectClass(car.bustype_id)" -->
 				  	</div>
                     <div class="form-group col-md-3">
-					    <label for="tclass_id">Класс Авто</label>
+					    <label for="tclass_id">{{$t('Avtomobil sinfi')}}</label>
 					    <select
 						    class="form-control input_style"
 					    	id="tclass_id"
@@ -513,7 +513,7 @@
 					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
 					    	@change="selectClass(car.tclass_id)"
 					    >
-					    	<option value="" selected disabled>Выберите класс авто!</option>
+					    	<option value="" selected disabled>Выберите {{$t('Avtomobil sinfi')}}!</option>
 					    	<option :value="busClass.id" v-for="(busClass,index) in getBusclassFindList">{{busClass.name}}</option>
 					    </select>
 				  	</div>
@@ -553,7 +553,6 @@
 					    <date-picker
 		                  lang="ru"
 		                  type="year"
-		                  placeholder="Дата выпуска"
 		                  v-model="car.date"
 		                  valueType="format"
 		                  class="input_style"
@@ -576,12 +575,11 @@
 				    	>
 				  	</div>
 				  	<div class="form-group col-md-3">
-					    <label for="seat_qty">Количество сидящих</label>
+					    <label for="seat_qty">{{$t('Oʼrindiqlar soni')}}</label>
 					    <input
 					    	type="number"
 					    	class="form-control input_style"
 					    	id="seat_qty"
-					    	placeholder="Количество сидящих"
 					    	v-model="car.seat_qty"
 					    	:class="isRequired(car.seat_qty) ? 'isRequired' : ''"
 				    	>
@@ -789,7 +787,6 @@
 							    <date-picker
 				                  lang="ru"
 				                  type="date"
-				                  placeholder="Дата выпуска"
 				                  v-model="car.pDateNatarius"
 				                  valueType="format"
 				                  class="input_style"
@@ -900,7 +897,7 @@
 		  	  	</div>
 		        <button type="button" class="btn btn-info" @click.prevent="offerConfirm">
 		        	<i class="fas fa-share-square"></i>
-		        	Отправить
+		        	{{$t('Yuvorish')}}
 		        </button>
 		      </div>
 		    </div>

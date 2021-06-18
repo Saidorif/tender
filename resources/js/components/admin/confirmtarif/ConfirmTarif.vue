@@ -6,11 +6,11 @@
 		  		<div class="header_title mb-2">
 				    <h4 class="title_user">
 				    	<i class="peIcon fas fa-clipboard-check"></i>
-					    Подтвердить тариф
+					    {{$t('Tarifni tasdiqlash')}}
 					</h4>
 	            	<div class="add_user_btn">
 		                <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-		            		Количество <b>{{ getPassportList.total }} шт.</b>
+		            		{{$t('Soni')}} <b>{{ getPassportList.total }} {{$t('ta')}}.</b>
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
@@ -33,25 +33,25 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="dir_type">Сортировать по типу маршрута!</label>
+				  				<label for="dir_type">{{$t('Avtomobil turi boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="dir_type"
 			                      class="form-control input_style"
 			                      v-model="filter.dir_type"
 			                    >
-			                      <option value="" selected >Выберите тип маршрута!</option>
-			                      <option value="bus">Автобус йуналиши</option>
-                      			  <option value="taxi">Йўналиши тахи йуналиши</option>
+			                      <option value="" selected >{{$t('Tanlang')}}!</option>
+			                      <option value="bus">{{$t('Avtobus yoʼnalishi')}}</option>
+                      			  <option value="taxi">{{$t('Yoʼnalishli taxi yoʼnalishi')}}</option>
 			                    </select>
               				</div>
               				<div class="form-group col-lg-3">
-				  				<label for="type_id">Сортировать по локацию маршрута!</label>
+				  				<label for="type_id">{{$t('Marshrut joylashuvi boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="type_id"
 			                      class="form-control input_style"
 			                      v-model="filter.type_id"
 			                    >
-			                      <option value="" selected >Выберите локацию маршрута!</option>
+			                      <option value="" selected >{{$t('Tanlang')}}!</option>
 			                      <option
 					                  :value="item.id"
 					                  v-for="(item,index) in getTypeofdirectionList"
@@ -59,20 +59,20 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="range">Сортировать!</label>
+				  				<label for="range">{{$t('Saralash')}}!</label>
 				  				<select
 			                      id="range"
 			                      class="form-control input_style"
 			                      v-model="range"
 			                      @change="rangeChange"
 			                    >
-			                      <option value="" selected >Выберите локацию маршрута!</option>
-			                      <option value="min" >По снижению</option>
-			                      <option value="max" >По возрастанию</option>
+			                      <option value="" selected >{{$t('Tanlang')}}!</option>
+			                      <option value="min" >{{$t('Kamayish boʼyicha')}}</option>
+			                      <option value="max" >{{$t('Koʼtarilish boʼyicha')}}</option>
 								</select>
               				</div>
                             <div class="form-group col-lg-3">
-				  				<label for="dir_name">Наименования  маршрута</label>
+				  				<label for="dir_name">{{$t('Marshrut nomi')}}</label>
                                   <input class="form-control input_style" placeholder="Поиск по наименования маршрута" type="text" v-model="filter.name" id="dir_name">
               				</div>
                             <div class="form-group col-lg-2">
@@ -80,15 +80,15 @@
                                   <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
               				</div>
                             <div class="form-group col-lg-2">
-				  				<label for="status">По статусу</label>
+				  				<label for="status">{{$t('Holati boʼyicha')}}</label>
 			                    <select
 			                      id="status"
 			                      class="form-control input_style"
 			                      v-model="filter.status"
 			                    >
-			                      <option value="" selected >Выберите статус!</option>
-			                      <option value="approved"  >Потвержден</option>
-			                      <option value="pending"  >Не потвержден</option>
+			                      <option value="" selected >{{$t('Tanlang')}}!</option>
+			                      <option value="approved"  >{{$t('Tasdiqlangan')}}</option>
+			                      <option value="pending"  >{{$t('Tasdiqlanmagan')}}</option>
 			                    </select>
               				</div>
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
@@ -112,9 +112,9 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">{{$t('Yoʼnalish')}}</th>
-							<th scope="col">Номер направление</th>
+							<th scope="col">{{$t('Yoʼnalish raqami')}}</th>
 							<th scope="col">{{$t('Reyslar soni')}}</th>
-							<th scope="col">Сумма багажа</th>
+							<th scope="col">{{$t('Bagaj miqdori')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
@@ -142,7 +142,7 @@
                                 <ul class="table_item_list">
                                     <li v-for="(ch_item,ch_index) in item.passport_tarif" >
                                     	<div class="badge" :class="getStatusClass(ch_item.status)">
-	                                        {{ch_item.status == 'pending' ? 'не подтвержден' : 'подтвержден'}}
+	                                        {{ch_item.status == 'pending' ? $t('Tasdiqlanmagan') : $t('Tasdiqlangan')}}
                                     	</div>
                                     </li>
                                 </ul>

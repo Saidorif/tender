@@ -348,28 +348,28 @@
                     <tr>
                       <td>2</td>
                       <td>
-                        Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча шароитлар яратилган
+                        {{$t('Haydovchilarni har kungi tibbiy koʼrikdan oʼtkazish uchun barcha sharoitlar yaratilgan')}}
                       </td>
                       <td>{{ballItems.daily_medical_job}}</td>
                     </tr>
                     <tr>
                       <td>3</td>
                       <td>
-                        Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
+                        {{$t('Taklif etilgan avtotransport vositalari sonidan kelib chiqib barcha haydovchilariga 30 soatlik dastur boʼyicha yoʼl harakati qoidalarini oʼrgatilgan')}}
                       </td>
                       <td>{{ballItems.hours_rule}}</td>
                     </tr>
                     <tr>
                       <td>4</td>
                       <td>
-                        Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор ўрнатилган
+                        {{$t('Taklif etilgan barcha avtotransport vositalarining old oynalariga videoregistrator oʼrnatilgan')}}
                       </td>
                       <td>{{ballItems.videoregistrator}}</td>
                     </tr>
                     <tr>
                       <td>5</td>
                       <td>
-                        Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш тизимига уланган
+                        {{$t('Taklif etilgan barcha avtotransport vositalarini GPS rejimida masofadan kuzatish tizimiga ulangan')}}
                       </td>
                       <td>{{ballItems.gps}}</td>
                     </tr>

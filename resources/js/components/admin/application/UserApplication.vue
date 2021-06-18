@@ -116,7 +116,7 @@
 				}else if(status == 'accepted'){
 					return 'Завершен!'
 				}else if(status == 'rejected'){
-					return 'Отказо!'
+					return $t('Rad etilgan')
 				}else if(status == 'winner'){
 					return 'Победитель!'
 				}

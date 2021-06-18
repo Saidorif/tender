@@ -11,7 +11,7 @@
             class="alert alert-success mr-2"
             v-if="getDirection.xronom_status == 'completed'"
             style="padding: 6px 20px"
-            >Подтвержден</span
+            >{{$t('Tasdiqlangan')}}</span
           >
           <span
             class="alert alert-warning mr-2"
@@ -23,7 +23,7 @@
             class="alert alert-danger mr-2"
             v-if="getDirection.xronom_status == 'active'"
             style="padding: 6px 20px"
-            >Не подтвержден</span
+            >{{$t('Tasdiqlanmagan')}}</span
           >
           <button
             type="button"
@@ -182,7 +182,7 @@
             </div>
             <div class="form-group col-xl-6">
               <label for="speed_between_station"
-                >Bekatlar oraligidagi xarakat (km/soat)</label
+                >Bekatlar oraligidagi xarakat ({{$t('km/soat')}})</label
               >
               <input
                 type="number"
@@ -197,7 +197,7 @@
             </div>
             <div class="form-group col-xl-6">
               <label for="speed_between_limited_space"
-                >Shundan xarakat tezligi chegaralangan oraliqda (km/soat)</label
+                >{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}} ({{$t('km/soat')}})</label
               >
               <input
                 type="number"
@@ -271,7 +271,7 @@
                 @change="selectRegion('region_to_id')"
                 :class="isRequiredTwo(form.region_to_id) ? 'isRequired' : ''"
               >
-                <option value selected disabled>choose option</option>
+                <option value selected disabled>{{$t('Tanglang')}}</option>
                 <option
                   :value="s_item"
                   v-for="(s_item, s_index) in getRegionList"
@@ -300,7 +300,7 @@
                 placeholder="Area"
                 @change="selectArea('area_to_id', 'region_to_id')"
               >
-                <option value selected disabled>choose option</option>
+                <option value selected disabled>{{$t('Tanglang')}}</option>
                 <option
                   :value="s_item"
                   v-for="(s_item, s_index) in form.areaTo"
@@ -327,7 +327,7 @@
                 class="form-control input_style"
                 v-model="form.station_to_id"
               >
-                <option value selected disabled>choose option</option>
+                <option value selected disabled>{{$t('Tanglang')}}</option>
                 <option
                   :value="s_item"
                   v-for="(s_item, s_index) in form.stationTo"
@@ -368,7 +368,7 @@
             </div>
             <div class="form-group col-xl-6">
               <label for="distance_in_limited_speed"
-                >Shundan xarakat tezligi chegaralangan oraliqda (km)</label
+                >{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}} (km)</label
               >
               <input
                 type="number"
@@ -385,7 +385,7 @@
             </div>
             <div class="form-group col-xl-6">
               <label for="spendtime_between_limited_space"
-                >Shundan xarakat tezligi chegaralangan oraliqda (minut)</label
+                >{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}} (minut)</label
               >
               <input
                 type="text"
@@ -409,7 +409,7 @@
                   @click.prevent="sendToActivate"
                 >
                   <i class="far fa-share-square"></i>
-                  Отправить на подтверждение
+                  {{$t('Yuvorish')}} на подтверждение
                 </button>
               </div>
               <div class="col-xl-6 form_btn d-flex justify-content-end">
@@ -425,10 +425,10 @@
                     class="form-control input_style"
                   >
                     <option value="Talablarga javob beradi">
-                      Talablarga javob beradi
+                      {{$t('Talablarga javob beradi')}}
                     </option>
                     <option value="Talablarga javob bermaydi">
-                      Talablarga javob bermaydi
+                      {{$t('Talablarga javob bermaydi')}}
                     </option>
                   </select>
                 </div>
@@ -465,29 +465,29 @@
               <thead style="border-collapse: collapse;">
                 <tr style="border-collapse: collapse;">
                   <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" scope="col" rowspan="2">№</th>
-                  <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" scope="col" rowspan="2">Oraliq toxtash bekatlari</th>
+                  <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" scope="col" rowspan="2">{{$t('Oraliq toʼxtash bekatlari')}}</th>
                   <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" scope="col" colspan="2">
-                    Masofa ulagich ko'rsatkichlari
+                    {{$t('Masofa ulagich koʼrsatkichlari')}}
                   </th>
-                  <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" scope="col" colspan="3">Masofa (km)</th>
-                  <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" scope="col" colspan="3">Sariflanadigon vaqt (minut)</th>
+                  <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" scope="col" colspan="3">{{$t('Masofa (km)')}}</th>
+                  <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" scope="col" colspan="3">{{$t('Sariflanadigan vaqt (daqiqa)')}}</th>
                   <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" scope="col" colspan="2">
-                    Ortacha texnik tezlik (km/soat)
+                    {{$t('Oʼrtacha texnik tezlik (km/soat)')}}
                   </th>
-                  <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" rowspan="2">Qatnov yol xaqidagi malumotlar</th>
+                  <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" rowspan="2">{{$t('Qatnov yoʼl xaqidagi maʼlumotlar')}}</th>
                   <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" rowspan="2">Taxrirlash</th>
                 </tr>
                 <tr style="border-collapse: collapse;">
-                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >Jonash vaqtida</th>
+                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Joʼnash vaqtida')}}</th>
                   <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >Kelgan vaqtida</th>
-                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >Boshlangich bekatdan</th>
-                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >Bekatlar oraligida</th>
-                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >Shundan xarakat tezligi chegaralangan oraliqda</th>
-                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >Bekatlar oralig'idagi xarakat</th>
-                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >Shundan xarakat tezligi chegaralangan oraliqda</th>
-                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >Oraliq bekatda toxtash uchun</th>
-                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >Bekatlar oralig'idagi xarakat</th>
-                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >Shundan xarakat tezligi chegaralangan oraliqda</th>
+                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Boshlangʼich bekatdan')}}</th>
+                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Bekatlar oraligʼida')}}</th>
+                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
+                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Bekatlar oraligʼidagi xarakat')}}</th>
+                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
+                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Oraliq bekatda toʼxtash uchun')}}</th>
+                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Bekatlar oraligʼidagi xarakat')}}</th>
+                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -533,7 +533,7 @@
                 </tr>
                 <tr >
                   <td style="padding: 0.25rem;border: 1px solid #292666;text-align:center;" colspan="7" scope="row">
-                    Ortacha tezlik = {{ technic_speed }} km/soat
+                    {{$t('Oʼrtacha tezlik')}} = {{ technic_speed }} {{$t('km/soat')}}
                   </td>
                   <td style="padding: 0.25rem;border: 1px solid #292666;text-align:center;" colspan="1" scope="row">
                     {{ total_spendtime_between_station }}
@@ -543,7 +543,7 @@
                     {{ total_spendtime_to_stay_station }}
                   </td>
                   <td style="padding: 0.25rem;border: 1px solid #292666;text-align:center;" colspan="5" scope="row">
-                    Qatnov tezlik = {{ traffic_speed }} km/soat
+                    {{$t('Qatnov tezlik')}} = {{ traffic_speed }} {{$t('km/soat')}}
                   </td>
                 </tr>
               </tbody>
@@ -552,11 +552,11 @@
           <div class="table_footer" style="display: flex;justify-content: space-between;align-items: flex-start;">
             <div class="col-xl-6" style="width: 50%;">
               <p>
-                Qatnov yoli xarakat xafsizligiga: {{ timingDetails.conclusion }}
+                {{$t('Qatnov yoʼli xarakat xafsizligiga')}}: {{ timingDetails.conclusion }}
               </p>
-              <p>Olchov otkazilgan kun: {{ timingDetails.date }} yil</p>
+              <p>{{$t('Oʼlchov oʼtkazilgan kun')}}: {{ timingDetails.date }} yil</p>
               <p>
-                Xronametraj otkazilgan avtomobil rusumi va davlat raqami:
+                {{$t('Xronametraj oʼtkazilgan avtomobil rusumi va davlat raqami')}}:
                 {{ timingDetails.avto_model }}, {{ timingDetails.avto_number }}
               </p>
             </div>

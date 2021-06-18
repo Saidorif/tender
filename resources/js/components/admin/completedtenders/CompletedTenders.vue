@@ -84,7 +84,7 @@
 							<tr v-for="(item,index) in getTendersList.data">
 								<td scope="row">{{index+1}}</td>
 								<td>
-									<div class="badge" :class="getStatusClass(item.status)">
+									<div  :class="getStatusClass(item.status)" class="badge">
 										{{getStatusName(item.status)}}
 									</div>
 								</td>
@@ -107,7 +107,7 @@
 								</td>
 							</tr>
 						</tbody>
-						<pagination :limit="4" :data="getTendersList" @pagination-change-page="getResults"></pagination>
+						<pagination  :data="getTendersList" @pagination-change-page="getResults" :limit="4" ></pagination>
 					</table>
 			  	</div>
 		  	</div>

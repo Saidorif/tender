@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-clipboard-check"></i>
-          Подтвердить тендер
+           {{$t('Tendirni tasdiqlash')}}
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/confirm-tender">
           <span class="peIcon pe-7s-back"></span>
@@ -15,11 +15,11 @@
       <div class="card-body">
         <div class="row">
           <div class="form-group in col-md-2">
-            <label for="name">Дата тердера</label>
+            <label for="name">{{$t('Tender sanasi')}}</label>
             <p class="form-control input_style disabled">{{ form.time }}</p>
           </div>
           <div class="form-group col-md-3">
-            <label for="address">Адрес</label>
+            <label for="address">{{$t('Manzil')}}</label>
             <p class="form-control input_style disabled">{{ form.address }}</p>
           </div>
           <div class="col-md-2 ml_auto">
@@ -29,10 +29,10 @@
               data-toggle="modal"
               data-target="#exampleModal"
             >
-              <i class="fas fa-ban"></i> Отказ
+              <i class="fas fa-ban"></i> {{$t('Rad etish')}}
             </button>
             <button type="button" class="btn btn-success" @click="completedTender()">
-              <i class="far fa-check-circle"></i>Подтвердить
+              <i class="far fa-check-circle"></i>{{$t('Tasdiqlash')}}
             </button>
           </div>
         </div>
@@ -134,7 +134,7 @@
                               @click.prevent="getEditId(t_lots.id)"
                           >
                               <i class="far fa-share-square text-light"></i>
-                              <span class="text-light">Отправить заявку</span>
+                              <span class="text-light">{{$t('Yuvorish')}} заявку</span>
                           </button>
                         </div> -->
 
@@ -143,7 +143,7 @@
                     <template v-for="(items,index) in t_lots.direction_id">
                         <div class="mb-2">
                         <div class="d-flex align-items-center justify-content-between">
-                            <h4>{{index+1}}) {{items.name}} <span v-if="getLengthReys(items, t_lots) > 0">({{getLengthReys(items, t_lots)}} рейс)</span></h4>
+                            <h4>{{index+1}}) {{items.name}} <span v-if="getLengthReys(items, t_lots) > 0">({{getLengthReys(items, t_lots)}} {{$t('reys')}})</span></h4>
 
                             <router-link
                                 :to='`/crm/stepuser/demand-tab/${items.id}`'
@@ -160,9 +160,9 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col" rowspan="5" style="text-align:center;">Qatnovlar</th>
+                                        <th scope="col" rowspan="5" style="text-align:center;">{{$t('Qatnovlar')}}</th>
                                         <th scope="col" :colspan="items.reysesFrom[0].reys_times.length * 2" style="text-align:center;">
-                                            {{items.reysesFrom[0].where.name}} томондан
+                                            {{items.reysesFrom[0].where.name}} {{$t('tomondan')}}
                                         </th>
                                     </tr>
                                     <tr>
@@ -172,8 +172,8 @@
                                     </tr>
                                     <tr>
                                         <template v-for="(item, index) in items.reysesFrom[0].reys_times">
-                                            <th style="text-align:center;">Прибытие</th>
-                                            <th style="text-align:center;">Отправление</th>
+                                            <th style="text-align:center;">{{$t('Kelish')}}</th>
+                                            <th style="text-align:center;">{{$t('Chiqish')}}</th>
                                         </template>
                                     </tr>
                                 </thead>
@@ -206,9 +206,9 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col" rowspan="5" style="text-align:center;">Qatnovlar</th>
+                                        <th scope="col" rowspan="5" style="text-align:center;">{{$t('Qatnovlar')}}</th>
                                         <th scope="col" :colspan="items.reysesTo[0].reys_times.length * 2" style="text-align:center;">
-                                            {{items.reysesTo[0].where.name}} томондан
+                                            {{items.reysesTo[0].where.name}} {{$t('tomondan')}}
                                         </th>
                                     </tr>
                                     <tr>
@@ -218,8 +218,8 @@
                                     </tr>
                                     <tr>
                                         <template v-for="(item, index) in items.reysesTo[0].reys_times">
-                                            <th style="text-align:center;">Прибытие</th>
-                                            <th style="text-align:center;">Отправление</th>
+                                            <th style="text-align:center;">{{$t('Kelish')}}</th>
+                                            <th style="text-align:center;">{{$t('Chiqish')}}</th>
                                         </template>
                                     </tr>
                                 </thead>
@@ -246,7 +246,7 @@
 			  	<!-- all choosen lots -->
 		  		<div class="table-responsive" v-if="allLotes.length > 0">
 			  		<div class="d-flex justify-content-center">
-			  			<h4>Добавленные лоты</h4>
+			  			<h4>{{$t('Qoʼshilgan lotlar')}}</h4>
 			  		</div>
 				  	<div class="choosenItemsTable" v-for="(lots,lot_key) in allLotes">
 				  		<div class="d-flex">
@@ -260,7 +260,7 @@
 					  		    	<button class="btn btn-outline-success mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
 					  		    		<template v-if="item.reyses.length > 0">
 										    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span>
-										    <span>({{item.reyses.length}} рейсы)</span>
+										    <span>({{item.reyses.length}} {{$t('reyslar')}})</span>
 					  		    		</template>
 					  		    		<template v-else>
 					  		    			<span>{{item.directions.name}}</span>
@@ -302,7 +302,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Причина отказа</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{$t('Rad etilganlik sababi')}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -311,8 +311,8 @@
                 <textarea class="form-control" v-model="rejectmsg" name="" id="" cols="30" rows="10" placeholder="Техт отказа" :class="isRequired(rejectmsg) ? 'isRequired' : ''"  ></textarea>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary" @click="rejectTender()">Отправить</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{$t('Bekor qilish')}}</button>
+                <button type="button" class="btn btn-primary" @click="rejectTender()">{{$t('Yuvorish')}}</button>
               </div>
             </div>
           </div>

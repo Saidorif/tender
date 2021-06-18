@@ -19,7 +19,7 @@
 					    	v-model="form.region_id"
 					    	:class="isRequired(form.region_id) ? 'isRequired' : ''"
 				    	>
-					    	<option value="" selected disabled>choose option</option>
+					    	<option value="" selected disabled>{{$t('Tanglang')}}</option>
 					    	<option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 					    </select>
 					  </div> -->

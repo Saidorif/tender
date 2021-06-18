@@ -5,7 +5,7 @@
       <div class="card-header">
           <h4 class="title_user">
             <i class="peIcon fas fa-clipboard-check"></i>
-            Подтвердить хронометраж
+            {{$t('Xronametrajni tasdiqlash')}}
           </h4>
           <router-link class="btn btn-primary back_btn" to="/crm/confirm-timing">
             <span class="peIcon pe-7s-back"></span>
@@ -14,24 +14,24 @@
         </div>
       <div class="card-body">
         <form class="row tabRow">
-          <h2>Asosiy ma'lumotlar</h2>
+          <h2>{{$t('Asosiy maʼlumotlar')}}</h2>
           <div class="form-group col-md-12">
             <div class="row">
               <div class="form-group col-md-3">
-                  <label for="conclusion">Xulosa</label>
+                  <label for="conclusion">{{$t('Xulosa')}}</label>
                   <select name="conclusion" id="conclusion" v-model="timingDetails.conclusion" :class="isRequired(timingDetails.conclusion) ? 'isRequired' : ''" class="form-control input_style" disabled>
-                      <option value="Talablarga javob beradi">Talablarga javob beradi</option>
-                      <option value="Talablarga javob bermaydi">Talablarga javob bermaydi</option>
+                      <option value="Talablarga javob beradi">{{$t('Talablarga javob beradi')}}</option>
+                      <option value="Talablarga javob bermaydi">{{$t('Talablarga javob bermaydi')}}</option>
                   </select>
               </div>
               <div class="form-group col-md-9 form_btn d-flex justify-content-end">
                 <button type="button" class="btn btn-danger btn_save_category mr-3" @click.prevent="rejectTitul">
                   <i class="fas fa-times"></i>
-                  Отказать
+                  {{$t('Rad etish')}}
                 </button>
                 <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
                   <i class="fas fa-check"></i>
-                  Подтвердить
+                  {{$t('Tasdiqlash')}}
                 </button>
               </div>
             </div>
@@ -41,24 +41,24 @@
               <thead>
                 <tr>
                   <th scope="col" rowspan="2">№</th>
-                  <th scope="col" rowspan="2">Oraliq toxtash bekatlari</th>
-                  <th scope="col" colspan="2">Masofa ulagich ko'rsatkichlari</th>
-                  <th scope="col" colspan="3">Masofa (km)</th>
-                  <th scope="col" colspan="3">Sariflanadigon vaqt (minut)</th>
-                  <th scope="col" colspan="2">Ortacha texnik tezlik (km/soat)</th>
-                  <th rowspan="2">Qatnov yol xaqidagi malumotlar</th>
+                  <th scope="col" rowspan="2">{{$t('Oraliq toʼxtash bekatlari')}}</th>
+                  <th scope="col" colspan="2">{{$t('Masofa ulagich koʼrsatkichlari')}}</th>
+                  <th scope="col" colspan="3">{{$t('Masofa (km)')}}</th>
+                  <th scope="col" colspan="3">{{$t('Sariflanadigan vaqt (daqiqa)')}}</th>
+                  <th scope="col" colspan="2">{{$t('Oʼrtacha texnik tezlik (km/soat)')}}</th>
+                  <th rowspan="2">{{$t('Qatnov yoʼl xaqidagi maʼlumotlar')}}</th>
                 </tr>
                 <tr>
-                  <th>Jonash vaqtida</th>
-                  <th>Kelgan vaqtida</th>
-                  <th>Boshlangich bekatdan</th>
-                  <th>Bekatlar oraligida</th>
-                  <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
-                  <th>Bekatlar oralig'idagi xarakat</th>
-                  <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
-                  <th>Oraliq bekatda toxtash uchun</th>
-                  <th>Bekatlar oralig'idagi xarakat</th>
-                  <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
+                  <th>{{$t('Joʼnash vaqtida')}}</th>
+                  <th>{{$t('Kelgan vaqtida')}}</th>
+                  <th>{{$t('Boshlangʼich bekatdan')}}</th>
+                  <th>{{$t('Bekatlar oraligʼida')}}</th>
+                  <th>{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
+                  <th>{{$t('Bekatlar oraligʼidagi xarakat')}}</th>
+                  <th>{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
+                  <th>{{$t('Oraliq bekatda toʼxtash uchun')}}</th>
+                  <th>{{$t('Bekatlar oraligʼidagi xarakat')}}</th>
+                  <th>{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -83,23 +83,23 @@
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="7" scope="row">Ortacha tezlik = {{technic_speed}} km/soat</td>
+                  <td colspan="7" scope="row">{{$t('Oʼrtacha tezlik')}} = {{technic_speed}} {{$t('km/soat')}}</td>
                   <td colspan="1" scope="row">{{total_spendtime_between_station}}</td>
                   <td colspan="1" scope="row"></td>
                   <td colspan="1" scope="row">{{total_spendtime_to_stay_station}}</td>
-                  <td colspan="5" scope="row">Qatnov tezlik = {{traffic_speed}} km/soat</td>
+                  <td colspan="5" scope="row">{{$t('Qatnov tezlik')}} = {{traffic_speed}} {{$t('km/soat')}}</td>
                 </tr>
               </tbody>
             </table>
             <div class="table_footer">
               <div class="col-md-6">
-                <p>Qatnov yoli xarakat xafsizligiga:  {{timingDetails.conclusion}}</p>
-                <p>Olchov otkazilgan kun:  {{timingDetails.date}} yil</p>
-                <p>Xronametraj otkazilgan avtomobil rusumi va davlat raqami:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
+                <p>{{$t('Qatnov yoʼli xarakat xafsizligiga')}}:  {{timingDetails.conclusion}}</p>
+                <p>{{$t('Oʼlchov oʼtkazilgan kun')}}:  {{timingDetails.date}} {{$t('yil')}}</p>
+                <p>{{$t('Xronametraj oʼtkazilgan avtomobil rusumi va davlat raqami')}}:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
               </div>
               <div class="col-md-4 right_item">
                 <div>
-                  <p>Olchov <br> qatnashchilari <br>  imzolari:</p>
+                  <p>{{$t('Oʼlchov')}} <br>{{$t('qatnashchilari')}}  <br> {{$t('imzolari')}} :</p>
                 </div>
                 <div>
                   <p  v-for="(person,index) in timingDetails.persons">{{person.name.charAt(0)}}.{{person.surname}}</p>

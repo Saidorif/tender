@@ -177,16 +177,16 @@
                       <b>Мой счет:</b>
                       <a class="float-right">
                          {{ form.balance }}
-                        <i>сум</i></a
+                        <i>{{$t('soʼm')}}</i></a
                       >
                     </li>
                     <li class="list-group-item">
                       <b>Количество заявок:</b>
-                      <a class="float-right">{{form.applications_count}} шт</a>
+                      <a class="float-right">{{form.applications_count}} {{$t('ta')}}</a>
                     </li>
                     <li class="list-group-item">
                       <b>Количество контрактов :</b>
-                      <a class="float-right">{{form.contracts_count}} шт</a>
+                      <a class="float-right">{{form.contracts_count}} {{$t('ta')}}</a>
                     </li>
                     <li class="list-group-item">
                       <b>{{$t('Holati')}}:</b>

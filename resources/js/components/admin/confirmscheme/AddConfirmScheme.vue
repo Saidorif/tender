@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-clipboard-check"></i>
-          Подтвердить схема
+          {{$t('Sxemani tasdiqlash')}}
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/confirm-tender">
           <span class="peIcon pe-7s-back"></span>
@@ -29,10 +29,10 @@
               data-toggle="modal"
               data-target="#exampleModal"
             >
-              <i class="fas fa-ban"></i> Отказ
+              <i class="fas fa-ban"></i> {{$t('Rad etish')}}
             </button>
             <button type="button" class="btn btn-success" @click="completedTender()">
-              <i class="far fa-check-circle"></i>Подтвердить
+              <i class="far fa-check-circle"></i>{{$t('Tasdiqlash')}}
             </button>
           </div>
         </div>
@@ -45,7 +45,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Причина отказа</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{$t('Rad etilganlik sababi')}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -54,8 +54,8 @@
                 <textarea class="form-control" v-model="rejectmsg" name="" id="" cols="30" rows="10" placeholder="Техт отказа" :class="isRequired(rejectmsg) ? 'isRequired' : ''"  ></textarea>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary" @click="rejectTender()">Отправить</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{$t('Bekor qilish')}}</button>
+                <button type="button" class="btn btn-primary" @click="rejectTender()">{{$t('Yuvorish')}}</button>
               </div>
             </div>
           </div>

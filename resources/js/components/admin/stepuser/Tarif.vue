@@ -18,13 +18,13 @@
 				  					{{getStatusName(t_item.tarif.status)}}
 				  				</div>
 				  				<div class="">
-				  					Сумма: <b>{{t_item.tarif.summa}}</b>
+				  					{{$t('Miqdor')}}: <b>{{t_item.tarif.summa}}</b>
 				  				</div>
 				  				<div class="">
-				  					Сумма багажа: <b>{{t_item.tarif.summa_bagaj}}</b>
+				  					{{$t('Bagaj miqdori')}}: <b>{{t_item.tarif.summa_bagaj}}</b>
 				  				</div>
 				  				<div class="">
-				  					Дата тарифа: <b>{{t_item.tarif.created_at}}</b>
+				  					{{$t('Tarif sanasi')}}: <b>{{t_item.tarif.created_at}}</b>
 				  				</div>
 				  			</div>
 					  		<table class="table table-bordered ">

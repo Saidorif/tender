@@ -37,23 +37,21 @@
 						</multiselect>
 					  </div>
 					  <div class="form-group col-xl-2">
-					    <label for="summ">Сумма</label>
+					    <label for="summ">{{$t('Miqdor')}}</label>
 					    <input
 					    	type="number"
 					    	class="form-control input_style"
 					    	id="summ"
-					    	placeholder="Сумма"
 					    	v-model="form.summ"
 					    	:class="isRequired(form.summ) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-xl-2">
-					    <label for="date">Дата</label>
+					    <label for="date">{{$t('Sana')}}</label>
 					    <input
 					    	type="date"
 					    	class="form-control input_style"
 					    	id="date"
-					    	placeholder="Дата"
 					    	v-model="form.date"
 					    	:class="isRequired(form.date) ? 'isRequired' : ''"
 				    	>
