@@ -61,8 +61,8 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">{{$t('Yoʼnalish')}}</th>
 							<th scope="col">{{$t('Yoʼnalish raqami')}}</th>
+							<th scope="col">{{$t('Yoʼnalish')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
@@ -70,7 +70,8 @@
 					<tbody>
 						<tr v-for="(direct,index) in getDemands.data">
 							<td scope="row">{{index + 1}}</td>
-							<td>{{direct.stations_from_name}} - {{direct.stations_to_name}}</td>
+							<td>{{direct.pass_number}}</td>
+							<td>{{direct.direction_name}}</td>
 							<td>
                                 <div class="badge" :class="getStatusClass(direct.status)">
 	                                {{direct.status == 'completed' ? 'подтвержден' : 'не подтвержден'}}
