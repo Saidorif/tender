@@ -1205,7 +1205,9 @@ class DirectionController extends Controller
         if(!empty($params['status'])){
             $builder->where(['titul_status' => $params['status']]);
         }else{
-            $builder->where(['titul_status' => 'pending'])->orWhere(['titul_status' => 'completed']);
+            $builder->where(function($q) {
+                $q->where(['titul_status' => 'pending'])->orWhere(['titul_status' => 'completed']);
+            });
         }
         if($user->role->name != 'admin'){
             $region = $user->region_id;
@@ -1293,6 +1295,12 @@ class DirectionController extends Controller
             'areaTo',
             'createdBy'
         ]);
+        if($user->role->name != 'admin'){
+            $region = $user->region_id;
+            $builder->whereHas('createdBy', function ($query) use ($region){
+                $query->where('region_id',$region);
+            });
+        }
         if(!empty($params['pass_number'])){
             $builder->where('pass_number','LIKE', '%'.$params['pass_number'].'%');
         }
@@ -1302,12 +1310,8 @@ class DirectionController extends Controller
         if(!empty($params['status'])){
             $builder->where(['xronom_status' => $params['status']]);
         }else{
-            $builder->where(['xronom_status' => 'pending'])->orWhere(['xronom_status' => 'completed']);
-        }
-        if($user->role->name != 'admin'){
-            $region = $user->region_id;
-            $builder->whereHas('createdBy', function ($query) use ($region){
-                $query->where('region_id',$region);
+            $builder->where(function($q) {
+                $q->where(['xronom_status' => 'pending'])->orWhere(['xronom_status' => 'completed']);
             });
         }
         $result = $builder->paginate(12);
@@ -1399,7 +1403,9 @@ class DirectionController extends Controller
         if(!empty($params['status'])){
             $builder->where(['sxema_status' => $params['status']]);
         }else{
-            $builder->where(['sxema_status' => 'pending'])->orWhere(['sxema_status' => 'completed']);
+            $builder->where(function($q) {
+                $q->where(['sxema_status' => 'pending'])->orWhere(['sxema_status' => 'completed']);
+            });
         }
         if($user->role->name != 'admin'){
             $region = $user->region_id;
@@ -1496,7 +1502,10 @@ class DirectionController extends Controller
         if(!empty($params['status'])){
             $builder->where(['xjadval_status' => $params['status']]);
         }else{
-            $builder->where(['xjadval_status' => 'pending'])->orWhere(['xjadval_status' => 'completed']);
+            $builder->where(function($q) {
+                $q->where(['xjadval_status' => 'pending'])->orWhere(['xjadval_status' => 'completed']);
+            });
+            //$builder->where(['xjadval_status' => 'pending'])->orWhere(['xjadval_status' => 'completed']);
         }
         if($user->role->name != 'admin'){
             $region = $user->region_id;
