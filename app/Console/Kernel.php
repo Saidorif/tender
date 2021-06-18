@@ -15,6 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\AutoLicenseSync::class,
         Commands\TenderCheck::class,
+        Commands\LoadPayment::class,
+        Commands\CarrierSync::class,
     ];
 
     /**
@@ -27,6 +29,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('license:check')->hourly();
         $schedule->command('tender:check')->hourly();
+        $schedule->command('carrier:sync')->daily();
+        $schedule->command('payment:load')->hourly();
     }
 
     /**
