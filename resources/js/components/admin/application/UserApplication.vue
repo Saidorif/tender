@@ -113,15 +113,23 @@
 			getStatusName(status){
 				if(status == 'active'){
 					return 'Незавершен!'
-				}else if(status == 'completed'){
+				}else if(status == 'accepted'){
 					return 'Завершен!'
+				}else if(status == 'rejected'){
+					return 'Отказо!'
+				}else if(status == 'winner'){
+					return 'Победитель!'
 				}
 			},
 			getStatusClass(status){
 				if(status == 'active'){
 					return 'badge-warning'
-				}else if(status == 'completed'){
+				}else if(status == 'accepted'){
 					return 'badge-primary'
+				}else if(status == 'rejected'){
+					return 'badge-danger'
+				}else if(status == 'winner'){
+					return 'badge-success'
 				}
 			},
 			async deleteRegion(id){

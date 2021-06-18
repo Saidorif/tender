@@ -23,7 +23,7 @@
 				  		<div class="row">
 				  			<div class="form-group col-lg-2">
 				  				<label for="bypass_number">{{$t('Yoʼnalish soni')}}</label>
-                                  <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
+                              	<input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
               				</div>
 				  			<div class="form-group col-lg-2">
 				  				<label for="status">По статусу закрепления!</label>
@@ -61,6 +61,7 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
+							<th scope="col">{{$t('Yoʼnalish raqami')}}</th>
 							<th scope="col">{{$t('Yoʼnalish')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
@@ -69,7 +70,8 @@
 					<tbody>
 						<tr v-for="(direct,index) in getDemands.data">
 							<td scope="row">{{index + 1}}</td>
-							<td>{{direct.stations_from_name}} - {{direct.stations_to_name}}</td>
+							<td>{{direct.pass_number}}</td>
+							<td>{{direct.direction_name}}</td>
 							<td>
                                 <div class="badge" :class="getStatusClass(direct.status)">
 	                                {{direct.status == 'completed' ? 'подтвержден' : 'не подтвержден'}}
