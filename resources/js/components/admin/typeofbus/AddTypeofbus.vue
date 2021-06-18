@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-bus"></i>
-          Добавить категория автобуса
+          {{$t('Qoʼshish')}} категория автобуса
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/typeofbus"
           ><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link

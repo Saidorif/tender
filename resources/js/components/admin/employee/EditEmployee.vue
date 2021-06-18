@@ -15,7 +15,7 @@
           <div class="col-md-8">
             <div class="row">
               <div class="form-group col-lg-6">
-                <label for="region_id">Область</label>
+                <label for="region_id">{{$t('Viloyat')}}</label>
                 <select
                   id="region_id"
                   class="form-control input_style"
@@ -75,13 +75,12 @@
                 </select>
               </div>
               <div class="form-group col-lg-6">
-                <label for="phone">Телефон</label>
+                <label for="phone">{{$t('Telefon')}}</label>
                 <input
                   type="text"
                   class="form-control input_style"
                   id="phone"
                   v-mask="'99 999 99 99'"
-                  placeholder="Телефон"
                   v-model="form.phone"
                   :class="isRequired(form.phone) ? 'isRequired' : ''"
                 >
@@ -135,7 +134,7 @@
                 </small>
               </div>
               <div class="form-group col-lg-6">
-                <label for="status">Статус</label>
+                <label for="status">{{$t('Holati')}}</label>
                 <select
                   class="form-control"
                   :class="isRequired(form.status) ? 'isRequired' : '' "

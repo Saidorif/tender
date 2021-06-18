@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-bullhorn"></i>
-				    Добавить объявление тендера
+				    {{$t('Qoʼshish')}} объявление тендера
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/tenderannounce">
 					<span class="peIcon pe-7s-back"></span>
@@ -36,20 +36,19 @@
 		                ></date-picker>
 					  </div>
 					  <div class="form-group col-md-4">
-					    <label for="address">Адрес</label>
+					    <label for="address">{{$t('Manzil')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	v-model="form.address"
 					    	id="address"
-					    	placeholder="Адрес..."
 					    	:class="isRequired(form.address) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-lg-4 form_btn d-flex justify-content-end">
  						<button type="button" class="btn btn-secondary mr-3" @click="openModal">
 							<i class="fas fa-plus"></i>
-							Добавить лот
+							{{$t('Qoʼshish')}} лот
 						</button>
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
@@ -61,7 +60,7 @@
 				<!-- all choosen lots -->
 		  		<div class="table-responsive" v-if="allLotes.length > 0">
 			  		<div class="d-flex justify-content-center">
-			  			<h4>Лоты</h4>
+			  			<h4>{{$t('Lotlar')}}</h4>
 			  		</div>
 				  	<div class="choosenItemsTable" v-for="(lots,lot_key) in allLotes">
 				  		<div class="d-flex">
@@ -357,11 +356,11 @@
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-warning" data-dismiss="modal">
 		        	<i class="fas fa-times"></i>
-		        	Закрыть
+		        	{{$t('Yopish')}}
 		        </button>
 		        <button type="button" class="btn btn-primary" @click.prevent="addLot">
 		        	<i class="fas fa-plus"></i>
-		        	Добавить в список
+		        	{{$t('Qoʼshish')}} в список
 		        </button>
 		      </div>
 		    </div>
@@ -502,7 +501,7 @@
 			    			toast.fire({
 								type: "error",
 								icon: "error",
-								title: 'Чтобы добавить болшее маршрутов откликните пакет!'
+								title: 'Чтобы добавит болшее маршрутов откликните пакет!'
 						 	});
 			    		}
 			    	}
@@ -630,7 +629,7 @@
 		    			toast.fire({
 					    	type: 'error',
 					    	icon: 'error',
-							title: 'Чтобы добавить болшее маршрутов откликните пакет!',
+							title: 'Чтобы добавит болшее маршрутов откликните пакет!',
 					    })
 		    		}
 		    	}

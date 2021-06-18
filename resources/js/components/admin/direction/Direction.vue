@@ -6,7 +6,7 @@
 		  		<div class="header_title mb-2">
 				    <h4 class="title_user">
 				    	<i class="peIcon fas fa-route"></i>
-					    Направления
+					    {{$t('Yoʼnalish')}}
 					</h4>
 	            	<div class="add_user_btn">
 		                <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
@@ -14,11 +14,11 @@
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
-			            	Филтр
+			            	{{$t('Saralash')}}
 						</button>
 						<router-link class="btn btn-primary" to="/crm/direction/add">
 							<i class="fas fa-plus"></i>
-							Добавить
+							{{$t('Qoʼshish')}}
 						</router-link>
 		            </div>
 	            </div>
@@ -26,38 +26,38 @@
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
 				  			<div class="form-group col-lg-2">
-				  				<label for="bypass_number">Номер направления</label>
+				  				<label for="bypass_number">{{$t('Yoʼnalish soni')}}</label>
                                   <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
               				</div>
 				  			<div class="form-group col-lg-2">
-				  				<label for="region_id">Сортировать по региону!</label>
+				  				<label for="region_id">{{$t('Viloyat boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="region_id"
 			                      class="form-control input_style"
 			                      v-model="filter.region_id"
 			                    >
-			                      <option value="" selected >Выберите регион!</option>
+			                      <option value="" selected >{{$t('Viloyatni tanlang')}}!</option>
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-2">
-				  				<label for="status">По статусу закрепления!</label>
+				  				<label for="status">По {{$t('Holati')}}у закрепления!</label>
 			                    <select
 			                      id="status"
 			                      class="form-control input_style"
 			                      v-model="filter.status"
 			                    >
-			                      <option value="" selected >Выберите статус закрепления!</option>
+			                      <option value="" selected >Выберите {{$t('Holati')}} закрепления!</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="status">По статусу размещения!</label>
+				  				<label for="status">По {{$t('Holati')}}у размещения!</label>
 			                    <select
 			                      id="status"
 			                      class="form-control input_style"
 			                      v-model="filter.status"
 			                    >
-			                      <option value="" selected >Выберите статус размещения!</option>
+			                      <option value="" selected >Выберите {{$t('Holati')}} размещения!</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
@@ -130,11 +130,11 @@
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
-								  	сброс
+								  	{{$t('Tozalash')}}
 							  	</button>
 							  	<button type="button" class="btn btn-primary ml-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
-								  	найти
+								  	{{$t('Qidirish')}}
 							  	</button>
 					  	  	</div>
 				  		</div>
@@ -147,27 +147,27 @@
 					<thead>
 						<!-- <tr>
 							<th scope="col" width="2%">№</th>
-							<th scope="col">Область</th>
+							<th scope="col">{{$t('Viloyat')}}</th>
 							<th scope="col">Название направления</th>
 							<th scope="col"></th>
 							<th scope="col"></th>
 							<th scope="col"></th>
 							<th scope="col"></th>
-							<th scope="col">Номер направления</th>
+							<th scope="col">{{$t('Yoʼnalish soni')}}</th>
 							<th scope="col">Год создания</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr> -->
           <tr>
               <th scope="col">№</th>
               <th>Регион</th>
               <th>Номер и наименования маршрута</th>
               <th>Наименования организации </th>
-              <th>Срок действитвия контракта </th>
-              <th>Статус</th>
+              <th>{{$t('Shartnoma muddati')}} </th>
+              <th>{{$t('Holati')}}</th>
               <th>Йўналиши тури</th>
               <th>Дата открытия</th>
               <th>Потверждения</th>
-              <th scope="col">Действия</th>
+              <th scope="col">{{$t('Tahrirlash')}}</th>
           </tr>
 					</thead>
 					<tbody>
@@ -186,7 +186,7 @@
               </td>
 							<td></td>
 							<td>
-                <span class="alert pt-1 pb-1" :class="getStatusClass(direct)"> 
+                <span class="alert pt-1 pb-1" :class="getStatusClass(direct)">
                 	{{getStatusname(direct)}}
                 </span>
               </td>
@@ -221,7 +221,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Данные организации</h5>
+              <h5 class="modal-title" id="exampleModalLongTitle">{{$t('Tashkilot maʼlumotlari')}}</h5>
               <button type="button" class="close" @click.prevent="closeUserModal">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -232,63 +232,63 @@
                   <thead></thead>
                   <tbody>
                     <tr>
-                      <th>Название организации</th>
+                      <th>{{$t('Tashkilot nomi')}}</th>
                       <td>{{userItem.company_name}}</td>
                     </tr>
                     <tr>
-                      <th>Ф.И.О</th>
+                      <th>{{$t('F.I.Sh')}}</th>
                       <td>{{userItem.surname}}  {{userItem.name}} {{userItem.middlename}}</td>
                     </tr>
                     <tr>
-                      <th>Область</th>
+                      <th>{{$t('Viloyat')}}</th>
                       <td>{{userItem.region ? userItem.region.name : ''}}</td>
                     </tr>
                     <tr>
-                      <th>Регион/Город</th>
+                      <th>{{$t('Tuman/Shahar')}}</th>
                       <td>{{userItem.area ? userItem.area.name : ''}}</td>
                     </tr>
                     <tr>
-                      <th>Уполномоченное лицо</th>
+                      <th>{{$t('Vakolatli shaxs')}}</th>
                       <td>{{userItem.trusted_person}}</td>
                     </tr>
                     <tr>
-                      <th>ИНН</th>
+                      <th>{{$t('INN')}}</th>
                       <td>{{userItem.inn}}</td>
                     </tr>
                     <tr>
-                      <th>Телефон</th>
+                      <th>{{$t('Telefon')}}</th>
                       <td>{{userItem.phone}}</td>
                     </tr>
                     <tr>
-                      <th>Адрес</th>
+                      <th>{{$t('Manzil')}}</th>
                       <td>{{userItem.address}}</td>
                     </tr>
                     <tr>
-                      <th>Р/счет</th>
+                      <th>{{$t('X/raqam')}}</th>
                       <td>{{userItem.bank_number}}</td>
                     </tr>
                     <tr>
-                      <th>МФО</th>
+                      <th>{{$t('MFO')}}</th>
                       <td>{{userItem.mfo}}</td>
                     </tr>
                     <tr>
-                      <th>ОКЕД</th>
+                      <th>{{$t('OKED')}}</th>
                       <td>{{userItem.oked}}</td>
                     </tr>
                     <tr>
-                      <th>Адрес банка</th>
+                      <th>{{$t('Bankning manzili')}}</th>
                       <td>{{userItem.city}}</td>
                     </tr>
                     <tr>
-                      <th>Номер лицензии</th>
+                      <th>{{$t('Litsenziya raqami')}}</th>
                       <td>{{userItem.license_number}}</td>
                     </tr>
                     <tr>
-                      <th>Тип лицензии</th>
+                      <th>{{$t('Litsenziya turi')}}</th>
                       <td>{{userItem.license_type}}</td>
                     </tr>
                     <tr>
-                      <th>Дата лицензии</th>
+                      <th>{{$t('Litsenziya sanasi')}}</th>
                       <td>{{userItem.license_date}}</td>
                     </tr>
                   </tbody>
@@ -296,7 +296,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click.prevent="closeUserModal">Закрыть</button>
+              <button type="button" class="btn btn-secondary" @click.prevent="closeUserModal">{{$t('Yopish')}}</button>
             </div>
           </div>
         </div>
@@ -361,7 +361,7 @@
 					return 'Неразмещен в тендер'
 				}else if(item.status == 'busy'){
 					return 'Размещен в тендер'
-				}	
+				}
 			},
 			getStatusClass(item){
 				if(item.status == 'active'){

@@ -175,7 +175,7 @@
               <!-- 3 s -->
               <tr>
                 <td :rowspan="form.tarif_city ? 3 : 2">15</td>
-                <td width="50%"><b>Тариф</b></td>
+                <td width="50%"><b>{{$t('Reyslar soni')}}</b></td>
                 <td><b>{{form.tarif}}</b></td>
               </tr>
               <tr>
@@ -224,7 +224,7 @@
           </table>
           <div class="text_place">
             <label for="text">Текст</label>
-            <textarea id="text" class="form-control" v-model="form.holiday_days" disabled></textarea>
+            <textarea id="text" class="form-control" v-model="form.text" disabled></textarea>
           </div>
        <!--    <div class="btn_send d-flex justify-content-end">
             <button type="button" class="btn btn-primary" @click.prevent="saveData">

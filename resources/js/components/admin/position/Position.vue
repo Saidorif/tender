@@ -5,15 +5,15 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon pe-7s-graph1"></i>
-				    Должность 
+				    Должность
 				</h4>
-				<router-link 
-					class="btn btn-primary" 
+				<router-link
+					class="btn btn-primary"
 					to="/crm/position/add"
 					v-if="$can('store', 'PositionController')"
 				>
-					<i class="fas fa-plus"></i> 
-					Добавить
+					<i class="fas fa-plus"></i>
+					{{$t('Qoʼshish')}}
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -23,7 +23,7 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Название</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -31,14 +31,14 @@
 							<td scope="row">{{position.id}}</td>
 							<td>{{position.name}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" 
-									:to='`/crm/position/edit/${position.id}`' 
+								<router-link tag="button" class="btn_transparent"
+									:to='`/crm/position/edit/${position.id}`'
 									v-if="$can('edit', 'PositionController')"
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button 
-									class="btn_transparent" 
+								<button
+									class="btn_transparent"
 									@click="deletePosition(position.id)"
 									v-if="$can('destroy', 'PositionController')"
 								>
@@ -76,7 +76,7 @@
 		},
 		methods:{
 			...mapActions('position',['actionPositions','actionDeletePosition']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				this.laoding = true
 				await this.actionPositions(page)
 				this.laoding = false
@@ -97,5 +97,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

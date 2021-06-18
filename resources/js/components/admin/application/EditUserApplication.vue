@@ -82,7 +82,7 @@
                 <!-- <div class="form-group col-md-2 btn_save d-flex justify-content-end" v-if="!makeDisabled">
                   <button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal">
                   <i class="fas fa-plus"></i>
-                  Добавить авто
+                  {{$t('Qoʼshish')}} авто
                   </button>
                 </div> -->
           </div>

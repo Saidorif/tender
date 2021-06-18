@@ -9,11 +9,11 @@
 				</h4>
 	<!-- 			<button type="button" class="btn btn-primary" @click.prevent="getEditId">
 					<i class="fas fa-plus"></i>
-					Добавить
+					{{$t('Qoʼshish')}}
 				</button> -->
 		<!-- 		<router-link class="btn btn-primary" to="/crm/application/add">
 					<i class="fas fa-plus"></i>
-					Добавить
+					{{$t('Qoʼshish')}}
 				</router-link> -->
 		  	</div>
 		  	<div class="card-body">

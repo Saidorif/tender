@@ -15,7 +15,7 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Название</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

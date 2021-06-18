@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon pe-7s-id"></i>
-				    Добавить Tarifcity
+				    {{$t('Qoʼshish')}} Tarifcity
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/tarifcity"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>

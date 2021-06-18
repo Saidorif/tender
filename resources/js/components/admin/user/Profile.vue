@@ -44,7 +44,7 @@
             <div class="col-md-8">
               <div class="row">
                 <div class="form-group col-md-6">
-                  <label for="name">Ф.И.О</label>
+                  <label for="name">{{$t('F.I.Sh')}}</label>
                   <p class="form-control input_style disabled">{{form.user.name}}</p>
                 </div>
 
@@ -57,35 +57,35 @@
                   <p class="form-control input_style disabled">{{ form.user.email }}</p>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="name">Адрес</label>
+                  <label for="name">{{$t('Manzil')}}</label>
                   <p class="form-control input_style disabled">{{ form.user.address }}</p>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="bank_number">Р/счет</label>
+                  <label for="bank_number">{{$t('X/raqam')}}</label>
                   <p class="form-control input_style disabled">{{ form.user.bank_number }}</p>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="city">Адрес банка</label>
+                  <label for="city">{{$t('Bankning manzili')}}</label>
                   <p class="form-control input_style disabled">{{ form.user.city }}</p>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inn">ИНН</label>
+                  <label for="inn">{{$t('INN')}}</label>
                   <p class="form-control input_style disabled">{{ form.user.inn }}</p>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="mfo">МФО</label>
+                  <label for="mfo">{{$t('MFO')}}</label>
                   <p class="form-control input_style disabled">{{ form.user.mfo }}</p>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="oked">ОКЕД</label>
+                  <label for="oked">{{$t('OKED')}}</label>
                   <p class="form-control input_style disabled">{{ form.user.oked }}</p>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="phone">Телефон</label>
+                  <label for="phone">{{$t('Telefon')}}</label>
                   <p class="form-control input_style disabled">{{ form.user.phone }}</p>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="status">Статус</label>
+                  <label for="status">{{$t('Holati')}}</label>
                   <p class="form-control input_style disabled">{{ form.user.status == 'active' ? 'Активный' : 'Неактивный' }}</p>
                 </div>
               </div>
@@ -189,7 +189,7 @@
                       <a class="float-right">{{form.contracts_count}} шт</a>
                     </li>
                     <li class="list-group-item">
-                      <b>Статус:</b>
+                      <b>{{$t('Holati')}}:</b>
                       <a class="float-right"
                         ><div class="statusAlert alert-success" style="border-radius:6px;padding-left:5px; padding-right:5px;">
                           активный
@@ -234,12 +234,11 @@
                           <div class="col-sm-12 form-group"></div>
                           <div class="col-sm-6 form-group">
                             <label for="inputName" class="control-label"
-                              >Ф.И.О</label
+                              >{{$t('F.I.Sh')}}</label
                             >
                             <input
                               type="text"
                               id="inputName"
-                              placeholder="Ф.И.О"
                               disabled="disabled"
                               class="form-control"
                               v-model="form.name"
@@ -273,12 +272,11 @@
                           </div>
                           <div class="form-group col-sm-6">
                             <label for="inputAddress" class="control-label"
-                              >Адрес</label
+                              >{{$t('Manzil')}}</label
                             >
                             <input
                               type="text"
                               id="inputAddress"
-                              placeholder="Адрес..."
                               disabled="disabled"
                               class="form-control"
                               v-model="form.address"
@@ -297,13 +295,13 @@
                           </div>
                           <div class="form-group col-sm-6">
                             <label for="inputinn" class="control-label"
-                              >ИНН</label
+                              >{{$t('INN')}}</label
                             >
                             <input disabled="disabled" class="form-control" v-model="form.inn" />
                           </div>
                           <div class="form-group col-sm-6">
                             <label for="inputmfo" class="control-label"
-                              >МФО</label
+                              >{{$t('MFO')}}</label
                             >
                             <input disabled="disabled" class="form-control"  v-model="form.mfo" />
                           </div>
@@ -315,18 +313,17 @@
                           </div>
                           <div class="form-group col-sm-6">
                             <label for="inputRCh" class="control-label"
-                              >Р/счет</label
+                              >{{$t('X/raqam')}}</label
                             >
                             <input disabled="disabled" class="form-control" v-model="form.bank_number" />
                           </div>
                           <div class="form-group col-sm-6">
                             <label for="inputBA" class="control-label"
-                              >Адрес банка</label
+                              >{{$t('Bankning manzili')}}</label
                             >
                             <input
                               type="text"
                               id="inputBA"
-                              placeholder="Адрес банка..."
                               disabled="disabled"
                               class="form-control"
                                v-model="form.city"

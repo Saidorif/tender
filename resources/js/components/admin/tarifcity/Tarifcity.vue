@@ -7,7 +7,7 @@
 			    	<i  class="peIcon pe-7s-box1"></i>
 				    Tarifcity
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/tarifcity/add"><i class="fas fa-plus"></i> Добавить</router-link>
+				<router-link class="btn btn-primary" to="/crm/tarifcity/add"><i class="fas fa-plus"></i> {{$t('Qoʼshish')}}</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -17,7 +17,7 @@
 							<th scope="col">№</th>
 							<th scope="col">Регион</th>
 							<th scope="col">Сумма тарифа</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

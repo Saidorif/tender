@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon pe-7s-id"></i>
-				    Добавить Автостанция
+				    {{$t('Qoʼshish')}} Автостанция
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/station"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>

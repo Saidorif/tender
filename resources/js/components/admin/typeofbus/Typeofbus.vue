@@ -8,7 +8,7 @@
 				    Категория  автобуса
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/typeofbus/add">
-					<i class="fas fa-plus"></i> Добавить
+					<i class="fas fa-plus"></i> {{$t('Qoʼshish')}}
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -18,7 +18,7 @@
 							<tr>
 								<th scope="col">№</th>
 								<th scope="col">Название</th>
-								<th scope="col">Действия</th>
+								<th scope="col">{{$t('Tahrirlash')}}</th>
 							</tr>
 						</thead>
 						<tbody>

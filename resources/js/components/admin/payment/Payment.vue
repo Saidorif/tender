@@ -5,11 +5,11 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-money-bill-alt"></i>
-				    Платежи 
+				    Платежи
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/payment/add" v-if="$can('store', 'PaymentController')">
-					<i class="fas fa-plus"></i> 
-					Добавить
+					<i class="fas fa-plus"></i>
+					{{$t('Qoʼshish')}}
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -19,11 +19,11 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Название компании</th>
-							<th scope="col">Статус</th>
-							<th scope="col">ИНН</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('INN')}}</th>
 							<th scope="col">Сумма</th>
 							<th scope="col">Дата</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -40,9 +40,9 @@
 							<td>{{reg.date}}</td>
 							<td>
 								<template v-if="$can('edit', 'PaymentController')">
-									<router-link 
-										tag="button" 
-										class="btn_transparent" 
+									<router-link
+										tag="button"
+										class="btn_transparent"
 										:to='`/crm/payment/edit/${reg.id}`'
 										v-if="reg.status != 'active'"
 									>
@@ -50,8 +50,8 @@
 									</router-link>
 								</template>
 								<template v-if="$can('destroy', 'PaymentController')">
-									<button 
-										class="btn_transparent" 
+									<button
+										class="btn_transparent"
 										@click="deleteRegion(reg.id)"
 										v-if="reg.status != 'active'"
 									>
@@ -90,7 +90,7 @@
 		},
 		methods:{
 			...mapActions('payment',['actionPayments','actionDeletePayment']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				this.laoding = true
 				await this.actionPayments(page)
 				this.laoding = false
@@ -129,5 +129,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

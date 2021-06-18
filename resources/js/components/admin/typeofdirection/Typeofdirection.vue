@@ -7,7 +7,7 @@
 			    	<i class="peIcon fas fa-border-style"></i>
 				    Тип направления
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/typeofdirection/add"><i class="fas fa-plus"></i> Добавить</router-link>
+				<router-link class="btn btn-primary" to="/crm/typeofdirection/add"><i class="fas fa-plus"></i> {{$t('Qoʼshish')}}</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -17,7 +17,7 @@
 							<th scope="col">№</th>
 							<th scope="col">Название</th>
 							<th scope="col">Тип</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

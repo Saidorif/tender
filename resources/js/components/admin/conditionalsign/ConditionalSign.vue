@@ -7,7 +7,7 @@
 			    	<i class="peIcon fas fa-sign"></i>
 				    Условные символы
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/conditionalsign/add"><i class="fas fa-plus"></i> Добавить</router-link>
+				<router-link class="btn btn-primary" to="/crm/conditionalsign/add"><i class="fas fa-plus"></i> {{$t('Qoʼshish')}}</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">
@@ -16,7 +16,7 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Название</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

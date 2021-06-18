@@ -14,7 +14,7 @@
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
-			            	Филтр
+			            	{{$t('Saralash')}}
 						</button>
 		            </div>
 	            </div>
@@ -22,7 +22,7 @@
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
 				  			<div class="form-group col-lg-2">
-				  				<label for="bypass_number">Номер направления</label>
+				  				<label for="bypass_number">{{$t('Yoʼnalish soni')}}</label>
                                   <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
               				</div>
 				  			<div class="form-group col-lg-2">
@@ -44,11 +44,11 @@
 						  	<div class="col-lg-5 form-group d-flex justify-content-end align-items-center mb-4">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
 							  		<i class="fas fa-times"></i>
-								  	сброс
+								  	{{$t('Tozalash')}}
 							  	</button>
 							  	<button type="button" class="btn btn-primary ml-2" @click.prevent="search">
 							  		<i class="fas fa-search"></i>
-								  	найти
+								  	{{$t('Qidirish')}}
 							  	</button>
 					  	  	</div>
 				  		</div>
@@ -61,9 +61,9 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Направления</th>
-							<th scope="col">Статус</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Yoʼnalish')}}</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>

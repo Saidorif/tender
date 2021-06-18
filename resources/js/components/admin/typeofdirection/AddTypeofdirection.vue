@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-border-style"></i>
-				    Добавить тип направления
+				    {{$t('Qoʼshish')}} тип направления
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/typeofdirection"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>

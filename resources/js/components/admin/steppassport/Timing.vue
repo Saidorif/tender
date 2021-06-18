@@ -447,7 +447,7 @@
                   class="btn btn-info mr-2"
                 >
                   <i class="fas fa-plus"></i>
-                  Добавить
+                  {{$t('Qoʼshish')}}
                 </button>
                 <button type="submit" class="btn btn-primary btn_save_category">
                   <i class="fas fa-save"></i>

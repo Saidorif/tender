@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file-alt"></i>
-				    Добавить старый контракт
+				    {{$t('Qoʼshish')}} старый контракт
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/oldcontract">
 					<span class="peIcon pe-7s-back"></span>
@@ -233,7 +233,7 @@
 					  	<div class="form-group col-lg-12 d-flex justify-content-end align-items-center">
 						  	<button type="button" class="btn btn-info mr-3" @click.prevent="addCarItem">
 						  		<i class="fas fa-plus"></i>
-							  	Добавить авто
+							  	{{$t('Qoʼshish')}} авто
 							</button>
 						  	<button type="submit" class="btn btn-primary">
 						  		<i class="fas fa-save"></i>

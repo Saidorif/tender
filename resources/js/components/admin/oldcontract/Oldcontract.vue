@@ -5,11 +5,11 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon fas fa-file-alt"></i>
-				    Старые контракты 
+				    {{$t('Eski shartnomalar')}}
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/oldcontract/add" v-if="$can('store', 'ContractController')">
-					<i class="fas fa-plus"></i> 
-					Добавить
+					<i class="fas fa-plus"></i>
+					{{$t('Qoʼshish')}}
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
@@ -19,14 +19,14 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Регион</th>
-							<th scope="col">Направления</th>
+							<th scope="col">{{$t('Yoʼnalish')}}</th>
 							<th scope="col">Номер контракта</th>
 							<th scope="col">Название Компании</th>
 							<th scope="col">Протокол рақами</th>
 							<th scope="col">Контракт тузилган сана</th>
 							<th scope="col">Амал қилиш муддати</th>
 							<th scope="col">Контракт периоди</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -45,16 +45,16 @@
 							<td>{{item.exp_date}}</td>
 							<td>{{getPeriod(item.contract_period)}}</td>
 							<td>
-								<router-link 
-									tag="button" 
-									class="btn_transparent" 
+								<router-link
+									tag="button"
+									class="btn_transparent"
 									:to='`/crm/oldcontract/edit/${item.id}`'
 									v-if="$can('edit', 'ContractController')"
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button 
-									class="btn_transparent" 
+								<button
+									class="btn_transparent"
 									@click="deleteOldcontract(item.id)"
 								 	v-if="$can('destroy', 'ContractController')"
 								>
@@ -92,7 +92,7 @@
 		},
 		methods:{
 			...mapActions('oldcontract',['actionOldcontracts','actionDeleteOldcontract']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				this.laoding = true
 				await this.actionOldcontracts(page)
 				this.laoding = false
@@ -118,5 +118,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>

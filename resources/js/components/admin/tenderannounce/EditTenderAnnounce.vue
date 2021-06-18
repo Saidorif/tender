@@ -36,7 +36,7 @@
 		                ></date-picker>
 					  </div>
 					  <div class="form-group col-md-4">
-					    <label for="address">Адрес</label>
+					    <label for="address">{{$t('Manzil')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
@@ -48,7 +48,7 @@
 					  <div class="form-group col-lg-4 form_btn d-flex justify-content-end">
 					<button type="button" class="btn btn-secondary mr-3" @click="openModal">
 							<i class="fas fa-plus"></i>
-							Добавить лот
+							{{$t('Qoʼshish')}} лот
 						</button>
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
@@ -60,7 +60,7 @@
 				<!-- All edit choosen tables -->
 	  			<div class="table-responsive" v-if="tenderlots.length > 0">
 			  		<div class="d-flex justify-content-center">
-			  			<h4>Лоты</h4>
+			  			<h4>{{$t('Lotlar')}}</h4>
 			  		</div>
 		            <div class="card cardtender" v-for="(t_lots,t_index) in tenderlots">
 		                <div class="card-header" >
@@ -421,11 +421,11 @@
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-warning" data-dismiss="modal">
 		        	<i class="fas fa-times"></i>
-		        	Закрыть
+		        	{{$t('Yopish')}}
 		        </button>
 		        <button type="button" class="btn btn-primary" @click.prevent="addLot">
 		        	<i class="fas fa-plus"></i>
-		        	Добавить в список
+		        	{{$t('Qoʼshish')}} в список
 		        </button>
 		      </div>
 		    </div>

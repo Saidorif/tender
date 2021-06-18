@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title title_user mb-0">
-          <i  class="peIcon fas fa-users"></i></i>Добавить cотрудник
+          <i  class="peIcon fas fa-users"></i></i>{{$t('Qoʼshish')}} cотрудник
         </h3>
         <router-link class="btn btn-primary back_btn" to="/crm/employee">
           <span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}
@@ -15,7 +15,7 @@
           <div class="col-md-8">
             <div class="row">
               <div class="form-group col-lg-6">
-                <label for="region_id">Область</label>
+                <label for="region_id">{{$t('Viloyat')}}</label>
                 <select
                   id="region_id"
                   class="form-control input_style"
@@ -75,13 +75,12 @@
                 </select>
               </div>
               <div class="form-group col-lg-6">
-                <label for="phone">Телефон</label>
+                <label for="phone">{{$t('Telefon')}}</label>
                 <input
                   type="text"
                   class="form-control input_style"
                   id="phone"
                   v-mask="'99 999 99 99'"
-                  placeholder="Телефон"
                   v-model="form.phone"
                   :class="isRequired(form.phone) ? 'isRequired' : ''"
                 >

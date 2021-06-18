@@ -22,7 +22,7 @@
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
 				  			<div class="form-group col-lg-2">
-				  				<label for="bypass_number">Номер направления</label>
+				  				<label for="bypass_number">{{$t('Yoʼnalish soni')}}</label>
                                   <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
               				</div>
 				  			<div class="form-group col-lg-2">
@@ -61,12 +61,12 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Направления</th>
-							<th scope="col">Тариф</th>
+							<th scope="col">{{$t('Yoʼnalish')}}</th>
+							<th scope="col">{{$t('Reyslar soni')}}</th>
 							<th scope="col">Сумма багажа</th>
 							<th scope="col">Дата</th>
-							<th scope="col">Статус</th>
-							<th scope="col">Действия</th>
+							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
