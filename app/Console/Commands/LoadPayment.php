@@ -93,7 +93,7 @@ class LoadPayment extends Command
             $this->info('Loading file '.$file_name.'...');
             if(file_exists($file_path)){
                 $this->info('Parsing file '.$file_name.'...');
-                $content = File::get($file_path);
+                $content = \File::get($file_path);
                 $content = iconv( "Windows-1251", "UTF-8", ($content));
                 $arr = explode($ascii29,$content);
                 $counter = 1;
@@ -139,7 +139,7 @@ class LoadPayment extends Command
                 if(count($the_result) > 0 ){
                     $this->info('Writing to DB ...');
                     foreach($the_result as $k => $d){
-                        if($d['klsdox'] == '4014108604262773422968279'){
+                        if($d['klsdox'] == '4014108604262773422967279'){
                             $payment = \App\Payment::where(['transaction_id' => $d['id']])->first();
                             if($payment == null){
                                 $user = \App\User::where(['inn' => $d['clinn']])->first();
@@ -182,6 +182,7 @@ class LoadPayment extends Command
                 $this->info('File not found. Payments not loaded!');
             }
         } catch (\Throwable $th) {
+            throw $th;
             $this->info('Payments not loaded!');
         }
     }
