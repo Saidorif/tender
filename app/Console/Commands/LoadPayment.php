@@ -87,8 +87,8 @@ class LoadPayment extends Command
         $result = [];
         $ascii29 = chr(29);//Razdilitel
         // $file_path = '//10.10.10.118/kaznafiles/'.$file_name;
-        //$file_path = base_path().'/theBank'.$file_name;
-         $file_path = '//10.10.10.118/kaznafiles/PAYINF1040004.018';
+        $file_path = base_path().'/theBank'.$file_name;
+        //$file_path = '//10.10.10.118/kaznafiles'.$file_name;
         try {
             $this->info('Loading file '.$file_name.'...');
             if(file_exists($file_path)){
@@ -157,6 +157,7 @@ class LoadPayment extends Command
                                     //Update user balance
                                     $user->balance = $user->balance + $new_payment->summ;
                                     $user->save();
+                                    $this->info('New payment detected');
                                 }
                             }
                         }
