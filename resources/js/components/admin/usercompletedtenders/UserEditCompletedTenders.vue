@@ -274,21 +274,21 @@
                     </tr>
                     <tr>
                       <td>3</td>
-                      <td>Автоларнинг уртача йили</td>
+                      <td>{{$t('Avtomobillarning oʼrtacha yili')}}</td>
                       <td>{{ballItems.app_years}}</td>
                       <td>{{ballItems.lot_years}}</td>
                       <td>{{ballItems.years_ball}}</td>
                     </tr>
                     <tr>
                       <td>4</td>
-                      <td>Автоларнинг умумий сигими</td>
+                      <td>{{$t('Avtomobillarning umumiy sigʼimi')}}</td>
                       <td>{{ballItems.app_capacity}}</td>
                       <td>{{ballItems.lot_capacity}}</td>
                       <td>{{ballItems.capacity_ball}}</td>
                     </tr>
                     <tr>
                       <td>5</td>
-                      <td>Категория/класс</td>
+                      <td>{{$t('Turi/Sinfi')}}</td>
                       <td>
                         <ul class="list-inline" v-if="ballItems.app_categories">
                             <li v-for="(app_cat,index) in ballItems.app_categories">
@@ -307,7 +307,7 @@
                     </tr>
                     <tr>
                       <td>6</td>
-                      <td>М1 булса моделнинг класси</td>
+                      <td>{{$t('M1 bolsa turning sinfi')}}</td>
                       <td>
                         <ul class="list-inline" v-if="ballItems.app_models">
                             <li v-for="(app_model,index) in ballItems.app_models">
