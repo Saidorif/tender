@@ -75,7 +75,6 @@
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="details"
-					    	placeholder="Область"
 					    	v-model="form.details"
 					    	:class="isRequired(form.details) ? 'isRequired' : ''"
 				    	>

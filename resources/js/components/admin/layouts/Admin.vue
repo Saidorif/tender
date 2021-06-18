@@ -73,7 +73,7 @@
             <router-link class="nav-link" to="/crm/direction">
               <i class="peIcon fas fa-route"></i>
               <p>
-                Направления
+                {{$t('Yoʼnalish')}}
               </p>
             </router-link>
           </li>
@@ -81,7 +81,7 @@
             <router-link class="nav-link" to="/crm/direction-user">
               <i class="peIcon fas fa-route"></i>
               <p>
-                Направления <small style="padding:2px 6px;background: #74b303;border-radius:3px;">user</small>
+                {{$t('Yoʼnalish')}} <small style="padding:2px 6px;background: #74b303;border-radius:3px;">user</small>
               </p>
             </router-link>
           </li>
@@ -261,15 +261,15 @@
             <router-link class="nav-link" to="/crm/oldprotocol">
               <i class="peIcon fas fa-file"></i>
               <p>
-                Старые протоколы 
+                Старые протоколы
               </p>
             </router-link>
           </li>
           <li class="nav-item" v-if="$can('index', 'ContractController')">
-            <router-link class="nav-link" to="/crm/oldcontract"> 
+            <router-link class="nav-link" to="/crm/oldcontract">
               <i class="peIcon fas fa-file-alt"></i>
               <p>
-                Старые контракты 
+                {{$t('Eski shartnomalar')}}
               </p>
             </router-link>
           </li>
@@ -360,7 +360,7 @@
                 <router-link class="nav-link" to="/crm/typeofdirection">
                   <i class="peIcon fas fa-border-style"></i>
                   <p>
-                    Тип направления
+                    Тип {{$t('Yoʼnalish')}}
                   </p>
                 </router-link>
               </li>

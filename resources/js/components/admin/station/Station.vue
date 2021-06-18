@@ -32,7 +32,7 @@
 			                    />
               				</div>
 				  			<div class="form-group col-lg-3" v-if="getUser.role_id == 1">
-				  				<label for="region_id">Область!</label>
+				  				<label for="region_id">{{$t('Viloyat')}}!</label>
 			                    <select
 			                      id="region_id"
 			                      class="form-control input_style"

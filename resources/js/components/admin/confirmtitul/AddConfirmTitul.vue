@@ -15,7 +15,7 @@
       <div class="card-body">
         <div class="row">
           <div class="form-group in col-lg-2 col-md-6">
-            <label for="name">Направления</label>
+            <label for="name">{{$t('Yoʼnalish')}}</label>
             <p class="form-control input_style disabled">{{ form.time }}</p>
           </div>
           <div class="form-group col-xl-3 col-md-6">

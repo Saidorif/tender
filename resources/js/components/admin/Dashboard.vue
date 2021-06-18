@@ -15,7 +15,7 @@
 	  						<router-link class="dashboard-link" to="/crm/direction">
 				              <i class="peIcon fas fa-route"></i>
 				              <p>
-				                Направления
+				                {{$t('Yoʼnalish')}}
 				              </p>
 				            </router-link>
 	  					</div>

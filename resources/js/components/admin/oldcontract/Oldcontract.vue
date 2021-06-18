@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon fas fa-file-alt"></i>
-				    Старые контракты
+				    {{$t('Eski shartnomalar')}}
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/oldcontract/add" v-if="$can('store', 'ContractController')">
 					<i class="fas fa-plus"></i>
@@ -19,7 +19,7 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">Регион</th>
-							<th scope="col">Направления</th>
+							<th scope="col">{{$t('Yoʼnalish')}}</th>
 							<th scope="col">Номер контракта</th>
 							<th scope="col">Название Компании</th>
 							<th scope="col">Протокол рақами</th>

@@ -40,7 +40,7 @@
 				<!-- All edit choosen tables -->
 			  	<div class="table-responsive" v-if="tenderlots.length > 0">
 			  		<div class="d-flex justify-content-center">
-			  			<h4>Лоты</h4>
+			  			<h4>{{$t('Lotlar')}}</h4>
 			  		</div>
 				  	<!-- <div class="choosenItemsTable" v-for="(t_lots,t_index) in tenderlots">
 		  		    	<div class="d-flex">

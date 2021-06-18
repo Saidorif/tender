@@ -128,13 +128,13 @@
 		              		</small>
 			          	</div>
 			          	<div class="form-group col-md-3">
-						    <label for="marshrut">Направления</label>
+						    <label for="marshrut">{{$t('Yoʼnalish')}}</label>
 						    <multiselect
 								:value="directionvalues"
 								:options="findDirectionList"
 								@search-change="value => findDirection(value)"
 								v-model="directionvalues"
-		                        placeholder="Направления"
+		                        :placeholder="$t('Yoʼnalish')"
 		                        :searchable="true"
 		                        track-by="id"
 		                        label="name"

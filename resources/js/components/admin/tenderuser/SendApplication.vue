@@ -25,7 +25,7 @@
 		  	<div class="card-body">
 				<div class="row">
 					<div class="col-md-12">
-						<h2><em>Название организации:</em> <b>{{form.user ? form.user.company_name : ''}}</b></h2>
+						<h2><em>{{$t('Tashkilot nomi')}}:</em> <b>{{form.user ? form.user.company_name : ''}}</b></h2>
 					</div>
 				</div>
 				<div class="row" v-if="form.tarif && form.tarif.length" v-for="(item,index) in direction_ids">
@@ -388,7 +388,7 @@
 											  			<tr>
 											  				<th>5</th>
 											  				<th width="80%">
-											  					Телефон қувватлагичлари
+											  					{{$t('Telefon')}} қувватлагичлари
 											  				</th>
 											  				<th>
 											  					<i
@@ -857,7 +857,7 @@
 			      		 		<b>{{$t('Tender sanasi')}}:</b> {{form.tender ? $g.getDate(form.tender.time) : ''}}
 			      		 	</div>
 			      		 	<div>
-			      		 		<b>Адрес:</b> {{form.tender ? form.tender.address : ''}}
+			      		 		<b>{{$t('Manzil')}}:</b> {{form.tender ? form.tender.address : ''}}
 			      		 	</div>
 			      		 	<div>
 			      		 		<b>Время тендера:</b> {{form.tender ? $g.getTime(form.tender.time) : ''}}

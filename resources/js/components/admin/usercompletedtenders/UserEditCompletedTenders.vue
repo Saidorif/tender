@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-file"></i>
-          Лоты
+          {{$t('Lotlar')}}
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/completed-tenders">
           <span class="peIcon pe-7s-back"></span>
@@ -19,8 +19,8 @@
                   <thead>
                       <tr>
                           <th>№</th>
-                          <th width="15%">Направления</th>
-                          <th width="15%">Перевозчики отправившие предложении</th>
+                          <th width="15%">{{$t('Yoʼnalish')}}</th>
+                          <th width="15%">{{$t('Taklif yuborgan tashuvchilar')}}</th>
                           <th>Avto ishlab chiqarilgan yildan boshlab necha yil otgani</th>
                           <th>Yolovchilar sigimi</th>
                           <th>Transport kategoriyasiga mosligi</th>
@@ -31,7 +31,7 @@
                           <th>Tadbirlar rejasi</th>
                           <th>Набранные баллы</th>
                           <th>Подробнее</th>
-                          <th>Контракты</th>
+                          <th>{{$t('Shartnomalar')}}</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -139,7 +139,7 @@
                               <router-link class="" tag="a" :to="{path:`/crm/contract/${item.contract.id}`,query:{TID:$route.params.tenderId}}" v-if="item.contract">
                                 <b>
                                   <i class="fas fa-file-alt"></i>
-                                  Контракт
+                                  {{$t('Shartnoma')}}
                                 </b>
                               </router-link>
                             </template>
@@ -155,7 +155,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Данные организации</h5>
+              <h5 class="modal-title" id="exampleModalLongTitle">{{$t('Tashkilot maʼlumotlari')}}</h5>
               <button type="button" class="close" @click.prevent="closeUserModal">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -166,55 +166,55 @@
                   <thead></thead>
                   <tbody>
                     <tr>
-                      <th>Название организации</th>
+                      <th>{{$t('Tashkilot nomi')}}</th>
                       <td>{{userItem.company_name}}</td>
                     </tr>
                     <tr>
-                      <th>Ф.И.О</th>
+                      <th>{{$t('F.I.Sh')}}</th>
                       <td>{{userItem.surname}}  {{userItem.name}} {{userItem.middlename}}</td>
                     </tr>
                     <tr>
-                      <th>Область</th>
+                      <th>{{$t('Viloyat')}}</th>
                       <td>{{userItem.region ? userItem.region.name : ''}}</td>
                     </tr>
                     <tr>
-                      <th>Регион/Город</th>
+                      <th>{{$t('Tuman/Shahar')}}</th>
                       <td>{{userItem.area ? userItem.area.name : ''}}</td>
                     </tr>
                     <tr>
-                      <th>Уполномоченное лицо</th>
+                      <th>{{$t('Vakolatli shaxs')}}</th>
                       <td>{{userItem.trusted_person}}</td>
                     </tr>
                     <tr>
-                      <th>ИНН</th>
+                      <th>{{$t('INN')}}</th>
                       <td>{{userItem.inn}}</td>
                     </tr>
                     <tr>
-                      <th>Телефон</th>
+                      <th>{{$t('Telefon')}}</th>
                       <td>{{userItem.phone}}</td>
                     </tr>
                     <tr>
-                      <th>Адрес</th>
+                      <th>{{$t('Manzil')}}</th>
                       <td>{{userItem.address}}</td>
                     </tr>
                     <tr>
-                      <th>Р/счет</th>
+                      <th>{{$t('X/raqam')}}</th>
                       <td>{{userItem.bank_number}}</td>
                     </tr>
                     <tr>
-                      <th>МФО</th>
+                      <th>{{$t('MFO')}}</th>
                       <td>{{userItem.mfo}}</td>
                     </tr>
                     <tr>
-                      <th>ОКЕД</th>
+                      <th>{{$t('OKED')}}</th>
                       <td>{{userItem.oked}}</td>
                     </tr>
                     <tr>
-                      <th>Адрес банка</th>
+                      <th>{{$t('Bankning manzili')}}</th>
                       <td>{{userItem.city}}</td>
                     </tr>
                     <tr>
-                      <th>Номер лицензии</th>
+                      <th>{{$t('Litsenziya raqami')}}</th>
                       <td>{{userItem.license_number}}</td>
                     </tr>
                     <tr>

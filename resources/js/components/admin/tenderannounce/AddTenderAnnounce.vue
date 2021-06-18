@@ -36,13 +36,12 @@
 		                ></date-picker>
 					  </div>
 					  <div class="form-group col-md-4">
-					    <label for="address">Адрес</label>
+					    <label for="address">{{$t('Manzil')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	v-model="form.address"
 					    	id="address"
-					    	placeholder="Адрес..."
 					    	:class="isRequired(form.address) ? 'isRequired' : ''"
 				    	>
 					  </div>
@@ -61,7 +60,7 @@
 				<!-- all choosen lots -->
 		  		<div class="table-responsive" v-if="allLotes.length > 0">
 			  		<div class="d-flex justify-content-center">
-			  			<h4>Лоты</h4>
+			  			<h4>{{$t('Lotlar')}}</h4>
 			  		</div>
 				  	<div class="choosenItemsTable" v-for="(lots,lot_key) in allLotes">
 				  		<div class="d-flex">

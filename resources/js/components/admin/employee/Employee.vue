@@ -59,7 +59,7 @@
   								</select>
 				  			</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="region_id">Область</label>
+				  				<label for="region_id">{{$t('Viloyat')}}</label>
 			                    <select
 			                      id="region_id"
 			                      class="form-control input_style"
@@ -71,7 +71,7 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="area_id">Регион/Город!</label>
+				  				<label for="area_id">{{$t('Tuman/Shahar')}}!</label>
 			                    <select
 			                      id="area_id"
 			                      class="form-control input_style"
@@ -110,12 +110,12 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Ф.И.О</th>
+							<th scope="col">{{$t('F.I.Sh')}}</th>
 							<th scope="col">Должность</th>
-							<th scope="col">Область</th>
+							<th scope="col">{{$t('Viloyat')}}</th>
 							<th scope="col">Рол</th>
 							<th scope="col">E-mail</th>
-							<th scope="col">Телефон</th>
+							<th scope="col">{{$t('Telefon')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>

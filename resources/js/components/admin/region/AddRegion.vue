@@ -13,12 +13,11 @@
 		  		<form @submit.prevent.enter="saveRegion" >
 					<div class="row">
 					  <div class="form-group col-md-9">
-					    <label for="name">Область</label>
+					    <label for="name">{{$t('Viloyat')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="name"
-					    	placeholder="Область"
 					    	v-model="form.name"
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>

@@ -14,8 +14,8 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Лоты</th>
-							<th scope="col">Адрес</th>
+							<th scope="col">{{$t('Lotlar')}}</th>
+							<th scope="col">{{$t('Manzil')}}</th>
 							<th scope="col">{{$t('Tender sanasi')}}</th>
 							<th scope="col">Осталось</th>
 							<th scope="col">{{$t('Holati')}}</th>
@@ -28,7 +28,7 @@
 							<td>
 								<em>
 							    	{{item.tenderlots.length}}
-							    	<span>{{item.tenderlots.length > 1 ? 'лоты' :'лот'}}</span>
+							    	<span>{{item.tenderlots.length > 1 ? $t('Lotlar') :'лот'}}</span>
 							    </em>
 							</td>
 							<td>{{item.address}}</td>
