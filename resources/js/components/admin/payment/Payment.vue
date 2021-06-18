@@ -82,7 +82,7 @@
 		},
 		async mounted(){
 			let page = 1;
-			await this.actionPayments()
+			await this.actionPayments(page)
 			this.laoding = false
 		},
 		computed:{

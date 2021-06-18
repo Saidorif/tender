@@ -4,8 +4,8 @@ const PaymentService = {
 	paymentList(){
 		return ApiService.get(`/api/payment/list`)
 	},
-	payments(){
-		return ApiService.post(`/api/payment`)
+	payments(page){
+		return ApiService.post(`/api/payment?page=${page}`)
 	},
 	addpayment(data){
 		return ApiService.post(`/api/payment/store`,data)
