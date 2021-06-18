@@ -415,7 +415,7 @@
                     <tr>
                       <td>1</td>
                       <td>
-                        Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан ўтказиш учун барча шароитлар яратилган
+                        {{$t('Аvtotransport vositalarini xar kuni reysdan oldingi texnik koʼrikdan oʼtkazish uchun barcha sharoitlar yaratilgan')}}
                       </td>
                       <td>{{ballItems.daily_technical_job}}</td>
                     </tr>
