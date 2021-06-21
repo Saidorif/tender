@@ -26,10 +26,10 @@ class ContractController extends Controller
     {
         $user = $request->user();
         $contracts = Contract::orderBy('id','DESC')
-                        ->with(['user','cars','protocol','region'])
-                        ->where(['user_id' => $user->id])
-                        ->paginate(12);
-        return response()->json(['success' => true, 'result' => $contracts]);
+            ->with(['user','cars','region'])
+            ->where('user_id', '=', $user->id)
+            ->paginate(12);
+        return response()->json(['success' => true,'result' => $contracts]);
     }
 
     public function edit(Request $request,$id)
