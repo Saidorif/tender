@@ -19,7 +19,7 @@
 					    	v-model="form.region_id"
 					    	:class="isRequired(form.region_id) ? 'isRequired' : ''"
 				    	>
-					    	<option value="" selected disabled>choose option</option>
+					    	<option value="" selected disabled>{{$t('Tanglang')}}</option>
 					    	<option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 					    </select>
 					  </div>
@@ -30,7 +30,7 @@
 					    	v-model="form.area_id"
 					    	:class="isRequired(form.area_id) ? 'isRequired' : ''"
 				    	>
-					    	<option value="" selected disabled>choose option</option>
+					    	<option value="" selected disabled>{{$t('Tanglang')}}</option>
 					    	<option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
 					    </select>
 					  </div>
@@ -52,7 +52,7 @@
 					    	v-model="form.station_type"
 					    	:class="isRequired(form.station_type) ? 'isRequired' : ''"
 				    	>
-					    	<option value="" selected disabled>choose option</option>
+					    	<option value="" selected disabled>{{$t('Tanglang')}}</option>
 					    	<option :value="station.id" v-for="(station,index) in $g.stations()">{{station.name}}</option>
 					    </select>
 					  </div>

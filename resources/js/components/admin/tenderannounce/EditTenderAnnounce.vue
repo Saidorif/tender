@@ -23,12 +23,11 @@
 		  		<form @submit.prevent.enter="saveTender">
 					<div class="row">
 					  <div class="form-group col-md-4">
-					    <label for="name">Дата тердера</label>
+					    <label for="name">{{$t('Tender sanasi')}}</label>
 					    <date-picker
 		                  id="time"
 		                  lang="ru"
 		                  type="datetime"
-		                  placeholder="Дата тердера"
 		                  v-model="form.time"
 		                  valueType="format"
 		                  class="input_style"
@@ -91,7 +90,7 @@
 												<thead>
 													<tr>
 														<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-														<th  scope="col"  :colspan="items.reysesFrom[0].reys_times.length * 2" style="text-align: center;">{{items.reysesFrom[0].where.name}} томондан  </th>
+														<th  scope="col"  :colspan="items.reysesFrom[0].reys_times.length * 2" style="text-align: center;">{{items.reysesFrom[0].where.name}} {{$t('tomondan')}}  </th>
 													</tr>
 	                                                <tr>
 	                                                    <th colspan="2" v-for="(item, index) in items.reysesFrom[0].stations" style="text-align: center;">
@@ -100,8 +99,8 @@
 	                                                </tr>
 	                                                <tr >
 	                                                    <template v-for="(item, index) in items.reysesFrom[0].reys_times">
-	                                                        <th style="text-align: center;" >Прибытие</th>
-	                                                        <th style="text-align: center;">Отправление</th>
+	                                                        <th style="text-align: center;" >{{$t('Kelish')}}</th>
+	                                                        <th style="text-align: center;">{{$t('Chiqish')}}</th>
 	                                                    </template>
 	                                                </tr>
 					  							</thead>
@@ -127,7 +126,7 @@
 	                                            <thead>
 													<tr>
 														<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-														<th  scope="col"  :colspan="items.reysesTo[0].reys_times.length * 2" style="text-align: center;">{{items.reysesTo[0].where.name}} томондан </th>
+														<th  scope="col"  :colspan="items.reysesTo[0].reys_times.length * 2" style="text-align: center;">{{items.reysesTo[0].where.name}} {{$t('tomondan')}} </th>
 													</tr>
 	                                                <tr>
 	                                                    <th colspan="2" v-for="(item, index) in items.reysesTo[0].stations" style="text-align: center;">
@@ -136,8 +135,8 @@
 	                                                </tr>
 	                                                <tr >
 	                                                    <template v-for="(item, index) in items.reysesTo[0].reys_times">
-	                                                        <th style="text-align: center;" >Прибытие</th>
-	                                                        <th style="text-align: center;">Отправление</th>
+	                                                        <th style="text-align: center;" >{{$t('Kelish')}}</th>
+	                                                        <th style="text-align: center;">{{$t('Chiqish')}}</th>
 	                                                    </template>
 	                                                </tr>
 					  							</thead>
@@ -190,7 +189,7 @@
                                         <thead>
                                                 <tr>
                                                     <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-                                                    <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">{{item.reyses[0].where.name}} томондан </th>
+                                                    <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">{{item.reyses[0].where.name}} {{$t('tomondan')}} </th>
                                                 </tr>
                                                 <tr>
                                                     <th colspan="2" v-for="(item, index) in item.reyses[0].reys_times" style="text-align: center;">
@@ -199,8 +198,8 @@
                                                 </tr>
                                                 <tr >
                                                     <template v-for="(item, index) in item.reyses[0].reys_times">
-                                                        <th style="text-align: center;" >Прибытие</th>
-                                                        <th style="text-align: center;">Отправление</th>
+                                                        <th style="text-align: center;" >{{$t('Kelish')}}</th>
+                                                        <th style="text-align: center;">{{$t('Chiqish')}}</th>
                                                     </template>
                                                 </tr>
                                         </thead>
@@ -289,7 +288,7 @@
                             <thead>
 								<tr>
 									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-									<th  scope="col"  :colspan="fromFirstItems.reys_times.length * 2" style="text-align: center;" class="headar_th" :class="{'selected': this.choosenFromItems.length}" @click.prevent="chooseFromSide(fromItems)">{{fromName}} томондан </th>
+									<th  scope="col"  :colspan="fromFirstItems.reys_times.length * 2" style="text-align: center;" class="headar_th" :class="{'selected': this.choosenFromItems.length}" @click.prevent="chooseFromSide(fromItems)">{{fromName}} {{$t('tomondan')}} </th>
 								</tr>
                                 <tr>
                                     <th colspan="2" v-for="(item, index) in fromFirstItems.reys_times" style="text-align: center;">
@@ -298,8 +297,8 @@
                                 </tr>
                                 <tr >
                                     <template v-for="(item, index) in fromFirstItems.reys_times">
-                                        <th style="text-align: center;" >Прибытие</th>
-                                        <th style="text-align: center;">Отправление</th>
+                                        <th style="text-align: center;" >{{$t('Kelish')}}</th>
+                                        <th style="text-align: center;">{{$t('Chiqish')}}</th>
                                     </template>
                                 </tr>
 				  			</thead>
@@ -327,7 +326,7 @@
                             <thead>
 								<tr>
 									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-									<th  scope="col"  :colspan="toFirstItems.reys_times.length * 2" style="text-align: center;"  class="headar_th" :class="{'selected': this.choosenToItems.length}" @click.prevent="chooseToSide(toItems)">{{toName}} томондан </th>
+									<th  scope="col"  :colspan="toFirstItems.reys_times.length * 2" style="text-align: center;"  class="headar_th" :class="{'selected': this.choosenToItems.length}" @click.prevent="chooseToSide(toItems)">{{toName}} {{$t('tomondan')}} </th>
 								</tr>
                                 <tr>
                                     <th colspan="2" v-for="(item, index) in toFirstItems.reys_times" style="text-align: center;">
@@ -336,8 +335,8 @@
                                 </tr>
                                 <tr >
                                     <template v-for="(item, index) in toFirstItems.reys_times">
-                                        <th style="text-align: center;" >Прибытие</th>
-                                        <th style="text-align: center;">Отправление</th>
+                                        <th style="text-align: center;" >{{$t('Kelish')}}</th>
+                                        <th style="text-align: center;">{{$t('Chiqish')}}</th>
                                     </template>
                                 </tr>
 				  			</thead>
@@ -388,7 +387,7 @@
                                         <thead>
                                                 <tr>
                                                     <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
-                                                    <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">{{item.reyses[0].where.name}} томондан </th>
+                                                    <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">{{item.reyses[0].where.name}} {{$t('tomondan')}} </th>
                                                 </tr>
                                                 <tr>
                                                     <th colspan="2" v-for="(item, index) in item.reyses[0].reys_times" style="text-align: center;">
@@ -397,8 +396,8 @@
                                                 </tr>
                                                 <tr >
                                                     <template v-for="(item, index) in item.reyses[0].reys_times">
-                                                        <th style="text-align: center;" >Прибытие</th>
-                                                        <th style="text-align: center;">Отправление</th>
+                                                        <th style="text-align: center;" >{{$t('Kelish')}}</th>
+                                                        <th style="text-align: center;">{{$t('Chiqish')}}</th>
                                                     </template>
                                                 </tr>
                                         </thead>

@@ -9,7 +9,7 @@
         <div class="col-12 d-flex justify-content-end align-items-start mb-2">
             <span class="alert alert-success mr-2" v-if="getDirection.xjadval_status == 'completed'" style="padding:6px 20px;">Подтвержден</span>
             <span class="alert alert-warning mr-2" v-if="getDirection.xjadval_status == 'pending'" style="padding:6px 20px;">В ожидании</span>
-            <span class="alert alert-danger mr-2" v-if="getDirection.xjadval_status == 'active'" style="padding:6px 20px;">Не подтвержден</span>
+            <span class="alert alert-danger mr-2" v-if="getDirection.xjadval_status == 'active'" style="padding:6px 20px;">{{$t('Tasdiqlanmagan')}}</span>
             <button
                 type="button"
                 class="btn btn-warning"
@@ -87,7 +87,7 @@
                 <tr>
                   <th  scope="col" rowspan="5">Qatnovlar</th>
                   <th scope="col" :colspan="form.whereTo.stations.length * 2">
-                    {{form.whereTo.where.name}} томондан
+                    {{form.whereTo.where.name}} {{$t('tomondan')}}
                   </th>
                   <th scope="col" rowspan="3">Reys ischinligi</th>
                 </tr>
@@ -102,8 +102,8 @@
                 </tr>
                 <tr>
                   <template v-for="(item, index) in form.whereTo.stations">
-                    <th>Прибытие</th>
-                    <th>Отправление</th>
+                    <th>{{$t('Kelish')}}</th>
+                    <th>{{$t('Chiqish')}}</th>
                   </template>
                 </tr>
               </thead>
@@ -144,7 +144,7 @@
                 <tr>
                   <th scope="col" rowspan="5">Qatnovlar</th>
                   <th scope="col" :colspan="form.whereFrom.stations.length * 2">
-                     {{form.whereFrom.where.name}} томондан
+                     {{form.whereFrom.where.name}} {{$t('tomondan')}}
                   </th>
                   <th scope="col" rowspan="3">Reys ischinligi</th>
                 </tr>
@@ -156,8 +156,8 @@
                 </tr>
                 <tr>
                   <template v-for="(item, index) in form.whereFrom.stations">
-                    <th>Прибытие</th>
-                    <th>Отправление</th>
+                    <th>{{$t('Kelish')}}</th>
+                    <th>{{$t('Chiqish')}}</th>
                   </template>
                 </tr>
               </thead>
@@ -197,7 +197,7 @@
               <div class="col-md-6">
                 <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
                   <i class="far fa-share-square"></i>
-                  Отправить на подтверждение
+                  {{$t('Yuvorish')}} на подтверждение
                 </button>
               </div>
               <div class="col-md-6 form_btn d-flex justify-content-end">
@@ -220,7 +220,7 @@
             <p style="margin: 0px; text-align: right; font-size: 15px">Сана</p>
             <p style="margin: 0px; text-align: center; font-size: 16px">Йўналиш рақами ва номи йўналишининг (вилоятлараро ва халқаро)</p>
             <p style="margin: 0px; text-align: center; font-size: 16px;margin-bottom:10px;">ҲАРАКАТ ЖАДВАЛИ </p>
-            <p style="margin: 0px; text-align: center; font-size: 16px"><i>{{form.whereTo.where.name}} томондан</i></p>
+            <p style="margin: 0px; text-align: center; font-size: 16px"><i>{{form.whereTo.where.name}} {{$t('tomondan')}}</i></p>
             <table style="border-collapse: collapse;margin-bottom:20px;">
               <thead>
                 <tr>
@@ -258,7 +258,7 @@
                 </tr>
               </tbody>
             </table>
-            <p style="margin: 0px; text-align: center; font-size: 16px"><i>{{form.whereFrom.where.name}} томондан</i></p>
+            <p style="margin: 0px; text-align: center; font-size: 16px"><i>{{form.whereFrom.where.name}} {{$t('tomondan')}}</i></p>
             <table style="border-collapse: collapse;margin-bottom:20px;width:100%;">
               <thead>
                 <tr>
@@ -296,8 +296,8 @@
               </tbody>
             </table>
             <p style="margin: 0px;text-align: left;font-size: 13px;">Рейс (қатнов)лар сони:</p>
-            <p style="margin: 0px;text-align: left;font-size: 13px;">{{form.whereTo.where.name}} томондан - {{ form.reys_to_count }}  </p>
-            <p style="margin: 0px;text-align: left;font-size: 13px;">{{form.whereFrom.where.name}} томондан - {{ form.reys_from_count }} </p>
+            <p style="margin: 0px;text-align: left;font-size: 13px;">{{form.whereTo.where.name}} {{$t('tomondan')}} - {{ form.reys_to_count }}  </p>
+            <p style="margin: 0px;text-align: left;font-size: 13px;">{{form.whereFrom.where.name}} {{$t('tomondan')}} - {{ form.reys_from_count }} </p>
             <p style="margin: 0px;text-align: left;font-size: 13px;">Қатновчи автомобиллар сони   - {{ form.count_bus }} </p>
         </div>
       </div>

@@ -10,7 +10,7 @@
 					</h4>
 	            	<div class="add_user_btn">
 	            		<span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-		            		Количество тендеров <b>{{ getTenderAnnounces.total }} шт.</b>
+		            		Количество тендеров <b>{{ getTenderAnnounces.total }} {{$t('ta')}}.</b>
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter mr-3" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
@@ -33,7 +33,7 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-xl-4 col-md-6">
-				  				<label for="type_id">Сортировать по типу маршрута!</label>
+				  				<label for="type_id">{{$t('Avtomobil turi boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="type_id"
 			                      class="form-control input_style"
@@ -44,7 +44,7 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-xl-4 col-md-6">
-				  				<label for="time">Сортировать по дате!</label>
+				  				<label for="time">{{$t('Sanasi boyicha saralash')}}!</label>
 				  				<date-picker
 					                lang="ru"
 					                type="date"
@@ -76,10 +76,10 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">{{$t('Lotlar')}}</th>
-							<th scope="col">Адрес</th>
-							<th scope="col">Регион</th>
+							<th scope="col">{{$t('Manzil')}}</th>
+							<th scope="col">{{$t('Viloyat')}}</th>
 							<th scope="col">{{$t('Tender sanasi')}}</th>
-							<th scope="col">Осталось</th>
+							<th scope="col">{{$t('Qoldi')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>

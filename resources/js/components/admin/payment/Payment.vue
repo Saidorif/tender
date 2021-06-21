@@ -21,8 +21,8 @@
 							<th scope="col">Название компании</th>
 							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('INN')}}</th>
-							<th scope="col">Сумма</th>
-							<th scope="col">Дата</th>
+							<th scope="col">{{$t('Miqdor')}}</th>
+							<th scope="col">{{$t('Sana')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>

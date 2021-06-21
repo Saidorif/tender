@@ -76,8 +76,8 @@
               </tr>
               <tr>
                 <template v-for="(item, index) in form.whereTo.stations">
-                  <th>Прибытие</th>
-                  <th>Отправление</th>
+                  <th>{{$t('Kelish')}}</th>
+                  <th>{{$t('Chiqish')}}</th>
                 </template>
               </tr>
             </thead>
@@ -122,8 +122,8 @@
               </tr>
               <tr>
                 <template v-for="(item, index) in form.whereFrom.stations">
-                  <th>Прибытие</th>
-                  <th>Отправление</th>
+                  <th>{{$t('Kelish')}}</th>
+                  <th>{{$t('Chiqish')}}</th>
                 </template>
               </tr>
             </thead>

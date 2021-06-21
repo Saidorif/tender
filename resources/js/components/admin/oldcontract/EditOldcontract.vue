@@ -171,7 +171,7 @@
 							    	>
 							  	</div>
 							  	<div class="form-group col-md-3">
-								    <label for="bustype_id">Категория Авто</label>
+								    <label for="bustype_id">{{$t('Avtomobil turi')}}</label>
 								    <select
 									    class="form-control input_style"
 								    	id="bustype_id"
@@ -189,7 +189,7 @@
 								    </select>
 							  	</div>
 			                    <div class="form-group col-md-2">
-								    <label for="tclass_id">Класс Авто</label>
+								    <label for="tclass_id">{{$t('Avtomobil sinfi')}}</label>
 								    <select
 									    class="form-control input_style"
 								    	id="tclass_id"
@@ -197,7 +197,7 @@
 								    	v-model="car.tclass_id"
 								    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
 								    >
-								    	<option value="" selected disabled>Выберите класс авто!</option>
+								    	<option value="" selected disabled>Выберите {{$t('Avtomobil sinfi')}}!</option>
 								    	<option :value="busClass.id" v-for="(busClass,index) in car.getBusclassFindList">{{busClass.name}}</option>
 								    </select>
 							  	</div>

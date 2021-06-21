@@ -177,14 +177,14 @@
                     <thead>
                       <tr>
                         <th>{{$t('Holati')}}</th>
-                        <th>Категория Авто</th>
-                        <th>Класс Авто</th>
+                        <th>{{$t('Avtomobil turi')}}</th>
+                        <th>{{$t('Avtomobil sinfi')}}</th>
                         <th>Марка Авто</th>
                         <th>Модель Авто</th>
                         <th>Дата выпуска</th>
                         <th>{{$t('Reyslar soni')}}</th>
                         <th>Вместимость</th>
-                        <th>Количество сидящих</th>
+                        <th>{{$t('Oʼrindiqlar soni')}}</th>
                         <th>Кондиционер (климат-назорати тизими)</th>
                         <th>Интернет</th>
                         <th>Биохожатхона</th>
@@ -294,11 +294,11 @@
                   <div class="col-lg-12 d-flex justify-content-end">
                     <button type="button" class="btn btn-danger mr-2" @click.prevent="denyCar(car_items.id)">
                       <i class="fas fa-minus-circle"></i>
-                      Отказ
+                      {{$t('Rad etish')}}
                     </button>
                     <button type="button" class="btn btn-success" @click.prevent="activeCar(car_items.id)">
                       <i class="fas fa-check-circle"></i>
-                      Подтвердить
+                      {{$t('Tasdiqlash')}}
                     </button>
                   </div>
                 </div>
@@ -371,7 +371,7 @@ export default {
       this.laoding = false
     },
     async denyCar(id){
-      if(confirm("Вы действительно хотите отказаться?")){
+      if(confirm("Вы действительно хотите {{$t('Rad etish')}}аться?")){
         let data = {
           app_id:this.$route.params.appId,
           car_id:id,

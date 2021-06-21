@@ -9,7 +9,7 @@
         <div class="col-12 d-flex justify-content-end align-items-start mb-2"  v-if="getDemand.result">
             <span class="alert alert-success mr-2" v-if="getDemand.result.status == 'completed'" style="padding:6px 20px;">Подтвержден</span>
             <span class="alert alert-warning mr-2" v-if="getDemand.result.status == 'pending'" style="padding:6px 20px;">В ожидании</span>
-            <span class="alert alert-danger mr-2" v-if="getDemand.result.status == 'active'" style="padding:6px 20px;">Не подтвержден</span>
+            <span class="alert alert-danger mr-2" v-if="getDemand.result.status == 'active'" style="padding:6px 20px;">{{$t('Tasdiqlanmagan')}}</span>
         </div>
         <div class="row">
           <div class="form-group col-lg-12">
@@ -17,7 +17,7 @@
               <div class="col-md-6">
                 <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
                   <i class="far fa-share-square"></i>
-                  Отправить на подтверждение
+                  {{$t('Yuvorish')}} на подтверждение
                 </button>
               </div>
               <div class="col-md-6 form_btn d-flex justify-content-end">
@@ -34,7 +34,7 @@
             <tbody>
               <tr>
                 <td>1</td>
-                <td width="50%"><b>Автотранспорт воситаси категорияси</b></td>
+                <td width="50%"><b>{{$t('Avtotransport vositasi turi')}}</b></td>
                 <td>
                   <template v-if="form.auto_model_class">
                     <div v-for="(item, index) in form.auto_model_class" >
@@ -46,7 +46,7 @@
               <tr>
                 <td>2</td>
                 <td width="50%">
-                  <b>Автотранспорт воситаси моделининг класси</b>
+                  <b>{{$t('Avtotransport vositasi markasini sinfi')}}</b>
                 </td>
                 <td>
                   <template v-if="form.auto_model_class">
@@ -59,21 +59,21 @@
               </tr>
               <tr>
                 <td>3</td>
-                <td width="50%"><b>Йуналишнинг тури</b></td>
+                <td width="50%"><b>{{$t('Yoʼnalish turi')}}</b></td>
                 <td>
-                    {{form.dir_type == 'bus' ? 'Автобус йуналиши' : "Йўналиши тахи йуналиши"}}
+                    {{form.dir_type == 'bus' ? $t('Avtobus yoʼnalishi') : $t('Yoʼnalishli taxi yoʼnalishi')}}
                 </td>
               </tr>
               <!-- 4 -->
               <tr>
                 <td rowspan="3">4</td>
                 <td width="50%">
-                  <b>Иш режаси</b
+                  <b>{{$t('Ish rejasi')}}</b
                   >
                 </td>
               </tr>
               <tr>
-                <td>Ишкунлари</td>
+                <td>{{$t('Ish rejasi')}}</td>
                 <td>
                   <textarea
                     rows="1"
@@ -83,7 +83,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Дам олиш кунлари</td>
+                <td>{{$t('Dam olish kunlari')}}</td>
                 <td>
                   <textarea
                     rows="1"
@@ -95,7 +95,7 @@
               <!-- 3 end -->
               <tr>
                 <td>5</td>
-                <td width="50%"><b>Автотранспорт воситалари ҳолати</b></td>
+                <td width="50%"><b>{{$t('Avtotransport vositalari holati')}}</b></td>
                 <td>
                   <input
                     type="text"
@@ -107,7 +107,7 @@
               <!-- 3 s -->
               <tr>
                 <td rowspan="3">6</td>
-                <td width="50%"><b>Йуналишнинг умумий узунлиги</b></td>
+                <td width="50%"><b>{{$t('Yunalishning umumiy uzunligi')}}</b></td>
                 <td>
                   <input
                     type="number"
@@ -144,7 +144,7 @@
               <!-- 3 s -->
               <tr>
                 <td rowspan="3">7</td>
-                <td width="50%"><b>Бекатлар сони</b></td>
+                <td width="50%"><b>{{$t('Bekatlar soni')}}</b></td>
                 <td>
                   <b>{{ form.stations_count }}</b>
                 </td>
@@ -176,13 +176,13 @@
               <!-- 3 end -->
               <tr>
                 <td>8</td>
-                <td width="50%"><b>Мавсумийлиги</b></td>
+                <td width="50%"><b>{{$t('Mavsumiyligi')}}</b></td>
                 <td>{{ getSeasonalName(form.seasonal) }}</td>
               </tr>
               <!-- 3 s -->
               <tr>
                 <td rowspan="3">9</td>
-                <td width="50%"><b>Рейслар (қатновлар) сони</b></td>
+                <td width="50%"><b>{{$t('Reyslar (qatnovlar) soni')}}</b></td>
                 <td>
                   <b>{{ form.reyses_count }}</b>
                 </td>
@@ -211,41 +211,41 @@
               <!-- 3 s -->
               <tr>
                 <td rowspan="3">10</td>
-                <td width="50%"><b>Дастлабки рейс (ишни бошлаш) вақти</b></td>
+                <td width="50%"><b>{{$t('Dastlabki reys (ishni boshlash) vaqti')}}</b></td>
                 <td>
                   <b>{{ form.schedule_begin_time }}</b>
                 </td>
               </tr>
               <tr>
-                <td>{{ form.reyses_from_name }} томондан</td>
+                <td>{{ form.reyses_from_name }} {{$t('tomondan')}}</td>
                 <td>{{ form.schedule_begin_from }}</td>
               </tr>
               <tr>
-                <td>{{ form.reyses_to_name }} томондан</td>
+                <td>{{ form.reyses_to_name }} {{$t('tomondan')}}</td>
                 <td>{{ form.schedule_begin_to }}</td>
               </tr>
               <!-- 3 end -->
               <!-- 3 s -->
               <tr>
                 <td rowspan="3">11</td>
-                <td width="50%"><b>Сўнги рейс (ишни тугалланиш) вақти</b></td>
+                <td width="50%"><b>{{$t('Soʼngi reys (ishni tugallanish) vaqti')}}</b></td>
                 <td>
                   <b>{{ form.schedule_end_time }}</b>
                 </td>
               </tr>
               <tr>
-                <td>{{ form.reyses_from_name }} томондан</td>
+                <td>{{ form.reyses_from_name }} {{$t('tomondan')}}</td>
                 <td>{{ form.schedule_end_from }}</td>
               </tr>
               <tr>
-                <td>{{ form.reyses_to_name }} томондан</td>
+                <td>{{ form.reyses_to_name }} {{$t('tomondan')}}</td>
                 <td>{{ form.schedule_end_to }}</td>
               </tr>
               <!-- 3 end -->
               <!-- 3 s -->
               <tr>
                 <td>12</td>
-                <td width="50%"><b>Бекатлар оралиқ интерваллари</b></td>
+                <td width="50%"><b>{{$t('Bekatlar oraliq intervallari')}}</b></td>
                 <td>
                   <b
                     ><input
@@ -259,7 +259,7 @@
               <!-- 3 s -->
               <tr>
                 <td rowspan="3">13</td>
-                <td width="50%"><b>Рейс вақти</b></td>
+                <td width="50%"><b>{{$t('Reys vaqti')}}</b></td>
                 <td>
                   <b
                     ><input
@@ -292,7 +292,7 @@
               <!-- 3 end -->
               <tr>
                 <td>14</td>
-                <td width="50%"><b>Харакатланиш жадваллари</b></td>
+                <td width="50%"><b>{{$t('Xarakatlanish jadvallari')}}</b></td>
                 <td>
                   <input
                     type="number"
@@ -312,16 +312,16 @@
               <!-- v-if="getDemand.result.direction && getDemand.result.direction.type_id != 1" -->
               <tr v-if="getDemand.type && getDemand.type.id != 1">
                 <td>
-                  1 км. учун йўл тариф (шаҳар атрофи, шаҳарлараро йўналишлар
+                  1 {{$t('km. uchun')}} йўл тариф (шаҳар атрофи, шаҳарлараро йўналишлар
                   учун)
                 </td>
                 <td>
-                  1 км. учун ({{ form.tarif_one_km }} сум). Йўл кира ҳаққи ({{ form.tarif_full_km }}
+                  1 {{$t('km. uchun')}} ({{ form.tarif_one_km }} сум). Йўл кира ҳаққи ({{ form.tarif_full_km }}
                   сум)
                 </td>
               </tr>
               <tr v-if="getDemand.type && getDemand.type.id == 1">
-                <td>Йўл кира ҳаққи (шаҳар йўналишлар учун)</td>
+                <td>{{$t('Yoʼl kira haqqi (shahar yoʼnalishlar uchun)')}}</td>
                 <td v-if='form.dir_type == "taxi"' class="d-flex align-items-center">
                   <input
                     type="number"
@@ -338,7 +338,7 @@
               <tr>
                 <td rowspan="2">16</td>
                 <td width="50%">
-                  <b>Автотранспорт воситаларини умумий сиғими</b>
+                  <b>{{$t('Аvtotransport vositalarini umumiy sigʼimi')}}</b>
                 </td>
                 <td>
                   <input
@@ -349,7 +349,7 @@
                 </td>
               </tr>
               <tr>
-                <td>ўриндиқлар сони</td>
+                <td>{{$t('Oʼrindiqlar soni')}}</td>
                 <td>
                   <input
                     type="number"
@@ -389,7 +389,7 @@
               <!-- 3 end -->
               <tr>
                 <td>18</td>
-                <td width="50%"><b>Минимал балл</b></td>
+                <td width="50%"><b>{{$t('Minimal ball')}}</b></td>
                 <td>
                   <input
                     type="number"
@@ -401,7 +401,7 @@
             </tbody>
           </table>
           <div class="text_place">
-            <label for="text">Текст</label>
+            <label for="text">{{$t('Matn')}}</label>
             <textarea
               id="text"
               class="form-control"
@@ -506,9 +506,9 @@ export default {
     },
     getSeasonalName(name) {
       if (name == "always") {
-        return "Doimiy";
+        return this.$t('Doimiy');
       } else if (name == "seasonal") {
-        return "Mavsumiy";
+        return this.$t('Mavsumiy');
       }
     },
     async refreshDemand(){

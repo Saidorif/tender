@@ -23,7 +23,7 @@
         <form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
           <div class="row">
             <div class="form-group col-xl-3 col-md-6">
-              <label for="type_id">Yo'nalish klasifikatsiyasi</label>
+              <label for="type_id">{{$t('Yoʼnalish klasifikatsiyasi')}}</label>
               <select
                 class="form-control input_style"
                 v-model="form.type_id"
@@ -37,7 +37,7 @@
               </select>
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="seria">Passport raqami</label>
+              <label for="seria">{{$t('Passport raqami')}}</label>
               <input
                 type="text"
                 v-model="form.pass_number"
@@ -47,7 +47,7 @@
             </div>
             <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">
-                Shaxardan, viloyatdan
+                {{$t('Shaxardan, viloyatdan')}}
                 <input
                   type="radio"
                   name="name_from"
@@ -69,7 +69,7 @@
             </div>
             <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">
-                Tumandan, qishloqdan, shaxridan
+                {{$t('Tumandan, qishloqdan, shaxridan')}}
                 <input
                   v-model="form.from_type"
                   type="radio"
@@ -90,7 +90,7 @@
             </div>
             <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">
-                Bekatdan
+                {{$t('Bekatdan')}}
                 <input
                   v-model="form.from_type"
                   type="radio"
@@ -110,7 +110,7 @@
             </div>
             <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">
-                Shaxarga, viloyatga
+                {{$t('Shaxarga, viloyatga')}}
                 <input
                   v-model="form.to_type"
                   type="radio"
@@ -131,7 +131,7 @@
             </div>
             <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">
-                Tumanga, qishloqga, shaxriga
+                {{$t('Tumanga, qishloqga, shaxriga')}}
                 <input
                   v-model="form.to_type"
                   type="radio"
@@ -152,7 +152,7 @@
             </div>
             <div class="form-group col-xl-3 col-md-6">
               <label for="region_id">
-                Bekatga
+                {{$t('Bekatga')}}
                 <input
                   v-model="form.to_type"
                   type="radio"
@@ -171,7 +171,7 @@
               </select>
             </div>
             <div class="form-group col-xl-2">
-              <label for="seasonal">Ishlash mavsumi</label>
+              <label for="seasonal">{{$t('Ishlash mavsumi')}}</label>
               <select
                 class="form-control input_style"
                 v-model="form.seasonal"
@@ -179,12 +179,12 @@
                 placeholder="Area"
               >
                 <option value selected disabled>Variantni tanlang</option>
-                <option value="always">Doimiy</option>
-                <option value="seasonal">Mavsumiy</option>
+                <option value="always">{{$t('Doimiy')}}</option>
+                <option value="seasonal">{{$t('Mavsumiy')}}</option>
               </select>
             </div>
             <div class="col-xl-4 input_radios_block">
-              <p>Qaysi tarafdan</p>
+              <p>{{$t('Qaysi tarafdan')}}</p>
               <div class="form-group input_radio_with_label" v-for="(item,index) in destinations">
                 <input
                   type="radio"
@@ -197,7 +197,7 @@
               </div>
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="seria">Yo'nalish ochilish sanasi</label>
+              <label for="seria">{{$t('Yoʼnalish ochilish sanasi')}}</label>
               <date-picker
                 lang="ru"
                 type="date" format="DD-MM-YYYY" valueType="format"
@@ -207,7 +207,7 @@
               ></date-picker>
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="seria">Yonalish masofasi</label>
+              <label for="seria">{{$t('Yoʼnalish masofasi')}}</label>
               <input
                 type="number"
                 v-model="form.distance"
@@ -217,7 +217,7 @@
               />
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="profitability">Рентабельность</label>
+              <label for="profitability">{{$t('Rentabillik')}}</label>
               <select
                 class="form-control input_style"
                 v-model="form.profitability"
@@ -230,14 +230,14 @@
               </select>
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="profitability">Йуналишнинг тури</label>
+              <label for="profitability">{{$t('Yoʼnalish turi')}}</label>
               <select
                 class="form-control input_style"
                 v-model="form.dir_type"
                 :class="isRequired(form.dir_type) ? 'isRequired' : ''"
               >
-                <option value="bus">Автобус йуналиши</option>
-                <option value="taxi">Йўналиши тахи йуналиши</option>
+                <option value="bus">{{$t('Avtobus yoʼnalishi')}}</option>
+                <option value="taxi">{{$t('Yoʼnalishli taxi yoʼnalishi')}}</option>
               </select>
             </div>
             <div class="form-group col-xl-3 col-md-6">
@@ -251,12 +251,12 @@
             </div>
             <div class="col-lg-12" v-if="cars.length > 0">
               <div class="d-flex justify-content-center">
-                <h3><strong>Автотранспорты</strong></h3>
+                <h3><strong>{{$t('Avtotransportlar')}}</strong></h3>
               </div>
               <div class="row" v-for="(car,index) in cars">
                 <h4 class="car_index">{{index+1}})</h4>
                 <div class="form-group col-xl-2 col-lg-4 col-md-5">
-                  <label :for="'bustype_id'+index">Категория Авто</label>
+                  <label :for="'bustype_id'+index">{{$t('Avtomobil turi')}}</label>
                   <select
                     class="form-control input_style"
                     :id="'bustype_id'+index"
@@ -274,7 +274,7 @@
                   </select>
                 </div>
                 <div class="form-group col-xl-2 col-lg-4 col-md-6">
-                  <label for="tclass_id">Класс Авто</label>
+                  <label for="tclass_id">{{$t('Avtomobil sinfi')}}</label>
                   <select
                     class="form-control input_style"
                     id="tclass_id"
@@ -283,7 +283,7 @@
                     :class="isRequired(car.tclass_id) ? 'isRequired' : ''"
                     @change="selectMarka(car)"
                   >
-                    <option value="" selected disabled>Выберите класс авто!</option>
+                    <option value="" selected disabled>Выберите!</option>
                     <option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
                   </select>
                 </div>

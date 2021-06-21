@@ -20,9 +20,9 @@
 							<th scope="col">№</th>
 							<th scope="col">{{$t('Lotlar')}}</th>
 							<th scope="col">{{$t('Manzil')}}</th>
-							<th scope="col">Регион</th>
+							<th scope="col">{{$t('Viloyat')}}</th>
 							<th scope="col">{{$t('Tender sanasi')}}</th>
-							<th scope="col">Осталось</th>
+							<th scope="col">{{$t('Qoldi')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>

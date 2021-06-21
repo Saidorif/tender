@@ -18,7 +18,7 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Регион</th>
+							<th scope="col">{{$t('Viloyat')}}</th>
 							<th scope="col">{{$t('Yoʼnalish')}}</th>
 							<th scope="col">Номер контракта</th>
 							<th scope="col">Название Компании</th>

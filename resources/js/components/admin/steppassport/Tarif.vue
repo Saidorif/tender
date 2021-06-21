@@ -33,14 +33,13 @@
             </div>
             <div class="form-group">
               <label for="summa_bagaj" class="form-control-label"
-                >Сумма багажа</label
+                >{{$t('Bagaj miqdori')}}</label
               >
               <input
                 type="number"
                 id="summa_bagaj"
                 class="form-control ml-2"
                 v-model="confirm.summa_bagaj"
-                placeholder="Сумма багажа"
                 :class="isRequired(confirm.summa_bagaj) ? 'isRequired' : ''"
               />
             </div>
@@ -51,7 +50,7 @@
                 @click.prevent="sendTarif"
               >
                 <i class="far fa-paper-plane"></i>
-                Отправить
+                {{$t('Yuvorish')}}
               </button>
             </div>
           </div>
@@ -70,13 +69,13 @@
                   {{ getStatusName(t_item.tarif.status) }}
                 </div>
                 <div class="">
-                  Сумма: <b>{{ t_item.tarif.summa }}</b>
+                  {{$t('Miqdor')}}: <b>{{ t_item.tarif.summa }}</b>
                 </div>
                 <div class="">
-                  Сумма багажа: <b>{{ t_item.tarif.summa_bagaj }}</b>
+                  {{$t('Bagaj miqdori')}}: <b>{{ t_item.tarif.summa_bagaj }}</b>
                 </div>
                 <div class="">
-                  Дата тарифа: <b>{{ t_item.tarif.created_at }}</b>
+                  {{$t('Tarif sanasi')}}: <b>{{ t_item.tarif.created_at }}</b>
                 </div>
               </div>
               <table class="table table-bordered">
@@ -146,13 +145,13 @@
             <div class="table-responsive" v-for="(t_item, t_index) in getTarif" v-if="t_item.tarif.status == 'approved'">
               <div style="display:flex;">
                 <p style="margin-right: 15px;  font-size: 15px">
-                  Сумма: <b>{{ t_item.tarif.summa }}</b>
+                  {{$t('Miqdor')}}: <b>{{ t_item.tarif.summa }}</b>
                 </p>
                 <p style="margin-right: 15px;  font-size: 15px">
-                  Сумма багажа: <b>{{ t_item.tarif.summa_bagaj }}</b>
+                  {{$t('Bagaj miqdori')}}: <b>{{ t_item.tarif.summa_bagaj }}</b>
                 </p>
                 <p style="margin-right: 15px;   font-size: 15px">
-                  Дата тарифа: <b>{{ t_item.tarif.created_at }}</b>
+                  {{$t('Tarif sanasi')}}: <b>{{ t_item.tarif.created_at }}</b>
                 </p>
               </div>
               <table style="border-collapse: collapse;margin-bottom:20px;width:100%;">
