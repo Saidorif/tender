@@ -274,6 +274,14 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" to="/crm/mycontract">
+              <i class="peIcon fas fa-file-alt"></i>
+              <p>
+                {{$t('Mening shartnomalarim')}}
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" to="/crm/setting"  v-if="$can('index', 'SettingController')">
               <i class="peIcon fas fa-cog"></i>
               <p>
