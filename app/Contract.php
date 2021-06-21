@@ -23,6 +23,8 @@ class Contract extends Model
         'file',
         'created_by',
         'status',
+        'agree',
+        'agree_date',
     ];
 
     protected $casts = [
@@ -73,9 +75,11 @@ class Contract extends Model
     {
         $d_ids = json_decode($value,true);
         $result = [];
-        foreach ($d_ids as $key => $id) {
-            $direction = Direction::where(['id' => $id])->with('type')->first();
-            $result[] = $direction;
+        if(!empty($d_ids)){
+            foreach ($d_ids as $key => $id) {
+                $direction = Direction::where(['id' => $id])->with('type')->first();
+                $result[] = $direction;
+            }
         }
         return $result;
     }
