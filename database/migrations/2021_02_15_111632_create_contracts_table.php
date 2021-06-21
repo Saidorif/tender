@@ -31,6 +31,8 @@ class CreateContractsTable extends Migration
             $table->integer('protocol_id');
             $table->string('file');
             $table->string('status');
+            $table->tinyInteger('agree');
+            $table->dateTime('agree_date');
             $table->timestamps();
         });
     }

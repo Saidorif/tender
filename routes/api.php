@@ -304,6 +304,7 @@ Route::group([
             Route::delete('contract/destroy/{id}','ContractController@destroy');
             Route::delete('contract/car-destroy/{id}','ContractController@carDestroy');
             Route::post('contract/user','ContractController@userIndex');
+            Route::post('contract/user/agree','ContractController@userAgreement');
 
             //Region CRUD
             Route::post('region', 'RegionController@index');

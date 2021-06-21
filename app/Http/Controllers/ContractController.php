@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Application;
 use App\ContractCar;
 use App\Direction;
 use App\TenderLot;
@@ -30,6 +31,58 @@ class ContractController extends Controller
             ->where('user_id', '=', $user->id)
             ->paginate(12);
         return response()->json(['success' => true,'result' => $contracts]);
+    }
+
+    public function userAgreement(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'contract_id' => 'required|integer',
+            'agree' => 'required|boolean',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $user = $request->user();
+        $inputs = $request->all();
+        $contract = Contract::where('id','=',$inputs['contract_id'])->where('user_id','=',$user->id)->first();
+        if(!$contract){
+            return response()->json(['error' => true, 'message' => 'Контракт не найден']);
+        }
+        $agree = (int)$inputs['agree'];
+        if($agree){
+            $contract->agree = $agree;
+            $contract->status = 'active';
+            $contract->agree_date = date('Y-m-d H:m:s');
+            $contract->save();
+            return response()->json(['success' => true, 'message' => 'Контракт активирован']);
+        }else{
+            //Change application, lot, direction
+            $application = $contract->app;
+            $application->status = 'reject';
+            $application->tender_status = 'reject';
+            $application->save();
+
+            //get other apps and change statuses
+            $apps = Application::where('lot_id','=',$application->lot_id)->get();
+            if(count($apps) > 0){
+                foreach ($apps as $app) {
+                    $app->status = 'accepted';
+                    $app->save();
+                }
+            }
+
+            //Change lot status
+            $lot = $application->lot;
+            $lot->status = 'pending';
+            $lot->save();
+
+            //Change contract status
+            $contract->agree = 2;
+            $contract->status = 'reject';
+            $contract->agree_date = date('Y-m-d H:m:s');
+            $contract->save();
+            return response()->json(['success' => true, 'message' => 'Контракт деактивирован']);
+        }
     }
 
     public function edit(Request $request,$id)
