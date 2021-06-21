@@ -10,7 +10,7 @@
 					</h4>
 	            	<div class="add_user_btn">
 		                <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-		            		Количество направления <b>{{ getDirectionUsers.total }} шт.</b>
+		            		{{$t('Yoʼnalish soni')}} <b>{{ getDirectionUsers.total }} {{$t('ta')}}.</b>
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
@@ -57,20 +57,20 @@
 			                      class="form-control input_style"
 			                      v-model="filter.profitability"
 			                    >
-			                      <option value="" selected >Выберите рентабельность!</option>
+			                      <option value="" selected >Выберите!</option>
 			                      <option value="profitable">Рентабельный</option>
 					              <option value="unprofitable">Нерентабельный</option>
 					              <option value="middle">Средный</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="type_id">Сортировать по локацию маршрута!</label>
+				  				<label for="type_id">{{$t('Marshrut joylashuvi boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="type_id"
 			                      class="form-control input_style"
 			                      v-model="filter.type_id"
 			                    >
-			                      <option value="" selected >Выберите локацию маршрута!</option>
+			                      <option value="" selected >{{$t('Tanlang')}}!</option>
 			                      <option
 					                  :value="item.id"
 					                  v-for="(item,index) in getTypeofdirectionList"
@@ -78,15 +78,15 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="dir_type">Сортировать по типу маршрута!</label>
+				  				<label for="dir_type">{{$t('Avtomobil turi boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="dir_type"
 			                      class="form-control input_style"
 			                      v-model="filter.dir_type"
 			                    >
-			                      <option value="" selected >Выберите тип маршрута!</option>
-			                      <option value="bus">Автобус йуналиши</option>
-                      			  <option value="taxi">Йўналиши тахи йуналиши</option>
+			                      <option value="" selected >{{$t('Tanlang')}}!</option>
+			                      <option value="bus">{{$t('Avtobus yoʼnalishi')}}</option>
+                      			  <option value="taxi">{{$t('Yoʼnalishli taxi yoʼnalishi')}}</option>
 			                    </select>
               				</div>
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
@@ -109,13 +109,13 @@
 					<thead>
                         <tr>
                             <th scope="col">№</th>
-                            <th>Регион</th>
+                            <th>{{$t('Viloyat')}}</th>
                             <th>Номер и наименования маршрута</th>
                             <th>Наименования организации </th>
                             <th>{{$t('Shartnoma muddati')}} </th>
                             <th>{{$t('Holati')}}</th>
                             <th>Йўналиши тури</th>
-                            <th>Дата открытия</th>
+                            <th>{{$t('Ochilish sanasi')}}</th>
                             <th>Потверждения</th>
                             <th scope="col">{{$t('Tahrirlash')}}</th>
                         </tr>
@@ -139,7 +139,7 @@
                                 <span class="alert alert-danger pt-1 pb-1" v-if="direct.status == 'active'"> Неразмещен в тендер</span>
                                 <span class="alert alert-success pt-1 pb-1" v-if="direct.status == 'busy'"> Размещен в тендер</span>
                             </td>
-							<td>{{direct.dir_type == 'taxi' ? 'Йўналишли тахи йуналиши' : 'Автобус йуналиши'}}</td>
+							<td>{{direct.dir_type == 'taxi' ? 'Йўналишли тахи йуналиши' : $t('Avtobus yoʼnalishi')}}</td>
 							<td>{{direct.year}}</td>
 							<td>{{ checkApprove(direct) }}</td>
 							<td>

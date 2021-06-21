@@ -303,6 +303,7 @@ Route::group([
             Route::post('contract/update/{id}','ContractController@update');
             Route::delete('contract/destroy/{id}','ContractController@destroy');
             Route::delete('contract/car-destroy/{id}','ContractController@carDestroy');
+            Route::post('contract/user','ContractController@userIndex');
 
             //Region CRUD
             Route::post('region', 'RegionController@index');

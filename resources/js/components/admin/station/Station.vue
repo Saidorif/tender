@@ -10,7 +10,7 @@
 					</h4>
 	            	<div class="add_user_btn">
 	            		<span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-		            		Количество aвтостанции <b>{{ getStations.total }} шт.</b>
+		            		Количество aвтостанции <b>{{ getStations.total }} {{$t('ta')}}.</b>
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter mr-3" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
@@ -86,7 +86,7 @@
 							<th scope="col">№</th>
 							<th scope="col">Название</th>
 							<th scope="col">Области</th>
-							<th scope="col">Регион</th>
+							<th scope="col">{{$t('Viloyat')}}</th>
 							<th scope="col">Тип станции</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>

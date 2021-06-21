@@ -344,7 +344,7 @@
                 <router-link class="nav-link" to="/crm/area">
                   <i class="peIcon fas fa-globe-europe"></i>
                   <p>
-                    Регион / Город
+                    {{$t('Tuman/Shahar')}}
                   </p>
                 </router-link>
               </li>
@@ -391,7 +391,7 @@
                     <li class="nav-item" v-if="$can('index', 'TClassController')">
                         <router-link class="nav-link" to="/crm/busclass">
                             <p>
-                                Класс автобуса
+                                {{$t('Avtomobil sinfi')}}буса
                             </p>
                         </router-link>
                     </li>

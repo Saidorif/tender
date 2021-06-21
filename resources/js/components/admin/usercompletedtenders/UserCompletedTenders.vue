@@ -24,7 +24,7 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="time">Сортировать по дате открытия!</label>
+				  				<label for="time">{{$t('Sanasi boyicha saralash')}} открытия!</label>
 				  				<date-picker
 					                lang="ru"
 					                type="date"

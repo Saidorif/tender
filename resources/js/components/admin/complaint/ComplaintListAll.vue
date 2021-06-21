@@ -235,11 +235,11 @@
 			},
 			getResultText(text){
 				if (text == 'active') {
-					return 'Не подтвержден'
+					return this.$t('Tasdiqlanmagan')
 				}else if(text == 'completed'){
 					return 'Подтвержден'
 				}else{
-					return 'Не подтвержден'
+					return $t('Tasdiqlanmagan')
 				}
 			},
 			getResultClass(text){

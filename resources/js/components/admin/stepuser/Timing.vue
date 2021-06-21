@@ -11,24 +11,24 @@
               <thead>
                 <tr>
                   <th scope="col" rowspan="2">№</th>
-                  <th scope="col" rowspan="2">Oraliq toxtash bekatlari</th>
-                  <th scope="col" colspan="2">Masofa ulagich ko'rsatkichlari</th>
-                  <th scope="col" colspan="3">Masofa (km)</th>
-                  <th scope="col" colspan="3">Sariflanadigon vaqt (minut)</th>
-                  <th scope="col" colspan="2">Ortacha texnik tezlik (km/soat)</th>
-                  <th rowspan="2">Qatnov yol xaqidagi malumotlar</th>
+                  <th scope="col" rowspan="2">{{$t('Oraliq toʼxtash bekatlari')}}</th>
+                  <th scope="col" colspan="2">{{$t('Masofa ulagich koʼrsatkichlari')}}</th>
+                  <th scope="col" colspan="3">{{$t('Masofa (km)')}}</th>
+                  <th scope="col" colspan="3">{{$t('Sariflanadigan vaqt (daqiqa)')}}</th>
+                  <th scope="col" colspan="2">{{$t('Oʼrtacha texnik tezlik (km/soat)')}}</th>
+                  <th rowspan="2">{{$t('Qatnov yoʼl xaqidagi maʼlumotlar')}}</th>
                 </tr>
                 <tr>
-                  <th>Jonash vaqtida</th>
-                  <th>Kelgan vaqtida</th>
-                  <th>Boshlangich bekatdan</th>
-                  <th>Bekatlar oraligida</th>
-                  <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
-                  <th>Bekatlar oralig'idagi xarakat</th>
-                  <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
-                  <th>Oraliq bekatda toxtash uchun</th>
-                  <th>Bekatlar oralig'idagi xarakat</th>
-                  <th>Shundan xarakat tezligi chegaralangan oraliqda</th>
+                  <th>{{$t('Joʼnash vaqtida')}}</th>
+                  <th>{{$t('Kelgan vaqtida')}}</th>
+                  <th>{{$t('Boshlangʼich bekatdan')}}</th>
+                  <th>{{$t('Bekatlar oraligʼida')}}</th>
+                  <th>{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
+                  <th>{{$t('Bekatlar oraligʼidagi xarakat')}}</th>
+                  <th>{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
+                  <th>{{$t('Oraliq bekatda toʼxtash uchun')}}</th>
+                  <th>{{$t('Bekatlar oraligʼidagi xarakat')}}</th>
+                  <th>{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -53,17 +53,17 @@
                   </td>
                 </tr>
                 <tr>
-                  <td colspan="8" scope="row">Ortacha tezlik = {{technic_speed}} km/soat</td>
-                  <td colspan="8" scope="row">Qatnov tezlik = {{traffic_speed}} km/soat</td>
+                  <td colspan="8" scope="row">{{$t('Oʼrtacha tezlik')}} = {{technic_speed}} {{$t('km/soat')}}</td>
+                  <td colspan="8" scope="row">{{$t('Qatnov tezlik')}} = {{traffic_speed}} {{$t('km/soat')}}</td>
                 </tr>
               </tbody>
             </table>
         </div>
         <div class="table_footer">
           <div class="col-xl-6">
-            <p>Qatnov yoli xarakat xafsizligiga:  {{timingDetails.conclusion}}</p>
-            <p>Olchov otkazilgan kun:  {{timingDetails.date}} yil</p>
-            <p>Xronametraj otkazilgan avtomobil rusumi va davlat raqami:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
+            <p>{{$t('Qatnov yoʼli xarakat xafsizligiga')}}:  {{timingDetails.conclusion}}</p>
+            <p>{{$t('Oʼlchov oʼtkazilgan kun')}}:  {{timingDetails.date}} yil</p>
+            <p>{{$t('Xronametraj oʼtkazilgan avtomobil rusumi va davlat raqami')}}:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
           </div>
           <div class="col-xl-4 col-lg-6 right_item">
             <div>

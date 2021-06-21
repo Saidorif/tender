@@ -58,7 +58,7 @@
                 </select>
               </div>
               <div class="form-group col-lg-3">
-                <label for="date">Сортировать по дате</label>
+                <label for="date">{{$t('Sanasi boyicha saralash')}}</label>
                 <date-picker
                   lang="ru"
                   type="date"
@@ -100,7 +100,7 @@
             <thead>
               <tr>
                 <th scope="col">№</th>
-                <th scope="col">Регион</th>
+                <th scope="col">{{$t('Viloyat')}}</th>
                 <th scope="col">Номер протокола</th>
                 <th scope="col">Сана</th>
                 <th scope="col">{{$t('Tahrirlash')}}</th>

@@ -81,23 +81,23 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <label for="seat_from">Количество сидящих</label>
+              <label for="seat_from">{{$t('Oʼrindiqlar soni')}}</label>
               <input
                 type="number"
                 class="form-control input_style"
                 id="seat_from"
-                placeholder="Количество сидящих"
+                placeholder="{{$t('Oʼrindiqlar soni')}}"
                 v-model="form.seat_from"
                 :class="isRequired(form.seat_from) ? 'isRequired' : ''"
               />
             </div>
             			  <div class="form-group col-md-4">
-					    <label for="seat_to">Количество сидящих (по)</label>
+					    <label for="seat_to">{{$t('Oʼrindiqlar soni')}} (по)</label>
 					    <input
 					    	type="number"
 					    	class="form-control input_style"
 					    	id="seat_to"
-					    	placeholder="Количество сидящих (по)"
+					    	placeholder="{{$t('Oʼrindiqlar soni')}} (по)"
 					    	v-model="form.seat_to"
 					    	:class="isRequired(form.seat_to) ? 'isRequired' : ''"
 				    	>

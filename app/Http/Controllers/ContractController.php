@@ -22,6 +22,16 @@ class ContractController extends Controller
         return response()->json(['success' => true, 'result' => $contracts]);
     }
 
+    public function userIndex(Request $request)
+    {
+        $user = $request->user();
+        $contracts = Contract::orderBy('id','DESC')
+            ->with(['user','cars','region'])
+            ->where('user_id', '=', $user->id)
+            ->paginate(12);
+        return response()->json(['success' => true,'result' => $contracts]);
+    }
+
     public function edit(Request $request,$id)
     {
         $user = $request->user();

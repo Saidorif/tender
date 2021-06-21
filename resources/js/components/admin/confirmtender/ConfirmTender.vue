@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-clipboard-check"></i>
-				    Подтвердить тендер
+				     {{$t('Tendirni tasdiqlash')}}
 				</h4>
 		  	</div>
 		  	<div class="card-body">
@@ -17,7 +17,7 @@
 							<th scope="col">{{$t('Lotlar')}}</th>
 							<th scope="col">{{$t('Manzil')}}</th>
 							<th scope="col">{{$t('Tender sanasi')}}</th>
-							<th scope="col">Осталось</th>
+							<th scope="col">{{$t('Qoldi')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>

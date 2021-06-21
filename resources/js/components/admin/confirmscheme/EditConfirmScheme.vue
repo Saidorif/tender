@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-clipboard-check"></i>
-          Подтвердить схема
+           {{$t('Sxemani tasdiqlash')}}
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/confirm-scheme">
           <span class="peIcon pe-7s-back"></span>
@@ -14,7 +14,7 @@
       </div>
       <div class="card-body">
         <form class="row tabRow">
-          <h1 v-if="titulData.type">Avtobus qatnov yoli tasviri {{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
+          <h1 v-if="titulData.type">{{$t('Avtobus qatnov yoʼli tasviri')}} {{titulData.type.type}} - {{titulData.pass_number}} -  {{$t('sonli')}} "{{titulData.name}}" </h1>
           <div class="map_scheme" v-if="schemeData.length">
             <div class="mid_line"></div>
             <template v-for="(p_item,p_index) in schemeData">
@@ -50,19 +50,19 @@
             </template>
           </div>
           <div class="road_signs col-xl-6">
-            <h6>Shatrli belgilar</h6>
+            <h6>{{$t('Shatrli belgilar')}}</h6>
             <ul>
               <li>
                   <div class="icon_item bdn">
                       <div class="cicle_item"></div>
                   </div>
-                  <span>Avtostansiya</span>
+                  <span>{{$t('Avtostansiya')}}</span>
               </li>
               <li>
                   <div class="icon_item bdn">
                       <div class="sm_cicle_item"></div>
                   </div>
-                  <span>To'xtash joylari</span>
+                  <span>{{$t('Toʼxtash joylari')}}</span>
               </li>
               <li v-for="(sign) in getConditionalSignList">
                 <div class="icon_item">
@@ -74,7 +74,7 @@
           </div>
           <div class="row col-md-12"  v-if="agreedData.length">
             <div class="form-group col-xl-3 col-md-6 agree_item" v-for="(p_item,p_index) in agreedData">
-              <h6>"Kelishilgan"</h6>
+              <h6>"{{$t('Kelishilgan')}}"</h6>
               <p>{{p_item.organ }} {{ p_item.job}}:</p>
               <p><span></span>{{p_item.fio }}. {{ p_item.date}}</p>
               <p></p>
@@ -82,7 +82,7 @@
           </div>
           <div class="row col-md-12">
             <div class="form-group col-xl-3 col-md-6">
-              <label for="organ">Tashkilot nomi</label>
+              <label for="organ">{{$t('Tashkilot nomi')}}</label>
               <input
                 type="text"
                 v-model="form.organ"
@@ -92,7 +92,7 @@
               />
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="organ">Xodim lavozimi</label>
+              <label for="organ">{{$t('Xodim lavozimi')}}</label>
               <input
                 type="text"
                 v-model="form.job"
@@ -102,7 +102,7 @@
               />
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="organ">F.I.SH</label>
+              <label for="organ">{{$t('F.I.SH')}}</label>
               <input
                 type="text"
                 v-model="form.fio"
@@ -112,7 +112,7 @@
               />
             </div>
             <div class="form-gruop col-xl-3 col-md-6">
-              <label for="organ">Sana</label>
+              <label for="organ">{{$t('Sana')}}</label>
               <div class="d-flex">
                   <date-picker lang="ru" class="input_style" v-model="form.date" type="date" format="DD-MM-YYYY" valueType="format"       :class="isRequired(form.date) ? 'isRequired' : ''"></date-picker>
               </div>
@@ -121,11 +121,11 @@
           <div class="form-group col-lg-12 d-flex justify-content-end">
             <button type="button" class="btn btn-danger btn_save_category mr-3" @click.prevent="rejectTitul">
               <i class="fas fa-times"></i>
-              Отказать
+              {{$t('Rad etish')}}
             </button>
             <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
               <i class="fas fa-check"></i>
-              Подтвердить
+              {{$t('Tasdiqlash')}}
             </button>
           </div>
         </form>
