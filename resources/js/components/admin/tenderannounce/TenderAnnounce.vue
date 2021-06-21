@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-bullhorn"></i>
-				    Объявить тендер
+				    {{$t('Tender eʼlon qilish')}}
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/tenderannounce/add">
 					<i class="fas fa-plus"></i>

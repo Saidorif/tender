@@ -17,7 +17,7 @@
             class="alert alert-warning mr-2"
             v-if="getDirection.xronom_status == 'pending'"
             style="padding: 6px 20px"
-            >В ожидании</span
+            >{{$t('Kutish jarayonida')}}</span
           >
           <span
             class="alert alert-danger mr-2"
@@ -30,7 +30,7 @@
             class="btn btn-warning"
             @click="$g.printDoc('prindDiv')"
           >
-            <i class="fas fa-print mr-2"></i>Chop etish
+            <i class="fas fa-print mr-2"></i>{{$t('Chop etish')}}
           </button>
         </div>
         <form
@@ -38,10 +38,10 @@
           enctype="multipart/form-data"
           class="row tabRow"
         >
-          <h2>{{ getDirection.name }} bo'yicha boshlang'ich ma'lumot</h2>
+          <h2>{{ getDirection.name }} {{$t('boʼyicha boshlangʼich maʼlumot')}} </h2>
           <div class="col-xl-12 tabs_block">
             <div class="form-group col-xl-3 col-md-6">
-              <label for="timingDetails_date">O'chov otkazilgan kun</label>
+              <label for="timingDetails_date">{{$t('Oʼchov oʼtkazilgan kun')}}</label>
               <date-picker
                 lang="ru"
                 class="input_style"
@@ -53,8 +53,7 @@
               ></date-picker>
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="avto_model"
-                >Xronametraj otqizilgan avtomabil rusumi</label
+              <label for="avto_model">{{$t('Xronametraj oʼtqizilgan avtomabil rusumi')}}</label
               >
               <input
                 type="text"
@@ -67,9 +66,7 @@
               />
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="avto_number"
-                >Xronametraj otqizilgan avtomabil davlat raqami</label
-              >
+              <label for="avto_number">{{$t('Xronametraj oʼtqizilgan avtomabil davlat raqami')}}</label>
               <input
                 type="text"
                 v-model="timingDetails.avto_number"
@@ -80,10 +77,10 @@
                 "
               />
             </div>
-            <h4 class="col-xl-12">Xronametraj otkazgan shaxslar</h4>
+            <h4 class="col-xl-12">{{$t('Xronametraj oʼtkazgan shaxslar')}}</h4>
             <template v-for="(person, p_index) in timingDetails.persons">
               <div class="form-group col-xl-2">
-                <label for="person_name">Ism</label>
+                <label for="person_name">{{$t('Ism')}}</label>
                 <input
                   type="text"
                   v-model="person.name"
@@ -92,7 +89,7 @@
                 />
               </div>
               <div class="form-group col-xl-2">
-                <label for="surname">Familyasi</label>
+                <label for="surname">{{$t('Familya')}}</label>
                 <input
                   type="text"
                   v-model="person.surname"
@@ -101,7 +98,7 @@
                 />
               </div>
               <div class="form-group col-xl-3 col-md-6">
-                <label for="person_job">Ish joyi</label>
+                <label for="person_job">{{$t('Ish joyi')}}</label>
                 <input
                   type="text"
                   v-model="person.job"
@@ -111,7 +108,7 @@
                 />
               </div>
               <div class="form-group col-xl-3 col-md-6">
-                <label for="person_position">Lavozimi</label>
+                <label for="person_position">{{$t('Lavozimi')}}</label>
                 <input
                   type="text"
                   v-model="person.position"
@@ -140,10 +137,10 @@
               </div>
             </template>
           </div>
-          <h2>Asosiy ma'lumotlar</h2>
+          <h2>{{$t('Asosiy maʼlumotlar')}}</h2>
           <div class="col-xl-12 tabs_block">
             <div class="form-group col-xl-6">
-              <label for="start_speedometer">Бошланғич манзил номи </label>
+              <label for="start_speedometer">{{$t('Boshlangʼich manzil nomi')}} </label>
               <input
                 type="text"
                 v-model="form.whereForm.name"
@@ -154,7 +151,7 @@
             </div>
             <div class="form-group col-xl-6">
               <label for="start_speedometer"
-                >Jonash vaqtida (km) Бошланғич спидометр кўрсаткичи
+                >{{$t('Jonash vaqtida (km) Boshlangʼich spidometr koʼrsatkichi')}}
               </label>
               <input
                 type="number"
@@ -169,7 +166,7 @@
               />
             </div>
             <div class="form-group col-xl-6">
-              <label for="start_time">Boshlash vaqti Бошлаш вақти </label>
+              <label for="start_time">{{$t('Boshlash vaqti')}}</label>
               <date-picker
                 lang="ru"
                 class="input_style"
@@ -182,7 +179,7 @@
             </div>
             <div class="form-group col-xl-6">
               <label for="speed_between_station"
-                >Bekatlar oraligidagi xarakat ({{$t('km/soat')}})</label
+                >{{$t('Bekatlar oraligʼidagi xarakat')}} ({{$t('km/soat')}})</label
               >
               <input
                 type="number"
@@ -216,7 +213,7 @@
               class="form-group col-xl-6 triple_input"
               v-for="(detail, p_index) in form.details"
             >
-              <label>Qatnov yoli xaqidagi malumotlar</label>
+              <label>{{$t('Qatnov yoʼli xaqidagi maʼlumotlar')}}</label>
               <select
                 class="form-control input_style"
                 v-model="detail.sign"
@@ -256,7 +253,7 @@
               <label
                 for="whereToregion_to_id"
                 :class="isRequiredTwo(form.whereTo) ? 'isRequired' : ''"
-                >Oraliq toxtash viloyat nomi</label
+                >{{$t('Oraliq toʼxtash viloyat nomi')}}</label
               >
               <input
                 v-model="form.whereTo"
@@ -285,7 +282,7 @@
               <label
                 for="whereToarea_to_id"
                 :class="isRequiredTwo(form.whereTo) ? 'isRequired' : ''"
-                >Oraliq toxtash tuman nomi</label
+                >{{$t('Oraliq toʼxtash tuman nomi')}}</label
               >
               <input
                 v-model="form.whereTo"
@@ -321,7 +318,7 @@
               <label
                 for="wherestation_to_id"
                 :class="isRequired(form.whereTo) ? 'isRequired' : ''"
-                >Oraliq toxtash bekat nomi</label
+                >{{$t('Oraliq toʼxtash bekat nomi')}}</label
               >
               <select
                 class="form-control input_style"
@@ -338,7 +335,7 @@
               </select>
             </div>
             <div class="form-group col-xl-6">
-              <label for="end_speedometer">Kelgan vaqtida (km)</label>
+              <label for="end_speedometer">{{$t('Kelgan vaqtida')}}Kelgan vaqtida ({{$t('km')}})</label>
               <input
                 type="number"
                 v-model="form.end_speedometer"
@@ -350,7 +347,7 @@
             </div>
             <div class="form-group col-xl-6 d-flex">
               <div class="form-group col-md-10 pl-0">
-                <label for="seria"> Тўхтаганда вақт кўрсаткичи </label>
+                <label for="seria">{{$t('Toʼxtaganda vaqt koʼrsatkichi')}}  </label>
                 <date-picker
                   lang="ru"
                   class="input_style"
@@ -363,12 +360,12 @@
               </div>
               <div class="form-group col-md-2 pr-0">
                 <input type="checkbox" v-model="form.nextDay" id="nextDay" />
-                <label for="nextDay">Keyingi kun</label>
+                <label for="nextDay">{{$t('Keyingi kun')}}</label>
               </div>
             </div>
             <div class="form-group col-xl-6">
               <label for="distance_in_limited_speed"
-                >{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}} (km)</label
+                >{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}} ({{$t('km')}})</label
               >
               <input
                 type="number"
@@ -385,7 +382,7 @@
             </div>
             <div class="form-group col-xl-6">
               <label for="spendtime_between_limited_space"
-                >{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}} (minut)</label
+                >{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}} ({{$t('daqiqa')}})</label
               >
               <input
                 type="text"
@@ -409,12 +406,12 @@
                   @click.prevent="sendToActivate"
                 >
                   <i class="far fa-share-square"></i>
-                  {{$t('Yuvorish')}} на подтверждение
+                  {{$t('Tasdiqlash uchun yuvorish')}}
                 </button>
               </div>
               <div class="col-xl-6 form_btn d-flex justify-content-end">
                 <div class="form-group mr-3 mb-0">
-                  <label for="conclusion">Xulosa</label>
+                  <label for="conclusion">{{$t('Xulosa')}}</label>
                   <select
                     name="conclusion"
                     id="conclusion"
@@ -439,7 +436,7 @@
                   v-if="tableTwoData.length"
                 >
                   <i class="fas fa-trash"></i>
-                  Очистить таблисту
+                  {{$t('Jadvalni tozalash')}}
                 </button>
                 <button
                   type="button"
@@ -475,11 +472,11 @@
                     {{$t('Oʼrtacha texnik tezlik (km/soat)')}}
                   </th>
                   <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" rowspan="2">{{$t('Qatnov yoʼl xaqidagi maʼlumotlar')}}</th>
-                  <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" rowspan="2">Taxrirlash</th>
+                  <th style="border-collapse: collapse;border: 1px solid #292666;border-bottom: 2px solid #292666;padding: 0.25rem;" rowspan="2">{{$t('Tahrirlash')}}</th>
                 </tr>
                 <tr style="border-collapse: collapse;">
                   <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Joʼnash vaqtida')}}</th>
-                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >Kelgan vaqtida</th>
+                  <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Kelgan vaqtida')}}</th>
                   <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Boshlangʼich bekatdan')}}</th>
                   <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Bekatlar oraligʼida')}}</th>
                   <th style="border: 1px solid #292666;border-collapse: collapse;border-bottom: 2px solid #292666;padding: 0.25rem;" >{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
@@ -554,7 +551,7 @@
               <p>
                 {{$t('Qatnov yoʼli xarakat xafsizligiga')}}: {{ timingDetails.conclusion }}
               </p>
-              <p>{{$t('Oʼlchov oʼtkazilgan kun')}}: {{ timingDetails.date }} yil</p>
+              <p>{{$t('Oʼlchov oʼtkazilgan kun')}}: {{ timingDetails.date }} {{$t('yil')}}</p>
               <p>
                 {{$t('Xronametraj oʼtkazilgan avtomobil rusumi va davlat raqami')}}:
                 {{ timingDetails.avto_model }}, {{ timingDetails.avto_number }}
@@ -563,9 +560,9 @@
             <div class="col-xl-4 right_item" style="width: 33%;display: flex;justify-content: space-between;align-items: flex-start;">
               <div>
                 <p>
-                  Olchov <br />
-                  qatnashchilari <br />
-                  imzolari:
+                  {{$t('Oʼlchov')}} <br />
+                 {{$t('qatnashchilari')}}  <br />
+                  {{$t('imzolari')}}:
                 </p>
               </div>
               <div>

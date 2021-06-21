@@ -8,7 +8,7 @@
           @click="$g.toWord('word', 'contract')"
         >
           <i class="fas fa-download"></i>
-          Юклаш
+          {{$t('Yuklash')}}
         </button>
         <router-link class="btn btn-primary back_btn" to="/crm/protocol">
           <span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}
@@ -34,14 +34,13 @@
             "
         >
             <h6 style="font-size: 16px;text-align:center;font-weight:bold;margin-left:70px;margin-right:70px;">
-                Шаҳарлараро-вилоятлараро ва халқаро йўловчилар ташиш
-                йўналишларида хизмат кўрсатиш бўйича
+                {{$t('Shaharlararo-viloyatlararo va xalqaro yoʼlovchilar tashish yoʼnalishlarida xizmat koʼrsatish boʼyicha')}}
             </h6>
-            <h6 style="font-size: 16px;text-align:center;font-weight:bold;">______ - сонли КОНТРАКТ</h6>
+            <h6 style="font-size: 16px;text-align:center;font-weight:bold;">______ - {{$t('sonli SHARTNOMA')}}</h6>
             <table style="width:100%;">
                 <tr>
-                    <td style="font-size: 16px;margin: 0;line-heifht:0;">2018 йил 26 декабрь</td>
-                    <td style="font-size: 16px;margin: 0;line-heifht:0;text-align:right">Тошкент ш.</td>
+                    <td style="font-size: 16px;margin: 0;line-heifht:0;">2018 {{$t('yil')}} 26 декабрь</td>
+                    <td style="font-size: 16px;margin: 0;line-heifht:0;text-align:right">{{$t('Toshkent sh')}}.</td>
                 </tr>
             </table>
             <p style="font-size: 16px;margin: 0;line-heifht:0;text-align:justify;margin-top:15px;margin-bottom:15px;">

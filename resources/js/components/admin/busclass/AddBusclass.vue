@@ -63,7 +63,7 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <label for="busmodel_id">Модель автобуса</label>
+              <label for="busmodel_id">{{$t('Avtomobil rusumi')}}</label>
               <select
                 class="form-control input_style"
                 v-model="form.busmodel_id"

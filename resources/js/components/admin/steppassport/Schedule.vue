@@ -15,7 +15,7 @@
                 class="btn btn-warning"
                 @click="$g.printDoc('prindDiv')"
               >
-                <i class="fas fa-print mr-2"></i>Chop etish
+                <i class="fas fa-print mr-2"></i>{{$t('Chop etish')}}
             </button>
         </div>
         <form

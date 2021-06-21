@@ -23,7 +23,7 @@
 				  		<div class="row">
 				  			<div class="form-group col-lg-2">
 				  				<label for="bypass_number">{{$t('Yoʼnalish soni')}}</label>
-                                  <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
+                                  <input class="form-control input_style"  type="text" v-model="filter.pass_number" id="bypass_number">
               				</div>
 				  			<div class="form-group col-lg-2">
 				  				<label for="region_id">{{$t('Viloyat boʼyicha saralash')}}!</label>
@@ -37,13 +37,13 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-2">
-				  				<label for="bustype_id">Сортировать по типу авто!</label>
+				  				<label for="bustype_id">{{$t('Avtomobil turi boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="bustype_id"
 			                      class="form-control input_style"
 			                      v-model="filter.bustype_id"
 			                    >
-			                      <option value="" selected >Выберите тип авто!</option>
+			                      <option value="" selected >{{$t('Avtomobil turini tanlang')}}!</option>
 			                      <option
 				                      :value="busType.id"
 				                      v-for="(busType,index) in getTypeofbusList"
@@ -51,16 +51,16 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-2">
-				  				<label for="profitability">Сортировать по рентабельности!</label>
+				  				<label for="profitability">{{$t('Rentabillik boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="profitability"
 			                      class="form-control input_style"
 			                      v-model="filter.profitability"
 			                    >
-			                      <option value="" selected >Выберите!</option>
-			                      <option value="profitable">Рентабельный</option>
-					              <option value="unprofitable">Нерентабельный</option>
-					              <option value="middle">Средный</option>
+			                      <option value="" selected >{{$t('Tanlang')}}!</option>
+			                      <option value="profitable">{{$t('Samarali')}}</option>
+					              <option value="unprofitable">{{$t('Samarasiz')}}</option>
+					              <option value="middle">{{$t('Oʼrta')}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
@@ -110,13 +110,13 @@
                         <tr>
                             <th scope="col">№</th>
                             <th>{{$t('Viloyat')}}</th>
-                            <th>Номер и наименования маршрута</th>
-                            <th>Наименования организации </th>
+                            <th>{{$t('Yoʼnalish raqami va nomi')}}</th>
+                            <th>{{$t('Tashkilot nomi')}} </th>
                             <th>{{$t('Shartnoma muddati')}} </th>
                             <th>{{$t('Holati')}}</th>
-                            <th>Йўналиши тури</th>
+                            <th>{{$t('Yoʼnalish turi')}} </th>
                             <th>{{$t('Ochilish sanasi')}}</th>
-                            <th>Потверждения</th>
+                            <th>{{$t('Tasdiqlash')}}</th>
                             <th scope="col">{{$t('Tahrirlash')}}</th>
                         </tr>
 					</thead>
@@ -136,8 +136,8 @@
                             </td>
 							<td></td>
 							<td>
-                                <span class="alert alert-danger pt-1 pb-1" v-if="direct.status == 'active'"> Неразмещен в тендер</span>
-                                <span class="alert alert-success pt-1 pb-1" v-if="direct.status == 'busy'"> Размещен в тендер</span>
+                                <span class="alert alert-danger pt-1 pb-1" v-if="direct.status == 'active'">{{$t('Tenderda joylashtirilmagan')}}</span>
+                                <span class="alert alert-success pt-1 pb-1" v-if="direct.status == 'busy'">{{$t('Tenderda eʼlon qilingan')}}</span>
                             </td>
 							<td>{{direct.dir_type == 'taxi' ? 'Йўналишли тахи йуналиши' : $t('Avtobus yoʼnalishi')}}</td>
 							<td>{{direct.year}}</td>
