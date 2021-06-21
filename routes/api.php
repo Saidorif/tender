@@ -297,6 +297,7 @@ Route::group([
 
             //Contract
             Route::post('contract','ContractController@index');
+            Route::post('contract/user','ContractController@userIndex');
             Route::post('contract/store','ContractController@store');
             Route::get('contract/edit/{id}','ContractController@edit');
             Route::get('contract/activate/{id}','ContractController@activate');
