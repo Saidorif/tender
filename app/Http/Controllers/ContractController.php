@@ -95,6 +95,16 @@ class ContractController extends Controller
         return response()->json(['success' => true, 'result' => $contract]);
     }
 
+    public function userEdit(Request $request,$id)
+    {
+        $user = $request->user();
+        $contract = Contract::with(['user','cars','region'])->where(['user_id' => $user->id])->find($id);
+        if(!$contract){
+            return response()->json(['error' => true, 'message' => 'Контракт не найден']);
+        }
+        return response()->json(['success' => true, 'result' => $contract]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
