@@ -117,6 +117,11 @@ import Oldcontract from './components/admin/oldcontract/Oldcontract'
 import AddOldcontract from './components/admin/oldcontract/AddOldcontract'
 import EditOldcontract from './components/admin/oldcontract/EditOldcontract'
 
+// Mycontract
+import Mycontract from './components/admin/mycontract/Mycontract'
+import AddMycontract from './components/admin/mycontract/AddMycontract'
+import EditMycontract from './components/admin/mycontract/EditMycontract'
+
 // Client
 import Client from './components/admin/client/Client'
 import AddClient from './components/admin/client/AddClient'
@@ -575,6 +580,30 @@ const router = new Router({
 						action:'edit',
 						subject:'ContractController'
 					}
+				},
+				{
+					path:'mycontract',
+					component:Mycontract,
+					// meta:{
+					// 	action:'index',
+					// 	subject:'ContractController'
+					// }
+				},
+				{
+					path:'mycontract/add',
+					component:AddMycontract,
+					// meta:{
+					// 	action:'store',
+					// 	subject:'ContractController'
+					// }
+				},
+				{
+					path:'mycontract/edit/:mycontractId',
+					component:EditMycontract,
+					// meta:{
+					// 	action:'edit',
+					// 	subject:'ContractController'
+					// }
 				},
 				{
 					path:'region',
