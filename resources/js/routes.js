@@ -613,10 +613,10 @@ const router = new Router({
 				{
 					path:'mycontract',
 					component:Mycontract,
-					// meta:{
-					// 	action:'index',
-					// 	subject:'ContractController'
-					// }
+					meta:{
+						action:'userIndex',
+						subject:'ContractController'
+					}
 				},
 				{
 					path:'mycontract/add',
@@ -629,10 +629,10 @@ const router = new Router({
 				{
 					path:'mycontract/edit/:mycontractId',
 					component:EditMycontract,
-					// meta:{
-					// 	action:'edit',
-					// 	subject:'ContractController'
-					// }
+					meta:{
+						action:'edit',
+						subject:'ContractController'
+					}
 				},
 				{
 					path:'region',
