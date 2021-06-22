@@ -304,6 +304,12 @@ Route::group([
             Route::delete('contract/destroy/{id}','ContractController@destroy');
             Route::delete('contract/car-destroy/{id}','ContractController@carDestroy');
             Route::post('contract/user','ContractController@userIndex');
+
+            Route::get('contract/user/list','ContractController@userList');
+            Route::post('contract/user/sendappeal','ContractController@appealStore');
+            Route::post('contract/user/appeal','ContractController@appealUser');
+            Route::post('contract/appeal','ContractController@appealIndex');
+
             Route::post('contract/user/agree','ContractController@userAgreement');
             Route::get('contract/user/edit/{id}','ContractController@userEdit');
 
