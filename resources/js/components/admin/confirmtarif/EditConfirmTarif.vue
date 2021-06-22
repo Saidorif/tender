@@ -51,7 +51,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <textarea class="form-control" v-model="rejectmsg" name="" id="" cols="30" rows="10" placeholder="Техт отказа" :class="isRequired(rejectmsg) ? 'isRequired' : ''"  ></textarea>
+                <textarea class="form-control" v-model="rejectmsg" name="" id="" cols="30" rows="10"  :class="isRequired(rejectmsg) ? 'isRequired' : ''"  ></textarea>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{$t('Bekor qilish')}}</button>

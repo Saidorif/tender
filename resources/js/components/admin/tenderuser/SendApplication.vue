@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    {{$t('Yuvorish')}} заявку
+				    {{$t('Ariza yuvorish')}}
 				</h4>
 				<div class="">
 	                <h4 class="title_user" v-if="direction_ids.length > 0" v-for="(item,index) in direction_ids">
@@ -30,7 +30,7 @@
 				</div>
 				<div class="row" v-if="form.tarif && form.tarif.length" v-for="(item,index) in direction_ids">
 					<div class="col-md-3">
-                        <label >Йўналиш номи</label>
+                        <label >{{$t('Yoʼnalish nomi')}}</label>
                         <input
 					    	type="text"
 					    	class="form-control input_style"
@@ -38,7 +38,7 @@
 					    	disabled>
 					</div>
 					<div class="form-group col-md-3">
-					    <label for="tarif">Тариф (Йул хаққи)</label>
+					    <label for="tarif">{{$t('Tarif (Yoʼl xaqqi)')}}</label>
 					    <div class="d-flex align-items-center">
 					    	<input
 					    	type="number"
@@ -62,7 +62,7 @@
                     <div class="form-group col-md-3 btn_save d-flex justify-content-end" v-if="!makeDisabled">
 					  	<button type="button" class="btn btn-secondary mr-3" @click.prevent="openModal(item)">
 					  		<i class="fas fa-plus"></i>
-						  	{{$t('Qoʼshish')}} авто
+						  	{{$t('Avtomobil qoʼshish')}}
 					  	</button>
 				    </div>
 				</div>
@@ -75,7 +75,7 @@
 						  		@click.prevent="showDirections =! showDirections"
 					  		>
 					  			<i class="fas fa-route"></i>
-					  			Маршруты
+					  			{{$t('Marshrutlar')}}
 					  			<i class="pe-7s-angle-down-circle"></i>
 					  		</button>
 					  	</div>
@@ -90,14 +90,14 @@
 						<div class="col-md-12">
 							<div class="table-responsive" v-if="direction_ids.length > 0">
 						  		<div class="d-flex justify-content-center">
-						  			<h4>Маршруты</h4>
+						  			<h4>{{$t('Marshrutlar')}}</h4>
 						  		</div>
 							  	<div class="choosenItemsTable">
 							  		<ul v-for="(items,index) in direction_ids">
-							  			<h3><em>{{index+1}})</em> <strong>Маршрут</strong>: <em>{{items.name}}</em> <small>({{ items.reys_status == 'all' ? "To'liq" : "Qisman" }})</small> </h3>
+							  			<h3><em>{{index+1}})</em> <strong>{{$t('Marshrut')}}</strong>: <em>{{items.name}}</em> <small>({{ items.reys_status == 'all' ? "To'liq" : "Qisman" }})</small> </h3>
 						  		    	<template>
 								  		    <li class="mb-2">
-								  		    	<h4><em>Со стороны:</em>  <b>{{items.reysesFrom[0].where.name}}</b></h4>
+								  		    	<h4><em>{{$t('Tomondan')}}:</em>  <b>{{items.reysesFrom[0].where.name}}</b></h4>
 								  		    	<table class="table table-bordered">
 										  			<thead>
 											  			<tr>
@@ -122,7 +122,7 @@
 											  	</table>
 								  			</li>
 								  		    <li>
-								  		    	<h4><em>Со стороны:</em>  <b>{{items.reysesTo[0].where.name}}</b></h4>
+								  		    	<h4><em>{{$t('Tomondan')}}:</em>  <b>{{items.reysesTo[0].where.name}}</b></h4>
 								  		    	<table class="table table-bordered">
 										  			<thead>
 											  			<tr>
@@ -157,7 +157,7 @@
 					  	<div class="form-group col-md-12 table table-responsive">
 					  		<div class="d-flex justify-content-center">
 							  	<h4 class="app_title">
-								  	Йўналишларда ишлаётганда ҳаракатланиш хавфсизлигини таъминлаш бўйича қатнашчи томонидан амалга оширилган тадбирлар режаси қуйидагича баҳоланади
+								   {{$t('Yoʼnalishlarda ishlayotganda harakatlanish xavfsizligini taʼminlash boʼyicha qatnashchi tomonidan amalga oshirilgan tadbirlar rejasi quyidagicha baholanadi')}}
 							  	</h4>
 							</div>
 						  	<table class="table table-bordered">
@@ -165,8 +165,7 @@
 						  			<tr>
 						  				<th width="1%">1</th>
 						  				<th width="50%">
-						  					Автотранспорт воситаларини хар куни рейсдан олдинги техник кўрикдан
-						  					ўтказиш учун барча шароитлар яратилган
+                                             {{$t('Аvtotransport vositalarini xar kuni reysdan oldingi texnik koʼrikdan oʼtkazish uchun barcha sharoitlar yaratilgan')}}
 						  				</th>
 						  				<th>
 						  					<input
@@ -182,8 +181,7 @@
 						  			<tr>
 						  				<th>2</th>
 						  				<th width="50%">
-						  					Ҳайдовчиларни ҳар кунги тиббий кўрикдан ўтказиш учун барча
-						  					шароитлар яратилган
+						  					{{$t('Haydovchilarni har kungi tibbiy koʼrikdan oʼtkazish uchun barcha sharoitlar yaratilgan')}}
 						  				</th>
 						  				<th>
 						  					<input
@@ -199,8 +197,7 @@
 						  			<tr>
 						  				<th>3</th>
 						  				<th width="50%">
-						  					Таклиф этилган автотранспорт воситалари сонидан келиб чиқиб барча
-						  					ҳайдовчиларига 30 соатлик дастур бўйича йўл ҳаракати қоидаларини ўргатилган
+                                            {{$t('Taklif etilgan avtotransport vositalari sonidan kelib chiqib barcha haydovchilariga 30 soatlik dastur boʼyicha yoʼl harakati qoidalarini oʼrgatilgan')}}
 						  				</th>
 						  				<th>
 						  					<input
@@ -216,8 +213,7 @@
 						  			<tr>
 						  				<th>4</th>
 						  				<th width="50%">
-						  					Таклиф этилган барча автотранспорт воситаларининг олд ойналарига видеорегистратор
-						  					ўрнатилган
+						  					{{$t('Taklif etilgan barcha avtotransport vositalarining old oynalariga videoregistrator oʼrnatilgan')}}
 						  				</th>
 						  				<th>
 						  					<input
@@ -233,8 +229,7 @@
 						  			<tr>
 						  				<th>5</th>
 						  				<th width="50%">
-						  					Таклиф этилган барча автотранспорт воситаларини "GPS" режимида масофадан кузатиш
-						  					тизимига уланган
+                                            {{$t('Taklif etilgan barcha avtotransport vositalarini GPS rejimida masofadan kuzatish tizimiga ulangan')}}
 						  				</th>
 						  				<th>
 						  					<input
@@ -275,7 +270,7 @@
 				  				<div class="form-group col-md-2">
 						  			<button type="button" class="btn btn-info text-white" @click.prevent="addFile">
 					  					<i class="fas fa-plus"></i>
-					  					{{$t('Qoʼshish')}} файл
+					  					{{$t('file_upload')}}
 						  			</button>
 				  				</div>
 				  				<div class="form-group col-md-12" v-if="files.length > 0">
@@ -295,20 +290,20 @@
 				  		</div>
 						<div class="form-group col-md-12 table table-responsive" v-if="cars_with.length > 0">
 							<div class="d-flex justify-content-center">
-								<h4>Мои автомобили</h4>
+								<h4>{{$t('Mening avtomobillarim')}} </h4>
 							</div>
 							<table class="table table-bordered">
 								<thead>
 									<tr>
 										<th>№</th>
-										<th>Йўналиш номи</th>
-										<th>Номер Авто</th>
-										<th>Категория Авто</th>
+										<th>{{$t('Yoʼnalish nomi')}}</th>
+										<th>{{$t('Avtomobil raqami')}}</th>
+										<th>{{$t('Avtomobil turi')}}</th>
 										<th>{{$t('Avtomobil sinfi')}}</th>
-										<th>Марка Авто</th>
-										<th>Модель Авто</th>
-										<th>Дата выпуска</th>
-										<th>Вместимость</th>
+										<th>{{$t('Avtobus markasi')}} </th>
+										<th>{{$t('Avtomobil rusumi')}}</th>
+										<th>{{$t('Ishlab chiqarilgan sana')}}</th>
+										<th>{{$t('capacity')}}</th>
 										<th>{{$t('Oʼrindiqlar soni')}}</th>
 										<th>{{$t('Tahrirlash')}}</th>
 									</tr>
@@ -341,7 +336,7 @@
 											  		<thead>
 											  			<tr>
 											  				<th width="1%">1</th>
-											  				<th width="80%">Кондиционер (климат-назорати тизими)</th>
+											  				<th width="80%">{{$t('Sovutgich (iqlim-nazorati tizimi)')}}</th>
 											  				<th>
 											  					<i
 											  						class="fas text-success"
@@ -351,7 +346,7 @@
 											  			</tr>
 											  			<tr>
 											  				<th>2</th>
-											  				<th width="80%">Интернет</th>
+											  				<th width="80%">{{$t('Internet')}}</th>
 											  				<th>
 											  					<i
 											  						class="fas text-success"
@@ -361,7 +356,7 @@
 											  			</tr>
 											  			<tr>
 											  				<th>3</th>
-											  				<th width="80%">Биохожатхона</th>
+											  				<th width="80%">{{$t('Bioxojatxona')}}</th>
 											  				<th>
 											  					<i
 											  						class="fas text-success"
@@ -372,8 +367,7 @@
 											  			<tr>
 											  				<th>4</th>
 											  				<th width="80%">
-											  					Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган
-											  					гурухларига мослашганлиги
+											  					{{$t('Аvtobusning nogironlarga va aholining boshqa xarakatlanishi cheklangan guruxlariga moslashganligi')}}
 											  				</th>
 											  				<th>
 											  					<i
@@ -385,7 +379,7 @@
 											  			<tr>
 											  				<th>5</th>
 											  				<th width="80%">
-											  					{{$t('Telefon')}} қувватлагичлари
+											  					{{$t('Telefon quvvatlagichlari')}}
 											  				</th>
 											  				<th>
 											  					<i
@@ -397,7 +391,7 @@
 											  			<tr>
 											  				<th>6</th>
 											  				<th width="80%">
-											  					Хар бир ўриндиқда монитор (планшет)
+											  					{{$t('Xar bir oʼrindiqda monitor (planshet)')}}
 											  				</th>
 											  				<th>
 											  					<i
@@ -409,7 +403,7 @@
 											  			<tr>
 											  				<th>7</th>
 											  				<th width="80%">
-											  					Бекатларни эълон қилиш аудио тизими
+											  					{{$t('Bekatlarni eʼlon qilish audio tizimi')}}
 											  				</th>
 											  				<th>
 											  					<i
@@ -425,7 +419,7 @@
 									</template>
 										<tr>
 											<td colspan="8">
-												Итоги:
+												{{$t('Umumiy')}}:
 											</td>
 											<td>
 												{{countCapacity}}
@@ -440,7 +434,7 @@
 						</div>
 					  	<div class="form-group col-lg-12 d-flex justify-content-end align-items-end" v-if="!makeDisabled">
                             <div class="form-group col-md-3 mb-0" v-if="old_contract_time">
-                                <label>Muddat</label>
+                                <label>{{$t('Muddat')}}</label>
                                 <select  class="form-control"  v-model="contract_time">
                                     <option v-for="option in timeOptions" :value="option.val" v-if="old_contract_time >= option.val">
                                     	{{ option.name }}
@@ -465,7 +459,7 @@
 		  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Новое авто</h5>
+		        <h5 class="modal-title" id="exampleModalLabel">{{$t('Yangi avtomobil')}}</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -473,13 +467,12 @@
 		      <div class="modal-body">
 		        <div class="row">
 		        	<div class="form-group col-md-3">
-					    <label for="auto_number">Номер Авто</label>
+					    <label for="auto_number">{{$t('Avtomobil raqami')}} </label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="auto_number"
 					    	v-mask="'********'"
-					    	placeholder="Номер Авто"
 					    	v-model="car.auto_number"
 					    	:class="isRequired(car.auto_number) ? 'isRequired' : ''"
 				    	>
@@ -494,7 +487,7 @@
 					    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''"
                             @change="selectBustype(car.bustype_id)"
 					    >
-					    	<option value="" selected disabled>Выберите категорию авто!</option>
+					    	<option value="" selected disabled>{{$t('Tanlang')}} !</option>
 					    	<option
 					    		:value="busType.id"
 					    		v-for="(busType,index) in getTypeofbusList"
@@ -513,43 +506,42 @@
 					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
 					    	@change="selectClass(car.tclass_id)"
 					    >
-					    	<option value="" selected disabled>Выберите {{$t('Avtomobil sinfi')}}!</option>
+					    	<option value="" selected disabled>{{$t('Tanlang')}}!</option>
 					    	<option :value="busClass.id" v-for="(busClass,index) in getBusclassFindList">{{busClass.name}}</option>
 					    </select>
 				  	</div>
 				  	<div class="form-group col-md-3">
-					    <label for="busmarka_id">Марка Авто</label>
+					    <label for="busmarka_id">{{$t('Avtobus markasini')}}</label>
 					    <select
 						    class="form-control input_style"
 					    	id="busmarka_id"
-					    	placeholder="Номер Авто"
 					    	v-model="car.busmarka_id"
 					    	:class="isRequired(car.busmarka_id) ? 'isRequired' : ''"
 					    	@change="selectCarMarka(car)"
 					    >
-					    	<option value="" selected disabled>Выберите марку авто!</option>
+					    	<option value="" selected disabled>{{$t('Tanlang')}}!</option>
 					    	<!-- <option :value="item.marka.id" v-for="(item,index) in getBusBrandList">{{item.marka.name}}</option> -->
 					    	<option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
 					    </select>
                         <!-- @change="selectModel(car.busmarka_id)" -->
 				  	</div>
 				  	<div class="form-group col-md-3">
-					    <label for="busmodel_id">Модель Авто</label>
+					    <label for="busmodel_id">{{$t('Avtomobil rusumi')}}</label>
+
 					    <select
 						    class="form-control input_style"
 					    	id="busmodel_id"
-					    	placeholder="Номер Авто"
 					    	v-model="car.busmodel_id"
 					    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
 					    >
-					    	<option value="" selected disabled>Выберите модель авто!</option>
+					    	<option value="" selected disabled>{{$t('Tanlang')}}!</option>
 					    	<!-- <option :value="item.model.id" v-for="(item,index) in bus_models">{{item.model.name}}</option> -->
 					    	<option :value="item.id" v-for="(item,index) in getBusmodelFindList">{{item.name}}</option>
 					    </select>
 				  	</div>
 
 				  	<div class="form-group col-md-3">
-					    <label for="date">Дата выпуска</label>
+					    <label for="date">{{$t('Ishlab chiqarilgan sana')}}</label>
 					    <date-picker
 		                  lang="ru"
 		                  type="year"
@@ -563,12 +555,11 @@
 		                ></date-picker>
 				  	</div>
 				  	<div class="form-group col-md-3">
-					    <label for="capacity">Вместимость</label>
+					    <label for="capacity">{{$t('capacity')}}</label>
 					    <input
 					    	type="number"
 					    	class="form-control input_style"
 					    	id="capacity"
-					    	placeholder="Вместимость"
 					    	v-model="car.capacity"
 					    	max="999"
 					    	:class="isRequired(car.capacity) ? 'isRequired' : ''"
@@ -589,7 +580,7 @@
 					  		<thead>
 					  			<tr>
 					  				<th width="1%">1</th>
-					  				<th width="80%">Кондиционер (климат-назорати тизими)</th>
+					  				<th width="80%">{{$t('Sovutgich (iqlim-nazorati tizimi)')}}</th>
 					  				<th>
 					  					<input
 					  						type="checkbox"
@@ -601,7 +592,7 @@
 					  			</tr>
 					  			<tr>
 					  				<th>2</th>
-					  				<th width="80%">Интернет</th>
+					  				<th width="80%">{{$t('Internet')}}</th>
 					  				<th>
 					  					<input
 					  						type="checkbox"
@@ -613,7 +604,7 @@
 					  			</tr>
 					  			<tr>
 					  				<th>3</th>
-					  				<th width="80%">Биохожатхона</th>
+					  				<th width="80%">{{$t('Bioxojatxona')}}</th>
 					  				<th>
 					  					<input
 					  						type="checkbox"
@@ -626,8 +617,7 @@
 					  			<tr>
 					  				<th>4</th>
 					  				<th width="80%">
-					  					Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган
-					  					гурухларига мослашганлиги
+					  					{{$t('Аvtobusning nogironlarga va aholining boshqa xarakatlanishi cheklangan guruxlariga moslashganligi')}}
 					  				</th>
 					  				<th>
 					  					<input
@@ -641,7 +631,7 @@
 					  			<tr>
 					  				<th>5</th>
 					  				<th width="80%">
-					  					Телефон қувватлагичлари
+					  					{{$t('Telefon quvvatlagichlari')}}
 					  				</th>
 					  				<th>
 					  					<input
@@ -655,7 +645,7 @@
 					  			<tr>
 					  				<th>6</th>
 					  				<th width="80%">
-					  					Хар бир ўриндиқда монитор (планшет)
+					  					{{$t('Xar bir oʼrindiqda monitor (planshet)')}}
 					  				</th>
 					  				<th>
 					  					<input
@@ -669,7 +659,7 @@
 					  			<tr>
 					  				<th>7</th>
 					  				<th width="80%">
-					  					Бекатларни эълон қилиш аудио тизими
+					  					{{$t('Bekatlarni eʼlon qilish audio tizimi')}}
 					  				</th>
 					  				<th>
 					  					<input
@@ -686,7 +676,7 @@
 				    <div class="col-md-12">
 			    		<div class="row">
 			    			<div class="form-group col-md-2">
-			    				<label for="owner">Хозяин</label>
+			    				<label for="owner">{{$t('Egasi')}}</label>
 		    					<input
 			  						type="radio"
 			  						name="owner"
@@ -696,7 +686,7 @@
 		  						>
 			    			</div>
 			    			<div class="form-group col-md-2">
-			    				<label for="rent">Аренда</label>
+			    				<label for="rent">{{$t('Ijara')}}</label>
 		    					<input
 			  						type="radio"
 			  						name="rent"
@@ -706,7 +696,7 @@
 		  						>
 			    			</div>
 			    			<div class="form-group col-md-2">
-			    				<label for="lizing">Лизинг</label>
+			    				<label for="lizing">{{$t('Lizing')}}</label>
 		    					<input
 			  						type="radio"
 			  						name="lizing"
@@ -720,23 +710,21 @@
 				    <div class="col-md-12" v-if="car.owner_type == 'owner'">
 				    	<div class="row">
 				    		<div class="form-group col-md-6">
-							    <label for="pTexpassportSery">Серия техпаспорта</label>
+							    <label for="pTexpassportSery">{{$t('Texpasport seriyasi')}}</label>
 							    <input
 							    	type="text"
 							    	class="form-control input_style"
 							    	id="pTexpassportSery"
-							    	placeholder="Серия техпаспорта"
 							    	v-model="car.pTexpassportSery"
 							    	:class="isRequired(car.pTexpassportSery) ? 'isRequired' : ''"
 						    	>
 						  	</div>
 				    		<div class="form-group col-md-6">
-							    <label for="pTexpassportNumber">Номер техпаспорта</label>
+							    <label for="pTexpassportNumber">{{$t('Texpasport raqami')}}</label>
 							    <input
 							    	type="number"
 							    	class="form-control input_style"
 							    	id="pTexpassportNumber"
-							    	placeholder="Номер техпаспорта"
 							    	v-model="car.pTexpassportNumber"
 							    	:class="isRequired(car.pTexpassportNumber) ? 'isRequired' : ''"
 						    	>
@@ -746,23 +734,21 @@
 				    <div class="col-md-12" v-if="car.owner_type == 'lizing'">
 				    	<div class="row">
 				    		<div class="form-group col-md-6">
-							    <label for="pTexpassportSery">Серия техпаспорта</label>
+							    <label for="pTexpassportSery">{{$t('Texpasport seriyasi')}}</label>
 							    <input
 							    	type="text"
 							    	class="form-control input_style"
 							    	id="pTexpassportSery"
-							    	placeholder="Серия техпаспорта"
 							    	v-model="car.pTexpassportSery"
 							    	:class="isRequired(car.pTexpassportSery) ? 'isRequired' : ''"
 						    	>
 						  	</div>
 				    		<div class="form-group col-md-6">
-							    <label for="pTexpassportNumber">Номер техпаспорта</label>
+							    <label for="pTexpassportNumber">{{$t('Texpasport raqami')}}</label>
 							    <input
 							    	type="number"
 							    	class="form-control input_style"
 							    	id="pTexpassportNumber"
-							    	placeholder="Номер техпаспорта"
 							    	v-model="car.pTexpassportNumber"
 							    	:class="isRequired(car.pTexpassportNumber) ? 'isRequired' : ''"
 						    	>
@@ -772,7 +758,7 @@
 				    <div class="col-md-12" v-if="car.owner_type == 'rent'">
 				    	<div class="row">
 				    		<div class="form-group col-md-6">
-							    <label for="pNumberNatarius">Номер реестра нотариального {{$t('Tahrirlash')}}</label>
+							    <label for="pNumberNatarius"> {{$t('Notarius hujjat reestr raqami')}}</label>
 							    <input
 							    	type="text"
 							    	class="form-control input_style"
@@ -783,7 +769,7 @@
 						    	>
 						  	</div>
 				    		<div class="form-group col-md-6">
-							    <label for="pDateNatarius">Дата нотариального {{$t('Tahrirlash')}}</label>
+							    <label for="pDateNatarius"> {{$t('Notarius hujjat sanasi')}}</label>
 							    <date-picker
 				                  lang="ru"
 				                  type="date"
@@ -794,23 +780,21 @@
 				                ></date-picker>
 						  	</div>
 						  	<div class="form-group col-md-6">
-							    <label for="pTexpassportSery">Серия техпаспорта</label>
+							    <label for="pTexpassportSery">{{$t('Texpasport seriyasi')}}</label>
 							    <input
 							    	type="text"
 							    	class="form-control input_style"
 							    	id="pTexpassportSery"
-							    	placeholder="Серия техпаспорта"
 							    	v-model="car.pTexpassportSery"
 							    	:class="isRequired(car.pTexpassportSery) ? 'isRequired' : ''"
 						    	>
 						  	</div>
 				    		<div class="form-group col-md-6">
-							    <label for="pTexpassportNumber">Номер техпаспорта</label>
+							    <label for="pTexpassportNumber">{{$t('Texpasport raqami')}}</label>
 							    <input
 							    	type="number"
 							    	class="form-control input_style"
 							    	id="pTexpassportNumber"
-							    	placeholder="Номер техпаспорта"
 							    	v-model="car.pTexpassportNumber"
 							    	:class="isRequired(car.pTexpassportNumber) ? 'isRequired' : ''"
 						    	>
@@ -843,9 +827,9 @@
 		      		</div>
 		      		<div class="modal-body d-flex justify-content-center">
 		      		 	<div class="qr_code_modal">
-			      		 	<h4><b>Ваша заявка принята!</b></h4>
+			      		 	<h4><b>{{$t('Sizning arizangiz qabul qilinadi')}} !</b></h4>
 			      		 	<div>
-			      		 		<b>Номер заявки №</b> {{form.id}}
+			      		 		<b>{{$t('Ariza raqami')}} №</b> {{form.id}}
 			      		 	</div>
 			      		 	<div>
 			      		 		<b>{{$t('Tender sanasi')}}:</b> {{form.tender ? $g.getDate(form.tender.time) : ''}}
@@ -854,7 +838,7 @@
 			      		 		<b>{{$t('Manzil')}}:</b> {{form.tender ? form.tender.address : ''}}
 			      		 	</div>
 			      		 	<div>
-			      		 		<b>Время тендера:</b> {{form.tender ? $g.getTime(form.tender.time) : ''}}
+			      		 		<b>{{$t('Tender vaqti')}} :</b> {{form.tender ? $g.getTime(form.tender.time) : ''}}
 			      		 	</div>
 			      		 	<img :src="'/'+form.qr_code" alt="">
 	      		 		</div>
@@ -871,7 +855,7 @@
 		  <div class="modal-dialog  modal-lg modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="offerTitle">Согласование</h5>
+		        <h5 class="modal-title" id="offerTitle">{{$t('Kelishuv')}}</h5>
 		        <button type="button" class="close" @click.prevent="closeOfferModal">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -892,7 +876,7 @@
 		  	  	<div class="form-group d-flex justify-content-end align-items-center offer_btn">
 		  	  		<input type="checkbox" name="" true-value="1" id="offer" false-value="0" v-model="offer">
 		  	  		<label for="offer" class="form-control-label ml-2 mt-3 text-info">
-		  	  			<h5>Ознакомлен и согласен</h5>
+		  	  			<h5>{{$t('Tanishdim va roziman')}}</h5>
 		  	  		</label>
 		  	  	</div>
 		        <button type="button" class="btn btn-info" @click.prevent="offerConfirm">

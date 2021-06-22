@@ -16,7 +16,7 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">{{$t('Viloyat')}}</th>
-							<th scope="col">Сумма тарифа</th>
+							<th scope="col">{{$t('Tarif summasi')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>

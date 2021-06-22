@@ -302,14 +302,14 @@
                   </select>
                 </div>
                 <div class="form-group col-lg-3 col-md-5">
-                  <label for="busmodel_id">Модель Авто</label>
+                  <label for="busmodel_id">{{$t('Avtomobil rusumi')}}</label>
                   <select
                     class="form-control input_style"
                     id="busmodel_id"
                     placeholder="Номер Авто"
                     v-model="car.busmodel_id"
                   >
-                    <option value="" selected disabled>Выберите модель авто!</option>
+                    <option value="" selected disabled>Выберите!</option>
                     <!-- <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option> -->
                     <option :value="item.id" v-for="(item,index) in getBusmodelFindList">{{item.name}}</option>
                   </select>

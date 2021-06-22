@@ -36,6 +36,11 @@ class Application extends Model
         'qty_reys' => 'array',
     ];
 
+    public function lot()
+    {
+        return $this->belongsTo(\App\TenderLot::class,'lot_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(\App\User::class,'user_id')->with(['region','area']);

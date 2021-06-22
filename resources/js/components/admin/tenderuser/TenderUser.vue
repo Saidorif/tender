@@ -6,11 +6,11 @@
 		  		<div class="header_title mb-2">
 				    <h4 class="title_user">
 				    	<i class="peIcon fas fa-bullhorn"></i>
-					    Тендеры
+					    {{$t('Tanderlar')}}
 					</h4>
 	            	<div class="add_user_btn">
 	            		<span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-		            		Количество тендеров <b>{{ getTenderAnnounces.total }} {{$t('ta')}}.</b>
+		            		{{$t('Tanderlar soni')}}<b>{{ getTenderAnnounces.total }} {{$t('ta')}}.</b>
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter mr-3" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>

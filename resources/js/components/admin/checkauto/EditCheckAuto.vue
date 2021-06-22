@@ -180,18 +180,18 @@
                         <th>{{$t('Avtomobil turi')}}</th>
                         <th>{{$t('Avtomobil sinfi')}}</th>
                         <th>Марка Авто</th>
-                        <th>Модель Авто</th>
+                        <th>{{$t('Avtomobil rusumi')}}</th>
                         <th>Дата выпуска</th>
                         <th>{{$t('Reyslar soni')}}</th>
                         <th>Вместимость</th>
                         <th>{{$t('Oʼrindiqlar soni')}}</th>
-                        <th>Кондиционер (климат-назорати тизими)</th>
-                        <th>Интернет</th>
-                        <th>Биохожатхона</th>
+                        <th>{{$t('Sovutgich (iqlim-nazorati tizimi)')}}</th>
+                        <th>{{$t('Internet')}}</th>
+                        <th>{{$t('Bioxojatxona')}}</th>
                         <th>Автобуснинг ногиронларга ва аҳолининг бошқа харакатланиши чекланган мослашганлиги</th>
-                        <th>Телефон қувватлагичлари</th>
-                        <th>Хар бир ўриндиқда монитор (планшет)</th>
-                        <th>Бекатларни эълон қилиш аудио тизими</th>
+                        <th>{{$t('Telefon quvvatlagichlari')}}</th>
+                        <th>{{$t('Xar bir oʼrindiqda monitor (planshet)')}}</th>
+                        <th>{{$t('Bekatlarni eʼlon qilish audio tizimi')}}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -242,7 +242,7 @@
                       <thead>
                         <tr>
                           <th>Номер Авто</th>
-                          <th>Хозяин</th>
+                          <th>{{$t('Egasi')}}</th>
                           <th>{{$t('INN')}}</th>
                           <th>Дата нотариального {{$t('Tahrirlash')}}</th>
                           <th>Номер реестра нотариального {{$t('Tahrirlash')}}</th>
@@ -270,7 +270,7 @@
                       <thead>
                         <tr>
                           <th>Номер Авто</th>
-                          <th>Хозяин</th>
+                          <th>{{$t('Egasi')}}</th>
                           <th>Марка</th>
                           <th>Вместимость</th>
                           <th>Тип машины</th>

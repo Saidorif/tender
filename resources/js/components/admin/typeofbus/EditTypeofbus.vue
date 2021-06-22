@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-bus"></i>
-          Редактировать категория  автобуса
+          {{$t('Tahrirlash')}}
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/typeofbus"
           ><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link
@@ -15,23 +15,21 @@
         <form @submit.prevent.enter="saveType">
           <div class="row">
             <div class="form-group col-md-4">
-              <label for="name">Название</label>
+              <label for="name">{{$t('Nomi')}} </label>
               <input
                 type="text"
                 class="form-control input_style"
                 id="name"
-                placeholder="Название"
                 v-model="form.name"
                 :class="isRequired(form.name) ? 'isRequired' : ''"
               />
             </div>
             <div class="form-group col-lg-4">
-              <label for="stay_from">Комментарии </label>
+              <label for="stay_from">{{$t('Izoh')}}  </label>
               <textarea
                 type="number"
                 class="form-control input_style"
                 id="stay_from"
-                placeholder="Комментарии"
                 v-model="form.desc"
                 :class="isRequired(form.desc) ? 'isRequired' : ''"
               ></textarea>

@@ -3,10 +3,10 @@
     <Loader v-if="laoding" />
     <div class="card-header">
       <h3 class="card-title title_user mb-0">
-        <i class="peIcon pe-7s-user"></i>Мои данные
+        <i class="peIcon pe-7s-user"></i>{{ $t('Mening maʼlumotlarim') }}
       </h3>
       <div class="balance" v-if="form">
-        <strong>Баланс:</strong> {{ form.balance }}
+        <strong>{{ $t('Balans') }}:</strong> {{ form.balance }}
       </div>
     </div>
    <!--  <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -171,30 +171,30 @@
                   <p class="text-muted text-center">"OOO Pixeel.uz"</p>
                   <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
-                      <b>Количество машины: </b> <a class="float-right">{{form.cars_count}}</a>
+                      <b>{{$t('Avtomobil soni')}}: </b> <a class="float-right">{{form.cars_count}}</a>
                     </li>
                     <li class="list-group-item">
-                      <b>Мой счет:</b>
+                      <b>{{$t('Avtomobil yili')}}:</b>
                       <a class="float-right">
                          {{ form.balance }}
                         <i>{{$t('soʼm')}}</i></a
                       >
                     </li>
                     <li class="list-group-item">
-                      <b>Количество заявок:</b>
+                      <b>{{$t('Arizalar soni')}}:</b>
                       <a class="float-right">{{form.applications_count}} {{$t('ta')}}</a>
                     </li>
                     <li class="list-group-item">
-                      <b>Количество контрактов :</b>
+                      <b>{{$t('Shartnomalar soni')}} :</b>
                       <a class="float-right">{{form.contracts_count}} {{$t('ta')}}</a>
                     </li>
                     <li class="list-group-item">
                       <b>{{$t('Holati')}}:</b>
-                      <a class="float-right"
-                        ><div class="statusAlert alert-success" style="border-radius:6px;padding-left:5px; padding-right:5px;">
-                          активный
-                        </div></a
-                      >
+                        <a class="float-right">
+                            <div class="statusAlert alert-success" style="border-radius:6px;padding-left:5px; padding-right:5px;">
+                            {{$t('faol')}}
+                            </div>
+                        </a>
                     </li>
                   </ul>
                 </div>

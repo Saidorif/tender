@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-border-style"></i>
-				    Тип направления
+				    {{$t('Yoʼnalish turi')}}
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/typeofdirection/add"><i class="fas fa-plus"></i> {{$t('Qoʼshish')}}</router-link>
 		  	</div>
@@ -15,8 +15,8 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
-							<th scope="col">Тип</th>
+							<th scope="col">{{$t('Nomi')}}</th>
+							<th scope="col">{{$t('Turi')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>

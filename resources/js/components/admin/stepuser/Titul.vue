@@ -207,9 +207,9 @@
                   :class="isRequired(form.profitability) ? 'isRequired' : ''"
                   disabled="disabled"
                 >
-                  <option value="profitable">Рентабельный</option>
-                  <option value="unprofitable">Нерентабельный</option>
-                  <option value="middle">Средный</option>
+                  <option value="profitable">{{$t('Samarali')}}</option>
+                  <option value="unprofitable">{{$t('Samarasiz')}}</option>
+                  <option value="middle">{{$t('Oʼrta')}}</option>
                 </select>
               </div>
               <div class="form-group col-xl-3 col-md-6">
@@ -257,11 +257,11 @@
                     <input type="text" class="form-control input_style" :value="car.tclass ? car.tclass.name : ''" disabled>
                   </div>
                   <div class="form-group col-xl-3 col-md-6">
-                    <label for="busmarka_id">Марка Авто</label>
+                    <label for="busmarka_id">{{$t('Avtomabil markasi')}}</label>
                     <input type="text" class="form-control input_style" :value="car.marka ? car.marka.name : ''" disabled>
                   </div>
                   <div class="form-group col-xl-3 col-md-6">
-                    <label for="busmodel_id">Модель Авто</label>
+                    <label for="busmodel_id">{{$t('Avtomobil rusumi')}}</label>
                     <input type="text" class="form-control input_style" :value="car.model ? car.model.name : ''" disabled>
                   </div>
                   <div class="form-group col-md-1 btn_remove_auto"></div>
@@ -284,7 +284,7 @@
                       @change="selectClass(car)"
                       :disabled="makeDisabled"
                     >
-                      <option value="" selected disabled>Выберите категорию авто!</option>
+                      <option value="" selected disabled>{{$t('Tanlang')}}!</option>
                       <option
                         :value="busType.id"
                         v-for="(busType,index) in getTypeofbusList"
@@ -301,12 +301,12 @@
                       :class="isRequired(car.tclass_id) ? 'isRequired' : ''"
                       @change="selectMarka(car)"
                     >
-                      <option value="" selected disabled>Выберите!</option>
+                      <option value="" selected disabled>{{$t('Tanlang')}}!</option>
                       <option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
                     </select>
                   </div>
                   <div class="form-group col-xl-3 col-md-6">
-                    <label for="busmarka_id">Марка Авто</label>
+                    <label for="busmarka_id">{{$t('Avtomobil markasi')}}</label>
                     <select
                       class="form-control input_style"
                       id="busmarka_id"
@@ -314,20 +314,20 @@
                       v-model="car.busmarka_id"
                       @change="selectModel(car)"
                     >
-                      <option value="" selected disabled>Выберите марку авто!</option>
+                      <option value="" selected disabled>{{$t('Tanlang')}}!</option>
                 <!-- <option :value="item.marka.id" v-for="(item,index) in car.bus_marks">{{item.marka.name}}</option> -->
                 <option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
                     </select>
                   </div>
                   <div class="form-group col-xl-3 col-md-6">
-                    <label for="busmodel_id">Модель Авто</label>
+                    <label for="busmodel_id">{{$t('Avtomobil rusumi')}}</label>
                     <select
                       class="form-control input_style"
                       id="busmodel_id"
                       placeholder="Номер Авто"
                       v-model="car.busmodel_id"
                     >
-                      <option value="" selected disabled>Выберите модель авто!</option>
+                      <option value="" selected disabled>{{$t('Tanlang')}}!</option>
                 <!-- <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option> -->
                 <option :value="item.id" v-for="(item,index) in getBusmodelFindList">{{item.name}}</option>
                     </select>
@@ -343,7 +343,7 @@
           </form>
           <div id="prindDiv">
             <p style="margin: 0px; text-align: right; font-size: 15px">
-              Тасдиқлайман
+              Tasdiqlayman
             </p>
             <p style="margin: 0px; text-align: right; font-size: 15px">ФИШ</p>
             <p style="margin: 0px; text-align: right; font-size: 15px">
@@ -361,9 +361,7 @@
               ПАСПОРТ МЕЖДУГОРОДНОГО <br />
               (МЕЖОБЛАСТНОГО, МЕЖДУНАРОДНОГО) <br />
               МАРШРУТА №
-              <u style="text-decoration: underline; padding-bottom: 2px">{{
-                form.pass_number
-              }}</u>
+              <u style="text-decoration: underline; padding-bottom: 2px">{{form.pass_number}}</u>
             </h2>
             <div style="text-align: center; margin-top: 10px">
               <p
@@ -388,8 +386,8 @@
               "
             >
               <p style="font-size: 16px; margin: 0px">
-                Йўналиш <br />
-                классификацияси
+                Классификация <br />
+                маршрута
               </p>
               <div style="text-align: center; width: 75%">
                 <p
@@ -420,7 +418,7 @@
                 margin-top: 10px;
               "
             >
-              <p style="font-size: 16px; margin: 0px">Йўналиш очилиш санаси</p>
+              <p style="font-size: 16px; margin: 0px">Дата открытия маршрута</p>
               <div style="text-align: center; width: 75%">
                 <p
                   style="
@@ -443,7 +441,7 @@
                 margin-top: 10px;
               "
             >
-              <p style="font-size: 16px; margin: 0px">{{$t('Mavsumiyligi')}}</p>
+              <p style="font-size: 16px; margin: 0px">Сезонность работы маршрута</p>
               <div style="text-align: center; width: 75%">
                 <p
                   style="
@@ -459,7 +457,7 @@
               </div>
             </div>
             <div style="display: flex; align-items: flex-end; margin-top: 10px">
-              <p style="font-size: 16px; margin: 0px">Йўналиш узунлиги:</p>
+              <p style="font-size: 16px; margin: 0px">Длина маршрута:</p>
               <div style="text-align: center; width: auto; margin-left: 20px">
                 <p
                   style="
@@ -477,7 +475,7 @@
               </div>
             </div>
             <div style="display: flex; align-items: flex-end; margin-top: 10px">
-              <p style="font-size: 16px; margin: 0px">Йўл ҳаққи :</p>
+              <p style="font-size: 16px; margin: 0px">Стоимость проезда по маршруту  :</p>
               <div style="text-align: center; width: auto; margin-left: 20px">
                 <p
                   style="
@@ -496,8 +494,8 @@
             </div>
             <div style="display: flex; align-items: flex-end; margin-top: 10px">
               <p style="font-size: 16px; margin: 0px">
-                Йўналиш паспортига киритилган <br />
-                ўзгаришлар ҳақида маъломот
+                Отметки о продлении или изменении <br />
+                маршрута
               </p>
               <div style="text-align: center; width: 50%; margin-left: 20px">
                 <p
@@ -561,8 +559,8 @@
                 margin-top: 10px;
               "
             >
-              Жадвал бўйича харакат таркиби (автотранспорт воситалари сони)
-              <u>&nbsp;{{ cars_with.length }} &nbsp;</u> дона.
+              Количество подвижного состава по расписанию (автотранспорт воситалари сони)
+              <u>&nbsp;{{ cars_with.length }} &nbsp;</u> ед.
             </p>
             <div style="display: flex; align-items: flex-end; margin-top: 10px">
               <p style="font-size: 16px; margin: 0px">
@@ -606,8 +604,8 @@
             </div>
             <div style="display: flex; align-items: flex-end; margin-top: 10px">
               <p style="font-size: 16px; margin: 0px">
-                Бошланғич ва охирги <br />
-                тўхташ бекатлари
+                 Маршрут <br />
+                обслуживает
               </p>
               <div style="text-align: center; width: 70%; margin-left: 20px">
                 <p
@@ -651,7 +649,7 @@
               "
             >
               <p style="font-size: 16px; margin: 0px">
-                Паспорт тузувчи
+                Паспорт составил
               </p>
               <div style="text-align: center; width: 75%">
                 <p
@@ -666,7 +664,7 @@
                 >
                   {{getDirection.created_by.name}} {{getDirection.created_by.surname}} {{getDirection.created_by.middlename}}
                 </p>
-                <small style="font-size: 13px">(ФИШ, лавозим)</small>
+                <small style="font-size: 13px">(подпись, Ф.И.О. и занимаемая должность)</small>
               </div>
             </div>
           </div>
