@@ -482,7 +482,6 @@
 					    <select
 						    class="form-control input_style"
 					    	id="bustype_id"
-					    	placeholder="Номер Авто"
 					    	v-model="car.bustype_id"
 					    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''"
                             @change="selectBustype(car.bustype_id)"
@@ -501,7 +500,6 @@
 					    <select
 						    class="form-control input_style"
 					    	id="tclass_id"
-					    	placeholder="Номер Авто"
 					    	v-model="car.tclass_id"
 					    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
 					    	@change="selectClass(car.tclass_id)"
@@ -1259,7 +1257,7 @@
                 this.laoding = false
 		    },
 		    async removeFile(id){
-		    	if(confirm("Вы действительно хотите удалить?")){
+		    	if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
                     this.laoding = true
                     await this.actionRemoveFile(id);
                     this.laoding = false
@@ -1515,7 +1513,7 @@
 		    	}
 		    },
 		    async deleteCar(id){
-		    	if(confirm("Вы действительно хотите удалить?")){
+		    	if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
                     this.laoding = true
 			    	await this.actionRemoveCar(id);
 			    	if(this.getMassage.success){

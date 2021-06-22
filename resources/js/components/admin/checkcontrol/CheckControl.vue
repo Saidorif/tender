@@ -89,11 +89,11 @@
             },
             getStatusName(status){
 				if(status == 'active'){
-					return 'В ожидании'
+					return this.$t('Kutish jarayonida')
 				}else if(status == 'rejected'){
-					return 'Отказано'
+					return this.$t('Rad etilgan')
 				}else if(status == 'accepted' || status == 'approved'){
-					return 'Завершен'
+					return this.$t('Yakunlangan')
 				}
 			},
 		}

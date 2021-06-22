@@ -179,7 +179,7 @@
                         <th>{{$t('Holati')}}</th>
                         <th>{{$t('Avtomobil turi')}}</th>
                         <th>{{$t('Avtomobil sinfi')}}</th>
-                        <th>Марка Авто</th>
+                        <th>{{$t('Avtobus markasi')}}</th>
                         <th>{{$t('Avtomobil rusumi')}}</th>
                         <th>Дата выпуска</th>
                         <th>{{$t('Reyslar soni')}}</th>
@@ -241,7 +241,7 @@
                     <table class="table table-hover table-bordered">
                       <thead>
                         <tr>
-                          <th>Номер Авто</th>
+                          <th>{{$t('Avtomobil raqami')}}</th>
                           <th>{{$t('Egasi')}}</th>
                           <th>{{$t('INN')}}</th>
                           <th>Дата нотариального {{$t('Tahrirlash')}}</th>
@@ -269,7 +269,7 @@
                     <table class="table table-hover table-bordered">
                       <thead>
                         <tr>
-                          <th>Номер Авто</th>
+                          <th>{{$t('Avtomobil raqami')}}</th>
                           <th>{{$t('Egasi')}}</th>
                           <th>Марка</th>
                           <th>Вместимость</th>
@@ -430,20 +430,20 @@ export default {
     },
     getStatusName(name){
       if (name == 'active'){
-        return 'Активный'
+        return this.$t('Faol')
       }else if(name == 'accepted'){
-        return 'Подтверждено'
+        return this.$t('Tasdiqlangan')
       }else{
-        return 'Неактивный'
+        return this.$t('Nofaol')
       }
     },
     getCarStatusName(status){
       if (status == 'active'){
-        return 'Неподтверждено'
+        return this.$t('Yakunlanmagan')
       }else if(status == 'accepted'){
-        return 'Подтверждено'
+        return this.$t('Tasdiqlangan')
       }else if(status == 'rejected'){
-        return 'Отказано'
+        return this.$t('Rad etilgan')
       }
     },
     getCarStatusClass(status){

@@ -82,7 +82,7 @@
 							<td>{{direct.year}}</td>
 							<td>
                                 <div class="badge" :class="getStatusClass(direct.xjadval_status)">
-	                                {{direct.xjadval_status == 'completed' ? 'подтвержден' : $t('Tasdiqlanmagan')}}
+	                                {{direct.xjadval_status == 'completed' ? $t('Tasdiqlangan'): $t('Tasdiqlanmagan')}}
                                 </div>
                             </td>
 							<td>
@@ -167,11 +167,11 @@
 			},
 			getStatusName(status){
 				if(status == 'pending'){
-					return 'В ожидании'
+					return this.$t('Kutish jarayonida')
 				}else if(status == 'rejected'){
-					return 'Отказано'
+					return this.$t('Rad etilgan')
 				}else if(status == 'completed'){
-					return 'Завершен'
+					return this.$t('Yakunlangan')
 				}
 			},
 			getStatusClass(status){

@@ -44,14 +44,14 @@
               />
             </div>
             <!-- <div class="form-group col-md-4">
-              <label for="busmodel_id">Марка автобуса</label>
+              <label for="busmodel_id">{{$t('Avtobus markasi')}}</label>
               <select
                 class="form-control input_style"
                 v-model="form.busmarka_id"
                 :class="isRequired(form.busmarka_id) ? 'isRequired' : ''"
               >
                 <option value="" selected disabled>
-                  Выберите тип автобус!
+                  {{$t('Tanlang')}}!
                 </option>
                 <option
                   :value="item.id"
@@ -69,7 +69,7 @@
                 :class="isRequired(form.busmodel_id) ? 'isRequired' : ''"
               >
                 <option value="" selected disabled>
-                  Выберите тип автобус!
+                  {{$t('Tanlang')}}!
                 </option>
                 <option
                   :value="item.id"

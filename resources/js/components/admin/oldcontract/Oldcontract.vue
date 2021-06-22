@@ -20,12 +20,12 @@
 							<th scope="col">№</th>
 							<th scope="col">{{$t('Viloyat')}}</th>
 							<th scope="col">{{$t('Yoʼnalish')}}</th>
-							<th scope="col">Номер контракта</th>
-							<th scope="col">Название Компании</th>
-							<th scope="col">Протокол рақами</th>
-							<th scope="col">Контракт тузилган сана</th>
-							<th scope="col">Амал қилиш муддати</th>
-							<th scope="col">Контракт периоди</th>
+							<th scope="col">{{$t('Shartnoma raqami')}} </th>
+							<th scope="col">{{$t('Tashkilot nomi')}}</th>
+							<th scope="col">{{$t('Protokol raqami')}}</th>
+							<th scope="col">{{$t('Shartnoma tuzilgan sana')}}</th>
+							<th scope="col">{{$t('Amal qilish muddati')}}</th>
+							<th scope="col">{{$t('Shartnoma periodi')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
@@ -98,10 +98,10 @@
 				this.laoding = false
 			},
 			getPeriod(item){
-				return item+' йил'
+				return item+' ' + this.$t('yil')
 			},
 			async deleteOldcontract(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 					let page = 1
 					this.laoding = true
 					await this.actionDeleteOldcontract(id)
@@ -110,7 +110,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Oldcontract удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			}

@@ -38,7 +38,7 @@
 			              	></date-picker>
 			          	</div>
 					  	<div class="form-group col-md-3">
-			              	<label for="date">Файл</label>
+			              	<label for="date">{{$t('Fayl')}}</label>
 			              	<input
 			              		type="file"
 			              		name="file"
@@ -50,7 +50,7 @@
 		              		<small v-if="fileName">
 		              			<a :href="fileName" download>
 		              				<i class="fas fa-download"></i>
-		              				Скачать файл
+		              				{{$t('Faylni yuklash')}}
 		              			</a>
 		              		</small>
 			          	</div>

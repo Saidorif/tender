@@ -335,7 +335,7 @@
               </select>
             </div>
             <div class="form-group col-xl-6">
-              <label for="end_speedometer">{{$t('Kelgan vaqtida')}}Kelgan vaqtida ({{$t('km')}})</label>
+              <label for="end_speedometer">{{$t('Kelgan vaqtida')}} ({{$t('km')}})</label>
               <input
                 type="number"
                 v-model="form.end_speedometer"

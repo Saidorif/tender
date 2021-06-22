@@ -15,7 +15,7 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
+							<th scope="col">{{$t('Nomi')}}</th>
 							<th scope="col">Label</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
@@ -73,7 +73,7 @@
 				await this.actionRoles(page)
 			},
 			async deleteRole(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
                     let page = 1
                     this.laoding = true
 					await this.actionDeleteRole(id)
@@ -82,7 +82,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Рол удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			}

@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file-alt"></i>
-				    {{$t('Qoʼshish')}} старый контракт
+				    {{$t('Qoʼshish')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/oldcontract">
 					<span class="peIcon pe-7s-back"></span>
@@ -16,46 +16,42 @@
 		  		<form @submit.prevent.enter="saveOldcontract" enctype="multipart/form-data">
 					<div class="row">
 					  	<div class="form-group col-md-3">
-						    <label for="number">Номер контракта</label>
+						    <label for="number">{{$t('Shartnoma raqami')}}</label>
 						    <input
 						    	type="text"
 						    	class="form-control input_style"
 						    	id="number"
-						    	placeholder="Номер контракта"
 						    	v-model="form.number"
 						    	:class="isRequired(form.number) ? 'isRequired' : ''"
 					    	>
 					  	</div>
 					  	<div class="form-group col-md-3">
-			              	<label for="date">Контракт тузилган сана</label>
+			              	<label for="date">{{$t('Shartnoma tuzilgan sana')}}</label>
 			              	<date-picker
 				                lang="ru"
 				                type="date" format="YYYY-MM-DD" valueType="format"
 				                v-model="form.date"
 				                class="input_style"
-				                placeholder="Контракт тузилган сана"
 				                :class="isRequired(form.date) ? 'isRequired' : ''"
 			              	></date-picker>
 			          	</div>
 					  	<div class="form-group col-md-3">
-			              	<label for="exp_date">Амал қилиш муддати</label>
+			              	<label for="exp_date">{{$t('Amal qilish muddati')}}</label>
 			              	<date-picker
 				                lang="ru"
 				                type="date" format="YYYY-MM-DD" valueType="format"
 				                v-model="form.exp_date"
 				                class="input_style"
-				                placeholder="Амал қилиш муддати"
 				                :class="isRequired(form.exp_date) ? 'isRequired' : ''"
 			              	></date-picker>
 			          	</div>
 			          	<div class="form-group col-md-3">
-						    <label for="protocol_id">Название Компании</label>
+						    <label for="protocol_id">{{$t('Tashkilot nomi')}}</label>
 						    <multiselect
 								:value="user_values"
 								:options="findUserList"
 								@search-change="value => findUser(value)"
 								v-model="user_values"
-		                        placeholder="Название Компании"
 		                        :searchable="true"
 		                        track-by="id"
 		                        label="company_name"
@@ -73,13 +69,12 @@
 							</multiselect>
 				  	    </div>
 			          	<div class="form-group col-md-3">
-						    <label for="protocol_id">Протокол рақами</label>
+						    <label for="protocol_id">{{$t('Protokol raqami')}}</label>
 						    <multiselect
 								:value="protocol_values"
 								:options="findProtocolList"
 								@search-change="value => findProtocol(value)"
 								v-model="protocol_values"
-		                        placeholder="Протокол рақами"
 		                        :searchable="true"
 		                        track-by="id"
 		                        label="number"
@@ -97,18 +92,18 @@
 							</multiselect>
 				  	    </div>
 					  	<div class="form-group col-md-3">
-			              	<label for="contract_period">Контракт периоди</label>
+			              	<label for="contract_period">{{$t('Shartnoma periodi')}}</label>
 			              	<select class="form-control input_style" v-model="form.contract_period" :class="isRequired(form.contract_period) ? 'isRequired' : ''">
-			              		<option value="" selected disabled>Контракт периоди танланг!</option>
-			              		<option value="1">1 йил</option>
-			              		<option value="2">2 йил</option>
-			              		<option value="3">3 йил</option>
-			              		<option value="4">4 йил</option>
-			              		<option value="5">5 йил</option>
+			              		<option value="" selected disabled>{{$t('Tanlang')}}!</option>
+			              		<option value="1">1 {{$t('yil')}}</option>
+			              		<option value="2">2 {{$t('yil')}}</option>
+			              		<option value="3">3 {{$t('yil')}}</option>
+			              		<option value="4">4 {{$t('yil')}}</option>
+			              		<option value="5">5 {{$t('yil')}}</option>
 			              	</select>
 			          	</div>
 					  	<div class="form-group col-md-3">
-			              	<label for="date">Файл</label>
+			              	<label for="date">{{$t('Fayl')}}</label>
 			              	<input
 			              		type="file"
 			              		name="file"
@@ -120,7 +115,7 @@
 		              		<small>
 		              			<a :href="fileName" download>
 		              				<i class="fas fa-download"></i>
-		              				Скачать файл
+		              				{{$t('Faylni yuklash')}}
 		              			</a>
 		              		</small>
 			          	</div>
@@ -148,7 +143,7 @@
 							</multiselect>
 				  		</div>
 				  		<div class="ml-3 d-flex justify-content-center w-100 border pt-2 mb-4">
-							<h4>Мои автомобили</h4>
+							<h4>{{$t('Mening avtomobillarim')}}</h4>
 						</div>
 					  	<div class="form-group col-lg-12">
 					  		<div class="row" v-for="(car,index) in cars">
@@ -156,7 +151,7 @@
 					        		{{index+1}})
 				        		</div>
 					        	<div class="form-group col-md-1">
-								    <label for="auto_number">Номер Авто</label>
+								    <label for="auto_number">{{$t('Avtomobil raqami')}}</label>
 								    <input
 								    	type="text"
 								    	class="form-control input_style"
@@ -168,16 +163,15 @@
 							    	>
 							  	</div>
 							  	<div class="form-group col-md-3">
-								    <label for="bustype_id">Категория Авто</label>
+								    <label for="bustype_id">{{$t('Avtomobil turi')}} </label>
 								    <select
 									    class="form-control input_style"
 								    	id="bustype_id"
-								    	placeholder="Номер Авто"
 								    	v-model="car.bustype_id"
 								    	:class="isRequired(car.bustype_id) ? 'isRequired' : ''"
 			                            @change="selectClass(car)"
 								    >
-								    	<option value="" selected disabled>Выберите категорию авто!</option>
+								    	<option value="" selected disabled>{{$t('Tanlang')}}!</option>
 								    	<option
 								    		:value="busType.id"
 								    		v-for="(busType,index) in getTypeofbusList"
@@ -190,38 +184,35 @@
 								    <select
 									    class="form-control input_style"
 								    	id="tclass_id"
-								    	placeholder="Номер Авто"
 								    	v-model="car.tclass_id"
 								    	:class="isRequired(car.tclass_id) ? 'isRequired' : ''"
 								    >
-								    	<option value="" selected disabled>Выберите!</option>
+								    	<option value="" selected disabled>{{$t('Tanlang')}}!</option>
 								    	<option :value="busClass.id" v-for="(busClass,index) in car.getBusclassFindList">{{busClass.name}}</option>
 								    </select>
 							  	</div>
 							  	<div class="form-group col-md-2">
-								    <label for="busmarka_id">Марка Авто</label>
+								    <label for="busmarka_id">{{$t('Avtobus markasi')}}</label>
 								    <select
 									    class="form-control input_style"
 								    	id="busmarka_id"
-								    	placeholder="Номер Авто"
 								    	v-model="car.busmarka_id"
 								    	:class="isRequired(car.busmarka_id) ? 'isRequired' : ''"
 								    	@change="selectCarMarka(car)"
 								    >
-								    	<option value="" selected disabled>Выберите марку авто!</option>
+								    	<option value="" selected disabled>{{$t('Tanlang')}}!</option>
 								    	<option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
 								    </select>
 							  	</div>
 							  	<div class="form-group col-md-2">
-								    <label for="busmodel_id">Модель Авто</label>
+								    <label for="busmodel_id">{{$t('Avtomobil rusumi')}} </label>
 								    <select
 									    class="form-control input_style"
 								    	id="busmodel_id"
-								    	placeholder="Номер Авто"
 								    	v-model="car.busmodel_id"
 								    	:class="isRequired(car.busmodel_id) ? 'isRequired' : ''"
 								    >
-								    	<option value="" selected disabled>Выберите модель авто!</option>
+								    	<option value="" selected disabled>{{$t('Tanlang')}}!</option>
 								    	<option :value="item.id" v-for="(item,index) in car.getBusmodelFindList">{{item.name}}</option>
 								    </select>
 							  	</div>
@@ -233,7 +224,7 @@
 					  	<div class="form-group col-lg-12 d-flex justify-content-end align-items-center">
 						  	<button type="button" class="btn btn-info mr-3" @click.prevent="addCarItem">
 						  		<i class="fas fa-plus"></i>
-							  	{{$t('Qoʼshish')}} авто
+							  	{{$t('Avtomobil qoʼshish')}}
 							</button>
 						  	<button type="submit" class="btn btn-primary">
 						  		<i class="fas fa-save"></i>
@@ -371,7 +362,7 @@
 			},
 			removeCarItem(index){
 				if(index != 0){
-					if(confirm("Вы действительно хотите удалить?")){
+					if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 						Vue.delete(this.cars,index)
 					}
 				}

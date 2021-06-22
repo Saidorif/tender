@@ -72,12 +72,12 @@
           </div>
           <form @submit.prevent.enter="sendFile"  enctype="multipart/form-data" class="col-md-6 d-flex flex-wrap">
             <input type="file" accept="application/pdf" id="file" ref="file" @change="handleFileUpload()" required name="file" class="form-control" style="width:60%;border-radius:0px;height: 41px;" >
-            <button type="submit" class="btn btn-primary btn_save_category" style="width: 210px;border-radius:0px;height: 41px;">{{$t('Saqlash')}} файл</button>
-            <a v-if="getDirection.sxema_file" :href="getDirection.sxema_file" download="" class="btn btn-info btn_save_category">Скачать файл</a>
+            <button type="submit" class="btn btn-primary btn_save_category" style="width: 210px;border-radius:0px;height: 41px;">{{$t('Faylni saqlash')}}</button>
+            <a v-if="getDirection.sxema_file" :href="getDirection.sxema_file" download="" class="btn btn-info btn_save_category">{{$t('Faylni yuklash')}}</a>
           </form>
           <div class="row col-md-12"  v-if="agreedData.length">
             <div class="form-group col-xl-3 col-md-6 agree_item" v-for="(p_item,p_index) in agreedData">
-              <h6>"Kelishilgan"</h6>
+              <h6>"{{$t('Kelishilgan')}}"</h6>
               <p>{{p_item.organ }} {{ p_item.job}}:</p>
               <p><span></span>{{p_item.fio }}. {{ p_item.date}}</p>
               <p></p>
@@ -86,7 +86,7 @@
           <form @submit.prevent.enter="saveData" enctype="multipart/form-data" class="col-md-12">
             <div class="row col-md-12">
                 <div class="form-group col-xl-3 col-md-6">
-                <label for="organ">Tashkilot nomi</label>
+                <label for="organ">{{$t('Tashkilot nomi')}}</label>
                 <input
                     type="text"
                     v-model="form.organ"
@@ -96,7 +96,7 @@
                 />
                 </div>
                 <div class="form-group col-xl-3 col-md-6">
-                <label for="organ">Xodim lavozimi</label>
+                <label for="organ">{{$t('Xodim lavozimi')}}</label>
                 <input
                     type="text"
                     v-model="form.job"
@@ -106,7 +106,7 @@
                 />
                 </div>
                 <div class="form-group col-xl-3 col-md-6">
-                <label for="organ">F.I.SH</label>
+                <label for="organ">{{$t('F.I.SH')}}</label>
                 <input
                     type="text"
                     v-model="form.fio"
@@ -116,7 +116,7 @@
                 />
                 </div>
                 <div class="form-gruop col-xl-3 col-md-6">
-                <label for="organ">Sana</label>
+                <label for="organ">{{$t('Sana')}}</label>
                 <div class="d-flex">
                     <date-picker lang="ru" class="input_style" v-model="form.date" type="date" format="DD-MM-YYYY" valueType="format"       :class="isRequired(form.date) ? 'isRequired' : ''"></date-picker>
                     <button  @click="addAgreeData" type="button" class="btn btn-info ml-2"><i  class="fas fa-plus"></i></button>
@@ -128,7 +128,7 @@
                 <div class="col-md-6">
                     <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
                     <i class="far fa-share-square"></i>
-                    {{$t('Yuvorish')}} на подтверждение
+                     {{$t('Tasdiqlashga yuvorish')}}
                     </button>
                 </div>
                 <div class="col-md-6 form_btn d-flex justify-content-end">

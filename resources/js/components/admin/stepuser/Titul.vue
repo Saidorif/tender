@@ -278,7 +278,6 @@
                     <select
                       class="form-control input_style"
                       :id="'bustype_id'+index"
-                      placeholder="Номер Авто"
                       v-model="car.bustype_id"
                       :class="isRequired(car.bustype_id) ? 'isRequired' : ''"
                       @change="selectClass(car)"
@@ -296,7 +295,6 @@
                     <select
                       class="form-control input_style"
                       id="tclass_id"
-                      placeholder="Номер Авто"
                       v-model="car.tclass_id"
                       :class="isRequired(car.tclass_id) ? 'isRequired' : ''"
                       @change="selectMarka(car)"
@@ -310,7 +308,6 @@
                     <select
                       class="form-control input_style"
                       id="busmarka_id"
-                      placeholder="Номер Авто"
                       v-model="car.busmarka_id"
                       @change="selectModel(car)"
                     >
@@ -324,7 +321,6 @@
                     <select
                       class="form-control input_style"
                       id="busmodel_id"
-                      placeholder="Номер Авто"
                       v-model="car.busmodel_id"
                     >
                       <option value="" selected disabled>{{$t('Tanlang')}}!</option>
@@ -927,7 +923,7 @@ export default {
       }
     },
     async removeEditCar(id){
-      if(confirm("Вы действительно хотите удалить?")){
+      if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
         await this.actionCarDeleteDirection(id)
         if (this.getMassage.success){
           await this.actionEditDirection(this.$route.params.directionId);

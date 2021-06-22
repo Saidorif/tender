@@ -10,7 +10,7 @@
           <div class="col-md-12 d-flex justify-content-end mb-2">
             <button type="button" class="btn btn-info text-white" @click.prevent="refreshDemand">
               <i class="fas fa-redo"></i>
-              Обнавить
+              {{$t('Yangilash')}}
             </button>
           </div>
         </div> -->

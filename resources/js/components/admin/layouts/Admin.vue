@@ -41,7 +41,7 @@
             <router-link to="/crm/dashboard" class="nav-link">
               <span class="peIcon pe-7s-rocket" style="font-size: 20px;"></span>
               <p>
-                Админ панель
+                {{$t('admin_menu.admin_panel')}}
               </p>
             </router-link>
           </li>
@@ -49,7 +49,7 @@
             <router-link class="nav-link" to="/crm/profile">
               <i class="peIcon pe-7s-user"></i>
               <p>
-                Мои данные
+               {{$t('admin_menu.my_info')}}
               </p>
             </router-link>
           </li>
@@ -57,7 +57,7 @@
             <router-link class="nav-link" to="/crm/apply">
               <i class="peIcon fas fa-vote-yea"></i>
               <p>
-                Доступ
+                {{$t('Ruxsat')}}
               </p>
             </router-link>
           </li>
@@ -65,7 +65,7 @@
             <router-link class="nav-link" to="/crm/client">
               <i class="peIcon pe-7s-users"></i>
               <p>
-                Перевозчики
+                {{$t('Tashuvchilar')}}
               </p>
             </router-link>
           </li>
@@ -97,7 +97,7 @@
             <a href="#" class="nav-link" >
               <i class="peIcon fas fa-clipboard-check"></i>
               <p>
-                Подтверждения
+                 {{$t('Tasdiqlash')}}
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -105,28 +105,28 @@
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/confirm-titul">
                   <p>
-                    Титуль
+                    {{$t('Titul')}}
                   </p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/confirm-timing">
                   <p>
-                    Хронометраж
+                     {{$t('Xronametraj')}}
                   </p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/confirm-scheme">
                   <p>
-                    Схема
+                    {{$t('Sxema')}}
                   </p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/confirm-schedule">
                   <p>
-                    График движения
+                    {{$t('Xarkatlanish jadvali')}}
                   </p>
                 </router-link>
               </li>
@@ -140,14 +140,14 @@
               <li class="nav-item" v-if="$can('listTarifApprove', 'DirectionController')">
                 <router-link class="nav-link" to="/crm/confirm-confirmdemand">
                   <p>
-                    Талаб
+                    {{$t('Talab')}}
                   </p>
                 </router-link>
               </li>
               <li class="nav-item" v-if="$can('announceTender', 'TenderController')">
                 <router-link class="nav-link" to="/crm/confirm-tender">
                   <p>
-                    Тендер
+                    {{$t('Tender')}}
                   </p>
                 </router-link>
               </li>
@@ -157,7 +157,7 @@
             <router-link class="nav-link" to="/crm/tenderannounce">
               <i class="peIcon fas fa-bullhorn"></i>
               <p>
-                Объявить тендер
+                {{$t('Tender eʼlon qilish')}}
               </p>
             </router-link>
           </li>
@@ -165,7 +165,7 @@
             <router-link class="nav-link" to="/crm/tenderuser">
               <i class="peIcon fas fa-file"></i>
               <p>
-                Активные тендеры
+                {{$t('Faol tenderlar')}}
               </p>
             </router-link>
           </li>
@@ -173,7 +173,7 @@
             <a href="#" class="nav-link">
               <span class="peIcon fas fa-file" style="font-size: 20px;"></span>
               <p>
-                Итоги тендеров
+                {{$t('Tender natijalari')}}
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -181,28 +181,28 @@
               <li class="nav-item" v-if="$can('completedTenders', 'TenderController')">
                 <router-link class="nav-link" to="/crm/completed-tenders">
                   <p>
-                    Завершенные тендеры
+                    {{$t('Yakunlangan tenderlar')}}
                   </p>
                 </router-link>
               </li>
               <li class="nav-item" v-if="$can('checkTenders', 'TenderController')">
                 <router-link class="nav-link" to="/crm/check-control">
                   <p>
-                    Проверка тендеры
+                    {{$t('Tenderlarni tekshirish')}}
                   </p>
                 </router-link>
               </li>
               <li class="nav-item" v-if="$can('checkTenders', 'TenderController')">
                 <router-link class="nav-link" to="/crm/protocol-list">
                   <p>
-                    Протокол
+                    {{$t('Protokol')}}
                   </p>
                 </router-link>
               </li>
               <li class="nav-item" v-if="$can('checkTenders', 'TenderController')">
                 <router-link class="nav-link" to="/crm/contract-list">
                   <p>
-                    Договора
+                   {{$t('Shartnomalar')}}
                   </p>
                 </router-link>
               </li>
@@ -211,7 +211,7 @@
           <li class="nav-item" v-if="$can('completedTenders', 'TenderController')">
             <router-link class="nav-link" to="/crm/completed-tenders-user">
               <p>
-                Завершенные тендеры
+                 {{$t('Yakunlangan tenderlar')}}
                  <small style="padding:2px 6px;background: #74b303;border-radius:3px;">user</small>
               </p>
             </router-link>
@@ -220,7 +220,7 @@
             <router-link class="nav-link" to="/crm/position">
               <i class="peIcon pe-7s-graph1"></i>
               <p>
-                Должность
+                {{$t('Lavozimi')}}
               </p>
             </router-link>
           </li>
@@ -229,7 +229,7 @@
             <router-link class="nav-link" to="/crm/certificate">
               <i class="peIcon fas fa-file"></i>
               <p>
-                Свидетельство
+                {{$t('Svidetelstvo')}}
               </p>
             </router-link>
           </li>
@@ -237,7 +237,7 @@
             <router-link class="nav-link" to="/crm/usercertificate">
               <i class="peIcon fas fa-file"></i>
               <p>
-                Мои cвидетельствa
+                {{$t('moi svidetelstva')}}
               </p>
             </router-link>
           </li>
@@ -245,7 +245,7 @@
             <router-link class="nav-link" to="/crm/tender/application">
               <i class="peIcon fas fa-file"></i>
               <p>
-                Заявки
+                {{$t('Arizalar')}}
               </p>
             </router-link>
           </li>
@@ -253,7 +253,7 @@
             <router-link class="nav-link" to="/crm/user/application">
               <i class="peIcon fas fa-file"></i>
               <p>
-                Мои Заявки
+                {{$t('Mening arizalarim')}}
               </p>
             </router-link>
           </li>
@@ -261,7 +261,7 @@
             <router-link class="nav-link" to="/crm/payment">
               <i class="peIcon fas fa-money-bill-alt"></i>
               <p>
-                Платежи
+                {{$t('admin_menu.payments')}}
               </p>
             </router-link>
           </li>
@@ -269,7 +269,7 @@
             <router-link class="nav-link" to="/crm/oldprotocol">
               <i class="peIcon fas fa-file"></i>
               <p>
-                Старые протоколы
+                {{$t('Eski protokollar')}}
               </p>
             </router-link>
           </li>
@@ -293,7 +293,7 @@
             <router-link class="nav-link" to="/crm/setting"  v-if="$can('index', 'SettingController')">
               <i class="peIcon fas fa-cog"></i>
               <p>
-                Настройка системы
+                {{$t('Tizimni sozlash')}}
               </p>
             </router-link>
           </li>
@@ -301,7 +301,7 @@
             <router-link class="nav-link" to="/crm/employee">
               <i class="peIcon fas fa-users"></i>
               <p>
-                Сотрудники
+                {{$t('Xodimlar')}}
               </p>
             </router-link>
           </li>
@@ -317,7 +317,7 @@
             <a href="#" class="nav-link">
               <span class="peIcon fas fa-comment" style="font-size: 20px;"></span>
               <p>
-                Обращения
+                {{$t('Murojaatlar')}}
                 <span class="badge badge-primary" v-if="getComplaintLength">{{getComplaintLength}}</span>
                 <i class="right fas fa-angle-left"></i>
               </p>
@@ -326,14 +326,14 @@
               <li class="nav-item" v-if="$can('index', 'ComplaintCategoryController')">
                 <router-link class="nav-link" to="/crm/complaint-list">
                   <p>
-                    Список обращения
+                    {{$t('Murojaatlar roʼyxati')}}
                   </p>
                 </router-link>
               </li>
               <li class="nav-item" v-if="$can('index', 'ComplaintController')">
                 <router-link class="nav-link" to="/crm/complaint">
                   <p>
-                    Вариант обращения
+                    {{$t('Murojaat turi')}}
                   </p>
                 </router-link>
               </li>
@@ -343,7 +343,7 @@
             <a href="#" class="nav-link">
               <i class="peIcon fas fa-cogs" style="font-size: 20px;"></i>
               <p>
-                Основные настройки
+                {{$t('Asosiy sozlamalar')}}
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -352,7 +352,7 @@
                 <router-link class="nav-link" to="/crm/region">
                   <i class="peIcon fas fa-globe"></i>
                   <p>
-                    Области
+                    {{$t('Viloyatlar')}}
                   </p>
                 </router-link>
               </li>
@@ -368,7 +368,7 @@
                 <router-link class="nav-link" to="/crm/station">
                   <i class="peIcon fas fa-bus"></i>
                   <p>
-                    Автостанция
+                    {{$t('Avtostansiya')}}
                   </p>
                 </router-link>
               </li>
@@ -376,7 +376,7 @@
                 <router-link class="nav-link" to="/crm/typeofdirection">
                   <i class="peIcon fas fa-border-style"></i>
                   <p>
-                    Тип {{$t('Yoʼnalish')}}
+                     {{$t('Yoʼnalish turi')}}
                   </p>
                 </router-link>
               </li>
@@ -384,7 +384,7 @@
                 <router-link class="nav-link" to="/crm/tarifcity">
                   <i class="peIcon fas fa-border-style"></i>
                   <p>
-                    Тариф ШЙ
+                    {{$t('Tarif ShY')}}
                   </p>
                 </router-link>
               </li>
@@ -392,7 +392,7 @@
                 <a href="#" class="nav-link" >
                   <i class="peIcon fas fa-bus"></i>
                   <p>
-                    Автобуса
+                    {{$t('Avtobus')}}
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
@@ -400,21 +400,21 @@
                     <li class="nav-item" v-if="$can('index', 'BusTypeController')">
                         <router-link class="nav-link" to="/crm/typeofbus">
                             <p>
-                                Категория  автобуса
+                                {{$t('Avtobus turi')}}
                             </p>
                         </router-link>
                     </li>
                     <li class="nav-item" v-if="$can('index', 'TClassController')">
                         <router-link class="nav-link" to="/crm/busclass">
                             <p>
-                                {{$t('Avtomobil sinfi')}}буса
+                                {{$t('Avtomobil sinfi')}}
                             </p>
                         </router-link>
                     </li>
                     <li class="nav-item" v-if="$can('index', 'BusMarkaController')">
                         <router-link class="nav-link" to="/crm/busbrand">
                         <p>
-                            Марка автобуса
+                            {{$t('Avtobus markasi')}}
                         </p>
                         </router-link>
                     </li>
@@ -431,7 +431,7 @@
                 <router-link class="nav-link" to="/crm/conditionalsign">
                   <i class="peIcon fas fa-sign"></i>
                   <p>
-                    Условные символы
+                    {{$t('Shartli belgilar')}}
                   </p>
                 </router-link>
               </li>

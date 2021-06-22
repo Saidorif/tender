@@ -50,7 +50,7 @@
 		              		<small>
 		              			<a :href="'/'+fileName" download>
 		              				<i class="fas fa-download"></i>
-		              				Скачать файл
+		              				{{$t('Faylni yuklash')}}
 		              			</a>
 		              		</small>
 			          	</div>

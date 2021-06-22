@@ -167,11 +167,11 @@
 			},
 			getStatusName(status){
 				if(status == 'pending'){
-					return 'В ожидании'
+					return this.$t('Kutish jarayonida')
 				}else if(status == 'rejected'){
-					return 'Отказано'
+					return this.$t('Rad etilgan')
 				}else if(status == 'completed'){
-					return 'Завершен'
+					return this.$t('Yakunlangan')
 				}
 			},
 			getStatusClass(status){
