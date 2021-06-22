@@ -28,6 +28,11 @@ import Employee from './components/admin/employee/Employee'
 import AddEmployee from './components/admin/employee/AddEmployee'
 import EditEmployee from './components/admin/employee/EditEmployee'
 
+// MyAppeal
+import MyAppeal from './components/admin/myappeal/MyAppeal'
+import AddMyAppeal from './components/admin/myappeal/AddMyAppeal'
+import EditMyAppeal from './components/admin/myappeal/EditMyAppeal'
+
 // certificate
 import Certificate from './components/admin/certificate/Certificate'
 import AddCertificate from './components/admin/certificate/AddCertificate'
@@ -376,6 +381,30 @@ const router = new Router({
 						action:'edit',
 						subject:'EmployeeController'
 					}
+				},
+				{
+					path:'myappeal',
+					component:MyAppeal,
+					// meta:{
+					// 	action:'index',
+					// 	subject:'myappealController'
+					// }
+				},
+				{
+					path:'myappeal/add',
+					component:AddMyAppeal,
+					// meta:{
+					// 	action:'store',
+					// 	subject:'myappealController'
+					// }
+				},
+				{
+					path:'myappeal/edit/:myappealId',
+					component:EditMyAppeal,
+					// meta:{
+					// 	action:'edit',
+					// 	subject:'myappealController'
+					// }
 				},
 				{
 					path:'certificate',

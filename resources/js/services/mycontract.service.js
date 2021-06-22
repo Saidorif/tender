@@ -7,6 +7,9 @@ const MycontractService = {
 	allmycontracts(page){
 		return ApiService.post(`/api/contract/user?page=${page}`)
 	},
+	listmycontracts(){
+		return ApiService.get(`/api/contract/user`)
+	},
 	contractActivate(data){
 		return ApiService.post(`/api/contract/agree`,data)
 	},
