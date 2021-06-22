@@ -120,6 +120,46 @@ class ContractController extends Controller
         return response()->json(['success' => true,'message' => 'Сообщение успешно отправлено']);
     }
 
+    public function appealApprove(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'appeal_id' => 'required|integer',
+            'answer_text' => 'required|string',
+            'answer_file' => 'required|file',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inputs = $request->all();
+        $user = $request->user();
+        $appeal = Appeal::with(['user','contract','region'])->find($inputs['appeal_id']);
+        if(!$appeal){
+            return  response()->json(['error' => true,'message' => 'Сообщение не найдено']);
+        }
+        if($appeal->status == 'completed'){
+            return  response()->json(['error' => true,'message' => 'Сообщение уже одобрен']);
+        }
+        if($user->role->name != 'admin'){
+            if($user->region_id != $appeal->region_id){
+                return  response()->json(['error' => true,'message' => 'У вас нет доступа']);
+            }
+        }
+        $inputs['approved_by'] = $user->id;
+        $inputs['approved_date'] = date('Y-m-d H:m:s');
+        $inputs['status'] = 'completed';
+
+        //Upload file
+        if($request->hasFile('answer_file')){
+            $file = $request->file('answer_file');
+            $path = 'public/'.date('Y-m-d');
+            $file_name = time().'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->putFileAs($path, $file,$file_name);
+            $inputs['answer_file'] = 'storage/'.date('Y-m-d').'/'.$file_name;
+        }
+        $appeal->update($inputs);
+        return  response()->json(['success' => true,'message' => 'Сообщение одобрен']);
+    }
+
     public function userAgreement(Request $request)
     {
         $validator = Validator::make($request->all(),[
