@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file-alt"></i>
-				    Изменить контракт
+				    Mening shartnomam
 				</h4>
                 <div class="d-flex">
                     <!-- <button type="button" class="btn btn-success mr-2" @click="activeContract">
@@ -563,7 +563,7 @@
 		      	}
 			},
             async activeContract(){
-                await this.actionContractActivate(this.$route.params.oldcontractId);
+                await this.actionContractActivate(this.$route.params.mycontractId);
 				if(this.getMassage.success){
 					toast.fire({
 						type: 'success',
