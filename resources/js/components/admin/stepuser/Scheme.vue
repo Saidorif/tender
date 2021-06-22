@@ -66,7 +66,7 @@
           </div>
           <div class="row col-md-12"  v-if="agreedData.length">
             <div class="form-group col-md-3 agree_item" v-for="(p_item,p_index) in agreedData">
-              <h6>"Kelishilgan"</h6>
+              <h6>"{{$t('Kelishilgan')}}"</h6>
               <p>{{p_item.organ }} {{ p_item.job}}:</p>
               <p><span></span>{{p_item.fio }}. {{ p_item.date}}</p>
               <p></p>

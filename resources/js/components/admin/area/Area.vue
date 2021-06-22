@@ -77,14 +77,14 @@
 				await this.actionAreas(page)
 			},
 			async deleteArea(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 					let page = 1
 					await this.actionDeleteArea(id)
 					await this.actionAreas(page)
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Area удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			}

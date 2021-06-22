@@ -13,7 +13,7 @@
 		  		<form @submit.prevent.enter="savePayment" >
 					<div class="row">
 					  <div class="form-group col-xl-3 col-xl-6">
-					    <label for="name">Названиe компаний</label>
+					    <label for="name">{{$t('Tashkilot nomi')}}</label>
 					    <multiselect
 							:value="values"
 							:options="findList"

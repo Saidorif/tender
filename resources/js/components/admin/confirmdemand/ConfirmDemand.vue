@@ -74,7 +74,7 @@
 							<td>{{direct.direction_name}}</td>
 							<td>
                                 <div class="badge" :class="getStatusClass(direct.status)">
-	                                {{direct.status == 'completed' ? 'подтвержден' : $t('Tasdiqlanmagan')}}
+	                                {{direct.status == 'completed' ? $t('Tasdiqlangan') : $t('Tasdiqlanmagan')}}
                                 </div>
                             </td>
 							<td>
@@ -159,11 +159,11 @@
 			},
 			getStatusName(status){
 				if(status == 'pending'){
-					return 'В ожидании'
+					return this.$t('Kutish jarayonida')
 				}else if(status == 'rejected'){
-					return 'Отказано'
+					return this.$t('Rad etilgan')
 				}else if(status == 'completed'){
-					return 'Завершен'
+					return this.$t('Yakunlangan')
 				}
 			},
 			getStatusClass(status){

@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                  <label for="company_name">Название компании</label>
+                  <label for="company_name">{{$t('Tashkilot nomi')}}</label>
                   <p class="form-control input_style disabled">{{ form.user.company_name}}</p>
                 </div>
                 <div class="form-group col-md-6">

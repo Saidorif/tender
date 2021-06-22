@@ -40,7 +40,6 @@
 					                type="date"
 					                v-model="filter.time"
 					                format="YYYY-MM-DD" valueType="format"
-					                placeholder="Выберите дату!"
 					                class="input_style"
 				              	></date-picker>
 
@@ -181,11 +180,11 @@
 			},
 			getStatusName(status){
 				if(status == 'pending'){
-					return 'В ожидании'
+					return this.$t('Kutish jarayonida')
 				}else if(status == 'rejected'){
-					return 'Отказано'
+					return this.$t('Rad etilgan')
 				}else if(status == 'completed'){
-					return 'Завершен'
+					return this.$t('Yakunlangan')
 				}
 			},
 			getStatusClass(status){
@@ -198,7 +197,7 @@
 				}
 			},
 			async deleteRegion(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
                     let page = 1
                     this.laoding = true
 					await this.actionDeleteTenderAnnounce(id)
@@ -207,7 +206,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Тендер удален!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			}

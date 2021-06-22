@@ -128,9 +128,9 @@
 			},
 			getStatusName(status){
 				if(status == 'active'){
-					return 'Незавершен!'
+					return this.$t('Yakunlanmagan')
 				}else if(status == 'accepted'){
-					return 'Завершен!'
+					return this.$t('Yakunlangan')
 				}
 			},
 			getStatusClass(status){
@@ -141,7 +141,7 @@
 				}
 			},
 			async deleteRegion(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 					let page = 1
 					await this.actionDeleteApplication(id)
 					let data = {
@@ -152,7 +152,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Region удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			}

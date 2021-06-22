@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon pe-7s-graph1"></i>
-				    Должность
+				    {{$t('Lavozim')}}
 				</h4>
 				<router-link
 					class="btn btn-primary"
@@ -22,7 +22,7 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
+							<th scope="col">{{$t('Nomi')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
@@ -82,14 +82,14 @@
 				this.laoding = false
 			},
 			async deletePosition(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 					let page = 1
 					await this.actionDeletePosition(id)
 					await this.actionPositions(page)
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Рол удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			}

@@ -272,7 +272,7 @@
                         <input type="text" class="form-control input_style" :value="car.tclass ? car.tclass.name : ''" disabled>
                       </div>
                       <div class="form-group col-xl-3 col-md-6">
-                        <label for="busmarka_id">Марка Авто</label>
+                        <label for="busmarka_id">{{$t('Avtobus markasi')}}</label>
                         <input type="text" class="form-control input_style" :value="car.marka ? car.marka.name : ''" disabled>
                       </div>
                       <div class="form-group col-xl-3 col-md-6">
@@ -292,13 +292,12 @@
                         <select
                           class="form-control input_style"
                           :id="'bustype_id'+index"
-                          placeholder="Номер Авто"
                           v-model="car.bustype_id"
                           disabled
                           :class="isRequired(car.bustype_id) ? 'isRequired' : ''"
                           @change="selectClass(car)"
                         >
-                          <option value="" selected disabled>Выберите категорию авто!</option>
+                          <option value="" selected disabled>{{$t('Tanlang')}}!</option>
                           <option
                             :value="busType.id"
                             v-for="(busType,index) in getTypeofbusList"
@@ -310,27 +309,25 @@
                         <select
                           class="form-control input_style"
                           id="tclass_id"
-                          placeholder="Номер Авто"
                           disabled
                           v-model="car.tclass_id"
                           :class="isRequired(car.tclass_id) ? 'isRequired' : ''"
                           @change="selectMarka(car)"
                         >
-                          <option value="" selected disabled>Выберите!</option>
+                          <option value="" selected disabled>{{$t('Tanlang')}}!</option>
                           <option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
                         </select>
                       </div>
                       <div class="form-group col-xl-3 col-md-6">
-                        <label for="busmarka_id">Марка Авто</label>
+                        <label for="busmarka_id">{{$t('Avtobus markasi')}}</label>
                         <select
                           class="form-control input_style"
                           id="busmarka_id"
                           disabled
-                          placeholder="Номер Авто"
                           v-model="car.busmarka_id"
                           @change="selectModel(car)"
                         >
-                          <option value="" selected disabled>Выберите марку авто!</option>
+                          <option value="" selected disabled>{{$t('Tanlang')}}!</option>
                           <!-- <option :value="item.marka.id" v-for="(item,index) in car.bus_marks">{{item.marka.name}}</option> -->
                           <option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
                         </select>
@@ -341,10 +338,9 @@
                           class="form-control input_style"
                           id="busmodel_id"
                           disabled
-                          placeholder="Номер Авто"
                           v-model="car.busmodel_id"
                         >
-                          <option value="" selected disabled>Выберите!</option>
+                          <option value="" selected disabled>{{$t('Tanlang')}}!</option>
                           <!-- <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option> -->
                           <option :value="item.id" v-for="(item,index) in getBusmodelFindList">{{item.name}}</option>
                         </select>

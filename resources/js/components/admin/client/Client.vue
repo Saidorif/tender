@@ -217,14 +217,14 @@
 
 			},
 			// async deleteEmployee(id){
-			// 	if(confirm("Вы действительно хотите удалить?")){
+			// 	if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 			// 		let page = 1
 			// 		await this.actionDeleteEmployee(id)
 			// 		await this.actionClients({page: page,items:this.filter})
 			// 		toast.fire({
 			// 	    	type: 'success',
 			// 	    	icon: 'success',
-			// 			title: 'Пользователь удалено!',
+			// 			title: this.$t('Oʼchirildi'),
 			// 	    })
 			// 	}
 			// }

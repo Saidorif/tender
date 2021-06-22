@@ -8,8 +8,8 @@
         <div class="card-body">
         <form @submit.prevent.enter="saveDirection" enctype="multipart/form-data">
             <div class="col-12 d-flex justify-content-end align-items-start mb-2">
-                <span class="alert alert-success mr-2" v-if="getDirection.titul_status == 'completed'" style="padding:6px 20px;">Подтвержден</span>
-                <span class="alert alert-warning mr-2" v-if="getDirection.titul_status == 'pending'" style="padding:6px 20px;">В ожидании</span>
+                <span class="alert alert-success mr-2" v-if="getDirection.titul_status == 'completed'" style="padding:6px 20px;">{{$t('Tasdiqlangan')}}</span>
+                <span class="alert alert-warning mr-2" v-if="getDirection.titul_status == 'pending'" style="padding:6px 20px;">{{$t('Kutish jarayonida')}}</span>
                 <span class="alert alert-danger mr-2" v-if="getDirection.titul_status == 'active'" style="padding:6px 20px;">{{$t('Tasdiqlanmagan')}}</span>
                               <button
                 type="button"
@@ -214,9 +214,9 @@
                 v-model="form.profitability"
                 :class="isRequired(form.profitability) ? 'isRequired' : ''"
               >
-                <option value="profitable">Рентабельный</option>
-                <option value="unprofitable">Нерентабельный</option>
-                <option value="middle">Средный</option>
+                <option value="profitable">{{$t('Samarali')}}</option>
+                <option value="unprofitable">{{$t('Samarasiz')}}</option>
+                <option value="middle">{{$t('Oʼrta')}}</option>
               </select>
             </div>
             <div class="form-group col-xl-3 col-md-6">
@@ -240,7 +240,7 @@
               />
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="tarif">Tarif</label>
+              <label for="tarif">{{ $t('Tarif')}}</label>
               <input
                 type="number"
                 v-model="form.tarif"
@@ -262,7 +262,7 @@
                   <input type="text" class="form-control input_style" :value="car.tclass ? car.tclass.name : ''" disabled>
                 </div>
                 <div class="form-group col-xl-3 col-md-6">
-                  <label for="busmarka_id">Марка Авто</label>
+                  <label for="busmarka_id">{{ $t('Avtobus markasi')}}</label>
                   <input type="text" class="form-control input_style" :value="car.marka ? car.marka.name : ''" disabled>
                 </div>
                 <div class="form-group col-xl-3 col-md-6">
@@ -287,13 +287,12 @@
                   <select
                     class="form-control input_style"
                     :id="'bustype_id'+index"
-                    placeholder="Номер Авто"
                     v-model="car.bustype_id"
                     :class="isRequired(car.bustype_id) ? 'isRequired' : ''"
                     @change="selectClass(car)"
                     :disabled="makeDisabled"
                   >
-                    <option value="" selected disabled>Выберите категорию авто!</option>
+                    <option value="" selected disabled>{{ $t('Tanlang')}}!</option>
                     <option
                       :value="busType.id"
                       v-for="(busType,index) in getTypeofbusList"
@@ -305,25 +304,23 @@
                   <select
                     class="form-control input_style"
                     id="tclass_id"
-                    placeholder="Номер Авто"
                     v-model="car.tclass_id"
                     :class="isRequired(car.tclass_id) ? 'isRequired' : ''"
                     @change="selectMarka(car)"
                   >
-                    <option value="" selected disabled>Выберите!</option>
+                    <option value="" selected disabled>{{ $t('Tanlang')}}!</option>
                     <option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
                   </select>
                 </div>
                 <div class="form-group col-xl-3 col-md-6">
-                  <label for="busmarka_id">Марка Авто</label>
+                  <label for="busmarka_id">{{ $t('Avtobus markasi')}} </label>
                   <select
                     class="form-control input_style"
                     id="busmarka_id"
-                    placeholder="Номер Авто"
                     v-model="car.busmarka_id"
                     @change="selectModel(car)"
                   >
-                    <option value="" selected disabled>Выберите марку авто!</option>
+                    <option value="" selected disabled>{{ $t('Tanlang')}}!</option>
               <!-- <option :value="item.marka.id" v-for="(item,index) in car.bus_marks">{{item.marka.name}}</option> -->
               <option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
                   </select>
@@ -333,10 +330,9 @@
                   <select
                     class="form-control input_style"
                     id="busmodel_id"
-                    placeholder="Номер Авто"
                     v-model="car.busmodel_id"
                   >
-                    <option value="" selected disabled>Выберите!</option>
+                    <option value="" selected disabled>{{ $t('Tanlang')}}!</option>
               <!-- <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option> -->
               <option :value="item.id" v-for="(item,index) in getBusmodelFindList">{{item.name}}</option>
                   </select>
@@ -353,13 +349,13 @@
                 <div class="col-md-6">
                   <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
                     <i class="far fa-share-square"></i>
-                    {{$t('Yuvorish')}} на подтверждение
+                    {{ $t('Tasdiqlashga yuvorish')}}
                   </button>
                 </div>
                 <div class="col-md-6 form_btn d-flex justify-content-end">
                   <button type="button" class="btn btn-info btn_save_category mr-3" @click.prevent="addCar">
                     <i class="fas fa-plus"></i>
-                    {{$t('Qoʼshish')}} авто
+                    {{$t('Avtomobil qoʼshish')}}
                   </button>
                   <button type="submit" class="btn btn-primary btn_save_category">
                     <i class="fas fa-save"></i>
@@ -958,7 +954,7 @@ export default {
       }
     },
     async removeEditCar(id){
-      if(confirm("Вы действительно хотите удалить?")){
+      if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
         await this.actionCarDeleteDirection(id)
         if (this.getMassage.success){
           await this.actionEditDirection(this.$route.params.directionId);
