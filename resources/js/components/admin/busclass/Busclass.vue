@@ -19,7 +19,7 @@
 								<th scope="col">№</th>
 								<th scope="col">{{$t('Avtomobil sinfi nomi')}}</th>
 								<th scope="col">{{$t('Avtobus toifasi')}}</th>
-								<!-- <th scope="col">Модель автобуса</th> -->
+								<!-- <th scope="col">{{$t('Avtomobil rusumi')}}</th> -->
 								<!-- <th scope="col">{{$t('Oʼrindiqlar soni')}}</th> -->
 								<!-- <th scope="col">{{$t('Oʼrindiqlar soni')}} (по)</th> -->
 								<!-- <th scope="col">Пассажировместимость</th> -->

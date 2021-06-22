@@ -413,7 +413,7 @@
                     <li class="nav-item" v-if="$can('index', 'BusModelController')">
                         <router-link class="nav-link" to="/crm/busmodel">
                         <p>
-                            Модель автобуса
+                            {{$t('Avtomobil rusumi')}}
                         </p>
                         </router-link>
                     </li>

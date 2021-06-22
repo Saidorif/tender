@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-border-style"></i>
-				    {{$t('Qoʼshish')}} тип направления
+				    {{$t('Qoʼshish')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/typeofdirection"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
@@ -13,27 +13,25 @@
 		  		<form @submit.prevent.enter="saveType" >
 					<div class="row">
 					  <div class="form-group col-md-6">
-					    <label for="name">Название</label>
+					    <label for="name">{{$t('Nomi')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="name"
-					    	placeholder="Название"
 					    	v-model="form.name"
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-md-6">
-					    <label for="type">Тип</label>
+					    <label for="type">{{$t('Turi')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="type"
-					    	placeholder="Тип"
 					    	v-model="form.type"
 					    	:class="isRequired(form.type) ? 'isRequired' : ''"
 				    	>
-				    	<small>Например: <em>ВШ</em></small>
+				    	<small>{{$t('Namuna')}}: <em>{{$t('VSH')}}</em></small>
 					  </div>
 					  <div class="form-group col-lg-12 d-flex justify-content-end">
 					  	<button type="submit" class="btn btn-primary btn_save_category">

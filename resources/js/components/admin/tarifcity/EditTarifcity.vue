@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon pe-7s-id"></i>
-				    Изменить Tarifcity
+				    {{$t('Tahrirlash')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/tarifcity"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
@@ -24,7 +24,7 @@
 					    </select>
 					  </div> -->
 					  <div class="form-group col-md-2">
-					    <label for="name">Tarif</label>
+					    <label for="name">{{$t('Tarif')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
@@ -34,7 +34,7 @@
 				    	>
 					  </div>
 					  <div class="form-group col-md-2">
-					    <label for="name">Tarif bagaj</label>
+					    <label for="name">{{$t('Bagaj tarifi')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
@@ -43,7 +43,7 @@
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="file">file</label>
+					    <label for="file">{{$t('Fayl')}}</label>
 					    <input
 					    	type="file"
 					    	class="form-control input_style"
@@ -53,7 +53,7 @@
 				    	>
 					  </div>
 					  <div class="form-group col-md-2">
-                          <label for="file">file</label>
+                          <label for="file">{{$t('Fayl')}}</label>
                         <a :href="file" download="" class="btn_download"><i class="fas fa-download"></i>download file</a>
 					  </div>
 					  <div class="form-group col-lg-3 form_btn">

@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon pe-7s-id"></i>
-				    {{$t('Qoʼshish')}} Tarifcity
+				    {{$t('Qoʼshish')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/tarifcity"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
@@ -24,7 +24,7 @@
 					    </select>
 					  </div> -->
 					  <div class="form-group col-md-3">
-					    <label for="name">Tarif</label>
+					    <label for="name"> {{$t('Tarif')}} </label>
 					    <input
 					    	type="number"
 					    	class="form-control input_style"
@@ -34,7 +34,7 @@
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="name">Tarif bagaj</label>
+					    <label for="name"> {{$t('Bagaj tarifi')}}</label>
 					    <input
 					    	type="number"
 					    	class="form-control input_style"
@@ -43,7 +43,7 @@
 				    	>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="file">file</label>
+					    <label for="file">{{$t('Fayl')}}</label>
 					    <input
 					    	type="file"
 					    	class="form-control input_style"

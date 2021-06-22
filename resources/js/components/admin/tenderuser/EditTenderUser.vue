@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-bullhorn"></i>
-          Посмотреть тендер
+          {{$t('Tahrirlash')}}
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/tenderuser">
           <span class="peIcon pe-7s-back"></span>
@@ -36,21 +36,21 @@
             </div>
             <div class="card cardtender" v-for="(t_lots,t_index) in tenderlots">
                 <div class="card-header" >
-                    <h4 class="lot_n"><em>Лот №</em> {{t_index+1}}</h4>
+                    <h4 class="lot_n"><em>{{$t('Lot')}} №</em> {{t_index+1}}</h4>
                     <button
                         type="button"
                         class="btn btn-info btn_save_category"
                         @click.prevent="getEditId(t_lots.id)"
                     >
                         <i class="far fa-share-square text-light"></i>
-                        <span class="text-light">{{$t('Yuvorish')}} заявку</span>
+                        <span class="text-light">{{$t('Ariza yuvorish')}}</span>
                     </button>
                 </div>
                 <div class="card-body">
                     <template v-for="(items,index) in t_lots.direction_id">
                         <div class="mb-2">
                         <div class="d-flex align-items-center justify-content-between">
-                            <h4>{{index+1}}) {{items.name}} <span v-if="getLengthReys(items, t_lots) > 0">({{getLengthReys(items, t_lots)}} рейс)</span></h4>
+                            <h4>{{index+1}}) {{items.name}} <span v-if="getLengthReys(items, t_lots) > 0">({{getLengthReys(items, t_lots)}} {{$t('reys')}})</span></h4>
 
                             <router-link
                                 :to='`/crm/stepuser/demand-tab/${items.id}`'
@@ -67,7 +67,7 @@
                             <table class="table table-bordered">
                               <thead>
                 								<tr>
-                									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+                									<th  scope="col" rowspan="5" style="text-align: center;">{{$t('Qatnovlar')}}</th>
                 									<th  scope="col"  :colspan="items.reysesFrom[0].reys_times.length * 2" style="text-align: center;">{{items.reysesFrom[0].where.name}} {{$t('tomondan')}}  </th>
                 								</tr>
                                 <tr>
@@ -103,7 +103,7 @@
                             <table class="table table-bordered">
                               <thead>
                                   <tr>
-                                      <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+                                      <th  scope="col" rowspan="5" style="text-align: center;">{{$t('Qatnovlar')}}</th>
                                       <th  scope="col"  :colspan="items.reysesTo[0].reys_times.length * 2" style="text-align: center;">{{items.reysesTo[0].where.name}} {{$t('tomondan')}} </th>
                                   </tr>
                                   <tr>

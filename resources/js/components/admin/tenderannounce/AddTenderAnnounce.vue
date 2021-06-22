@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-bullhorn"></i>
-				    {{$t('Qoʼshish')}} объявление тендера
+				    {{$t('Qoʼshish')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/tenderannounce">
 					<span class="peIcon pe-7s-back"></span>
@@ -47,7 +47,7 @@
 					  <div class="form-group col-lg-4 form_btn d-flex justify-content-end">
  						<button type="button" class="btn btn-secondary mr-3" @click="openModal">
 							<i class="fas fa-plus"></i>
-							{{$t('Qoʼshish')}} лот
+							{{$t('Lot qoʼshish')}}
 						</button>
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
@@ -63,7 +63,7 @@
 			  		</div>
 				  	<div class="choosenItemsTable" v-for="(lots,lot_key) in allLotes">
 				  		<div class="d-flex">
-					  		<h4 class="lot_n"><em>Лот №</em> {{lot_key+1}}</h4>
+					  		<h4 class="lot_n"><em>{{$t('Lot')}} №</em> {{lot_key+1}}</h4>
 					  		<i class="fas fa-trash text-danger lot_remove" @click.prevent="removeLot(lot_key)"></i>
 				  		</div>
 				  		<ul v-for="(item,index) in lots">
@@ -72,8 +72,8 @@
 					  		    	<h4>{{index+1}})</h4>
 					  		    	<button class="btn btn-outline-success mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
 					  		    		<template v-if="item.reyses.length > 0">
-										    <span>{{item.reyses[0].where.name}}дан - {{item.reyses[0].from.name}}га</span>
-										    <span>({{item.reyses.length}} рейсы)</span>
+										    <span>{{item.reyses[0].where.name}}{{$t('dan')}} - {{item.reyses[0].from.name}}{{$t('ga')}}</span>
+										    <span>({{item.reyses.length}} {{$t('reyslar')}})</span>
 					  		    		</template>
 					  		    		<template v-else>
 					  		    			<span>{{item.directions.name}}</span>
@@ -95,7 +95,7 @@
 								  	<table class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+                                                <th  scope="col" rowspan="5" style="text-align: center;">{{$t('Qatnovlar')}}</th>
                                                 <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">
                                                 	{{item.reyses[0].where.name}} {{$t('tomondan')}}
                                                 </th>
@@ -135,7 +135,7 @@
 		  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Новый лот</h5>
+		        <h5 class="modal-title" id="exampleModalLabel">{{$t('Yangi lot')}}</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -143,7 +143,7 @@
 		      <div class="modal-body">
 	        	<div class="row">
 	        		<div class="form-group col-md-2 check_box_with_label">
-					    <label for="checked">Пакет</label>
+					    <label for="checked">{{$t('Paket')}}</label>
 					    <input
 					    	type="checkbox"
 					    	class="input_style"
@@ -153,13 +153,12 @@
 
 				  	</div>
 				  	<div class="form-group col-md-5">
-					    <label for="marshrut">Маршрут</label>
+					    <label for="marshrut">{{$t('Marshrut')}}</label>
 					    <multiselect
 							:value="direction_ids"
 							:options="findList"
 							@search-change="value => findDirection(value)"
 							v-model="direction_ids"
-	                        placeholder="Выберите маршрут"
 	                        :searchable="true"
 	                        track-by="id"
 	                        label="name"
@@ -178,8 +177,8 @@
                                 <table class="table table-bordered" style="margin:0;padding:0px;">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="width:50px;">Рақами</th>
-                                            <th scope="col" style="width:100px;">Номи</th>
+                                            <th scope="col" style="width:50px;">{{$t('Raqami')}}</th>
+                                            <th scope="col" style="width:100px;">{{$t('Nomi')}}</th>
                                             <!-- <th scope="col"  style="width:50px;">Очилган санаси</th> -->
                                         </tr>
                                     </thead>
@@ -195,7 +194,7 @@
 						</multiselect>
 				  	</div>
 				  	<div class="form-group col-md-2 check_box_with_label" v-if="direction_ids && Object.keys(direction_ids).length > 0">
-					    <label for="checkedGrafik">График</label>
+					    <label for="checkedGrafik">{{$t('Grafik')}}</label>
 					    <input
 					    	type="checkbox"
 					    	class="input_style"
@@ -206,7 +205,7 @@
 				  	<div class="form-group col-md-3 d-flex align-items-center mt-4">
 			    	 	<button type="button" class="btn btn-outline-success" @click.prevent="addToAllItems">
 				        	<i class="fas fa-plus"></i>
-				        	Выбрать маршрут
+				        	{{$t('Tanlash')}}
 				        </button>
 				  	</div>
 	        	</div>
@@ -216,7 +215,7 @@
 					  	<table class="table table-bordered">
                             <thead>
 								<tr>
-									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+									<th  scope="col" rowspan="5" style="text-align: center;">{{$t('Qatnovlar')}}</th>
 									<th  scope="col"  class="headar_th" :colspan="fromFirstItems.reys_times.length * 2" style="text-align: center;cursor:pointer;" :class="{'selected': this.choosenFromItems.length}" @click.prevent="chooseFromSide(fromItems)">{{fromName}} {{$t('tomondan')}}  </th>
 								</tr>
                                 <tr>
@@ -254,7 +253,7 @@
 					  	<table class="table table-bordered">
                           	<thead>
 								<tr>
-									<th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar ss</th>
+									<th  scope="col" rowspan="5" style="text-align: center;">{{$t('Qatnovlar')}} </th>
 									<th  scope="col"  :colspan="toFirstItems.reys_times.length * 2" style="text-align: center;cursor:pointer;"   class="headar_th" :class="{'selected': this.choosenToItems.length}" @click.prevent="chooseToSide(toItems)">{{toName}} {{$t('tomondan')}} </th>
 								</tr>
                                 <tr>
@@ -291,7 +290,7 @@
 			  	<!-- All choosen tables -->
 			  	<div class="table-responsive" v-if="allItems.length > 0">
 			  		<div class="d-flex justify-content-center">
-			  			<h4>Выбранные маршруты</h4>
+			  			<h4>{{$t('Tanlangan marshrutlar')}} </h4>
 			  		</div>
 				  	<div class="choosenItemsTable">
 				  		<ul v-for="(item,index) in allItems">
@@ -301,7 +300,7 @@
 					  		    	<button class="btn btn-outline-success mr-3 ml-3" type="button" data-toggle="collapse" :data-target="'#collapseExample'+index" aria-expanded="false" :aria-controls="'collapseExample'+index">
 					  		    		<template v-if="item.reyses.length > 0">
 										    <span>{{item.reyses[0].where.name}} - {{item.reyses[0].from.name}}</span>
-										    <span>({{item.reyses.length}} рейсы)</span>
+										    <span>({{item.reyses.length}} {{$t('reyslar')}})</span>
 					  		    		</template>
 					  		    		<template v-else>
 					  		    			<span>{{item.directions.name}}</span>
@@ -315,7 +314,7 @@
 								  <table class="table table-bordered table-hover">
                                         <thead>
                                                 <tr>
-                                                    <th  scope="col" rowspan="5" style="text-align: center;">Qatnovlar</th>
+                                                    <th  scope="col" rowspan="5" style="text-align: center;">{{$t('Qatnovlar')}}</th>
                                                     <th  scope="col"  :colspan="item.reyses[0].reys_times.length * 2" style="text-align: center;">{{item.reyses[0].where.name}} {{$t('tomondan')}} </th>
                                                 </tr>
                                                 <tr>
@@ -348,7 +347,7 @@
 
 			  	<!-- text -->
 			  	<div class="form-group" v-if="allItems.length > 0">
-					<label class="form-control-label" for="text">Примечание</label>
+					<label class="form-control-label" for="text">{{$t('Eslatma')}}</label>
 				  	<textarea class="form-control" id="text" v-model="text"></textarea>
 			  	</div>
 		      </div>
@@ -359,7 +358,7 @@
 		        </button>
 		        <button type="button" class="btn btn-primary" @click.prevent="addLot">
 		        	<i class="fas fa-plus"></i>
-		        	{{$t('Qoʼshish')}} в список
+		        	{{$t('Royxatga qoʼshish')}}
 		        </button>
 		      </div>
 		    </div>

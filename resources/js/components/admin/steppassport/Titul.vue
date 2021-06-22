@@ -37,7 +37,7 @@
                 class="btn btn-warning"
                 @click="$g.printDoc('prindDiv')"
               >
-                <i class="fas fa-print mr-2"></i>Chop etish
+                <i class="fas fa-print mr-2"></i>{{$t('Chop etish')}}
               </button>
             </div>
             <div class="form-group col-xl-3 col-md-6">
@@ -332,7 +332,7 @@
                   />
                 </div>
                 <div class="form-group col-xl-3 col-md-6">
-                  <label for="busmodel_id">Модель Авто</label>
+                  <label for="busmodel_id">{{$t('Avtomobil rusumi')}}</label>
                   <input
                     type="text"
                     class="form-control input_style"
@@ -422,7 +422,7 @@
                   </select>
                 </div>
                 <div class="form-group col-xl-3 col-md-6">
-                  <label for="busmodel_id">Модель Авто</label>
+                  <label for="busmodel_id">{{$t('Avtomobil rusumi')}}</label>
                   <select
                     class="form-control input_style"
                     id="busmodel_id"
@@ -430,7 +430,7 @@
                     v-model="car.busmodel_id"
                   >
                     <option value="" selected disabled>
-                      Выберите модель авто!
+                      Выберите!
                     </option>
                     <!-- <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option> -->
                     <option

@@ -12,7 +12,7 @@
             class="btn btn-warning"
             @click="$g.printDoc('prindDiv')"
           >
-            <i class="fas fa-print mr-2"></i>Chop etish
+            <i class="fas fa-print mr-2"></i>{{$t('Chop etish')}}
           </button>
         </div>
         <div
@@ -56,7 +56,7 @@
           </div>
           <form class="row tabRow">
             <h1>
-              Yo'l kira haqi jadvali {{ titulData.pass_number }} - sonli "{{
+              {{$t('Yoʼl kira haqi jadvali')}} {{ titulData.pass_number }} - {{$t('sonli')}} "{{
                 titulData.name
               }}"
             </h1>
@@ -82,7 +82,7 @@
                 <thead>
                   <tr>
                     <th>№ т/р</th>
-                    <th>Бошлангич ва оралик охирги бекатлар номи</th>
+                    <th>{{$t('Boshlangʼich va oraliq oxirgi bekatlar nom')}}</th>
                     <template
                       :colspan="titulData.timing_with.length"
                       v-for="(item, index) in titulData.timing_with"
@@ -115,7 +115,7 @@
                           <b>{{ item.tarif_bagaj }}</b>
                         </div>
                         <div class="tarifs tarif_bagaj">
-                          <b>{{ item.distance_test }}KM</b>
+                          <b>{{ item.distance_test }}{{$t('km')}}</b>
                         </div>
                       </td>
                       <template v-else>

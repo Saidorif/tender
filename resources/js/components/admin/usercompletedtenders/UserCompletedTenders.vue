@@ -6,7 +6,7 @@
 		  		<div class="header_title mb-2">
 				    <h4 class="title_user">
 			    		<i class="peIcon fas fa-file"></i>
-					    Завершенные тендеры
+					    {{$t('Yakunlangan tenderlar')}}
 					</h4>
 	            </div>
 	            <transition name="slide">
@@ -24,7 +24,7 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="time">{{$t('Sanasi boyicha saralash')}} открытия!</label>
+				  				<label for="time">{{$t('Sanasi boyicha saralash')}} !</label>
 				  				<date-picker
 					                lang="ru"
 					                type="date"
@@ -36,11 +36,11 @@
 
               				</div>
               				<div class="form-group col-lg-3">
-				  				<label for="no_lots">Несостоявшиеся тендеры!</label>
+				  				<label for="no_lots">{{$t('Oʼtqizilmagan tenderlar')}}!</label>
 				  				<input type="checkbox" v-model="filter.no_lots" class="form-control input_style" id="no_lots">
               				</div>
               				<div class="form-group col-lg-3">
-				  				<label for="status">Неподтвержденные тендеры!</label>
+				  				<label for="status">{{$t('Tasdiqlanmagan tenderlar')}}!</label>
 				  				<input type="checkbox" v-model="filter.status" class="form-control input_style" id="status">
               				</div>
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
@@ -65,8 +65,8 @@
 								<th scope="col">№</th>
 								<th scope="col">{{$t('Holati')}}</th>
 								<th scope="col">{{$t('Tender sanasi')}}</th>
-								<th scope="col">Обшее количество поступивших предложений</th>
-								<th scope="col">Обшее количество выставленных лотов</th>
+								<th scope="col">{{$t('Kelib tushgan takliflarning umumiy soni')}}</th>
+								<th scope="col">{{$t('Ochilgan lotlarning umumiy soni')}}</th>
 								<th scope="col">{{$t('Tahrirlash')}}</th>
 							</tr>
 						</thead>
