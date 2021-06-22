@@ -572,9 +572,9 @@ export default {
     },
     targetStatusName(name){
       if(name == 1){
-        return 'Подтверждено'
+        return this.$t('Tasdiqlangan')
       }else if(name == 0){
-        return 'Отказано'
+        return this.$t('Rad etilgan')
       }else{
         return 'Непроверено'
       }
@@ -671,7 +671,7 @@ export default {
       }
     },
     async removeCarFile(id){
-      if(confirm("Вы действительно хотите удалить?")){
+      if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
         await this.actionControlRemoveFile(id)
         if(this.getStatusMessage.success){
           toast.fire({
@@ -851,20 +851,20 @@ export default {
     },
     getStatusName(name){
       if (name == 'active'){
-        return 'Активный'
+        return this.$t('Faol')
       }else if(name == 'accepted'){
-        return 'Подтверждено'
+        return this.$t('Tasdiqlangan')
       }else{
-        return 'Неактивный'
+        return this.$t('Nofaol')
       }
     },
     getCarStatusName(status){
       if (status == 'active'){
         return 'Непроверено'
       }else if(status == 'accepted'){
-        return 'Подтверждено'
+        return this.$t('Tasdiqlangan')
       }else if(status == 'rejected'){
-        return 'Отказано'
+        return this.$t('Rad etilgan')
       }
     },
     getCarStatusClass(status){

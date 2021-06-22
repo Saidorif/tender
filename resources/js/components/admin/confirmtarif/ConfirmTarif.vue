@@ -217,7 +217,7 @@
                     toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Тендер тариф подтверждена!',
+						title: this.$t('Tasdiqlangan'),
 				    })
                 }
                 this.laoding = false
@@ -265,11 +265,11 @@
 			},
 			// getStatusName(status){
 			// 	if(status == 'pending'){
-			// 		return 'В ожидании'
+			// 		return this.$t('Kutish jarayonida')
 			// 	}else if(status == 'rejected'){
-			// 		return 'Отказано'
+			// 		return this.$t('Rad etilgan')
 			// 	}else if(status == 'completed'){
-			// 		return 'Завершен'
+			// 		return this.$t('Yakunlangan')
 			// 	}
 			// },
 			getStatusClass(status){
@@ -280,14 +280,14 @@
 				}
 			},
 			// async deleteTarif(id){
-			// 	if(confirm("Вы действительно хотите удалить?")){
+			// 	if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 			// 		let page = 1
 			// 		await this.actionDeleteTarifAnnounce(id)
 			// 		await this.actionTarifAnnounces(page)
 			// 		toast.fire({
 			// 	    	type: 'success',
 			// 	    	icon: 'success',
-			// 			title: 'Тендер удален!',
+			// 			title: this.$t('Oʼchirildi'),
 			// 	    })
 			// 	}
 			// }

@@ -5,7 +5,7 @@
       <div class="card-header">
         <h4 class="title_user">
           <i class="peIcon fas fa-route"></i>
-          {{$t('Qoʼshish')}} направление
+          {{$t('Qoʼshish')}}
         </h4>
         <router-link class="btn btn-primary back_btn" to="/crm/direction">
           <span class="peIcon pe-7s-back"></span>
@@ -29,7 +29,7 @@
                 v-model="form.type_id"
                 :class="isRequired(form.type_id) ? 'isRequired' : ''"
               >
-                <option value selected disabled>Variantni tanlang</option>
+                <option value selected disabled>{{$t('Tanlang')}}</option>
                 <option
                   :value="item.id"
                   v-for="(item,index) in getTypeofdirectionList"
@@ -63,7 +63,7 @@
                 :class="isRequired(form.region_from.region_id) ? 'isRequired' : ''"
                 @change="selectRegion('region_from')"
               >
-                <option value selected disabled>Variantni tanlang</option>
+                <option value selected disabled>{{$t('Tanlang')}} </option>
                 <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
               </select>
             </div>
@@ -84,7 +84,7 @@
                 placeholder="Area"
                 @change="selectArea('region_from')"
               >
-                <option value selected disabled>Variantni tanlang</option>
+                <option value selected disabled>{{$t('Tanlang')}} </option>
                 <option :value="item.id" v-for="(item,index) in areaFrom">{{item.name}}</option>
               </select>
             </div>
@@ -104,7 +104,7 @@
                 v-model="form.region_from.station_id"
                 placeholder="Area"
               >
-                <option value selected disabled>Variantni tanlang</option>
+                <option value selected disabled>{{$t('Tanlang')}} </option>
                 <option :value="item.id" v-for="(item,index) in stationFrom">{{item.name}}</option>
               </select>
             </div>
@@ -125,7 +125,7 @@
                 :class="isRequired(form.region_to.region_id) ? 'isRequired' : ''"
                 @change="selectRegion('region_to')"
               >
-                <option value selected disabled>Variantni tanlang</option>
+                <option value selected disabled>{{$t('Tanlang')}} </option>
                 <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
               </select>
             </div>
@@ -146,7 +146,7 @@
                 placeholder="Area"
                 @change="selectArea('region_to')"
               >
-                <option value selected disabled>Variantni tanlang</option>
+                <option value selected disabled>{{$t('Tanlang')}}</option>
                 <option :value="item.id" v-for="(item,index) in areaTo">{{item.name}}</option>
               </select>
             </div>
@@ -166,7 +166,7 @@
                 v-model="form.region_to.station_id"
                 placeholder="Area"
               >
-                <option value selected disabled>Variantni tanlang</option>
+                <option value selected disabled>{{$t('Tanlang')}}</option>
                 <option :value="item.id" v-for="(item,index) in stationTo">{{item.name}}</option>
               </select>
             </div>
@@ -178,7 +178,7 @@
                 :class="isRequired(form.seasonal) ? 'isRequired' : ''"
                 placeholder="Area"
               >
-                <option value selected disabled>Variantni tanlang</option>
+                <option value selected disabled>{{$t('Tanlang')}}</option>
                 <option value="always">{{$t('Doimiy')}}</option>
                 <option value="seasonal">{{$t('Mavsumiy')}}</option>
               </select>
@@ -224,9 +224,9 @@
                 :class="isRequired(form.profitability) ? 'isRequired' : ''"
                 placeholder="Area"
               >
-                <option value="profitable">Рентабельный</option>
-                <option value="unprofitable">Нерентабельный</option>
-                <option value="middle">Средный</option>
+                <option value="profitable">{{$t('Samarali')}}</option>
+                <option value="unprofitable">{{$t('Samarasiz')}}</option>
+                <option value="middle">{{$t('Oʼrta')}}</option>
               </select>
             </div>
             <div class="form-group col-xl-3 col-md-6">
@@ -260,13 +260,12 @@
                   <select
                     class="form-control input_style"
                     :id="'bustype_id'+index"
-                    placeholder="Номер Авто"
                     v-model="car.bustype_id"
                     :class="isRequired(car.bustype_id) ? 'isRequired' : ''"
                     @change="selectClass(car)"
                     :disabled="cars.length > 1 ? 'disabled' : false"
                   >
-                    <option value="" selected disabled>Выберите категорию авто!</option>
+                    <option value="" selected disabled>{{$t('Tanlang')}}!</option>
                     <option
                       :value="busType.id"
                       v-for="(busType,index) in getTypeofbusList"
@@ -278,25 +277,23 @@
                   <select
                     class="form-control input_style"
                     id="tclass_id"
-                    placeholder="Номер Авто"
                     v-model="car.tclass_id"
                     :class="isRequired(car.tclass_id) ? 'isRequired' : ''"
                     @change="selectMarka(car)"
                   >
-                    <option value="" selected disabled>Выберите!</option>
+                    <option value="" selected disabled>{{$t('Tanlang')}}!</option>
                     <option :value="busClass.id" v-for="(busClass,index) in car.tclasses">{{busClass.name}}</option>
                   </select>
                 </div>
                 <div class="form-group col-lg-3 col-md-6">
-                  <label for="busmarka_id">Марка Авто</label>
+                  <label for="busmarka_id">{{$t('Avtobus markasi')}}</label>
                   <select
                     class="form-control input_style"
                     id="busmarka_id"
-                    placeholder="Номер Авто"
                     v-model="car.busmarka_id"
                     @change="selectModel(car)"
                   >
-                    <option value="" selected disabled>Выберите марку авто!</option>
+                    <option value="" selected disabled>{{$t('Tanlang')}} марку авто!</option>
                     <!-- <option :value="item.marka.id" v-for="(item,index) in car.bus_marks">{{item.marka.name}}</option> -->
                     <option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
                   </select>
@@ -306,10 +303,9 @@
                   <select
                     class="form-control input_style"
                     id="busmodel_id"
-                    placeholder="Номер Авто"
                     v-model="car.busmodel_id"
                   >
-                    <option value="" selected disabled>Выберите!</option>
+                    <option value="" selected disabled>{{$t('Tanlang')}}!</option>
                     <!-- <option :value="item.model.id" v-for="(item,index) in car.bus_models">{{item.model.name}}</option> -->
                     <option :value="item.id" v-for="(item,index) in getBusmodelFindList">{{item.name}}</option>
                   </select>

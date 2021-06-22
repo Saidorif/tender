@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-header">
         <h3 class="card-title title_user mb-0">
-          <i  class="peIcon fas fa-users"></i></i>{{$t('Qoʼshish')}} cотрудник
+          <i  class="peIcon fas fa-users"></i></i>{{$t('Qoʼshish')}}
         </h3>
         <router-link class="btn btn-primary back_btn" to="/crm/employee">
           <span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}
@@ -22,52 +22,49 @@
                   :class="isRequired(form.region_id) ? 'isRequired' : ''"
                   v-model="form.region_id"
                 >
-                  <option value="" selected disabled>Выберите область!</option>
+                  <option value="" selected disabled>{{$t('Tanlang')}}!</option>
                   <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
                 </select>
               </div>
               <div class="form-group col-lg-6">
-                <label for="surname">Фамилия</label>
+                <label for="surname">{{$t('Familiya')}}</label>
                 <input
                   type="text"
                   class="form-control input_style"
                   id="surname"
                   :class="isRequired(form.surname) ? 'isRequired' : ''"
-                  placeholder="Фамилия"
                   v-model="form.surname"
                 />
               </div>
               <div class="form-group col-lg-6">
-                <label for="name">Имя</label>
+                <label for="name">{{$t('Ism')}}</label>
                 <input
                   type="text"
                   class="form-control input_style"
                   id="name"
                   :class="isRequired(form.name) ? 'isRequired' : ''"
-                  placeholder="Имя"
                   v-model="form.name"
                 />
               </div>
               <div class="form-group col-lg-6">
-                <label for="middlename">Отчество</label>
+                <label for="middlename">{{$t('Sharifi')}}</label>
                 <input
                   type="text"
                   class="form-control input_style"
                   id="middlename"
                   :class="isRequired(form.middlename) ? 'isRequired' : ''"
-                  placeholder="Отчество"
                   v-model="form.middlename"
                 />
               </div>
               <div class="form-group col-lg-6">
-                <label for="positon">Должность</label>
+                <label for="positon">{{$t('Lavozim')}}</label>
                 <select
                   class="form-control"
                   :class="isRequired(form.position_id) ? 'isRequired' : '' "
                   id="positon"
                   v-model="form.position_id"
                 >
-                  <option value selected disabled>Выберите Должность</option>
+                  <option value selected disabled>{{$t('Tanlang')}} </option>
                   <option
                     :value="position.id"
                     v-for="(position,index) in getPositionList"
@@ -86,54 +83,51 @@
                 >
               </div>
               <div class="form-group col-md-6">
-                <label for="role">Рол</label>
+                <label for="role">{{$t('Roʼl')}}</label>
                 <select
                   class="form-control"
                   :class="isRequired(form.role_id) ? 'isRequired' : '' "
                   id="countryName"
                   v-model="form.role_id"
                 >
-                  <option value selected disabled>Выберите рол</option>
+                  <option value selected disabled>{{$t('Tanlang')}} </option>
                   <option :value="role.id" v-for="(role,index) in getRoleList">{{role.label}}</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
-                <label for="exampleInputEmail1">E-mail</label>
+                <label for="exampleInputEmail1">{{$t('Email')}}</label>
                 <input
                   type="email"
                   class="form-control input_style"
                   :class="isRequired(form.email) ? 'isRequired' : ''"
                   id="exampleInputEmail1"
-                  placeholder="E-mail"
                   v-model="form.email"
                   @blur="checkEmailInput"
                 />
-                <small class="redText" v-if="emailError">Email почта занят!</small>
+                <small class="redText" v-if="emailError">{{$t('Email band')}} !</small>
               </div>
               <div class="form-group col-md-6">
-                <label for="exampleInputPassword1">Пароль</label>
+                <label for="exampleInputPassword1">{{$t('Parol')}}</label>
                 <input
                   type="password"
                   class="form-control input_style"
                   id="exampleInputPassword1"
-                  placeholder="Пароль.."
                   :class="isRequired(form.password) ? 'isRequired' : ''"
                   v-model="form.password"
                 />
               </div>
               <div class="form-group col-md-6">
-                <label for="ConfirmPassword1">Подтвердите пароль</label>
+                <label for="ConfirmPassword1">{{$t('Parolni tasdiqlash')}}</label>
                 <input
                   type="password"
                   class="form-control input_style"
                   id="ConfirmPassword1"
-                  placeholder="Подтвердите пароль.."
                   v-model="form.confirm_password"
                   :class="isRequired(form.confirm_password) ? 'isRequired' : ''"
                   @input="confirmPassword()"
                 />
                 <small class="redText" v-if="checkPassword">
-                  <b>Пароль не совпадает</b>
+                  <b>{{$t('Parol mos emas')}}</b>
                 </small>
               </div>
             </div>

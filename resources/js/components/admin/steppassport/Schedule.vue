@@ -7,8 +7,8 @@
       </div>
       <div class="card-body">
         <div class="col-12 d-flex justify-content-end align-items-start mb-2">
-            <span class="alert alert-success mr-2" v-if="getDirection.xjadval_status == 'completed'" style="padding:6px 20px;">Подтвержден</span>
-            <span class="alert alert-warning mr-2" v-if="getDirection.xjadval_status == 'pending'" style="padding:6px 20px;">В ожидании</span>
+            <span class="alert alert-success mr-2" v-if="getDirection.xjadval_status == 'completed'" style="padding:6px 20px;">{{$t('Tasdiqlangan')}}</span>
+            <span class="alert alert-warning mr-2" v-if="getDirection.xjadval_status == 'pending'" style="padding:6px 20px;">{{$t('Kutish jarayonida')}}</span>
             <span class="alert alert-danger mr-2" v-if="getDirection.xjadval_status == 'active'" style="padding:6px 20px;">{{$t('Tasdiqlanmagan')}}</span>
             <button
                 type="button"
@@ -25,7 +25,7 @@
         >
           <div class="row col-md-12">
             <div class="form-group col-xl-3 col-md-6">
-              <label for="reys_to_count" v-if="this.titulData">Reyslar soni {{ this.titulData.timing_with && this.titulData.timing_with.length  ? this.titulData.timing_with[0].whereForm.name : '' }} tomondan</label>
+              <label for="reys_to_count" v-if="this.titulData">{{$t('Reyslar soni')}} {{ this.titulData.timing_with && this.titulData.timing_with.length  ? this.titulData.timing_with[0].whereForm.name : '' }} {{$t('tomondan')}}</label>
               <input
                 type="number"
                 v-model.number="form.reys_to_count"
@@ -35,7 +35,7 @@
               />
             </div>
             <div class="form-group col-xl-3 col-md-6" v-if="this.titulData">
-              <label for="reys_from_count">Reyslar soni  {{ this.titulData.timing_with && this.titulData.timing_with.length  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} tomondan</label>
+              <label for="reys_from_count">{{$t('Reyslar soni')}}  {{ this.titulData.timing_with && this.titulData.timing_with.length  ? this.titulData.timing_with[this.titulData.timing_with.length - 1].whereTo.name : '' }} {{$t('tomondan')}}</label>
               <input
                 type="number"
                 v-model.number="form.reys_from_count"
@@ -45,7 +45,7 @@
               />
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="count_bus">Qatnovchi avtomobillar soni </label>
+              <label for="count_bus">{{$t('Qatnovchi avtomobillar soni')}} </label>
               <input
                 type="number"
                 v-model.number="form.count_bus"
@@ -56,28 +56,27 @@
             </div>
           </div>
           <h2 v-if="titulData.type">
-            {{ titulData.type.type }} - {{ titulData.pass_number }} - sonli "{{
+            {{ titulData.type.type }} - {{ titulData.pass_number }} - {{$t('sonli')}} "{{
               titulData.name
-            }}"Avtobus yo'nalishi qatnov yo'li masofasini va xarakat vaqtini
-            olchash qaydnomasi
+            }}" {{$t('Avtobus yoʼnalishi qatnov yoʼli masofasini va xarakat vaqtini olchash qaydnomasi')}}
           </h2>
           <div class="col-md-4">
             <p>
-              Qatnov yo'l masofasi
+              {{$t('Qatnov yoʼl masofasi')}}
               <b v-if="titulData.timing_with && titulData.timing_with.length"
                 >{{
                   titulData.timing_with[titulData.timing_with.length - 1]
                     .distance_from_start_station
                 }}
-                km</b
+                {{$t('km')}}</b
               >
             </p>
           </div>
           <div class="col-md-4">
-            <p>Qatnovchi avtomobillar soni {{ form.count_bus }}</p>
+            <p>{{$t('Qatnovchi avtomobillar soni')}} {{ form.count_bus }}</p>
           </div>
           <div class="col-md-4">
-            <p>Yolkira xaqqi so'm</p>
+            <p>{{$t('Yoʼlkira xaqqi soʼm')}}</p>
           </div>
           <div class="table-responsive" v-if="form.whereTo">
             <table
@@ -85,11 +84,11 @@
             >
               <thead>
                 <tr>
-                  <th  scope="col" rowspan="5">Qatnovlar</th>
+                  <th  scope="col" rowspan="5">{{$t('Qatnovlar')}}</th>
                   <th scope="col" :colspan="form.whereTo.stations.length * 2">
                     {{form.whereTo.where.name}} {{$t('tomondan')}}
                   </th>
-                  <th scope="col" rowspan="3">Reys ischinligi</th>
+                  <th scope="col" rowspan="3">{{$t('Reys ischinligi')}}</th>
                 </tr>
                 <tr>
                   <th
@@ -142,11 +141,11 @@
             <table  class="table table-bordered text-center table-hover table-striped">
               <thead>
                 <tr>
-                  <th scope="col" rowspan="5">Qatnovlar</th>
+                  <th scope="col" rowspan="5">{{$t('Qatnovlar')}}</th>
                   <th scope="col" :colspan="form.whereFrom.stations.length * 2">
                      {{form.whereFrom.where.name}} {{$t('tomondan')}}
                   </th>
-                  <th scope="col" rowspan="3">Reys ischinligi</th>
+                  <th scope="col" rowspan="3">{{$t('Reys ischinligi')}}</th>
                 </tr>
                 <tr>
                   <th colspan="2" v-for="(item, index) in form.whereFrom.stations" >
@@ -197,7 +196,7 @@
               <div class="col-md-6">
                 <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
                   <i class="far fa-share-square"></i>
-                  {{$t('Yuvorish')}} на подтверждение
+                  {{$t('Tasdiqlashga yuvorish')}}
                 </button>
               </div>
               <div class="col-md-6 form_btn d-flex justify-content-end">

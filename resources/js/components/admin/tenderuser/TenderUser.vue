@@ -50,7 +50,6 @@
 					                type="date"
 					                v-model="filter.time"
 					                format="YYYY-MM-DD" valueType="format"
-					                placeholder="Выберите дату!"
 					                class="input_style"
 				              	></date-picker>
 
@@ -184,7 +183,7 @@
 
 			},
 			async deleteRegion(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
                     let page = 1
                     this.laoding = true
 					await this.actionDeleteTenderAnnounce(id)
@@ -193,7 +192,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Тендер удален!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			}

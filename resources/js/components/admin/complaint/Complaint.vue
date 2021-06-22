@@ -69,7 +69,7 @@
 				await this.actionComplaints(page)
 			},
 			async deleteComplaint(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
                     let page = 1
                     this.laoding = true
 					await this.actionDeleteComplaint(id)
@@ -78,7 +78,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Вариант жалобы удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			}

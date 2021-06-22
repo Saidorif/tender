@@ -71,7 +71,6 @@
 					                type="date"
 					                v-model="filter.time"
 					                format="YYYY-MM-DD" valueType="format"
-					                placeholder="Выберите дату!"
 					                class="input_style"
 				              	></date-picker>
 
@@ -237,7 +236,7 @@
 				if (text == 'active') {
 					return this.$t('Tasdiqlanmagan')
 				}else if(text == 'completed'){
-					return 'Подтвержден'
+					return this.$t('Yakunlangan')
 				}else{
 					return $t('Tasdiqlanmagan')
 				}
@@ -259,14 +258,14 @@
 				}
 			},
 			// async deleteComplaint(id){
-			// 	if(confirm("Вы действительно хотите удалить?")){
+			// 	if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 			// 		let page = 1
 			// 		await this.actionDeleteComplaint(id)
 			// 		await this.getComplaintListAll(page)
 			// 		toast.fire({
 			// 	    	type: 'success',
 			// 	    	icon: 'success',
-			// 			title: 'Вариант жалобы удалено!',
+			// 			title: this.$t('Oʼchirildi'),
 			// 	    })
 			// 	}
 			// }

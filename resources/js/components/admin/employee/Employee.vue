@@ -6,7 +6,7 @@
 		  		<div class="header_title">
 				    <h4 class="title_user">
 				    	<i  class="peIcon fas fa-users"></i>
-					     Сотрудники
+					     {{$t('Xodimlar')}}
 					</h4>
 					<div class="add_user_btn">
 			            <button type="button" class="btn btn-info toggleFilter mr-2" @click.prevent="toggleFilter">
@@ -20,39 +20,36 @@
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
 				  			<div class="form-group col-lg-3">
-				                <label for="surname">Фамилия</label>
+				                <label for="surname"> {{$t('Familiya')}}</label>
 				                <input
 				                  type="text"
 				                  class="form-control input_style"
 				                  id="surname"
-				                  placeholder="Фамилия"
 				                  v-model="filter.surname"
 				                />
 			              	</div>
 			              	<div class="form-group col-lg-3">
-				                <label for="name">Имя</label>
+				                <label for="name">{{$t('Ism')}}</label>
 				                <input
 				                  type="text"
 				                  class="form-control input_style"
 				                  id="name"
-				                  placeholder="Имя"
 				                  v-model="filter.name"
 				                />
 			              	</div>
 			              	<div class="form-group col-lg-3">
-				                <label for="middlename">Отчество</label>
+				                <label for="middlename">{{$t('Sharif')}}</label>
 				                <input
 				                  type="text"
 				                  class="form-control input_style"
 				                  id="middlename"
-				                  placeholder="Отчество"
 				                  v-model="filter.middlename"
 				                />
 			              	</div>
 			              	<div class="form-group col-lg-3">
-	  							<label for="position_id">Должность</label>
+	  							<label for="position_id">{{$t('Lavozim')}}</label>
   								<select name="" v-model="filter.position_id" class="form-control" >
-  									<option value="">Выберите должность!</option>
+  									<option value="">{{$t('Tanlang')}}!</option>
   									<option :value="position.id" v-for="(position,index) in getPositionList" :key="position.id">
   										{{position.name}}
   									</option>
@@ -66,7 +63,7 @@
 			                      v-model="filter.region_id"
 			                      @change="selectRegion()"
 			                    >
-			                      <option value="" selected disabled>Выберите область!</option>
+			                      <option value="" selected disabled>{{$t('Tanlang')}}!</option>
 			                      <option :value="item.id" v-for="(item,index) in getRegionList">{{item.name}}</option>
 			                    </select>
               				</div>
@@ -77,14 +74,14 @@
 			                      class="form-control input_style"
 			                      v-model="filter.area_id"
 			                    >
-			                      <option value="" selected disabled>Выберите регин или город!</option>
+			                      <option value="" selected disabled>{{$t('Tanlang')}}!</option>
 			                      <option :value="item.id" v-for="(item,index) in getAreaList">{{item.name}}</option>
 			                    </select>
               				</div>
   					  		<div class="form-group col-lg-3">
-	  							<label for="role_id">Рол</label>
+	  							<label for="role_id">{{$t('Roʼl')}}</label>
   								<select name="" v-model="filter.role_id" class="form-control" >
-  									<option value="">Выберите рол!</option>
+  									<option value="">{{$t('Tanlang')}}!</option>
   									<option :value="role.id" v-for="(role,index) in getRoleList" :key="role.id">
   										{{role.name}}
   									</option>
@@ -111,10 +108,10 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">{{$t('F.I.Sh')}}</th>
-							<th scope="col">Должность</th>
+							<th scope="col">{{$t('Lavozim')}}</th>
 							<th scope="col">{{$t('Viloyat')}}</th>
-							<th scope="col">Рол</th>
-							<th scope="col">E-mail</th>
+							<th scope="col">{{$t('Roʼl')}}</th>
+							<th scope="col">{{$t('Email')}}</th>
 							<th scope="col">{{$t('Telefon')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
@@ -235,7 +232,7 @@
 
 			},
 			async deleteEmployee(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
                     let page = 1
                     this.laoding = true
 					await this.actionDeleteEmployee(id)
@@ -244,7 +241,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Пользователь удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			}

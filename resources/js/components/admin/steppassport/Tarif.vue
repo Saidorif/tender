@@ -328,7 +328,7 @@ export default {
     },
     getStatusName(status) {
       if (status == "pending") {
-        return "В ожидании!";
+        return this.$t('Kutish jarayonida');
       } else if (status == "approved") {
         return "Подвержден!";
       } else {

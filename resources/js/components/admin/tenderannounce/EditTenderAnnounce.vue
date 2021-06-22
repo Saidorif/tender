@@ -249,7 +249,6 @@
 							:options="findList"
 							@search-change="value => findDirection(value)"
 							v-model="direction_ids"
-	                        placeholder="Выберите маршрут"
 	                        :searchable="true"
 	                        track-by="id"
 	                        label="name"
@@ -587,7 +586,7 @@
 		    	}
 		    },
 		    async removeEditLot(id){
-		    	if(confirm("Вы действительно хотите удалить?")){
+		    	if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 		    		let data ={
 		    			id :this.$route.params.tenderannounceId,
 		    			lot_id:id
@@ -606,12 +605,12 @@
 				}
 		    },
 		    removeLot(index){
-		    	if(confirm("Вы действительно хотите удалить?")){
+		    	if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 		    		Vue.delete(this.allLotes,index)
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 		    },

@@ -6,11 +6,11 @@
 		  		<div class="header_title mb-2">
 				    <h4 class="title_user">
 				    	<i  class="peIcon pe-7s-box1"></i>
-					    Автостанция
+					    {{$t('Avtostansiya')}}
 					</h4>
 	            	<div class="add_user_btn">
 	            		<span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
-		            		Количество aвтостанции <b>{{ getStations.total }} {{$t('ta')}}.</b>
+		            		{{$t('Avtostansiyalar soni')}} <b>{{ getStations.total }} {{$t('ta')}}.</b>
 		            	</span>
 			            <button type="button" class="btn btn-info toggleFilter mr-3" @click.prevent="toggleFilter">
 						    <i class="fas fa-filter"></i>
@@ -23,12 +23,11 @@
 				  	<div class="filters" v-if="filterShow">
 				  		<div class="row">
 				  			<div class="form-group col-lg-3">
-				  				<label for="name">Название автостанции!</label>
+				  				<label for="name">{{$t('Nomi')}} !</label>
 			                    <input
 			                      id="name"
 			                      class="form-control input_style"
 			                      v-model="filter.name"
-			                      placeholder="Название автостанции"
 			                    />
               				</div>
 				  			<div class="form-group col-lg-3" v-if="getUser.role_id == 1">
@@ -55,12 +54,12 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-md-3">
-							    <label for="station_type">Тип автостанции</label>
+							    <label for="station_type">{{$t('Turi')}} </label>
 							    <select
 							    	class="form-control input_style"
 							    	v-model="filter.station_type"
 						    	>
-							    	<option value="" selected>Выберите автостанцию</option>
+							    	<option value="" selected>{{$t('Tanlang')}}</option>
 							    	<option :value="station.id" v-for="(station,index) in $g.stations()">{{station.name}}</option>
 							    </select>
 						  	</div>
@@ -84,10 +83,10 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
-							<th scope="col">Области</th>
+							<th scope="col">{{$t('Nomi')}}</th>
 							<th scope="col">{{$t('Viloyat')}}</th>
-							<th scope="col">Тип станции</th>
+							<th scope="col">{{$t('Tuman')}}</th>
+							<th scope="col">{{$t('Turi')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
@@ -200,7 +199,7 @@
 
 			},
 			async deleteStation(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 					let page = 1
 					this.laoding = true
 					await this.actionDeleteStation(id)
@@ -209,7 +208,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Station удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			}

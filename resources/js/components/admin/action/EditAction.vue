@@ -20,7 +20,6 @@
                 :options="getContList"
                 @search-change="value => filterController(value)"
                 v-model="findController"
-                placeholder="Выберите"
                 :searchable="true"
                 track-by="id"
                 label="name"

@@ -10,7 +10,7 @@
 					<div class="add_to_table">
 					</div>
 				  	<form class="row tabRow">
-				  		<h1>Yo'l kira haqi jadvali {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
+				  		<h1>{{$t('Yoʼl kira haqi jadvali')}} {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
 				  		<div class="table-responsive" v-for="(t_item,t_index) in getTarif" v-if="t_item.tarif.status == 'approved'">
 				  			<div class="d-flex align-items-center w-50 justify-content-between">
 				  				<h4>{{t_index+1}})</h4>
@@ -190,7 +190,7 @@ import Loader from '../../Loader'
 		    },
 		    getStatusName(status){
 		    	if (status == 'pending') {
-		    		return 'В ожидании!'
+		    		return this.$t('Kutish jarayonida')
 		    	}else if(status == 'approved'){
 		    		return 'Подвержден!'
 		    	}else{

@@ -520,12 +520,12 @@
 		    	this.defaultValuesOfCar()
 		    },
 		    removeLot(index){
-		    	if(confirm("Вы действительно хотите удалить?")){
+		    	if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 		    		Vue.delete(this.allLotes,index)
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 		    },
@@ -745,12 +745,12 @@
 		      }
 		    },
 		    removeFromAllItems(index){
-		    	if(confirm("Вы действительно хотите удалить?")){
+		    	if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 		    		Vue.delete(this.allItems,index)
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 		    },

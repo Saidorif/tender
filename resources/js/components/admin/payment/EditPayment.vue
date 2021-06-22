@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-money-bill-alt"></i>
-				    {{$t('Qoʼshish')}} Платеж
+				    {{$t('Qoʼshish')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/payment"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
@@ -13,13 +13,12 @@
 		  		<form @submit.prevent.enter="savePayment" >
 					<div class="row">
 					  <div class="form-group col-md-3">
-					    <label for="name">Названиe компаний</label>
+					    <label for="name">{{$t('Tashkilot nomi')}}</label>
 					    <multiselect
 							:value="values"
 							:options="findList"
 							@search-change="value => findCompany(value)"
 							v-model="values"
-	                        placeholder="Выберите название компаний"
 	                        :searchable="true"
 	                        track-by="id"
 	                        label="company_name"
@@ -63,8 +62,8 @@
 					    	:class="isRequired(form.status) ? 'isRequired' : ''"
 					    	class="form-control input_style"
 				    	>
-					    	<option value="active">Активный</option>
-					    	<option value="draft">Не активный</option>
+					    	<option value="active">{{$t('Faol')}}</option>
+					    	<option value="draft">{{$t('Nofaol')}}</option>
 					    </select>
 					  </div>
 					  <div class="form-group col-md-3">

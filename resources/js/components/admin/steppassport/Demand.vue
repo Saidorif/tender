@@ -7,8 +7,8 @@
       </div>
       <div class="card-body">
         <div class="col-12 d-flex justify-content-end align-items-start mb-2"  v-if="getDemand.result">
-            <span class="alert alert-success mr-2" v-if="getDemand.result.status == 'completed'" style="padding:6px 20px;">Подтвержден</span>
-            <span class="alert alert-warning mr-2" v-if="getDemand.result.status == 'pending'" style="padding:6px 20px;">В ожидании</span>
+            <span class="alert alert-success mr-2" v-if="getDemand.result.status == 'completed'" style="padding:6px 20px;">{{$t('Tasdiqlangan')}}</span>
+            <span class="alert alert-warning mr-2" v-if="getDemand.result.status == 'pending'" style="padding:6px 20px;">{{$t('Kutish jarayonida')}}</span>
             <span class="alert alert-danger mr-2" v-if="getDemand.result.status == 'active'" style="padding:6px 20px;">{{$t('Tasdiqlanmagan')}}</span>
         </div>
         <div class="row">
@@ -17,13 +17,13 @@
               <div class="col-md-6">
                 <button type="button" class="btn btn-success btn_save_category" @click.prevent="sendToActivate">
                   <i class="far fa-share-square"></i>
-                  {{$t('Yuvorish')}} на подтверждение
+                  {{$t('Tasdiqlashga yuvorish')}}
                 </button>
               </div>
               <div class="col-md-6 form_btn d-flex justify-content-end">
                 <button type="button" class="btn btn-info text-white" @click.prevent="refreshDemand">
                   <i class="fas fa-redo"></i>
-                  Обнавить
+                  {{$t('Yangilash')}}
                 </button>
               </div>
             </div>
@@ -312,12 +312,12 @@
               <!-- v-if="getDemand.result.direction && getDemand.result.direction.type_id != 1" -->
               <tr v-if="getDemand.type && getDemand.type.id != 1">
                 <td>
-                  1 {{$t('km. uchun')}} йўл тариф (шаҳар атрофи, шаҳарлараро йўналишлар
+                  1 {{$t('km. uchun yoʼl tarif (shahar atrofi, shaharlararo yoʼnalishlar uchun)')}}
                   учун)
                 </td>
                 <td>
-                  1 {{$t('km. uchun')}} ({{ form.tarif_one_km }} сум). Йўл кира ҳаққи ({{ form.tarif_full_km }}
-                  сум)
+                  1 {{$t('km. uchun')}} ({{ form.tarif_one_km }} {{$t('soʼm). Yoʼl kira haqqi (00 sum)')}} ({{ form.tarif_full_km }}
+                  {{$t('soʼm')}})
                 </td>
               </tr>
               <tr v-if="getDemand.type && getDemand.type.id == 1">
@@ -327,10 +327,10 @@
                     type="number"
                     v-model="form.tarif_city"
                     class="form-control w-50"
-                  /> <span class="ml-2"><h5>сум</h5></span>
+                  /> <span class="ml-2"><h5>{{$t('soʼm')}}</h5></span>
                 </td>
                 <td v-else>
-                  {{ form.tarif_city }} сум
+                  {{ form.tarif_city }} {{$t('soʼm')}}
                 </td>
               </tr>
               <!-- 3 end -->
@@ -361,8 +361,7 @@
               <tr>
                 <td rowspan="3">17</td>
                 <td width="50%">
-                  <b>Автотранспорт воситалари сони (саройдан фойдаланиш
-                    коэффициенти 0,8 хисобга олинганда)</b>
+                  <b>{{$t('Аvtotransport vositalari soni (saroydan foydalanish koeffitsienti 0,8 xisobga olinganda)')}}</b>
                 </td>
                 <td>{{ form.auto_trans_count }}</td>
               </tr>

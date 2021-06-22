@@ -6,7 +6,7 @@
         <div class="header_title mb-2">
           <h4 class="title_user">
             <i class="peIcon pe-7s-box1"></i>
-            Старые протоколы
+            {{$t('Eski protokollar')}}
           </h4>
           <div class="add_user_btn">
             <button
@@ -32,7 +32,7 @@
           <div class="filters" v-if="filterShow">
             <div class="row">
               <div class="form-group col-lg-2">
-                <label for="bypass_number">Номер</label>
+                <label for="bypass_number">{{$t('Raqam')}}</label>
                 <input
                   class="form-control input_style"
                   placeholder="Поиск по номеру"
@@ -65,7 +65,6 @@
                   format="YYYY-MM-DD"
                   valueType="format"
                   v-model="filter.date"
-                  placeholder="Выберите дату!"
                   class="input_style"
                 ></date-picker>
               </div>
@@ -101,8 +100,8 @@
               <tr>
                 <th scope="col">№</th>
                 <th scope="col">{{$t('Viloyat')}}</th>
-                <th scope="col">Номер протокола</th>
-                <th scope="col">Сана</th>
+                <th scope="col">{{$t('Protokol raqami')}}</th>
+                <th scope="col">{{$t('Sana')}}</th>
                 <th scope="col">{{$t('Tahrirlash')}}</th>
               </tr>
             </thead>
@@ -204,7 +203,7 @@ export default {
       this.laoding = false;
     },
     async deleteOldprotocol(id) {
-      if (confirm("Вы действительно хотите удалить?")) {
+      if (confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))) {
         let page = 1;
         this.laoding = true;
         await this.actionDeleteOldprotocol(id);
@@ -213,7 +212,7 @@ export default {
         toast.fire({
           type: "success",
           icon: "success",
-          title: "Oldprotocol удалено!",
+          title: this.$t('Oʼchirildi'),
         });
       }
     },

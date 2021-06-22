@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon pe-7s-box1"></i>
-				    Region
+				    {{$t('Viloyat')}}
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/region/add" v-if="$can('store', 'RegionController')">
 						<i class="fas fa-plus"></i>
@@ -18,7 +18,7 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
+							<th scope="col">{{$t('Nomi')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
@@ -71,7 +71,7 @@
 				this.laoding = false
 			},
 			async deleteRegion(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 					let page = 1
 					this.laoding = true
 					await this.actionDeleteRegion(id)
@@ -80,7 +80,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Region удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			}

@@ -41,33 +41,33 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-2">
-				  				<label for="status">По {{$t('Holati')}}у закрепления!</label>
+				  				<label for="status">{{$t('Holati boʼyicha')}} закрепления!</label>
 			                    <select
 			                      id="status"
 			                      class="form-control input_style"
 			                      v-model="filter.status"
 			                    >
-			                      <option value="" selected >Выберите {{$t('Holati')}} закрепления!</option>
+			                      <option value="" selected >{{$t('Tanlang')}}!</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="status">По {{$t('Holati')}}у размещения!</label>
+				  				<label for="status">{{$t('Holati boʼyicha')}} размещения!</label>
 			                    <select
 			                      id="status"
 			                      class="form-control input_style"
 			                      v-model="filter.status"
 			                    >
-			                      <option value="" selected >Выберите {{$t('Holati')}} размещения!</option>
+			                      <option value="" selected >{{$t('Tanlang')}}!</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="bustype_id">{{$t('Saralash')}} по типу авто!</label>
+				  				<label for="bustype_id">{{$t('Avtomobil turi boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="bustype_id"
 			                      class="form-control input_style"
 			                      v-model="filter.bustype_id"
 			                    >
-			                      <option value="" selected >Выберите тип авто!</option>
+			                      <option value="" selected >{{$t('Tanlang')}}!</option>
 			                      <option
 				                      :value="busType.id"
 				                      v-for="(busType,index) in getTypeofbusList"
@@ -75,16 +75,16 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-2">
-				  				<label for="profitability">{{$t('Saralash')}} по рентабельности!</label>
+				  				<label for="profitability">{{$t('Rentabillik boʼyicha saralash')}}!</label>
 			                    <select
 			                      id="profitability"
 			                      class="form-control input_style"
 			                      v-model="filter.profitability"
 			                    >
-			                      <option value="" selected >Выберите!</option>
-			                      <option value="profitable">Рентабельный</option>
-					              <option value="unprofitable">Нерентабельный</option>
-					              <option value="middle">Средный</option>
+			                      <option value="" selected >{{$t('Tanlang')}}!</option>
+			                      <option value="profitable">{{$t('Samarali')}}</option>
+					              <option value="unprofitable">{{$t('Samarasiz')}}</option>
+					              <option value="middle">{{$t('Oʼrta')}}</option>
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
@@ -114,18 +114,17 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-2">
-				  				<label for="year">{{$t('Sanasi boyicha saralash')}} открытия!</label>
+				  				<label for="year">{{$t('Sanasi boyicha saralash')}}!</label>
 				  				<date-picker
 					                lang="ru"
 					                type="year" format="YYYY" valueType="format"
 					                v-model="filter.year"
-					                placeholder="Выберите дату!"
 					                class="input_style"
 				              	></date-picker>
               				</div>
                             <div class="form-group col-lg-3">
 				  				<label for="dir_name">{{$t('Marshrut nomi')}}</label>
-                                  <input class="form-control input_style" placeholder="Поиск по наименования маршрута" type="text" v-model="filter.name" id="dir_name">
+                                  <input class="form-control input_style" type="text" v-model="filter.name" id="dir_name">
               				</div>
 						  	<div class="col-lg-12 form-group d-flex justify-content-end">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">
@@ -160,13 +159,13 @@
           <tr>
               <th scope="col">№</th>
               <th>{{$t('Viloyat')}}</th>
-              <th>Номер и наименования маршрута</th>
-              <th>Наименования организации </th>
+              <th>{{$t('Yoʼnalish raqami va nomi')}}</th>
+              <th>{{$t('Tashkilot nomi')}} </th>
               <th>{{$t('Shartnoma muddati')}} </th>
               <th>{{$t('Holati')}}</th>
-              <th>Йўналиши тури</th>
+              <th>{{$t('Yoʼnalish turi')}}</th>
               <th>{{$t('Ochilish sanasi')}}</th>
-              <th>Потверждения</th>
+              <th>{{$t('Tasdiqlash')}}</th>
               <th scope="col">{{$t('Tahrirlash')}}</th>
           </tr>
 					</thead>
@@ -190,7 +189,7 @@
                 	{{getStatusname(direct)}}
                 </span>
               </td>
-							<td>{{direct.dir_type == 'taxi' ? 'Йўналишли тахи йуналиши' : $t('Avtobus yoʼnalishi')}}</td>
+							<td>{{direct.dir_type == 'taxi' ? $t('Yoʼnalishli taxi yoʼnalishi')  : $t('Avtobus yoʼnalishi')}}</td>
 							<td>{{direct.year}}</td>
 							<td>{{ checkApprove(direct) }}</td>
 							<td>
@@ -406,7 +405,7 @@
 
 			},
 			async deletePassport(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 					let page = 1
 					this.laoding = true
 					await this.actionDeleteDirection(id)
@@ -415,7 +414,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Passport удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			},

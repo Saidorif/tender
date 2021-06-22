@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-money-bill-alt"></i>
-				    Платежи
+				    {{$t('Toʼlovlar')}}
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/payment/add" v-if="$can('store', 'PaymentController')">
 					<i class="fas fa-plus"></i>
@@ -18,7 +18,7 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название компании</th>
+							<th scope="col">{{$t('Tashkilot nomi')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('INN')}}</th>
 							<th scope="col">{{$t('Miqdor')}}</th>
@@ -104,13 +104,13 @@
 			},
 			getStatusName(name){
 				if (name == 'active') {
-					return 'Активный';
+					return this.$t('Faol');
 				}else{
-					return 'Не активный';
+					return this.$t('Nofaol');
 				}
 			},
 			async deleteRegion(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 					let page = 1
 					this.laoding = true
 					await this.actionDeletePayment(id);
