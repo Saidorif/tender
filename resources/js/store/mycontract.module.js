@@ -5,6 +5,7 @@ const state = {
 	mycontractlist: [],
 	message: [],
 	mycontract: [],
+	usermycontracts: [],
 };
 
 const getters = {
@@ -20,13 +21,25 @@ const getters = {
 	getMycontract(state){
 		return state.mycontract
 	},
+	getUserMycontracts(state){
+		return state.usermycontracts
+	},
 };
 
 
 const actions = {
+	async actionUserMycontractList({commit}){
+		try {
+			const mycontract =  await MycontractService.listmycontracts();
+			await commit('setUserMycontractList',mycontract.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionMycontractList({commit},page){
 		try {
-			const mycontract =  await mycontractService.mycontractList(page);
+			const mycontract =  await MycontractService.mycontractList(page);
 			await commit('setMycontractList',mycontract.data.result)
 			return true
 		} catch (error) {
@@ -35,7 +48,7 @@ const actions = {
 	},
 	async actionMycontracts({commit},page){
 		try {
-			const mycontract =  await mycontractService.allmycontracts(page);
+			const mycontract =  await MycontractService.allmycontracts(page);
 			await commit('setMycontracts',mycontract.data.result)
 			return true
 		} catch (error) {
@@ -44,7 +57,7 @@ const actions = {
 	},
 	async actionContractActivate({commit},payload){
 		try {
-			const mycontract =  await mycontractService.contractActivate(payload);
+			const mycontract =  await MycontractService.contractActivate(payload);
 			await commit('setMessage',mycontract.data)
 			return true
 		} catch (error) {
@@ -53,7 +66,7 @@ const actions = {
 	},
 	async actionAddMycontract({commit},payload){
 		try {
-			const mycontract =  await mycontractService.addmycontract(payload);
+			const mycontract =  await MycontractService.addmycontract(payload);
 			await commit('setMessage',mycontract.data)
 			return true
 		} catch (error) {
@@ -62,7 +75,7 @@ const actions = {
 	},
 	async actionEditmycontract({commit},id){
 		try {
-			const mycontract =  await mycontractService.editmycontract(id);
+			const mycontract =  await MycontractService.editmycontract(id);
 			await commit('setEditMycontract',mycontract.data.result)
 			return true
 		} catch (error) {
@@ -71,7 +84,7 @@ const actions = {
 	},
 	async actionUpdatemycontract({commit},payload){
 		try {
-			const mycontract =  await mycontractService.updatemycontract(payload);
+			const mycontract =  await MycontractService.updatemycontract(payload);
 			await commit('setMessage',mycontract.data)
 			return true
 		} catch (error) {
@@ -80,7 +93,7 @@ const actions = {
 	},
 	async actionDeletemycontract({commit},id){
 		try {
-			const mycontract =  await mycontractService.deletemycontract(id);
+			const mycontract =  await MycontractService.deletemycontract(id);
 			await commit('setMessage',mycontract.data)
 			return true
 		} catch (error) {
@@ -89,7 +102,7 @@ const actions = {
 	},
 	async actionDeletemycontractCar({commit},id){
 		try {
-			const mycontract =  await mycontractService.deletemycontractcar(id);
+			const mycontract =  await MycontractService.deletemycontractcar(id);
 			await commit('setMessage',mycontract.data)
 			return true
 		} catch (error) {
@@ -108,8 +121,11 @@ const mutations = {
 	setMessage(state, message){
 		state.message = message
 	},
-	setEditMycontract(state, mycontract){
+	setUserMycontractList(state, mycontract){
 		state.mycontract = mycontract
+	},
+	setEditMycontract(state, usermycontracts){
+		state.usermycontracts = usermycontracts
 	},
 };
 

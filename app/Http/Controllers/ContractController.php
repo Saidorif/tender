@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Appeal;
 use App\Application;
 use App\ContractCar;
 use App\Direction;
@@ -31,6 +32,92 @@ class ContractController extends Controller
             ->where('user_id', '=', $user->id)
             ->paginate(12);
         return response()->json(['success' => true,'result' => $contracts]);
+    }
+
+    public function userList(Request $request)
+    {
+        $user = $request->user();
+        $contracts = Contract::orderBy('id','DESC')
+            ->with(['user','cars','region'])
+            ->where('user_id', '=', $user->id)
+            ->get();
+        return response()->json(['success' => true,'result' => $contracts]);
+    }
+
+    public function appealIndex(Request $request)
+    {
+        $user = $request->user();
+        $appeals = Appeal::orderBy('id','DESC')
+            ->with(['user','contract','region'])
+            ->where('region_id', '=', $user->region_id)
+            ->paginate(12);
+        return response()->json(['success' => true,'result' => $appeals]);
+    }
+
+    public function appealUser(Request $request)
+    {
+        $user = $request->user();
+        $appeals = Appeal::orderBy('id','DESC')
+            ->with(['user','contract','region'])
+            ->where('user_id', '=', $user->id)
+            ->get();
+        return response()->json(['success' => true,'result' => $appeals]);
+    }
+
+    public function appealUserEdit(Request $request,$id)
+    {
+        $user = $request->user();
+        $appeals = Appeal::with(['user','contract','region'])
+            ->where('user_id', '=', $user->id)
+            ->where('id', '=', $id)
+            ->first();
+        if(!$appeals){
+            return  response()->json(['error' => true,'message' => 'Сообщение не найдено']);
+        }
+        return response()->json(['success' => true,'result' => $appeals]);
+    }
+
+    public function appealEdit(Request $request,$id)
+    {
+        $user = $request->user();
+        $appeals = Appeal::with(['user','contract','region'])
+            ->where('region_id', '=', $user->region_id)
+            ->where('id', '=', $id)
+            ->first();
+        if(!$appeals){
+            return  response()->json(['error' => true,'message' => 'Сообщение не найдено']);
+        }
+        return response()->json(['success' => true,'result' => $appeals]);
+    }
+
+    public function appealStore(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'contract_id' => 'required|integer',
+            'text' => 'nullable|string',
+            'user_file' => 'required|file',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $user = $request->user();
+        $inputs = $request->all();
+        $inputs['user_id'] = $user->id;
+        $inputs['company_name'] = $user->company_name;
+        $inputs['region_id'] = $user->region_id;
+        $inputs['date'] = date('Y-m-d H:m:s');
+        $inputs['status'] = 'pending';
+
+        //Upload file
+        if($request->hasFile('user_file')){
+            $file = $request->file('user_file');
+            $path = 'public/'.date('Y-m-d');
+            $file_name = time().'.'.$file->getClientOriginalExtension();
+            Storage::disk('local')->putFileAs($path, $file,$file_name);
+            $inputs['user_file'] = 'storage/'.date('Y-m-d').'/'.$file_name;
+        }
+        $appeal = Appeal::create($inputs);
+        return response()->json(['success' => true,'message' => 'Сообщение успешно отправлено']);
     }
 
     public function userAgreement(Request $request)

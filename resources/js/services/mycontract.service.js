@@ -7,14 +7,17 @@ const MycontractService = {
 	allmycontracts(page){
 		return ApiService.post(`/api/contract/user?page=${page}`)
 	},
-	contractActivate(id){
-		return ApiService.get(`/api/contract/activate/${id}`)
+	listmycontracts(){
+		return ApiService.get(`/api/contract/user`)
+	},
+	contractActivate(data){
+		return ApiService.post(`/api/contract/agree`,data)
 	},
 	addmycontract(data){
 		return ApiService.post(`/api/contract/store`,data)
 	},
 	editmycontract(id){
-		return ApiService.get(`/api/contract/edit/${id}`)
+		return ApiService.get(`/api/contract/user/edit/${id}`)
 	},
 	updatemycontract(data){
 		return ApiService.post(`/api/contract/update/${data.id}`,data.items)

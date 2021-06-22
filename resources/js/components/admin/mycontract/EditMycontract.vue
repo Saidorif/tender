@@ -5,7 +5,11 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file-alt"></i>
+<<<<<<< HEAD
 				    {{$t('Tahrirlash')}}
+=======
+				    Mening shartnomam
+>>>>>>> d9231070b339efc2780675f5f1a1b8bc8b03bbf5
 				</h4>
                 <div class="d-flex">
                     <!-- <button type="button" class="btn btn-success mr-2" @click="activeContract">
@@ -555,7 +559,7 @@
 		      	}
 			},
             async activeContract(){
-                await this.actionContractActivate(this.$route.params.oldcontractId);
+                await this.actionContractActivate(this.$route.params.mycontractId);
 				if(this.getMassage.success){
 					toast.fire({
 						type: 'success',

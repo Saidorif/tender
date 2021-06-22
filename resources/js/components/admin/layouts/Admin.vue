@@ -69,6 +69,14 @@
               </p>
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/crm/myappeal">
+              <i class="peIcon fas fa-file"></i>
+              <p>
+                {{$t('My arizalarim')}}
+              </p>
+            </router-link>
+          </li>
           <li class="nav-item" v-if="$can('index', 'DirectionController')">
             <router-link class="nav-link" to="/crm/direction">
               <i class="peIcon fas fa-route"></i>
