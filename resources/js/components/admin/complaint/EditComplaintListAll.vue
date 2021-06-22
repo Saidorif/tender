@@ -216,7 +216,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Данный сохранен!',
+						title: this.$t('Maʼlumot saqlandi'),
 				    })
 				}else{
 					this.requiredInput =true

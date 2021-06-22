@@ -357,9 +357,9 @@
 			},
 			getStatusname(item){
 				if(item.status == 'active'){
-					return 'Неразмещен в тендер'
+					return this.$t('Tenderda joylashtirilmagan')
 				}else if(item.status == 'busy'){
-					return 'Размещен в тендер'
+					return this.$t('Tenderda joylashtirilgan')
 				}
 			},
 			getStatusClass(item){

@@ -310,6 +310,7 @@ Route::group([
             Route::post('contract/user/appeal','ContractController@appealUser');
             Route::get('contract/user/appeal/edit/{id}','ContractController@appealUserEdit');
             Route::post('contract/appeal','ContractController@appealIndex');
+            Route::post('contract/appeal/approve','ContractController@appealApprove');
             Route::get('contract/appeal/edit/{id}','ContractController@appealEdit');
 
             Route::post('contract/user/agree','ContractController@userAgreement');

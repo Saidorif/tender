@@ -281,7 +281,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('userIndex', 'ContractController')">
             <router-link class="nav-link" to="/crm/mycontract">
               <i class="peIcon fas fa-file-alt"></i>
               <p>
