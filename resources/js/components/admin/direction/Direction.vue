@@ -27,7 +27,7 @@
 				  		<div class="row">
 				  			<div class="form-group col-lg-2">
 				  				<label for="bypass_number">{{$t('Yoʼnalish soni')}}</label>
-                                  <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
+                                  <input class="form-control input_style"  type="text" v-model="filter.pass_number" id="bypass_number">
               				</div>
 				  			<div class="form-group col-lg-2">
 				  				<label for="region_id">{{$t('Viloyat boʼyicha saralash')}}!</label>
@@ -41,7 +41,7 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-2">
-				  				<label for="status">{{$t('Holati boʼyicha')}} закрепления!</label>
+				  				<label for="status">{{$t('Holati boʼyicha')}}!</label>
 			                    <select
 			                      id="status"
 			                      class="form-control input_style"
@@ -51,7 +51,7 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="status">{{$t('Holati boʼyicha')}} размещения!</label>
+				  				<label for="status">{{$t('Holati boʼyicha')}}<!--  размещения-->!</label>
 			                    <select
 			                      id="status"
 			                      class="form-control input_style"
@@ -156,18 +156,18 @@
 							<th scope="col">Год создания</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr> -->
-          <tr>
-              <th scope="col">№</th>
-              <th>{{$t('Viloyat')}}</th>
-              <th>{{$t('Yoʼnalish raqami va nomi')}}</th>
-              <th>{{$t('Tashkilot nomi')}} </th>
-              <th>{{$t('Shartnoma muddati')}} </th>
-              <th>{{$t('Holati')}}</th>
-              <th>{{$t('Yoʼnalish turi')}}</th>
-              <th>{{$t('Ochilish sanasi')}}</th>
-              <th>{{$t('Tasdiqlash')}}</th>
-              <th scope="col">{{$t('Tahrirlash')}}</th>
-          </tr>
+                        <tr>
+                            <th scope="col">№</th>
+                            <th>{{$t('Viloyat')}}</th>
+                            <th>{{$t('Yoʼnalish raqami va nomi')}}</th>
+                            <th>{{$t('Tashkilot nomi')}} </th>
+                            <th>{{$t('Shartnoma muddati')}} </th>
+                            <th>{{$t('Holati')}}</th>
+                            <th>{{$t('Yoʼnalish turi')}}</th>
+                            <th>{{$t('Ochilish sanasi')}}</th>
+                            <th>{{$t('Tasdiqlash')}}</th>
+                            <th scope="col">{{$t('Tahrirlash')}}</th>
+                        </tr>
 					</thead>
 					<tbody>
 						<tr v-for="(direct,index) in getDirections.data">

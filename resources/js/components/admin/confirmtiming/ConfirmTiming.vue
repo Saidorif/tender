@@ -23,7 +23,7 @@
 				  		<div class="row">
 				  			<div class="form-group col-lg-2">
 				  				<label for="bypass_number">{{$t('Yoʼnalish soni')}}</label>
-                                  <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
+                                  <input class="form-control input_style"  type="text" v-model="filter.pass_number" id="bypass_number">
               				</div>
 				  			<div class="form-group col-lg-2">
 				  				<label for="status">{{$t('Tenderga qoʼyilganlik holati')}}!</label>

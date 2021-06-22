@@ -18,7 +18,6 @@
 			                :options="getDirectionFindList"
 			                @search-change="value => filterVariantList(value)"
 			                v-model="filter.name"
-			                placeholder="Найдите направление!"
 			                :searchable="true"
 			                track-by="id"
 			                label="name"

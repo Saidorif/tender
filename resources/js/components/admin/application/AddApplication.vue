@@ -24,7 +24,6 @@
 										:options="findList"
 										@search-change="value => findDirection(value)"
 										v-model="direction_ids"
-				                        :placeholder="$t('Marshrutni tanlang')"
 				                        :searchable="true"
 				                        track-by="id"
 				                        label="name"
@@ -57,7 +56,6 @@
 						    	type="number"
 						    	class="form-control input_style"
 						    	id="tarif"
-						    	:placeholder="$t('Tarif')"
 						    	v-model="form.tarif"
 						    	:class="isRequired(form.tarif) ? 'isRequired' : ''"
 					    	>

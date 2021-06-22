@@ -18,7 +18,6 @@
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="contName"
-					    	placeholder="Controller Name"
 					    	v-model="form.name"
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
@@ -29,7 +28,6 @@
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="contName"
-					    	placeholder="Label"
 					    	v-model="form.label"
 					    	:class="isRequired(form.label) ? 'isRequired' : ''"
 				    	>

@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon pe-7s-id"></i>
-				    {{$t('Qoʼshish')}} Должность
+				    {{$t('Qoʼshish')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/position"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
@@ -13,12 +13,11 @@
 		  		<form @submit.prevent.enter="savePosition" >
 					<div class="row">
 					  <div class="form-group col-md-9">
-					    <label for="roleName">Название должность</label>
+					    <label for="roleName">{{$t('Nomi')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="roleName"
-					    	placeholder="Должность"
 					    	v-model="form.name"
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>

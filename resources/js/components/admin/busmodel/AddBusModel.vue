@@ -96,7 +96,6 @@
                 type="number"
                 class="form-control input_style"
                 id="seat_to"
-                placeholder="{{$t('Oʼrindiqlar soni')}} (по)"
                 v-model="form.seat_to"
                 :class="isRequired(form.seat_to) ? 'isRequired' : ''"
               />
@@ -117,7 +116,6 @@
                 type="number"
                 class="form-control input_style"
                 id="stay_to"
-                placeholder="Пассажировместимость (по)"
                 v-model="form.stay_to"
                 :class="isRequired(form.stay_to) ? 'isRequired' : ''"
               />

@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon pe-7s-rocket"></i>
-				    Админ панель
+				    {{$t('admin_menu.admin_panel')}}
 				</h4>
 		  	</div>
 		  	<div class="card-body">
@@ -25,7 +25,7 @@
 	  						<router-link class="dashboard-link" to="/crm/client">
 				              <i class="peIcon pe-7s-users"></i>
 				              <p>
-				                Перевозчики
+				                {{$t('Tashuvchilar')}}
 				              </p>
 				            </router-link>
 	  					</div>
@@ -35,7 +35,7 @@
 	  						<router-link class="dashboard-link" to="/crm/tenderannounce">
 				              <i class="peIcon fas fa-bullhorn"></i>
 				              <p>
-				                Объявить тендер
+				                {{$t('Tender eʼlon qilish')}}
 				              </p>
 				            </router-link>
 	  					</div>
@@ -45,7 +45,7 @@
 	  						<router-link class="dashboard-link" to="/crm/payment">
 				              <i class="peIcon fas fa-money-bill-alt"></i>
 				              <p>
-				                Платежи
+				                {{$t('Toʼlovlar')}}
 				              </p>
 				            </router-link>
 	  					</div>
@@ -55,7 +55,7 @@
 	  						<router-link class="dashboard-link" to="/crm/complaint-list">
 				              <i class="peIcon fas fa-comment"></i>
 				              <p>
-			                    Список обращения
+			                     {{$t('Murojaatlar ro‘yxati')}}
 			                  </p>
 				            </router-link>
 	  					</div>
@@ -65,7 +65,7 @@
 	  						<router-link class="dashboard-link" to="/crm/apply">
 				              <i class="peIcon fas fa-vote-yea"></i>
 				              <p>
-				                Доступ
+				                {{$t('Ruxsat')}}
 				              </p>
 				            </router-link>
 	  					</div>
@@ -75,7 +75,7 @@
 	  						<router-link class="dashboard-link" to="/crm/contract-list">
 	  							<i class="peIcon fas fa-file"></i>
 			                    <p>
-			                    	Договора
+			                    	{{$t('Shartnomalar')}}
 			                    </p>
 				            </router-link>
 	  					</div>
@@ -85,7 +85,7 @@
 	  						<router-link class="dashboard-link" to="/crm/protocol-list">
 	  						  <i class="peIcon fas fa-file-alt"></i>
 			                  <p>
-			                    Протокол
+			                    {{$t('Bayonnoma')}}
 			                  </p>
 				            </router-link>
 	  					</div>

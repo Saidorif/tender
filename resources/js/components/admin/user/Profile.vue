@@ -124,7 +124,6 @@
                 type="password"
                 class="form-control input_style"
                 id="exampleInputPassword1"
-                placeholder="Пароль.."
                 :class="isRequiredPassword(passwords.password) ? 'isRequired' : ''"
                 v-model="passwords.password"
               />
@@ -135,7 +134,6 @@
                 type="password"
                 class="form-control input_style"
                 id="ConfirmPassword1"
-                placeholder="Подтвердите пароль.."
                 v-model="passwords.confirm_password"
                 :class="isRequiredPassword(passwords.confirm_password) ? 'isRequired' : ''"
                 @input="confirmPassword()"
@@ -212,7 +210,7 @@
                         data-toggle="tab"
                         class="nav-link active"
                         ><i class="fas fa-id-card mr-1"></i>
-                        Мои данные
+                        {{$t('Mening maʼlumotlarim')}}
                       </a>
                     </li>
                     <li class="nav-item">
@@ -221,7 +219,7 @@
                         data-toggle="tab"
                         class="nav-link show"
                         ><i class="fas fa-id-card mr-1"></i>
-                        Изменить пароль
+                        {{$t('admin_menu.change_pass')}}
                       </a>
                     </li>
                   </ul>
@@ -246,12 +244,11 @@
                           </div>
                           <div class="col-sm-6 form-group">
                             <label for="inputEmail" class="control-label"
-                              >E-mail почта</label
+                              >{{$t('Email')}}</label
                             >
                             <input
                               type="email"
                               id="inputEmail"
-                              placeholder="E-mail..."
                               disabled="disabled"
                               class="form-control"
                               v-model="form.email"
@@ -259,12 +256,11 @@
                           </div>
                           <div class="form-group col-sm-6">
                             <label for="inputCompanyName" class="control-label"
-                              >Название фирмы</label
+                              >{{$t('Tashkilot nomi')}}</label
                             >
                             <input
                               type="text"
                               id="inputCompanyName"
-                              placeholder="Название фирмы..."
                               disabled="disabled"
                               class="form-control"
                               v-model="form.company_name"
@@ -284,7 +280,7 @@
                           </div>
                           <div class="form-group col-sm-6">
                             <label for="inputTel" class="control-label"
-                              >Номер телефона</label
+                              >{{$t('Telefon')}}</label
                             >
                             <input
                               type="text"
@@ -307,7 +303,7 @@
                           </div>
                           <div class="form-group col-sm-6">
                             <label for="inputoked" class="control-label"
-                              >ОКЭД</label
+                              >{{$t('OKED')}}</label
                             >
                             <input disabled="disabled" class="form-control"  v-model="form.oked" />
                           </div>
@@ -331,7 +327,7 @@
                           </div>
                           <div class="form-group col-sm-12 saveBtn">
                             <button type="button" class="btn btn-info">
-                              Изменить
+                              {{$t('O‘zgartirish')}}
                             </button>
                           </div>
                         </div>
@@ -342,38 +338,32 @@
                         <div class="row">
                           <div class="col-sm-12 form-group"><!----></div>
                           <div class="col-sm-6 form-group">
-                            <label for="inputName" class="control-label"
-                              >Старый пароль</label
+                            <label for="inputName" class="control-label">{{$t('Eski parol')}}</label
                             >
                             <input
                               type="password"
                               id="inputName"
-                              placeholder="Пароль"
                               class="form-control"
                                v-model="form.password"
                             />
                           </div>
                           <div class="col-sm-6 form-group">
-                            <label for="inputName" class="control-label"
-                              >Новый пароль</label
+                            <label for="inputName" class="control-label">{{$t('Yangi parol')}}</label
                             >
                             <input
                               type="password"
                               id="inputName"
-                              placeholder="Новый пароль"
                               class="form-control"
                               v-model="form.new_password"
                             />
                             <!---->
                           </div>
                           <div class="col-sm-6 form-group">
-                            <label for="inputName" class="control-label"
-                              >Подтвердите пароль</label
+                            <label for="inputName" class="control-label">{{$t('Parolni tasdiqlash')}}</label
                             >
                             <input
                               type="password"
                               id="inputName"
-                              placeholder="Подтвердите пароль"
                               class="form-control"
                               v-model="form.confirm_password"
                             />
@@ -381,7 +371,7 @@
                           </div>
                           <div class="form-group col-sm-12 saveBtn">
                             <button type="button" class="btn btn-info mt-4">
-                              Изменить
+                              {{$t('O‘zgartirish')}}
                             </button>
                           </div>
                         </div>

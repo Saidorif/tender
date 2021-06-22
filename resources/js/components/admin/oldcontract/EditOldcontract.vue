@@ -129,7 +129,6 @@
 								:options="findDirectionList"
 								@search-change="value => findDirection(value)"
 								v-model="directionvalues"
-		                        :placeholder="$t('Yoʼnalish')"
 		                        :searchable="true"
 		                        track-by="id"
 		                        label="name"

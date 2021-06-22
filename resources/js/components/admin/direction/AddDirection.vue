@@ -81,7 +81,6 @@
               <select
                 class="form-control input_style"
                 v-model="form.region_from.area_id"
-                placeholder="Area"
                 @change="selectArea('region_from')"
               >
                 <option value selected disabled>{{$t('Tanlang')}} </option>
@@ -102,7 +101,6 @@
               <select
                 class="form-control input_style"
                 v-model="form.region_from.station_id"
-                placeholder="Area"
               >
                 <option value selected disabled>{{$t('Tanlang')}} </option>
                 <option :value="item.id" v-for="(item,index) in stationFrom">{{item.name}}</option>
@@ -143,7 +141,6 @@
               <select
                 class="form-control input_style"
                 v-model="form.region_to.area_id"
-                placeholder="Area"
                 @change="selectArea('region_to')"
               >
                 <option value selected disabled>{{$t('Tanlang')}}</option>
@@ -164,7 +161,6 @@
               <select
                 class="form-control input_style"
                 v-model="form.region_to.station_id"
-                placeholder="Area"
               >
                 <option value selected disabled>{{$t('Tanlang')}}</option>
                 <option :value="item.id" v-for="(item,index) in stationTo">{{item.name}}</option>
@@ -176,7 +172,6 @@
                 class="form-control input_style"
                 v-model="form.seasonal"
                 :class="isRequired(form.seasonal) ? 'isRequired' : ''"
-                placeholder="Area"
               >
                 <option value selected disabled>{{$t('Tanlang')}}</option>
                 <option value="always">{{$t('Doimiy')}}</option>
@@ -222,7 +217,6 @@
                 class="form-control input_style"
                 v-model="form.profitability"
                 :class="isRequired(form.profitability) ? 'isRequired' : ''"
-                placeholder="Area"
               >
                 <option value="profitable">{{$t('Samarali')}}</option>
                 <option value="unprofitable">{{$t('Samarasiz')}}</option>

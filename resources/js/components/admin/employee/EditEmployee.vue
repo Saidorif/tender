@@ -32,7 +32,6 @@
                   type="text"
                   class="form-control input_style"
                   :class="isRequired(form.surname) ? 'isRequired' : ''"
-                  placeholder="Фамилия"
                   v-model="form.surname"
                 />
               </div>

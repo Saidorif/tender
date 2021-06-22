@@ -172,7 +172,6 @@
                 class="input_style"
                 v-model="form.start_time"
                 :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
-                placeholder="Select datetime"
                 :class="isRequiredTwo(form.start_time) ? 'isRequired' : ''"
                 format="HH:mm:ss"
               ></date-picker>
@@ -294,7 +293,6 @@
               <select
                 class="form-control input_style"
                 v-model="form.area_to_id"
-                placeholder="Area"
                 @change="selectArea('area_to_id', 'region_to_id')"
               >
                 <option value selected disabled>{{$t('Tanglang')}}</option>
@@ -353,7 +351,6 @@
                   class="input_style"
                   v-model="form.end_time"
                   :type="getDirection.type_id == 5 ? 'datetime' : 'time'"
-                  placeholder="Select end_time"
                   :class="isRequiredTwo(form.end_time) ? 'isRequired' : ''"
                   format="HH:mm:ss"
                 ></date-picker>
