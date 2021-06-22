@@ -5,10 +5,10 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    {{$t('Qoʼshish')}} MyAppeal
+				    {{$t('Qoʼshish')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/myappeal">
-					<span class="peIcon pe-7s-back"></span> 
+					<span class="peIcon pe-7s-back"></span>
 					{{$t('Orqaga')}}
 				</router-link>
 		  	</div>
@@ -17,11 +17,11 @@
 					<div class="row">
 					  	<div class="form-group col-md-6">
 					  		<label for="contract_id">Мои контракт</label>
-					  		<select 
+					  		<select
 					  			class="form-control input_style"
 						    	id="contract_id"
 						    	v-model="form.contract_id"
-						    	rows="4" 
+						    	rows="4"
 						    	:class="isRequired(form.contract_id) ? 'isRequired' : ''"
 					  		>
 					  			<option value="" selected disabled>Выберите контракт!</option>
@@ -34,17 +34,16 @@
 				                type="file"
 				                class="form-control input_style"
 				                id="image"
-				                placeholder="Файл"
 				                @input="changeFile($event)"
 			               	/>
 				  		</div>
 					  	<div class="form-group col-md-12">
 						    <label for="text">{{$t('Text')}}</label>
-						    <textarea 
+						    <textarea
 						    	class="form-control input_style"
 						    	id="text"
 						    	v-model="form.text"
-						    	rows="4" 
+						    	rows="4"
 						    	:class="isRequired(form.text) ? 'isRequired' : ''"
 						    ></textarea>
 					  	</div>

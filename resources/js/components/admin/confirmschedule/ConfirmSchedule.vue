@@ -23,7 +23,7 @@
 				  		<div class="row">
 				  			<div class="form-group col-lg-2">
 				  				<label for="bypass_number">{{$t('Yoʼnalish soni')}}</label>
-                                  <input class="form-control input_style" placeholder="Поиск по номеру" type="text" v-model="filter.pass_number" id="bypass_number">
+                                  <input class="form-control input_style"  type="text" v-model="filter.pass_number" id="bypass_number">
               				</div>
 				  			<div class="form-group col-lg-2">
 				  				<label for="status">{{$t('Tenderga qoʼyilganlik holati')}}!</label>
@@ -39,7 +39,7 @@
               				</div>
                             <div class="form-group col-lg-3">
 				  				<label for="dir_name">{{$t('Marshrut nomi')}}</label>
-                              	<input class="form-control input_style" placeholder="Поиск по наименования маршрута" type="text" v-model="filter.name" id="dir_name">
+                              	<input class="form-control input_style" type="text" v-model="filter.name" id="dir_name">
               				</div>
 						  	<div class="col-lg-5 form-group d-flex justify-content-end align-items-center mb-4">
 							  	<button type="button" class="btn btn-warning clear" @click.prevent="clear">

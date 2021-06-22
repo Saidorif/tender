@@ -5,11 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file-alt"></i>
-<<<<<<< HEAD
 				    {{$t('Tahrirlash')}}
-=======
-				    Mening shartnomam
->>>>>>> d9231070b339efc2780675f5f1a1b8bc8b03bbf5
 				</h4>
                 <div class="d-flex">
                     <!-- <button type="button" class="btn btn-success mr-2" @click="activeContract">
@@ -30,7 +26,6 @@
 						    	type="text"
 						    	class="form-control input_style"
 						    	id="number"
-						    	placeholder="Номер контракта"
 						    	v-model="form.number"
 						    	:class="isRequired(form.number) ? 'isRequired' : ''"
 					    	>
@@ -136,7 +131,6 @@
 								:options="findDirectionList"
 								@search-change="value => findDirection(value)"
 								v-model="directionvalues"
-		                        :placeholder="$t('Yoʼnalish')"
 		                        :searchable="true"
 		                        track-by="id"
 		                        label="name"
@@ -167,7 +161,6 @@
 								    	class="form-control input_style"
 								    	id="auto_number"
 								    	v-mask="'********'"
-								    	placeholder="Авто №"
 								    	v-model="car.auto_number"
 								    	:class="isRequired(car.auto_number) ? 'isRequired' : ''"
 							    	>

@@ -35,7 +35,6 @@
                 <label for="bypass_number">{{$t('Raqam')}}</label>
                 <input
                   class="form-control input_style"
-                  placeholder="Поиск по номеру"
                   type="text"
                   v-model="filter.number"
                   id="bypass_number"

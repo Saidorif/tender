@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon pe-7s-id"></i>
-				    Изменить Area
+				    {{$t('Tahrirlash')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/station"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
@@ -13,7 +13,7 @@
 		  		<form @submit.prevent.enter="saveStation" >
 					<div class="row">
 					  <div class="form-group col-md-9">
-					    <label for="region_id">Regions</label>
+					    <label for="region_id">{{$t('Viloyatlar')}}</label>
 					    <select
 					    	class="form-control input_style"
 					    	v-model="form.region_id"
@@ -24,7 +24,7 @@
 					    </select>
 					  </div>
 					  <div class="form-group col-md-9">
-					    <label for="area_id">Area</label>
+					    <label for="area_id">{{$t('Tuman')}}</label>
 					    <select
 					    	class="form-control input_style"
 					    	v-model="form.area_id"
@@ -35,18 +35,17 @@
 					    </select>
 					  </div>
 					  <div class="form-group col-md-9">
-					    <label for="name">Area</label>
+					    <label for="name">{{$t('Bekat nomi')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="name"
-					    	placeholder="Area"
 					    	v-model="form.name"
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
 					  <div class="form-group col-md-9">
-					    <label for="station_type">Station Type</label>
+					    <label for="station_type">{{$t('Bekat turi')}}</label>
 					    <select
 					    	class="form-control input_style"
 					    	v-model="form.station_type"

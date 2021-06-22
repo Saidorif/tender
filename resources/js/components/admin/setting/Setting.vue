@@ -5,19 +5,18 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-cog"></i>
-				    Настройка системы
+				    {{$t('Tizim sozlamalari')}}
 				</h4>
 		  	</div>
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveSetting" >
 					<div class="row">
 					  <div class="form-group col-md-9">
-					    <label for="salary">Стоимость заявки</label>
+					    <label for="salary"> {{$t('Ariza narxi')}} </label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="salary"
-					    	placeholder="Стоимость заявки..."
 					    	v-model="form.salary"
 					    	:class="isRequired(form.salary) ? 'isRequired' : ''"
 				    	>

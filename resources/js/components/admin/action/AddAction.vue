@@ -38,7 +38,6 @@
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="contName"
-					    	placeholder="Action Name"
 					    	v-model="form.name"
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
@@ -49,7 +48,6 @@
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="contName"
-					    	placeholder="Code"
 					    	v-model="form.code"
 					    	:class="isRequired(form.code) ? 'isRequired' : ''"
 				    	>
