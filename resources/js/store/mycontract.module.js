@@ -73,7 +73,7 @@ const actions = {
 			return false
 		}
 	},
-	async actionEditmycontract({commit},id){
+	async actionEditMycontract({commit},id){
 		try {
 			const mycontract =  await MycontractService.editmycontract(id);
 			await commit('setEditMycontract',mycontract.data.result)
@@ -82,7 +82,7 @@ const actions = {
 			return false
 		}
 	},
-	async actionUpdatemycontract({commit},payload){
+	async actionUpdateMycontract({commit},payload){
 		try {
 			const mycontract =  await MycontractService.updatemycontract(payload);
 			await commit('setMessage',mycontract.data)
