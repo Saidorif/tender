@@ -48,13 +48,6 @@
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button
-									class="btn_transparent"
-									@click="deleteMycontract(item.id)"
-								>
-								 	<!-- v-if="$can('destroy', 'ContractController')" -->
-									<i class="pe_icon pe-7s-trash trashColor"></i>
-								</button>
 							</td>
 						</tr>
 					</tbody>
