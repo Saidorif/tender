@@ -2,7 +2,7 @@
     <div class="add_area">
         <Loader v-if="laoding"/>
         <PassportTab/>
-        <div class="card-body container">
+        <div class="card-body container" style="overflow: visible;">
             <h1 v-if="titulData.type">{{$t('Avtobus qatnov yoʼli tasviri')}} {{titulData.type.type}} - {{titulData.pass_number}} - {{$t('sonli')}} "{{titulData.name}}" </h1>
             <div class="map_scheme" v-if="schemeData.length">
                 <div class="mid_line"></div>
@@ -148,65 +148,16 @@ export default {
     };
   },
   async mounted() {
-    await this.actionEditDirection(this.$route.params.directionId);
+    await this.actionDirection(this.$route.params.directionId);
     this.laoding = false
     this.titulData = this.getDirection
     this.schemeData = this.titulData ? this.titulData.timing_with : [];
   },
   computed: {
-    ...mapGetters("direction", ["getDirection"]),
-    ...mapGetters("passportTab", ["getMsg"]),
+    ...mapGetters("front", ["getDirection"]),
   },
   methods: {
-    ...mapActions("passportTab", ["actionAddTiming", "actionAddSchemadetail"]),
-    ...mapActions("direction", ["actionEditDirection"]),
-    async saveData() {
-      if(this.agreedData.length){
-        this.laoding = true
-        await this.actionAddSchemadetail({id:this.$route.params.directionId, data:this.agreedData})
-        this.laoding = false
-        if(this.getMsg.success){
-          toast.fire({
-            type: "success",
-            icon: "success",
-            title: this.getTimingMassage.message
-          });
-        }else{
-          toast.fire({
-            type: "error",
-            icon: "error",
-            title: 'Tizimda xotolik bor. iltimos qaytadan urinib koring!'
-          });
-        }
-      }else{
-        toast.fire({
-          type: "error",
-          icon: "error",
-          title: 'Malumotlar formasini toldinring!'
-        });
-      }
-
-    },
-    addAgreeData(){
-        let data = this.form
-        if(this.form.organ != "" && this.form.job != "" && this.form.fio != "" && this.form.date != ""){
-            this.requiredInput = false;
-            this.agreedData.push(data)
-                this.form = {
-                organ: '',
-                job: '',
-                fio: '',
-                date: '',
-                direction_id: this.$route.params.directionId,
-            }
-        } else {
-            this.requiredInput = true;
-        }
-
-    },
-    isRequired(input) {
-      return this.requiredInput && input === "";
-    },
+    ...mapActions("front", ["actionDirection"]),
   },
 };
 </script>

@@ -16,7 +16,7 @@
                     <td width="50%"><b>{{$t('Аvtotransport vositasi modelining klassi')}}</b></td>
                     <td>
                     <div v-for="(item,index) in form.auto_model_class">
-                        {{item.model.name}}
+                        {{item.model ? item.model.name : item.tclass.name}}
                     </div>
                     </td>
                 </tr>
@@ -216,21 +216,20 @@ export default {
     };
   },
   async mounted(){
-    // await this.actionEditDirection(this.$route.params.directionId);
-    await this.actionDemand(this.$route.params.directionId);
+    await this.actionDirection(this.$route.params.directionId);
+    await this.actionRequirement(this.$route.params.directionId);
+    console.log(this.getRequirement)
     this.laoding = false
-    this.form = this.getDemand
+    this.form = this.getRequirement
     Vue.set(this.form,'stations_from_value','')
     Vue.set(this.form,'stations_to_value','')
     Vue.set(this.form,'station_intervals','')
     },
   computed: {
-    ...mapGetters("direction", ["getDirection"]),
-    ...mapGetters("passportTab", ['getDemand']),
+    ...mapGetters("front", ["getRequirement", "getDirection"]),
   },
   methods: {
-    ...mapActions("direction", ["actionEditDirection"]),
-    ...mapActions("passportTab", ['actionDemand']),
+    ...mapActions("front", ["actionDirection", "actionRequirement"]),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
@@ -242,9 +241,6 @@ export default {
         return 'Mavsumiy';
       }
     },
-    saveData(){
-
-    }
   },
 };
 </script>

@@ -12,7 +12,7 @@ const getters = {
 		return state.requirement
 	},
 	getDirection(state){
-		return state.requirement
+		return state.direction
 	},
 	getTimingtarif(state){
 		return state.timingtarif

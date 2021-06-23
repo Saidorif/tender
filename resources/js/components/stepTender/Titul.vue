@@ -3,7 +3,7 @@
     <Loader v-if="laoding" />
     <PassportTab />
     <div class="card-body container">
-      <!-- <div class="row">
+      <div class="row">
         <div class="form-group col-lg-3 col-md-6">
           <label for="type_id">{{ $t("Yoʼnalish klasifikatsiyasi") }} </label>
           <div class="form-control input_style">
@@ -14,7 +14,7 @@
         <div class="form-group col-lg-3 col-md-6">
           <label for="seria">{{ $t("Passport raqami") }} </label>
           <div class="form-control input_style">
-            {{ form.pass_number }}
+            {{ item.pass_number }}
           </div>
         </div>
         <div class="form-group col-lg-3 col-md-6">
@@ -60,39 +60,28 @@
         <div class="form-group col-lg-3 col-md-6">
           <label for="seasonal">{{ $t("Ishlash mavsumi") }}</label>
           <div class="form-control input_style">
-            {{ getSeasonal(form.seasonal) }}
+            {{ item.seasonal }}
           </div>
         </div>
-        <div class="col-lg-3 col-md-6 input_radios_block">
-          <p>{{ $t("Qaysi tarafdan") }}</p>
-          <div
-            class="form-group input_radio_with_label"
-            v-for="(item, index) in destinations"
-          >
-            <input
-              type="radio"
-              v-model="form.from_where"
-              name="from_where"
-              :id="'from_where' + index"
-              :value="item"
-              disabled
-            />
-            <label :for="'from_where' + index">{{ item.name }}</label>
+        <div class="form-group col-lg-3 col-md-6">
+          <label>{{ $t("Qaysi tarafdan") }}</label>
+          <div class="form-control input_style">
+            {{ item.from_where ? item.from_where.name : "" }}
           </div>
         </div>
         <div class="form-group col-lg-3 col-md-6">
           <label for="seria">{{ $t("Yoʼnalish ochilish sanasi") }}</label>
           <div class="form-control input_style">
-            {{ form.year }}
+            {{ item.year }}
           </div>
         </div>
         <div class="form-group col-lg-3 col-md-6">
           <label for="seria">{{ $t("Yoʼnalish masofasi") }}</label>
           <div class="form-control input_style">
-            {{ form.distance }}
+            {{ item.distance }}
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -120,11 +109,13 @@ export default {
     return {
       loaded: false,
       laoding: true,
+      item: {},
     };
   },
   async mounted() {
     await this.actionDirection(this.$route.params.directionId);
     console.log(this.getDirection)
+    this.item = this.getDirection
     this.laoding = false;
   },
   methods: {

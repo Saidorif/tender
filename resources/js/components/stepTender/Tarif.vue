@@ -6,7 +6,7 @@
 				<div class="tarif_column">
 			  		<h1>{{$t('Yoʼl kira haqi jadvali')}} {{titulData.pass_number}} - {{$t('sonli')}} "{{titulData.name}}" </h1>
 			  		<div class="table-responsive">
-				  		<div class="table-responsive" v-for="(t_item,t_index) in getTarif">
+				  		<div class="table-responsive" v-for="(t_item,t_index) in getTimingtarif">
 				  			<div class="d-flex align-items-center w-50 justify-content-between">
 				  				<h4>{{t_index+1}})</h4>
 				  				<div class="">
@@ -82,18 +82,16 @@ import Loader from '../Loader'
 			}
 		},
 		async mounted(){
-			await this.actionEditDirection(this.$route.params.directionId);
-			await this.actionTarif(this.$route.params.directionId);
+			await this.actionDirection(this.$route.params.directionId);
+			await this.actionTimingtarif(this.$route.params.directionId);
 			this.titulData = this.getDirection
 			this.laoding = false
 		},
 		computed:{
-			...mapGetters("direction", ["getDirection"]),
-			...mapGetters("passportTab", ["getTarif"]),
+			...mapGetters("front", ["getTimingtarif", "getDirection"]),
 		},
 		methods:{
-			...mapActions("passportTab", ["actionTarif"]),
-			...mapActions("direction", ["actionEditDirection"]),
+			...mapActions("front", ["actionTimingtarif", "actionDirection"]),
             getStatusClass(status){
 		    	if (status == 'pending') {
 		    		return 'alert-warning'
