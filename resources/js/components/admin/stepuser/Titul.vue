@@ -67,7 +67,6 @@
                   class="form-control input_style"
                   v-model="form.region_from.area_id"
                   :class="isRequired(form.region_from.area_id) ? 'isRequired' : ''"
-                  placeholder="Area"
                   disabled="disabled"
                 >
                   <option value selected disabled>{{$t('Tanglang')}}</option>
@@ -90,7 +89,6 @@
                   class="form-control input_style"
                   v-model="form.region_from.station_id"
                   :class="isRequired(form.region_from.station_id) ? 'isRequired' : ''"
-                  placeholder="Area"
                   disabled="disabled"
                 >
                   <option value selected disabled>{{$t('Tanglang')}}</option>
@@ -135,7 +133,6 @@
                   class="form-control input_style"
                   v-model="form.region_to.area_id"
                   :class="isRequired(form.region_to.area_id) ? 'isRequired' : ''"
-                  placeholder="Area"
                   disabled="disabled"
                 >
                   <option value selected disabled>{{$t('Tanglang')}}</option>
@@ -158,7 +155,6 @@
                   class="form-control input_style"
                   v-model="form.region_to.station_id"
                   :class="isRequired(form.region_to.station_id) ? 'isRequired' : ''"
-                  placeholder="Area"
                   disabled="disabled"
                 >
                   <option value selected disabled>{{$t('Tanglang')}}</option>
@@ -171,7 +167,6 @@
                   class="form-control input_style"
                   v-model="form.seasonal"
                   :class="isRequired(form.seasonal) ? 'isRequired' : ''"
-                  placeholder="Area"
                   disabled="disabled"
                 >
                   <option value selected disabled>{{$t('Tanglang')}}</option>

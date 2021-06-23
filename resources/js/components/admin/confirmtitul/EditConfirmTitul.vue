@@ -77,7 +77,6 @@
                       class="form-control input_style"
                       v-model="form.region_from.area_id"
                       :class="isRequired(form.region_from.area_id) ? 'isRequired' : ''"
-                      placeholder="Area"
                       disabled
                       @change="selectArea('region_from')"
                     >
@@ -100,7 +99,6 @@
                       class="form-control input_style"
                       v-model="form.region_from.station_id"
                       :class="isRequired(form.region_from.station_id) ? 'isRequired' : ''"
-                      placeholder="Area"
                       disabled
                     >
                       <option value selected disabled>{{$t('Tanglang')}}</option>
@@ -144,7 +142,6 @@
                       class="form-control input_style"
                       v-model="form.region_to.area_id"
                       :class="isRequired(form.region_to.area_id) ? 'isRequired' : ''"
-                      placeholder="Area"
                       disabled
                       @change="selectArea('region_to')"
                     >
@@ -168,7 +165,6 @@
                       v-model="form.region_to.station_id"
                       disabled
                       :class="isRequired(form.region_to.station_id) ? 'isRequired' : ''"
-                      placeholder="Area"
                     >
                       <option value selected disabled>{{$t('Tanglang')}}</option>
                       <option :value="item.id" v-for="(item,index) in stationTo">{{item.name}}</option>
@@ -181,7 +177,6 @@
                       v-model="form.seasonal"
                       disabled
                       :class="isRequired(form.seasonal) ? 'isRequired' : ''"
-                      placeholder="Area"
                     >
                       <option value selected disabled>{{$t('Tanglang')}}</option>
                       <option value="always">{{$t('Doimiy')}}</option>

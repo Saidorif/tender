@@ -126,7 +126,6 @@
 								:options="findDirectionList"
 								@search-change="value => findDirection(value)"
 								v-model="directionvalues"
-		                        placeholder="Направления"
 		                        :searchable="true"
 		                        track-by="id"
 		                        label="name"
@@ -157,7 +156,6 @@
 								    	class="form-control input_style"
 								    	id="auto_number"
 								    	v-mask="'********'"
-								    	placeholder="Авто №"
 								    	v-model="car.auto_number"
 								    	:class="isRequired(car.auto_number) ? 'isRequired' : ''"
 							    	>

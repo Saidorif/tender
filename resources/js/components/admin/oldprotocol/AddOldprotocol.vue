@@ -21,7 +21,6 @@
 						    	type="text"
 						    	class="form-control input_style"
 						    	id="number"
-						    	placeholder="Номер протокола"
 						    	v-model="form.number"
 						    	:class="isRequired(form.number) ? 'isRequired' : ''"
 					    	>
@@ -33,7 +32,6 @@
 				                type="date" format="YYYY-MM-DD" valueType="format"
 				                v-model="form.date"
 				                class="input_style"
-				                placeholder="Сана"
 				                :class="isRequired(form.date) ? 'isRequired' : ''"
 			              	></date-picker>
 			          	</div>

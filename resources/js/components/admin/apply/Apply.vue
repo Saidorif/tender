@@ -41,7 +41,7 @@
 				          			</div>
 				          		</td>
 			          			<td width="25%">
-			          				<input type="email" v-model="item.email" @blur="checkEmailExist(item.email, index)" class="form-control" placeholder="E-mail..." required v-if="item.status != 'active'">
+			          				<input type="email" v-model="item.email" @blur="checkEmailExist(item.email, index)" class="form-control"  required v-if="item.status != 'active'">
 									<small class="text-danger" v-if="item.status != 'active'">{{errors[index]}}</small>
 			          			</td>
 			          			<td>

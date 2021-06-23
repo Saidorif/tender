@@ -24,7 +24,6 @@
 										:options="findList"
 										@search-change="value => findDirection(value)"
 										v-model="direction_ids"
-				                        :placeholder="$t('Marshrutni tanlang')"
 				                        :searchable="true"
 				                        track-by="id"
 				                        label="name"

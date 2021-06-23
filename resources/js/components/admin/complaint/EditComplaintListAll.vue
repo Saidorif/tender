@@ -18,7 +18,6 @@
 			                :options="getDirectionFindList"
 			                @search-change="value => filterVariantList(value)"
 			                v-model="filter.name"
-			                placeholder="Найдите направление!"
 			                :searchable="true"
 			                track-by="id"
 			                label="name"
@@ -217,7 +216,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Данный сохранен!',
+						title: this.$t('Maʼlumot saqlandi'),
 				    })
 				}else{
 					this.requiredInput =true

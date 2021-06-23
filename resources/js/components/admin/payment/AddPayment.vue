@@ -19,7 +19,6 @@
 							:options="findList"
 							@search-change="value => findCompany(value)"
 							v-model="values"
-	                        placeholder="Выберите название компаний"
 	                        :searchable="true"
 	                        track-by="id"
 	                        label="company_name"

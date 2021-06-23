@@ -761,7 +761,6 @@
 							    	type="text"
 							    	class="form-control input_style"
 							    	id="pNumberNatarius"
-							    	placeholder="Номер реестра..."
 							    	v-model="car.pNumberNatarius"
 							    	:class="isRequired(car.pNumberNatarius) ? 'isRequired' : ''"
 						    	>

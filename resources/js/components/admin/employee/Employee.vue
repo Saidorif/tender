@@ -68,7 +68,7 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="area_id">{{$t('Tuman/Shahar')}}!</label>
+				  				<label for="area_id">{{$t('Tuman/Shahar')}}</label>
 			                    <select
 			                      id="area_id"
 			                      class="form-control input_style"
