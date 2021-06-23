@@ -74,7 +74,7 @@
                       <b>{{ item.tarif_bagaj }}</b>
                     </div>
                     <div class="tarifs tarif_bagaj">
-                      <b>{{ item.distance_test }}KM</b>
+                      <b>{{ item.distance_test }}{{$t("km")}}</b>
                     </div>
                   </td>
                   <template v-else>
@@ -120,7 +120,7 @@ export default {
       if (this.form.number != "") {
         await this.actionGetTarifByNumber(this.form);
         if (this.getGetTarifByNumber == undefined) {
-          this.errorText = "Marshurt topilmadi";
+          this.errorText = this.$t("Yoʼnalish topiladi");
         } else {
           this.errorText = null;
           this.statinsName = [];
@@ -141,9 +141,9 @@ export default {
     },
     getStatusName(status) {
       if (status == "pending") {
-        return "В ожидании!";
+        return this.$t('Kutish jarayonida');
       } else if (status == "approved") {
-        return "Подвержден!";
+        return this.$t('Tasdiqlagan');
       } else {
         return status;
       }
