@@ -5,7 +5,11 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file-alt"></i>
+<<<<<<< HEAD
+				    Mening shartnomam
+=======
 				    {{$t('Tahrirlash')}}
+>>>>>>> 97ac85b0e2544873572f4d2667f8ce2f0cf47fa6
 				</h4>
                 <div class="d-flex">
                     <!-- <button type="button" class="btn btn-success mr-2" @click="activeContract">
@@ -18,6 +22,80 @@
                 </div>
 		  	</div>
 		  	<div class="card-body">
+<<<<<<< HEAD
+		  		<div class="row">
+		  			<div class="col-md-3">
+		  				<label for="number" class="form-control-label">Номер контракта</label>
+		  				<div class="form-control">
+		  					{{getUserMycontracts.number}}
+		  				</div>
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label for="number" class="form-control-label">Статус</label>
+		  				<div class="form-control">
+		  					{{getUserMycontracts.status}}
+		  				</div>
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label for="number" class="form-control-label">Контракт тузилган санаси</label>
+		  				<div class="form-control">
+		  					{{getUserMycontracts.date}}
+		  				</div>
+		  			</div>
+		  			<div class="col-md-3">
+		  				<label for="number" class="form-control-label">Контракт тугаш санаси</label>
+		  				<div class="form-control">
+		  					{{getUserMycontracts.exp_date}}
+		  				</div>
+		  			</div>
+		  		</div>
+	  		</div>
+		  	<div class="card-body">
+		  		<div class="table table-responsive">
+		  			<h2>Направления</h2>
+			  		<table class="tab table-bordered table-hover" v-if="getUserMycontracts">
+			  			<thead>
+			  				<tr>
+			  					<th>№</th>
+			  					<th>Номер направления</th>
+			  					<th>Название направления</th>
+			  				</tr>
+			  			</thead>
+			  			<tbody>
+			  				<tr v-for="(item,index) in getUserMycontracts.direction_ids" v-if="getUserMycontracts.direction_ids">
+			  					<td width="5%">{{index+1}}</td>
+			  					<td width="10%">{{item.pass_number}}</td>
+			  					<td width="85%">{{item.name}}</td>
+			  				</tr>
+			  			</tbody>
+			  		</table>
+		  		</div>
+		  	</div>
+		  	<div class="card-body">
+		  		<div class="table table-responsive">
+		  			<h2>Мои авто</h2>
+			  		<table class="tab table-bordered table-hover" v-if="getUserMycontracts">
+			  			<thead>
+			  				<tr>
+			  					<th>Номер авто</th>
+			  					<th>Категория авто</th>
+			  					<th>Марка авто</th>
+			  					<th>Модел авто</th>
+			  					<th>Класс авто</th>
+			  				</tr>
+			  			</thead>
+			  			<tbody>
+			  				<tr v-for="(item,index) in getUserMycontracts.cars" v-if="getUserMycontracts.cars">
+			  					<td>{{item.auto_number}}</td>
+			  					<td>{{item.bustype ? item.bustype.name : ''}}</td>
+			  					<td>{{item.busmarka ? item.busmarka.name : ''}}</td>
+			  					<td>{{item.busmodel ? item.busmodel.name : ''}}</td>
+			  					<td>{{item.tclass ? item.tclass.name : ''}}</td>
+			  				</tr>
+			  			</tbody>
+			  		</table>
+		  		</div>
+=======
 		  		<form @submit.prevent.enter="saveMycontract" enctype="multipart/form-data">
 					<div class="row">
 					  	<div class="form-group col-md-3">
@@ -243,6 +321,7 @@
 				  	  	</div>
 					</div>
 				</form>
+>>>>>>> 97ac85b0e2544873572f4d2667f8ce2f0cf47fa6
 		  	</div>
 	  	</div>
 	</div>
@@ -260,47 +339,10 @@
 		},
 		data(){
 			return{
-				form:{
-					id:'',
-					number:'',
-					date:'',
-					exp_date:'',
-					direction_ids:[],
-					cars:[],
-					protocol_id:'',
-					user_id:'',
-					contract_period:'',
-					file:'',
-				},
-				cars:[
-					{
-						bustype_id:'',
-						busmarka_id:'',
-						busmodel_id:'',
-						tclass_id:'',
-					   	auto_number:'',
-					},
-				],
-				direction_ids:{},
-				protocol_values: {},
-				directionvalues: null,
-				user_values: {},
-				findDirectionList: [],
-				findProtocolList: [],
-				findUserList: [],
 				requiredInput:false,
 				laoding: true,
-				isDirectionLoading: false,
-				isProtocolLoading: false,
-				isUserLoading: false,
-				fileName: '',
 			}
 		},
-        watch:{
-            directionvalues: function(newQuestion, oldQuestion){
-                this.form.direction_ids = newQuestion.map(item => item.id);
-            },
-        },
 		computed:{
 			...mapGetters('typeofbus',['getTypeofbusList']),
             ...mapGetters('busmodel',['getBusmodelList', 'getBusmodelFindList']),
@@ -309,7 +351,7 @@
 			...mapGetters('mycontract',[
 				'getMassage',
 				'getMycontractFind',
-				'getMycontract',
+				'getUserMycontracts',
 			]),
 			...mapGetters('myprotocol',[
 				'getMyprotocolFind',
@@ -323,39 +365,7 @@
 		},
 		async mounted(){
 			await this.actionEditMycontract(this.$route.params.mycontractId)
-			this.form = this.getMycontract
-			this.fileName = this.getMycontract.file
-			this.user_values = this.getMycontract.user
-			this.protocol_values = this.getMycontract.protocol
-			this.cars = this.getMycontract.cars
-			if(this.cars.length == 0){
-				this.cars = [{
-					bustype_id:'',
-					busmarka_id:'',
-					busmodel_id:'',
-					tclass_id:'',
-				   	auto_number:'',
-				}]
-			}
-			this.directionvalues = this.getMycontract.direction_ids.map((item,index)=>{
-				return item
-			})
-			this.getMycontract.cars.forEach(async (car,index)=>{
-				if (car){
-		    		let data = {
-		    			'bustype_id':car.bustype_id,
-                    }
-                    this.laoding = true
-                    await this.actionBusclassFind(data)
-                    car.getBusclassFindList = this.getBusclassFindList
-	                await this.actionBusmodelFindList(car);
-	                this.laoding = false
-	                car.getBusmodelFindList = this.getBusmodelFindList
-		    	}
-			})
-			await this.actionTypeofbusList()
-			await this.actionBusmodelList()
-            await this.actionBusBrandList()
+			console.log(this.getUserMycontracts)
 			this.laoding = false
 		},
 		methods:{
@@ -377,265 +387,9 @@
 				'ActionUserFind',
 			]),
 			...mapActions('direction',['actionDirectionFind']),
-			checkCar(){
-				let result = false
-				this.cars.forEach((car,index)=>{
-					if(car.bustype_id != '' && car.busmarka_id != '' && car.busmodel_id != '' && car.tclass_id != '' && car.auto_number != ''){
-						result = true
-					}else{
-						result = false
-					}
-				})
-				return result
-			},
-			addCarItem(){
-				if(this.checkCar()){
-					let car = {
-						bustype_id:'',
-						busmarka_id:'',
-						busmodel_id:'',
-						tclass_id:'',
-					   	auto_number:'',
-					}
-					this.cars.push(car)
-				}else{
-					toast.fire({
-				    	type: 'error',
-				    	icon: 'error',
-						title: 'Заполните все поля авто!',
-				    })
-				}
-			},
-			removeCarItem(index){
-				if(index != 0){
-					if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
-						Vue.delete(this.cars,index)
-					}
-				}
-			},
-			async removeCarFromServer(id){
-				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
-					await this.actionDeleteMycontractCar(id)
-					await this.actionEditMycontract(this.$route.params.mycontractId)
-					this.cars = this.getOldcontract.cars
-					if(this.cars.length > 0){
-						this.getOldcontract.cars.forEach(async (car,index)=>{
-							if (car){
-					    		let data = {
-					    			'bustype_id':car.bustype_id,
-			                    }
-			                    this.laoding = true
-			                    await this.actionBusclassFind(data)
-			                    car.getBusclassFindList = this.getBusclassFindList
-				                await this.actionBusmodelFindList(car);
-				                this.laoding = false
-				                car.getBusmodelFindList = this.getBusmodelFindList
-					    	}
-						})
-					}else{
-						if(this.cars.length == 0){
-							let car = {
-								bustype_id:'',
-								busmarka_id:'',
-								busmodel_id:'',
-								tclass_id:'',
-							   	auto_number:'',
-							}
-							this.cars.push(car)
-						}
-					}
-				}
-			},
-			async selectClass(car){
-		    	car.tclass_id = ''
-		    	car.busmarka_id = ''
-		    	car.busmodel_id = ''
-		    	if (car) {
-		    		let data = {
-		    			'bustype_id':car.bustype_id,
-                    }
-                    this.laoding = true
-                    await this.actionBusclassFind(data)
-                    car.getBusclassFindList = this.getBusclassFindList
-                    this.laoding = false
-		    	}
-		    },
-		    async selectCarMarka(car){
-                car.busmodel_id = ''
-                this.laoding = true
-                await this.actionBusmodelFindList(car);
-                this.laoding = false
-                car.getBusmodelFindList = this.getBusmodelFindList
-            },
-		    async findDirection(value){
-		      if(value != ''){
-		        this.isDirectionLoading = true
-		        await setTimeout(async ()=>{
-                    await this.actionDirectionFind({name: value,  type: 'contract'})
-			        this.findDirectionList = this.getDirectionFindList
-		        this.isDirectionLoading = false
-		        },1000)
-		      }
-		    },
-		    removeDirect(){
-		    	this.form.direction_ids=[]
-		    	this.direction_ids={}
-				this.findDirectionList = []
-		    },
-			removeProtocol(){
-		    	this.form.protocol_id=''
-		    	this.protocol_values={}
-				this.findProtocolList = []
-		    },
-		    async findProtocol(value){
-		      if(value != ''){
-		        this.isProtocolLoading = true
-		        await setTimeout(async()=>{
-					await this.actionMyprotocolFind({number: value})
-			        this.findProtocolList = this.getOldprotocolFind
-		        	this.isProtocolLoading = false
-		        },1000)
-		      }
-		    },
-		    async dispatchProtocol(data){
-				this.protocol_values = data;
-				this.form.protocol_id = data.id
-		    },
-			removeUser(){
-		    	this.form.user_id=''
-		    	this.user_values={}
-				this.findUserList = []
-		    },
-		    async findUser(value){
-		      if(value != ''){
-		        this.isUserLoading = true
-		        await setTimeout(async()=>{
-					await this.ActionUserFind({name: value})
-			        this.findUserList = this.getUserfindList
-		        	this.isUserLoading = false
-		        },1000)
-		      }
-		    },
-		    async dispatchUser(data){
-				this.user_values = data;
-				this.form.user_id = data.id
-		    },
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
-		    photoImg(img){
-		    	// if (img) {
-			    //   if (img.length > 100) {
-			    //     return img;
-			    //   } else {
-			    //     return '/offer/'+img;
-			    //   }
-		    	// }
-		    },
-		    changePhoto(event){
-		      	if (event.target.files[0]["type"] === "application/pdf"){
-					let file = event.target.files[0]
-			    	this.form.file = event.target.files[0];
-			        let reader = new FileReader();
-					reader.onload = event => {
-						this.fileName = event.target.result;
-					};
-					reader.readAsDataURL(file);
-		      	}else{
-			        swal.fire({
-		          		type: "error",
-		          		icon: "error",
-		          		title: "Ошибка",
-		          		text: "Картинка должна быть только pdf!"
-			        });
-		      		this.form.file = ''
-		      	}
-			},
-            async activeContract(){
-                await this.actionContractActivate(this.$route.params.mycontractId);
-				if(this.getMassage.success){
-					toast.fire({
-						type: 'success',
-						icon: 'success',
-						title: this.getMassage.message,
-					})
-					this.$router.push("/crm/mycontract");
-				}else{
-					if(Array.isArray(this.getMassage.message) ){
-						this.getMassage.message.forEach((item)=>{
-		    				toast.fire({
-						    	type: 'error',
-						    	icon: 'error',
-								title: item,
-						    })
-						})
-					}else{
-						toast.fire({
-							type: 'error',
-							icon: 'error',
-							title: this.getMassage.message,
-						})
-					}
-				}
-            },
-			async saveOldcontract(){
-		    	if (this.form.number != '' && this.form.date != '' && this.form.file != '' && this.form.contract_period != '' && this.form.user_id != '' && this.form.protocol_id != '' && this.form.exp_date != ''){
-		    		if(this.form.direction_ids.length > 0){
-		    			if(this.checkCar()){
-				    		let formData = new FormData();
-				    		formData.append('id',this.form.id)
-				    		formData.append('number',this.form.number)
-				    		formData.append('date',this.form.date)
-				    		formData.append('exp_date',this.form.exp_date)
-				    		formData.append('protocol_id',this.form.protocol_id)
-				    		formData.append('user_id',this.form.user_id)
-				    		formData.append('file',this.form.file)
-				    		formData.append('contract_period',this.form.contract_period)
-				    		this.form.direction_ids.forEach((item,index)=>{
-					    		formData.append('direction_ids['+index+"]",item)
-				    		})
-				    		this.cars.forEach((item,index)=>{
-					    		formData.append('cars['+index+"][id]",item.id)
-					    		formData.append('cars['+index+"][bustype_id]",item.bustype_id)
-					    		formData.append('cars['+index+"][busmarka_id]",item.busmarka_id)
-					    		formData.append('cars['+index+"][busmodel_id]",item.busmodel_id)
-					    		formData.append('cars['+index+"][tclass_id]",item.tclass_id)
-					    		formData.append('cars['+index+"][auto_number]",item.auto_number)
-				    		})
-				    		let data = {
-				    			id:this.form.id,
-				    			items:formData
-				    		}
-							this.laoding = true
-							await this.actionUpdateMycontract(data)
-							if(this.getMassage.success){
-								toast.fire({
-							    	type: 'success',
-							    	icon: 'success',
-									title: this.getMassage.message,
-							    })
-								this.$router.push("/crm/mycontract");
-								this.requiredInput = false
-							}
-							this.laoding = false
-		    			}else{
-		    				toast.fire({
-						    	type: 'error',
-						    	icon: 'error',
-								title: 'Заполните все поля авто!',
-						    })
-		    			}
-		    		}else{
-						toast.fire({
-							type: "error",
-							icon: "error",
-							title: 'Выберите направление!'
-					 	});
-		    		}
-				}else{
-					this.requiredInput = true
-				}
-		    }
 		}
 	}
 </script>

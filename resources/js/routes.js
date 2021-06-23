@@ -385,26 +385,26 @@ const router = new Router({
 				{
 					path:'myappeal',
 					component:MyAppeal,
-					// meta:{
-					// 	action:'index',
-					// 	subject:'myappealController'
-					// }
+					meta:{
+						action:'appealUser',
+						subject:'ContractController'
+					}
 				},
 				{
 					path:'myappeal/add',
 					component:AddMyAppeal,
-					// meta:{
-					// 	action:'store',
-					// 	subject:'myappealController'
-					// }
+					meta:{
+						action:'appealUserStore',
+						subject:'ContractController'
+					}
 				},
 				{
 					path:'myappeal/edit/:myappealId',
 					component:EditMyAppeal,
-					// meta:{
-					// 	action:'edit',
-					// 	subject:'myappealController'
-					// }
+					meta:{
+						action:'appealUserEdit',
+						subject:'ContractController'
+					}
 				},
 				{
 					path:'certificate',
