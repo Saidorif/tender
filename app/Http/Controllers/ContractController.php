@@ -60,7 +60,7 @@ class ContractController extends Controller
         $appeals = Appeal::orderBy('id','DESC')
             ->with(['user','contract','region'])
             ->where('user_id', '=', $user->id)
-            ->get();
+            ->paginate(12);
         return response()->json(['success' => true,'result' => $appeals]);
     }
 
