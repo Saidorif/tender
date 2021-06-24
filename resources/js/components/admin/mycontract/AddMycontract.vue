@@ -120,7 +120,7 @@
 		              		</small>
 			          	</div>
 			          	<div class="form-group col-md-3">
-						    <label for="marshrut">Направления</label>
+						    <label for="marshrut">{{$t('Yoʼnalish')}}</label>
 						    <multiselect
 								:value="directionvalues"
 								:options="findDirectionList"
