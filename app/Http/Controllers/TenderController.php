@@ -56,7 +56,7 @@ class TenderController extends Controller
 
     public function userIndex(Request $request)
     {
-        $tenders = Tender::where(['status' => 'pending'])->with(['tenderlots'])->paginate(12);
+        $tenders = Tender::where(['status' => 'pending'])->with(['tenderlots'])->where('time','>',now())->paginate(12);
         return response()->json(['success' => true, 'result' => $tenders]);
     }
 

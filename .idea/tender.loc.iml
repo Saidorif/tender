@@ -18,5 +18,6 @@
     <orderEntry type="module" module-name="mhr.loc" />
     <orderEntry type="module" module-name="bus-reys.loc" />
     <orderEntry type="module" module-name="pcms.loc" />
+    <orderEntry type="module" module-name="book.loc" />
   </component>
 </module>

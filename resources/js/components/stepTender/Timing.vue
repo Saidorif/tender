@@ -7,67 +7,67 @@
                 <table class="table table-bordered text-center table-hover table-striped">
                 <thead>
                     <tr>
-                    <th scope="col" rowspan="2">№</th>
-                    <th scope="col" rowspan="2">{{$('Oraliq toʼxtash bekatlari')}}</th>
-                    <th scope="col" colspan="2">{{$('Masofa ulagich koʼrsatkichlari')}}</th>
-                    <th scope="col" colspan="3">{{$('Masofa (km)')}}</th>
-                    <th scope="col" colspan="3">{{$('Sariflanadigan vaqt (daqiqa)')}} </th>
-                    <th scope="col" colspan="2">{{$('Oʼrtacha texnik tezlik (km/soat)')}} </th>
-                    <th rowspan="2">{{$('Qatnov yoʼl xaqidagi maʼlumotlar')}} </th>
+                        <th scope="col" rowspan="2">№</th>
+                        <th scope="col" rowspan="2">{{$t('Oraliq toʼxtash bekatlari')}}</th>
+                        <th scope="col" colspan="2">{{$t('Masofa ulagich koʼrsatkichlari')}}</th>
+                        <th scope="col" colspan="3">{{$t('Masofa (km)')}}</th>
+                        <th scope="col" colspan="3">{{$t('Sariflanadigan vaqt (daqiqa)')}} </th>
+                        <th scope="col" colspan="2">{{$t('Oʼrtacha texnik tezlik (km/soat)')}} </th>
+                        <th rowspan="2">{{$t('Qatnov yoʼl xaqidagi maʼlumotlar')}} </th>
                     </tr>
                     <tr>
-                    <th>{{$('Joʼnash vaqtida')}}</th>
-                    <th>{{$('Kelgan vaqtida')}} </th>
-                    <th>{{$('Boshlangʼich bekatdan')}}</th>
-                    <th>{{$('Bekatlar oraligʼida')}}</th>
-                    <th>{{$('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
-                    <th>{{$('Bekatlar oraligʼidagi xarakat')}} </th>
-                    <th>{{$('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
-                    <th>{{$('Oraliq bekatda toʼxtash uchun')}}</th>
-                    <th>{{$('Bekatlar oraligʼidagi xarakat')}}</th>
-                    <th>{{$('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
+                        <th>{{$t('Joʼnash vaqtida')}}</th>
+                        <th>{{$t('Kelgan vaqtida')}} </th>
+                        <th>{{$t('Boshlangʼich bekatdan')}}</th>
+                        <th>{{$t('Bekatlar oraligʼida')}}</th>
+                        <th>{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
+                        <th>{{$t('Bekatlar oraligʼidagi xarakat')}} </th>
+                        <th>{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
+                        <th>{{$t('Oraliq bekatda toʼxtash uchun')}}</th>
+                        <th>{{$t('Bekatlar oraligʼidagi xarakat')}}</th>
+                        <th>{{$t('Shundan xarakat tezligi chegaralangan oraliqda')}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(table,index) in tableData">
-                    <td scope="row">{{index+1}}</td>
-                    <td>{{ table.whereForm ? table.whereForm.name  : '' }} {{ table.whereTo ? table.whereTo.name  : '' }}</td>
-                    <td>{{ table.start_speedometer }}</td>
-                    <td>{{ table.end_speedometer }}</td>
-                    <td>{{ table.distance_from_start_station }} </td>
-                    <td>{{ table.distance_between_station }}</td>
-                    <td>{{ table.distance_in_limited_speed }}</td>
-                    <td>{{ table.spendtime_between_station }} </td>
-                    <td>{{ table.spendtime_between_limited_space }}</td>
-                    <td>{{ table.spendtime_to_stay_station }} </td>
-                    <td>{{ table.speed_between_station }}</td>
-                    <td>{{ table.speed_between_limited_space }}</td>
-                    <td class="detail_td">
-                        <span v-for="(detail) in table.details">
-                        {{detail.name }} {{ detail.count}}
-                        <b>,</b>
-                        </span>
-                    </td>
+                        <td scope="row">{{index+1}}</td>
+                        <td>{{ table.whereForm ? table.whereForm.name  : '' }} {{ table.whereTo ? table.whereTo.name  : '' }}</td>
+                        <td>{{ table.start_speedometer }}</td>
+                        <td>{{ table.end_speedometer }}</td>
+                        <td>{{ table.distance_from_start_station }} </td>
+                        <td>{{ table.distance_between_station }}</td>
+                        <td>{{ table.distance_in_limited_speed }}</td>
+                        <td>{{ table.spendtime_between_station }} </td>
+                        <td>{{ table.spendtime_between_limited_space }}</td>
+                        <td>{{ table.spendtime_to_stay_station }} </td>
+                        <td>{{ table.speed_between_station }}</td>
+                        <td>{{ table.speed_between_limited_space }}</td>
+                        <td class="detail_td">
+                            <span v-for="(detail) in table.details">
+                            {{detail.name }} {{ detail.count}}
+                            <b>,</b>
+                            </span>
+                        </td>
                     </tr>
                     <tr>
-                    <td colspan="8" scope="row">{{$('Oʼrtacha tezlik')}} = {{technic_speed}} {{$('km/soat')}}</td>
-                    <td colspan="8" scope="row">{{$('Qatnov tezlik')}} = {{traffic_speed}} {{$('km/soat')}}</td>
+                        <td colspan="8" scope="row">{{$t('Oʼrtacha tezlik')}} = {{technic_speed}} {{$t('km/soat')}}</td>
+                        <td colspan="8" scope="row">{{$t('Qatnov tezlik')}} = {{traffic_speed}} {{$t('km/soat')}}</td>
                     </tr>
                 </tbody>
                 </table>
             </div>
             <div class="table_footer" v-if="tableData.length">
                 <div class="col-xl-6 col-lg-6">
-                    <p>{{$('Qatnov yoʼli xarakat xafsizligiga')}}:  {{timingDetails.conclusion}}</p>
-                    <p>{{$('Oʼlchov oʼtkazilgan kun')}}:  {{timingDetails.date}} {{$('yil')}}</p>
-                    <p>{{$('Xronametraj oʼtkazilgan avtomobil rusumi va davlat raqami')}}:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
+                    <p>{{$t('Qatnov yoʼli xarakat xafsizligiga')}}:  {{timingDetails.conclusion}}</p>
+                    <p>{{$t('Oʼlchov oʼtkazilgan kun')}}:  {{timingDetails.date}} {{$t('yil')}}</p>
+                    <p>{{$t('Xronametraj oʼtkazilgan avtomobil rusumi va davlat raqami')}}:  {{timingDetails.avto_model}}, {{timingDetails.avto_number}}</p>
                 </div>
                 <div class="col-xl-4 col-lg-6 right_item">
                     <div>
-                    <p>{{$('Oʼlchov qatnashchilari imzolari')}}:</p>
+                        <p>{{$t('Oʼlchov qatnashchilari imzolari')}}:</p>
                     </div>
                     <div>
-                    <p  v-for="(person,index) in timingDetails.persons">{{person.name.charAt(0)}}.{{person.surname}}</p>
+                        <p  v-for="(person,index) in timingDetails.persons">{{person.name.charAt(0)}}.{{person.surname}}</p>
                     </div>
                 </div>
             </div>
@@ -146,8 +146,7 @@ export default {
     };
   },
   async mounted() {
-    await this.actionEditDirection(this.$route.params.directionId);
-    await this.actionRegionList();
+    await this.actionDirection(this.$route.params.directionId);
     this.laoding = false
     this.titulData = this.getDirection
     this.timingDetails = this.titulData.timing_details.length ? this.titulData.timing_details[0] : this.timingDetails
@@ -166,41 +165,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("region", ["getRegionList"]),
-    ...mapGetters("area", ["getAreaList"]),
-    ...mapGetters("station", ["getStationsList"]),
-    ...mapGetters("passportTab", ["getTimingMassage"]),
-    ...mapGetters("direction", ["getDirection"]),
+    ...mapGetters("front", ["getDirection"]),
   },
   methods: {
-    ...mapActions("region", ["actionRegionList"]),
-    ...mapActions("station", ["actionStationByRegion"]),
-    ...mapActions("area", ["actionAreaByRegion"]),
-    ...mapActions("direction", ["actionEditDirection"]),
-    ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
+    ...mapActions("front", ["actionDirection"]),
     isRequired(input) {
       return this.requiredInput && input === "";
-    },
-    async selectArea(this_select, parent_select) {
-      this.laoding = true
-      await this.actionStationByRegion({
-        region_id: this.form[parent_select].id,
-        area_id: this.form[this_select].id,
-      });
-      this.laoding = false
-      if (this_select == "area_from_id") {
-        this.form.stationFrom = this.getStationsList;
-      } else if (this_select == "area_to_id") {
-        this.form.stationTo = this.getStationsList;
-      }
-    },
-    async selectRegion(input) {
-      await this.actionAreaByRegion({ region_id: this.form[input].id });
-      if (input == "region_from_id") {
-        this.form.areaFrom = this.getAreaList;
-      } else if (input == "region_to_id") {
-        this.form.areaTo = this.getAreaList;
-      }
     },
     calctechnic_speed(){
       let calc_technic_speed = 0
@@ -343,49 +313,10 @@ export default {
       var datum = Date.parse(strDate);
       return datum / 1000;
     },
-    async saveData() {
-      this.laoding = true
-      await this.actionAddTiming({ timing: this.tableData, timingDetails: this.timingDetails, technic_speed: this.technic_speed, traffic_speed: this.traffic_speed, });
-      this.laoding = false
-      if(this.getTimingMassage.success){
-          toast.fire({
-            type: "success",
-            icon: "success",
-            title: this.getTimingMassage.message
-          });
-      }
-    },
     addPerson(){
       let thisDate = { name: "", surname: '', middlename: '', job: "", position: "" }
       this.timingDetails.persons.push(thisDate)
     },
-    removePerson(index) {
-      this.timingDetails.persons.splice(index, 1);
-    },
-    async clearTable(){
-      window.swal.fire({
-        title: 'Ishonchingiz komilmi?',
-        text: "Siz buni qaytarib ololmaysiz!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: "Ha, uni o'chirib tashlang!",
-        cancelButtonText: "Bekor qilish",
-      }).then( async (result) => {
-        if (result.value) {
-          await this.clearTimingTable(this.$route.params.directionId);
-          if(this.getTimingMassage.success){
-            this.tableData = []
-            window.swal.fire(
-              "O'chirildi!",
-              "Ma'lumotlaringiz o'chirildi."
-            )
-          }
-        }
-      })
-
-    }
   },
 };
 </script>

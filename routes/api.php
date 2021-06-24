@@ -31,6 +31,12 @@ Route::group([
     Route::post('tender/index-completed', 'TenderController@userCompleted');
     Route::post('find-direction', 'DirectionController@findForUsers');
     Route::post('find-direction/{id}', 'DirectionController@directionInfoForUsers');
+
+    Route::get('front/requirement/{id}', 'FrontController@requirement');
+    Route::get('front/direction/edit/{id}', 'FrontController@directionEdit');
+    Route::get('front/timingtarif/{id}', 'FrontController@timingtarif');
+    Route::get('front/getschedule/{id}', 'FrontController@getSchedule');
+
     Route::group(['middleware' => 'jwt.auth'], function(){
         Route::group(['middleware' => 'permit'], function(){
             // For integration

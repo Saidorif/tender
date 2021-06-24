@@ -55,6 +55,7 @@ import { oldcontract } from "./oldcontract.module"
 import { certificate } from "./certificate.module"
 import { mycontract } from "./mycontract.module"
 import { myappeal } from "./myappeal.module"
+import { front } from "./front.module"
 
 import { TokenService } from './../services/storage.service'
 
@@ -72,6 +73,7 @@ const store = new Vuex.Store(
 		],
 		modules:{
 			user,
+			front,
 			role,
 			position,
 			employee,
