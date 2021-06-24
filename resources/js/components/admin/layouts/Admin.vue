@@ -78,10 +78,10 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/crm/appeal">
+            <router-link class="nav-link" to="/crm/appeal" v-if="$can('appealIndex', 'ContractController')">
               <i class="peIcon fas fa-file"></i>
               <p>
-                {{$t('Arizalar')}}
+                {{$t('Arizalar')}} <span class="badge badge-success">appeal</span>
               </p>
             </router-link>
           </li>
