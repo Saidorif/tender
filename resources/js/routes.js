@@ -394,7 +394,7 @@ const router = new Router({
 					path:'myappeal/add',
 					component:AddMyAppeal,
 					meta:{
-						action:'appealUserStore',
+						action:'appealStore',
 						subject:'ContractController'
 					}
 				},
@@ -425,18 +425,18 @@ const router = new Router({
 				{
 					path:'usercertificate',
 					component:UserCertificate,
-					// meta:{
-					// 	action:'index',
-					// 	subject:'CertificateController'
-					// }
+					meta:{
+						action:'userCertificates',
+						subject:'ApplicationController'
+					}
 				},
 				{
 					path:'usercertificate/edit/:usercertificateId',
 					component:EditUserCertificate,
-					// meta:{
-					// 	action:'edit',
-					// 	subject:'CertificateController'
-					// }
+					meta:{
+						action:'userCertificateShow',
+						subject:'ApplicationController'
+					}
 				},
 				{
 					path:'client',

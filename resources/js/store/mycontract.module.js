@@ -6,6 +6,7 @@ const state = {
 	message: [],
 	mycontract: [],
 	usermycontracts: [],
+	usermycontractlist: [],
 };
 
 const getters = {
@@ -23,6 +24,9 @@ const getters = {
 	},
 	getUserMycontracts(state){
 		return state.usermycontracts
+	},
+	getUserMycontractList(state){
+		return state.usermycontractlist
 	},
 };
 
@@ -76,7 +80,7 @@ const actions = {
 	async actionEditMycontract({commit},id){
 		try {
 			const mycontract =  await MycontractService.editmycontract(id);
-			await commit('setEditMycontract',mycontract.data.result)
+			await commit('setEditMyUsercontract',mycontract.data.result)
 			return true
 		} catch (error) {
 			return false
@@ -115,17 +119,20 @@ const mutations = {
 	setMycontractList(state, mycontractlist){
 		state.mycontractlist = mycontractlist
 	},
+	setEditMyUsercontract(state, usermycontracts){
+		state.usermycontracts = usermycontracts
+	},
 	setMycontracts(state, mycontracts){
 		state.mycontracts = mycontracts
 	},
 	setMessage(state, message){
 		state.message = message
 	},
-	setUserMycontractList(state, mycontract){
-		state.mycontract = mycontract
+	setUserMycontractList(state, usermycontractlist){
+		state.usermycontractlist = usermycontractlist
 	},
-	setEditMycontract(state, usermycontracts){
-		state.usermycontracts = usermycontracts
+	setEditMycontract(state, mycontract){
+		state.mycontract = mycontract
 	},
 };
 

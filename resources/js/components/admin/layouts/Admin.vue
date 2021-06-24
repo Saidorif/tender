@@ -77,6 +77,14 @@
               </p>
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/crm/appeal">
+              <i class="peIcon fas fa-file"></i>
+              <p>
+                {{$t('Arizalar')}}
+              </p>
+            </router-link>
+          </li>
           <li class="nav-item" v-if="$can('index', 'DirectionController')">
             <router-link class="nav-link" to="/crm/direction">
               <i class="peIcon fas fa-route"></i>
@@ -224,8 +232,7 @@
               </p>
             </router-link>
           </li>
-           <!-- v-if="$can('index', 'ApplicationController')" -->
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('userCertificates', 'ApplicationController')">
             <router-link class="nav-link" to="/crm/certificate">
               <i class="peIcon fas fa-file"></i>
               <p>

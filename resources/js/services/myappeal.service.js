@@ -11,13 +11,13 @@ const MyAppealService = {
 		return ApiService.post(`/api/contract/user/sendappeal`,data)
 	},
 	editmyappeal(id){
-		return ApiService.get(`/api/myappeal/edit/${id}`)
+		return ApiService.get(`/api/contract/user/appeal/edit/${id}`)
 	},
 	updatemyappeal(data){
-		return ApiService.post(`/api/myappeal/update/${data.id}`,data)
+		return ApiService.post(`/api/contract/user/appeal/update/${data.id}`,data)
 	},
 	deletemyappeal(id){
-		return ApiService.delete(`/api/myappeal/destroy/${id}`)
+		return ApiService.delete(`/api/contract/destroy/${id}`)
 	},
 };
 
