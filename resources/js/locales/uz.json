@@ -236,6 +236,7 @@
     "Shartli belgilar":"Shartli belgilar",
     "sonli":"sonli",
     "Kutish jarayonida":"Kutish jarayonida",
+    "pending":"Kutish jarayonida",
     "Avtostansiya":"Avtostansiya",
     "Avtostansiyalar soni":"Avtostansiyalar soni",
     "Chop etish":"Chop etish",
@@ -545,5 +546,10 @@
     "Bekat nomi":"Bekat nomi",
     "Tizim sozlamalari":"Tizim sozlamalari",
     "Ariza narxi":"Ariza narxi",
+    "Shartnoma arizasi":"Shartnoma arizasi",
+    "Mening shartnomalarim":"Mening shartnomalarim",
+    "Mening xabarim":"Mening xabarim",
+    "Xabarga javob":"Xabarga javob",
+    "Kim tomondan koʼrilgan":"Kim tomondan koʼrilgan",
     "Maʼlumot saqlandi":"Maʼlumot saqlandi"
 }

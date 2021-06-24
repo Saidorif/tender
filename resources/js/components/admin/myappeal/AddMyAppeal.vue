@@ -16,7 +16,7 @@
 		  		<form @submit.prevent.enter="saveMyAppeal">
 					<div class="row">
 					  	<div class="form-group col-md-6">
-					  		<label for="contract_id">Мои контракт</label>
+					  		<label for="contract_id">{{$t('Mening shartnomalarim')}}</label>
 					  		<select
 					  			class="form-control input_style"
 						    	id="contract_id"
@@ -24,12 +24,12 @@
 						    	rows="4"
 						    	:class="isRequired(form.contract_id) ? 'isRequired' : ''"
 					  		>
-					  			<option value="" selected disabled>Выберите контракт!</option>
+					  			<option value="" selected disabled>{{$t('Tanlang')}}!</option>
 					  			<option :value="item.id" v-for="(item,index) in getUserMycontractList">{{item.number}}</option>
 					  		</select>
 				  		</div>
 					  	<div class="form-group col-md-6">
-			              	<label for="image">Файл </label>
+			              	<label for="image">{{$t('Fayl')}} </label>
 			              	<input
 				                type="file"
 				                class="form-control input_style"

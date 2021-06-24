@@ -73,7 +73,7 @@
             <router-link class="nav-link" to="/crm/myappeal">
               <i class="peIcon fas fa-file"></i>
               <p>
-                {{$t('My arizalarim')}}
+                {{$t('Shartnoma arizasi')}}
               </p>
             </router-link>
           </li>
