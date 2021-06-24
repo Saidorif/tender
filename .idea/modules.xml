@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../book.loc/.idea/book.loc.iml" filepath="$PROJECT_DIR$/../book.loc/.idea/book.loc.iml" />
       <module fileurl="file://$PROJECT_DIR$/../bus-reys.loc/.idea/bus-reys.loc.iml" filepath="$PROJECT_DIR$/../bus-reys.loc/.idea/bus-reys.loc.iml" />
       <module fileurl="file://$PROJECT_DIR$/../daz.loc/.idea/daz.loc.iml" filepath="$PROJECT_DIR$/../daz.loc/.idea/daz.loc.iml" />
       <module fileurl="file://$PROJECT_DIR$/../gtkservice.loc/.idea/gtkservice.loc.iml" filepath="$PROJECT_DIR$/../gtkservice.loc/.idea/gtkservice.loc.iml" />
