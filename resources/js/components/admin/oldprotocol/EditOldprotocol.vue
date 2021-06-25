@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file"></i>
-				    Изменить старый протокол
+				   {{$t('Tahrirlash')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/oldprotocol">
 					<span class="peIcon pe-7s-back"></span>
@@ -16,7 +16,7 @@
 		  		<form @submit.prevent.enter="saveOldprotocol" enctype="multipart/form-data">
 					<div class="row">
 					  	<div class="form-group col-md-3">
-						    <label for="number">Номер протокола</label>
+						    <label for="number">{{$t('Bayonnoma raqami')}}</label>
 						    <input
 						    	type="text"
 						    	class="form-control input_style"
@@ -26,7 +26,7 @@
 					    	>
 					  	</div>
 					  	<div class="form-group col-md-3">
-			              	<label for="date">Сана</label>
+			              	<label for="date">{{$t('Sana')}}</label>
 			              	<date-picker
 				                lang="ru"
 				                type="date" format="YYYY-MM-DD" valueType="format"
@@ -36,7 +36,7 @@
 			              	></date-picker>
 			          	</div>
 					  	<div class="form-group col-md-3">
-			              	<label for="date">Файл</label>
+			              	<label for="date">{{$t('Fayl')}}</label>
 			              	<input
 			              		type="file"
 			              		name="file"

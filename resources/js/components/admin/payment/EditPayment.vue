@@ -67,7 +67,7 @@
 					    </select>
 					  </div>
 					  <div class="form-group col-md-3">
-					    <label for="details">Детали</label>
+					    <label for="details">{{$t('Tafsilotlar')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"

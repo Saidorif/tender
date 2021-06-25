@@ -67,7 +67,9 @@
           </div>
           <div class="col-xl-4 col-lg-6 right_item">
             <div>
-              <p>Olchov <br> qatnashchilari <br>  imzolari:</p>
+              <p>                  {{$t('Oʼlchov')}} <br />
+                 {{$t('qatnashchilari')}}  <br />
+                  {{$t('imzolari')}}::</p>
             </div>
             <div>
               <p  v-for="(person,index) in timingDetails.persons">{{person.name.charAt(0)}}.{{person.surname}}</p>

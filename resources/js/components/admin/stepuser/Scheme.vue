@@ -6,7 +6,7 @@
         <PassportTab/>
       </div>
       <div class="card-body">
-          <h1 v-if="titulData.type">Avtobus qatnov yoli tasviri {{titulData.type.type}} - {{titulData.pass_number}} - sonli "{{titulData.name}}" </h1>
+          <h1 v-if="titulData.type">{{$t('Avtobus qatnov yoʼli tasviri')}} {{titulData.type.type}} - {{titulData.pass_number}} - {{$t('sonli')}} "{{titulData.name}}" </h1>
           <div class="map_scheme" v-if="schemeData.length">
             <div class="mid_line"></div>
             <template v-for="(p_item,p_index) in schemeData">
@@ -42,19 +42,19 @@
             </template>
           </div>
           <div class="road_signs col-md-6">
-            <h6>Shatrli belgilar</h6>
+            <h6>{{$t('Shartli belgilar')}}</h6>
             <ul>
               <li>
                   <div class="icon_item bdn">
                       <div class="cicle_item"></div>
                   </div>
-                  <span>Avtostansiya</span>
+                  <span>{{$t('Avtostansiya')}}</span>
               </li>
               <li>
                   <div class="icon_item bdn">
                       <div class="sm_cicle_item"></div>
                   </div>
-                  <span>To'xtash joylari</span>
+                  <span>{{$t('Toʼxtash joylari')}}</span>
               </li>
               <li v-for="(sign) in getConditionalSignList">
                 <div class="icon_item">
