@@ -13,6 +13,12 @@
 				</router-link>
 		  	</div>
 		  	<div class="card-body">
+		  		<div class="alert alert-danger" v-for="(error,index) in errors" v-if="errors.length > 0">
+		  			{{error}}
+		  		</div>
+		  		<div class="alert alert-danger" v-if="errorMessage != ''">
+		  			{{errorMessage}}
+		  		</div>
 		  		<form @submit.prevent.enter="saveOldcontract" enctype="multipart/form-data">
 					<div class="row">
 					  	<div class="form-group col-md-3">
@@ -268,6 +274,8 @@
 					   	auto_number:'',
 					},
 				],
+				errors:[],
+				errorMessage:'',
 				direction_ids:{},
 				protocol_values: {},
 				directionvalues: null,
@@ -504,11 +512,16 @@
 								this.$router.push("/crm/oldcontract");
 								this.requiredInput = false
 							}else{
-                                toast.fire({
-							    	type: 'error',
-							    	icon: 'error',
-									title: this.getMassage.message[0],
-							    })
+								if(this.errors.constructor.name === Array){
+									this.errors = this.getMassage.message
+								}else{
+									this.errorMessage = this.getMassage.message
+								}
+         //                        toast.fire({
+							  //   	type: 'error',
+							  //   	icon: 'error',
+									// title: this.getMassage.message[0],
+							  //   })
                             }
 							this.laoding = false
 		    			}else{

@@ -31,7 +31,7 @@
                         <p>Tugatilgan</p>
                     </div>
                 </div>
-                <router-link :to="'/u/demand-tab/'+item.id" class="tender_card_footer" >{{$t('Batafsil')}}</router-link>
+                <a href="#" @click.prevent="showTenderDetails(item)" class="tender_card_footer" >{{$t('Batafsil')}}</a>
             </div>
             <div class="d-flex justify-content-center w-100 pt-5 pb-5" v-if="getTenderIndexCompleted.data && !getTenderIndexCompleted.data.length">
                 <p class="alert alert-info" >{{$t('Faol tenderlar mavjud emas')}}</p>
@@ -66,6 +66,10 @@ export default {
   },
   methods: {
     ...mapActions('page',['actionTenderIndex', 'actionTenderIndexCompleted']),
+    showTenderDetails(item){
+        localStorage.setItem('td', JSON.stringify(item));
+        this.$router.push('/u/show-tender-details/'+item.id)
+    }
   },
 };
 </script>

@@ -5,9 +5,9 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon fas fa-file"></i>
-				    MyAppeal
+				    {{$t('Shartnoma arizasi')}}
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/myappeal/add">
+				<router-link class="btn btn-primary" to="/crm/myappeal/add" v-if="$can('appealStore', 'ContractController')">
 						<i class="fas fa-plus"></i>
 					{{$t('Qoʼshish')}}
 				</router-link>
@@ -18,22 +18,27 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
+							<th scope="col">{{$t('Nomi')}}</th>
+							<th scope="col">{{$t('Shartnoma raqami')}}</th>
+							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="(reg,index) in getMyAppeals.data">
 							<td scope="row">{{reg.id}}</td>
-							<td>{{reg.name}}</td>
+							<td>{{reg.company_name}}</td>
+							<td>{{reg.contract ? reg.contract.number : ''}}</td>
+							<td>{{$t(reg.status)}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/myappeal/edit/${reg.id}`'>
+								<router-link
+									tag="button"
+									class="btn_transparent"
+									:to='`/crm/myappeal/edit/${reg.id}`'
+									v-if="$can('appealUserEdit', 'ContractController')"
+								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<!-- v-if="$can('destroy', 'MyAppealController')"  -->
-								<button class="btn_transparent" @click="deleteMyAppeal(reg.id)">
-									<i class="pe_icon pe-7s-trash trashColor"></i>
-								</button>
 							</td>
 						</tr>
 					</tbody>

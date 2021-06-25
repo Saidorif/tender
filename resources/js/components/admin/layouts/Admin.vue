@@ -73,7 +73,15 @@
             <router-link class="nav-link" to="/crm/myappeal">
               <i class="peIcon fas fa-file"></i>
               <p>
-                {{$t('My arizalarim')}}
+                {{$t('Shartnoma arizasi')}}
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/crm/appeal" v-if="$can('appealIndex', 'ContractController')">
+              <i class="peIcon fas fa-file"></i>
+              <p>
+                {{$t('Arizalar')}} <span class="badge badge-success">appeal</span>
               </p>
             </router-link>
           </li>
@@ -224,8 +232,7 @@
               </p>
             </router-link>
           </li>
-           <!-- v-if="$can('index', 'ApplicationController')" -->
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('userCertificates', 'ApplicationController')">
             <router-link class="nav-link" to="/crm/certificate">
               <i class="peIcon fas fa-file"></i>
               <p>

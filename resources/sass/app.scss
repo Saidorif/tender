@@ -99,3 +99,18 @@ input[type=number] {
   align-items: center;
   margin-top: 30px;
 }
+.fancy_btn{
+    transition: .5s;
+    border-radius: 6px;
+    overflow: hidden;
+    img{
+        transition: 1s;
+    }
+}
+
+.fancy_btn:hover{
+    opacity: .6;
+    img{
+        transform: scale(1.1);
+    }
+}

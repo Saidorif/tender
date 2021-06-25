@@ -33,6 +33,11 @@ import MyAppeal from './components/admin/myappeal/MyAppeal'
 import AddMyAppeal from './components/admin/myappeal/AddMyAppeal'
 import EditMyAppeal from './components/admin/myappeal/EditMyAppeal'
 
+// Appeal
+import Appeal from './components/admin/appeal/Appeal'
+import AddAppeal from './components/admin/appeal/AddAppeal'
+import EditAppeal from './components/admin/appeal/EditAppeal'
+
 // certificate
 import Certificate from './components/admin/certificate/Certificate'
 import AddCertificate from './components/admin/certificate/AddCertificate'
@@ -394,7 +399,7 @@ const router = new Router({
 					path:'myappeal/add',
 					component:AddMyAppeal,
 					meta:{
-						action:'appealUserStore',
+						action:'appealStore',
 						subject:'ContractController'
 					}
 				},
@@ -403,6 +408,30 @@ const router = new Router({
 					component:EditMyAppeal,
 					meta:{
 						action:'appealUserEdit',
+						subject:'ContractController'
+					}
+				},
+				{
+					path:'appeal',
+					component:Appeal,
+					meta:{
+						action:'appealIndex',
+						subject:'ContractController'
+					}
+				},
+				{
+					path:'appeal/add',
+					component:AddAppeal,
+					meta:{
+						action:'appealStore',
+						subject:'ContractController'
+					}
+				},
+				{
+					path:'appeal/edit/:appealId',
+					component:EditAppeal,
+					meta:{
+						action:'appealEdit',
 						subject:'ContractController'
 					}
 				},
@@ -425,18 +454,18 @@ const router = new Router({
 				{
 					path:'usercertificate',
 					component:UserCertificate,
-					// meta:{
-					// 	action:'index',
-					// 	subject:'CertificateController'
-					// }
+					meta:{
+						action:'userCertificates',
+						subject:'ApplicationController'
+					}
 				},
 				{
 					path:'usercertificate/edit/:usercertificateId',
 					component:EditUserCertificate,
-					// meta:{
-					// 	action:'edit',
-					// 	subject:'CertificateController'
-					// }
+					meta:{
+						action:'userCertificateShow',
+						subject:'ApplicationController'
+					}
 				},
 				{
 					path:'client',

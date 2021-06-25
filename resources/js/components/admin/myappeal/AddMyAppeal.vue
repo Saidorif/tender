@@ -16,7 +16,7 @@
 		  		<form @submit.prevent.enter="saveMyAppeal">
 					<div class="row">
 					  	<div class="form-group col-md-6">
-					  		<label for="contract_id">Мои контракт</label>
+					  		<label for="contract_id">{{$t('Mening shartnomalarim')}}</label>
 					  		<select
 					  			class="form-control input_style"
 						    	id="contract_id"
@@ -24,12 +24,12 @@
 						    	rows="4"
 						    	:class="isRequired(form.contract_id) ? 'isRequired' : ''"
 					  		>
-					  			<option value="" selected disabled>Выберите контракт!</option>
-					  			<option value="" v-for="(item,index) in getUserMycontracts">{{item.name}}</option>
+					  			<option value="" selected disabled>{{$t('Tanlang')}}!</option>
+					  			<option :value="item.id" v-for="(item,index) in getUserMycontractList">{{item.number}}</option>
 					  		</select>
 				  		</div>
 					  	<div class="form-group col-md-6">
-			              	<label for="image">Файл </label>
+			              	<label for="image">{{$t('Fayl')}} </label>
 			              	<input
 				                type="file"
 				                class="form-control input_style"
@@ -80,7 +80,7 @@
 		},
 		computed:{
 			...mapGetters('myappeal',['getMassage']),
-			...mapGetters('mycontract',['getUserMycontracts']),
+			...mapGetters('mycontract',['getUserMycontractList']),
 		},
 		async mounted(){
 			await this.actionUserMycontractList()
@@ -113,7 +113,7 @@
 			async saveMyAppeal(){
 		    	if (this.form.contract_id != '' && this.form.text != '' && this.form.user_file != ''){
 					this.laoding = true
-					let formData = new Formdata();
+					let formData = new FormData();
 					formData.append('contract_id',this.form.contract_id)
 					formData.append('text',this.form.text)
 					formData.append('user_file',this.form.user_file)

@@ -1,33 +1,89 @@
 <template>
-	<div class="edit_myappeal">
+	<div class="add_myappeal">
 		<Loader v-if="laoding"/>
 		<div class="card">
 		  	<div class="card-header">
 			    <h4 class="title_user">
-			    	<i class="peIcon pe-7s-id"></i>
-				    Изменить Область
+			    	<i class="peIcon fas fa-file"></i>
+				    {{$t('Qoʼshish')}}
 				</h4>
-				<router-link class="btn btn-primary back_btn" to="/crm/myappeal"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
+				<router-link class="btn btn-primary back_btn" to="/crm/myappeal">
+					<span class="peIcon pe-7s-back"></span>
+					{{$t('Orqaga')}}
+				</router-link>
 		  	</div>
 		  	<div class="card-body">
-		  		<form @submit.prevent.enter="saveMyAppeal" >
+		  		<form @submit.prevent.enter="saveMyAppeal">
 					<div class="row">
-					  <div class="form-group col-md-9">
-					    <label for="name">{{$t('Viloyat')}}</label>
-					    <input
-					    	type="text"
-					    	class="form-control input_style"
-					    	id="name"
-					    	v-model="form.name"
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"
-				    	>
-					  </div>
-					  <div class="form-group col-lg-3 form_btn">
-					  	<button type="submit" class="btn btn-primary btn_save_category">
-					  		<i class="fas fa-save"></i>
-						  	{{$t('Saqlash')}}
-						</button>
-				  	  </div>
+					  	<div class="form-group col-md-6">
+				  			<h3>{{$t('Mening xabarim')}}</h3>
+					  		<div class="row">
+							  	<div class="form-group col-md-9">
+							  		<label for="contract_id">{{$t('Mening shartnomalarim')}}</label>
+							  		<select
+							  			class="form-control input_style"
+								    	id="contract_id"
+								    	v-model="form.contract_id"
+								    	rows="4"
+								    	:class="isRequired(form.contract_id) ? 'isRequired' : ''"
+								    	disabled="disabled"
+							  		>
+							  			<option value="" selected disabled>{{$t('Tanlang')}}!</option>
+							  			<option :value="item.id" v-for="(item,index) in getUserMycontractList">{{item.number}}</option>
+							  		</select>
+						  		</div>
+							  	<div class="form-group col-md-3">
+                                    <a data-fancybox="single" class="fancy_btn" style="position: absolute;top: -20px;" :href="'/'+form.user_file">
+					              	      <img :src="'/'+form.user_file" class="img-fluid" alt="" width="170">
+                                    </a>
+						  		</div>
+							  	<div class="form-group col-md-12">
+								    <label for="text">{{$t('Text')}}</label>
+								    <textarea
+								    	class="form-control input_style"
+								    	id="text"
+								    	v-model="form.text"
+								    	rows="4"
+								    	disabled
+								    	:class="isRequired(form.text) ? 'isRequired' : ''"
+								    ></textarea>
+							  	</div>
+							</div>
+						</div>
+					  	<div class="form-group col-md-6">
+					  		<h3>{{$t('Xabarga javob')}}</h3>
+							<div class="row">
+								<div class="form-group col-md-12" v-if="form.approved_by">
+					              	<label for="image">{{$t('Kim tomondan koʼrilgan')}}</label>
+					              	<div class="form-control">
+										{{form.approved_by}}
+				              		</div>
+						  		</div>
+								<div class="form-group col-md-12">
+					              	<label for="image">{{$t('Holati')}}</label>
+					              	<div class="alert alert-success" align="center">
+										{{$t(form.status)}}
+				              		</div>
+						  		</div>
+								<div class="form-group col-md-12" v-if="form.answer_file">
+					              	<label for="image">{{$t('Fayl')}}</label>
+                                    <a data-fancybox="single" class="fancy_btn" style="position: absolute;top: -20px;" :href="'/'+form.answer_file">
+					              	      <img :src="'/'+form.answer_file" class="img-fluid" alt="" width="170">
+                                    </a>
+						  		</div>
+							  	<div class="form-group col-md-12" v-if="form.answer_text">
+								    <label for="text">{{$t('Text')}}</label>
+								    <textarea
+								    	class="form-control input_style"
+								    	id="text"
+								    	v-model="form.answer_text"
+								    	rows="4"
+								    	disabled
+								    	:class="isRequired(form.answer_text) ? 'isRequired' : ''"
+								    ></textarea>
+							  	</div>
+							</div>
+						</div>
 					</div>
 				</form>
 		  	</div>
@@ -44,29 +100,57 @@
 		data(){
 			return{
 				form:{
-					name:''
+					contract_id:'',
+					text:'',
+					user_file:'',
 				},
+				image: '',
 				requiredInput:false,
 				laoding: true
 			}
 		},
 		computed:{
-			...mapGetters('myappeal',['getMassage','getMyAppeal'])
+			...mapGetters('myappeal',['getMassage','getMyAppeal']),
+			...mapGetters('mycontract',['getUserMycontractList']),
 		},
 		async mounted(){
 			await this.actionEditMyAppeal(this.$route.params.myappealId)
-			this.laoding = false
+			await this.actionUserMycontractList()
 			this.form = this.getMyAppeal
+			this.laoding = false
 		},
 		methods:{
-			...mapActions('myappeal',['actionUpdateMyAppeal','actionEditMyAppeal']),
+			...mapActions('myappeal',['actionEditMyAppeal','actionUpdateMyAppeal']),
+			...mapActions('mycontract',['actionUserMycontractList']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
+		    changeFile(event) {
+	      		this.form.user_file = event.target.files[0];
+	      		let file = event.target.files[0];
+	      		if(file.size > 1048576){
+			        swal.fire({
+			          type: "error",
+			          icon: "error",
+			          title: "Ошибка",
+			          text: "Размер файл не должно быть больше 1мб"
+			        });
+	      		}else{
+	        		let reader = new FileReader();
+		        	reader.onload = e => {
+	          			this.image = e.target.result;
+		        	};
+		        	reader.readAsDataURL(file);
+		      }
+		    },
 			async saveMyAppeal(){
-		    	if (this.form.name != ''){
+		    	if (this.form.contract_id != '' && this.form.text != '' && this.form.user_file != ''){
 					this.laoding = true
-					await this.actionUpdateMyAppeal(this.form)
+					let formData = new FormData();
+					formData.append('contract_id',this.form.contract_id)
+					formData.append('text',this.form.text)
+					formData.append('user_file',this.form.user_file)
+					await this.actionUpdateMyAppeal(formData)
 					if (this.getMassage.success) {
 						toast.fire({
 					    	type: 'success',
