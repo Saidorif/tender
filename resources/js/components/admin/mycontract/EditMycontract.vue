@@ -5,7 +5,6 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-file-alt"></i>
-				    Mening shartnomam
 				    {{$t('Tahrirlash')}}
 				</h4>
                 <div class="d-flex">
@@ -21,25 +20,25 @@
 		  	<div class="card-body">
 		  		<div class="row">
 		  			<div class="col-md-3">
-		  				<label for="number" class="form-control-label">Номер контракта</label>
+		  				<label for="number" class="form-control-label">{{$t('Shartnoma raqami')}} </label>
 		  				<div class="form-control">
 		  					{{getUserMycontracts.number}}
 		  				</div>
 		  			</div>
 		  			<div class="col-md-3">
-		  				<label for="number" class="form-control-label">Статус</label>
+		  				<label for="number" class="form-control-label">{{$t('Holati')}}</label>
 		  				<div class="form-control">
 		  					{{getUserMycontracts.status}}
 		  				</div>
 		  			</div>
 		  			<div class="col-md-3">
-		  				<label for="number" class="form-control-label">Контракт тузилган санаси</label>
+		  				<label for="number" class="form-control-label">{{$t('Shartnoma tuzilgan sana')}}</label>
 		  				<div class="form-control">
 		  					{{getUserMycontracts.date}}
 		  				</div>
 		  			</div>
 		  			<div class="col-md-3">
-		  				<label for="number" class="form-control-label">Контракт тугаш санаси</label>
+		  				<label for="number" class="form-control-label">{{$t('Shartnoma muddati')}}</label>
 		  				<div class="form-control">
 		  					{{getUserMycontracts.exp_date}}
 		  				</div>
@@ -48,13 +47,13 @@
 	  		</div>
 		  	<div class="card-body">
 		  		<div class="table table-responsive">
-		  			<h2>Направления</h2>
+		  			<h2>{{$t('Yoʼnalish')}}</h2>
 			  		<table class="tab table-bordered table-hover" v-if="getUserMycontracts">
 			  			<thead>
 			  				<tr>
 			  					<th>№</th>
-			  					<th>Номер направления</th>
-			  					<th>Название направления</th>
+			  					<th>{{$t('Marshrut raqami')}}</th>
+			  					<th>{{$t('Marshrut nomi')}}</th>
 			  				</tr>
 			  			</thead>
 			  			<tbody>
@@ -69,15 +68,15 @@
 		  	</div>
 		  	<div class="card-body">
 		  		<div class="table table-responsive">
-		  			<h2>Мои авто</h2>
+		  			<h2>{{$t('Mening avtomobillarim')}}</h2>
 			  		<table class="tab table-bordered table-hover" v-if="getUserMycontracts">
 			  			<thead>
 			  				<tr>
-			  					<th>Номер авто</th>
-			  					<th>Категория авто</th>
-			  					<th>Марка авто</th>
-			  					<th>Модел авто</th>
-			  					<th>Класс авто</th>
+			  					<th>{{$t('Avtomobil raqami')}}</th>
+			  					<th>{{$t('Avtomobil turi')}}</th>
+			  					<th>{{$t('Avtobus markasi')}}</th>
+			  					<th>{{$t('Avtomobil rusumi')}} </th>
+			  					<th>{{$t('Avtomobil sinfi')}}</th>
 			  				</tr>
 			  			</thead>
 			  			<tbody>
@@ -176,4 +175,7 @@
     	color:#c73838;
     	cursor:pointer;
 	}
+    table{
+        width: 100%;
+    }
 </style>

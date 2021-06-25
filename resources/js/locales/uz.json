@@ -236,6 +236,7 @@
     "Shartli belgilar":"Shartli belgilar",
     "sonli":"sonli",
     "Kutish jarayonida":"Kutish jarayonida",
+    "pending":"Kutish jarayonida",
     "Avtostansiya":"Avtostansiya",
     "Avtostansiyalar soni":"Avtostansiyalar soni",
     "Chop etish":"Chop etish",
@@ -358,7 +359,7 @@
     "Kelib tushgan takliflarning umumiy soni":"Kelib tushgan takliflarning umumiy soni",
     "Yakunlangan tenderlar":"Yakunlangan tenderlar",
     "Faol tenderlar":"Faol tenderlar",
-    "Tender natijalari":"Faol tenderlar",
+    "Tender natijalari":"Tender natijalari",
     "Tarifni bilish":"Tarifni bilish",
     "Tarifni tasdiqlash":"Tarifni tasdiqlash",
     "tarifni bilish":"tarifni bilish",
@@ -545,5 +546,10 @@
     "Bekat nomi":"Bekat nomi",
     "Tizim sozlamalari":"Tizim sozlamalari",
     "Ariza narxi":"Ariza narxi",
+    "Shartnoma arizasi":"Shartnoma arizasi",
+    "Mening shartnomalarim":"Mening shartnomalarim",
+    "Mening xabarim":"Mening xabarim",
+    "Xabarga javob":"Xabarga javob",
+    "Kim tomondan koʼrilgan":"Kim tomondan koʼrilgan",
     "Maʼlumot saqlandi":"Maʼlumot saqlandi"
 }
