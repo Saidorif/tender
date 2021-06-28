@@ -30,7 +30,7 @@ class Certificate extends Model
 
     public function car()
     {
-        return $this->belongsTo(\App\UserCar::class,'car_id');
+        return $this->belongsTo(\App\UserCar::class,'car_id')->with(['bustype','busmodel','busmarka','tclass','gai','adliya']);
     }
 
     public function contract()
