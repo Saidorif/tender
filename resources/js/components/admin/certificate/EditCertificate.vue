@@ -30,18 +30,47 @@
                         <p style="padding-bottom: 2px;margin: 0px;text-align: left;font-size: 15px;line-height: 20px;font-family:'Times New Roman';">
                             {{$t('Ushbu guvohnoma')}} <b style="width: 70%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.company_name}}</b> {{$t('ga')}}
                         </p>
-                        <small style="font-size: 13px;font-family:'Times New Roman';">({{$t('tashuvchining nomi')}})</small>
+                        <small style="font-size: 13px;font-family:'Times New Roman';font-style: italic;">({{$t('tashuvchining nomi')}})</small>
                     </div>
                     <div style="text-align: center; margin-top: 10px">
                         <p style="padding-bottom: 2px;margin: 0px;text-align: left;font-size: 15px;line-height: 20px;font-family:'Times New Roman';">
                             {{$t('guvohnoma egasi')}}
-                            <b style="width: 45%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{$g.getDate(form.exp_date)}}</b> {{$t('dagi')}}
+                            <b style="width: 45%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{$g.getDate(form.exp_date)}} {{$t('yil')}}</b> {{$t('dagi')}}
                             <b style="width: 20%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.number}}</b> - {{$t('sonli')}}
                         </p>
-                        <small style="font-size: 13px;font-family:'Times New Roman';">({{$t('shartnoma sanasi va raqami')}})</small>
+                        <small style="font-size: 13px;font-family:'Times New Roman';font-style: italic;">({{$t('shartnoma sanasi va raqami')}})</small>
                     </div>
                      <p style="text-align:left;font-size:15px;font-weight:normal;font-family:'Times New Roman';margin-top:0px;">{{$t('shartnomaga asosan')}} </p>
-		  		</div>
+                    <div style="text-align: center; margin-top: 10px">
+                        <p style="padding-bottom: 2px;margin: 0px;text-align: left;font-size: 15px;line-height: 20px;font-family:'Times New Roman';">
+                            <i>{{$t('guvohnoma raqami')}}</i>
+                            <b style="width: 30%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{$g.getDate(form.exp_date)}} </b> <i>{{$t('davlat raqami')}}</i>
+                            <b style="width: 30%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.number}}</b>
+                        </p>
+                        <small style="font-size: 13px;font-family:'Times New Roman';font-style: italic;">({{$t('avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar')}})</small>
+                    </div>
+                    <div style="text-align: center; margin-top: 10px">
+                        <p style="padding-bottom: 2px;margin: 0px;text-align: left;font-size: 15px;line-height: 20px;font-family:'Times New Roman';">
+                            <i>{{$t('rusumi')}}</i>
+                            <b style="width: 80%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{$t('texpasport')}}  AAF 0946926, {{$t('litsenziya varaqasi')}} AT 8046904  </b> <i>{{$t('bo‘lgan')}}</i>
+                        </p>
+                        <small style="font-size: 13px;font-family:'Times New Roman';font-style: italic;">({{$t('yo‘nalishda qatnovchi avtotransport vositasiga tegishli ma’lumotlar')}})</small>
+                    </div>
+                     <p style="text-align:left;font-size:15px;font-weight:normal;font-family:'Times New Roman';margin-top:0px;">{{$t('avtotransport vositasida')}} </p>
+                    <div style="text-align: center; margin-top: 10px">
+                        <p style="padding-bottom: 2px;margin: 0px;text-align: left;font-size: 15px;line-height: 20px;font-family:'Times New Roman';">
+                            <i>{{$t('rusumi')}}</i>
+                            <b style="width: 80%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.direction.type_id}}-{{form.direction.pass_number}}- {{$t('sonli')}} {{form.direction.name}}</b><i> {{$t('yo‘nalishda')}}</i>
+                        </p>
+                        <small style="font-size: 13px;font-family:'Times New Roman';font-style: italic;">({{$t('Yoʼnalish raqami va nomi')}})</small>
+                    </div>
+                     <p style="text-align:left;font-size:15px;font-weight:normal;font-family:'Times New Roman';margin-top:0px;">{{$t('qatnovlarni amalga oshirish huquqiga egaligini tasdiqlaydi.')}} </p>
+                    <div align="right"><img :src="'/'+form.qr_code"  width="100"></div>
+                     <p style="text-align:center;font-size:15px;font-weight:normal;font-family:'Times New Roman';margin-top:0px;">
+                        {{form.seria}} {{form.number}}
+                     </p>
+
+                  </div>
 
 		  		<!-- <div>
 					{{$t('Ushbu guvohnoma')}} {{form.company_name}} {{$t('ga')}}
