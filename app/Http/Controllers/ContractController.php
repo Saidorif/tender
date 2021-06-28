@@ -161,6 +161,19 @@ class ContractController extends Controller
         return  response()->json(['success' => true,'message' => 'Сообщение одобрен']);
     }
 
+    public function activateChangedDirection(Request $request,$id)
+    {
+        $inputs = $request->all();
+        $user = $request->user();
+        $appeal = Appeal::find($id);
+        if(!$appeal){
+            return  response()->json(['error' => true,'message' => 'Сообщение не найдено']);
+        }
+        $inputs['status'] = 'activated';
+        $appeal->update($inputs);
+        return  response()->json(['success' => true,'message' => 'Направление одобрен']);
+    }
+
     public function sendDirectionChangeToAppeal(Request $request,$id)
     {
         $direction = Direction::find($id);
