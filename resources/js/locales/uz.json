@@ -302,6 +302,7 @@
     "Murojaat turi":"Murojaat turi",
     "Murojaatlar roʼyxati":"Murojaatlar ro‘yxati",
     "Eski protokollar":"Eski bayonnomalar",
+    "Bayonnoma":"Bayonnoma",
     "Bayonnoma raqami":"Bayonnoma raqami",
     "Avtomobilni tasdiqlang":"Avtomobilni tasdiqlang",
     "Marka nomi":"Marka nomi",
@@ -572,5 +573,6 @@
     "shartnoma sanasi va raqami":"shartnoma sanasi va raqami",
     "yo‘nalishda qatnovlarni amalga oshirish huquqini tasdiqlovchi":"yo‘nalishda qatnovlarni amalga oshirish huquqini tasdiqlovchi",
     "Maʼlumot saqlandi":"Maʼlumot saqlandi",
-    "avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar":"avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar"
+    "avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar":"avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar",
+    "logout":"Chiqish"
 }

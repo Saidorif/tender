@@ -89,7 +89,7 @@
                 />
               </div>
               <div class="form-group col-xl-2">
-                <label for="surname">{{$t('Familya')}}</label>
+                <label for="surname">{{$t('Familiya')}}</label>
                 <input
                   type="text"
                   v-model="person.surname"
@@ -396,7 +396,7 @@
           </div>
           <div class="form-group col-lg-12">
             <div class="row">
-              <div class="col-xl-6">
+              <div class="col-xl-5">
                 <button
                   type="button"
                   class="btn btn-success btn_save_category"
@@ -406,7 +406,7 @@
                   {{$t('Tasdiqlash uchun yuvorish')}}
                 </button>
               </div>
-              <div class="col-xl-6 form_btn d-flex justify-content-end">
+              <div class="col-xl-7 form_btn d-flex justify-content-end">
                 <div class="form-group mr-3 mb-0">
                   <label for="conclusion">{{$t('Xulosa')}}</label>
                   <select

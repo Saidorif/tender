@@ -34,7 +34,7 @@
 			                    </select>
               				</div>
 				  			<div class="form-group col-lg-3">
-				  				<label for="time">{{$t('Ochilish sanasi boyicha saralash')}!</label>
+				  				<label for="time">{{$t('Ochilish sanasi boyicha saralash')}}!</label>
 				  				<date-picker
 					                lang="ru"
 					                type="date"

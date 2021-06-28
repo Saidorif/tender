@@ -18,7 +18,7 @@
                 </div>
 		  	</div>
 		  	<div class="card-body">
-                <div id="prindDiv" style="width:21cm;height:29.7cm;padding:0px 50px;">
+                <div id="prindDiv" style="width:21cm;height:29.7cm;padding:0px 50px;box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);">
                     <div align="center" style="margin-top:30px;"><img src="/img/gerb.png" width="111px"></div>
                     <h2 style="text-align:center;font-size:17.265914px;font-weight:bold;font-family:'Times New Roman';margin-top:30px;margin-bottom:30px">{{$t('O‘ZBEKISTON RESPUBLIKASI TRANSPORT VAZIRLIGI')}}</h2>
                     <p style="text-align:center;font-size:17.265914px;font-weight:normal;font-family:'Times New Roman';margin-top:0px;margin-bottom:0px">
@@ -35,8 +35,8 @@
                     <div style="text-align: center; margin-top: 10px">
                         <p style="padding-bottom: 2px;margin: 0px;text-align: left;font-size: 15px;line-height: 20px;font-family:'Times New Roman';">
                             {{$t('guvohnoma egasi')}}
-                            <b style="width: 45%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{$g.getDate(form.exp_date)}} {{$t('yil')}}</b> {{$t('dagi')}}
-                            <b style="width: 20%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.number}}</b> - {{$t('sonli')}}
+                            <b style="width: 45%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.contract ? $g.getDate(form.contract.date) : ''}} {{$t('yil')}}</b> {{$t('dagi')}}
+                            <b style="width: 20%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.contract ? form.contract.number : ''}}</b> - {{$t('sonli')}}
                         </p>
                         <small style="font-size: 13px;font-family:'Times New Roman';font-style: italic;">({{$t('shartnoma sanasi va raqami')}})</small>
                     </div>
@@ -44,7 +44,7 @@
                     <div style="text-align: center; margin-top: 10px">
                         <p style="padding-bottom: 2px;margin: 0px;text-align: left;font-size: 15px;line-height: 20px;font-family:'Times New Roman';">
                             <i>{{$t('guvohnoma raqami')}}</i>
-                            <b style="width: 30%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{$g.getDate(form.exp_date)}} </b> <i>{{$t('davlat raqami')}}</i>
+                            <b style="width: 30%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.car?form.car.auto_number:''}} </b> <i>{{$t('davlat raqami')}}</i>
                             <b style="width: 30%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.number}}</b>
                         </p>
                         <small style="font-size: 13px;font-family:'Times New Roman';font-style: italic;">({{$t('avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar')}})</small>
@@ -52,7 +52,7 @@
                     <div style="text-align: center; margin-top: 10px">
                         <p style="padding-bottom: 2px;margin: 0px;text-align: left;font-size: 15px;line-height: 20px;font-family:'Times New Roman';">
                             <i>{{$t('rusumi')}}</i>
-                            <b style="width: 80%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{$t('texpasport')}}  AAF 0946926, {{$t('litsenziya varaqasi')}} AT 8046904  </b> <i>{{$t('bo‘lgan')}}</i>
+                            <b style="width: 80%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{$t('texpasport')}}  AAF 0946926, {{$t('litsenziya varaqasi')}} {{form.car.license_number}}  </b> <i>{{$t('bo‘lgan')}}</i>
                         </p>
                         <small style="font-size: 13px;font-family:'Times New Roman';font-style: italic;">({{$t('yo‘nalishda qatnovchi avtotransport vositasiga tegishli ma’lumotlar')}})</small>
                     </div>
@@ -171,8 +171,5 @@
     .card-body{
         display: flex;
         justify-content: center;
-    }
-    #prindDiv{
-        border: 1px solid red;
     }
 </style>

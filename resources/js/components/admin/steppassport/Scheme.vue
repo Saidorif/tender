@@ -106,7 +106,7 @@
                 />
                 </div>
                 <div class="form-group col-xl-3 col-md-6">
-                <label for="organ">{{$t('F.I.SH')}}</label>
+                <label for="organ">{{$t('F.I.Sh')}}</label>
                 <input
                     type="text"
                     v-model="form.fio"

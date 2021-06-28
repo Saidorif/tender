@@ -65,7 +65,7 @@
                 class="d-flex align-items-center w-50 justify-content-between"
               >
                 <h4>{{ t_index + 1 }})</h4>
-                <div class="alert" :class="getStatusClass(t_item.tarif.status)">
+                <div class="alert" style="padding:5px;" :class="getStatusClass(t_item.tarif.status)">
                   {{ getStatusName(t_item.tarif.status) }}
                 </div>
                 <div class="">
@@ -82,7 +82,7 @@
                 <thead>
                   <tr>
                     <th>№ т/р</th>
-                    <th>{{$t('Boshlangʼich va oraliq oxirgi bekatlar nom')}}</th>
+                    <th>{{$t('Boshlangʼich va oraliq oxirgi bekatlar nomi')}}</th>
                     <template
                       :colspan="titulData.timing_with.length"
                       v-for="(item, index) in titulData.timing_with"

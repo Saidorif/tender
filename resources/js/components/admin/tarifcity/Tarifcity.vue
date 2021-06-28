@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon pe-7s-box1"></i>
-				    Tarifcity
+				    {{$t('Tarif ShY')}}
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/tarifcity/add"><i class="fas fa-plus"></i> {{$t('Qoʼshish')}}</router-link>
 		  	</div>
