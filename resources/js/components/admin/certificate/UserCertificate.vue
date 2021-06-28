@@ -16,9 +16,9 @@
 						<tr>
 							<th scope="col">№</th>
 							<th scope="col">{{$t('Nomi')}}</th>
-							<th scope="col">Moshina raqami</th>
-							<th scope="col">Guvoxnoma raqami </th>
-							<th scope="col">Guvoxnomani amal qilish muddati </th>
+							<th scope="col">{{$t('Avtomobil raqami')}}</th>
+							<th scope="col">{{$t('Guvoxnoma raqami')}}  </th>
+							<th scope="col">{{$t('Guvohnomani amal qilish muddati')}} </th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>

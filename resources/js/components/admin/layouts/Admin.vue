@@ -4,18 +4,21 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+    <ul class="navbar-nav ">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="pe-7s-menu" style="font-size: 30px;line-height: 21px;"></i></a>
       </li>
     </ul>
+    <div class="ml-auto d-flex">
+        <LangSwitcher />
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-2">
+            <li class="nav-item">
+                <a href="#" class="logout_btn" @click.prevent="logoutProfile"> <i class="pe-7s-next-2"></i>{{$t('Chiqish')}}</a>
+            </li>
+        </ul>
+    </div>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a href="#" class="logout_btn" @click.prevent="logoutProfile"> <i class="pe-7s-next-2"></i>{{$t('Chiqish')}}</a>
-      </li>
-    </ul>
   </nav>
   <!-- /.navbar -->
 
@@ -512,8 +515,11 @@
 
   import { mapActions, mapGetters } from "vuex";
   import {TokenService} from './../../../services/storage.service'
+  import LangSwitcher from '../../LangSwitcher.vue'
 export default {
-  components: {},
+  components: {
+      LangSwitcher
+  },
   data(){
     return {
 

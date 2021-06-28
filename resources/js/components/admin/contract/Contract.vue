@@ -8,7 +8,7 @@
           @click="$g.toWord('word', 'contract')"
         >
           <i class="fas fa-download"></i>
-          Юклаш
+           {{$t('Yuklash')}}
         </button>
         <button type="button" class="btn btn-primary back_btn" @click="back">
           <span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}

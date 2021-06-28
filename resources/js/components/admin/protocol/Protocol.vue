@@ -8,7 +8,7 @@
           @click="$g.toWord('word', 'protocol')"
         >
           <i class="fas fa-download"></i>
-          Юклаш
+          {{$t('Yuklash')}}
         </button>
         <router-link class="btn btn-primary back_btn" :to="`/crm/completed-tenders/show/${$route.params.tenderId}`">
           <span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}

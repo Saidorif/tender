@@ -46,7 +46,7 @@ export default {
         position: relative;
     }
     .selected_lang_1_cover {
-        padding-right: 24px;
+        padding-right: 40px;
         width: 100%;
         position: relative;
         font-size: 14px;
@@ -63,7 +63,7 @@ export default {
     .selected_lang_1_cover_span {
         position: absolute;
         right: 0;
-        top: 10px;
+        top: -3px;
     }
     .selected_lang_1_cover_span>i {
     -webkit-transition-duration: .2s;

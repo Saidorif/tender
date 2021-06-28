@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i  class="peIcon fas fa-file"></i>
-				    Список протоколов
+				    {{$t('Bayonnomalar ro‘yxati')}}
 				</h4>
 		  	</div>
 		  	<div class="card-body">
@@ -14,7 +14,7 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
+							<th scope="col">{{$t('Nomi')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
