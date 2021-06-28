@@ -59,10 +59,15 @@
                      <p style="text-align:left;font-size:15px;font-weight:normal;font-family:'Times New Roman';margin-top:0px;">{{$t('avtotransport vositasida')}} </p>
                     <div style="text-align: center; margin-top: 10px">
                         <p style="padding-bottom: 2px;margin: 0px;text-align: left;font-size: 15px;line-height: 20px;font-family:'Times New Roman';">
-                            <i>{{$t('rusumi')}}</i>
-                            <b style="width: 80%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.direction.type_id}}-{{form.direction.pass_number}}- {{$t('sonli')}} {{form.direction.name}}</b><i> {{$t('yo‘nalishda')}}</i>
+                            <b style="width: 84%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';" v-if="form.direction">{{ form.direction.type ? form.direction.type.type : ''}}-{{form.direction.pass_number}}- {{$t('sonli')}} {{form.direction.name}}</b><i> {{$t('yo‘nalishda')}}</i>
                         </p>
                         <small style="font-size: 13px;font-family:'Times New Roman';font-style: italic;">({{$t('Yoʼnalish raqami va nomi')}})</small>
+                    </div>
+                    <div style="text-align: center; margin-top: 10px">
+                        <p style="padding-bottom: 2px;margin: 0px;text-align: left;font-size: 15px;line-height: 20px;font-family:'Times New Roman';">
+                            <b style="width: 84%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{$g.getDate(form.exp_date)}} {{$t('yil')}}</b><i> {{$t('sanasigacha')}}</i>
+                        </p>
+                        <small style="font-size: 13px;font-family:'Times New Roman';font-style: italic;">({{$t('guvohnomaning amal qilish muddati')}})</small>
                     </div>
                      <p style="text-align:left;font-size:15px;font-weight:normal;font-family:'Times New Roman';margin-top:0px;">{{$t('qatnovlarni amalga oshirish huquqiga egaligini tasdiqlaydi.')}} </p>
                     <div align="right"><img :src="'/'+form.qr_code"  width="100"></div>
