@@ -21,6 +21,7 @@
 							<th scope="col">{{$t('Nomi')}}</th>
 							<th scope="col">{{$t('Shartnoma raqami')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('Type')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
@@ -30,6 +31,7 @@
 							<td>{{reg.company_name}}</td>
 							<td>{{reg.contract ? reg.contract.number : ''}}</td>
 							<td>{{$t(reg.status)}}</td>
+							<td>{{$t(reg.type)}}</td>
 							<td>
 								<router-link
 									tag="button"
