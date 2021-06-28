@@ -15,7 +15,7 @@
 		  	<div class="card-body">
 		  		<form @submit.prevent.enter="saveMyAppeal">
 					<div class="row">
-					  	<div class="form-group col-md-6">
+					  	<div class="form-group col-md-4">
 					  		<label for="contract_id">{{$t('Mening shartnomalarim')}}</label>
 					  		<select
 					  			class="form-control input_style"
@@ -28,7 +28,21 @@
 					  			<option :value="item.id" v-for="(item,index) in getUserMycontractList">{{item.number}}</option>
 					  		</select>
 				  		</div>
-					  	<div class="form-group col-md-6">
+					  	<div class="form-group col-md-4">
+					  		<label for="type">{{$t('Mening shartnomalarim')}}</label>
+					  		<select
+					  			class="form-control input_style"
+						    	id="type"
+						    	v-model="form.type"
+						    	rows="4"
+						    	:class="isRequired(form.type) ? 'isRequired' : ''"
+					  		>
+					  			<option value="" selected disabled>{{$t('Tanlang')}}!</option>
+					  			<option value="changed">{{$t('O\'zgartirish')}}</option>
+					  			<option value="destroy">{{$t('Bekor qilish')}}</option>
+					  		</select>
+				  		</div>
+					  	<div class="form-group col-md-4">
 			              	<label for="image">{{$t('Fayl')}} </label>
 			              	<input
 				                type="file"
@@ -72,6 +86,7 @@
 					contract_id:'',
 					text:'',
 					user_file:'',
+					type:'',
 				},
 				image: '',
 				requiredInput:false,
@@ -111,12 +126,13 @@
 		      }
 		    },
 			async saveMyAppeal(){
-		    	if (this.form.contract_id != '' && this.form.text != '' && this.form.user_file != ''){
+		    	if (this.form.contract_id != '' && this.form.text != '' && this.form.user_file != '' && this.form.type != ''){
 					this.laoding = true
 					let formData = new FormData();
 					formData.append('contract_id',this.form.contract_id)
 					formData.append('text',this.form.text)
 					formData.append('user_file',this.form.user_file)
+					formData.append('type',this.form.type)
 					await this.actionAddMyAppeal(formData)
 					if (this.getMassage.success) {
 						toast.fire({

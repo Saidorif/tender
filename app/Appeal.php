@@ -10,6 +10,7 @@ class Appeal extends Model
         'company_name',
         'user_id',
         'contract_id',
+        'type',
         'text',
         'user_file',
         'answer_file',

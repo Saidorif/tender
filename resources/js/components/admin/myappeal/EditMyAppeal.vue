@@ -18,7 +18,7 @@
 					  	<div class="form-group col-md-6">
 				  			<h3>{{$t('Mening xabarim')}}</h3>
 					  		<div class="row">
-							  	<div class="form-group col-md-9">
+							  	<div class="form-group col-md-6">
 							  		<label for="contract_id">{{$t('Mening shartnomalarim')}}</label>
 							  		<select
 							  			class="form-control input_style"
@@ -32,7 +32,21 @@
 							  			<option :value="item.id" v-for="(item,index) in getUserMycontractList">{{item.number}}</option>
 							  		</select>
 						  		</div>
-							  	<div class="form-group col-md-3">
+						  		<div class="form-group col-md-6">
+							  		<label for="type">{{$t('Mening shartnomalarim')}}</label>
+							  		<select
+							  			class="form-control input_style"
+								    	id="type"
+								    	v-model="form.type"
+								    	rows="4"
+								    	:class="isRequired(form.type) ? 'isRequired' : ''"
+							  		>
+							  			<option value="" selected disabled>{{$t('Tanlang')}}!</option>
+							  			<option value="changed">{{$t('O\'zgartirish')}}</option>
+							  			<option value="destroy">{{$t('Bekor qilish')}}</option>
+							  		</select>
+						  		</div>
+							  	<div class="form-group col-md-12">
                                     <a data-fancybox="single" class="fancy_btn" style="position: absolute;top: -20px;" :href="'/'+form.user_file">
 					              	      <img :src="'/'+form.user_file" class="img-fluid" alt="" width="170">
                                     </a>
@@ -103,6 +117,7 @@
 					contract_id:'',
 					text:'',
 					user_file:'',
+					type:'',
 				},
 				image: '',
 				requiredInput:false,
@@ -144,12 +159,13 @@
 		      }
 		    },
 			async saveMyAppeal(){
-		    	if (this.form.contract_id != '' && this.form.text != '' && this.form.user_file != ''){
+		    	if (this.form.contract_id != '' && this.form.text != '' && this.form.user_file != '' && this.form.type != ''){
 					this.laoding = true
 					let formData = new FormData();
 					formData.append('contract_id',this.form.contract_id)
 					formData.append('text',this.form.text)
 					formData.append('user_file',this.form.user_file)
+					formData.append('type',this.form.type)
 					await this.actionUpdateMyAppeal(formData)
 					if (this.getMassage.success) {
 						toast.fire({
