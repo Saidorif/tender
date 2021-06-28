@@ -5,7 +5,7 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-money-bill-alt"></i>
-				    {{$t('Qoʼshish')}} Платеж
+				    {{$t('Qoʼshish')}}
 				</h4>
 				<router-link class="btn btn-primary back_btn" to="/crm/payment"><span class="peIcon pe-7s-back"></span> {{$t('Orqaga')}}</router-link>
 		  	</div>
@@ -56,7 +56,7 @@
 				    	>
 					  </div>
 					  <div class="form-group col-xl-3 col-xl-6">
-					    <label for="details">Детали</label>
+					    <label for="details">{{$t('Tafsilotlar')}}</label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"

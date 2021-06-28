@@ -70,3 +70,7 @@
     font-family: "Poppins-ThinItalic";
     src: url(../fonts/Poppins-ThinItalic.ttf);
 }
+@font-face {
+    font-family: "Times New Roman";
+    src: url(../fonts/times.ttf);
+}
