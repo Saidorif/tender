@@ -318,6 +318,7 @@ Route::group([
             Route::post('contract/appeal','ContractController@appealIndex');
             Route::post('contract/appeal/approve','ContractController@appealApprove');
             Route::get('contract/appeal/edit/{id}','ContractController@appealEdit');
+            Route::get('contract/direction-changed/{id}','ContractController@sendDirectionChangeToAppeal');
 
             Route::post('contract/user/agree','ContractController@userAgreement');
             Route::get('contract/user/edit/{id}','ContractController@userEdit');

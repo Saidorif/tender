@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Appeal;
+use App\Contract;
 use App\Tender;
 use Illuminate\Http\Request;
 use App\Direction;
@@ -571,6 +573,15 @@ class DirectionController extends Controller
         if($inputs['to_type'] == 'station' && $direction->stationTo != null){
             $to_name = $direction->stationTo->name;
         }
+        //Check if direction given for user
+        //$contract = Contract::where(['status' => 'active'])->whereJsonContains('direction_ids',[$direction->id])->first();
+        //if($contract){
+            //Yonalishlarda ozgarishlar kiritish togrisida ariza kelib tushganmi yoqmi
+            //$appeal = Appeal::where('status','=','pending')->where('type','=','changed')->first();
+            //if($appeal){
+                //$can_update = true;
+            //}
+        //}
         $direction->update([
             'pass_number' => $inputs['pass_number'],
             'from_type' => $inputs['from_type'],

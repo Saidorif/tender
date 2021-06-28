@@ -161,6 +161,25 @@ class ContractController extends Controller
         return  response()->json(['success' => true,'message' => 'Сообщение одобрен']);
     }
 
+    public function sendDirectionChangeToAppeal(Request $request,$id)
+    {
+        $direction = Direction::find($id);
+        if(!$direction){
+            return response()->json(['error' => true, 'message' => 'Направление не найден']);
+        }
+        $contract = Contract::where(['status' => 'active'])->whereJsonContains('direction_ids',[$direction->id])->first();
+        if($contract){
+            //Yonalishlarda ozgarishlar kiritish togrisida ariza kelib tushganmi yoqmi
+            $appeal = Appeal::where('status','=','pending')->where('type','=','changed')->first();
+            if($appeal){
+                $appeal->status = 'approved';
+                $appeal->save();
+                return response()->json(['success' => true,'message' => 'Request sent to user for activation']);
+            }
+        }
+        return response()->json(['error' => true,'message' => 'Контракт не найден']);
+    }
+
     public function userAgreement(Request $request)
     {
         $validator = Validator::make($request->all(),[
