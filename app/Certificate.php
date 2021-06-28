@@ -25,7 +25,7 @@ class Certificate extends Model
 
     public function direction()
     {
-        return $this->belongsTo(\App\Direction::class,'direction_id');
+        return $this->belongsTo(\App\Direction::class,'direction_id')->with(['type']);
     }
 
     public function car()
