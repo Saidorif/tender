@@ -94,6 +94,7 @@ class ContractController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'contract_id' => 'required|integer',
+            'type' => 'required|string',
             'text' => 'nullable|string',
             'user_file' => 'required|file',
         ]);

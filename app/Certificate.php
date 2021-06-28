@@ -32,4 +32,9 @@ class Certificate extends Model
     {
         return $this->belongsTo(\App\UserCar::class,'car_id');
     }
+
+    public function contract()
+    {
+        return $this->belongsTo(\App\Contract::class,'contract_id');
+    }
 }
