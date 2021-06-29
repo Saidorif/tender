@@ -896,12 +896,14 @@ class DirectionController extends Controller
         }
         $schedules = $direction->schedule;
         foreach ($schedules as $key => $value) {
-            $value->status = 'inactive';
-            $value->save();
+            //$value->status = 'inactive';
+            //$value->save();
+            $value->delete();
             $reysTimes = $value->reysTimes;
             foreach ($reysTimes as $key => $item) {
-                $item->status = 'inactive';
-                $item->save();
+                //$item->status = 'inactive';
+                //$item->save();
+                $item->delete();
             }
         }
         $inputs = $request->input('data');
