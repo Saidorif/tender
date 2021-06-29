@@ -1004,6 +1004,7 @@ export default {
           bus_models:[],
           bus_marks:[],
         })
+        this.selectClass(this.cars[this.itemIndex])
       }else{
         if(this.cars[0].bustype_id != ''){
           this.itemIndex++
