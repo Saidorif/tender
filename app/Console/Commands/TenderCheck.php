@@ -94,14 +94,14 @@ class TenderCheck extends Command
                     $applicationBall->save();
                     $this->info('Application Ball changed to winner');
                     //Change other application balls to rejected
-                    $app_balls = ApplicationBall::where(['lot_id' => $lot->id,'status' => 'active'])->get();
+                    $app_balls = ApplicationBall::where(['lot_id' => $lot->id,'status' => 'active'])->where('app_id','!=',$application->id)->get();
                     foreach($app_balls as $ball){
                         $ball->status = 'rejected';
                         $ball->save();
                     }
                     $this->info('Other balls changed to rejected');
                     //Change other applications to rejected
-                    $apps = Application::where(['lot_id' => $lot->id,'status' => 'accepted'])->get();
+                    $apps = Application::where(['lot_id' => $lot->id,'status' => 'accepted'])->where('id','!=',$application->id)->get();
                     foreach($apps as $a){
                         $a->status = 'rejected';
                         $a->tender_status = 'rejected';
@@ -112,6 +112,7 @@ class TenderCheck extends Command
                     $lot->save();
 
                     // 3. Generate contract
+                    $direction_ids = $lot->getDirection();
                     $contract_date = Carbon::parse($lot->tender->time)->format('Y-m-d');
                     $contractArray = [
                         'user_id' => $user->id,
@@ -119,6 +120,7 @@ class TenderCheck extends Command
                         'app_ball_id' => $applicationBall->id,
                         'tender_id' => $lot->tender_id,
                         'lot_id' => $lot->id,
+                        'direction_ids' => $direction_ids,
                         'number' => '1',
                         'date' => Carbon::parse($lot->tender->time)->format('Y-m-d'),
                         'exp_date' => Carbon::parse($lot->tender->time)->addYears($application->contract_time),
@@ -152,7 +154,6 @@ class TenderCheck extends Command
                     }
 
                     // 5. Change direction status
-                    $direction_ids = $lot->getDirection();
                     $directions = Direction::whereIn('id', $direction_ids)->get();
                     foreach($directions as $dir){
                         $dir->status = 'busy';

@@ -160,6 +160,9 @@ class ApplicationController extends Controller
             'bus_adapted' => 'required|boolean',
             'telephone_power' => 'required|boolean',
             'monitor' => 'required|boolean',
+            'pTexpassportSery' => 'required|string',
+            'pTexpassportNumber' => 'required|string',
+            'kuzov' => 'nullable|string',
             'station_announce' => 'nullable|boolean',
         ]);
         if($validator->fails()){
@@ -167,6 +170,8 @@ class ApplicationController extends Controller
         }
         $user = $request->user();
         $inputs = $request->all();
+        $inputs['tech_seria'] = $inputs['pTexpassportSery'];
+        $inputs['tech_number'] = $inputs['pTexpassportNumber'];
 
         $application = Application::find($inputs['app_id']);
         if(!$application){
@@ -322,6 +327,9 @@ class ApplicationController extends Controller
         }
         if($application->status == 'accepted'){
             return response()->json(['error' => true, 'message' => 'Заявка уже принята']);
+        }
+        if($application->status == 'winner'){
+            return response()->json(['error' => true, 'message' => 'Заявка уже закрыта']);
         }
         if($application->cars->count() < 1){
             return response()->json(['error' => true, 'message' => 'Пожалуйста, добавьте машину']);

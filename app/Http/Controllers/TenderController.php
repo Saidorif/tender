@@ -641,7 +641,7 @@ class TenderController extends Controller
                     $tender_ids = Application::all()->pluck('tender_id')->toArray();
                     $builder->whereNotIn('id',$tender_ids);
                 }
-                $result = $builder->with(['tenderlots'])->withCount(['tenderlots','tenderapps'])->paginate(12);
+                $result = $builder->orderBy('id','DESC')->with(['tenderlots'])->withCount(['tenderlots','tenderapps'])->paginate(12);
             }else{
                 $result = Tender::with(['tenderlots'])
                     //->select('tenders.*',DB::raw('count(tender_lots.id) as tenderlots_count,count(applications.id) as tenderapps_count'))
@@ -649,6 +649,7 @@ class TenderController extends Controller
                     //->leftJoin('tender_lots','tenders.id','tender_lots.tender_id')
                     //->leftJoin('applications','tenders.id','applications.tender_id')
                     //->groupBy('tenders.id')
+                    ->orderBy('id','DESC')
                     ->withCount(['tenderlots','tenderapps'])
                     ->paginate(12);
             }
@@ -679,13 +680,14 @@ class TenderController extends Controller
         foreach($tender_lots as $key => $lot){
             $result = [];
             $calculate = false;
-            $applications = $lot->apps()->where('status','=','accepted')->get();
+            //$applications = $lot->apps()->where('status','=','accepted')->get();
+            $applications = Application::where(['lot_id' => $lot->id])->where('status','!=','draft')->get();
             $direction_ids = $lot->getDirection();
             foreach($applications as $k => $app){
                 if(count($app->balls) > 0){
                     $balls = $app->balls;
                     if($lot->contract != null){
-                        if($balls->app_id == $lot->contract->app_id){
+                        if($app->id == $lot->contract->app_id){
                             $balls->contract = $lot->contract;
                         }
                     }
