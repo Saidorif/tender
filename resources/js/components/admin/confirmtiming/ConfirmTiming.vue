@@ -136,7 +136,7 @@
             ...mapActions('confirmtiming',['actionTimings','actionActivateTiming']),
 			async getResults(page = 1){
 				let data = {
-	            	page:1,
+	            	page:page,
 	            	items:this.filter
 	            }
 	            await this.actionTimings(data);

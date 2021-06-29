@@ -650,6 +650,7 @@ export default {
     this.form.detailsOptions = this.getConditionalSignList;
     this.laoding = false;
     this.titulData = this.getDirection;
+
     this.timingDetails = this.titulData.timing_details.length
       ? this.titulData.timing_details[0]
       : this.timingDetails;
@@ -663,6 +664,7 @@ export default {
       this.form.station_from_id = this.titulData.station_from_id;
       this.form.whereForm = this.titulData.from_where;
     }
+    this.timingDetails.date = this.$g.getDate(this.timingDetails.date);
   },
   computed: {
     ...mapGetters("region", ["getRegionList"]),
