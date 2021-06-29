@@ -8,7 +8,9 @@
         </span>
       </div>
       <div  class="unselected_lang_2">
-        <a v-for="(lang, i) in langs" :key="`Lang${i}`" class="selected_lang_1" @click="switchLocale(lang)"><img width="30" :src="'/img/'+lang+'.png'"></a>
+        <a v-for="(lang, i) in langs" :key="`Lang${i}`" :class="$i18n.locale == lang ? 'active' : ''" class="selected_lang_1" @click="switchLocale(lang)">
+            <img width="30" :src="'/img/'+lang+'.png'"> <span v-if="lang == 'ru'"> Ру </span>  <span v-if="lang == 'uz'"> O‘z </span> <span v-if="lang == 'oz'"> Ўз </span>
+        </a>
       </div>
     </div>
   </div>
@@ -18,7 +20,7 @@
 export default {
   data() {
     return {
-      langs: ["ru", "uz"],
+      langs: ["ru", "uz", 'oz'],
       isActive: false,
     };
   },
@@ -60,10 +62,14 @@ export default {
         text-align: center;
         display: block;
     }
+    .selected_lang_1.active{
+        background: #d8f4f7;
+    }
     .selected_lang_1_cover_span {
         position: absolute;
         right: 0;
         top: -3px;
+
     }
     .selected_lang_1_cover_span>i {
     -webkit-transition-duration: .2s;
@@ -93,7 +99,20 @@ export default {
         transition-duration: .3s;
         overflow: hidden;
     }
-
+    .unselected_lang_2 a {
+        position: relative;
+    }
+    .unselected_lang_2 a span{
+        position: absolute;
+        left: 0;
+        right: 0;
+        font-weight: 900;
+        color: black;
+        top: 12px;
+    }
+    .unselected_lang_2 a img{
+        opacity: 0.7;
+    }
     .unselected_lang_2>.selected_lang_1 {
         padding: 10px 5px;
         border-bottom: 1px solid #cfdee5;

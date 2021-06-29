@@ -22,7 +22,7 @@
             <label for="address">{{$t('Manzil')}}</label>
             <p class="form-control input_style disabled">{{ form.address }}</p>
           </div>
-          <div class="col-md-2 ml_auto">
+          <div class="col-md-4 ml_auto">
             <button
               type="button"
               class="btn btn-danger"

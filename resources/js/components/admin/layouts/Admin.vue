@@ -14,7 +14,7 @@
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-2">
             <li class="nav-item">
-                <a href="#" class="logout_btn" @click.prevent="logoutProfile"> <i class="pe-7s-next-2"></i>{{$t('Chiqish')}}</a>
+                <a href="#" class="logout_btn" @click.prevent="logoutProfile"> <i class="pe-7s-next-2"></i>{{$t('logout')}}</a>
             </li>
         </ul>
     </div>
@@ -60,7 +60,7 @@
             <router-link class="nav-link" to="/crm/apply">
               <i class="peIcon fas fa-vote-yea"></i>
               <p>
-                {{$t('Ruxsat')}}
+                {{$t('Dostup')}}
               </p>
             </router-link>
           </li>

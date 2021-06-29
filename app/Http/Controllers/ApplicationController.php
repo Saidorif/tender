@@ -458,7 +458,7 @@ class ApplicationController extends Controller
 
     public function certificateShow(Request $request,$id)
     {
-        $result = Certificate::with(['user','direction','car'])->find($id);
+        $result = Certificate::with(['user','direction','car','contract'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Сертификат не найдено']);
         }

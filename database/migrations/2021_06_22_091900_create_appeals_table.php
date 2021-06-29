@@ -18,6 +18,7 @@ class CreateAppealsTable extends Migration
             $table->string('company_name')->nullable();
             $table->integer('user_id');
             $table->integer('contract_id');
+            $table->string('type');
             $table->text('text')->nullable();
             $table->string('user_file');
             $table->dateTime('date');

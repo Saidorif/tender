@@ -94,6 +94,7 @@ class ContractController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'contract_id' => 'required|integer',
+            'type' => 'required|string',
             'text' => 'nullable|string',
             'user_file' => 'required|file',
         ]);
@@ -158,6 +159,38 @@ class ContractController extends Controller
         }
         $appeal->update($inputs);
         return  response()->json(['success' => true,'message' => 'Сообщение одобрен']);
+    }
+
+    public function activateChangedDirection(Request $request,$id)
+    {
+        $inputs = $request->all();
+        $user = $request->user();
+        $appeal = Appeal::find($id);
+        if(!$appeal){
+            return  response()->json(['error' => true,'message' => 'Сообщение не найдено']);
+        }
+        $inputs['status'] = 'activated';
+        $appeal->update($inputs);
+        return  response()->json(['success' => true,'message' => 'Направление одобрен']);
+    }
+
+    public function sendDirectionChangeToAppeal(Request $request,$id)
+    {
+        $direction = Direction::find($id);
+        if(!$direction){
+            return response()->json(['error' => true, 'message' => 'Направление не найден']);
+        }
+        $contract = Contract::where(['status' => 'active'])->whereJsonContains('direction_ids',[$direction->id])->first();
+        if($contract){
+            //Yonalishlarda ozgarishlar kiritish togrisida ariza kelib tushganmi yoqmi
+            $appeal = Appeal::where('status','=','pending')->where('type','=','changed')->first();
+            if($appeal){
+                $appeal->status = 'approved';
+                $appeal->save();
+                return response()->json(['success' => true,'message' => 'Request sent to user for activation']);
+            }
+        }
+        return response()->json(['error' => true,'message' => 'Контракт не найден']);
     }
 
     public function userAgreement(Request $request)
