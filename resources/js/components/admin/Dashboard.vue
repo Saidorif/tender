@@ -55,7 +55,7 @@
 	  						<router-link class="dashboard-link" to="/crm/complaint-list">
 				              <i class="peIcon fas fa-comment"></i>
 				              <p>
-			                     {{$t('Murojaatlar ro‘yxati')}}
+			                     {{$t('Murojaatlar roʼyxati')}}
 			                  </p>
 				            </router-link>
 	  					</div>
@@ -65,7 +65,7 @@
 	  						<router-link class="dashboard-link" to="/crm/apply">
 				              <i class="peIcon fas fa-vote-yea"></i>
 				              <p>
-				                {{$t('Ruxsat')}}
+				                {{$t('Dostup')}}
 				              </p>
 				            </router-link>
 	  					</div>

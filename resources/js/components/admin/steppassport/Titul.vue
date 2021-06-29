@@ -286,7 +286,7 @@
               />
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="tarif">Tarif</label>
+              <label for="tarif">{{ $t('Tarif')}}</label>
               <input
                 type="number"
                 v-model="form.tarif"
@@ -1151,8 +1151,7 @@ export default {
     },
     addCar() {
       if (this.cars.length == 0) {
-        let bType =
-          this.cars_with.length > 0 ? this.cars_with[0].bustype_id : "";
+        let bType = this.cars_with.length > 0 ? this.cars_with[0].bustype_id : "";
         this.cars.push({
           bustype_id: bType,
           tclass_id: "",
@@ -1162,6 +1161,7 @@ export default {
           bus_models: [],
           bus_marks: [],
         });
+        this.selectClass(this.cars[this.itemIndex]);
       } else {
         if (this.cars[0].bustype_id != "") {
           this.itemIndex++;

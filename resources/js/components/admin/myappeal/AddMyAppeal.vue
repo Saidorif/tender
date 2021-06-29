@@ -38,7 +38,7 @@
 						    	:class="isRequired(form.type) ? 'isRequired' : ''"
 					  		>
 					  			<option value="" selected disabled>{{$t('Tanlang')}}!</option>
-					  			<option value="changed">{{$t('O\'zgartirish')}}</option>
+					  			<option value="changed">{{$t('O‘zgartirish')}}</option>
 					  			<option value="destroy">{{$t('Bekor qilish')}}</option>
 					  		</select>
 				  		</div>
@@ -52,7 +52,7 @@
 			               	/>
 				  		</div>
 					  	<div class="form-group col-md-12">
-						    <label for="text">{{$t('Text')}}</label>
+						    <label for="text">{{$t('Matn')}}</label>
 						    <textarea
 						    	class="form-control input_style"
 						    	id="text"

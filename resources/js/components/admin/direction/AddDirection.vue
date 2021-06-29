@@ -235,7 +235,7 @@
               </select>
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="tarif">Tarif</label>
+              <label for="tarif">{{$t('Tarif')}}</label>
               <input
                 type="number"
                 v-model="form.tarif"

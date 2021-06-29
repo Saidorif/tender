@@ -21,7 +21,7 @@
 							<th scope="col">{{$t('Nomi')}}</th>
 							<th scope="col">{{$t('Shartnoma raqami')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
-							<th scope="col">{{$t('Type')}}</th>
+							<th scope="col">{{$t('Turi')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>

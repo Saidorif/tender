@@ -50,7 +50,7 @@
             </template>
           </div>
           <div class="road_signs col-xl-6">
-            <h6>{{$t('Shatrli belgilar')}}</h6>
+            <h6>{{$t('Shartli belgilar')}}</h6>
             <ul>
               <li>
                   <div class="icon_item bdn">
@@ -102,7 +102,7 @@
               />
             </div>
             <div class="form-group col-xl-3 col-md-6">
-              <label for="organ">{{$t('F.I.SH')}}</label>
+              <label for="organ">{{$t('F.I.Sh')}}</label>
               <input
                 type="text"
                 v-model="form.fio"

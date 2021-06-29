@@ -230,7 +230,7 @@
                 />
               </div>
               <div class="form-group col-xl-3 col-md-6">
-                <label for="tarif">Tarif</label>
+                <label for="tarif">{{$t('Tarif')}}</label>
                 <input
                   type="number"
                   v-model="form.tarif"
@@ -252,7 +252,7 @@
                     <input type="text" class="form-control input_style" :value="car.tclass ? car.tclass.name : ''" disabled>
                   </div>
                   <div class="form-group col-xl-3 col-md-6">
-                    <label for="busmarka_id">{{$t('Avtomabil markasi')}}</label>
+                    <label for="busmarka_id">{{$t('Avtobus markasi')}}</label>
                     <input type="text" class="form-control input_style" :value="car.marka ? car.marka.name : ''" disabled>
                   </div>
                   <div class="form-group col-xl-3 col-md-6">
