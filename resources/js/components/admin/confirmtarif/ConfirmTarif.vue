@@ -114,7 +114,7 @@
 							<th scope="col">{{$t('Yoʼnalish')}}</th>
 							<th scope="col">{{$t('Yoʼnalish raqami')}}</th>
 							<th scope="col">{{$t('Reyslar soni')}}</th>
-							<th scope="col">{{$t('Bagaj miqdori')}}</th>
+							<th scope="col">{{$t('Passport raqami')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
