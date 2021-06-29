@@ -51,7 +51,7 @@ class AutoLicenseSync extends Command
                 $client = new \GuzzleHttp\Client();
                 $response = $client->get('http://10.10.10.118/services/api/tender/get-org-data/'.$inn, [
                     'auth' => [
-                        'tenderuser', 
+                        'tenderuser',
                         'b2d672d1127974cdb3f5e7890cd5dafc2657bcb125c2212a5e9fd7a890c42724'
                     ]
                 ]);
@@ -70,6 +70,7 @@ class AutoLicenseSync extends Command
                                     $u_car->license_number = $auto['card_number'];
                                     $u_car->license_status = 1;
                                     $u_car->save();
+                                    $this->info($u_car->auto_number.' license updated');
                                 }
                             }
                         }

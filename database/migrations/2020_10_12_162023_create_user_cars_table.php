@@ -36,9 +36,16 @@ class CreateUserCarsTable extends Migration
             $table->string('telephone_power')->nullable();
             $table->string('station_announce')->nullable();
             $table->string('monitor')->nullable();
+            $table->string('license_status')->nullable();
+            $table->date('license_start_date')->nullable();
+            $table->date('license_exp_date')->nullable();
+            $table->string('license_number')->nullable();
             $table->tinyInteger('technical_status')->default(0)->nullable();
             $table->text('text')->nullable();
             $table->string('file')->nullable();
+            $table->string('tech_seria')->nullable();
+            $table->string('tech_number')->nullable();
+            $table->string('kuzov')->nullable();
             $table->timestamps();
         });
     }
