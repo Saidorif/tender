@@ -22,7 +22,7 @@
                     <div align="center" class="gerb_div"><img src="/img/gerb.png" width="111px"></div>
                     <h2 style="text-align:center;font-size:17.265914px;font-weight:bold;font-family:'Times New Roman';margin-top:30px;margin-bottom:10px">{{$t('O‘ZBEKISTON RESPUBLIKASI TRANSPORT VAZIRLIGI')}}</h2>
                     <p style="text-align:center;font-size:17.265914px;font-weight:normal;font-family:'Times New Roman';margin-top:0px;margin-bottom:0px">
-                        <u style="text-decoration: underline;">{{form.seria}}{{form.number}}</u> -{{$t('son')}} <u style="text-decoration: underline;">{{form.direction ? form.direction.name : ''}}</u>-{{$t('nomli')}}
+                        <u style="text-decoration: underline;">{{ form.direction.type ? form.direction.type.type : ''}}-{{form.direction.pass_number}}</u> -{{$t('son')}} <u style="text-decoration: underline;">{{form.direction ? form.direction.name : ''}}</u>-{{$t('nomli')}}
                     </p>
                     <p style="text-align:center;font-size:17.265914px;font-weight:normal;font-family:'Times New Roman';margin-top:0px;margin-bottom:30px">{{$t('yo‘nalishda qatnovlarni amalga oshirish huquqini tasdiqlovchi')}} </p>
                     <h2 style="text-align:center;font-size:17.265914px;font-weight:bold;font-family:'Times New Roman';margin-top:30px;margin-bottom:30px">{{$t('GUVOHNOMA')}}</h2>
@@ -44,15 +44,15 @@
                     <div style="text-align: center; margin-top: 10px">
                         <p style="padding-bottom: 2px;margin: 0px;text-align: left;font-size: 15px;line-height: 20px;font-family:'Times New Roman';">
                             <i>{{$t('guvohnoma raqami')}}</i>
-                            <b style="width: 30%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.car?form.car.auto_number:''}} </b> <i>{{$t('davlat raqami')}}</i>
-                            <b style="width: 30%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.car ? form.car.busmarka.name : '' }}</b>
+                            <b style="width: 30%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">AAF 0946926 </b> <i>{{$t('davlat raqami')}}</i>
+                            <b style="width: 30%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{form.car?form.car.auto_number:''}}</b>
                         </p>
                         <small style="font-size: 13px;font-family:'Times New Roman';font-style: italic;">({{$t('avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar')}})</small>
                     </div>
                     <div style="text-align: center; margin-top: 10px">
                         <p style="padding-bottom: 2px;margin: 0px;text-align: left;font-size: 15px;line-height: 20px;font-family:'Times New Roman';">
                             <i>{{$t('rusumi')}}</i>
-                            <b style="width: 80%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">{{$t('texpasport')}}  AAF 0946926, {{$t('litsenziya varaqasi')}} {{form.car.license_number}}  </b> <i>{{$t('bo‘lgan')}}</i>
+                            <b style="width: 80%;border-bottom: 1px solid;display: inline-block;text-align:center;font-family:'Times New Roman';">     {{form.car ? form.car.busmarka.name : '' }} {{form.car ? form.car.busmodel.name : '' }} </b> <i>{{$t('bo‘lgan')}}</i>
                         </p>
                         <small style="font-size: 13px;font-family:'Times New Roman';font-style: italic;">({{$t('yo‘nalishda qatnovchi avtotransport vositasiga tegishli ma’lumotlar')}})</small>
                     </div>
