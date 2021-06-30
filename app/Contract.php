@@ -71,7 +71,7 @@ class Contract extends Model
         if($this->type == 'old'){
             return $this->hasMany(\App\ContractCar::class,'contract_id')->with(['bustype','busmodel','busmarka','tclass','user']);
         }else{
-            return $this->hasMany(\App\UserCar::class,'contract_id')->with(['bustype','busmodel','busmarka','tclass','user']);
+            return $this->hasMany(\App\UserCar::class,'app_id','app_id')->with(['bustype','busmodel','busmarka','tclass','user']);
         }
     }
 
