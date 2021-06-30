@@ -9,7 +9,7 @@
 				</h4>
                 <div class="d-flex">
                     <button type="button" class="btn btn-success mr-2" @click="activeContract">{{$t('Faollashtirish')}}</button>
-                    <router-link class="btn btn-primary back_btn" to="/crm/oldcontract">
+                    <router-link class="btn btn-primary back_btn" to="/crm/contract-list">
                         <span class="peIcon pe-7s-back"></span>
                         {{$t('Orqaga')}}
                     </router-link>
@@ -131,7 +131,8 @@
 			          	</div>
 			          	<div class="form-group col-md-3">
 						    <label for="marshrut">{{$t('Yoʼnalish')}}</label>
-						    <multiselect
+                            <p class="form-control input_style" v-for="(dir,index) in directionvalues" >{{dir.name}}</p>
+						    <!-- <multiselect
 								:value="directionvalues"
 								:options="findDirectionList"
 								@search-change="value => findDirection(value)"
@@ -149,7 +150,7 @@
 								>
 								<span slot="noResult">{{$t('Sizning qidirgan maʼlumot topilmadi.')}}</span>
 								<span slot="noOptions">{{$t('Royxat boʼsh')}}</span>
-							</multiselect>
+							</multiselect> -->
 				  		</div>
 				  		<div class="ml-3 d-flex justify-content-center w-100 border pt-2 mb-4">
 							<h4>{{$t('Mening avtomobillarim')}}</h4>
@@ -329,7 +330,7 @@
 			]),
 		},
 		async mounted(){
-			await this.actionEditOldcontract(this.$route.params.oldcontractId)
+			await this.actionEditOldcontract(this.$route.params.conId)
 			this.form = this.getOldcontract
 			this.fileName = this.getOldcontract.file
 			this.user_values = this.getOldcontract.user
