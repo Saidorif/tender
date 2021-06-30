@@ -17,9 +17,14 @@ class ContractController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        $type = 'old';
+        if(!empty($request->input('type'))){
+            $type = $request->input('type');
+        }
         $contracts = Contract::orderBy('id','DESC')
                         ->with(['user','cars','protocol','region'])
                         ->where(['region_id' => $user->region_id])
+                        ->where(['type' => $type])
                         ->paginate(12);
         return response()->json(['success' => true, 'result' => $contracts]);
     }
