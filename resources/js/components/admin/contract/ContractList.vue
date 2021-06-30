@@ -49,13 +49,20 @@
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
-								<button
+								<router-link
+									tag="button"
+									class="btn_transparent"
+									:to='`/crm/contract/${item.id}`'
+								>
+									<i class="pe_icon pe-7s-file editColor"></i>
+								</router-link>
+								<!-- <button
 									class="btn_transparent"
 									@click="deleteOldcontract(item.id)"
 								 	v-if="$can('destroy', 'ContractController')"
 								>
 									<i class="pe_icon pe-7s-trash trashColor"></i>
-								</button>
+								</button> -->
 							</td>
 						</tr>
 					</tbody>
