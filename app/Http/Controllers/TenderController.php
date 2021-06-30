@@ -676,7 +676,9 @@ class TenderController extends Controller
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Tender not found']);
         }
-        if($tender->time < date('Y-m-d H:m:s')){
+        $tender_time = new Carbon($tender->time,'Asia/Tashkent');
+        $now = Carbon::now('Asia/Tashkent');
+        if($tender_time->gt($now)){
             return response()->json(['error' => true, 'message' => 'Tender not completed']);
         }
         $tender_lots = TenderLot::where(['tender_id' => $tender->id])->get();
@@ -692,7 +694,9 @@ class TenderController extends Controller
                     $balls = $app->balls;
                     if($lot->contract != null){
                         if($app->id == $lot->contract->app_id){
-                            $balls->contract = $lot->contract;
+                            foreach ($balls as $ball) {
+                                $ball->contract = $lot->contract;
+                            }
                         }
                     }
                     $result[$key][$k] = $balls;

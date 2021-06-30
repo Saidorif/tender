@@ -248,8 +248,11 @@ class ContractController extends Controller
     public function edit(Request $request,$id)
     {
         $user = $request->user();
-        $contract = Contract::with(['user','cars','protocol','region'])->where(['region_id' => $user->region_id])->find($id);
+        $contract = Contract::with(['user','cars','protocol','region'])->find($id);
         if(!$contract){
+            return response()->json(['error' => true, 'message' => 'Контракт не найден']);
+        }
+        if($user->role_id != 1 && $user->region_id != $contract->region_id){
             return response()->json(['error' => true, 'message' => 'Контракт не найден']);
         }
         return response()->json(['success' => true, 'result' => $contract]);
