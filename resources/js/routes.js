@@ -273,6 +273,7 @@ import SendApplication from './components/admin/tenderuser/SendApplication'
 
 import Contract from './components/admin/contract/Contract'
 import ContractList from './components/admin/contract/ContractList'
+import EditContract from './components/admin/contract/EditContract'
 
 
 // Payment
@@ -1398,6 +1399,14 @@ const router = new Router({
 				{
 					path:'contract-list',
 					component:ContractList,
+				},
+                {
+					path:'contract/edit/:conId',
+					component:EditContract,
+					meta:{
+						action:'edit',
+						subject:'ContractController'
+					}
 				},
 				{
 					path:'protocol-list',

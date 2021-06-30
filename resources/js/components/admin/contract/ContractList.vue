@@ -44,7 +44,7 @@
 								<router-link
 									tag="button"
 									class="btn_transparent"
-									:to='`/crm/oldcontract/edit/${item.id}`'
+									:to='`/crm/contract/edit/${item.id}`'
 									v-if="$can('edit', 'ContractController')"
 								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
