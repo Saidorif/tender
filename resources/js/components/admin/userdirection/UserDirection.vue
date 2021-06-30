@@ -111,7 +111,7 @@
                             <th scope="col">№</th>
                             <th>{{$t('Viloyat')}}</th>
                             <th>{{$t('Yoʼnalish raqami va nomi')}}</th>
-                            <th>{{$t('Tashkilot nomi')}} </th>
+                            <!-- <th>{{$t('Tashkilot nomi')}} </th> -->
                             <th>{{$t('Shartnoma muddati')}} </th>
                             <th>{{$t('Holati')}}</th>
                             <th>{{$t('Yoʼnalish turi')}} </th>
@@ -129,11 +129,11 @@
 								</template>
 							</td>
 							<td><b>{{direct.pass_number}}</b> - {{direct.name}}</td>
-							<td>
+							<!-- <td>
                                 <a href="#" @click.prevent="openModal(direct)">
                                   <b>nmadir</b>
                                 </a>
-                            </td>
+                            </td> -->
 							<td></td>
 							<td>
                                 <span class="alert alert-danger pt-1 pb-1" v-if="direct.status == 'active'">{{$t('Tenderda joylashtirilmagan')}}</span>

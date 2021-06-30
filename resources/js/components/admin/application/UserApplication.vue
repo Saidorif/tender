@@ -116,7 +116,7 @@
 				}else if(status == 'accepted'){
 					return this.$t('Yakunlangan')
 				}else if(status == 'rejected'){
-					return $t('Rad etilgan')
+					return this.$t('Rad etilgan')
 				}else if(status == 'winner'){
 					return 'Победитель!'
 				}
