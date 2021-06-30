@@ -687,7 +687,7 @@ class TenderController extends Controller
             $result = [];
             $calculate = false;
             //$applications = $lot->apps()->where('status','=','accepted')->get();
-            $applications = Application::where(['lot_id' => $lot->id])->where('status','!=','draft')->get();
+            $applications = Application::where(['lot_id' => $lot->id])->where('status','!=','active')->get();
             $direction_ids = $lot->getDirection();
             foreach($applications as $k => $app){
                 if(count($app->balls) > 0){

@@ -99,9 +99,11 @@ class Application extends Model
     public function getTarifOfDirection($value)
     {
         $tarifs = $this->tarif;
-        foreach ($tarifs as $tarif) {
-            if($value == $tarif['direction_id']){
-                return $tarif['summa'];
+        if($tarifs){
+            foreach ($tarifs as $tarif) {
+                if($value == $tarif['direction_id']){
+                    return $tarif['summa'];
+                }
             }
         }
         return false;
