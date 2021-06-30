@@ -35,6 +35,7 @@ class UserCar extends Model
         'tech_seria',
         'tech_number',
         'kuzov',
+        'lizing',
         'text',
         'file',
     ];

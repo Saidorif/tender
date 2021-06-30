@@ -46,6 +46,7 @@ class CreateUserCarsTable extends Migration
             $table->string('tech_seria')->nullable();
             $table->string('tech_number')->nullable();
             $table->string('kuzov')->nullable();
+            $table->tinyInteger('lizing')->default(0)->nullable();
             $table->timestamps();
         });
     }

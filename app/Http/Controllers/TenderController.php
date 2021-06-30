@@ -668,12 +668,16 @@ class TenderController extends Controller
 
     public function completedTendersLots(Request $request, $id,$return = false)
     {
-        $tender = Tender::where(['status' => 'completed','id' => $id])
-                    ->where('time','<',date('Y-m-d H:m:s'))
-                    ->orWhere(['status' => 'approved'])
+        $tender = Tender::where(['id' => $id])
+                    //->where('time','<',date('Y-m-d H:m:s'))
+                    //->where(['status' => 'completed'])
+                    //->orWhere(['status' => 'approved'])
                     ->first();
         if(!$tender){
             return response()->json(['error' => true, 'message' => 'Tender not found']);
+        }
+        if($tender->time < date('Y-m-d H:m:s')){
+            return response()->json(['error' => true, 'message' => 'Tender not completed']);
         }
         $tender_lots = TenderLot::where(['tender_id' => $tender->id])->get();
         $items = [];

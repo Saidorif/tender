@@ -822,7 +822,7 @@ class DirectionController extends Controller
         if(!empty($params['name'])){
             $builder->where('name','LIKE', '%'.$params['name'].'%');
         }
-        $result = $builder->paginate(20);
+        $result = $builder->orderBy('id','DESC')->paginate(20);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1228,7 +1228,7 @@ class DirectionController extends Controller
                 $query->where('region_id',$region);
             });
         }
-        $result = $builder->paginate(12);
+        $result = $builder->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1327,7 +1327,7 @@ class DirectionController extends Controller
                 $q->where(['xronom_status' => 'pending'])->orWhere(['xronom_status' => 'completed']);
             });
         }
-        $result = $builder->paginate(12);
+        $result = $builder->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1426,7 +1426,7 @@ class DirectionController extends Controller
                 $query->where('region_id',$region);
             });
         }
-        $result = $builder->paginate(12);
+        $result = $builder->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1526,7 +1526,7 @@ class DirectionController extends Controller
                 $query->where('region_id',$region);
             });
         }
-        $result = $builder->paginate(12);
+        $result = $builder->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1620,7 +1620,7 @@ class DirectionController extends Controller
         if(!empty($params['status'])){
             $builder->where(['direction_reqs.status' => $params['status']]);
         }
-        $result = $builder->paginate(12);
+        $result = $builder->orderBy('direction_reqs.id','DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 

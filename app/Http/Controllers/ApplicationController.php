@@ -164,6 +164,7 @@ class ApplicationController extends Controller
             'pTexpassportNumber' => 'required|string',
             'kuzov' => 'nullable|string',
             'station_announce' => 'nullable|boolean',
+            'lizing' => 'required|boolean',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
@@ -219,7 +220,9 @@ class ApplicationController extends Controller
         //Check for if the car already in use
         $the_old_car = UserCar::where(['auto_number' => $inputs['auto_number']])->first();
         if($the_old_car){
-            return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
+            if($the_old_car->application->status == 'winner'){
+                return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
+            }
         }
 
         //Check for GAI CAR

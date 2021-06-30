@@ -45,7 +45,10 @@ class TenderCheck extends Command
      */
     public function handle()
     {
-        $tenders = Tender::where(['status' => 'completed'])->where('time','<',date('Y-m-d H:m:s'))->get();
+        $tenders = Tender::where(['status' => 'completed'])->where('time','<',now())->get();
+        foreach ($tenders as $tender){
+            $this->info('Tender ID: '.$tender->id.' ADDRESS: '.$tender->address);
+        }
         $this->info('Completed tenders count '.$tenders->count());
         $tenderlots = TenderLot::whereIn('tender_id',$tenders->pluck('id')->toArray())->where(['status' => 'pending'])->get();
         $this->info('Tenderlots count '.$tenderlots->count());
