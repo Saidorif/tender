@@ -4,8 +4,8 @@ const ContractService = {
 	contract(id){
 		return ApiService.get(`/api/contract/edit/${id}`)
 	},
-	contractlist(page){
-		return ApiService.post(`/api/contract?page=${page}`)
+	contractlist(data){
+		return ApiService.get(`/api/contract?page=${data.page}&type=${data.type}`)
 	},
 };
 

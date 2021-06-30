@@ -53,14 +53,15 @@
 			}
 		},
 		async mounted(){
-			// await this.actionConts()
+			await this.actionContractList()
+            console.log(this.getContractList)
 			this.laoding = false
 		},
 		computed:{
-			// ...mapGetters('conts',['getConts','getMassage'])
+			...mapGetters('contract',['getContractList'])
 		},
 		methods:{
-			// ...mapActions('conts',['actionConts']),
+			...mapActions('contract',['actionContractList']),
 			// async getResults(page = 1){
 			// 	this.laoding = true
 				// await this.actionConts(page)
