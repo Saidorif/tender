@@ -21,11 +21,13 @@ class ContractController extends Controller
         if(!empty($request->input('type'))){
             $type = $request->input('type');
         }
-        $contracts = Contract::orderBy('id','DESC')
+        $builder = Contract::query()->orderBy('id','DESC')
                         ->with(['user','cars','protocol','region'])
-                        ->where(['region_id' => $user->region_id])
-                        ->where(['type' => $type])
-                        ->paginate(12);
+                        ->where(['type' => $type]);
+        if($user->role_id != 1){
+            $builder->where(['region_id' => $user->region_id]);
+        }
+        $contracts = $builder->paginate(12);
         return response()->json(['success' => true, 'result' => $contracts]);
     }
 
