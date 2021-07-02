@@ -1,5 +1,6 @@
 {
     "site_name": "Бош саҳифа",
+    "payment_type": "Тўлов тури",
     "menu":{
         "home": "Бош саҳифа",
         "about_tender": "Тендер ҳақида",
