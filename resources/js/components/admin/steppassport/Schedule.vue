@@ -111,22 +111,24 @@
                   <td>{{ p_index + 1 }}</td>
                   <template v-for="(ch_item, ch_index) in p_item">
                     <td class="reys1" colspan="1">
-                      <DatePicker
+                      <!-- <DatePicker
                         v-model.lazy="ch_item.end"
                         type="time"
                         class="table_input"
                         valueType="format"
                         format="HH:mm:ss"
-                      />
+                      /> -->
+                      <input type="time"  step="1"  v-model="ch_item.end">
                     </td>
                     <td class="reys1" colspan="1">
-                      <DatePicker
+                      <!-- <DatePicker
                         v-model.lazy="ch_item.start"
                         type="time"
                         class="table_input"
                         valueType="format"
                         format="HH:mm:ss"
-                      />
+                      /> -->
+                      <input type="time"  step="1"  v-model="ch_item.start">
                     </td>
                     <input type="hidden" v-model.lazy="p_item.bus_order" class="table_input" />
                   </template>
@@ -165,22 +167,24 @@
                   <td>{{ p_index + 1 }}</td>
                   <template v-for="(ch_item, ch_index) in p_item">
                     <td class="reys1" colspan="1">
-                      <DatePicker
+                      <!-- <DatePicker
                         v-model.lazy="ch_item.end"
                         type="time"
                         class="table_input"
                         valueType="format"
                         format="HH:mm:ss"
-                      />
+                      /> -->
+                      <input type="time"  step="1"  v-model="ch_item.end">
                     </td>
                     <td class="reys1" colspan="1">
-                      <DatePicker
+                      <!-- <DatePicker
                         v-model.lazy="ch_item.start"
                         type="time"
                         class="table_input"
                         valueType="format"
                         format="HH:mm:ss"
-                      />
+                      /> -->
+                      <input type="time"  step="1"  v-model="ch_item.start">
                     </td>
                     <input type="hidden" v-model.lazy="p_item.bus_order" class="table_input" />
                   </template>
@@ -348,7 +352,7 @@ export default {
         reys_from_count: '',
       },
       requiredInput: false,
-      laoding: false,
+      laoding: true,
     };
   },
   watch: {

@@ -160,20 +160,21 @@
 					        	<div class="item_index">
 					        		{{index+1}})
 				        		</div>
-					        	<div class="form-group col-md-1">
+					        	<div class="form-group col-md-2">
 								    <label for="auto_number">{{$t('Avtomobil raqami')}}</label>
-								    <input
+								    <!-- <input
 								    	type="text"
 								    	class="form-control input_style"
 								    	id="auto_number"
 								    	v-mask="'********'"
 								    	v-model="car.auto_number"
 								    	:class="isRequired(car.auto_number) ? 'isRequired' : ''"
-							    	>
+							    	> -->
+                                    <p class="form-control input_style">{{car.auto_number}}</p>
 							  	</div>
-							  	<div class="form-group col-md-3">
+							  	<div class="form-group col-md-2">
 								    <label for="bustype_id">{{$t('Avtomobil turi')}}</label>
-								    <select
+								    <!-- <select
 									    class="form-control input_style"
 								    	id="bustype_id"
 								    	v-model="car.bustype_id"
@@ -186,11 +187,12 @@
 								    		v-for="(busType,index) in getTypeofbusList"
 								    		data-toggle="tooltip" data-placement="right" title="Tooltip on right"
 							    		>{{busType.name}}</option>
-								    </select>
+								    </select> -->
+                                    <p class="form-control input_style">{{car.bustype.name}}</p>
 							  	</div>
 			                    <div class="form-group col-md-2">
 								    <label for="tclass_id">{{$t('Avtomobil sinfi')}}</label>
-								    <select
+								    <!-- <select
 									    class="form-control input_style"
 								    	id="tclass_id"
 								    	v-model="car.tclass_id"
@@ -198,11 +200,12 @@
 								    >
 								    	<option value="" selected disabled>{{$t('Tanlang')}}!</option>
 								    	<option :value="busClass.id" v-for="(busClass,index) in car.getBusclassFindList">{{busClass.name}}</option>
-								    </select>
+								    </select> -->
+                                    <p class="form-control input_style">{{car.tclass.name}}</p>
 							  	</div>
 							  	<div class="form-group col-md-2">
 								    <label for="busmarka_id">{{$t('Avtobus markasi')}}</label>
-								    <select
+								    <!-- <select
 									    class="form-control input_style"
 								    	id="busmarka_id"
 								    	v-model="car.busmarka_id"
@@ -211,11 +214,12 @@
 								    >
 								    	<option value="" selected disabled>{{$t('Tanlang')}}!</option>
 								    	<option :value="item.id" v-for="(item,index) in getBusBrandList">{{item.name}}</option>
-								    </select>
+								    </select> -->
+                                    <p class="form-control input_style">{{car.busmarka.name}}</p>
 							  	</div>
 							  	<div class="form-group col-md-2">
 								    <label for="busmodel_id">{{$t('Avtomobil rusumi')}}</label>
-								    <select
+								    <!-- <select
 									    class="form-control input_style"
 								    	id="busmodel_id"
 								    	v-model="car.busmodel_id"
@@ -223,9 +227,10 @@
 								    >
 								    	<option value="" selected disabled>{{$t('Tanlang')}}!</option>
 								    	<option :value="item.id" v-for="(item,index) in car.getBusmodelFindList">{{item.name}}</option>
-								    </select>
+								    </select> -->
+                                    <p class="form-control input_style">{{car.busmodel.name}}</p>
 							  	</div>
-							  	<template v-if="car.id">
+							  	<!-- <template v-if="car.id">
 								  	<div class="form-group col-md-1 trash_car_item" @click.prevent="removeCarFromServer(car.id)">
 								  		<i class="fas fa-trash-alt"></i>
 								  	</div>
@@ -234,18 +239,18 @@
 								  	<div class="form-group col-md-1 trash_car_item" @click.prevent="removeCarItem(index)" v-if="index!=0">
 								  		<i class="fas fa-trash-alt"></i>
 								  	</div>
-							  	</template>
+							  	</template> -->
 					        </div>
 				  	  	</div>
 					  	<div class="form-group col-lg-12 d-flex justify-content-end align-items-center">
-						  	<button type="button" class="btn btn-info mr-3" @click.prevent="addCarItem">
+						  	<!-- <button type="button" class="btn btn-info mr-3" @click.prevent="addCarItem">
 						  		<i class="fas fa-plus"></i>
 							  	{{$t('Avtomobil qoʼshish')}}
 							</button>
 						  	<button type="submit" class="btn btn-primary">
 						  		<i class="fas fa-save"></i>
 							  	{{$t('Saqlash')}}
-							</button>
+							</button> -->
 				  	  	</div>
 					</div>
 				</form>
@@ -345,6 +350,7 @@
 				   	auto_number:'',
 				}]
 			}
+            console.log(this.cars)
 			this.directionvalues = this.getOldcontract.direction_ids.map((item,index)=>{
 				return item
 			})
