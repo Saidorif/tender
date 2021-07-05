@@ -219,7 +219,7 @@ export default {
           toast.fire({
             type: "success",
             icon: "success",
-            title: this.getTimingMassage.message
+            title: this.getMsg.message
           });
         }else{
           toast.fire({
