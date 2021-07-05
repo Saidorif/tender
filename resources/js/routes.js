@@ -131,6 +131,7 @@ import EditOldcontract from './components/admin/oldcontract/EditOldcontract'
 import Mycontract from './components/admin/mycontract/Mycontract'
 import AddMycontract from './components/admin/mycontract/AddMycontract'
 import EditMycontract from './components/admin/mycontract/EditMycontract'
+import ShowMyContract from './components/admin/mycontract/ShowMyContract'
 
 // Client
 import Client from './components/admin/client/Client'
@@ -272,6 +273,7 @@ import SendApplication from './components/admin/tenderuser/SendApplication'
 
 import Contract from './components/admin/contract/Contract'
 import ContractList from './components/admin/contract/ContractList'
+import EditContract from './components/admin/contract/EditContract'
 
 
 // Payment
@@ -658,6 +660,14 @@ const router = new Router({
 				{
 					path:'mycontract/edit/:mycontractId',
 					component:EditMycontract,
+					meta:{
+						action:'edit',
+						subject:'ContractController'
+					}
+				},
+				{
+					path:'mycontract/show/:mycontractId',
+					component:ShowMyContract,
 					meta:{
 						action:'edit',
 						subject:'ContractController'
@@ -1389,6 +1399,14 @@ const router = new Router({
 				{
 					path:'contract-list',
 					component:ContractList,
+				},
+                {
+					path:'contract/edit/:conId',
+					component:EditContract,
+					meta:{
+						action:'edit',
+						subject:'ContractController'
+					}
 				},
 				{
 					path:'protocol-list',

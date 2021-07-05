@@ -68,7 +68,11 @@ class Contract extends Model
 
     public function cars()
     {
-        return $this->hasMany(\App\ContractCar::class,'contract_id')->with(['bustype','busmodel','busmarka','tclass','user']);
+        if($this->type == 'old'){
+            return $this->hasMany(\App\ContractCar::class,'contract_id')->with(['bustype','busmodel','busmarka','tclass','user']);
+        }else{
+            return $this->hasMany(\App\UserCar::class,'app_id','app_id')->with(['bustype','busmodel','busmarka','tclass','user']);
+        }
     }
 
     public function getDirectionIdsAttribute($value)

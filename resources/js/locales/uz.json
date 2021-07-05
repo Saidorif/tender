@@ -1,5 +1,6 @@
 {
     "site_name": "Bosh sahifa",
+    "payment_type": "To'lov turi",
     "menu":{
         "home": "Bosh sahifa",
         "about_tender": "Tender haqida",

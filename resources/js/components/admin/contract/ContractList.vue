@@ -9,31 +9,64 @@
 				</h4>
 		  	</div>
 		  	<div class="card-body">
-			  <div class="table-responsive">
+                  			  <div class="table-responsive">
 				<table class="table table-bordered text-center table-hover table-striped">
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">{{$t('Nomi')}}</th>
+							<th scope="col">{{$t('Viloyat')}}</th>
+							<th scope="col">{{$t('Yoʼnalish')}}</th>
+							<th scope="col">{{$t('Shartnoma raqami')}} </th>
+							<th scope="col">{{$t('Tashkilot nomi')}}</th>
+							<th scope="col">{{$t('Protokol raqami')}}</th>
+							<th scope="col">{{$t('Shartnoma tuzilgan sana')}}</th>
+							<th scope="col">{{$t('Amal qilish muddati')}}</th>
+							<th scope="col">{{$t('Shartnoma periodi')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-						<!-- 	<td scope="row">{{cont.id}}</td>
-							<td>{{cont.name}}</td>
-							<td>{{cont.label}}</td>
+						<tr v-for="(item,index) in getContractList.data">
+							<td scope="row">{{item.id}}</td>
+							<td>{{item.region ? item.region.name : ''}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/conts/edit/${cont.id}`'>
+								<ul class="list-inline" v-if="item.direction_ids.length > 0">
+								    <li v-for="(direct,key) in item.direction_ids">{{direct.name}}</li>
+								</ul>
+							</td>
+							<td>{{item.number}}</td>
+							<td>{{item.user ? item.user.company_name : ''}}</td>
+							<td>{{item.protocol ? item.protocol.number : ''}}</td>
+							<td>{{item.date}}</td>
+							<td>{{item.exp_date}}</td>
+							<td>{{getPeriod(item.contract_period)}}</td>
+							<td>
+								<router-link
+									tag="button"
+									class="btn_transparent"
+									:to='`/crm/contract/edit/${item.id}`'
+									v-if="$can('edit', 'ContractController')"
+								>
 									<i class="pe_icon pe-7s-edit editColor"></i>
-								</router-link> -->
-							<!-- 	<button class="btn_transparent" @click="deleteConts(cont.id)">
+								</router-link>
+								<router-link
+									tag="button"
+									class="btn_transparent"
+									:to='`/crm/contract/${item.id}`'
+								>
+									<i class="pe_icon pe-7s-file editColor"></i>
+								</router-link>
+								<!-- <button
+									class="btn_transparent"
+									@click="deleteOldcontract(item.id)"
+								 	v-if="$can('destroy', 'ContractController')"
+								>
 									<i class="pe_icon pe-7s-trash trashColor"></i>
 								</button> -->
-							<!-- </td> -->
+							</td>
 						</tr>
 					</tbody>
-					<!-- <pagination :limit="4" :data="getConts" @pagination-change-page="getResults"></pagination> -->
+					<pagination :limit="4" :data="getContractList" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
 		  </div>
@@ -53,19 +86,23 @@
 			}
 		},
 		async mounted(){
-			// await this.actionConts()
+			await this.actionContractList({type: 'new', page: 1})
+            console.log(this.getContractList)
 			this.laoding = false
 		},
 		computed:{
-			// ...mapGetters('conts',['getConts','getMassage'])
+			...mapGetters('contract',['getContractList'])
 		},
 		methods:{
-			// ...mapActions('conts',['actionConts']),
-			// async getResults(page = 1){
-			// 	this.laoding = true
-				// await this.actionConts(page)
-			// 	this.laoding = false
-			// },
+			...mapActions('contract',['actionContractList']),
+            async getResults(page = 1){
+				this.laoding = true
+				await this.actionContractList({type: 'new', page: page})
+				this.laoding = false
+			},
+            getPeriod(item){
+				return item+' ' + this.$t('yil')
+			},
 		}
 	}
 </script>

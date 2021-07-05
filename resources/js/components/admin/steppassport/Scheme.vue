@@ -215,6 +215,7 @@ export default {
         this.laoding = true
         await this.actionAddSchemadetail({id:this.$route.params.directionId, data:this.agreedData})
         this.laoding = false
+        console.log(this.getMsg)
         if(this.getMsg.success){
           toast.fire({
             type: "success",

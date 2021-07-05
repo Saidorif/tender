@@ -160,13 +160,19 @@ class ApplicationController extends Controller
             'bus_adapted' => 'required|boolean',
             'telephone_power' => 'required|boolean',
             'monitor' => 'required|boolean',
+            'pTexpassportSery' => 'required|string',
+            'pTexpassportNumber' => 'required|string',
+            'kuzov' => 'nullable|string',
             'station_announce' => 'nullable|boolean',
+            'lizing' => 'required|boolean',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true, 'message' => $validator->messages()]);
         }
         $user = $request->user();
         $inputs = $request->all();
+        $inputs['tech_seria'] = $inputs['pTexpassportSery'];
+        $inputs['tech_number'] = $inputs['pTexpassportNumber'];
 
         $application = Application::find($inputs['app_id']);
         if(!$application){
@@ -214,7 +220,9 @@ class ApplicationController extends Controller
         //Check for if the car already in use
         $the_old_car = UserCar::where(['auto_number' => $inputs['auto_number']])->first();
         if($the_old_car){
-            return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
+            if($the_old_car->application->status == 'winner'){
+                return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
+            }
         }
 
         //Check for GAI CAR
@@ -322,6 +330,9 @@ class ApplicationController extends Controller
         }
         if($application->status == 'accepted'){
             return response()->json(['error' => true, 'message' => 'Заявка уже принята']);
+        }
+        if($application->status == 'winner'){
+            return response()->json(['error' => true, 'message' => 'Заявка уже закрыта']);
         }
         if($application->cars->count() < 1){
             return response()->json(['error' => true, 'message' => 'Пожалуйста, добавьте машину']);
@@ -478,7 +489,7 @@ class ApplicationController extends Controller
     public function userCertificateShow(Request $request,$id)
     {
         $user = $request->user();
-        $result = Certificate::with(['user','direction','car'])->where('user_id','=',$user->id)->find($id);
+        $result = Certificate::with(['user','direction','car','contract'])->where('user_id','=',$user->id)->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Сертификат не найдено']);
         }

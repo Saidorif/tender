@@ -20,9 +20,9 @@ const getters = {
 
 
 const actions = {
-	async actionContractList({commit},page){
+	async actionContractList({commit},data){
 		try {
-			const areas =  await ContractService.contractlist(page);
+			const areas =  await ContractService.contractlist(data);
 			await commit('setContractLists',areas.data.result)
 			return true
 		} catch (error) {

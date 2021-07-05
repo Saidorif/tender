@@ -1441,8 +1441,8 @@
 					    	$('#myModal').modal('hide')
 				    	}else{
 				    		toast.fire({
-					            type: "success",
-					            icon: "success",
+					            type: "error",
+					            icon: "error",
 					            title: this.getMassage.message
 				          	});
                         }
@@ -1461,6 +1461,7 @@
 		    	}
 		    },
 		    async saveData(){
+                this.form.contract_time = this.contract_time
 		    	let check = true
 		    	if (this.form.hours_rule == 1){
 		    		if (this.files.length > 0) {

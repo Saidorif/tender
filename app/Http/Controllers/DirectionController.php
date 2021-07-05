@@ -822,7 +822,7 @@ class DirectionController extends Controller
         if(!empty($params['name'])){
             $builder->where('name','LIKE', '%'.$params['name'].'%');
         }
-        $result = $builder->paginate(20);
+        $result = $builder->orderBy('id','DESC')->paginate(20);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -896,12 +896,14 @@ class DirectionController extends Controller
         }
         $schedules = $direction->schedule;
         foreach ($schedules as $key => $value) {
-            $value->status = 'inactive';
-            $value->save();
+            //$value->status = 'inactive';
+            //$value->save();
+            $value->delete();
             $reysTimes = $value->reysTimes;
             foreach ($reysTimes as $key => $item) {
-                $item->status = 'inactive';
-                $item->save();
+                //$item->status = 'inactive';
+                //$item->save();
+                $item->delete();
             }
         }
         $inputs = $request->input('data');
@@ -1226,7 +1228,7 @@ class DirectionController extends Controller
                 $query->where('region_id',$region);
             });
         }
-        $result = $builder->paginate(12);
+        $result = $builder->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1325,7 +1327,7 @@ class DirectionController extends Controller
                 $q->where(['xronom_status' => 'pending'])->orWhere(['xronom_status' => 'completed']);
             });
         }
-        $result = $builder->paginate(12);
+        $result = $builder->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1424,7 +1426,7 @@ class DirectionController extends Controller
                 $query->where('region_id',$region);
             });
         }
-        $result = $builder->paginate(12);
+        $result = $builder->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1524,7 +1526,7 @@ class DirectionController extends Controller
                 $query->where('region_id',$region);
             });
         }
-        $result = $builder->paginate(12);
+        $result = $builder->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -1618,7 +1620,7 @@ class DirectionController extends Controller
         if(!empty($params['status'])){
             $builder->where(['direction_reqs.status' => $params['status']]);
         }
-        $result = $builder->paginate(12);
+        $result = $builder->orderBy('direction_reqs.id','DESC')->paginate(12);
         return response()->json(['success' => true, 'result' => $result]);
     }
 

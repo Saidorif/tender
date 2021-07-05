@@ -111,27 +111,29 @@
                   <td>{{ p_index + 1 }}</td>
                   <template v-for="(ch_item, ch_index) in p_item">
                     <td class="reys1" colspan="1">
-                      <DatePicker
-                        v-model="ch_item.end"
+                      <!-- <DatePicker
+                        v-model.lazy="ch_item.end"
                         type="time"
                         class="table_input"
                         valueType="format"
                         format="HH:mm:ss"
-                      />
+                      /> -->
+                      <input type="time"  step="1"  v-model="ch_item.end">
                     </td>
                     <td class="reys1" colspan="1">
-                      <DatePicker
-                        v-model="ch_item.start"
+                      <!-- <DatePicker
+                        v-model.lazy="ch_item.start"
                         type="time"
                         class="table_input"
                         valueType="format"
                         format="HH:mm:ss"
-                      />
+                      /> -->
+                      <input type="time"  step="1"  v-model="ch_item.start">
                     </td>
-                    <input type="hidden" v-model="p_item.bus_order" class="table_input" />
+                    <input type="hidden" v-model.lazy="p_item.bus_order" class="table_input" />
                   </template>
                   <td class="reys1" colspan="1">
-                    <input type="text" v-model="p_item.bus_order" class="table_input" />
+                    <input type="text" v-model.lazy="p_item.bus_order" class="table_input" />
                   </td>
                 </tr>
               </tbody>
@@ -165,27 +167,29 @@
                   <td>{{ p_index + 1 }}</td>
                   <template v-for="(ch_item, ch_index) in p_item">
                     <td class="reys1" colspan="1">
-                      <DatePicker
-                        v-model="ch_item.end"
+                      <!-- <DatePicker
+                        v-model.lazy="ch_item.end"
                         type="time"
                         class="table_input"
                         valueType="format"
                         format="HH:mm:ss"
-                      />
+                      /> -->
+                      <input type="time"  step="1"  v-model="ch_item.end">
                     </td>
                     <td class="reys1" colspan="1">
-                      <DatePicker
-                        v-model="ch_item.start"
+                      <!-- <DatePicker
+                        v-model.lazy="ch_item.start"
                         type="time"
                         class="table_input"
                         valueType="format"
                         format="HH:mm:ss"
-                      />
+                      /> -->
+                      <input type="time"  step="1"  v-model="ch_item.start">
                     </td>
-                    <input type="hidden" v-model="p_item.bus_order" class="table_input" />
+                    <input type="hidden" v-model.lazy="p_item.bus_order" class="table_input" />
                   </template>
                   <td class="reys1" colspan="1">
-                    <input type="text" v-model="p_item.bus_order" class="table_input" />
+                    <input type="text" v-model.lazy="p_item.bus_order" class="table_input" />
                   </td>
                 </tr>
               </tbody>
@@ -208,6 +212,17 @@
             </div>
           </div>
         </form>
+        <!-- <div>
+            <virtual-list
+            :data-key="'id'"
+            :data-sources="items"
+            :data-component="itemComponent"
+            :estimate-size="70"
+            v-on:tobottom="onScrollToBottom"
+            >
+            <div slot="footer" class="loading-spinner">Loading ...</div>
+            </virtual-list>
+        </div> -->
         <div id="prindDiv">
             <p style="margin: 0px; text-align: right; font-size: 15px">
                 Тасдиқлайман
@@ -307,12 +322,14 @@
 import DatePicker from "vue2-datepicker";
 import { mapGetters, mapActions } from "vuex";
 import PassportTab from "./PassportTab";
-import Loader from '../../Loader'
+import Loader from '../../Loader';
+// import VirtualList from 'vue-virtual-scroll-list'
 export default {
   components: {
     DatePicker,
     PassportTab,
-    Loader
+    Loader,
+    // 'virtual-list': VirtualList
   },
   data() {
     return {
@@ -401,18 +418,23 @@ export default {
     await this.actionEditDirection(this.$route.params.directionId);
     await this.actionGetScheduleTable(this.$route.params.directionId);
     this.laoding = false
-      this.titulData = this.getDirection;
+    this.titulData = this.getDirection;
     if(this.getSchedule.whereFrom.length && this.getSchedule.whereTo.length){
-      this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
-      this.form.whereFrom.stations =  this.getSchedule.whereFrom[0].stations
+
+        this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
+        this.form.whereFrom.stations =  this.getSchedule.whereFrom[0].stations
+        // this.pushshingToArray(this.getSchedule.whereFrom, ['whereFrom', 'reyses'])
       this.getSchedule.whereFrom.forEach(element => {
         this.form.whereFrom.reyses.push(element.reys_times)
       });
-      this.form.whereTo.where = this.getSchedule.whereTo[0].where;
-      this.form.whereTo.stations =  this.getSchedule.whereTo[0].stations
+
+        this.form.whereTo.where = this.getSchedule.whereTo[0].where;
+        this.form.whereTo.stations =  this.getSchedule.whereTo[0].stations
+        // this.pushshingToArray(this.getSchedule.whereTo, ['whereTo', 'reyses'])
       this.getSchedule.whereTo.forEach(element => {
         this.form.whereTo.reyses.push(element.reys_times)
       });
+
       this.form.count_bus = this.getSchedule.whereFrom[0].count_bus
       this.form.reys_from_count = this.getSchedule.whereFrom[0].reys_from_count
       this.form.reys_to_count = this.getSchedule.whereFrom[0].reys_to_count
@@ -455,6 +477,19 @@ export default {
       "actionSetScheduleTable",
       "actionGetScheduleTable",
     ]),
+    // onScrollToBottom () {
+    //   this.items = this.items.concat(getPageData(pageSize, pageNum))
+    // },
+    pushshingToArray(data, keyform){
+        let thisform = this.form[keyform[0]][keyform[1]];
+        do {
+            thisform.push(data[thisform.length].reys_times)
+        } while (thisform.length % 2 != 1);
+
+        if (thisform.length < data.length) {
+            setTimeout(this.pushshingToArray(data, keyform), 1000);
+        }
+    },
     async sendToActivate(){
       await this.actionApproveSchedule(this.$route.params.directionId)
       if (this.getScheduleMassage.success){

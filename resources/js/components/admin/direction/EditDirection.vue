@@ -361,7 +361,7 @@
             </div>
           </div>
         </form>
-                <div id="prindDiv">
+        <div id="prindDiv">
           <p style="margin: 0px; text-align: right; font-size: 15px">
             Тасдиқлайман
           </p>
@@ -895,7 +895,7 @@ export default {
     this.form.region_to.region_id = this.getDirection.region_to_id ? this.getDirection.region_to_id : '';
     this.form.region_to.area_id = this.getDirection.area_to_id ? this.getDirection.area_to_id : '';
     this.form.region_to.station_id = this.getDirection.station_to_id ? this.getDirection.station_to_id : '';
-    this.form.year = this.getDirection.year.toString();
+    this.form.year = this.$g.getDate(this.getDirection.year.toString());
     // if (this.getDirection.from_type) {
     //   this.form.from_type = this.getDirection.from_type;
     // }else{

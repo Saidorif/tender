@@ -46,6 +46,7 @@
         "vue-multiselect": "^2.1.6",
         "vue-progressbar": "^0.7.5",
         "vue-router": "^3.5.1",
+        "vue-virtual-scroll-list": "^2.3.2",
         "vue2-datepicker": "^3.9.0",
         "vue2-editor": "^2.10.2",
         "vuesax": "^3.12.2",

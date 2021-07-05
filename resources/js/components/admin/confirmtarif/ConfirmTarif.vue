@@ -114,7 +114,7 @@
 							<th scope="col">{{$t('Yoʼnalish')}}</th>
 							<th scope="col">{{$t('Yoʼnalish raqami')}}</th>
 							<th scope="col">{{$t('Reyslar soni')}}</th>
-							<th scope="col">{{$t('Bagaj miqdori')}}</th>
+							<th scope="col">{{$t('Passport raqami')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
@@ -153,7 +153,7 @@
                                         <button type="button" class="btn" :class="ch_item.status == 'approved' ? 'btn-success' : 'fas btn-warning'" style="padding: 2px 9px;"
                                         	@click="completedTender(ch_item.id)"
                                     	>
-                                            <i :class="ch_item.status == 'approved' ? 'far fa-check-circle' : 'fas fa-times'"></i>
+                                            <i :class="ch_item.status == 'approved' ? 'fas fa-times' : 'far fa-check-circle'"></i>
                                         </button>
                                     </li>
                                 </ul>

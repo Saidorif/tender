@@ -17,10 +17,17 @@ class ContractController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $contracts = Contract::orderBy('id','DESC')
+        $type = 'old';
+        if(!empty($request->input('type'))){
+            $type = $request->input('type');
+        }
+        $builder = Contract::query()->orderBy('id','DESC')
                         ->with(['user','cars','protocol','region'])
-                        ->where(['region_id' => $user->region_id])
-                        ->paginate(12);
+                        ->where(['type' => $type]);
+        if($user->role_id != 1){
+            $builder->where(['region_id' => $user->region_id]);
+        }
+        $contracts = $builder->paginate(12);
         return response()->json(['success' => true, 'result' => $contracts]);
     }
 
@@ -248,8 +255,11 @@ class ContractController extends Controller
     public function edit(Request $request,$id)
     {
         $user = $request->user();
-        $contract = Contract::with(['user','cars','protocol','region'])->where(['region_id' => $user->region_id])->find($id);
+        $contract = Contract::with(['user','cars','protocol','region'])->find($id);
         if(!$contract){
+            return response()->json(['error' => true, 'message' => 'Контракт не найден']);
+        }
+        if($user->role_id != 1 && $user->region_id != $contract->region_id){
             return response()->json(['error' => true, 'message' => 'Контракт не найден']);
         }
         return response()->json(['success' => true, 'result' => $contract]);

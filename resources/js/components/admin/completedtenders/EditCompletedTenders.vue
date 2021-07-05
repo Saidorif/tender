@@ -54,7 +54,7 @@
                   <tr>
                     <th>№</th>
                     <th width="15%">{{$t('Yoʼnalish')}}</th>
-                    <th width="15%">{{$t('Holati')}}</th>
+                    <th width="15%">{{$t('Yoʼnalish nomi')}}</th>
                     <th width="15%">{{$t('Taklif yuborgan tashuvchilar')}}</th>
                     <th>{{$t('Avto ishlab chiqarilgan yildan boshlab necha yil otgani')}}</th>
                     <th>{{$t('Yoʼlovchilar sigʼimi')}}</th>

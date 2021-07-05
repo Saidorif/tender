@@ -32,6 +32,10 @@ class UserCar extends Model
         'license_exp_date',
         'license_number',
         'technical_status',
+        'tech_seria',
+        'tech_number',
+        'kuzov',
+        'lizing',
         'text',
         'file',
     ];

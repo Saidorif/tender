@@ -30,7 +30,7 @@
 							<td>{{reg.seria}}{{reg.number}}</td>
 							<td>{{reg.exp_date}}</td>
 							<td>
-								<router-link  tag="button" class="btn_transparent" :to='`/crm/certificate/edit/${reg.id}`' v-if="$can('userCertificateShow', 'ApplicationController')">
+								<router-link  tag="button" class="btn_transparent" :to='`/crm/usercertificate/edit/${reg.id}`' v-if="$can('userCertificateShow', 'ApplicationController')">
 									<i class="pe_icon pe-7s-edit editColor"></i>
 								</router-link>
 							</td>
