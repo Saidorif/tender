@@ -25,8 +25,15 @@ export const g = {
         mywindow.document.write("</body></html>");
         mywindow.document.close(); // necessary for IE >= 10
         mywindow.focus(); // necessary for IE >= 10*/
-        mywindow.print();
-        mywindow.close();
+        var is_chrome = function () { return Boolean(window.chrome); }
+        if(is_chrome){
+            mywindow.print();
+            setTimeout(function(){mywindow.close();}, 10000);
+        }else{
+            mywindow.print();
+            mywindow.close();
+        }
+
         return true;
     },
     getFirstLetter(name){
