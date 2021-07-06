@@ -96,7 +96,9 @@
 				'actionAddApplication',
 			]),
 			async getResults(page = 1){
+				this.laoding = true
 				await this.actionApplications(page)
+				this.laoding = false
 			},
 			async getEditId(){
 				await this.actionAddApplication()
