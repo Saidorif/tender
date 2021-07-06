@@ -20,5 +20,6 @@
     <orderEntry type="module" module-name="pcms.loc" />
     <orderEntry type="module" module-name="book.loc" />
     <orderEntry type="module" module-name="daryo.loc" />
+    <orderEntry type="module" module-name="huzurtravel.loc" />
   </component>
 </module>

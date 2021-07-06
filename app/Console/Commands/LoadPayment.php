@@ -149,7 +149,7 @@ class LoadPayment extends Command
                                     $new_payment->summ = $d['sumpay'] / 100;
                                     $new_payment->transaction_id = $d['id'];
                                     $new_payment->date = $d['the_date'];
-                                    $new_payment->status = 'accepted';
+                                    $new_payment->status = 'active';
                                     $new_payment->details = $d['purpose'];
                                     $new_payment->created_by = 2;
                                     $new_payment->inn = $user->inn;

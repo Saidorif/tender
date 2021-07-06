@@ -20,6 +20,7 @@
 							<th scope="col">№</th>
 							<th scope="col">{{$t('Tashkilot nomi')}}</th>
 							<th scope="col">{{$t('Holati')}}</th>
+							<th scope="col">{{$t('payment_type')}}</th>
 							<th scope="col">{{$t('INN')}}</th>
 							<th scope="col">{{$t('Miqdor')}}</th>
 							<th scope="col">{{$t('Sana')}}</th>
@@ -35,7 +36,8 @@
 									{{getStatusName(reg.status)}}
 								</div>
 							</td>
-							<td>{{reg.user.inn}}</td>
+                            <td>{{reg.transaction_id == null ? 'Ручной' : 'Kазначейство'}}</td>
+                            <td>{{reg.user.inn}}</td>
 							<td>{{reg.summ}}</td>
 							<td>{{reg.date}}</td>
 							<td>
