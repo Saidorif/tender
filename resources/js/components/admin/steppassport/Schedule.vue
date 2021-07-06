@@ -533,13 +533,13 @@ export default {
           toast.fire({
             type: "success",
             icon: "success",
-            title: "Malumotlar saqlandi",
+            title: this.getScheduleResMsg.message,
           });
         } else {
           toast.fire({
             type: "error",
             icon: "error",
-            title: "nmadir nito",
+            title: this.getScheduleResMsg.message,
           });
         }
         this.requiredInput = false;
