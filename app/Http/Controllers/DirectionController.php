@@ -350,9 +350,7 @@ class DirectionController extends Controller
             'carsWith',
             'schemaDetails',
             'createdBy',
-        ])->whereHas('createdBy', function ($query) use ($region){
-            $query->where('region_id',$region);
-        })->find($id);
+        ])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Направление не найден']);
         }

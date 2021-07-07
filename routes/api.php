@@ -253,6 +253,7 @@ Route::group([
             Route::get('direction/requirement/{id}', 'DirectionController@requirement');
             Route::post('direction/requirement/{id}', 'DirectionController@storeRequirement');
             Route::get('direction/edit/{id}', 'DirectionController@edit');
+            Route::get('carrier/direction/edit/{id}', 'DirectionController@editCarrier');
             Route::post('direction/update/{id}', 'DirectionController@update');
             Route::delete('direction/destroy/{id}', 'DirectionController@destroy');
             Route::delete('direction/car/destroy/{id}', 'DirectionController@deleteDirectionCar');
