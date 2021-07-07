@@ -852,7 +852,7 @@ export default {
     await this.actionRegionList();
     await this.actionTypeofbusList();
     await this.actionTypeofdirectionList();
-    await this.actionEditDirection(this.$route.params.directionId);
+    await this.actionDirection(this.$route.params.directionId);
     await this.actionBusBrandList();
     this.laoding = false
     this.form.pass_number = this.getDirection.pass_number;
@@ -894,7 +894,7 @@ export default {
     ...mapActions("station", ["actionStationByRegion"]),
     ...mapActions("area", ["actionXromAreaList"]),
     ...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
-    ...mapActions("direction", ["actionEditDirection","actionCarDeleteDirection"]),
+    ...mapActions("front", ["actionDirection","actionCarDeleteDirection"]),
     ...mapActions("passportTab", ["actionTarif"]),
     ...mapActions("direction", ["actionUpdateDirection"]),
     ...mapActions("busbrand", ["actionBusBrandList"]),
@@ -903,7 +903,7 @@ export default {
     async sendToActivate(){
       await this.actionApproveTitul(this.$route.params.directionId)
       if (this.getTitulMassage.success){
-        await this.actionEditDirection(this.$route.params.directionId);
+        await this.actionDirection(this.$route.params.directionId);
         toast.fire({
           type: "success",
           icon: "success",
@@ -921,7 +921,7 @@ export default {
       if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
         await this.actionCarDeleteDirection(id)
         if (this.getMassage.success){
-          await this.actionEditDirection(this.$route.params.directionId);
+          await this.actionDirection(this.$route.params.directionId);
           toast.fire({
             type: "success",
             icon: "success",
@@ -1001,7 +1001,7 @@ export default {
     },
     async sendDirection(){
       this.laoding = true
-      await this.actionEditDirection(this.$route.params.directionId);
+      await this.actionDirection(this.$route.params.directionId);
       this.laoding = false
     },
     async saveDirection() {
@@ -1028,7 +1028,7 @@ export default {
             });
             // this.$router.push(`/crm/direction/edit/${this.getMassage.id}`);
             this.cars = []
-            await this.actionEditDirection(this.$route.params.directionId);
+            await this.actionDirection(this.$route.params.directionId);
           } else {
             toast.fire({
               type: "error",
@@ -1088,7 +1088,7 @@ export default {
     ...mapGetters("area", ["getAreaXromLists"]),
     ...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
     ...mapGetters("station", ["getStationsList"]),
-    ...mapGetters("direction", ["getDirection",'getMassage']),
+    ...mapGetters("front", ["getDirection",'getMassage']),
     ...mapGetters("passportTab", ["getTarif"]),
     ...mapGetters("busbrand", ["getBusBrandList"]),
     ...mapGetters("busmodel", ["getBusmodelFindList"]),
