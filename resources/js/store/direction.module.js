@@ -5,6 +5,7 @@ const state = {
 	directionusers: {},
 	message: [],
 	direction: [],
+	carrier_direction: [],
 	directionFindList: [],
 	apiDirections: [],
 };
@@ -21,6 +22,9 @@ const getters = {
 	},
 	getDirection(state){
 		return state.direction
+	},
+	getCarrierDirection(state){
+		return state.carrier_direction
 	},
 	getDirectionFindList(state){
 		return state.directionFindList
@@ -86,6 +90,15 @@ const actions = {
 			return false
 		}
 	},
+	async actionEditCarrierDirection({commit},id){
+		try {
+			const directions =  await DirectService.editCarrierDirection(id);
+			await commit('setEditCarrierDirection',directions.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionEditDirection({commit},id){
 		try {
 			const directions =  await DirectService.editDirection(id);
@@ -130,6 +143,9 @@ const mutations = {
 	},
 	setEditDirection(state, direction){
 		state.direction = direction
+	},
+	setEditCarrierDirection(state, carrier_direction){
+		state.carrier_direction = carrier_direction
 	},
 	setDirectionFind(state, directionFindList){
 		state.directionFindList = directionFindList

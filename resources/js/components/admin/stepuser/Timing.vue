@@ -152,10 +152,10 @@ export default {
     };
   },
   async mounted() {
-    await this.actionEditDirection(this.$route.params.directionId);
+    await this.actionEditCarrierDirection(this.$route.params.directionId);
     await this.actionRegionList();
     this.laoding = false
-    this.titulData = this.getDirection
+    this.titulData = this.getCarrierDirection
     this.timingDetails = this.titulData.timing_details.length ? this.titulData.timing_details[0] : this.timingDetails
     this.tableData = this.titulData.timing_with.length ? this.titulData.timing_with : this.tableData
     if(this.tableData.length){
@@ -176,13 +176,13 @@ export default {
     ...mapGetters("area", ["getAreaList"]),
     ...mapGetters("station", ["getStationsList"]),
     ...mapGetters("passportTab", ["getTimingMassage"]),
-    ...mapGetters("direction", ["getDirection"]),
+    ...mapGetters("direction", ["getCarrierDirection"]),
   },
   methods: {
     ...mapActions("region", ["actionRegionList"]),
     ...mapActions("station", ["actionStationByRegion"]),
     ...mapActions("area", ["actionAreaByRegion"]),
-    ...mapActions("direction", ["actionEditDirection"]),
+    ...mapActions("direction", ["actionEditCarrierDirection"]),
     ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
     isRequired(input) {
       return this.requiredInput && input === "";

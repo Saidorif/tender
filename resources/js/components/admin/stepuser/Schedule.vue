@@ -249,10 +249,10 @@ export default {
     },
   },
   async mounted() {
-    await this.actionEditDirection(this.$route.params.directionId);
+    await this.actionEditCarrierDirection(this.$route.params.directionId);
     await this.actionGetScheduleTable(this.$route.params.directionId);
     this.laoding = false
-      this.titulData = this.getDirection;
+      this.titulData = this.getCarrierDirection;
 
     if(this.getSchedule.whereFrom.length && this.getSchedule.whereTo.length){
       this.form.whereFrom.where = this.getSchedule.whereFrom[0].where;
@@ -288,11 +288,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("direction", ["getDirection"]),
+    ...mapGetters("direction", ["getCarrierDirection"]),
     ...mapGetters("passportTab", ["getScheduleResMsg", "getSchedule"]),
   },
   methods: {
-    ...mapActions("direction", ["actionEditDirection"]),
+    ...mapActions("direction", ["actionEditCarrierDirection"]),
     ...mapActions("passportTab", [
       "actionAddTiming",
       "clearTimingTable",
