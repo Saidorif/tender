@@ -51,6 +51,7 @@ class TenderCheck extends Command
         }
         $this->info('Completed tenders count '.$tenders->count());
         $tenderlots = TenderLot::whereIn('tender_id',$tenders->pluck('id')->toArray())->where(['status' => 'pending'])->get();
+        $closed_tenderlots = 0;
         $this->info('Tenderlots count '.$tenderlots->count());
         foreach($tenderlots as $lot){
             $this->info('**********************************************************************');
@@ -117,17 +118,24 @@ class TenderCheck extends Command
                     // 3. Generate contract
                     $direction_ids = $lot->getDirection();
                     $contract_date = Carbon::parse($lot->tender->time)->format('Y-m-d');
+                    if($application->contract_time){
+                        $contract_time = $application->contract_time;
+                    }else{
+                        $contract_time = 1;
+                    }
                     $contractArray = [
                         'user_id' => $user->id,
                         'app_id' => $application->id,
                         'app_ball_id' => $applicationBall->id,
                         'tender_id' => $lot->tender_id,
+                        'region_id' => $application->user->region_id,
+                        'created_by' => 2,
                         'lot_id' => $lot->id,
                         'direction_ids' => $direction_ids,
                         'number' => '1',
                         'date' => Carbon::parse($lot->tender->time)->format('Y-m-d'),
                         'exp_date' => Carbon::parse($lot->tender->time)->addYears($application->contract_time),
-                        'contract_period' => $application->contract_time,
+                        'contract_period' => $contract_time,
                     ];
                     $contract = Contract::create($contractArray);
 
@@ -219,6 +227,14 @@ class TenderCheck extends Command
                 }
             }
             //$this->info('Application balls : ');
+            if($lot->status == 'completed'){
+                $closed_tenderlots++;
+            }
+            //Check for all tender lots closed
+            $the_tender_lots_count =  TenderLot::where('tender_id','=',$lot->tender_id)->count();
+            if($the_tender_lots_count == $closed_tenderlots){
+                $this->info('Tender at : '.$lot->tender->address.' '.$lot->tender->time.' is closed.');
+            }
         }
     }
 
