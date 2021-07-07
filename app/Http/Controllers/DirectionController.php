@@ -335,6 +335,30 @@ class DirectionController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function editCarrier(Request $request, $id)
+    {
+        $result = Direction::with([
+            'regionToWith',
+            'regionFromWith',
+            'areaFromWith',
+            'areaToWith',
+            'timingWith',
+            'timingDetails',
+            'type',
+            'stationFrom',
+            'stationTo',
+            'carsWith',
+            'schemaDetails',
+            'createdBy',
+        ])->whereHas('createdBy', function ($query) use ($region){
+            $query->where('region_id',$region);
+        })->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Направление не найден']);
+        }
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function edit(Request $request, $id)
     {
         $user = $request->user();
@@ -354,7 +378,8 @@ class DirectionController extends Controller
                 'schemaDetails',
                 'createdBy',
             ])->find($id);
-        }else{
+        }
+        else{
             $result = Direction::with([
                 'regionToWith',
                 'regionFromWith',
