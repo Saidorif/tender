@@ -16,9 +16,29 @@ class PaymentController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function userIndex(Request $request)
+    {
+        $user = $request->user();
+        $result = Payment::orderBy('id', 'DESC')
+                        ->with(['user','createdBy','updatedBy'])
+                        ->where(['user_id' => $user->id])
+                        ->paginate(12);
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public function edit(Request $request,$id)
     {
         $payment = Payment::with(['user','createdBy','updatedBy'])->find($id);
+        if(!$payment){
+            return response()->json(['error' => true, 'message' => 'Платеж не найден']);
+        }
+        return response()->json(['success' => true, 'result' => $payment]);
+    }
+
+    public function userEdit(Request $request,$id)
+    {
+        $user = $request->user();
+        $payment = Payment::with(['user','createdBy','updatedBy'])->where(['user_id' => $user->id])->find($id);
         if(!$payment){
             return response()->json(['error' => true, 'message' => 'Платеж не найден']);
         }
@@ -85,14 +105,14 @@ class PaymentController extends Controller
             $status = $inputs['status'];
         }
         unset($inputs['status']);
-        
+
         $payment->update($inputs);
 
         if($status == 'active'){
             if($payment->status == 'draft'){
                 $client->balance += $inputs['summ'];
                 $client->save();
-                
+
                 $payment->status = $status;
                 $payment->save();
             }
