@@ -90,15 +90,18 @@
 		                        label="number"
 		                        :max="3"
 								:loading="isProtocolLoading"
-								:selectLabel="$t('Tanlash uchun Enter tugmasini bosing')"
-								:deselectLabel="$t('Oʼchirish uchun Enter tugmasini bosing')"
-								:option="[{number: 'Otash', id: 1}]"
+								selectLabel=""
+								deselectLabel=""
+								:option="[{number: 'Otash', date: ''}]"
 								@select="dispatchProtocol"
 								@remove="removeProtocol"
 								:class="isRequired(form.protocol_id) ? 'isRequired' : ''"
-								>
+							>
 								<span slot="noResult">{{$t('Sizning qidirgan maʼlumot topilmadi.')}}</span>
 								<span slot="noOptions">{{$t('Royxat boʼsh')}}</span>
+	                            <template slot="singleLabel" slot-scope="{ option }">
+	                                № {{option.number}} ({{option.date}})
+	                            </template>
 							</multiselect>
 				  	    </div>
 					  	<div class="form-group col-md-3">
@@ -159,7 +162,7 @@
 					        	<div class="item_index">
 					        		{{index+1}})
 				        		</div>
-					        	<div class="form-group col-md-1">
+					        	<div class="form-group col-md-2">
 								    <label for="auto_number">{{$t('Avtomobil raqami')}}</label>
 								    <input
 								    	type="text"

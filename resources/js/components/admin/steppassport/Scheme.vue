@@ -292,12 +292,12 @@ export default {
   padding-right: 30px;
 }
 .map_scheme {
+      margin-top: 40px;
   width: 100%;
+  height: 300px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding-top: 100px;
-  padding-bottom: 100px;
+  align-items: flex-start;
   position: relative;
 }
 .cicle_item {
@@ -317,43 +317,105 @@ export default {
   background: #fff;
   z-index: 9;
   position: relative;
+  margin-top: 1px;
 }
 
 .stationItem h6 {
   position: absolute;
-  top: -30px;
-  left: 50%;
+  top: 20px;
+  left: 5px;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   white-space: nowrap;
+  writing-mode: vertical-rl;
 }
+
+/* .sm_cicle_item.stationItem::before{
+    content: '';
+    position: absolute;
+    top: 10px;
+
+    left: 3.5px;
+    height: 15px;
+    width: 2px;
+    background: black;
+    z-index: 1;
+} */
 .mid_line {
   position: absolute;
   left: 0;
   right: 0;
-  top: 49.4%;
+  top: 7px;
   width: 100%;
   height: 3px;
   background: #000;
   z-index: 0;
 }
-
-.stationItem:nth-child(even) h6 {
-  top: -30px;
+.stationItem h6{
+    margin-bottom: 0;
 }
-.stationItem:nth-child(odd) h6 {
+/* .stationItem:nth-child(even) h6 {
+  top: -30px;
+} */
+/* .sm_cicle_item.stationItem:nth-child(even)::before{
+    top: -15px;
+} */
+/* .stationItem:nth-child(odd) h6 {
   top: 30px;
 }
+.stationItem:nth-child(4) h6 {
+  top: -50px;
+}
+.stationItem:nth-child(5) h6 {
+  top: 50px;
+}
+
+.stationItem:nth-child(8) h6 {
+  top: -50px;
+}
+.stationItem:nth-child(9) h6 {
+  top: 50px;
+}
+.stationItem:nth-child(12) h6 {
+  top: -50px;
+}
+.stationItem:nth-child(13) h6 {
+  top: 50px;
+}
+.stationItem:nth-child(16) h6 {
+  top: -50px;
+}
+.stationItem:nth-child(17) h6 {
+  top: 50px;
+}
+.stationItem:nth-child(20) h6 {
+  top: -50px;
+}
+.stationItem:nth-child(21) h6 {
+  top: 50px;
+}
+.stationItem:nth-child(24) h6 {
+  top: -50px;
+}
+.stationItem:nth-child(25) h6 {
+  top: 50px;
+}
+.stationItem:nth-child(28) h6 {
+  top: -50px;
+}
+.stationItem:nth-child(29) h6 {
+  top: 50px;
+} */
 .end_point {
 }
 .end_point.stationItem h6,
 .start_point.stationItem h6 {
   font-weight: bold;
-  top: -30px;
+  top: 22px;
 }
-.start_point.stationItem h6{
+/* .start_point.stationItem h6{
     left: 30px;
-}
+} */
 .icon_item {
   position: relative;
   border: 1px solid #000;
@@ -423,4 +485,5 @@ export default {
     border-bottom: 1px solid #000;
     margin-right: 5px;
 }
+
 </style>
