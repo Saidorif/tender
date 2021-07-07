@@ -304,7 +304,7 @@
               <!-- 3 s -->
               <tr>
                 <td :rowspan="2">15</td>
-                <td width="50%"><b>{{$t('Reyslar soni')}}</b></td>
+                <td width="50%"><b>{{$t('Tarif')}}</b></td>
                 <td>
                   <b>{{ form.tarif }}</b>
                 </td>
