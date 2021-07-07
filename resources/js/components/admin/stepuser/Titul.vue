@@ -665,11 +665,11 @@
 </template>
 <script>
 import DatePicker from "vue2-datepicker";
-import Timing from "../steppassport/Timing";
-import Scheme from "../steppassport/Scheme";
-import Schedule from "../steppassport/Schedule";
-import PassportTab from "../steppassport/PassportTab";
-import Tarif from "../steppassport/Tarif";
+import Timing from "../stepuser/Timing";
+import Scheme from "../stepuser/Scheme";
+import Schedule from "../stepuser/Schedule";
+import PassportTab from "../stepuser/PassportTab";
+import Tarif from "../stepuser/Tarif";
 import { mapGetters, mapActions } from "vuex";
 import "vue2-datepicker/index.css";
 import Loader from '../../Loader'
