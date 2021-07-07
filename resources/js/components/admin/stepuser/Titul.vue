@@ -364,7 +364,7 @@
                   font-size: 15px;
                 "
               >
-                "{{ form.pass_number }} - {{ getDirection.name }}"
+                "{{ form.pass_number }} - {{ getCarrierDirection.name }}"
               </p>
               <small style="font-size: 13px">(наименование маршрута)</small>
             </div>
@@ -610,23 +610,23 @@
                     padding-right: 30px;
                   "
                 >
-                  <span v-if="getDirection.station_from_id">
-                      {{getDirection.station_from.name}}
+                  <span v-if="getCarrierDirection.station_from_id">
+                      {{getCarrierDirection.station_from.name}}
                   </span>
-                  <span v-else-if="getDirection.area_from_id">
-                      {{getDirection.area_from_with.name}}
+                  <span v-else-if="getCarrierDirection.area_from_id">
+                      {{getCarrierDirection.area_from_with.name}}
                   </span>
-                  <span v-else-if="getDirection.region_from_id">
-                      {{getDirection.region_from_with.name}}
+                  <span v-else-if="getCarrierDirection.region_from_id">
+                      {{getCarrierDirection.region_from_with.name}}
                   </span>
-                  <span v-if="getDirection.station_to_id">
-                      {{getDirection.station_to.name}}
+                  <span v-if="getCarrierDirection.station_to_id">
+                      {{getCarrierDirection.station_to.name}}
                   </span>
-                  <span v-else-if="getDirection.area_to_id">
-                      {{getDirection.area_to_with.name}}
+                  <span v-else-if="getCarrierDirection.area_to_id">
+                      {{getCarrierDirection.area_to_with.name}}
                   </span>
-                  <span v-else-if="getDirection.region_to_id">
-                      {{getDirection.region_to_with.name}}
+                  <span v-else-if="getCarrierDirection.region_to_id">
+                      {{getCarrierDirection.region_to_with.name}}
                   </span>
                 </p>
               </div>
@@ -644,7 +644,7 @@
               </p>
               <div style="text-align: center; width: 75%">
                 <p
-                                v-if="getDirection.created_by"
+                                v-if="getCarrierDirection.created_by"
                   style="
                     border-bottom: 1px solid #000;
                     padding-bottom: 2px;
@@ -653,7 +653,7 @@
                     font-size: 15px;
                   "
                 >
-                  {{getDirection.created_by.name}} {{getDirection.created_by.surname}} {{getDirection.created_by.middlename}}
+                  {{getCarrierDirection.created_by.name}} {{getCarrierDirection.created_by.surname}} {{getCarrierDirection.created_by.middlename}}
                 </p>
                 <small style="font-size: 13px">(подпись, Ф.И.О. и занимаемая должность)</small>
               </div>
@@ -665,11 +665,11 @@
 </template>
 <script>
 import DatePicker from "vue2-datepicker";
-import Timing from "../steppassport/Timing";
-import Scheme from "../steppassport/Scheme";
-import Schedule from "../steppassport/Schedule";
-import PassportTab from "../steppassport/PassportTab";
-import Tarif from "../steppassport/Tarif";
+import Timing from "../stepuser/Timing";
+import Scheme from "../stepuser/Scheme";
+import Schedule from "../stepuser/Schedule";
+import PassportTab from "../stepuser/PassportTab";
+import Tarif from "../stepuser/Tarif";
 import { mapGetters, mapActions } from "vuex";
 import "vue2-datepicker/index.css";
 import Loader from '../../Loader'
@@ -722,38 +722,38 @@ export default {
     };
   },
   watch:{
-    getDirection:{
+    getCarrierDirection:{
       handler(){
         this.laoding = false
-        this.form.dir_type = this.getDirection.dir_type;
-        this.form.pass_number = this.getDirection.pass_number;
-        this.form.tarif = this.getDirection.tarif;
-        this.form.region_from.region_id = this.getDirection.region_from_id ? this.getDirection.region_from_id : '';
-        this.form.region_from.area_id = this.getDirection.area_from_id ? this.getDirection.area_from_id : '';
-        this.form.region_from.station_id = this.getDirection.station_from_id ? this.getDirection.station_from_id : '';
-        this.form.region_to.region_id = this.getDirection.region_to_id ? this.getDirection.region_to_id : '';
-        this.form.region_to.area_id = this.getDirection.area_to_id ? this.getDirection.area_to_id : '';
-        this.form.region_to.station_id = this.getDirection.station_to_id ? this.getDirection.station_to_id : '';
-        this.form.year = this.getDirection.year.toString();
-        this.form.from_type = this.getDirection.from_type;
-        this.form.to_type = this.getDirection.to_type;
-        this.form.from_where.id = this.getDirection.from_where.id;
-        this.form.seasonal = this.getDirection.seasonal;
-        this.form.distance = this.getDirection.distance;
-        this.form.type_id = this.getDirection.type_id;
-        this.cars_with = this.getDirection.cars_with;
-        this.areaFrom = this.getDirection.region_from_with.area;
-        this.areaTo = this.getDirection.region_to_with.area;
-        this.stationFrom =  this.getDirection.area_from_with ? this.getDirection.area_from_with.station : '';
-        this.stationTo = this.getDirection.area_to_with ? this.getDirection.area_to_with.station : '';
+        this.form.dir_type = this.getCarrierDirection.dir_type;
+        this.form.pass_number = this.getCarrierDirection.pass_number;
+        this.form.tarif = this.getCarrierDirection.tarif;
+        this.form.region_from.region_id = this.getCarrierDirection.region_from_id ? this.getCarrierDirection.region_from_id : '';
+        this.form.region_from.area_id = this.getCarrierDirection.area_from_id ? this.getCarrierDirection.area_from_id : '';
+        this.form.region_from.station_id = this.getCarrierDirection.station_from_id ? this.getCarrierDirection.station_from_id : '';
+        this.form.region_to.region_id = this.getCarrierDirection.region_to_id ? this.getCarrierDirection.region_to_id : '';
+        this.form.region_to.area_id = this.getCarrierDirection.area_to_id ? this.getCarrierDirection.area_to_id : '';
+        this.form.region_to.station_id = this.getCarrierDirection.station_to_id ? this.getCarrierDirection.station_to_id : '';
+        this.form.year = this.getCarrierDirection.year.toString();
+        this.form.from_type = this.getCarrierDirection.from_type;
+        this.form.to_type = this.getCarrierDirection.to_type;
+        this.form.from_where.id = this.getCarrierDirection.from_where.id;
+        this.form.seasonal = this.getCarrierDirection.seasonal;
+        this.form.distance = this.getCarrierDirection.distance;
+        this.form.type_id = this.getCarrierDirection.type_id;
+        this.cars_with = this.getCarrierDirection.cars_with;
+        this.areaFrom = this.getCarrierDirection.region_from_with.area;
+        this.areaTo = this.getCarrierDirection.region_to_with.area;
+        this.stationFrom =  this.getCarrierDirection.area_from_with ? this.getCarrierDirection.area_from_with.station : '';
+        this.stationTo = this.getCarrierDirection.area_to_with ? this.getCarrierDirection.area_to_with.station : '';
         this.loaded = true
       }
     },
     'form.region_from':{
       handler(){
 
-        if(this.getDirection.from_type){
-          this.form.from_type = this.getDirection.from_type;
+        if(this.getCarrierDirection.from_type){
+          this.form.from_type = this.getCarrierDirection.from_type;
         }else{
           this.form.from_type = ''
         }
@@ -761,8 +761,8 @@ export default {
     },
     'form.region_to':{
       handler(){
-        if(this.getDirection.to_type){
-          this.form.to_type = this.getDirection.to_type;
+        if(this.getCarrierDirection.to_type){
+          this.form.to_type = this.getCarrierDirection.to_type;
         }else{
           this.form.to_type = ''
         }
@@ -852,39 +852,39 @@ export default {
     await this.actionRegionList();
     await this.actionTypeofbusList();
     await this.actionTypeofdirectionList();
-    await this.actionEditDirection(this.$route.params.directionId);
+    await this.actionEditCarrierDirection(this.$route.params.directionId);
     await this.actionBusBrandList();
     this.laoding = false
-    this.form.pass_number = this.getDirection.pass_number;
-    this.form.dir_type = this.getDirection.dir_type;
-    this.form.tarif = this.getDirection.tarif;
-    this.form.region_from.region_id = this.getDirection.region_from_id ? this.getDirection.region_from_id : '';
-    this.form.region_from.area_id = this.getDirection.area_from_id ? this.getDirection.area_from_id : '';
-    this.form.region_from.station_id = this.getDirection.station_from_id ? this.getDirection.station_from_id : '';
-    this.form.region_to.region_id = this.getDirection.region_to_id ? this.getDirection.region_to_id : '';
-    this.form.region_to.area_id = this.getDirection.area_to_id ? this.getDirection.area_to_id : '';
-    this.form.region_to.station_id = this.getDirection.station_to_id ? this.getDirection.station_to_id : '';
-    this.form.year = this.getDirection.year.toString();
-    // if (this.getDirection.from_type) {
-    //   this.form.from_type = this.getDirection.from_type;
+    this.form.pass_number = this.getCarrierDirection.pass_number;
+    this.form.dir_type = this.getCarrierDirection.dir_type;
+    this.form.tarif = this.getCarrierDirection.tarif;
+    this.form.region_from.region_id = this.getCarrierDirection.region_from_id ? this.getCarrierDirection.region_from_id : '';
+    this.form.region_from.area_id = this.getCarrierDirection.area_from_id ? this.getCarrierDirection.area_from_id : '';
+    this.form.region_from.station_id = this.getCarrierDirection.station_from_id ? this.getCarrierDirection.station_from_id : '';
+    this.form.region_to.region_id = this.getCarrierDirection.region_to_id ? this.getCarrierDirection.region_to_id : '';
+    this.form.region_to.area_id = this.getCarrierDirection.area_to_id ? this.getCarrierDirection.area_to_id : '';
+    this.form.region_to.station_id = this.getCarrierDirection.station_to_id ? this.getCarrierDirection.station_to_id : '';
+    this.form.year = this.getCarrierDirection.year.toString();
+    // if (this.getCarrierDirection.from_type) {
+    //   this.form.from_type = this.getCarrierDirection.from_type;
     // }else{
     //   this.form.from_type = ''
     // }
-    // if (this.getDirection.to_type) {
-    //   this.form.to_type = this.getDirection.to_type;
+    // if (this.getCarrierDirection.to_type) {
+    //   this.form.to_type = this.getCarrierDirection.to_type;
     // }else{
     //   this.form.to_type = ''
     // }
-    // this.form.to_type = this.getDirection.to_type;
-    this.form.from_where = this.getDirection.from_where;
-    this.form.seasonal = this.getDirection.seasonal;
-    this.form.distance = this.getDirection.distance;
-    this.form.type_id = this.getDirection.type_id;
-    this.cars_with = this.getDirection.cars_with;
-    this.areaFrom = this.getDirection.region_from_with.area;
-    this.areaTo = this.getDirection.region_to_with.area;
-    this.stationFrom =  this.getDirection.area_from_with ? this.getDirection.area_from_with.station : '';
-    this.stationTo = this.getDirection.area_to_with ? this.getDirection.area_to_with.station : '';
+    // this.form.to_type = this.getCarrierDirection.to_type;
+    this.form.from_where = this.getCarrierDirection.from_where;
+    this.form.seasonal = this.getCarrierDirection.seasonal;
+    this.form.distance = this.getCarrierDirection.distance;
+    this.form.type_id = this.getCarrierDirection.type_id;
+    this.cars_with = this.getCarrierDirection.cars_with;
+    this.areaFrom = this.getCarrierDirection.region_from_with.area;
+    this.areaTo = this.getCarrierDirection.region_to_with.area;
+    this.stationFrom =  this.getCarrierDirection.area_from_with ? this.getCarrierDirection.area_from_with.station : '';
+    this.stationTo = this.getCarrierDirection.area_to_with ? this.getCarrierDirection.area_to_with.station : '';
     this.loaded = true
   },
   methods: {
@@ -894,7 +894,7 @@ export default {
     ...mapActions("station", ["actionStationByRegion"]),
     ...mapActions("area", ["actionXromAreaList"]),
     ...mapActions("typeofdirection", ["actionTypeofdirectionList"]),
-    ...mapActions("direction", ["actionEditDirection","actionCarDeleteDirection"]),
+    ...mapActions("direction", ["actionEditCarrierDirection","actionCarDeleteDirection"]),
     ...mapActions("passportTab", ["actionTarif"]),
     ...mapActions("direction", ["actionUpdateDirection"]),
     ...mapActions("busbrand", ["actionBusBrandList"]),
@@ -903,7 +903,7 @@ export default {
     async sendToActivate(){
       await this.actionApproveTitul(this.$route.params.directionId)
       if (this.getTitulMassage.success){
-        await this.actionEditDirection(this.$route.params.directionId);
+        await this.actionEditCarrierDirection(this.$route.params.directionId);
         toast.fire({
           type: "success",
           icon: "success",
@@ -921,7 +921,7 @@ export default {
       if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
         await this.actionCarDeleteDirection(id)
         if (this.getMassage.success){
-          await this.actionEditDirection(this.$route.params.directionId);
+          await this.actionEditCarrierDirection(this.$route.params.directionId);
           toast.fire({
             type: "success",
             icon: "success",
@@ -1001,7 +1001,7 @@ export default {
     },
     async sendDirection(){
       this.laoding = true
-      await this.actionEditDirection(this.$route.params.directionId);
+      await this.actionEditCarrierDirection(this.$route.params.directionId);
       this.laoding = false
     },
     async saveDirection() {
@@ -1028,7 +1028,7 @@ export default {
             });
             // this.$router.push(`/crm/direction/edit/${this.getMassage.id}`);
             this.cars = []
-            await this.actionEditDirection(this.$route.params.directionId);
+            await this.actionEditCarrierDirection(this.$route.params.directionId);
           } else {
             toast.fire({
               type: "error",
@@ -1088,7 +1088,7 @@ export default {
     ...mapGetters("area", ["getAreaXromLists"]),
     ...mapGetters("typeofdirection", ["getTypeofdirectionList"]),
     ...mapGetters("station", ["getStationsList"]),
-    ...mapGetters("direction", ["getDirection",'getMassage']),
+    ...mapGetters("direction", ["getCarrierDirection",'getMassage']),
     ...mapGetters("passportTab", ["getTarif"]),
     ...mapGetters("busbrand", ["getBusBrandList"]),
     ...mapGetters("busmodel", ["getBusmodelFindList"]),

@@ -16,6 +16,9 @@ const DirectService = {
 	editDirection(id){
 		return ApiService.get(`/api/direction/edit/${id}`)
 	},
+	editCarrierDirection(id){
+		return ApiService.get(`/api/carrier/direction/edit/${id}`)
+	},
 	updateDirection(data){
 		return ApiService.post(`/api/direction/update/${data.id}`,data)
 	},

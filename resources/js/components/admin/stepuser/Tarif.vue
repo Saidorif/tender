@@ -166,18 +166,18 @@ import Loader from '../../Loader'
 			}
 		},
 		async mounted(){
-			await this.actionEditDirection(this.$route.params.directionId);
+			await this.actionEditCarrierDirection(this.$route.params.directionId);
 			await this.actionTarif(this.$route.params.directionId);
-			this.titulData = this.getDirection
+			this.titulData = this.getCarrierDirection
 			this.laoding = false
 		},
 		computed:{
-			...mapGetters("direction", ["getDirection"]),
+			...mapGetters("direction", ["getCarrierDirection"]),
 			...mapGetters("passportTab", ["getTarif",'getMsg']),
 		},
 		methods:{
 			...mapActions("passportTab", ["actionTarif",'actionTarifConfirm']),
-			...mapActions("direction", ["actionEditDirection"]),
+			...mapActions("direction", ["actionEditCarrierDirection"]),
 			isRequired(input) {
 		      return this.requiredInput && input === "";
 		    },

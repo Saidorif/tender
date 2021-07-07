@@ -1,6 +1,6 @@
 <template>
   <div class="passport_tab">
-    <h2 style="margin: 0;font-size: 20px;font-weight: bold;">{{ getDirection ? getDirection.name : '' }}</h2>
+    <h2 style="margin: 0;font-size: 20px;font-weight: bold;">{{ getCarrierDirection ? getCarrierDirection.name : '' }}</h2>
     <ul class="nav nav-tabs " id="myTab" role="tablist">
       <li class="nav-item">
         <router-link :to='`/crm/stepuser/titul-tab/${$route.params.directionId}`' > {{$t('Titul')}}</router-link>
@@ -40,7 +40,7 @@
 		mounted(){
 		},
 		computed:{
-                        ...mapGetters("direction", ["getDirection",'getMassage']),
+      ...mapGetters("direction", ["getCarrierDirection",'getMassage']),
 		},
 		methods:{
 		}

@@ -104,20 +104,20 @@ export default {
     };
   },
   async mounted() {
-    await this.actionEditDirection(this.$route.params.directionId);
+    await this.actionEditCarrierDirection(this.$route.params.directionId);
     await this.actionConditionalSignList();
     this.laoding = false
-    this.titulData = this.getDirection
+    this.titulData = this.getCarrierDirection
     this.schemeData = this.titulData ? this.titulData.timing_with : [];
   },
   computed: {
-    ...mapGetters("direction", ["getDirection"]),
+    ...mapGetters("direction", ["getCarrierDirection"]),
     ...mapGetters("passportTab", ["getMsg"]),
     ...mapGetters("conditionalsign", ["getConditionalSignList"]),
   },
   methods: {
     ...mapActions("passportTab", ["actionAddTiming", "actionAddSchemadetail"]),
-    ...mapActions("direction", ["actionEditDirection"]),
+    ...mapActions("direction", ["actionEditCarrierDirection"]),
     ...mapActions("conditionalsign", ["actionConditionalSignList"]),
     async saveData() {
       if(this.agreedData.length){

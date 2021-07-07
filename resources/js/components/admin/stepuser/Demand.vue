@@ -257,7 +257,7 @@ export default {
     };
   },
   async mounted(){
-    // await this.actionEditDirection(this.$route.params.directionId);
+    // await this.actionEditCarrierDirection(this.$route.params.directionId);
     let data ={
       generate:0,
       id:this.$route.params.directionId
@@ -276,11 +276,11 @@ export default {
     }
     },
   computed: {
-    ...mapGetters("direction", ["getDirection"]),
+    ...mapGetters("direction", ["getCarrierDirection"]),
     ...mapGetters("passportTab", ['getDemand']),
   },
   methods: {
-    ...mapActions("direction", ["actionEditDirection"]),
+    ...mapActions("direction", ["actionEditCarrierDirection"]),
     ...mapActions("passportTab", ['actionDemand']),
     isRequired(input) {
       return this.requiredInput && input === "";
