@@ -96,6 +96,15 @@
               </p>
             </router-link>
           </li>
+          <!-- v-if="$can('checkTenders', 'TenderController')" -->
+          <li class="nav-item" >
+            <router-link class="nav-link" to="/crm/check-user-control">
+              <p>
+                {{$t('Tenderlarni tekshirish')}} 
+                <span class="badge badge-warning">user</span>
+              </p>
+            </router-link>
+          </li>
           <li class="nav-item" v-if="$can('userIndex', 'DirectionController')">
             <router-link class="nav-link" to="/crm/direction-user">
               <i class="peIcon fas fa-route"></i>
