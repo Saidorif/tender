@@ -560,7 +560,7 @@
 			    			toast.fire({
 								type: "error",
 								icon: "error",
-								title: 'В пакете должны быть минимум 2 маршрута!'
+								title: this.$t('Paketda kamida 2 ta yo‘nalish bo‘lishi kerak')
 						 	});
 			    		}
 			    	}else{
@@ -579,7 +579,7 @@
 			    			toast.fire({
 								type: "error",
 								icon: "error",
-								title: 'Чтобы добавить болшее маршрутов откликните пакет!'
+								title: this.$t('Boshqa marshrutlarni qo‘shish uchun paketni bosing')
 						 	});
 			    		}
 			    	}
@@ -713,7 +713,7 @@
 				    			toast.fire({
 							    	type: 'error',
 							    	icon: 'error',
-									title: 'В списке лот существует!',
+									title: this.$t('Ushbu yoʼnalish roʼyxatda mavjud'),
 							    })
 				    		}else{
 					    		if (checkItem){
@@ -722,7 +722,7 @@
 					    			toast.fire({
 								    	type: 'error',
 								    	icon: 'error',
-										title: 'Этот маршрут уже выбрано!',
+										title: this.$t('Ushbu yoʼnalish roʼyxatda mavjud'),
 								    })
 					    		}
 				    		}
@@ -743,7 +743,7 @@
 		    			toast.fire({
 					    	type: 'error',
 					    	icon: 'error',
-							title: 'Чтобы добавить болшее маршрутов откликните пакет!',
+							title: this.$t('Boshqa marshrutlarni qo‘shish uchun paketni bosing'),
 					    })
 		    		}
 		    	}
@@ -806,7 +806,7 @@
 					    		toast.fire({
 							    	type: 'error',
 							    	icon: 'error',
-									title: 'В списке тариф существует!',
+									title: this.$t('Roʼyxatda tarif mavjud'),
 							    })
 					    	}else{
 					    		this.choosenFromItems.push(value)
@@ -835,7 +835,7 @@
 					    		toast.fire({
 							    	type: 'error',
 							    	icon: 'error',
-									title: 'В списке тариф существует!',
+									title: this.$t('Roʼyxatda tarif mavjud'),
 							    })
 					    	}else{
 					    		this.choosenToItems.push(value)

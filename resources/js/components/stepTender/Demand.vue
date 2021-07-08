@@ -218,7 +218,6 @@ export default {
   async mounted(){
     await this.actionDirection(this.$route.params.directionId);
     await this.actionRequirement(this.$route.params.directionId);
-    console.log(this.getRequirement)
     this.laoding = false
     this.form = this.getRequirement
     Vue.set(this.form,'stations_from_value','')
@@ -235,10 +234,10 @@ export default {
     },
     getSeasonalName(name){
       if(name == 'always') {
-        return 'Doimiy';
+        return this.$t('Doimiy');
       }
       else if (name == 'seasonal') {
-        return 'Mavsumiy';
+        return this.$t('Mavsumiy');
       }
     },
   },

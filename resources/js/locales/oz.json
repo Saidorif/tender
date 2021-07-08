@@ -56,6 +56,7 @@
         "send": "Юбориш"
     },
     "Faylni yuklash": "Файлни юклаш",
+    "Faylni yuklang": "Файлни юкланг",
     "Faylni saqlash": "Файлни сақлаш",
     "Yuklash": "Юклаш",
     "O‘zgartirish": "Ўзгартириш",
@@ -575,7 +576,24 @@
     "yo‘nalishda qatnovlarni amalga oshirish huquqini tasdiqlovchi":"йўналишда қатновларни амалга ошириш ҳуқуқини тасдиқловчи",
     "Maʼlumot saqlandi":"Маълумот сақланди",
     "avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar":"автотранспорт воситаси рўйхатдан ўтказилганлиги тўғрисидаги маълумотлар",
-    "logout":"Чиқиш"
+    "Maʼlumot yangilandi":"Маълумот янгиланди",
+    "Paketda kamida 2 ta yo‘nalish bo‘lishi kerak":"Пакетда камида 2 та йўналиш бўлиши керак",
+    "Boshqa marshrutlarni qo‘shish uchun paketni bosing":"Бошқа маршрутларни қўшиш учун пакетни босинг",
+    "logout":"Чиқиш",
+    "Hatolik":"Ҳатолик",
+    "yuborilgan":"юборилган",
+    "yuborilmagan":"юборилмаган",
+    "Faollashtirish uchun tanlang":"Фаоллаштириш учун танланг",
+    "Elektron pochta manzili haqiqiy boʼlishi kerak":"Электрон почта манзили ҳақиқий бўлиши керак",
+    "Elektron pochta roʼyxati qoʼshildi":"Електрон почта рўйхати қўшилди",
+    "Fayl hajmi 1 MB dan oshmasligi kerak":"Файл ҳажми 1 МБ дан ошмаслиги керак",
+    "Rasm hajmi bilgilangan limitdan kattaroq":"Расм ҳажми билгиланган лимитдан каттароқ",
+    "Rasm formati faqat png, jpg, jpeg boʼlishi kerak":"Расм формати фақат png, jpg, jpeg бўлиши керак",
+    "Parolingiz elektron pochtangizga yuborildi. elektron pochtangizni tekshiring":"Паролингиз електрон почтангизга юборилди. електрон почтангизни текширинг",
+    "Ommaviy taklif matni bilan tanishib chiqing":"Оммавий таклиф матни билан танишиб чиқинг",
+    "Roʼyxatda tarif mavjud":"Рўйхатда тариф мавжуд",
+    "Ishonchingiz komilmi":"Ишончингиз комилми",
+    "Ushbu yoʼnalish roʼyxatda mavjud":"Ушбу йўналиш рўйхатда мавжуд"
 }
 
 

@@ -699,7 +699,8 @@ class TenderController extends Controller
                             }
                         }
                     }
-                    $result[$key][$k] = $balls;
+                    $result['lot_items'][$key][$k] = $balls;
+                    $result['lot_id'] = $lot->id;
                     continue;
                 }
                 else{
@@ -710,10 +711,11 @@ class TenderController extends Controller
                         if(!$direction->requirement){
                             return response()->json(['error' => true, 'message' => 'Требование не найдено в направлении '.$direction->name]);
                         }
-                        $result[$key][$k]['name'] = $direction->name;
-                        $result[$key][$k]['company_name'] = $app->user->company_name;
-                        $result[$key][$k]['fio'] = $app->user->getFio();
-                        $result[$key][$k]['user'] = $app->user;
+                        $result['lot_items'][$key][$k]['name'] = $direction->name;
+                        $result['lot_items'][$key][$k]['company_name'] = $app->user->company_name;
+                        $result['lot_items'][$key][$k]['fio'] = $app->user->getFio();
+                        $result['lot_items'][$key][$k]['user'] = $app->user;
+                        $result['lot_id'] = $lot->id;
                         //prepare array for store
                         $appBallArray['direction_ids'] = $value;
                         $appBallArray['name'] = $direction->name;
@@ -1019,27 +1021,27 @@ class TenderController extends Controller
 
                         //10.Ustuvor mezonlar
 
-                        $result[$key][$k]['app_avto_years'] = $app_avto_years;
-                        $result[$key][$k]['app_tarif'] = $app_tarif;
-                        $result[$key][$k]['tender_tarif'] = $direction->tarif;
-                        $result[$key][$k]['tarif_foizda'] = $tarif_foizda;
-                        $result[$key][$k]['app_tarif_ball'] = $app_tarif_ball;
-                        $result[$key][$k]['app_avto_ball'] = $app_avto_ball;
-                        $result[$key][$k]['app_avto_capacity_ball'] = $app_avto_capacity_ball;
-                        $result[$key][$k]['app_qatnovlar_ball'] = $app_qatnovlar_ball;
-                        $result[$key][$k]['app_categoriya'] = $app_categoriya;
-                        $result[$key][$k]['app_model'] = $app_model;
-                        $result[$key][$k]['avto_qulayliklar_ball'] = round($avto_qulayliklar_ball,3);
-                        $result[$key][$k]['cars_rest_total'] = $cars_rest_total;
-                        $result[$key][$k]['tadbirlar_rejasi_ball'] = $tadbirlar_rejasi_ball;
+                        $result['lot_items'][$key][$k]['app_avto_years'] = $app_avto_years;
+                        $result['lot_items'][$key][$k]['app_tarif'] = $app_tarif;
+                        $result['lot_items'][$key][$k]['tender_tarif'] = $direction->tarif;
+                        $result['lot_items'][$key][$k]['tarif_foizda'] = $tarif_foizda;
+                        $result['lot_items'][$key][$k]['app_tarif_ball'] = $app_tarif_ball;
+                        $result['lot_items'][$key][$k]['app_avto_ball'] = $app_avto_ball;
+                        $result['lot_items'][$key][$k]['app_avto_capacity_ball'] = $app_avto_capacity_ball;
+                        $result['lot_items'][$key][$k]['app_qatnovlar_ball'] = $app_qatnovlar_ball;
+                        $result['lot_items'][$key][$k]['app_categoriya'] = $app_categoriya;
+                        $result['lot_items'][$key][$k]['app_model'] = $app_model;
+                        $result['lot_items'][$key][$k]['avto_qulayliklar_ball'] = round($avto_qulayliklar_ball,3);
+                        $result['lot_items'][$key][$k]['cars_rest_total'] = $cars_rest_total;
+                        $result['lot_items'][$key][$k]['tadbirlar_rejasi_ball'] = $tadbirlar_rejasi_ball;
                         if($m1){
-                            $result[$key][$k]['total'] = $app_tarif_ball + $app_avto_ball + $app_avto_capacity_ball + $app_qatnovlar_ball + $app_model + round($avto_qulayliklar_ball,3) + $tadbirlar_rejasi_ball;
+                            $result['lot_items'][$key][$k]['total'] = $app_tarif_ball + $app_avto_ball + $app_avto_capacity_ball + $app_qatnovlar_ball + $app_model + round($avto_qulayliklar_ball,3) + $tadbirlar_rejasi_ball;
                         }else{
-                            $result[$key][$k]['total'] = $app_tarif_ball + $app_avto_ball + $app_avto_capacity_ball + $app_qatnovlar_ball + $app_categoriya + round($avto_qulayliklar_ball,3) + $tadbirlar_rejasi_ball;
+                            $result['lot_items'][$key][$k]['total'] = $app_tarif_ball + $app_avto_ball + $app_avto_capacity_ball + $app_qatnovlar_ball + $app_categoriya + round($avto_qulayliklar_ball,3) + $tadbirlar_rejasi_ball;
                         }
-                        $appBallArray['total_ball'] = $result[$key][$k]['total'];
-                        $appBallArray['cars_ball'] =$result[$key][$k]['avto_qulayliklar_ball'];
-                        $result[$key][$k]['appBallArray'] = $appBallArray;
+                        $appBallArray['total_ball'] = $result['lot_items'][$key][$k]['total'];
+                        $appBallArray['cars_ball'] =$result['lot_items'][$key][$k]['avto_qulayliklar_ball'];
+                        $result['lot_items'][$key][$k]['appBallArray'] = $appBallArray;
                         $appBallArray['details'] = $result;
                         $appBallArray['reys_status'] = $direction->reys_status;
                         $applicationBall = ApplicationBall::create($appBallArray);
@@ -1063,7 +1065,7 @@ class TenderController extends Controller
                                 $balls->contract = $lot->contract;
                             }
                         }
-                        $result[$key][$k] = $balls;
+                        $result['lot_items'][$key][$k] = $balls;
                         continue;
                     }
                 }

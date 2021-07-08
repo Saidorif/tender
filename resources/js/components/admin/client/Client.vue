@@ -189,10 +189,14 @@
     		...mapActions("area", ["actionAreaByRegion"]),
 			...mapActions('client',['actionClients']),
 			async getResults(page = 1){
+                this.laoding = true
 				await this.actionClients({page:page,items:this.filter})
+                this.laoding = false
 			},
 			async selectRegion(){
+                this.laoding = true
 		      await this.actionAreaByRegion({ region_id: this.filter.region_id });
+              this.laoding = false
 		      this.filter.area_id = ''
 		    },
 			toggleFilter(){
@@ -201,7 +205,9 @@
 			async search(){
 				let page = 1
 				if(this.filter.name || this.filter.inn || this.filter.company_name || this.filter.region_id || this.filter.area_id){
-					await this.actionClients({page: page,items:this.filter})
+					this.laoding = true
+                    await this.actionClients({page: page,items:this.filter})
+                    this.laoding = false
 				}
 			},
 			async clear(){
@@ -212,7 +218,9 @@
 					this.filter.area_id = ''
 					this.filter.company_name = ''
 					let page  = 1
+                    this.laoding = false
 					await this.actionClients({page: page,items:this.filter})
+                    this.laoding = true
 				}
 
 			},

@@ -66,7 +66,9 @@
 		methods:{
 			...mapActions('complaint',['actionComplaints','actionDeleteComplaint']),
 			async getResults(page = 1){
+                this.laoding = true
 				await this.actionComplaints(page)
+                this.laoding = false
 			},
 			async deleteComplaint(id){
 				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){

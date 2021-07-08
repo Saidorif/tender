@@ -139,7 +139,7 @@
                                 <span class="alert alert-danger pt-1 pb-1" v-if="direct.status == 'active'">{{$t('Tenderda joylashtirilmagan')}}</span>
                                 <span class="alert alert-success pt-1 pb-1" v-if="direct.status == 'busy'">{{$t('Tenderda eʼlon qilingan')}}</span>
                             </td>
-							<td>{{direct.dir_type == 'taxi' ? 'Йўналишли тахи йуналиши' : $t('Avtobus yoʼnalishi')}}</td>
+							<td>{{direct.dir_type == 'taxi' ? $t('Yoʼnalishli taxi yoʼnalishi') : $t('Avtobus yoʼnalishi')}}</td>
 							<td>{{direct.year}}</td>
 							<td>{{ checkApprove(direct) }}</td>
 							<td>
@@ -352,9 +352,9 @@
                     item.titul_status == 'completed' &&
                     item.sxema_status == 'completed'
                 ){
-                    return 'да'
+                    return this.$t('ha')
                 }else{
-                    return 'нет'
+                    return this.$t('yoq')
                 }
             }
 		}

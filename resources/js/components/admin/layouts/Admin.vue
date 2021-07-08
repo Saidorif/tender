@@ -38,8 +38,7 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column sidebar-menu treeview" data-widget="treeview" role="menu" data-accordion="false" >
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+          <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
           <li class="nav-item" v-if="$can('index', 'DashboardController')">
             <router-link to="/crm/dashboard" class="nav-link">
               <span class="peIcon pe-7s-rocket" style="font-size: 20px;"></span>
@@ -272,6 +271,14 @@
               <i class="peIcon fas fa-money-bill-alt"></i>
               <p>
                 {{$t('admin_menu.payments')}}
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item" v-if="$can('userIndex', 'PaymentController')">
+            <router-link class="nav-link" to="/crm/userpayment">
+              <i class="peIcon fas fa-money-bill-alt"></i>
+              <p>
+                {{$t('admin_menu.payments')}} <span class="badge badge-primary">user</span>
               </p>
             </router-link>
           </li>

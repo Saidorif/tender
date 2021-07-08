@@ -114,7 +114,6 @@ export default {
   },
   async mounted() {
     await this.actionDirection(this.$route.params.directionId);
-    console.log(this.getDirection)
     this.item = this.getDirection
     this.laoding = false;
   },

@@ -130,7 +130,9 @@ export default {
       return this.requiredLoginInput && input === "";
     },
     async selectRegion() {
+        this.laoding = true;
       await this.actionAreaByRegion({ region_id: this.signUp.region_id });
+      this.laoding = false;
     },
     confirmPassword() {
       if (this.signUp.password && this.signUp.confirm_password){
@@ -191,13 +193,14 @@ export default {
         this.signUp.email != "" &&
         this.checkPassword == false
       ) {
+          this.laoding = true;
         await this.register(this.signUp);
+        this.laoding = false;
         if (this.getRegisterError.success) {
           toast.fire({
             type: "success",
             icon: "success",
-            title:
-              "Ваш пароль отправлен на ваш e-mail. проверьте пожалуйста свою электронную почту!",
+            title: this.$t("Parolingiz elektron pochtangizga yuborildi. elektron pochtangizni tekshiring"),
           });
           this.signUp.region_id = "";
           this.signUp.area_id = "";

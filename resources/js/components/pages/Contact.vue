@@ -152,8 +152,8 @@ export default {
         swal.fire({
           type: "error",
           icon: "error",
-          title: "Ошибка",
-          text: "Размер файл не должно быть больше 1мб"
+          title: this.$t('Hatolik'),
+          text: this.$t('Fayl hajmi 1 MB dan oshmasligi kerak')
         });
       } else {
         this.form.file = event.target.files[0];
@@ -184,15 +184,15 @@ export default {
           swal.fire({
             type: "success",
             icon: "success",
-            title: "Сообщение",
+            title: this.$t('Xabar'),
             text: this.getMassage.message
           });
         }else{
           swal.fire({
             type: "error",
             icon: "error",
-            title: "Ошибка",
-            text: "Ошибка"
+            title: this.$t('Hatolik'),
+            text: this.$t('Hatolik')
           });
         }
         this.requiredInput = false

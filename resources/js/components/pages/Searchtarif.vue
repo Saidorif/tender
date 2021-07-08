@@ -118,7 +118,9 @@ export default {
     ...mapActions("page", ["actionGetTarifByNumber"]),
     async checkAuto() {
       if (this.form.number != "") {
+          this.laoding = false;
         await this.actionGetTarifByNumber(this.form);
+        this.laoding = true;
         if (this.getGetTarifByNumber == undefined) {
           this.errorText = this.$t("Yoʼnalish topiladi");
         } else {

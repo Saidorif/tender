@@ -183,7 +183,9 @@
 			...mapActions("region", ["actionRegionList"]),
 			...mapActions("direction", ["actionDirectionFind"]),
 			async getResults(page = 1){
+                this.laoding = true
 				await this.actionComplaintListAll({page:page,items:this.filter})
+                this.laoding = false
 			},
 			async filterVariantList(value){
 		      if(value != ''){

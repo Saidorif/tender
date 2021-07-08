@@ -78,7 +78,9 @@
 		    },
 			async saveArea(){
 		    	if (this.form.name != '' && this.form.region_id != ''){
+                    this.laoding = true
 					await this.actionAddArea(this.form)
+                    this.laoding = false
 					if(this.getMassage.success){
 						toast.fire({
 				            type: "success",

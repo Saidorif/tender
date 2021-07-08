@@ -190,8 +190,8 @@
 		        swal.fire({
 		          type: "error",
 		          icon: "error",
-		          title: "Ошибка",
-		          text: "Размер файл не должно быть больше 1мб"
+		          title: this.$t('Hatolik'),
+		          text: this.$t('Fayl hajmi 1 MB dan oshmasligi kerak')
 		        });
 		      } else {
 		        this.form.comment_file = event.target.files[0];

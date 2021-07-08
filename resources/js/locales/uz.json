@@ -56,6 +56,7 @@
         "send": "Yuborish"
     },
     "Faylni yuklash": "Faylni yuklash",
+    "Faylni yuklang": "Faylni yuklang",
     "Faylni saqlash": "Faylni saqlash",
     "Yuklash": "Yuklash",
     "O‘zgartirish": "O‘zgartirish",
@@ -575,5 +576,22 @@
     "yo‘nalishda qatnovlarni amalga oshirish huquqini tasdiqlovchi":"yo‘nalishda qatnovlarni amalga oshirish huquqini tasdiqlovchi",
     "Maʼlumot saqlandi":"Maʼlumot saqlandi",
     "avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar":"avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar",
-    "logout":"Chiqish"
+    "Maʼlumot yangilandi":"Maʼlumot yangilandi",
+    "Paketda kamida 2 ta yo‘nalish bo‘lishi kerak":"Paketda kamida 2 ta yo‘nalish bo‘lishi kerak",
+    "Boshqa marshrutlarni qo‘shish uchun paketni bosing":"Boshqa marshrutlarni qo‘shish uchun paketni bosing",
+    "logout":"Chiqish",
+    "Hatolik":"Hatolik",
+    "yuborilgan":"yuborilgan",
+    "yuborilmagan":"yuborilmagan",
+    "Faollashtirish uchun tanlang":"Faollashtirish uchun tanlang",
+    "Elektron pochta manzili haqiqiy boʼlishi kerak":"Elektron pochta manzili haqiqiy boʼlishi kerak",
+    "Elektron pochta roʼyxati qoʼshildi":"Elektron pochta roʼyxati qoʼshildi",
+    "Fayl hajmi 1 MB dan oshmasligi kerak":"Fayl hajmi 1 MB dan oshmasligi kerak",
+    "Rasm hajmi bilgilangan limitdan kattaroq":"Rasm hajmi bilgilangan limitdan kattaroq",
+    "Rasm formati faqat png, jpg, jpeg boʼlishi kerak":"Rasm formati faqat png, jpg, jpeg boʼlishi kerak",
+    "Parolingiz elektron pochtangizga yuborildi. elektron pochtangizni tekshiring":"Parolingiz elektron pochtangizga yuborildi. elektron pochtangizni tekshiring",
+    "Ommaviy taklif matni bilan tanishib chiqing":"Ommaviy taklif matni bilan tanishib chiqing",
+    "Roʼyxatda tarif mavjud":"Ro‘yxatda tarif mavjud",
+    "Ishonchingiz komilmi":"Ishonchingiz komilmi",
+    "Ushbu yoʼnalish roʼyxatda mavjud":"Ushbu yo‘nalish ro‘yxatda mavjud"
 }

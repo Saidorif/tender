@@ -118,10 +118,14 @@
 					page:page,
 					id:this.$route.params.tenderAppId
 				}
+                this.laoding = true
 	            await this.actionShowApplications(data)
+                this.laoding = false
 			},
 			async getEditId(){
+                this.laoding = true
 				await this.actionAddApplication()
+                this.laoding = false
 				if (this.getAddMessage.success) {
 					this.$router.push("/crm/application/edit/"+this.getAddMessage.result.id);
 				}
@@ -143,12 +147,14 @@
 			async deleteRegion(id){
 				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 					let page = 1
+                    this.laoding = true
 					await this.actionDeleteApplication(id)
 					let data = {
 						page:page,
 						id:this.$route.params.tenderAppId
 					}
 		            await this.actionShowApplications(data)
+                    this.laoding = false
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',

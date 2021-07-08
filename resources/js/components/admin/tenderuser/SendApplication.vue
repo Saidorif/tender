@@ -1132,7 +1132,7 @@
             		toast.fire({
 			            type: "error",
 			            icon: "error",
-			            title: "Ознакомьтесь с текстом публичной оферты "
+			            title: this.$t("Ommaviy taklif matni bilan tanishib chiqing")
 		          	});
             	}
             },
@@ -1155,7 +1155,7 @@
 					})
 					return name
 				}else{
-					return 'Выберите класс авто'
+					return this.t$('Avtomobil sinfini tanlang')
 				}
 			},
 			activate(){
@@ -1220,7 +1220,7 @@
 		      //   if (file.size > 1048576) {
 		      //     swal.fire({
 		      //       type: "error",
-		      //       title: "Ошибка",
+		      //       title: this.$t('Hatolik'),
 		      //       text: "Размер изображения больше лимита"
 		      //     });
 		      //   } else {
@@ -1233,7 +1233,7 @@
 		      // } else {
 		      //   swal.fire({
 		      //     type: "error",
-		      //     title: "Ошибка",
+		      //     title: this.$t('Hatolik'),
 		      //     text: "Картинка должна быть только png,jpg,jpeg!"
 		      //   });
 		      // }
@@ -1504,7 +1504,7 @@
 			    		toast.fire({
 				            type: "error",
 				            icon: "error",
-				            title: 'Загрузите файл!'
+				            title: this.$t('Faylni yuklang')
 			          	});
 			    	}
 		    		this.requiredDataInput = false

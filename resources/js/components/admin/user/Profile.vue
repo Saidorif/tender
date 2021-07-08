@@ -457,8 +457,8 @@ export default {
         swal.fire({
           type: "error",
           icon: "error",
-          title: "Ошибка",
-          text: "Размер файл не должно быть больше 1мб",
+          title: this.$t('Hatolik'),
+          text: this.$t('Fayl hajmi 1 MB dan oshmasligi kerak'),
         });
       } else {
         let reader = new FileReader();
@@ -479,8 +479,8 @@ export default {
         if (file.size > 1048576) {
           swal.fire({
             type: "error",
-            title: "Ошибка",
-            text: "Размер изображения больше лимита",
+            title: this.$t('Hatolik'),
+            text: this.$t("Rasm hajmi bilgilangan limitdan kattaroq"),
           });
         } else {
           let reader = new FileReader();
@@ -492,8 +492,8 @@ export default {
       } else {
         swal.fire({
           type: "error",
-          title: "Ошибка",
-          text: "Картинка должна быть только png,jpg,jpeg!",
+          title: this.$t('Hatolik'),
+          text: this.$t("Rasm formati faqat png, jpg, jpeg boʼlishi kerak"),
         });
       }
     },

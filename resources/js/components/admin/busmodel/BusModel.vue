@@ -106,9 +106,7 @@
 								<th scope="col">{{$t('Avtomobil rusumi')}} </th>
 								<th scope="col">{{$t('Avtomobil sinfi nomi')}} </th>
 								<th scope="col">{{$t('Oʼrindiqlar soni')}}</th>
-								<!-- <th scope="col">{{$t('Oʼrindiqlar soni')}} (по)</th> -->
 								<th scope="col">{{$t('capacity')}}</th>
-								<!-- <th scope="col">Пассажировместимость (по)</th> -->
 								<th scope="col">{{$t('Tahrirlash')}}</th>
 							</tr>
 						</thead>
@@ -120,9 +118,7 @@
 								<td>{{model.name}}</td>
 								<td>{{model.tclass ? model.tclass.name : ''}}</td>
 								<td>{{model.seat_from}}</td>
-								<!-- <td>{{model.seat_to}}</td> -->
 								<td>{{model.stay_from}}</td>
-								<!-- <td>{{model.stay_to}}</td> -->
 								<td>
 									<router-link
 										tag="button"
@@ -197,7 +193,9 @@
 					page:page,
 					items:this.filter
 				}
+                this.laoding = true
 	            await this.actionBusmodels(data)
+                this.laoding = false
 			},
 			async search(){
 				let page = 1

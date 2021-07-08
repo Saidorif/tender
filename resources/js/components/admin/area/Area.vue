@@ -74,13 +74,17 @@
 		methods:{
 			...mapActions('area',['actionAreas','actionDeleteArea']),
 			async getResults(page = 1){
+                this.laoding = true
 				await this.actionAreas(page)
+                this.laoding = false
 			},
 			async deleteArea(id){
 				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 					let page = 1
+                    this.laoding = true
 					await this.actionDeleteArea(id)
 					await this.actionAreas(page)
+                    this.laoding = false
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',

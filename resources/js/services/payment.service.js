@@ -7,6 +7,9 @@ const PaymentService = {
 	payments(page){
 		return ApiService.post(`/api/payment?page=${page}`)
 	},
+	userPayments(page){
+		return ApiService.post(`/api/payment/user?page=${page}`)
+	},
 	addpayment(data){
 		return ApiService.post(`/api/payment/store`,data)
 	},

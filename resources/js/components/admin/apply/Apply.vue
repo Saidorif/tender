@@ -37,7 +37,7 @@
 			          			<td style="letter-spacing: 3px;">{{item.inn}}</td>
 			          			<td style="letter-spacing: 3px;">
 			          				<div class="badge" :class="item.status == 'active' ? 'badge-success' : 'badge-warning'">
-			          					{{item.status == 'active' ? 'отправлен' : 'неотправлен'}}
+			          					{{item.status == 'active' ? $t('yuborilgan') : $t('yuborilmagan') }}
 				          			</div>
 				          		</td>
 			          			<td width="25%">
@@ -94,7 +94,9 @@
 		methods:{
 			...mapActions('apply',['actionApplies','actionSendApplyActive','actionCheckEmail']),
 			async getResults(page = 1){
+                this.laoding = true
 				await this.actionApplies(page)
+                this.laoding = false
 			},
 			allCheckbox(){
 				if(this.allChecked){
@@ -121,6 +123,7 @@
 							email:item.email ? item.email : ''
 						}
 					})
+                    this.laoding = true
 					await this.actionSendApplyActive({users:result});
 					if(this.getCheckEmail.success){
 						// let data = {
@@ -130,24 +133,27 @@
 						toast.fire({
 							type: "success",
 							icon: "success",
-							title: "Список E-mail добавлен!"
+							title: this.$t("Elektron pochta roʼyxati qoʼshildi")
 						});
 					}
+                    this.laoding = false
 					this.allIds = []
 				}else{
 					toast.fire({
 						type: "error",
 						icon: "error",
-						title: "Выбирайте чтобы активировать"
+						title: this.$t("Faollashtirish uchun tanlang")
 					});
 				}
 			},
 			async checkEmailExist(email, index){
-				let message = ''
+				let message = '';
+                this.laoding = true
 				await this.actionCheckEmail({email: email});
+                this.laoding = false
 				if(this.getCheckEmail.error){
 					if(this.getCheckEmail.message.email[0] === "The email must be a valid email address."){
-						message = "Адрес электронной почты должен быть действительным.";
+						message = this.$t("Elektron pochta manzili haqiqiy bo'lishi kerak");
 					}else if(this.getCheckEmail.message.email[0] === "The email has already been taken."){
 						message = "На этот email уже зарегистрирован аккаунт";
 					}else if(this.getCheckEmail.message.email[0] === "The email field is required."){

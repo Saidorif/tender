@@ -102,7 +102,9 @@
 				'actionAddApplication',
 			]),
 			async getResults(page = 1){
+                this.laoding = true
 				await this.actionUserApps(page)
+                this.laoding = false
 			},
 			async getEditId(){
 				await this.actionAddApplication()
@@ -135,8 +137,10 @@
 			async deleteRegion(id){
 				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
 					let page = 1
+                    this.laoding = true
 					await this.actionDeleteApplication(id)
 					await this.actionUserApps(page)
+                    this.laoding = false
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',

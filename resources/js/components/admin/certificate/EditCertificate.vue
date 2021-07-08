@@ -76,42 +76,6 @@
                      </p>
 
                   </div>
-
-		  		<!-- <div>
-					{{$t('Ushbu guvohnoma')}} {{form.company_name}} {{$t('ga')}}
-	          		({{$t('tashuvchining nomi')}})
-		  		</div>
-		  		<div>
-					guvohnoma egasi____________________________dagi_________-sonli
-					                                                           hartnoma sanasi va raqami)
-					shartnomaga asosan
-		  		</div>
-				<div>
-					guvohnoma raqami __________________ davlat raqami________________________
-		            (avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar)
-				</div>
-				<div>
-					rusumi____________________________________________________bo‘lgan
-					(yo‘nalishda qatnovchi avtotransport vositasiga tegishli ma’lumotlar)
-				</div>
-				<div>
-					avtotransport vositasida
-					____- sonli_______________________________________yo‘nalishda
-                 	(yo‘nalish raqami va nomi)
-				</div>
-				<div>
-					__________________________________________________sanasigacha
-	                          (guvohnomaning amal qilish muddati)
-				</div>
-				<div>
-					qatnovlarni amalga oshirish huquqiga egaligini tasdiqlaydi.
-				</div>
-				<div>
-				    <img :src='"/"+form.qr_code' alt="">
-              	</div>
-              	<div>
-					{{form.seria}} {{form.number}}
-              	</div> -->
 		  	</div>
 	  	</div>
 	</div>
@@ -139,7 +103,6 @@
 			await this.actionEditCertificate(this.$route.params.certificateId)
 			this.laoding = false
 			this.form = this.getCertificate
-            console.log( this.getCertificate)
 		},
 		methods:{
 			...mapActions('certificate',['actionUpdateCertificate','actionEditCertificate']),

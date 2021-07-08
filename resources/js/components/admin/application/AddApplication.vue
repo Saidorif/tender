@@ -428,7 +428,9 @@
 		    			'bustype_id':item.bustype_id,
 		    			'busmodel_id':item.busmodel_id
 		    		}
+                    this.laoding = true
 			    	await this.actionBusclassFind(data)
+                    this.laoding = false
 		    		item.tclasses = this.getBusclassFindList
 		    	}
 		    },
@@ -457,7 +459,9 @@
 		    },
 			async saveApplication(){
 		    	if (this.form.seat != '' && this.form.tarif != '' && this.requiredInput){
+                    this.laoding = true
 					await this.actionAddApplication(this.form)
+                    this.laoding = false
 					this.$router.push("/crm/application");
 					this.requiredInput = false
 				}else{

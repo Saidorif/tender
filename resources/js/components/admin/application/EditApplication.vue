@@ -457,12 +457,14 @@
 		    },
 	     	async findDirection(value){
 		      if(value != ''){
+                this.laoding = true
 		        this.isLoading = true
 		        await setTimeout(async ()=>{
 					await this.actionDirectionFind({name: value})
 			        this.findList = this.getDirectionFindList
 		        this.isLoading = false
 		        },1000)
+                this.laoding = false
 		      }
 		    },
 		    async selectClass(bustype_id,busmodel_id){
@@ -472,7 +474,9 @@
 		    			'bustype_id':bustype_id,
 		    			'busmodel_id':busmodel_id
 		    		}
+                    this.laoding = true
 			    	await this.actionBusclassFind(data)
+                    this.laoding = false
 		    		this.form.car.tclasses = this.getBusclassFindList
 		    	}
 		    },
@@ -501,7 +505,9 @@
 		    },
 			async saveApplication(){
 		    	if (this.form.seat != '' && this.form.tarif != '' && this.requiredInput){
+                    this.laoding = true
 					await this.actionAddApplication(this.form)
+                    this.laoding = false
 					this.$router.push("/crm/application");
 					this.requiredInput = false
 				}else{
