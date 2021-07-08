@@ -27,9 +27,11 @@
                 <td>2</td>
                 <td width="50%"><b>{{$t('Avtotransport vositasi markasini sinfi')}} </b></td>
                 <td>
-                  <div v-for="(item,index) in form.auto_model_class">
-                      {{ item.tclass ? item.tclass.name : '' }}
-                  </div>
+                  <template v-if="form.auto_model_class">
+                    <div v-for="(item,index) in form.auto_model_class">
+                        {{ item.tclass ? item.tclass.name : '' }}
+                    </div>
+                  </template>
                 </td>
               </tr>
               <tr>
