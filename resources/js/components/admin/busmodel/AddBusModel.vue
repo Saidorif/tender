@@ -90,16 +90,6 @@
                 :class="isRequired(form.seat_from) ? 'isRequired' : ''"
               />
             </div>
-            <!-- <div class="form-group col-md-4">
-              <label for="seat_to">{{$t('Oʼrindiqlar soni')}} (по)</label>
-              <input
-                type="number"
-                class="form-control input_style"
-                id="seat_to"
-                v-model="form.seat_to"
-                :class="isRequired(form.seat_to) ? 'isRequired' : ''"
-              />
-            </div> -->
             <div class="form-group col-md-4">
               <label for="stay_from">{{$t('capacity')}} </label>
               <input
@@ -110,16 +100,6 @@
                 :class="isRequired(form.stay_from) ? 'isRequired' : ''"
               />
             </div>
-            <!-- <div class="form-group col-md-4">
-              <label for="stay_to">Пассажировместимость (по)</label>
-              <input
-                type="number"
-                class="form-control input_style"
-                id="stay_to"
-                v-model="form.stay_to"
-                :class="isRequired(form.stay_to) ? 'isRequired' : ''"
-              />
-            </div> -->
             <div class="form-group col-lg-10">
               <label for="stay_from">{{$t('Izoh')}} </label>
               <textarea
@@ -193,7 +173,9 @@ export default {
     },
     async selectTypeBus(){
         this.form.tclass_id = ''
+        this.laoding = true
         await this.actionBusclassFind({bustype_id: this.form.bustype_id});
+        this.laoding = false
     },
     async saveType() {
       if (this.form.busbrand_id != "" && this.form.name != "") {

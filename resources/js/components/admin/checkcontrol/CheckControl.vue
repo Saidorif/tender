@@ -76,7 +76,9 @@
 		methods:{
 			...mapActions('checkcontrol', ['actionCheckContolsList']),
 			async getResults(page = 1){
+                this.laoding = true
 				await this.actionCheckContolsList(page)
+                this.laoding = false
             },
             getStatusClass(status){
 				if(status == 'active'){

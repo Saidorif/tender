@@ -95,7 +95,7 @@
 		        if (file.size > 1048576) {
 		          swal.fire({
 		            type: "error",
-		            title: "Ошибка",
+		            title: this.$t('Hatolik'),
 		            text: "Размер изображения больше лимита"
 		          });
 		        } else {
@@ -108,7 +108,7 @@
 		      } else {
 		        swal.fire({
 		          type: "error",
-		          title: "Ошибка",
+		          title: this.$t('Hatolik'),
 		          text: "Картинка должна быть только png,jpg,jpeg!"
 		        });
 		      }

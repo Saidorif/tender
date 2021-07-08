@@ -13,7 +13,6 @@
                     class="form-control input_style"
                     id="number"
                     v-mask="'********'"
-                    placeholder="Номер Авто"
                     v-model="filter.number"
                     :class="isRequired(filter.number) ? 'isRequired' : ''"
                   >

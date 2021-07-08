@@ -630,6 +630,7 @@ export default {
           app_id:Number(this.$route.params.appId),
           status:0,
         }
+        this.laoding = true
         await this.actionAppTarget(data);
         if (this.getStatusMessage.success) {
           await this.actionUserAppCars(this.$route.params.appId);
@@ -645,6 +646,7 @@ export default {
             title: this.getStatusMessage.message
           });
         }
+        this.laoding = false
       }
     },
     async activeTargetCar(target){
@@ -654,6 +656,7 @@ export default {
           app_id:Number(this.$route.params.appId),
           status:1,
         }
+        this.laoding = true
         await this.actionAppTarget(data);
         if (this.getStatusMessage.success) {
           await this.actionUserAppCars(this.$route.params.appId);
@@ -669,10 +672,12 @@ export default {
             title: this.getStatusMessage.message
           });
         }
+        this.laoding = false
       }
     },
     async removeCarFile(id){
       if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
+          this.laoding = true
         await this.actionControlRemoveFile(id)
         if(this.getStatusMessage.success){
           toast.fire({
@@ -686,6 +691,7 @@ export default {
             car_id:this.carId,
           }
           await this.actionControlFiles(data)
+          this.laoding = false
         }
       }
     },
@@ -703,7 +709,9 @@ export default {
         type:type,
         car_id:this.carId,
       }
+      this.laoding = true
       await this.actionControlFiles(data)
+      this.laoding = false
     },
     removeFile(){
       this.carItem.file = ''
@@ -758,7 +766,7 @@ export default {
       $('#exampleModalCenter').modal('hide')
     },
     async completeLot(){
-      // this.laoding = true
+      this.laoding = true
       await this.actionCloseLot(this.$route.params.appId)
       if (this.getStatusMessage.success) {
         await this.actionUserAppCars(this.$route.params.appId);

@@ -616,7 +616,6 @@ export default {
       if(confirm("Вы действительно хотите проверить лицензии?")){
         this.laoding = true
         await this.actionCheckLicense(inn)
-        this.laoding = false
         if (this.getStatusLicense.success){
           await this.actionAppCars(this.$route.params.appId);
           toast.fire({
@@ -631,6 +630,7 @@ export default {
             title: this.getStatusLicense.message
           });
         }
+        this.laoding = false
       }
     },
     openModal(item){
@@ -645,6 +645,7 @@ export default {
           app_id:Number(this.$route.params.appId),
           status:0,
         }
+        this.laoding = true
         await this.actionAppTarget(data);
         if (this.getStatusMessage.success) {
           await this.actionAppCars(this.$route.params.appId);
@@ -660,6 +661,7 @@ export default {
             title: this.getStatusMessage.message
           });
         }
+        this.laoding = false
       }
     },
     async activeTargetCar(target){
@@ -669,6 +671,7 @@ export default {
           app_id:Number(this.$route.params.appId),
           status:1,
         }
+        this.laoding = true
         await this.actionAppTarget(data);
         if (this.getStatusMessage.success) {
           await this.actionAppCars(this.$route.params.appId);
@@ -684,10 +687,12 @@ export default {
             title: this.getStatusMessage.message
           });
         }
+        this.laoding = false
       }
     },
     async removeCarFile(id){
       if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
+        this.laoding = true
         await this.actionControlRemoveFile(id)
         if(this.getStatusMessage.success){
           toast.fire({
@@ -702,6 +707,7 @@ export default {
           }
           await this.actionControlFiles(data)
         }
+        this.laoding = false
       }
     },
     closeFileModal(){

@@ -43,93 +43,6 @@
                 :class="isRequired(form.name) ? 'isRequired' : ''"
               />
             </div>
-            <!-- <div class="form-group col-md-4">
-              <label for="busmodel_id">{{$t('Avtobus markasi')}}</label>
-              <select
-                class="form-control input_style"
-                v-model="form.busmarka_id"
-                :class="isRequired(form.busmarka_id) ? 'isRequired' : ''"
-              >
-                <option value="" selected disabled>
-                  {{$t('Tanlang')}}!
-                </option>
-                <option
-                  :value="item.id"
-                  v-for="(item, index) in getBusBrandList"
-                >
-                  {{ item.name }}
-                </option>
-              </select>
-            </div>
-            <div class="form-group col-md-4">
-              <label for="busmodel_id">{{$t('Avtomobil rusumi')}}</label>
-              <select
-                class="form-control input_style"
-                v-model="form.busmodel_id"
-                :class="isRequired(form.busmodel_id) ? 'isRequired' : ''"
-              >
-                <option value="" selected disabled>
-                  {{$t('Tanlang')}}!
-                </option>
-                <option
-                  :value="item.id"
-                  v-for="(item, index) in getBusmodelList"
-                >
-                  {{ item.name }}
-                </option>
-              </select>
-            </div>
-            <div class="form-group col-md-4">
-              <label for="seat_from">{{$t('Oʼrindiqlar soni')}}</label>
-              <input
-                type="number"
-                class="form-control input_style"
-                id="seat_from"
-                v-model="form.seat_from"
-                :class="isRequired(form.seat_from) ? 'isRequired' : ''"
-              />
-            </div>
-            		  <div class="form-group col-md-4">
-					    <label for="seat_to">{{$t('Oʼrindiqlar soni')}} (по)</label>
-					    <input
-					    	type="number"
-					    	class="form-control input_style"
-					    	id="seat_to"
-					    	v-model="form.seat_to"
-					    	:class="isRequired(form.seat_to) ? 'isRequired' : ''"
-				    	>
-					  </div>
-            <div class="form-group col-md-4">
-              <label for="stay_from">Пассажировместимость </label>
-              <input
-                type="number"
-                class="form-control input_style"
-                id="stay_from"
-                v-model="form.stay_from"
-                :class="isRequired(form.stay_from) ? 'isRequired' : ''"
-              />
-            </div>
-            <div class="form-group col-md-4">
-					    <label for="stay_to">Пассажировместимость (по)</label>
-					    <input
-					    	type="number"
-					    	class="form-control input_style"
-					    	id="stay_to"
-					    	v-model="form.stay_to"
-					    	:class="isRequired(form.stay_to) ? 'isRequired' : ''"
-				    	>
-					  </div>
-
-            <div class="form-group col-lg-10">
-              <label for="stay_from">Комментарии </label>
-              <textarea
-                type="number"
-                class="form-control input_style"
-                id="stay_from"
-                v-model="form.desc"
-                :class="isRequired(form.desc) ? 'isRequired' : ''"
-              ></textarea>
-            </div> -->
             <div
               class="form-group col-lg-2 form_btn d-flex justify-content-end"
             >
@@ -155,14 +68,7 @@ export default {
     return {
       form: {
         name: "",
-        // seat_from: "",
-        // seat_to: "",
-        // stay_from: "",
-        // stay_to: "",
         bustype_id: "",
-        // busmodel_id: "",
-        // desc: "",
-        // busmarka_id: "",
       },
       requiredInput: false,
       laoding: true,
@@ -176,9 +82,7 @@ export default {
   },
   async mounted() {
     await this.actionTypeofbusList();
-    // await this.actionBusmodelList();
     await this.actionEditBusclass(this.$route.params.busclassId);
-    // await this.actionBusBrandList();
     this.form = this.getBusclass;
     this.laoding = false
   },
@@ -188,8 +92,6 @@ export default {
       "actionDeleteTypeofbus",
     ]),
     ...mapActions("busclass", ["actionUpdateBusclass", "actionEditBusclass"]),
-    // ...mapActions("busmodel", ["actionBusmodelList"]),
-    // ...mapActions("busbrand", ["actionBusBrandList"]),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
@@ -201,7 +103,7 @@ export default {
         this.form.bustype_id != "" &&
         this.form.busmodel_id != ""
       ) {
-          this.laoding = true
+        this.laoding = true
         await this.actionUpdateBusclass(this.form);
         this.laoding = false
         if (this.getMassage.success) {
@@ -218,7 +120,9 @@ export default {
       }
     },
     async selectBrandBus(){
+        this.laoding = true
         await this.actionBusmodelListByBrand({busmarka_id:this.form.busmarka_id});
+        this.laoding = false
     }
   },
 };

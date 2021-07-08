@@ -88,16 +88,6 @@
                 :class="isRequired(form.seat_from) ? 'isRequired' : ''"
               />
             </div>
-            <!-- <div class="form-group col-md-4">
-              <label for="seat_to">{{$t('Oʼrindiqlar soni')}} (по)</label>
-              <input
-                type="number"
-                class="form-control input_style"
-                id="seat_to"
-                v-model="form.seat_to"
-                :class="isRequired(form.seat_to) ? 'isRequired' : ''"
-              />
-            </div> -->
             <div class="form-group col-md-4">
               <label for="stay_from">{{$t('capacity')}} </label>
               <input
@@ -108,16 +98,6 @@
                 :class="isRequired(form.stay_from) ? 'isRequired' : ''"
               />
             </div>
-            <!-- <div class="form-group col-md-4">
-              <label for="stay_to">Пассажировместимость (по)</label>
-              <input
-                type="number"
-                class="form-control input_style"
-                id="stay_to"
-                v-model="form.stay_to"
-                :class="isRequired(form.stay_to) ? 'isRequired' : ''"
-              />
-            </div> -->
             <div class="form-group col-lg-10">
               <label for="stay_from"> {{$t('Izoh')}}</label>
               <textarea
@@ -173,7 +153,7 @@
 		},
 		async mounted(){
             await this.actionEditBusmodel(this.$route.params.busmodelId)
-                await this.actionTypeofbusList();
+            await this.actionTypeofbusList();
             await this.actionBusBrandList();
             this.form = this.getBusmodel
             await this.actionBusclassFind({bustype_id: this.form.bustype_id});
@@ -182,17 +162,16 @@
 		methods:{
             ...mapActions('busmodel',['actionEditBusmodel','actionUpdateBusmodel']),
             ...mapActions("busbrand", ["actionBusBrandList"]),
-            ...mapActions("typeofbus", [
-            "actionTypeofbusList",
-            "actionDeleteTypeofbus",
-            ]),
+            ...mapActions("typeofbus", ["actionTypeofbusList","actionDeleteTypeofbus",]),
             ...mapActions("busclass", ["actionBusclassFind"]),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
             },
             async selectTypeBus(){
+                this.laoding = true
                 this.form.tclass_id = ''
                 await this.actionBusclassFind({bustype_id: this.form.bustype_id});
+                this.laoding = false
             },
 			async saveType(){
 		    	if (

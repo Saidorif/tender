@@ -14,9 +14,9 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
-							<th scope="col">Номер контракта</th>
-							<th scope="col">Статус</th>
+							<th scope="col">{{$t('Nomi')}}</th>
+							<th scope="col">{{$t('Shartnoma raqami')}}</th>
+							<th scope="col">{{$t('Holati')}}</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
@@ -27,9 +27,9 @@
 							<td>{{reg.contract ? reg.contract.number : ''}}</td>
 							<td>{{reg.status}}</td>
 							<td>
-								<router-link 
-									tag="button" 
-									class="btn_transparent" 
+								<router-link
+									tag="button"
+									class="btn_transparent"
 									:to='`/crm/myappeal/edit/${reg.id}`'
 									v-if="$can('appealUserEdit', 'ContractController')"
 								>

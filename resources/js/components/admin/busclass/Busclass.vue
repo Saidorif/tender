@@ -86,7 +86,9 @@
 		methods:{
 			...mapActions('busclass',['actionBusclasses','actionDeleteBusclass']),
 			async getResults(page = 1){
+                this.laoding = true
 				await this.actionBusclasses(page)
+                this.laoding = false
 			},
 			async deleteType(id){
 				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){

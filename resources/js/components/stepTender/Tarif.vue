@@ -101,9 +101,9 @@ import Loader from '../Loader'
 		    },
              getStatusName(status){
 		    	if (status == 'pending') {
-		    		return 'В ожидании!'
+		    		return this.$t('Kutish jarayonida');
 		    	}else if(status == 'approved'){
-		    		return 'Подвержден!'
+		    		return this.$t('Tasdiqlangan')
 		    	}else{
 		    		return status
 		    	}

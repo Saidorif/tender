@@ -38,7 +38,7 @@
         },
 		data(){
 			return{
-        laoding:false
+                laoding:false
 			}
 		},
 		data() {

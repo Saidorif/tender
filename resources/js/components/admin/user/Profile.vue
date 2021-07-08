@@ -457,8 +457,8 @@ export default {
         swal.fire({
           type: "error",
           icon: "error",
-          title: "Ошибка",
-          text: "Размер файл не должно быть больше 1мб",
+          title: this.$t('Hatolik'),
+          text: this.$t('Fayl hajmi 1 MB dan oshmasligi kerak'),
         });
       } else {
         let reader = new FileReader();
@@ -479,7 +479,7 @@ export default {
         if (file.size > 1048576) {
           swal.fire({
             type: "error",
-            title: "Ошибка",
+            title: this.$t('Hatolik'),
             text: "Размер изображения больше лимита",
           });
         } else {
@@ -492,7 +492,7 @@ export default {
       } else {
         swal.fire({
           type: "error",
-          title: "Ошибка",
+          title: this.$t('Hatolik'),
           text: "Картинка должна быть только png,jpg,jpeg!",
         });
       }

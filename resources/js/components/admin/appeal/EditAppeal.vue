@@ -16,10 +16,10 @@
 		  		<form @submit.prevent.enter="saveMyAppeal">
 					<div class="row">
 					  	<div class="form-group col-md-6">
-				  			<h3>Мое сообщение</h3>
+				  			<h3>{{$t('Mening xabarim')}}</h3>
 					  		<div class="row">
 							  	<div class="form-group col-md-12">
-							  		<label for="contract_id">Мои контракт</label>
+							  		<label for="contract_id">{{$t('Mening shartnomalarim')}}</label>
 							  		<select
 							  			class="form-control input_style"
 								    	id="contract_id"
@@ -28,12 +28,12 @@
 								    	:class="isRequired(form.contract_id) ? 'isRequired' : ''"
 								    	disabled="disabled"
 							  		>
-							  			<option value="" selected disabled>Выберите контракт!</option>
+							  			<option value="" selected disabled>{{$t('Tanlang')}}!</option>
 							  			<option :value="item.id" v-for="(item,index) in getUserMycontractList">{{item.number}}</option>
 							  		</select>
 						  		</div>
 							  	<div class="form-group col-md-12">
-					              	<label for="image">Файл</label>
+					              	<label for="image">{{$t('Fayl')}}</label>
 					              	<img :src="'/'+form.user_file" class="img-fluid" alt="" width="70">
 						  		</div>
 							  	<div class="form-group col-md-12">
@@ -50,22 +50,22 @@
 							</div>
 						</div>
 					  	<div class="form-group col-md-6">
-					  		<h3>Ответ на сообщение</h3>
+					  		<h3>{{$t('Xabarga javob')}}</h3>
 							<div class="row">
 								<div class="form-group col-md-12" v-if="form.approved_by">
-					              	<label for="image">Ким томонидан корилган</label>
+					              	<label for="image">{{$t('Kim tomondan koʼrilgan')}}</label>
 					              	<div class="form-control">
-										{{form.approved_by}}					              			
-				              		</div>	
+										{{form.approved_by}}
+				              		</div>
 						  		</div>
 								<div class="form-group col-md-12">
-					              	<label for="image">Статус</label>
+					              	<label for="image">{{$t('Holati')}}</label>
 					              	<div class="alert alert-success">
-										{{form.status}}					              			
-				              		</div>	
+										{{form.status}}
+				              		</div>
 						  		</div>
 								<div class="form-group col-md-12" v-if="form.answer_file">
-					              	<label for="image">Файл</label>
+					              	<label for="image">{{$t('Fayl')}}</label>
 					              	<img :src="'/'+form.answer_file" class="img-fluid" alt="" width="70">
 						  		</div>
 							  	<div class="form-group col-md-12" v-if="form.answer_text">
@@ -129,8 +129,8 @@
 			        swal.fire({
 			          type: "error",
 			          icon: "error",
-			          title: "Ошибка",
-			          text: "Размер файл не должно быть больше 1мб"
+			          title: this.$t('Hatolik'),
+			          text: this.$t('Fayl hajmi 1 MB dan oshmasligi kerak')
 			        });
 	      		}else{
 	        		let reader = new FileReader();

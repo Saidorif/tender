@@ -559,7 +559,7 @@
 			        swal.fire({
 		          		type: "error",
 		          		icon: "error",
-		          		title: "Ошибка",
+		          		title: this.$t('Hatolik'),
 		          		text: "Картинка должна быть только pdf!"
 			        });
 		      		this.form.file = ''

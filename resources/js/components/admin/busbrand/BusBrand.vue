@@ -74,7 +74,9 @@
 		methods:{
 			...mapActions('busbrand',['actionBusBrands','actionDeleteBusBrand']),
 			async getResults(page = 1){
+                this.laoding = true
 				await this.actionBusBrands(page)
+                this.laoding = false
 			},
 			async deleteType(id){
 				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){

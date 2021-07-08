@@ -575,7 +575,14 @@
     "yo‘nalishda qatnovlarni amalga oshirish huquqini tasdiqlovchi":"удостоверяющий право на осуществление перевозок по маршруту",
     "Maʼlumot saqlandi":"Информация сохранена",
     "avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar":"сведения о регистрации транспортного средства",
-    "logout":"Выйти"
+    "logout":"Выйти",
+    "Hatolik":"Ошибка",
+    "yuborilgan":"отправлен",
+    "yuborilmagan":"неотправлен",
+    "Faollashtirish uchun tanlang":"Выбирайте чтобы активировать",
+    "Elektron pochta manzili haqiqiy boʼlishi kerak":"Адрес электронной почты должен быть действительным",
+    "Elektron pochta roʼyxati qoʼshildi":"Список E-mail добавлен",
+    "Fayl hajmi 1 MB dan oshmasligi kerak":"Размер файл не должно быть больше 1мб"
 }
 
 
