@@ -53,7 +53,6 @@
               <thead>
                   <tr>
                     <th>№</th>
-                    <th width="15%">{{$t('Yoʼnalish')}}</th>
                     <th width="15%">{{$t('Yoʼnalish nomi')}}</th>
                     <th width="15%">{{$t('Taklif yuborgan tashuvchilar')}}</th>
                     <th>{{$t('Avto ishlab chiqarilgan yildan boshlab necha yil otgani')}}</th>
@@ -67,24 +66,13 @@
                     <th>{{$t('Ballar toʼplandi')}}</th>
                     <th>{{$t('Umumiy ballar')}}</th>
                     <th>{{$t('Batafsil')}} </th>
+                    <th>{{$t('Natijalar')}} </th>
                     <th>{{$t('Shartnomalar')}} </th>
                   </tr>
               </thead>
               <tbody>
                   <tr v-for="(directions, d_index) in lots">
                       <td>{{d_index+1}} </td>
-                      <td>
-                        <template v-for="(p_item,p_index) in directions">
-                          <p v-for="(s_item,s_index) in p_item">
-                            <router-link :to="'/crm/stepuser/titul-tab/'+s_item.direction_ids">
-                              <b>{{s_item.name != null ? s_item.name : ''}}</b>
-                              <small class="badge badge-primary" v-if="s_item.reys_status">
-                                {{getStatus(s_item.reys_status)}}
-                              </small>
-                            </router-link>
-                          </p>
-                        </template>
-                      </td>
                       <td>
                             <template v-for="(p_item,p_index) in directions">
                                 <p v-for="(s_item,s_index) in p_item">
@@ -202,6 +190,20 @@
                                     <a href="#" @click.prevent="ballItem(s_item)" class="h4">
                                         <i class="fas fa-expand-arrows-alt"></i>
                                     </a>
+                                </p>
+                          </li>
+                        </ul>
+                      </td>
+                      <td class="without_padding">
+                        <ul class="list-inline">
+                          <li v-for="(p_item,index) in directions">
+                                <p v-for="(s_item,s_index) in p_item">
+                                  <router-link :to="`/crm/check-control/user/show/${s_item.app_id}`">
+                                    <i class="fas fa-file-alt h4"></i>
+                                  </router-link>
+                                    <!-- <a href="#" @click.prevent="ballItem(s_item)" class="h4">
+                                        <i class="fas fa-expand-arrows-alt"></i>
+                                    </a> -->
                                 </p>
                           </li>
                         </ul>

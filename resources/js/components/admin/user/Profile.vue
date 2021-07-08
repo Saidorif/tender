@@ -166,7 +166,7 @@
                     />
                   </div>
                   <h3 class="profile-username text-center">{{ form.name}}</h3>
-                  <p class="text-muted text-center">"OOO Pixeel.uz"</p>
+                  <p class="text-muted text-center">{{form.company_name}}</p>
                   <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
                       <b>{{$t('Avtomobil soni')}}: </b> <a class="float-right">{{form.cars_count}}</a>
