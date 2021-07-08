@@ -524,16 +524,16 @@ export default {
     };
   },
   watch:{
-    getAppCars:{
+    getUserAppCars:{
       handler(){
-        this.form = this.getAppCars;
-        this.cars = this.getAppCars.cars_with;
-        this.company_name = this.getAppCars.user.company_name;
+        this.form = this.getUserAppCars;
+        this.cars = this.getUserAppCars.user_cars;
+        this.company_name = this.getUserAppCars.company_name;
       }
     }
   },
   computed: {
-    ...mapGetters("checkcontrol",["getAppCars",'getStatusMessage','getStatusLicense','getControlFiles']),
+    ...mapGetters("checkcontrol",["getUserAppCars",'getStatusMessage','getStatusLicense','getControlFiles']),
     getCompanyName(){
       return this.company_name  ? this.company_name : 'Без название'
     },
@@ -546,15 +546,15 @@ export default {
     }
   },
   async mounted(){
-    await this.actionAppCars(this.$route.params.appId);
-    this.lotId = this.getAppCars ? this.getAppCars.tender_id : '';
+    await this.actionUserAppCars(this.$route.params.appId);
+    this.lotId = this.getUserAppCars ? this.getUserAppCars.tender_id : '';
     $('#exampleModalCenter').modal({backdrop: 'static',keyboard: true, show: false});
     this.laoding = false
   },
   methods: {
     ...mapActions("checkcontrol", [
       "actionControlRemoveFile",
-      "actionAppCars",
+      "actionUserAppCars",
       "actionAppTarget",
       'actionStatusMessage',
       'actionCloseLot',
@@ -603,7 +603,7 @@ export default {
         await this.actionCheckLicense(inn)
         this.laoding = false
         if (this.getStatusLicense.success){
-          await this.actionAppCars(this.$route.params.appId);
+          await this.actionUserAppCars(this.$route.params.appId);
           toast.fire({
             type: "success",
             icon: "success",
@@ -632,7 +632,7 @@ export default {
         }
         await this.actionAppTarget(data);
         if (this.getStatusMessage.success) {
-          await this.actionAppCars(this.$route.params.appId);
+          await this.actionUserAppCars(this.$route.params.appId);
           toast.fire({
             type: "success",
             icon: "success",
@@ -656,7 +656,7 @@ export default {
         }
         await this.actionAppTarget(data);
         if (this.getStatusMessage.success) {
-          await this.actionAppCars(this.$route.params.appId);
+          await this.actionUserAppCars(this.$route.params.appId);
           toast.fire({
             type: "success",
             icon: "success",
@@ -761,7 +761,7 @@ export default {
       // this.laoding = true
       await this.actionCloseLot(this.$route.params.appId)
       if (this.getStatusMessage.success) {
-        await this.actionAppCars(this.$route.params.appId);
+        await this.actionUserAppCars(this.$route.params.appId);
         toast.fire({
           type: "success",
           icon: "success",
@@ -783,7 +783,7 @@ export default {
         this.laoding = true
         await this.actionStatusMessage(form)
         if (this.getStatusMessage.success) {
-          await this.actionAppCars(this.$route.params.appId);
+          await this.actionUserAppCars(this.$route.params.appId);
           toast.fire({
             type: "success",
             icon: "success",
@@ -816,7 +816,7 @@ export default {
         this.laoding = true
         await this.actionStatusMessage(data)
         if (this.getStatusMessage.success) {
-          await this.actionAppCars(this.$route.params.appId);
+          await this.actionUserAppCars(this.$route.params.appId);
           toast.fire({
             type: "success",
             icon: "success",

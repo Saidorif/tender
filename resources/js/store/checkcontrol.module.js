@@ -3,6 +3,7 @@ import {CheckControlSerivce} from "../services/checkcontrol.service";
 const state = {
     controlCompanyList: [],
     appcars: [],
+    userappcars: [],
     statuscar: [],
     statusLicense: [],
     controlFiles: [],
@@ -14,6 +15,9 @@ const getters = {
     },
 	getAppCars(state){
 		return state.appcars
+    },
+	getUserAppCars(state){
+		return state.userappcars
     },
 	getStatusMessage(state){
 		return state.statuscar
@@ -109,6 +113,15 @@ const actions = {
 			return false
 		}
 	},
+	async actionUserAppCars({commit},page){
+		try {
+			const types =  await CheckControlSerivce.getUserAppcars(page);
+			await commit('setUserAppCars',types.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 };
 
 const mutations = {
@@ -123,6 +136,9 @@ const mutations = {
 	},
 	setAppCars(state, appcars){
 		state.appcars = appcars
+	},
+	setUserAppCars(state, userappcars){
+		state.userappcars = userappcars
 	},
 	setControlFiles(state, controlFiles){
 		state.controlFiles = controlFiles

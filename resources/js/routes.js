@@ -1176,10 +1176,10 @@ const router = new Router({
 				{
 					path:'check-control/user/show/:appId',
 					component:EditForUserCheckControl,
-					// meta:{
-					// 	action:'appCars',
-					// 	subject:'TenderController'
-					// }
+					meta:{
+						action:'userAppCars',
+						subject:'TenderController'
+					}
                 },
 				{
 					path:'checkauto',
