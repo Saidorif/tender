@@ -86,7 +86,7 @@
                 <tr>
                   <th  scope="col" rowspan="5">{{$t('Qatnovlar')}}</th>
                   <th scope="col" :colspan="form.whereTo.stations.length * 2">
-                    {{form.whereTo.where.name}} {{$t('tomondan')}}
+                    {{form.whereFrom.from.name}} {{$t('tomondan')}}
                   </th>
                   <th scope="col" rowspan="3">{{$t('Reys ischinligi')}}</th>
                 </tr>
@@ -145,7 +145,7 @@
                 <tr>
                   <th scope="col" rowspan="5">{{$t('Qatnovlar')}}</th>
                   <th scope="col" :colspan="form.whereFrom.stations.length * 2">
-                     {{form.whereFrom.where.name}} {{$t('tomondan')}}
+                     {{form.whereTo.from.name}} {{$t('tomondan')}}
                   </th>
                   <th scope="col" rowspan="3">{{$t('Reys ischinligi')}}</th>
                 </tr>

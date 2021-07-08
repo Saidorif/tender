@@ -83,8 +83,10 @@ Route::group([
 
             //Payment model
             Route::post('payment', 'PaymentController@index');
+            Route::post('payment/user', 'PaymentController@userIndex');
             Route::post('payment/store', 'PaymentController@store');
             Route::get('payment/edit/{id}', 'PaymentController@edit');
+            Route::get('payment/user/edit/{id}', 'PaymentController@userEdit');
             Route::post('payment/update/{id}', 'PaymentController@update');
             Route::delete('payment/destroy/{id}', 'PaymentController@destroy');
 
