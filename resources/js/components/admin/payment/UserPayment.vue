@@ -20,7 +20,6 @@
 							<th scope="col">{{$t('INN')}}</th>
 							<th scope="col">{{$t('Miqdor')}}</th>
 							<th scope="col">{{$t('Sana')}}</th>
-							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -36,27 +35,6 @@
                             <td>{{reg.user.inn}}</td>
 							<td>{{reg.summ}}</td>
 							<td>{{reg.date}}</td>
-							<td>
-								<template v-if="$can('edit', 'PaymentController')">
-									<router-link
-										tag="button"
-										class="btn_transparent"
-										:to='`/crm/payment/edit/${reg.id}`'
-										v-if="reg.status != 'active'"
-									>
-										<i class="pe_icon pe-7s-edit editColor"></i>
-									</router-link>
-								</template>
-								<template v-if="$can('destroy', 'PaymentController')">
-									<button
-										class="btn_transparent"
-										@click="deleteRegion(reg.id)"
-										v-if="reg.status != 'active'"
-									>
-										<i class="pe_icon pe-7s-trash trashColor"></i>
-									</button>
-								</template>
-							</td>
 						</tr>
 					</tbody>
 					<pagination :limit="4" :data="getUserPayments" @pagination-change-page="getResults"></pagination>
