@@ -2,6 +2,7 @@ import {PaymentService} from "../services/payment.service";
 
 const state = {
 	payments: {},
+	userpayments: {},
 	paymentlist: [],
 	message: [],
 	payment: [],
@@ -13,6 +14,9 @@ const getters = {
 	},
 	getPayments(state){
 		return state.payments
+	},
+	getUserPayments(state){
+		return state.userpayments
 	},
 	getMassage(state){
 		return state.message
@@ -37,6 +41,15 @@ const actions = {
 		try {
 			const payments =  await PaymentService.payments(page);
 			await commit('setPayments',payments.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionUserPayments({commit},page){
+		try {
+			const payments =  await PaymentService.userPayments(page);
+			await commit('setUserPayments',payments.data.result)
 			return true
 		} catch (error) {
 			return false
@@ -86,6 +99,9 @@ const mutations = {
 	},
 	setPayments(state, payments){
 		state.payments = payments
+	},
+	setUserPayments(state, userpayments){
+		state.userpayments = userpayments
 	},
 	setMessage(state, message){
 		state.message = message

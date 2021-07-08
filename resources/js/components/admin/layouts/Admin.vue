@@ -274,6 +274,14 @@
               </p>
             </router-link>
           </li>
+          <li class="nav-item" v-if="$can('userIndex', 'PaymentController')">
+            <router-link class="nav-link" to="/crm/userpayment">
+              <i class="peIcon fas fa-money-bill-alt"></i>
+              <p>
+                {{$t('admin_menu.payments')}} <span class="badge badge-primary">user</span>
+              </p>
+            </router-link>
+          </li>
           <li class="nav-item" v-if="$can('index', 'ProtocolController')">
             <router-link class="nav-link" to="/crm/oldprotocol">
               <i class="peIcon fas fa-file"></i>
