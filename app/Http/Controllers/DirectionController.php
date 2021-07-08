@@ -1757,7 +1757,7 @@ class DirectionController extends Controller
             $path = 'public/'.date('Y-m-d');
             $fileName = \Str::random(20).'.'.$the_file->getClientOriginalExtension();
             Storage::disk('local')->putFileAs($path, $the_file,$fileName);
-            $inputs['file'] = 'storage/'.date('Y-m-d').'/'.$fileName;
+            $input['file'] = 'storage/'.date('Y-m-d').'/'.$fileName;
             $direction->sxema_file = $input['file'];
             $direction->save();
         }
