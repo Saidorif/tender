@@ -115,6 +115,7 @@ Route::group([
             Route::get('tender/completed-lots/{id}','TenderController@completedTendersBall');
             Route::get('tender/check-tenders','TenderController@checkTenders');
             Route::get('tender/app-cars/{id}','TenderController@appCars');
+            Route::get('tender/user-app-cars/{id}','TenderController@userAppCars');
             Route::post('tender/approve/{id}','TenderController@tenderLotApprove');
             Route::get('tender/getinfo/{id}','TenderController@getinfo');//DATA FOR PROTOLOl
 

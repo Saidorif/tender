@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\AdliyaCar;
 use App\Certificate;
+use App\ContractCar;
 use App\DirectionReq;
 use App\GaiCar;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Validation\Rule;
@@ -244,6 +246,15 @@ class ApplicationController extends Controller
         $the_year = date('Y') - $inputs['date'];
         if($inputs['bustype_id'] == 3 && $the_year > 14){
             return response()->json(['error' => true, 'message' => 'Год выпуска автомобиля не должно быть больше от '.$the_year]);
+        }
+        //Check for old contracts
+        $contract_car = ContractCar::where('auto_number','=',$inputs['auto_number'])->first();
+        if($contract_car){
+            $contract_time = new Carbon($contract_car->contract->exp_date,'Asia/Tashkent');
+            $now = Carbon::now('Asia/Tashkent');
+            if($contract_time->gt($now)){
+                return response()->json(['error' => true, 'message' => 'Автомобиль уже используется']);
+            }
         }
 
         $result = UserCar::create($inputs);

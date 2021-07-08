@@ -40,4 +40,9 @@ class ContractCar extends Model
     {
         return $this->belongsTo(\App\TClass::class,'tclass_id');
     }
+
+    public function contract()
+    {
+        return $this->belongsTo(\App\Contract::class,'contract_id');
+    }
 }

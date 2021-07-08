@@ -1359,8 +1359,19 @@ class TenderController extends Controller
     {
         $result = Application::with(['carsWith','user'])->orderBy('id','ASC')->find($id);
         if(!$result){
-            return response()->json(['error' => true, 'message' => 'Application not found']);
+            return response()->json(['error' => true, 'message' => 'Заявка не найдена']);
         }
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
+    public function userAppCars(Request $request,$id)
+    {
+        $result = Application::with(['userCars','user'])->orderBy('id','ASC')->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Заявка не найдена']);
+        }
+        $result->company_name = $result->user->company_name;
+        $result->unsetRelation('user');
         return response()->json(['success' => true, 'result' => $result]);
     }
 
