@@ -278,6 +278,7 @@ import EditContract from './components/admin/contract/EditContract'
 
 
 // Payment
+import UserPayment from './components/admin/payment/UserPayment'
 import Payment from './components/admin/payment/Payment'
 import EditPayment from './components/admin/payment/EditPayment'
 import AddPayment from './components/admin/payment/AddPayment'
@@ -1347,6 +1348,14 @@ const router = new Router({
 					meta:{
 						action:'dirReqEdit',
 						subject:'DirectionController'
+					}
+				},
+				{
+					path:'userpayment',
+					component:UserPayment,
+					meta:{
+						action:'userIndex',
+						subject:'PaymentController'
 					}
 				},
 				{
