@@ -30,8 +30,8 @@
 					  		<table class="table table-bordered ">
 					  			<thead>
 					  				<tr>
-					  					<th>№ т/р</th>
-					  					<th>Бошлангич ва оралик охирги бекатлар номи</th>
+					  					<th>№ {{$t('T/r')}}</th>
+					  					<th>{{$t('Boshlangʼich va oraliq oxirgi bekatlar nomi')}}</th>
 					  					<template :colspan="titulData.timing_with.length" v-for="(item,index) in titulData.timing_with">
 						  					<th>
 							  					{{item.whereTo.name}}

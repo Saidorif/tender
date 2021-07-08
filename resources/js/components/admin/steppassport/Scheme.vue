@@ -193,21 +193,24 @@ export default {
     ...mapActions("conditionalsign", ["actionConditionalSignList"]),
     ...mapActions('confirmscheme',['actionApproveScheme']),
     async sendToActivate(){
-      await this.actionApproveScheme(this.$route.params.directionId)
-      if (this.getSchemeMassage.success){
-        await this.actionEditDirection(this.$route.params.directionId);
-        toast.fire({
-          type: "success",
-          icon: "success",
-          title: this.getSchemeMassage.message,
-        });
-      }else{
-        toast.fire({
-          type: "error",
-          icon: "error",
-          title: this.getSchemeMassage.message,
-        });
-      }
+        this.laoding = true
+        await this.actionApproveScheme(this.$route.params.directionId)
+        if (this.getSchemeMassage.success){
+            await this.actionEditDirection(this.$route.params.directionId);
+            toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getSchemeMassage.message,
+            });
+        }else{
+            toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getSchemeMassage.message,
+            });
+        }
+        this.laoding = false
+
     },
 
     async saveData() {
@@ -215,7 +218,6 @@ export default {
         this.laoding = true
         await this.actionAddSchemadetail({id:this.$route.params.directionId, data:this.agreedData})
         this.laoding = false
-        console.log(this.getMsg)
         if(this.getMsg.success){
           toast.fire({
             type: "success",
@@ -246,7 +248,9 @@ export default {
             let myFileData = new FormData();
             myFileData.append('file', this.file);
             myFileData.append('direction_id', this.$route.params.directionId);
+            this.laoding = true
             await this.actionSendSchemeFile(myFileData);
+                this.laoding = false
             if(this.getMsg.success){
                 toast.fire({
                     type: "success",
