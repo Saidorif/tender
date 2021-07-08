@@ -14,23 +14,23 @@
       </div>
       <div class="card-body">
           <div class="table-responsive" v-for="(lots,lot_index) in getTender">
-              <h5>Лот <em>№</em> {{lot_index + 1}}</h5>
+              <h5>{{$t('Lot')}} <em>№</em> {{lot_index + 1}}</h5>
               <table class="table table-bordered" >
                   <thead>
                       <tr>
                           <th>№</th>
                           <th width="15%">{{$t('Yoʼnalish')}}</th>
                           <th width="15%">{{$t('Taklif yuborgan tashuvchilar')}}</th>
-                          <th>Avto ishlab chiqarilgan yildan boshlab necha yil otgani</th>
-                          <th>Yolovchilar sigimi</th>
-                          <th>Transport kategoriyasiga mosligi</th>
-                          <th>Transport modelining mosligi</th>
-                          <th>Qatnovlar soni</th>
-                          <th>Tarif</th>
-                          <th>Qoshimcha qulayliklar mavjudligi</th>
-                          <th>Tadbirlar rejasi</th>
-                          <th>Набранные баллы</th>
-                          <th>Подробнее</th>
+                          <th>{{$t('Avto ishlab chiqarilgan yildan boshlab necha yil otgani')}}</th>
+                          <th>{{$t('Yoʼlovchilar sigʼimi')}}</th>
+                          <th>{{$t('Transport kategoriyasiga mosligi')}}</th>
+                          <th>{{$t('Transport rusumining mosligi')}}</th>
+                          <th>{{$t('Qatnovlar soni')}}</th>
+                          <th>{{$t('Tarif')}}</th>
+                          <th>{{$t('Qoʼshimcha qulayliklar mavjudligi')}}</th>
+                          <th>{{$t('Tadbirlar rejasi')}}</th>
+                          <th>{{$t('Ballar toʼplandi')}}</th>
+                          <th>{{$t('Batafsil')}}</th>
                           <th>{{$t('Shartnomalar')}}</th>
                       </tr>
                   </thead>
@@ -240,7 +240,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Баллы</h5>
+              <h5 class="modal-title" id="exampleModalLongTitle">{{$t('Ballar')}}</h5>
               <button type="button" class="close" @click.prevent="closeBallModal">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -332,7 +332,7 @@
                     <tr>
                       <th>№</th>
                       <th>
-                        Йўналишларда ишлаётганда ҳаракатланиш хавфсизлигини таъминлаш бўйича қатнашчи томонидан амалга оширилган тадбирлар режаси (факат ташувчи белгилаганлари куринади)
+                        {{$t('Yoʼnalishlarda ishlayotganda harakatlanish xavfsizligini taʼminlash boʼyicha qatnashchi tomonidan amalga oshirilgan tadbirlar rejasi quyidagicha baholanadi')}}
                       </th>
                       <th>{{$t('Hisoblangan ball')}}</th>
                     </tr>

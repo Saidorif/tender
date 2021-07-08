@@ -158,8 +158,7 @@ export default {
           toast.fire({
             type: "success",
             icon: "success",
-            title:
-              "Ваш пароль отправлен на ваш e-mail. проверьте пожалуйста свою электронную почту!",
+            title: this.$t("Parolingiz elektron pochtangizga yuborildi. elektron pochtangizni tekshiring"),
           });
           this.signUp.region_id = "";
           this.signUp.area_id = "";

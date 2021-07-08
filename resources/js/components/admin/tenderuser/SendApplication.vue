@@ -1132,7 +1132,7 @@
             		toast.fire({
 			            type: "error",
 			            icon: "error",
-			            title: "Ознакомьтесь с текстом публичной оферты "
+			            title: this.$t("Ommaviy taklif matni bilan tanishib chiqing")
 		          	});
             	}
             },
@@ -1155,7 +1155,7 @@
 					})
 					return name
 				}else{
-					return 'Выберите класс авто'
+					return this.t$('Avtomobil sinfini tanlang')
 				}
 			},
 			activate(){
@@ -1504,7 +1504,7 @@
 			    		toast.fire({
 				            type: "error",
 				            icon: "error",
-				            title: 'Загрузите файл!'
+				            title: this.$t('Faylni yuklang')
 			          	});
 			    	}
 		    		this.requiredDataInput = false

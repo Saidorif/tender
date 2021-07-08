@@ -56,6 +56,7 @@
         "send": "Отправить"
     },
     "Faylni yuklash": "Скачать файл",
+    "Faylni yuklang": "Загрузите файл",
     "Faylni saqlash": "Сохранение файла",
     "Yuklash":"Yuklash",
     "O‘zgartirish":"Изменить",
@@ -575,6 +576,9 @@
     "yo‘nalishda qatnovlarni amalga oshirish huquqini tasdiqlovchi":"удостоверяющий право на осуществление перевозок по маршруту",
     "Maʼlumot saqlandi":"Информация сохранена",
     "avtotransport vositasi ro‘yxatdan o‘tkazilganligi to‘g‘risidagi ma’lumotlar":"сведения о регистрации транспортного средства",
+    "Maʼlumot yangilandi":"Данный изменен",
+    "Paketda kamida 2 ta yo‘nalish bo‘lishi kerak":"В пакете должны быть минимум 2 маршрута!",
+    "Boshqa marshrutlarni qo‘shish uchun paketni bosing":"Чтобы добавить больше маршрутов окликните пакет",
     "logout":"Выйти",
     "Hatolik":"Ошибка",
     "yuborilgan":"отправлен",
@@ -583,7 +587,11 @@
     "Elektron pochta manzili haqiqiy boʼlishi kerak":"Адрес электронной почты должен быть действительным",
     "Elektron pochta roʼyxati qoʼshildi":"Список E-mail добавлен",
     "Fayl hajmi 1 MB dan oshmasligi kerak":"Размер файл не должно быть больше 1мб",
-    "Parolingiz elektron pochtangizga yuborildi. elektron pochtangizni tekshiring":"Ваш пароль отправлен на ваш e-mail. проверьте пожалуйста свою электронную почту"
+    "Rasm hajmi bilgilangan limitdan kattaroq":"Размер изображения больше лимита",
+    "Parolingiz elektron pochtangizga yuborildi. elektron pochtangizni tekshiring":"Ваш пароль отправлен на ваш e-mail. проверьте пожалуйста свою электронную почту",
+    "Roʼyxatda tarif mavjud":"В списке тариф существует",
+    "Ishonchingiz komilmi":"Уверены ли вы",
+    "Ushbu yoʼnalish roʼyxatda mavjud":"Этот маршрут уже выбрано"
 }
 
 
