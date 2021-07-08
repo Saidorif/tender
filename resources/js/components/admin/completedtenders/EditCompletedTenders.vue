@@ -48,7 +48,7 @@
       </div>
       <div class="card-body">
         <div class="table-responsive" v-for="(lots,lot_index) in getTender.result">
-          <h5>Лот <em>№</em> {{lot_index + 1}}</h5>
+          <h5>Лот <em>№</em> {{lots.lot_id}}</h5>
           <table class="table table-bordered" >
               <thead>
                   <tr>
@@ -71,7 +71,7 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr v-for="(directions, d_index) in lots">
+                  <tr v-for="(directions, d_index) in lots.lot_items" v-if="lots.lot_items">
                       <td>{{d_index+1}} </td>
                       <td>
                             <template v-for="(p_item,p_index) in directions">
@@ -201,9 +201,6 @@
                                   <router-link :to="`/crm/check-control/user/show/${s_item.app_id}`">
                                     <i class="fas fa-file-alt h4"></i>
                                   </router-link>
-                                    <!-- <a href="#" @click.prevent="ballItem(s_item)" class="h4">
-                                        <i class="fas fa-expand-arrows-alt"></i>
-                                    </a> -->
                                 </p>
                           </li>
                         </ul>
