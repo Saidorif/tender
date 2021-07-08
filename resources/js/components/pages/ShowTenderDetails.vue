@@ -237,7 +237,9 @@ export default {
         tender_id: this.$route.params.tenderuserId,
         lot_id: id,
       };
+      this.laoding = true;
       await this.actionUserEditApplication(data);
+      this.laoding = false;
       if (this.getUserEditApplication.success) {
         this.$router.push(
           "/crm/application/user/" + this.getUserEditApplication.result.id

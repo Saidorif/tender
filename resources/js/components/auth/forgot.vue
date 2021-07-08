@@ -88,7 +88,9 @@ export default {
       return this.requiredLoginInput && input === "";
     },
     async selectRegion() {
+        this.laoding = true;
       await this.actionAreaByRegion({ region_id: this.signUp.region_id });
+      this.laoding = false;
     },
     confirmPassword() {
       if (this.signUp.password && this.signUp.confirm_password) {
@@ -102,8 +104,10 @@ export default {
     async onLogin() {
       this.$Progress.start();
       if (this.form.email != "" && this.form.password != "") {
+          this.laoding = false;
         await this.login(this.form);
         await this.authenticationErrorCode;
+        this.laoding = true;
         if (!this.authenticationErrorCode) {
           toast.fire({
             type: "success",
@@ -147,7 +151,9 @@ export default {
         this.signUp.email != "" &&
         this.checkPassword == false
       ) {
+        this.laoding = true;
         await this.register(this.signUp);
+        this.laoding = false;
         if (this.getRegisterError.success) {
           toast.fire({
             type: "success",
