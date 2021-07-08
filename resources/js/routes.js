@@ -250,6 +250,7 @@ import Apply from './components/admin/apply/Apply'
 import CheckControl from './components/admin/checkcontrol/CheckControl'
 import AddCheckControl from './components/admin/checkcontrol/AddCheckControl'
 import EditCheckControl from './components/admin/checkcontrol/EditCheckControl'
+import EditForUserCheckControl from './components/admin/checkcontrol/EditForUserCheckControl'
 
 // CheckAuto
 import CheckAuto from './components/admin/checkauto/CheckAuto'
@@ -1171,6 +1172,14 @@ const router = new Router({
 						action:'appCars',
 						subject:'TenderController'
 					}
+                },
+				{
+					path:'check-control/user/show/:appId',
+					component:EditForUserCheckControl,
+					// meta:{
+					// 	action:'appCars',
+					// 	subject:'TenderController'
+					// }
                 },
 				{
 					path:'checkauto',

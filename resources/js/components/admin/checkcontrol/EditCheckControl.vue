@@ -187,7 +187,11 @@
                     <th>№</th>
                     <th>{{$t('Holati')}}</th>
                     <th>{{$t('Avtomobil raqami')}}</th>
-                    <th>{{$t('Reyslar soni')}}</th>
+                    <th>{{$t('Avtomobil turi')}}</th>
+                    <th>{{$t('Avtomobil sinfi')}}</th>
+                    <th>{{ $t('Avtobus markasi')}}</th>
+                    <th>{{$t('Avtomobil rusumi')}}</th>
+                    <th>{{$t('yil')}}</th>
                     <th>{{$t('capacity')}}</th>
                     <th>{{$t('Oʼrindiqlar soni')}}</th>
                     <th>{{$t('Sovutgich (iqlim-nazorati tizimi)')}}</th>
@@ -218,7 +222,19 @@
                     <td>
                       <b>{{car_items.auto_number}}</b>
                     </td>
-                    <td>{{car_items.qty_reys}}</td>
+                    <td>
+                      <b>{{car_items.bustype ? car_items.bustype.name : ''}}</b>
+                    </td>
+                    <td>
+                      <b>{{car_items.tclass ? car_items.tclass.name : ''}}</b>
+                    </td>
+                    <td>
+                      <b>{{car_items.busmarka ? car_items.busmarka.name : ''}}</b>
+                    </td>
+                    <td>
+                      <b>{{car_items.busmodel ? car_items.busmodel.name : ''}}</b>
+                    </td>
+                    <td>{{car_items.date}}</td>
                     <td>{{car_items.capacity}}</td>
                     <td>{{car_items.seat_qty}}</td>
                     <td>
