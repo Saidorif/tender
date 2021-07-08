@@ -18,6 +18,7 @@ use App\Area;
 use App\PassportTarif;
 use App\TenderLot;
 use App\User;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
@@ -797,7 +798,7 @@ class DirectionController extends Controller
     //List direction tarifs
     public function listTarif(Request $request)
     {
-        $builder = Direction::query()->with(['passport_tarif']);
+        $builder = Direction::query()->with(['passport_tarif','createdBy']);
         $params = $request->all();
         $region = null;
         $user = $request->user();
@@ -1745,11 +1746,18 @@ class DirectionController extends Controller
         //Upload file and image
         if($request->hasFile('file')){
             $input = [];
-            $path = public_path('uploads');
+            //$path = public_path('uploads');
+            //$the_file = $request->file('file');
+            //$fileName = \Str::random(20).'.'.$the_file->getClientOriginalExtension();
+            //$the_file->move($path, $fileName);
+            //$input['file'] = '/uploads/'.$fileName;
+            //$direction->sxema_file = $input['file'];
+
             $the_file = $request->file('file');
+            $path = 'public/'.date('Y-m-d');
             $fileName = \Str::random(20).'.'.$the_file->getClientOriginalExtension();
-            $the_file->move($path, $fileName);
-            $input['file'] = '/uploads/'.$fileName;
+            Storage::disk('local')->putFileAs($path, $the_file,$fileName);
+            $inputs['file'] = 'storage/'.date('Y-m-d').'/'.$fileName;
             $direction->sxema_file = $input['file'];
             $direction->save();
         }
