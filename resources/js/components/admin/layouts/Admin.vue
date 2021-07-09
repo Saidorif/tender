@@ -72,14 +72,6 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/crm/myappeal">
-              <i class="peIcon fas fa-file"></i>
-              <p>
-                {{$t('Shartnoma arizasi')}}
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link" to="/crm/appeal" v-if="$can('appealIndex', 'ContractController')">
               <i class="peIcon fas fa-file"></i>
               <p>
@@ -282,6 +274,14 @@
               </p>
             </router-link>
           </li>
+          <li class="nav-item" v-if="$can('index', 'InvoiceController')">
+            <router-link class="nav-link" to="/crm/invoices">
+              <i class="peIcon fas fa-money-bill-alt"></i>
+              <p>
+                {{$t('invoices')}}
+              </p>
+            </router-link>
+          </li>
           <li class="nav-item" v-if="$can('index', 'ProtocolController')">
             <router-link class="nav-link" to="/crm/oldprotocol">
               <i class="peIcon fas fa-file"></i>
@@ -354,6 +354,14 @@
                   </p>
                 </router-link>
               </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="/crm/myappeal">
+                    <i class="peIcon fas fa-file"></i>
+                    <p>
+                        {{$t('Shartnoma arizasi')}}
+                    </p>
+                    </router-link>
+                </li>
             </ul>
           </li>
           <li class="nav-item has-treevie" v-if="$can('index', 'AllSettingController')">
