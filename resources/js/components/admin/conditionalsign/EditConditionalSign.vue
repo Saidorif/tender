@@ -98,7 +98,7 @@
 		          swal.fire({
 		            type: "error",
 		            title: this.$t('Hatolik'),
-		            text: "Размер изображения больше лимита"
+		            text: this.$t('Rasm hajmi bilgilangan limitdan kattaroq')
 		          });
 		        } else {
 		          let reader = new FileReader();
@@ -111,7 +111,7 @@
 		        swal.fire({
 		          type: "error",
 		          title: this.$t('Hatolik'),
-		          text: "Картинка должна быть только png,jpg,jpeg!"
+		          text: this.$t('Rasm faqat png, jpg, jpeg bo‘lishi kerak')
 		        });
 		      }
 		    },

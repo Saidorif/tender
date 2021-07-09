@@ -354,7 +354,7 @@
 					toast.fire({
 				    	type: 'error',
 				    	icon: 'error',
-						title: 'Заполните все поля авто!',
+						title: this.$t('Barcha avtomatik maydonlarni to‘ldiring'),
 				    })
 				}
 			},
@@ -465,7 +465,7 @@
 		          		type: "error",
 		          		icon: "error",
 		          		title: this.$t('Hatolik'),
-		          		text: "Картинка должна быть только pdf!"
+		          		text: this.$t('Rasm faqat pdf bo‘lishi kerak')
 			        });
 		      		this.form.file = ''
 		      	}
@@ -515,14 +515,14 @@
 							toast.fire({
 						    	type: 'error',
 						    	icon: 'error',
-								title: 'Заполните все поля авто!',
+								title: this.$t('Barcha avtomatik maydonlarni to‘ldiring'),
 						    })
 		    			}
 		    		}else{
 						toast.fire({
 							type: "error",
 							icon: "error",
-							title: 'Выберите направление!'
+							title: this.$t('Marshrutni tanlang')
 					 	});
 		    		}
 				}else{

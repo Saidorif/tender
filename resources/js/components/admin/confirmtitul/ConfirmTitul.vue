@@ -142,12 +142,14 @@
 				await this.actionTituls(data)
 			},
 			async search(){
+                this.laoding = true
 				let page = 1
 				let data = {
 	            	page:page,
 	            	items:this.filter
 	            }
 				await this.actionTituls(data)
+                this.laoding = false
 			},
 			async clear(){
 				this.filter.pass_number = ''

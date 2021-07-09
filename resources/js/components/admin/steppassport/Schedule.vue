@@ -559,13 +559,13 @@ export default {
     removeStation(parentName, index){
       window.swal.fire({
         title: 'Ishonchingiz komilmi?',
-        text: "Siz buni qaytarib ololmaysiz!",
+        text: this.$t('Siz buni qaytarib ololmaysiz'),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: "Ha, uni o'chirib tashlang!",
-        cancelButtonText: "Bekor qilish",
+        confirmButtonText: this.$t("Oʼchirish"),
+        cancelButtonText: this.$t("Bekor qilish"),
       }).then( async (result) => {
         if (result.value) {
           this.form[parentName].stations.splice(index, 1);

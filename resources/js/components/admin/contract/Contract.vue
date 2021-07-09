@@ -340,7 +340,6 @@ export default {
   },
   async mounted() {
     await this.actionContract(this.$route.params.conId);
-        console.log(this.getContract)
         this.cars =  this.getContract.cars
     // if(this.getContract && this.getContract.app){
         // this.cars = this.getContract.app.cars_with.length > 0 ? this.getContract.app.cars_with : []

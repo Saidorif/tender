@@ -136,13 +136,14 @@
 		    	if (this.form.date != '' && this.form.inn != '' && this.form.summ != '' && this.form.details != ''){
 					this.laoding = true
 					await this.actionAddPayment(this.form)
+                    this.laoding = false
 					if (this.getMassage.success) {
 						toast.fire({
 					    	type: 'success',
 					    	icon: 'success',
 							title: this.getMassage.message,
 					    })
-						this.laoding = false
+
 						this.$router.push("/crm/payment");
 						this.requiredInput = false
 					}
