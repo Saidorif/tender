@@ -3,6 +3,7 @@ import {ContractService} from "../services/contract.service";
 const state = {
 	message: [],
 	contract: [],
+	contracts: [],
 	contractList: {},
 };
 
@@ -15,6 +16,9 @@ const getters = {
 	},
 	getContract(state){
 		return state.contract
+	},
+	getContracts(state){
+		return state.contracts
 	},
 };
 
@@ -38,6 +42,15 @@ const actions = {
 			return false
 		}
 	},
+	async actionContractCheck({commit},payload){
+		try {
+			const areas =  await ContractService.contractCheck(payload);
+			await commit('setContractCheck',areas.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 };
 
 const mutations = {
@@ -46,6 +59,9 @@ const mutations = {
 	},
 	setContract(state, contract){
 		state.contract = contract
+	},
+	setContractCheck(state, contracts){
+		state.contracts = contracts
 	},
 	setMessage(state, message){
 		state.message = message
