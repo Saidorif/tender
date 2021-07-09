@@ -11,13 +11,13 @@
                 <input
                     type="text"
                     class="form-control input_style"
-                    id="number"
-                    v-mask="'********'"
-                    v-model="filter.number"
-                    :class="isRequired(filter.number) ? 'isRequired' : ''"
+                    id="auto_number"
+                    v-model="filter.auto_number"
+                    @input="checkInput"
+                    :class="isRequired(filter.auto_number) ? 'isRequired' : ''"
                   >
               </div>
-                <button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
+                <button type="button" class="btn btn-secondary mr-3" @click.prevent="carCheck">
                     <i class="fas fa-search"></i>
                     {{$t('Qidirish')}}
                 </button>
@@ -28,7 +28,7 @@
                     <tr>
                         <th>№</th>
                         <th>{{$t('conducted_tenders.table.direction_name')}}</th>
-                        <th>{{$t('Tashuvchi nomi')}}</th>
+                        <!-- <th>{{$t('Tashuvchi nomi')}}</th> -->
                         <th>{{$t('conducted_tenders.table.company_name')}}</th>
                         <th>{{$t('Shartnoma muddati')}}</th>
                         <th>{{$t('Litsenziya raqami')}}</th>
@@ -36,12 +36,17 @@
                     </tr>
                 </thead>
                 <tbody>
-
-                    <tr>
-                        <td>1</td>
-                        <td>Jizzax-Buxoro</td>
-                        <td>Abdulla</td>
-                        <td>OOO 'MirTrans'</td>
+                    <tr v-if="items.length > 0" v-for="(item,index) in items">
+                        <td>{{index+1}}</td>
+                        <td>
+                          <ul v-if="item.directions">
+                            <li v-for="(item_d,index_d) in item.directions">
+                              №{{item_d.direction_number}} {{item_d.direction_name}}
+                            </li>
+                          </ul>
+                        </td>
+                        <!-- <td>Abdulla</td> -->
+                        <td>{{item.user}}</td>
                         <td>31.03.2021</td>
                         <td>12334</td>
                         <td>22.08.2022</td>
@@ -68,17 +73,44 @@ export default {
   data() {
     return {
       filter:{
-        number:''
+        auto_number:''
       },
+      items:[],
       laoding: true,
       requiredInput: false,
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters('contract',['getContracts'])
+  },
   async mounted() {
     this.laoding = false
   },
   methods: {
+    ...mapActions('contract',['actionContractCheck']),
+    checkInput(){
+      this.filter.auto_number = this.filter.auto_number.toUpperCase();
+      this.filter.auto_number = this.filter.auto_number.replace(/[^A-Z0-9]+/i, "");
+      if (this.filter.auto_number.length > 8) {
+        this.filter.auto_number = this.filter.auto_number.slice(0,8)
+      }
+      
+    },
+    async carCheck(){
+      if(this.filter.auto_number.length == 8){
+        await this.actionContractCheck(this.filter)
+        if(this.getContracts.success){
+          this.items = this.getContracts.result
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getContracts.message,
+          });
+        }
+      }else{
+      }
+    },
     isRequired(input){
       return this.requiredInput && input === '';
     },
