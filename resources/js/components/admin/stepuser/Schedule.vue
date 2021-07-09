@@ -341,7 +341,7 @@ export default {
     removeStation(parentName, index){
       window.swal.fire({
         title: this.$t('Ishonchingiz komilmi')+'?',
-        text: "Siz buni qaytarib ololmaysiz!",
+        text: this.$t('Siz buni qaytarib ololmaysiz'),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

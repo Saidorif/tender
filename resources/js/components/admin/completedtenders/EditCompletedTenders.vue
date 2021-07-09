@@ -497,9 +497,9 @@ export default {
     ]),
     getStatus(status){
       if(status == 'all'){
-        return 'Полнoе направлениe'
+        return this.$t('To‘liq yo‘nalish')
       }else if(status == 'custom'){
-        return 'Часть направления'
+        return this.$t('Yo‘nalishning bir qismi')
       }
     },
     closeUserModal(){

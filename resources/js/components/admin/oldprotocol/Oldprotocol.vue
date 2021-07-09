@@ -179,19 +179,23 @@ export default {
     async search(){
 		let page = 1
 		if( this.filter.region_id != '' || this.filter.date != '' || this.filter.number != ''){
+            this.laoding = true;
 			let data = {
 				page:page,
 				items:this.filter
             }
 			await this.actionOldprotocols(data)
+            this.laoding = false;
 		}
 	},
 	async clear(){
 			this.filter.region_id = ''
 			this.filter.date = ''
 			this.filter.number = ''
-            let page  = 1
+            let page  = 1;
+            this.laoding = true;
             await this.actionOldprotocols({page: page,items:this.filter})
+            this.laoding = false;
 	},
     toggleFilter() {
       this.filterShow = !this.filterShow;

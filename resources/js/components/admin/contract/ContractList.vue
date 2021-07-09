@@ -87,7 +87,6 @@
 		},
 		async mounted(){
 			await this.actionContractList({type: 'new', page: 1})
-            console.log(this.getContractList)
 			this.laoding = false
 		},
 		computed:{

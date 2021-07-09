@@ -487,6 +487,7 @@ export default {
     ...mapActions('confirmtitul',['actionActivateTitul','actionRejectTitul','actionTitulShow']),
     async rejectTitul(){
       if(confirm("Вы действительно хотите отказатся?")){
+        this.laoding = true
         await this.actionRejectTitul(this.$route.params.confirmtitulId)
         if (this.getTitulMassage.success){
           await this.actionTitulShow(this.$route.params.confirmtitulId);
@@ -503,9 +504,11 @@ export default {
             title: this.getTitulMassage.message,
           });
         }
+        this.laoding = false
       }
     },
     async sendToActivate(){
+        this.laoding = true
       await this.actionActivateTitul(this.$route.params.confirmtitulId)
       if (this.getTitulMassage.success){
         await this.actionTitulShow(this.$route.params.confirmtitulId);
@@ -522,16 +525,19 @@ export default {
           title: this.getTitulMassage.message,
         });
       }
+      this.laoding = false
     },
     async selectClass(car){
       car.tclass_id = ''
       car.busmarka_id = ''
       car.busmodel_id = ''
       if (car.bustype_id) {
+        this.laoding = true
         let data = {
           'bustype_id':car.bustype_id,
         }
         await this.actionBusclassFind(data)
+        this.laoding = false
         car.tclasses = this.getBusclassFindList
       }
     },
@@ -546,13 +552,17 @@ export default {
     },
     async selectModel(car){
       car.busmodel_id = ''
+      this.laoding = true
       await this.actionBusmodelFindList(car)
+      this.laoding = false
     },
     isRequired(input) {
       return this.requiredInput && input === "";
     },
     async selectRegion(input) {
-      await this.actionAreaByRegion({ region_id: this.form[input].region_id });
+        this.laoding = true
+        await this.actionAreaByRegion({ region_id: this.form[input].region_id });
+        this.laoding = false
       if (input == "region_from") {
         this.areaFrom = this.getAreaList;
         this.form.area_from_id = "";
@@ -562,10 +572,12 @@ export default {
       }
     },
     async selectArea(input) {
+        this.laoding = true
       await this.actionStationByRegion({
         region_id: this.form[input].region_id,
         area_id: this.form[input].area_id,
       });
+      this.laoding = false
       if (input == "region_from") {
         this.stationFrom = this.getStationsList;
         this.form.station_from_id = "";

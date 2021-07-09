@@ -1195,7 +1195,7 @@ export default {
           toast.fire({
             type: "error",
             icon: "error",
-            title: "Категорияни танланг!",
+            title: this.$t('Tanlang'),
           });
         }
       }
