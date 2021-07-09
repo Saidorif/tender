@@ -107,7 +107,9 @@
                 this.laoding = false
 			},
 			async getEditId(){
+                 this.laoding = true
 				await this.actionAddApplication()
+                 this.laoding = false
 				if (this.getAddMessage.success) {
 					this.$router.push("/crm/application/edit/"+this.getAddMessage.result.id);
 				}
@@ -120,7 +122,7 @@
 				}else if(status == 'rejected'){
 					return this.$t('Rad etilgan')
 				}else if(status == 'winner'){
-					return 'Победитель!'
+					return this.$t('G‘olib')
 				}
 			},
 			getStatusClass(status){

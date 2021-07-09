@@ -155,9 +155,9 @@
 					if(this.getCheckEmail.message.email[0] === "The email must be a valid email address."){
 						message = this.$t("Elektron pochta manzili haqiqiy bo'lishi kerak");
 					}else if(this.getCheckEmail.message.email[0] === "The email has already been taken."){
-						message = "На этот email уже зарегистрирован аккаунт";
+						message = this.$t("Bu elektron pochta band");
 					}else if(this.getCheckEmail.message.email[0] === "The email field is required."){
-						message = "Поле не должно быть пустым";
+						message = this.$t("Maydon bo‘sh bo‘lmasligi kerak");
 					}else{
 						message = ""
 					}

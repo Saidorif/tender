@@ -236,11 +236,11 @@ export default {
       handler(){
         this.form = this.getClient
         if (this.form.status == 'active') {
-          this.statusText = 'Заблокировать'
+          this.statusText = this.$t('Bloklash')
           this.statusClass = ' btn-danger'
           this.statusFont = ' fa-lock'
         }else{
-          this.statusText = 'Активировать'
+          this.statusText = this.$t('Faollashtirish')
           this.statusClass = ' btn-success'
           this.statusFont = ' fa-check'
         }

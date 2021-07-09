@@ -509,7 +509,7 @@ export default {
         toast.fire({
           type: "success",
           icon: "success",
-          title: "Данный изменен!",
+          title: this.$t("Maʼlumot saqlandi"),
         });
       } else {
         this.requiredInput = true;
@@ -525,7 +525,7 @@ export default {
         toast.fire({
           type: "success",
           icon: "success",
-          title: "Пароль изменен!",
+          title: this.$t("Maʼlumot saqlandi"),
         });
       } else {
         this.requiredPassword = true;

@@ -272,8 +272,8 @@
 			}
 		},
 		async mounted(){
-      let page = 1;
-      this.filter = localStorage.getItem("dir_f") ? JSON.parse(localStorage.getItem("dir_f")) : this.filter
+            let page = 1;
+            this.filter = localStorage.getItem("dir_f") ? JSON.parse(localStorage.getItem("dir_f")) : this.filter
 			await this.actionDirectionUsers({page:page,items:this.filter})
 			await this.actionRegionList()
 			await this.actionTypeofbusList()
