@@ -11,13 +11,13 @@
                 <input
                     type="text"
                     class="form-control input_style"
-                    id="number"
-                    v-mask="'********'"
-                    v-model="filter.number"
-                    :class="isRequired(filter.number) ? 'isRequired' : ''"
+                    id="auto_number"
+                    v-model="filter.auto_number"
+                    @input="checkInput"
+                    :class="isRequired(filter.auto_number) ? 'isRequired' : ''"
                   >
               </div>
-                <button type="button" class="btn btn-secondary mr-3" @click.prevent="saveData">
+                <button type="button" class="btn btn-secondary mr-3" @click.prevent="carCheck">
                     <i class="fas fa-search"></i>
                     {{$t('Qidirish')}}
                 </button>
@@ -68,17 +68,44 @@ export default {
   data() {
     return {
       filter:{
-        number:''
+        auto_number:''
       },
       laoding: true,
       requiredInput: false,
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters('contract',['getContracts'])
+  },
   async mounted() {
     this.laoding = false
   },
   methods: {
+    ...mapActions('contract',['actionContractCheck']),
+    checkInput(){
+      this.filter.auto_number = this.filter.auto_number.toUpperCase();
+      this.filter.auto_number = this.filter.auto_number.replace(/[^A-Z0-9]+/i, "");
+      if (this.filter.auto_number.length > 8) {
+        this.filter.auto_number = this.filter.auto_number.slice(0,8)
+      }
+      
+    },
+    async carCheck(){
+      console.log(this.filter.auto_number.length)
+      if(this.filter.auto_number.length == 8){
+        await this.actionContractCheck(this.filter)
+        if(this.getContracts.success){
+          console.log(this.getContracts.result)
+        }else{
+          toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getContracts.message,
+          });
+        }
+      }else{
+      }
+    },
     isRequired(input){
       return this.requiredInput && input === '';
     },

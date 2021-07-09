@@ -45,7 +45,7 @@ const actions = {
 	async actionContractCheck({commit},payload){
 		try {
 			const areas =  await ContractService.contractCheck(payload);
-			await commit('setContractCheck',areas.data.result)
+			await commit('setContractCheck',areas.data)
 			return true
 		} catch (error) {
 			return false

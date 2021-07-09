@@ -7,6 +7,9 @@ const ContractService = {
 	contractlist(data){
 		return ApiService.post(`/api/contract?page=${data.page}&type=${data.type}`)
 	},
+	contractCheck(data){
+		return ApiService.post(`/api/tender/car-check`,data)
+	},
 };
 
 export { ContractService };
