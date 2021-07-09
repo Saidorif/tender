@@ -12,9 +12,9 @@
 		                <span class="alert alert-info" style="    margin: 0px 15px 0px auto;">
 		            		{{$t('Yoʼnalish soni')}} <b>{{ getDirectionUsers.total }} {{$t('ta')}}.</b>
 		            	</span>
-			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
-						    <i class="fas fa-filter"></i>
-			            	{{$t('Saralash')}}
+            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
+					    <i class="fas fa-filter"></i>
+            	{{$t('Saralash')}}
 						</button>
 		            </div>
 	            </div>
@@ -136,9 +136,10 @@
                             </td> -->
 							<td></td>
 							<td>
-                                <span class="alert alert-danger pt-1 pb-1" v-if="direct.status == 'active'">{{$t('Tenderda joylashtirilmagan')}}</span>
-                                <span class="alert alert-success pt-1 pb-1" v-if="direct.status == 'busy'">{{$t('Tenderda eʼlon qilingan')}}</span>
-                            </td>
+                <span class="alert pt-1 pb-1" :class="getStatusClass(direct)">
+                	{{getStatusname(direct)}}
+                </span>
+              </td>
 							<td>{{direct.dir_type == 'taxi' ? 'Йўналишли тахи йуналиши' : $t('Avtobus yoʼnalishi')}}</td>
 							<td>{{direct.year}}</td>
 							<td>{{ checkApprove(direct) }}</td>
@@ -345,18 +346,48 @@
 				    })
 				}
 			},
-            checkApprove(item){
-                if(
-                    item.xronom_status == 'completed' &&
-                    item.xjadval_status == 'completed' &&
-                    item.titul_status == 'completed' &&
-                    item.sxema_status == 'completed'
-                ){
-                    return 'да'
-                }else{
-                    return 'нет'
-                }
-            }
+			getStatusname(item){
+				if(item.status == 'active'){
+					if(item.reys_status != null){
+						return this.$t('Tenderda joylashtirilmagan')
+					}else{
+						return this.$t('Tenderda joylashtirilgan')
+					}
+				}else if(item.status == 'busy'){
+					if(item.contract_id != null){
+						return this.$t('Tashuvchiga biriktirilgan')
+					}else{
+						return this.$t('Tenderda joylashtirilgan')
+					}
+				}
+			},
+			getStatusClass(item){
+				if(item.status == 'active'){
+					if(item.reys_status != null){
+						return 'alert-danger'
+					}else{
+						return 'alert-success'
+					}
+				}else if(item.status == 'busy'){
+					if(item.contract_id != null){
+						return 'alert-primary'
+					}else{
+						return 'alert-success'
+					}
+				}
+			},
+      checkApprove(item){
+          if(
+              item.xronom_status == 'completed' &&
+              item.xjadval_status == 'completed' &&
+              item.titul_status == 'completed' &&
+              item.sxema_status == 'completed'
+          ){
+              return 'да'
+          }else{
+              return 'нет'
+          }
+      }
 		}
 	}
 </script>
