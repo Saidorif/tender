@@ -283,6 +283,10 @@ import Payment from './components/admin/payment/Payment'
 import EditPayment from './components/admin/payment/EditPayment'
 import AddPayment from './components/admin/payment/AddPayment'
 
+// Invoices
+import Invoices from './components/admin/invoices/Invoices'
+import ShowInvoices from './components/admin/invoices/ShowInvoices'
+
 // Setting
 import Setting from './components/admin/setting/Setting'
 
@@ -389,6 +393,22 @@ const router = new Router({
 					meta:{
 						action:'edit',
 						subject:'EmployeeController'
+					}
+				},
+				{
+					path:'invoices',
+					component:Invoices,
+					meta:{
+						action:'index',
+						subject:'InvoiceController'
+					}
+				},
+				{
+					path:'invoices/show/:id',
+					component:ShowInvoices,
+					meta:{
+						action:'show',
+						subject:'InvoiceController'
 					}
 				},
 				{
