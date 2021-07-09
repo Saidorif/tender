@@ -83,9 +83,11 @@
 			},
 			async deletePosition(id){
 				if(confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))){
-					let page = 1
+					let page = 1;
+                    this.laoding = true
 					await this.actionDeletePosition(id)
 					await this.actionPositions(page)
+                    this.laoding = false
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',

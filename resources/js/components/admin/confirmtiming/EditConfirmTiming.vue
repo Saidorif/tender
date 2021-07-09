@@ -184,7 +184,6 @@ export default {
     this.laoding = false
     this.titulData = this.getShowTiming
     this.timingDetails = this.titulData.timing_details.length ? this.titulData.timing_details[0] : this.timingDetails
-    console.log(this.titulData)
     if(this.titulData.timing_details.length){
         this.fullTableInfo = JSON.parse(this.titulData.timing_details[0].vars)
         this.calcTableData();

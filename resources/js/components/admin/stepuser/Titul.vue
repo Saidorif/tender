@@ -991,7 +991,7 @@ export default {
           toast.fire({
             type: "error",
             icon: "error",
-            title: "Категорияни танланг!"
+            title: this.$t('Tanlang')
           });
         }
       }
@@ -1042,7 +1042,7 @@ export default {
           toast.fire({
             type: "error",
             icon: "error",
-            title: 'Заполните все поля!'
+            title: this.$t('Barcha avtomatik maydonlarni to‘ldiring')
           });
         }
       } else {

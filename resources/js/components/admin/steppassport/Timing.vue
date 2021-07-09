@@ -684,21 +684,23 @@ export default {
     ...mapActions("passportTab", ["actionAddTiming", "clearTimingTable"]),
     ...mapActions("confirmtiming", ["actionApproveTiming"]),
     async sendToActivate() {
-      await this.actionApproveTiming(this.$route.params.directionId);
-      if (this.getTimingConfirmMassage.success) {
-        await this.actionEditDirection(this.$route.params.directionId);
-        toast.fire({
-          type: "success",
-          icon: "success",
-          title: this.getTimingConfirmMassage.message,
-        });
-      } else {
-        toast.fire({
-          type: "error",
-          icon: "error",
-          title: this.getTimingConfirmMassage.message,
-        });
-      }
+        this.laoding = true;
+        await this.actionApproveTiming(this.$route.params.directionId);
+        if (this.getTimingConfirmMassage.success) {
+            await this.actionEditDirection(this.$route.params.directionId);
+            toast.fire({
+            type: "success",
+            icon: "success",
+            title: this.getTimingConfirmMassage.message,
+            });
+        } else {
+            toast.fire({
+            type: "error",
+            icon: "error",
+            title: this.getTimingConfirmMassage.message,
+            });
+        }
+        this.laoding = false;
     },
     isRequired(input) {
       return this.requiredInput && input === "";
@@ -949,7 +951,7 @@ export default {
           toast.fire({
             type: "error",
             icon: "error",
-            title: "Jadval bosh bolmasligi kerak!",
+            title: this.$t('Jadval bo‘sh bo‘lmasligi kerak'),
           });
         }
       } else {
@@ -957,7 +959,7 @@ export default {
         toast.fire({
           type: "error",
           icon: "error",
-          title: "Qizil bilan belgilangan polyalarini  toldiring!!!",
+          title: this.$t('Qizil bilan belgilangan polyalarini  toldiring'),
         });
       }
     },
@@ -1013,14 +1015,14 @@ export default {
     async clearTable() {
       window.swal
         .fire({
-          title: "Ishonchingiz komilmi?",
+          title: this.$t("Ishonchingiz komilmi"),
           text: "Siz buni qaytarib ololmaysiz!",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Ha, uni o'chirib tashlang!",
-          cancelButtonText: "Bekor qilish",
+          confirmButtonText: this.$t("Oʼchirish"),
+          cancelButtonText: this.$t('Bekor qilish'),
         })
         .then(async (result) => {
           if (result.value) {
