@@ -90,6 +90,14 @@ Route::group([
             Route::post('payment/update/{id}', 'PaymentController@update');
             Route::delete('payment/destroy/{id}', 'PaymentController@destroy');
 
+            //Invoice
+            Route::post('invoice', 'InvoiceController@index');
+            Route::post('invoice/user', 'InvoiceController@userInvoice');
+            Route::get('invoice/user/edit/{id}', 'InvoiceController@userShow');
+            Route::get('invoice/edit/{id}', 'InvoiceController@show');
+            Route::get('invoice/act/{id}', 'InvoiceController@act');
+            Route::post('invoice/adminact/{id}', 'InvoiceController@adminAct');
+
             // ComplaintCategory
             Route::get('complaintcategory', 'ComplaintCategoryController@index');
             Route::post('complaintcategory/store', 'ComplaintCategoryController@store');
