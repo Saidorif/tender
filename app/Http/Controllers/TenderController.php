@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\ContractCar;
+use App\UserCar;
 use Illuminate\Http\Request;
 use Validator;
 use App\Tender;
@@ -1474,5 +1476,59 @@ class TenderController extends Controller
         }
         $tender->delete();
         return response()->json(['success' => true, 'message' => 'Тендер удален']);
+    }
+
+    public function carCheck(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'auto_number' => 'required|string',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        $inputs = $request->all();
+        $car = UserCar::with(['bustype','busmodel','busmarka','tclass','user','direction'])
+                    ->where(['auto_number' => $inputs['auto_number']])
+                    ->where(['status' => 'accepted'])
+                    ->first();
+        $result = [];
+        if(!$car){
+            $contract_car = ContractCar::with(['bustype','busmodel','busmarka','tclass','user','contract'])
+                            ->where(['auto_number' => $inputs['auto_number']])
+                            ->first();
+            if(!$contract_car){
+                return response()->json(['error' => true,'message' => 'Автомобиль не найден']);
+            }
+            if(!$contract_car->contract){
+                return response()->json(['error' => true,'message' => 'Автомобиль не найден']);
+            }
+            if($contract_car->contract->exp_date < now()){
+                return response()->json(['error' => true,'message' => 'Автомобиль не найден']);
+            }
+            $contract_car->user = $contract_car->user->company_name;
+            $contract_car->user_id = null;
+            $contract_car->unsetRelation('user');
+            $directions = [];
+            foreach ($contract_car->contract->direction_ids as $key => $direction){
+                $directions[$key]['direction_name'] = $direction->name;
+                $directions[$key]['direction_number'] = $direction->pass_number;
+            }
+            $contract_car->unsetRelation('contract');
+            $contract_car->directions = $directions;
+            $result = $contract_car;
+            return response()->json(['success' => true, 'result' => $result]);
+        }else{
+            $directions = [];
+            $directions[0]['direction_name'] = $car->direction->name;
+            $directions[0]['direction_number'] = $car->direction->pass_number;
+            $car->user = $car->user->company_name;
+            $car->directions = $directions;
+            $car->user_id = null;
+            $car->unsetRelation('user');
+            $car->unsetRelation('direction');
+            $result = $car;
+            return response()->json(['success' => true, 'result' => $result]);
+        }
+        return response()->json(['error' => true, 'message' => 'Something went wrong']);
     }
 }

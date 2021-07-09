@@ -29,6 +29,7 @@ Route::group([
     Route::get('complaintcategory/list', 'ComplaintCategoryController@list');
     Route::post('tender/index', 'TenderController@userIndex');
     Route::post('tender/index-completed', 'TenderController@userCompleted');
+    Route::post('tender/car-check', 'TenderController@carCheck');
     Route::post('find-direction', 'DirectionController@findForUsers');
     Route::post('find-direction/{id}', 'DirectionController@directionInfoForUsers');
 
