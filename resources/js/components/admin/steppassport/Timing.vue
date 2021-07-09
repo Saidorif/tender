@@ -1016,7 +1016,7 @@ export default {
       window.swal
         .fire({
           title: this.$t("Ishonchingiz komilmi"),
-          text: "Siz buni qaytarib ololmaysiz!",
+          text: this.$t('Siz buni qaytarib ololmaysiz'),
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
@@ -1029,7 +1029,7 @@ export default {
             await this.clearTimingTable(this.$route.params.directionId);
             if (this.getTimingMassage.success) {
               this.tableTwoData = [];
-              window.swal.fire("O'chirildi!", "Ma'lumotlaringiz o'chirildi.");
+              window.swal.fire(this.$t("Oʼchirildi"));
             }
           }
         });
