@@ -10,17 +10,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="tm.loc" />
-    <orderEntry type="module" module-name="quiz.loc" />
-    <orderEntry type="module" module-name="quatro.loc" />
-    <orderEntry type="module" module-name="daz.loc" />
-    <orderEntry type="module" module-name="gtkservice.loc" />
-    <orderEntry type="module" module-name="mhr.loc" />
-    <orderEntry type="module" module-name="bus-reys.loc" />
     <orderEntry type="module" module-name="pcms.loc" />
-    <orderEntry type="module" module-name="book.loc" />
-    <orderEntry type="module" module-name="daryo.loc" />
-    <orderEntry type="module" module-name="huzurtravel.loc" />
-    <orderEntry type="module" module-name="altega.loc" />
+    <orderEntry type="module" module-name="caj" />
   </component>
 </module>
