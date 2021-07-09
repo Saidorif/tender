@@ -28,7 +28,7 @@
                     <tr>
                         <th>№</th>
                         <th>{{$t('conducted_tenders.table.direction_name')}}</th>
-                        <th>{{$t('Tashuvchi nomi')}}</th>
+                        <!-- <th>{{$t('Tashuvchi nomi')}}</th> -->
                         <th>{{$t('conducted_tenders.table.company_name')}}</th>
                         <th>{{$t('Shartnoma muddati')}}</th>
                         <th>{{$t('Litsenziya raqami')}}</th>
@@ -36,12 +36,17 @@
                     </tr>
                 </thead>
                 <tbody>
-
-                    <tr>
-                        <td>1</td>
-                        <td>Jizzax-Buxoro</td>
-                        <td>Abdulla</td>
-                        <td>OOO 'MirTrans'</td>
+                    <tr v-if="items.length > 0" v-for="(item,index) in items">
+                        <td>{{index+1}}</td>
+                        <td>
+                          <ul v-if="item.directions">
+                            <li v-for="(item_d,index_d) in item.directions">
+                              №{{item_d.direction_number}} {{item_d.direction_name}}
+                            </li>
+                          </ul>
+                        </td>
+                        <!-- <td>Abdulla</td> -->
+                        <td>{{item.user}}</td>
                         <td>31.03.2021</td>
                         <td>12334</td>
                         <td>22.08.2022</td>
@@ -70,6 +75,7 @@ export default {
       filter:{
         auto_number:''
       },
+      items:[],
       laoding: true,
       requiredInput: false,
     };
@@ -91,11 +97,10 @@ export default {
       
     },
     async carCheck(){
-      console.log(this.filter.auto_number.length)
       if(this.filter.auto_number.length == 8){
         await this.actionContractCheck(this.filter)
         if(this.getContracts.success){
-          console.log(this.getContracts.result)
+          this.items = this.getContracts.result
         }else{
           toast.fire({
             type: "error",
