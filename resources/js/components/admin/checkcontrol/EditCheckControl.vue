@@ -592,7 +592,7 @@ export default {
       }else if(name == 0){
         return this.$t('Rad etilgan')
       }else{
-        return 'Непроверено'
+        return this.$('Tekshirilmagan');
       }
     },
     showGai(item){
@@ -613,7 +613,7 @@ export default {
     },
     async checkLicense(){
       let inn = this.form.user ? this.form.user.inn : null
-      if(confirm("Вы действительно хотите проверить лицензии?")){
+      if(confirm(this.$('Litsenziyalarni tekshirishni xohlaysizmi?'))){
         this.laoding = true
         await this.actionCheckLicense(inn)
         if (this.getStatusLicense.success){
@@ -639,7 +639,7 @@ export default {
       this.carItem = item
     },
     async rejectTargetModal(target){
-      if(confirm("Вы действительно хотите отказаться?")){
+      if(confirm(this.$t("Haqiqatan ham rad etmoqchimisiz?"))){
         let data = {
           target:target,
           app_id:Number(this.$route.params.appId),
@@ -665,7 +665,7 @@ export default {
       }
     },
     async activeTargetCar(target){
-      if(confirm("Вы действительно хотите подтвердить?")){
+      if(confirm(this.$t("Siz chindan ham tasdiqlamoqchimisiz?"))){
         let data = {
           target:target,
           app_id:Number(this.$route.params.appId),
@@ -740,8 +740,7 @@ export default {
         if (file.size > 1048576){
             swal.fire({
               type: 'error',
-              title: 'Ошибка',
-              text:'Размер изображения больше лимита',
+              text:this.$t('Rasm hajmi bilgilangan limitdan kattaroq'),
             })
         }else{
           let reader = new FileReader();
@@ -823,12 +822,12 @@ export default {
         toast.fire({
           type: "error",
           icon: "error",
-          title: "Вводите текст"
+          title: this.$t("Matn kiriting")
         });
       }
     },
     async activeCar(id){
-      if(confirm("Вы действительно хотите подтвердить?")){
+      if(confirm(this.$t("Siz chindan ham tasdiqlamoqchimisiz?"))){
         let data = {
           app_id:this.$route.params.appId,
           car_id:id,
@@ -882,7 +881,7 @@ export default {
     },
     getCarStatusName(status){
       if (status == 'active'){
-        return 'Непроверено'
+        return this.$t('Tekshirilmagan')
       }else if(status == 'accepted'){
         return this.$t('Tasdiqlangan')
       }else if(status == 'rejected'){
@@ -900,9 +899,9 @@ export default {
     },
     getLicenseStatusName(status){
       if(status == 0){
-        return 'Нелицензирован'
+        return this.$t('Litsenziyalanmagan')
       }else if(status == 1){
-        return 'Лицензирован'
+        return this.$t('Litsenziyalangan')
       }
     },
     getLicenseStatusClass(status){

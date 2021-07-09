@@ -315,13 +315,13 @@ export default {
           toast.fire({
             type: "success",
             icon: "success",
-            title: "Malumotlar saqlandi",
+            title: this.$t("Maʼlumot saqlandi"),
           });
         } else {
           toast.fire({
             type: "error",
             icon: "error",
-            title: "nmadir nito",
+            title: this.getScheduleResMsg.message,
           });
         }
         this.requiredInput = false;
@@ -340,14 +340,14 @@ export default {
     },
     removeStation(parentName, index){
       window.swal.fire({
-        title: 'Ishonchingiz komilmi?',
+        title: this.$t('Ishonchingiz komilmi')+'?',
         text: "Siz buni qaytarib ololmaysiz!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: "Ha, uni o'chirib tashlang!",
-        cancelButtonText: "Bekor qilish",
+        confirmButtonText: this.$t('Oʼchirish'),
+        cancelButtonText: this.$t('Bekor qilish'),
       }).then( async (result) => {
         if (result.value) {
           this.form[parentName].stations.splice(index, 1);

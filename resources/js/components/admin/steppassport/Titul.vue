@@ -1089,6 +1089,7 @@ export default {
     ...mapActions("busmodel", ["actionBusmodelFindList"]),
     ...mapActions("confirmtitul", ["actionApproveTitul"]),
     async sendToActivate() {
+        this.laoding = true
       await this.actionApproveTitul(this.$route.params.directionId);
       if (this.getTitulMassage.success) {
         await this.actionEditDirection(this.$route.params.directionId);
@@ -1104,10 +1105,16 @@ export default {
           title: this.getTitulMassage.message,
         });
       }
+        this.laoding = false
+
     },
     async removeEditCar(id) {
       if (confirm(this.$t('Siz chindan ham oʼchirishni xohlaysizmi?'))) {
+        this.laoding = true
+
         await this.actionCarDeleteDirection(id);
+        this.laoding = false
+
         if (this.getMassage.success) {
           await this.actionEditDirection(this.$route.params.directionId);
           toast.fire({
@@ -1126,7 +1133,11 @@ export default {
         let data = {
           bustype_id: car.bustype_id,
         };
+        this.laoding = true
+
         await this.actionBusclassFind(data);
+        this.laoding = false
+
         car.tclasses = this.getBusclassFindList;
       }
     },
@@ -1141,7 +1152,11 @@ export default {
     },
     async selectModel(car) {
       car.busmodel_id = "";
+        this.laoding = true
+
       await this.actionBusmodelFindList(car);
+        this.laoding = false
+
     },
     removeCar(index) {
       Vue.delete(this.cars, index);

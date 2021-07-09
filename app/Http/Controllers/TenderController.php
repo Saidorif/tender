@@ -696,6 +696,7 @@ class TenderController extends Controller
                         if($app->id == $lot->contract->app_id){
                             foreach ($balls as $ball) {
                                 $ball->contract = $lot->contract;
+                                $ball->status = $app->status;
                             }
                         }
                     }

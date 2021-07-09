@@ -136,11 +136,18 @@
                             </td> -->
 							<td></td>
 							<td>
+<<<<<<< HEAD
                 <span class="alert pt-1 pb-1" :class="getStatusClass(direct)">
                 	{{getStatusname(direct)}}
                 </span>
               </td>
 							<td>{{direct.dir_type == 'taxi' ? 'Йўналишли тахи йуналиши' : $t('Avtobus yoʼnalishi')}}</td>
+=======
+                                <span class="alert alert-danger pt-1 pb-1" v-if="direct.status == 'active'">{{$t('Tenderda joylashtirilmagan')}}</span>
+                                <span class="alert alert-success pt-1 pb-1" v-if="direct.status == 'busy'">{{$t('Tenderda eʼlon qilingan')}}</span>
+                            </td>
+							<td>{{direct.dir_type == 'taxi' ? $t('Yoʼnalishli taxi yoʼnalishi') : $t('Avtobus yoʼnalishi')}}</td>
+>>>>>>> d282a6a9a593246ee2e6a2918da6736a61384834
 							<td>{{direct.year}}</td>
 							<td>{{ checkApprove(direct) }}</td>
 							<td>
@@ -273,8 +280,8 @@
 			}
 		},
 		async mounted(){
-      let page = 1;
-      this.filter = localStorage.getItem("dir_f") ? JSON.parse(localStorage.getItem("dir_f")) : this.filter
+            let page = 1;
+            this.filter = localStorage.getItem("dir_f") ? JSON.parse(localStorage.getItem("dir_f")) : this.filter
 			await this.actionDirectionUsers({page:page,items:this.filter})
 			await this.actionRegionList()
 			await this.actionTypeofbusList()
@@ -346,6 +353,7 @@
 				    })
 				}
 			},
+<<<<<<< HEAD
 			getStatusname(item){
 				if(item.status == 'active'){
 					if(item.reys_status != null){
@@ -388,6 +396,20 @@
               return 'нет'
           }
       }
+=======
+            checkApprove(item){
+                if(
+                    item.xronom_status == 'completed' &&
+                    item.xjadval_status == 'completed' &&
+                    item.titul_status == 'completed' &&
+                    item.sxema_status == 'completed'
+                ){
+                    return this.$t('ha')
+                }else{
+                    return this.$t('yoq')
+                }
+            }
+>>>>>>> d282a6a9a593246ee2e6a2918da6736a61384834
 		}
 	}
 </script>

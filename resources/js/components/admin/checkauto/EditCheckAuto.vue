@@ -371,7 +371,7 @@ export default {
       this.laoding = false
     },
     async denyCar(id){
-      if(confirm("Вы действительно хотите {{$t('Rad etish')}}аться?")){
+      if(confirm(this.$t("Siz chindan ham bekor qilishni xohlaysizmi?"))){
         let data = {
           app_id:this.$route.params.appId,
           car_id:id,
@@ -391,7 +391,7 @@ export default {
       }
     },
     async activeCar(id){
-      if(confirm("Вы действительно хотите подтвердить?")){
+      if(confirm(this.$t("Siz chindan ham tasdiqlamoqchimisiz?"))){
         let data = {
           app_id:this.$route.params.appId,
           car_id:id,
@@ -457,9 +457,9 @@ export default {
     },
     getLicenseStatusName(status){
       if(status == 0){
-        return 'Нелицензирован'
+        return this.$t('Litsenziyalanmagan')
       }else if(status == 1){
-        return 'Лицензирован'
+        return this.$t('Litsenziyalangan')
       }
     },
     getLicenseStatusClass(status){

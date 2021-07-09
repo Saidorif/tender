@@ -134,14 +134,14 @@ export default {
           toast.fire({
             type: "error",
             icon: "error",
-            title: 'Tizimda xotolik bor. iltimos qaytadan urinib koring!'
+            title: this.getMsg.message
           });
         }
       }else{
         toast.fire({
           type: "error",
           icon: "error",
-          title: 'Malumotlar formasini toldinring!'
+          title: this.$t('Maʼlumotlar formasini to‘ldiring')
         });
       }
 

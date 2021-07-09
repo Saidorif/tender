@@ -138,7 +138,9 @@
 			...mapActions('completedtender',['actionCompletedTendersList']),
 			...mapActions("region", ["actionRegionList"]),
 			async getResults(page = 1){
+                this.laoding = true
 				await this.actionCompletedTendersList({page:page,items:this.filter})
+                this.laoding = false
 			},
 			toggleFilter(){
 				this.filterShow = !this.filterShow

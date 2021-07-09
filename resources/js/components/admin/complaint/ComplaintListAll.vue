@@ -229,9 +229,9 @@
 			},
 			getStatusText(text){
 				if (text == 'pending') {
-					return 'Новая жалоба'
+					return this.$t('Yangi shikoyat')
 				}else{
-					return 'Рассмотрено'
+					return $t('Ko‘rib chiqilgan')
 				}
 			},
 			getResultText(text){

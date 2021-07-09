@@ -69,13 +69,25 @@ input[type=number] {
    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 .main-sidebar, .main-sidebar::before{
-  width: 280px;
+  width: 300px;
+}
+.sidebar-mini .main-sidebar .nav-link,
+.sidebar-mini-md .main-sidebar .nav-link,
+.sidebar-mini-xs .main-sidebar .nav-link{
+    width: calc(300px - .5rem * 2);
 }
 .slide-enter-to, .slide-leave {
    max-height: 100px;
    overflow: hidden;
 }
-
+.sidebar .nav-link p{
+    font-size: 16px;
+}
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header{
+     margin-left: 300px;
+ }
 .slide-enter, .slide-leave-to {
    overflow: hidden;
    max-height: 0;
