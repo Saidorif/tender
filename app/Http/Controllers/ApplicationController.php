@@ -7,6 +7,7 @@ use App\Certificate;
 use App\ContractCar;
 use App\DirectionReq;
 use App\GaiCar;
+use App\Invoice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
@@ -134,6 +135,27 @@ class ApplicationController extends Controller
         $inputs['user_id'] = $user->id;
         $inputs['direction_ids'] = $lot->getDirection();
         $application = Application::create($inputs);
+
+        //create invoice
+        $invoiceArray = [
+            'user_id' => $user->id,
+            'created_by' => 2,
+            'app_id' => $application->id,
+            'region_id' => $user->region_id,
+            'tender_id' => $tender->id,
+            'lot_id' => $lot->id,
+            'status' => 'active',
+            'number' => 1,
+            'qrcode' => 'qrcode.png',
+            'text' => $tender->address,
+            'inn' => $user->inn,
+            'price' => 55000,
+            'date' => date('Y-m-d'),
+            'year' => date('Y'),
+        ];
+        $invoice = Invoice::create($invoiceArray);
+        $user->balance = (double)$user->balance - $invoice->price;
+        $user->save();
         return response()->json([
             'success' => true,
             'result' => $application,
