@@ -1502,6 +1502,9 @@ class TenderController extends Controller
             if(!$contract_car->contract){
                 return response()->json(['error' => true,'message' => 'Автомобиль не найден']);
             }
+            if($contract_car->contract->status != 'completed'){
+                return response()->json(['error' => true,'message' => 'Автомобиль не найден']);
+            }
             if($contract_car->contract->exp_date < now()){
                 return response()->json(['error' => true,'message' => 'Автомобиль не найден']);
             }
