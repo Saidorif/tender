@@ -1511,6 +1511,8 @@ class TenderController extends Controller
             $contract_car->user = $contract_car->user->company_name;
             $contract_car->user_id = null;
             $contract_car->unsetRelation('user');
+            $contract_car->contract_number = $contract_car->contract->number;
+            $contract_car->contract_date = $contract_car->contract->exp_date;
             $directions = [];
             foreach ($contract_car->contract->direction_ids as $key => $direction){
                 $directions[$key]['direction_name'] = $direction->name;
@@ -1522,6 +1524,9 @@ class TenderController extends Controller
             return response()->json(['success' => true, 'result' => $result]);
         }else{
             $directions = [];
+            $contract = $car->direction->contract;
+            $car->contract_number = $contract->number;
+            $car->contract_date = $contract->exp_date;
             $directions[0]['direction_name'] = $car->direction->name;
             $directions[0]['direction_number'] = $car->direction->pass_number;
             $car->user = $car->user->company_name;
