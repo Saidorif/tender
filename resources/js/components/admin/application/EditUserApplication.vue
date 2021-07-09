@@ -618,7 +618,7 @@
       >
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Новое авто</h5>
+            <h5 class="modal-title" id="exampleModalLabel">{{ $t('Yangi avtomobil') }} </h5>
             <button
               type="button"
               class="close"
@@ -1804,7 +1804,7 @@ export default {
           toast.fire({
             type: "error",
             icon: "error",
-            title: "Загрузите файл!",
+            title: this.$t("Faylni yuklang"),
           });
         }
         this.requiredDataInput = false;

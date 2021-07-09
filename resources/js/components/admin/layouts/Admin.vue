@@ -91,7 +91,7 @@
             <router-link class="nav-link" to="/crm/direction">
               <i class="peIcon fas fa-route"></i>
               <p>
-                {{$t('Yoʼnalish')}}
+                {{$t('Yoʼnalishlar')}}
               </p>
             </router-link>
           </li>
@@ -99,7 +99,7 @@
             <router-link class="nav-link" to="/crm/direction-user">
               <i class="peIcon fas fa-route"></i>
               <p>
-                {{$t('Yoʼnalish')}} <small style="padding:2px 6px;background: #74b303;border-radius:3px;">user</small>
+                {{$t('Yoʼnalishlar')}} <small style="padding:2px 6px;background: #74b303;border-radius:3px;">user</small>
               </p>
             </router-link>
           </li>
@@ -143,7 +143,7 @@
               <li class="nav-item" v-if="$can('listTarifApprove', 'DirectionController')">
                 <router-link class="nav-link" to="/crm/confirm-tarif">
                   <p>
-                    {{$t('Tarifni tasdiqlash')}}
+                    {{$t('Tarif')}}
                   </p>
                 </router-link>
               </li>
@@ -157,7 +157,7 @@
               <li class="nav-item" v-if="$can('announceTender', 'TenderController')">
                 <router-link class="nav-link" to="/crm/confirm-tender">
                   <p>
-                    {{$t('Tender')}}
+                    {{$t('Tender eʼloni')}}
                   </p>
                 </router-link>
               </li>
@@ -175,7 +175,7 @@
             <router-link class="nav-link" to="/crm/tenderuser">
               <i class="peIcon fas fa-file"></i>
               <p>
-                {{$t('Faol tenderlar')}}
+                {{$t('Eʼlon qilingan tenderlar')}}
               </p>
             </router-link>
           </li>
@@ -198,7 +198,7 @@
               <li class="nav-item" v-if="$can('checkTenders', 'TenderController')">
                 <router-link class="nav-link" to="/crm/check-control">
                   <p>
-                    {{$t('Tenderlarni tekshirish')}}
+                    {{ $t('Tenderlarni tekshirish') }}
                   </p>
                 </router-link>
               </li>
@@ -238,7 +238,7 @@
             <router-link class="nav-link" to="/crm/certificate">
               <i class="peIcon fas fa-file"></i>
               <p>
-                {{$t('Svidetelstvo')}}
+                {{$t('Guvoxnomalar')}}
               </p>
             </router-link>
           </li>
@@ -254,7 +254,7 @@
             <router-link class="nav-link" to="/crm/tender/application">
               <i class="peIcon fas fa-file"></i>
               <p>
-                {{$t('Arizalar')}}
+                {{$t('Tender takliflari')}}
               </p>
             </router-link>
           </li>

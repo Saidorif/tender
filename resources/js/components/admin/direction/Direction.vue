@@ -156,18 +156,18 @@
 							<th scope="col">Год создания</th>
 							<th scope="col">{{$t('Tahrirlash')}}</th>
 						</tr> -->
-                        <tr>
-                            <th scope="col">№</th>
-                            <th>{{$t('Viloyat')}}</th>
-                            <th>{{$t('Yoʼnalish raqami va nomi')}}</th>
-                            <th>{{$t('Tashkilot nomi')}} </th>
-                            <th>{{$t('Shartnoma muddati')}} </th>
-                            <th>{{$t('Holati')}}</th>
-                            <th>{{$t('Yoʼnalish turi')}}</th>
-                            <th>{{$t('Ochilish sanasi')}}</th>
-                            <th>{{$t('Tasdiqlash')}}</th>
-                            <th scope="col">{{$t('Tahrirlash')}}</th>
-                        </tr>
+	          <tr>
+	              <th scope="col">№</th>
+	              <th>{{$t('Viloyat')}}</th>
+	              <th>{{$t('Yoʼnalish raqami va nomi')}}</th>
+	              <th>{{$t('Tashkilot nomi')}} </th>
+	              <th>{{$t('Shartnoma muddati')}} </th>
+	              <th>{{$t('Holati')}}</th>
+	              <th>{{$t('Yoʼnalish turi')}}</th>
+	              <th>{{$t('Ochilish sanasi')}}</th>
+	              <th>{{$t('Tasdiqlash')}}</th>
+	              <th scope="col">{{$t('Tahrirlash')}}</th>
+	          </tr>
 					</thead>
 					<tbody>
 						<tr v-for="(direct,index) in getDirections.data">
@@ -357,16 +357,32 @@
 			},
 			getStatusname(item){
 				if(item.status == 'active'){
-					return this.$t('Tenderda joylashtirilmagan')
+					if(item.reys_status != null){
+						return this.$t('Tenderda joylashtirilmagan')
+					}else{
+						return this.$t('Tenderda joylashtirilgan')
+					}
 				}else if(item.status == 'busy'){
-					return this.$t('Tenderda joylashtirilgan')
+					if(item.contract_id != null){
+						return this.$t('Tashuvchiga biriktirilgan')
+					}else{
+						return this.$t('Tenderda joylashtirilgan')
+					}
 				}
 			},
 			getStatusClass(item){
 				if(item.status == 'active'){
-					return 'alert-danger'
+					if(item.reys_status != null){
+						return 'alert-danger'
+					}else{
+						return 'alert-success'
+					}
 				}else if(item.status == 'busy'){
-					return 'alert-success'
+					if(item.contract_id != null){
+						return 'alert-primary'
+					}else{
+						return 'alert-success'
+					}
 				}
 			},
       openModal(item){

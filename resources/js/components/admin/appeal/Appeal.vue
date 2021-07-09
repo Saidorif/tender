@@ -73,7 +73,7 @@
 				this.laoding = false
 			},
 			async deleteMyAppeal(id){
-				if(confirm("Вы действительно хотите удалить?")){
+				if(confirm(this.$t("Siz chindan ham oʼchirishni xohlaysizmi?"))){
 					let page = 1
 					this.laoding = true
 					await this.actionDeleteMyAppeal(id)
@@ -82,7 +82,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'MyAppeal удалено!',
+						title: this.$t('Oʼchirildi'),
 				    })
 				}
 			}

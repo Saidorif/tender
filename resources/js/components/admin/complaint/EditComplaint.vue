@@ -73,7 +73,7 @@
 					toast.fire({
 				    	type: 'success',
 				    	icon: 'success',
-						title: 'Жалоба изменена!',
+						title: this.$t('Maʼlumot saqlandi'),
 				    })
 				}else{
 					this.requiredInput =true

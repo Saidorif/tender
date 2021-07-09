@@ -19,11 +19,6 @@
 								<th scope="col">№</th>
 								<th scope="col">{{$t('Avtomobil sinfi nomi')}}</th>
 								<th scope="col">{{$t('Avtobus toifasi')}}</th>
-								<!-- <th scope="col">{{$t('Avtomobil rusumi')}}</th> -->
-								<!-- <th scope="col">{{$t('Oʼrindiqlar soni')}}</th> -->
-								<!-- <th scope="col">{{$t('Oʼrindiqlar soni')}} (по)</th> -->
-								<!-- <th scope="col">Пассажировместимость</th> -->
-								<!-- <th scope="col">Пассажировместимость (по)</th> -->
 								<th scope="col">{{$t('Tahrirlash')}}</th>
 							</tr>
 						</thead>
@@ -32,11 +27,7 @@
 								<td scope="row">{{bus.id}}</td>
 								<td>{{bus.name}}</td>
 								<td>{{bus.bustype ? bus.bustype.name : ''}}</td>
-								<!-- <td>{{bus.model ? bus.model.name : ''}}</td> -->
-								<!-- <td>{{bus.seat_from}}</td> -->
-								<!-- <td>{{bus.seat_to}}</td> -->
-								<!-- <td>{{bus.stay_from}}</td> -->
-								<!-- <td>{{bus.stay_to}}</td> -->
+
 								<td>
 									<router-link
 										tag="button"

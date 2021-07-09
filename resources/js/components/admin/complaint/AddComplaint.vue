@@ -70,7 +70,7 @@
 						toast.fire({
 					    	type: 'success',
 					    	icon: 'success',
-							title: 'Жалоба добавлена!',
+							title: this.$t('Shikoyat qo‘shildi'),
 					    })
 						this.$router.push("/crm/complaint");
 						this.requiredInput =false
@@ -78,7 +78,7 @@
 						toast.fire({
 					    	type: 'error',
 					    	icon: 'error',
-							title: 'Такая жалоба уже существует!',
+							title: this.$t('Bunday shikoyat mavjud'),
 					    })
 					}
 				}else{
