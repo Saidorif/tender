@@ -21,6 +21,16 @@
 					    	:class="isRequired(form.salary) ? 'isRequired' : ''"
 				    	>
 					  </div>
+					  <div class="form-group col-md-9">
+					    <label for="salary"> {{$t('Vazirlik nomi')}} </label>
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="salary"
+					    	v-model="form.salary"
+					    	:class="isRequired(form.salary) ? 'isRequired' : ''"
+				    	>
+					  </div>
 
 					  <div class="form-group col-lg-3 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
