@@ -12,5 +12,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="pcms.loc" />
     <orderEntry type="module" module-name="caj" />
+    <orderEntry type="module" module-name="mhr.loc" />
   </component>
 </module>
