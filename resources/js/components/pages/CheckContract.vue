@@ -28,7 +28,6 @@
                     <tr>
                         <th>№</th>
                         <th>{{$t('conducted_tenders.table.direction_name')}}</th>
-                        <!-- <th>{{$t('Tashuvchi nomi')}}</th> -->
                         <th>{{$t('conducted_tenders.table.company_name')}}</th>
                         <th>{{$t('Shartnoma muddati')}}</th>
                         <th>{{$t('Litsenziya raqami')}}</th>
@@ -36,20 +35,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-if="items.length > 0" v-for="(item,index) in items">
-                        <td>{{index+1}}</td>
-                        <td>
-                          <ul v-if="item.directions">
-                            <li v-for="(item_d,index_d) in item.directions">
-                              №{{item_d.direction_number}} {{item_d.direction_name}}
-                            </li>
-                          </ul>
-                        </td>
-                        <!-- <td>Abdulla</td> -->
-                        <td>{{item.user}}</td>
-                        <td>31.03.2021</td>
-                        <td>12334</td>
-                        <td>22.08.2022</td>
+                    <tr v-if="items != ''">
+                      <td>{{items.id}}</td>
+                      <td>
+                        <div v-if="items.directions">
+                          <div v-for="(item_d,index_d) in items.directions">
+                            №{{item_d.direction_number}} {{item_d.direction_name}}
+                          </div>
+                        </div>
+                      </td>
+                      <td>{{items.user}}</td>
+                      <td>31.03.2021</td>
+                      <td>12334</td>
+                      <td>22.08.2022</td>
                     </tr>
                 </tbody>
             </table>
