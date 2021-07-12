@@ -21,17 +21,96 @@
 					    	:class="isRequired(form.salary) ? 'isRequired' : ''"
 				    	>
 					  </div>
-					  <div class="form-group col-md-9">
-					    <label for="salary"> {{$t('Vazirlik nomi')}} </label>
+					  <div class="form-group col-md-6">
+					    <label for="name"> {{$t('Vazirlik nomi')}} </label>
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
-					    	id="salary"
-					    	v-model="form.salary"
-					    	:class="isRequired(form.salary) ? 'isRequired' : ''"
+					    	id="name"
+					    	v-model="form.name"
+					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
 					  </div>
-
+					  <div class="form-group col-md-6">
+					    <label for="oked"> {{$t('Vazirlik manzili')}} </label>
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="oked"
+					    	v-model="form.oked"
+					    	:class="isRequired(form.oked) ? 'isRequired' : ''"
+				    	>
+					  </div>
+					  <div class="form-group col-md-6">
+					    <label for="phone"> {{$t('contacts_page.phone')}} </label>
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="phone"
+					    	v-model="form.phone"
+					    	:class="isRequired(form.phone) ? 'isRequired' : ''"
+				    	>
+					  </div>
+					  <div class="form-group col-md-6">
+					    <label for="email"> {{$t('Email')}} </label>
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="email"
+					    	v-model="form.email"
+					    	:class="isRequired(form.email) ? 'isRequired' : ''"
+				    	>
+					  </div>
+					  <div class="form-group col-md-6">
+					    <label for="address"> {{$t('Bankning manzili')}} </label>
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="address"
+					    	v-model="form.address"
+					    	:class="isRequired(form.address) ? 'isRequired' : ''"
+				    	>
+					  </div>
+					  <div class="form-group col-md-6">
+					    <label for="bank_number"> {{$t('X/raqam')}} </label>
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="bank_number"
+					    	v-model="form.bank_number"
+					    	:class="isRequired(form.bank_number) ? 'isRequired' : ''"
+				    	>
+					  </div>
+					  <div class="form-group col-md-4">
+					    <label for="inn"> {{$t('INN')}} </label>
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="inn"
+					    	v-model="form.inn"
+					    	:class="isRequired(form.inn) ? 'isRequired' : ''"
+				    	>
+					  </div>
+					  <div class="form-group col-md-4">
+					    <label for="mfo"> {{$t('MFO')}} </label>
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="mfo"
+					    	v-model="form.mfo"
+					    	:class="isRequired(form.mfo) ? 'isRequired' : ''"
+				    	>
+					  </div>
+					  <div class="form-group col-md-4">
+					    <label for="oked"> {{$t('OKED')}} </label>
+					    <input
+					    	type="text"
+					    	class="form-control input_style"
+					    	id="oked"
+					    	v-model="form.oked"
+					    	:class="isRequired(form.oked) ? 'isRequired' : ''"
+				    	>
+					  </div>
 					  <div class="form-group col-lg-3 form_btn">
 					  	<button type="submit" class="btn btn-primary btn_save_category">
 					  		<i class="fas fa-save"></i>
@@ -55,6 +134,15 @@
 			return{
 				form:{
 					salary:'',
+                    name: '',
+                    oked: '',
+                    phone: '',
+                    email: '',
+                    address: '',
+                    bank_number: '',
+                    inn: '',
+                    mfo: '',
+                    oked: '',
 				},
 				requiredInput:false,
 				laoding: true
@@ -62,7 +150,7 @@
 		},
 		async mounted(){
 			await this.actionSetting()
-			this.form.salary = this.getSetting.salary
+			this.form = this.getSetting
 			this.laoding = false
 		},
 		computed:{

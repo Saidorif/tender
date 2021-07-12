@@ -5,12 +5,8 @@
 		  	<div class="card-header">
 			    <h4 class="title_user">
 			    	<i class="peIcon fas fa-money-bill-alt"></i>
-				    {{$t('Toʼlovlar')}}
+				    {{$t('Hisob-faktura')}}
 				</h4>
-				<router-link class="btn btn-primary" to="/crm/payment/add" v-if="$can('store', 'PaymentController')">
-					<i class="fas fa-plus"></i>
-					{{$t('Qoʼshish')}}
-				</router-link>
 		  	</div>
 		  	<div class="card-body">
 			  <div class="table-responsive">

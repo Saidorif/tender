@@ -619,7 +619,9 @@
     "Rasm faqat pdf bo'lishi kerak":"Картинка должна быть только pdf",
     "Jadval bo‘sh bo‘lmasligi kerak":"Таблица не должна быть пустой",
     "Qizil bilan belgilangan polyalarini  toldiring":"Заполните поля, отмеченные красным!",
-    "Siz buni qaytarib ololmaysiz":"Вы не можете вернуть это"
+    "Siz buni qaytarib ololmaysiz":"Вы не можете вернуть это",
+    "Hisob-faktura":"Счёт фактуры",
+    "Mening hisob-fakturalarim":"Мои счёт фактуры"
 }
 
 

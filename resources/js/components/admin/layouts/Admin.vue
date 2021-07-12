@@ -278,7 +278,15 @@
             <router-link class="nav-link" to="/crm/invoices">
               <i class="peIcon fas fa-money-bill-alt"></i>
               <p>
-                {{$t('invoices')}}
+                {{$t('Hisob-faktura')}}
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item" v-if="$can('userInvoice', 'InvoiceController')">
+            <router-link class="nav-link" to="/crm/userinvoices">
+              <i class="peIcon fas fa-money-bill-alt"></i>
+              <p>
+                {{$t('Mening hisob-fakturalarim')}}
               </p>
             </router-link>
           </li>

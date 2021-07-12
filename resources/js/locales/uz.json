@@ -326,6 +326,7 @@
     "Oʼchirish uchun Enter tugmasini bosing":"O‘chirish uchun Enter tugmasini bosing",
     "Tanlash uchun Enter tugmasini bosing":"Tanlash uchun Enter tugmasini bosing",
     "Shaxarga, viloyatga":"Shaharga, viloyatga",
+    "Shaxar":"Shaxar",
     "Oʼchirish":"O‘chirish",
     "Bekatdan":"Bekatdan",
     "Bekatga":"Bekatga",
@@ -621,5 +622,8 @@
     "Rasm faqat pdf bo‘lishi kerak":"Rasm faqat pdf bo‘lishi kerak",
     "Jadval bo‘sh bo‘lmasligi kerak":"Jadval bo‘sh bo‘lmasligi kerak",
     "Qizil bilan belgilangan polyalarini  toldiring":"Qizil bilan belgilangan po‘lyalarini  to‘ldiring!",
-    "Siz buni qaytarib ololmaysiz":"Siz buni qaytarib ololmaysiz"
+    "Siz buni qaytarib ololmaysiz":"Siz buni qaytarib ololmaysiz",
+    "Hisob-faktura":"Hisob-faktura",
+    "Mening hisob-fakturalarim":"Mening hisob-fakturalarim"
+
 }

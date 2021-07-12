@@ -286,6 +286,8 @@ import AddPayment from './components/admin/payment/AddPayment'
 // Invoices
 import Invoices from './components/admin/invoices/Invoices'
 import ShowInvoices from './components/admin/invoices/ShowInvoices'
+import UserInvoices from './components/admin/invoices/UserInvoices'
+import ShowUserInvoices from './components/admin/invoices/ShowUserInvoices'
 
 // Setting
 import Setting from './components/admin/setting/Setting'
@@ -406,6 +408,22 @@ const router = new Router({
 				{
 					path:'invoices/show/:id',
 					component:ShowInvoices,
+					meta:{
+						action:'show',
+						subject:'InvoiceController'
+					}
+				},
+				{
+					path:'userinvoices',
+					component:UserInvoices,
+					meta:{
+						action:'userInvoice',
+						subject:'InvoiceController'
+					}
+				},
+				{
+					path:'userinvoices/show/:id',
+					component:ShowUserInvoices,
 					meta:{
 						action:'show',
 						subject:'InvoiceController'
