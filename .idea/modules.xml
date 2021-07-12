@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../caj.loc/.idea/caj.iml" filepath="$PROJECT_DIR$/../caj.loc/.idea/caj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mhr.loc/.idea/mhr.loc.iml" filepath="$PROJECT_DIR$/../mhr.loc/.idea/mhr.loc.iml" />
       <module fileurl="file://$PROJECT_DIR$/../pcms.loc/.idea/pcms.loc.iml" filepath="$PROJECT_DIR$/../pcms.loc/.idea/pcms.loc.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/tender.loc.iml" filepath="$PROJECT_DIR$/.idea/tender.loc.iml" />
     </modules>

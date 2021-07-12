@@ -37,7 +37,7 @@ class RegionController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'name'  => 'required|string',
         ]);
 
@@ -56,7 +56,7 @@ class RegionController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Регион не найден']);
         }
-        $validator = Validator::make($request->all(), [            
+        $validator = Validator::make($request->all(), [
             'name'  => 'required|string',
         ]);
 

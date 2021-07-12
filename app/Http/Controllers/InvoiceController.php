@@ -70,7 +70,7 @@ class InvoiceController extends Controller
     public function userShow(Request $request, $id)
     {
         $user = $request->user();
-        $invoice = Invoice::where(['id' => $id])->where(['user_id' => $user->id])->first();
+        $invoice = Invoice::with(['user'])->where(['id' => $id])->where(['user_id' => $user->id])->first();
         if(!$invoice){
             return response()->json(['error' => true, 'message' => 'Not found'],404);
         }
